@@ -1,0 +1,73 @@
+# -*- mode: org -*-
+#+date: 2019-04-25
+#+TITLE: CS/CEG 7960 Capstone Project
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: Android Internals and Security
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style type="text/css"> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr />Copyright &copy; 2019 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Capstone Project
+
+1. What is a Capstone Project? As a project, how extensive must it be?
+   What are the deliverables?
+1. 6 credit hours.  Typically spread 3 + 3 over two consecutive
+   semesters.
+1. Background check.
+
+* Example Projects
+
+1. Design and build a dApp whose functionality matches
+   https://keepass.info/, a free, open source, light-weight and
+   easy-to-use password manager.
+
+* Must Do
+
+1. Install metamask.
+
+
+* Hako
+
+1. https://github.com/drbh/hako Mar 2019 "Unlike other file sharing
+   services such as Dropbox and Google Drive, Hako does not place your
+   keys in the hands of a large companies. The user is always in
+   control of your keys and your data."
+
+1. Centralized storage has a single point of failure (the company) and
+   require a user to be online (connected to the central servers) in
+   order to transfer data and delegate access.
+
+1. It consists of a library called NCIPFS and the application
+   Hako. Hako is powered by NCIPFS and is provides a REST interface
+   and web-app to the underlying methods of NCIPFS.
+
+1. Futari
+1. NUCID
+
+* NuCypher Chrome Extension
+
+1. https://github.com/if1242/NuCypherChromeExtensionCoinlistHack by
+   Ivan Fedorov. The NuCypher Google Chrome Extension helps "sharing
+   your datafiles in a safe way using NuCypher technology. ...  The
+   extension is fully functional and you can try it in action after
+   installation."
+   https://www.youtube.com/watch?v=pmoMzzIR458&feature=youtu.be 1:19
+   Apr 2019
+1. Native Messaging protocol
+
+
+* Appendices
+
+1. Installation Reports.  On each item installed.  Collect the actual
+   logs (e.g., via the command named =script=), and then overlay a
+   section/subsection structure on it.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end: 
