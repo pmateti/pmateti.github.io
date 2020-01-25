@@ -1,0 +1,284 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>CEG 7370</title>
+<base target="_top">
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  ol.o {padding-left: 0px; }
+  li { text-align: justify; }
+  pre {border:lightgray 1px dotted ; background:AntiqueWhite; }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+</head>
+
+<body>
+
+<h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370: Distributed Computing Principles</a></h3>
+<h1>Linda <a href="../Linda/matetiLinda.pptx">slides</a> and a Few Exercises
+</h1>
+
+<h3>Prabhaker Mateti</h3>
+
+<p>This page contains a few examples of distributed computing done in
+Linda</a>.  Our focus is not on time or space complexity, but on the
+more qualitative issues.  The solutions can easily be improved.  A few
+times I chose to 'describe' in English rather than write pseudo-code
+in order to explain the ideas.  I am sure you can all fill-in the
+details and code it in whatever-Linda.  Not all solutions are
+complete.
+
+<p>Most of the difficulty is in discovering a solution outline
+suitable for Linda, i.e., with many processes, with almost no
+synchronization.  Message passing, and shared memory are easy in
+Linda.  Since this is your first exposure to Linda, efficiency is
+relatively unimportant, but correctness must be preserved at all
+costs.
+
+<p>Any C code can be embedded in C-linda.  So, it is important that
+you don't just write a C program using Linda primitives just to claim
+that you did.  Also, recall the CEG 7370 restrictions mentioned in the
+slides.
+
+<p>
+Typography: Tuples are written preferably as parenthesized; some
+examples below use angular brackets.
+<hr size=1>
+
+<ol class=o>
+
+<li><h2>Prime Number Generator</h2>
+
+<p>
+There several prime number generators referred to in CEG 7370.  Recall
+the Eratosthenes Sieve done in CSP.
+</p>
+
+<a href="./linda-c-primes-rp.c.html">
+Result parallelism version from Linda book</a><br>
+<a href="./linda-c-primes-ap.c.html">
+Agenda parallelism version from Linda book</a><br>
+<a href="./linda-c-primes-sp.c.html">
+Specialist parallelism version from Linda book</a><br>
+Andrews book, Section 10.x on Linda also has a prime number generator
+
+</li>
+<li>
+<h2>Bag to Set Conversion</h2>
+
+<p>
+  In a bag <i>B</i> of <i>nb</i> integers, it is known that each
+  element appears exactly <i>d</i> times. We wish to delete the
+  duplicates resulting in a set of only <i>nb/d</i> distinct integers
+  that occurred in the bag. It is guaranteed that <i>d &gt; 0, nb &gt;
+  0</i>. Unfortunately, the value <i>d</i> is unavailable and needs to
+  be computed by examining the bag B.   Design  and
+  implement a solution in C-Linda. Assume that the tuple space already
+  contains <tt>("B", x<sub>i</sub>)</tt>for
+  all <tt>x<sub>i</sub></tt> in B, and the size of the
+  bag <tt>("BSZ", nb)</tt>. You lose 5 points for each
+  use of <tt>inp</tt> or <tt>rdp</tt>.
+
+<p>Solution Outline only.
+
+<p>
+Bag Element == ("B", e).
+Set Element == ("S", e).
+
+<p>
+1. The number of duplicates d is not given.  We must compute it.  Do
+<tt>in("B", ?x)</tt> once in the main process.  Then in a loop do
+<tt>inp("B", x)</tt> until it fails.  This gives the count d.  We will out("S",
+x) at the end -- not now. Lost 5 points :-(
+
+<p>2. Number of workers to use is not specified.  We choose p.  E.g.,
+let p be about <i>nb/1000</i> assuming bsz is in the millions.  Each
+worker will process <i>(nb -- d) / p</i> bag elements.  We make sure
+that rounding this number is such that all elements are processed.
+
+<p>3.  Main process does an <tt>out("S", x)</tt>.
+
+<li>
+<h2>Sum Up a Bag of Numbers</h2>
+
+<p>
+Given a finite bag B of numbers and the size nb of the bag B, find the
+sum of all numbers in B.
+
+<p>Linda problems should first try result-parallelism. If we have p
+processes, each should sum up nb/p numbers and leave the result in the
+TS.
+
+<p>The p was to be our choice. To chose p=nb/2 seems good, but what
+about the next "iteration"? That is after nb/2 processes each added a
+pair of numbers, what should these nb/2 processes do? Terminate? Half
+of them should. The other half (now nb/4 in number) repeat this
+computation. Eventually we should one process adding 2 numbers.
+
+<p>What if nb is not a power of 2? Pad the bag with extra zeros.
+
+<p>How do we decide which processes terminate in each iteration? Give
+them PIDs, and use the bit pattern of the PIDs: in the first
+iteration, all odd numbered processes die, and so on.
+
+<p>Using a "lock" as you did, in general, will reduce concurrency. We
+should have as many autonomous processes as we can. And, they should
+"communicate/synchronize/mutex" as little as possible.
+
+
+<li>
+<h2>Bag of Numbers to Set of Relative Primes</h2>
+
+<p>
+Problem: Given a finite bag B of numbers, as well as the size nb of the
+bag B, produce a set S of numbers so that no two numbers in S divide
+each other, and it is the largest such set that is a subbag of B.
+
+
+<p>
+Linda Solution:
+
+<p>Note that the set S for a given B is not unique.  So we are entitled
+to produce one or more such S as long as each of the sets is a valid
+answer.  I make no claims that the solution outlined below is the
+"best"; it certainly is a "good" one.  It is quite likely
+that you will find several details missing.)
+
+<p>We say that a set s is partial solution, if no two numbers in s divide
+each other, and s is a subbag of B.  But s is perhaps not a largest
+such bag.
+
+<p>We add tuples of the form <"nps", i, 0> for i:1..nb giving us the
+number of partial solutions of length i constructed so far.  These
+counters are incremented as we build up a solution.  When finished, we
+rd("nps", i, ?j) for i:nb .. 0 until we find a non-zero j.  We then 
+read an/the i-long solution from the tuple space TS.
+
+<p>Our computation proceeds in "waves": the i-th wave computes (or tries to)
+all partial solutions of length i.  The last wave is for i == nb.
+
+<p>We take (in) one element b of B, and take (in) one partial solution s
+of length i-1, and see if we can extend it to a solution of length i.
+If it divides or is divided by an element of s, s cannot be extended,
+and no partial solution gets deposited.  Otherwise, we add b to s, and
+deposit the resulting (partial) solution into the TS, and increment
+the c in <"nps", i, c>.  After this is done for each element of B, we
+move on to the next wave.
+
+<p>Wave 1 starts with s == empty set.  So we should have done {out("ps",
+0, empty-set) nb times; out("nps", 0, 1);}
+
+<p>Taking one element b of B without getting blocked is not too hard.
+Maintain a count of items in the current bag, <"nB", i, ni>, where is
+the same i as in the waves.  Take (in) this counter, verifying that it
+is > 0, in("B", i, ?b) and then deposit out("nB", i, ni-1).
+
+<p>Generating the bag for the next wave is not too hard.  After obtaining
+b, do {in("nB", i+1, ?n); out("B", i+1, b); out("nB", i+1, n+1)}.  So
+we better have <"nB", i, 0> tuples for i:1..nb right after beginning.
+
+<p>A worker process will not proceed to the next wave until after the
+current i-th wave is finished; i.e., a rd("nB", i, ?n) gives n==0.
+There is a next wave provide the present wave produced >0 solutions.
+If i == nb, the process terminates, otherwise it increments i, and
+begins on the next wave.
+
+</ol>
+<h2>Exercises</h2>
+
+<p>
+In all of these exercises:
+You lose 5 points for each use of <tt>inp</tt> or <tt>rdp</tt>.
+
+<ol type=i>
+
+<li>
+The primes-finder will run faster if it uses &quot;striking
+out&quot; instead of division—instead of dividing by k, it steps
+through an array and marks as non-prime every kth
+element. Re-implement the agenda-parallel program using this
+approach.
+
+<li> In the agenda-parallel primes-finder, what limit does the value
+of GRAIN impose on achievable speedup?
+
+<li> We transformed the result parallel primes-finder into an
+efficient program by abstraction to agenda parallelism. One aspect of
+the result version's inefficiency was its too-fine granularity; but
+it's possible to build a coarser-grained result parallel version of
+this code too. Implement a variable-granularity result-parallel
+version.
+
+<li> In the specialist-parallel primes-finder, the pipe segment
+responsible for sieving out multiples of 3 is heavily overloaded. We
+expect that large backlogs of candidates will await attention from
+this process. Design a new version of the specialist-parallel program
+in which pipe segments can be replicated—in particular, multiple
+copies of the 3-sieve run simultaneously at the head of the
+pipeline.
+
+<li> Given a large (in the zillions) bag B of integers, find the third
+  largest number in B. Assume that B has at least three distinct
+  integers.  Assume that the tuple space already contains
+  the <tt>bag of integers ("B", n)</tt>, the size of this bag
+  (<tt>"BSZ", bsz), and ("p", p) the</tt> number of worker processes..
+
+<li>
+  In a bag <i>B</i> of <i>b</i> integers, it is known that each
+  element appears exactly <i>d</i> times. We wish to delete the
+  duplicates resulting in a set of only <i>b/d</i> distinct integers
+  that occurred in the bag. It is guaranteed that <i>d &gt; 0, b &gt;
+  0</i>. Unfortunately, the value <i>d</i> is unavailable and needs to
+  be computed by examining the bag B.   Design  and
+  implement a solution in C-Linda. Assume that the tuple space already
+  contains <tt>&lt;&quot;B&quot;, x<sub>i</sub>&gt;</tt>for
+  all <tt>x<sub>i</sub></tt> in B, and the size of the
+  bag <tt>&lt;&quot;BSZ&quot;, b&gt;</tt>. You lose 5 points for each
+  use of <tt>inp</tt> or <tt>rdp</tt>.
+
+<li>You are given a large (in the zillions) bag of triplets of
+  unsigned integers (x, y, d).  Each triplet represents a
+  horizontal line segment of length d in the Euclidean plane whose
+  left end point is at (x, y).   Two triplets (x1, y1, d1)
+  and (x2, y2, d2) are said to be <i>connected</i> if  y1 == y2
+  and either x1 + d1 == x2 or x2 + d2 == x1.  A triplet (x1, y1,
+  d1) <i>contains</i> (x2, y2, d2) if y1 == y2 and x1 &lt;= x2 and x1
+  + d1 &gt;= x2 + d2.  We would like to minimize the size (==
+  number of triplets) of  the given bag of triplets so that every
+  original triplet is contained in some triplet in the resulting
+  collection.  (a) Design  and (b) implement a solution in
+  C-Linda.  Assume that the tuple space already contains the
+  triplets <tt>&lt; "t";, x, y, d&gt;</tt>, and the size of this
+  bag <tt>&lt;"sz", N&gt;</tt>. 
+</li>
+</ol>
+
+<h2>References</h2>
+
+<ol>
+  <li>Andrews, Chapter on Asynchronous Message Passing, Section 10.x
+    on Linda</li>
+  <li>Sudhir Ahuja, Nicholas Carriero and David Gelernter, ``Linda and
+    Friends,'' <i>IEEE Computer</i> (magazine), Vol. 19, No. 8, 26-34.
+    <a href="http://www.lindaspaces.com/">http://www.lindaspaces.com/</a>
+    has an entire book.  Read Chapters 5 and 9.</li>
+  <li>JavaSpaces, <a href="http://en.wikipedia.org/wiki/Tuple_space">
+      http://en.wikipedia.org/wiki/Tuple_space</a> </li>
+</ol>
+
+<hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2012
+<a href="mailto:pmateti@wright.edu?subject=CEG7370: Distr Comp">
+  pmateti@wright.edu</a></td>
+
+</body>
+</html>

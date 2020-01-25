@@ -1,0 +1,111 @@
+%\documentclass[conference]{LaTeX/IEEEtran} % compact
+\documentclass[twocolumn]{article} % shows section numbers, lots white space
+% these addtolengths are for twocolumn artcile only
+\addtolength{\oddsidemargin}{-.4in}\addtolength{\evensidemargin}{-.4in}
+\addtolength{\textwidth}{.9in}\addtolength{\textheight}{.9in}
+\addtolength{\topmargin}{-.4in}
+
+% for our own use
+\newcommand\ourpprtitle{IPFS: What is it? When will it be practical?}
+\newcommand\reviseddate{Revised 2018/05/07}
+\newcommand\TBD[1]{}            % see blind below
+\newcommand\US[1]{}
+\newcommand\PM[1]{}
+\newcommand\AS[1]{}
+\newcommand\drop[1]{#1}           % drop the enclosed
+%\newcommand\drop[1]{#1}         % keep the enclosed
+
+\usepackage[final]{graphicx} % slow, so use draft until final %%
+%\usepackage[draft]{graphicx}
+\usepackage[square]{natbib}
+\usepackage[yyyymmdd,hhmmss]{datetime}
+
+\newcommand\blind[1]{#1} % independent of draft/final %%
+\newcommand\blindcite[1]{#1}
+%\renewcommand\blind[1]{\renewcommand\blindcite[1]{[blinded]}} % force blind %%
+
+\usepackage[usenames,dvipsnames]{color}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[final]{hyperref}    % always final
+\hypersetup{
+    pdftitle={\ourpprtitle},
+    pdfauthor={www.wright.edu/~pmateti},
+    pdfsubject={IPFS}
+    pdfkeywords={IPFS},
+    pdfcreator={emacs},
+    pdfproducer={pdflatex},
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,        % false: boxed links; true: colored links
+    linkcolor=Brown,
+    citecolor=Brown,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=Brown,
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=false,
+    pdfmenubar=false,
+    pdffitwindow=true,
+    pdfstartview={FitH},
+}
+
+\usepackage[final]{listings}    % always final
+\lstset{language=Java,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=true,
+  columns=fullflexible,
+  breaklines=true,
+  breakatwhitespace=true,
+  commentstyle=\color{Brown},
+  keywordstyle=\color{blue},
+  stringstyle=\color{Brown},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{grey}]{$$},
+  moredelim=[is][\textcolor{grey}]{\%\%}{\%\%}
+}
+
+\begin{document}
+
+\drop{
+\blind{
+  \renewcommand\TBD[1]{\noindent \textcolor{Red}{TBD #1}}
+  \renewcommand\US[1]{\noindent \textcolor{Blue}{To us: #1}}
+  \renewcommand\PM[1]{\noindent \textcolor{Blue}{PM: #1}}
+  \tableofcontents              % I like to see the structure
+
+  \vfill  \noindent  {\large\ourpprtitle}\\
+  Prabhaker Mateti\\[5mm]
+  This TOC is just for our use.  It will not be part of what
+  we upload for review.\\[5mm]
+  \reviseddate; processed {\today} {\currenttime} EDT %%
+  \newpage\setcounter{page}{1}
+}}
+%\pagenumbering{gobble}          % no page numbers
+\pagenumbering{arabic}          % with  page numbers
+
+\title{\ourpprtitle}
+\author{
+  Prabhaker Mateti\\
+  Department of Computer Science and Engineering\\
+  Wright State University, Dayton, OH 45435, USA\\
+  \url{pmateti@wright.edu}
+}
+\date{Jul 2018}
+\maketitle
+
+% Sections/tbd-* are not to be input
+
+\input{Sections/abstract}
+\input{Sections/introduction}
+\input{Sections/background}
+\input{Sections/architecture}
+\input{Sections/implementation}
+\input{Sections/dapps}
+\input{Sections/evaluation}
+\input{Sections/related}
+\input{Sections/conclusion}
+
+\bibliographystyle{Bib/acmtranspm}
+\bibliography{Bib/ipfs,Bib/amrita,Bib/misc,Bib/android} % no spaces
+\vfill\hfill{-eof-}
+\end{document}

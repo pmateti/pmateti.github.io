@@ -1,0 +1,24 @@
+\section{Architecture of IPFS}\label{seArchitecture}
+
+{
+Identities - manage node identity generation and verification.
+Network - manages connections to other peers, uses various underlying network protocols. Configurable.
+Routing - maintains information to locate specific peers and objects. Responds to both local and remote queries. Defaults to a DHT, but is swappable.
+Exchange - a novel block exchange protocol (BitSwap) that governs efficient block distribution. Modelled as a market, weakly incentivizes data replication. Trade Strategies swappable.
+Objects - a Merkle DAG of content-addressed immutable objects with links. Used to represent arbitrary data structures, e.g. file hierarchies and communication systems.
+Files - versioned file system hierarchy inspired by Git.
+Naming - A self-certifying mutable name system.
+}
+
+IPFS - Content Addressed, Versioned, P2P File System
+(DRAFT 3)
+Juan Benet (Juan Batiz-Benet )
+juan@benet.ai
+
+\subsection{IPNS}
+\subsection{IPLD}
+\subsection{libp2p}
+
+
+https://discuss.ipfs.io/
+\url{https://github.com/ipfs/community/blob/master/contributing.md#dive-right-in}

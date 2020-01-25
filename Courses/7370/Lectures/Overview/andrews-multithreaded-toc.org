@@ -1,0 +1,289 @@
+# -*- mode: org -*-
+#+Date: 2019-12-09
+#+TITLE: Foundations ... Gregory R. Andrews TOC
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: WSU CEG 7370 Distributed Computing
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\">../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P, LI {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* TOC
+
+1. Foundations of Multithreaded, Parallel, and Distributed Programming
+   / Edition 1 by Gregory R. Andrews
+
+* Part 0. The Concurrent Computing Landscape.
+
+1. The Essence of Concurrent Programming.
+1. Hardware Architectures.
+1. Single Processor Machines.
+1. Shared-Memory Multiprocessors.
+1. Multicomputers Networks.
+1. Applications and Programming Styles.
+1. Iterative Parallelism: Matrix Multiplication.
+1. Recursive Parallelism: Adaptive Quadrature.
+1. Producers and Consumers: Unix Pipes.
+1. Clients and Servers: Remote Files.
+1. Peers: Distributed Matrix Multiplication.
+1. Summary of Programming Notation.
+1. Declarations Sequential Statements.
+1. Concurrent Statements and Process Declarations.
+1. Comments.
+
+* Part I. SHARED VARIABLE PROGRAMMING.
+
+
+** 2. Processes and Synchronization.
+
+1. States, Actions, Histories, and Properties.
+1. Parallelization: Finding Patterns in Files.
+1. Synchronization: The Maximum of an Array.
+1. Atomic Actions and Await Statements.
+1. Fine-Grained Atomicity.
+1. Specifying Synchronization: The Await Statement.
+1. Finding Patterns in a File Revisited.
+1. A Synopsis of Axiomatic Semantics.
+1. Formal Logical Systems.
+1. A Programming Logic.
+1. Semantics of Concurrent Execution.
+1. Techniques for Avoiding Interference.
+1. Disjoint Variables Weakened Assertions.
+1. Global Invariants.
+1. Synchronization.
+1. An Example: The Array Copy Problem Revisited.
+1. Safety and Liveness Properties.
+1. Proving Safety Properties.
+1. Scheduling Policies and Fairness.
+
+** 3. Locks and Barriers.
+
+1. The Critical Section Problem.
+1. Critical Sections: Spin Locks.
+1. Test and Set.
+1. Test and Test and Set.
+1. Implementing Await Statements.
+1. Critical Sections: Fair Solutions.
+1. The Tie-Breaker Algorithm.
+1. The Ticket Algorithm.
+1. The Bakery Algorithm.
+1. Barrier Synchronization.
+1. Shared Counter.
+1. Flags and Coordinators.
+1. Symmetric Barriers.
+1. Data Parallel Algorithms.
+1. Parallel Prefix Computations.
+1. Operations on Linked Lists.
+1. Grid Computations: Laplace's Equation.
+1. Synchronous Multiprocessors.
+1. Parallel Computing with a Bag of Tasks.
+1. Matrix Multiplication.
+1. Adaptive Quadrature.
+
+** 4. Semaphores.
+1. Syntax and Semantics.
+1. Basic Problems and Techniques.
+1. Critical Sections: Mutual Exclusion.
+1. Barriers: Signaling Events.
+1. Producers and Consumers: Split Binary Semaphores.
+1. Bounded Buffers: Resource Counting.
+1. The Dining Philosophers.
+1. Readers and Writers.
+1. Readers/Writers as an Exclusion Problem.
+1. Readers/Writers Using Condition Synchronization.
+1. The Technique of Passing the Baton.
+1. Alternative Scheduling Policies.
+1. Resource Allocation and Scheduling.
+1. Problem Definition and General Solution Pattern.
+1. Shortest-Job-Next Allocation.
+1. Case Study: Pthreads.
+1. Thread Creation.
+1. Semaphores.
+1. Example: A Simple Producer and Consumer.
+
+** 5. Monitors.
+
+1. Syntax and Semantics.
+1. Mutual Exclusion.
+1. Condition Variables.
+1. Signaling Disciplines.
+1. Additional Operations on Condition Variables.
+1. Synchronization Techniques.
+1. Bounded Buffers: Basic Condition Synchronization.
+1. Readers and Writers: Broadcast Signal.
+1. Shortest-Job-Next Allocation: Priority Wait.
+1. Interval Timer: Covering Conditions.
+1. The Sleeping Barber: Rendezvous.
+1. Disk Scheduling: Program Structures.
+1. Scheduler as a Separate Monitor.
+1. Scheduler as an Intermediary.
+1. Scheduler as a Nested Monitor.
+1. Case Study: Java.
+1. The Threads Class.
+1. Synchronized Methods.
+1. Parallel Readers/Writers.
+1. Exclusive Readers/Writers.
+1. True Readers/Writers.
+1. Case Study: Pthreads.
+1. Locks and Condition Variables.
+1. Example: Summing the Elements of a Matrix.
+
+** 6. Implementations.
+
+1. A Single-Processor Kernel.
+1. A Multiprocessor Kernel.
+1. Implementing Semaphores in a Kernel.
+1. Implementing Monitors in a Kernel.
+1. Implementing Monitors Using Semaphores.
+
+* Part II. DISTRIBUTED PROGRAMMING.
+
+
+** 7. Message Passing.
+
+1. Asynchronous Message Passing.
+1. Filters: A Sorting Network.
+1. Clients and Servers.
+1. Active Monitors.
+1. A Self-Scheduling Disk Driver.
+1. File Servers: Conversational Continuity.
+1. Interacting Peers: Exchanging Values.
+1. Synchronous Message Passing.
+1. Case Study: CSP.
+1. Communication Statements.
+1. Guarded Communication.
+1. Example: The Sieve of Eratosthenes.
+1. Case Study: Linda.
+1. Tuple Space and Process Interaction.
+1. Example: Prime Numbers with a Bag of Tasks.
+1. Case Study: MPI.
+1. Basic Functions.
+1. Global Communication and Synchronization.
+1. Case Study: Java.
+1. Networks and Sockets.
+1. Example: A Remote File Reader.
+
+** 8. RPC and Rendezvous.
+
+
+1. Remote Procedure Call.
+1. Synchronization in Modules.
+1. A Time Server Caches in a Distributed File System.
+1. A Sorting Network of Merge Filters.
+1. Interacting Peers: Exchanging Values.
+1. Rendezvous.
+1. Input Statements.
+1. Client/Server Examples.
+1. A Sorting Network of Merge Filters.
+1. Interacting Peers: Exchanging Values.
+1. A Multiple Primitives Notation.
+1. Invoking and Servicing Operations.
+1. Examples.
+1. Readers/Writers Revisited.
+1. Encapsulated Access.
+1. Replicated Files.
+1. Case Study: Java.
+1. Remote Method Invocation.
+1. Example: A Remote Database.
+1. Case Study: Ada.
+1. Tasks.
+1. Rendezvous.
+1. Protected Types.
+1. Example: The Dining Philosophers.
+1. Case Study: SR.
+1. Resources and Globals.
+1. Communication and Synchronization.
+1. Example: Critical Section Simulation.
+
+** 9. Paradigms for Process Interaction.
+
+1. Managers/Workers (Distributed Bag of Tasks).
+1. Sparse Matrix Multiplication.
+1. Adaptive Quadrature Revisited.
+1. Heartbeat Algorithms.
+1. Image Processing: Region Labeling.
+1. Cellular Automata: The Game of Life.
+1. Pipeline Algorithms.
+1. A Distributed Matrix Multiplication Pipeline.
+1. Matrix Multiplication by Blocks.
+1. Probe/Echo Algorithms.
+1. Broadcast in a Network.
+1. Computing the Topology of a Network.
+1. Broadcast Algorithms.
+1. Logical Clocks and Event Ordering.
+1. Distributed Semaphores.
+1. Token-Passing Algorithms.
+1. Distributed Mutual Exclusion.
+1. Termination Detection in a Ring.
+1. Termination Detection in a Graph.
+1. Replicated Servers.
+1. Distributed Dining Philosophers.
+1. Decentralized Dining Philosophers.
+
+** 10. Implementations.
+
+
+1. Asynchronous Message Passing.
+1. Shared-Memory Kernel.
+1. Distributed Kernel.
+1. Synchronous Message Passing.
+1. Direct Communication Using Asynchronous Messages.
+1. Guarded Communication Using a Clearing House.
+1. RPC and Rendezvous.
+1. RPC in a Kernel.
+1. Rendezvous Using Asynchronous Message Passing.
+1. Multiple Primitives in a Kernel.
+1. Distributed Shared Memory.
+1. Implementation Overview.
+1. Page Consistency Protocols.
+1. * Part III. PARALLEL PROGRAMMING:
+1. Speedup and Efficiency.
+1. Overheads and Challenges.
+
+** 11. Scientific Computing.
+
+1. Grid Computations.
+1. Laplace's Equation.
+1. Sequential Jacobi Iteration.
+1. Shared Variable Program.
+1. Message Passing Program.
+1. Red/Black Successive Over Relaxation.
+1. Multigrid Methods.
+1. Particle Computations.
+1. The Gravitational #N-Body Problem.
+1. Shared Variable Program.
+1. Message Passing Programs.
+1. Approximate Methods.
+1. Matrix Computations.
+1. Gaussian Elimination.
+1. LU Decomposition.
+1. Shared Variable Program.
+1. Message Passing Program.
+
+** 12. Languages, Compilers, Libraries, and Tools.
+
+1. Parallel Programming Libraries.
+1. Case Study: Pthreads.
+1. Case Study: MPI.
+1. Case Study: OpenMP.
+1. Parallelizing Compilers.
+1. Dependence Analysis.
+1. Program Transformations.
+1. Other Programming Models.
+1. Imperative Languages.
+1. Coordination Languages Data Parallel Languages.
+1. Functional Languages.
+1. Abstract Models.
+1. Case Study: High Performance Fortran (HPF).
+1. Parallel Programming Tools.
+1. Performance Measurement and Visualization.
+1. Metacomputers and Metacomputing.
+1. Case Study: The Globus Toolkit. 0201357526T04062001
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

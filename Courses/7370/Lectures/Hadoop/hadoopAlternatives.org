@@ -1,0 +1,120 @@
+# -*- mode: org -*-
+#+DATE: 2015-03-13
+#+TITLE: Hadoop Alternatives
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7370 Distributed Computing
+#+OPTIONS: toc:1 
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {font-family: monospace; font-size: 10pt; color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\"> CEG 7370</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+REVEAL_ROOT: http://www.cs.wright.edu/~pmateti/RevealJS
+#+REVEAL_PREAMBLE: <a href="./scalaPracticalOnePage.html">single-page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: yellow;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: cyan;} </style>
+#+REVEAL_THEME: night
+#+REVEAL_TRANS: default
+#+REVEAL_HLEVEL: 2
+#+REVEAL-SLIDE-NUMBER: t
+#+OPTIONS: reveal_control:t reveal_progress:t reveal_history:t reveal_center:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t
+#+REVEAL_TITLE_SLIDE_TEMPLATE: <h1>%t</h1><h3>%a</h3>%e<h2>%d</h2>An introduction to Scala, assuming OS and Java fluency<br><a href="../../Top/">CEG 7370 Distributed Computing</a>
+#+ATTR_REVEAL: highlight-blue  # not working
+
+The paragraph descriptions are cut-and-pasted from the project web
+sites.
+
+1. http://www.fromdev.com/2015/03/hadoop-alternatives.html "35+ Hadoop
+   Alternatives For Big Data".  But stretches what we mean by
+   "alternatives".
+
+
+* Apache Flink
+
+1. https://flink.apache.org/ "" Fast: State-of-the art performance
+   exploiting in-memory processing and data streaming.  Reliable:
+   Flink is designed to perform very well even when the cluster's
+   memory runs out.  Expressive: Write beautiful, type-safe code in
+   Java and Scala. Execute it on a cluster.  Scalable: Tested on
+   clusters of 100s of machines, Google Compute Engine, and Amazon
+   EC2.  Hadoop-compatible: Flink runs on YARN and HDFS and has a
+   Hadoop compatibility package.  2014+
+
+1. Stratosphere is now Apache
+   Flink. https://github.com/apache/incubator-flink "" . "It has a
+   novel model that allows for more operators than just map and
+   reduce. (It also natively supports match, cross and more). It
+   additionally allows for arbitrary complex job graphs. So you can
+   combine these operators in any way you like. So you could have
+   three inputs, that are joined, reduced, mapped and reduced (by
+   another key). You can even write to as many outputs as you want.
+   Additionally, Stratosphere also supports iterative algorithms
+   (often needed for Data Mining/Machine Learning). Since this is
+   "natively" implemented into the system, Stratosphere does way
+   better on those jobs than traditional hadoop systems."  There is an
+   actively developed open source version of it on github:
+   https://github.com/dimalabs/ozone Stratosphere also supports Scala.
+   Apache Flink is an open source system for fast and versatile data
+   analytics in clusters. Flink supports batch and streaming
+   analytics, in one system. Analytical programs can be written in
+   concise and elegant APIs in Java and Scala.
+
+* Apache Spark
+
+1. http://spark.apache.org/ "" Apache Spark is a fast and general engine
+   for large-scale data processing.  Applications can be written in
+   Scala, which is an very powerful and expressive functional
+   programming language (Stratosphere also supports Scala). It is
+   really fast on job setup, hence it is very suited for small and
+   medium sized data and ad-hoc evaluations.
+
+1. https://prestodb.io/ "" According to Facebook, Presto is a new
+   interactive query system that operates fast at petabyte scale that
+   is founded on a distributed SQL query engine optimized for ad-hoc
+   analysis at interactive speed. And like Spark, all processing is in
+   memory. Facebook recently open-sourced the code and the Presto
+   community can be found here.  Unlike Spark or Hadoop, Presto can
+   concurrently use a number of data stores as sources. All that is
+   needed are “connectors” that provide interfaces for metadata, data
+   locations, and data access. This obviates the need to move data
+   around in order to query it—a requirement that’s becoming critical
+   to many IT administrators. Simply plug the data source into Presto
+   and—presto!—it can be interactively queried in real
+   time. Connectors are currently available for Hadoop/Hive (Apache
+   and Cloudera distributions) and Cassandra. But one can imagine more
+   could be built for the enterprises’ existing data stores.
+
+* Hydra
+
+1. https://github.com/addthis/hydra "" It may not have the name
+   recognition or momentum of Hadoop. But Hydra, the distributed task
+   processing system first developed six years ago by the social
+   bookmarking service maker AddThis, is now available under an open
+   source Apache license, just like Hadoop. And according to Hydra’s
+   creator, the multi-headed platform is very good at some big data
+   tasks that the yellow pachyderm struggles with–namely real-time
+   processing of very big data sets.
+
+   "" Hydra is a big data storage and processing platform developed by
+   Matt Abrams and his colleagues at AddThis (formerly Clearspring),
+   the company that develops the Web server widgets that allow
+   visitors to easily share something via their Twitter, Facebook,
+   Pintrest, Google+, or Instagram accounts.
+
+   "" When AddThis started scaling up its business in the mid-2000s,
+   it got flooded with data about what users were sharing. The company
+   needed a scalable, distributed system that could deliver real-time
+   analysis of that data to its customers. Hadoop wasn’t a feasible
+   option at that time. So it built Hydra instead.
+
+* SEDA
+
+1. SEDA: Staged event-driven architecture; An Architecture for
+   Well-Conditioned, Scalable Internet Services
+
+* Software Transactional Memory
+
+1. STM "" is a concurrency control mechanism analogous to database
+   transactions for controlling access to shared memory in concurrent
+   computing. It is an alternative to lock-based synchronization.
+
+1. http://book.realworldhaskell.org/read/software-transactional-memory.html
+
+

@@ -1,0 +1,248 @@
+
+<html>
+
+<head>
+<title>Distributed Computing Lectures by Prabhaker Mateti</title>
+<meta name="author" content="Prabhaker Mateti">
+<meta name="keywords" content="Split binary semaphore, CSP, Linda, RPC, RMI">
+<meta name="description" content="Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+
+<style type="text/css">
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  TD P { text-align: justify }
+  LI { text-align: justify; }
+  pre {border:blue 1px dotted;}
+  sr {color: brown;}
+  pre.sol {border:green 1px dashed;}
+  tt {border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  @media screen {BODY {margin: 15%; font-size:100%} }
+</style>
+</head>
+
+<body>
+
+<h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370:&nbsp;Distributed Computing Principles</a></h3>
+<h1>Token Passing</h1>
+<h3>Prabhaker Mateti</h3>
+
+<p>This web page is organized in way that is useful during my lecture,
+instead of ppt slides.
+
+<hr size=1>
+
+
+<h2>1. Probe/Echo for Topology of a Network</h2>
+
+type kind = enum(probe, echo);<br>
+type boolmatrix = [1..n][1..n]: bool; <br>
+channel pec[1..n](k: kind, sender: int, links: boolmatrix);<br>
+channel fin(links: boolmatrixbsp;&nbsp;&nbsp;# final echo<br>
+
+<h3>Initiator::</h3>
+
+constant source = ...; &nbsp;&nbsp;&nbsp;&nbsp;# initiator's index<br>
+var topo: boolmatrix;<br>
+send pec[source](probe, source, emptySet)<br>
+receive fin(topo)  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;# network topology<br>
+
+<h3>Node[p:1..n] variables</h3>
+
+&nbsp;&nbsp;&nbsp;&nbsp;var links[1..n] : bool := neighbors of node p;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;var localtopo: boolmatrix := ([1..n][1..n] false);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;var newtopo: boolmatrix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;var first, sender: 1..n;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;var k : kind;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;var needecho: int := num neighbors of p - 1<br>
+
+<h3>
+Node[p:1..n] algorithm</h3>
+&nbsp;&nbsp;&nbsp;&nbsp;localtopo[p] := links;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;receive pec[p](k, first, newtopo);  &nbsp;&nbsp;&nbsp;&nbsp;# k = probe<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for all q := 1 to n such that links[q] and q &ne; first do <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; send pec[q](probe, p, emptySet)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;od<br>
+&nbsp;&nbsp;&nbsp;&nbsp;do needecho &gt; 0 &rarr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;receive pec[p](k, sender, newtopo)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if k = probe &rarr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+send pec[sender](echo, p, emptySet)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[] k = echo &rarr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  localtopo := localtopo or newtopo; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  needecho := needecho - 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fi<br>
+&nbsp;&nbsp;&nbsp;&nbsp;od<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if p = source &rarr;  send fin(localtopo)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[] p &ne; source &rarr; send pec[first](echo, p, localtopo)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fi<br>
+
+<p>Figure 7.19 [Andrews] Probe/echo algorithm for topology of a network
+
+
+<h2>2. Mutual Exclusion with a Token Ring</h2>
+
+<p>
+four [1..n] channels kch, enter, go, exit whose entries are ()
+
+<h3>DMUTEX</h3>
+
+<p>
+The token is a message on some kch[i].
+
+<p>
+invariant <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+(There is exactly one token) and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+(for-all i: 1 &le; i &le; n: P[i] in its CS implies Helper[i] has the token)
+
+<h3>
+empty(ch)</h3>
+channel ch has no messages<br>
+non blocking<br>
+by the time "the next" receive is done "situation" may have changed.
+
+
+<h3>Helper[i: 1..n]</h3>
+
+<p>i-th Helper uses only the i-th numbered channels.
+
+<p>
+do true &rarr; { DMUTEX }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+receive kch[i]()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+if not(empty(enter[i])) &rarr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
+receive  enter[i]();
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
+# will not block
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
+send &nbsp;&nbsp;&nbsp; go[i]();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
+receive exit[i]()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+fi<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+send kch[i mod n + 1]()
+&nbsp;&nbsp;&nbsp;&nbsp;
+# pass the token on<br>
+od<br>
+
+<h3>P[i: 1..n]</h3>
+
+do true &rarr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+send enter[i]()                    
+&nbsp;&nbsp;&nbsp;&nbsp;
+# P[i] wishes to enter its CS<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+receive go[i]()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+CS<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+send exit[t]() 
+&nbsp;&nbsp;&nbsp;&nbsp;# exit protocol<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+non-critical  section<br>
+od
+
+<p>
+Figure 7.22.  Mutual exclusion with a token ring.
+
+<h2>3. Termination Detection</h2>
+
+<h3>Distributed State</h3>
+
+<p>
+Global state is distributed.
+<p>
+Not visible as a snapshot to any process.
+<p>
+Messages in transit (i.e., "still" in the channels)
+
+<h3>Process Idle/Busy</h3>
+
+<p>
+Distributed Computation = send/recv + synergy
+
+<p>
+Any process can subdivide a dc and request others to work on pieces
+
+<p>
+Busy = Process is working on the assigned piece of computation
+
+<p>
+Idle = Process is done with the assigned piece of computation
+
+
+<h3>Ring</h3>
+
+<p>P[i] does a send on ch[i+1]
+<p>P[i] does a receive on ch[i]
+
+<h3>Termination Detection in a ring</h3>
+
+<ol>
+<li>
+{invariant RING: P[1] blue implies<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(P[1] .. P[1+token] are blue) ^ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;(ch[2] .. ch[token mod n + 1] are empty)}
+
+<li>
+actions of P[1] when it first becomes idle:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+color[1] := blue; token := 0; send ch[2](token)
+
+<li>actions of P[i: 1..n] upon receiving a regular message:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+color[i] := red
+
+<li>actions of P[i: 2..n] upon receiving the token:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+color[i] := blue; token := token+1; send ch[i mod n + 1](token)
+
+<li>actions of P[1] upon receiving the token:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+if color[1] = blue &rarr; announce termination and halt fi;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+color[1] := blue; token := 0; send ch[2](token)
+</ol>
+
+<p>Normal computation of P[i] is not shown.
+<p>The integer value of token is used only in the reasoning of the alg.
+<p>color is a single-int local variable; we use [i] to identify the process.
+<p>Figure 7.23 Termination detection in a ring
+
+
+<h2>References</h2>
+
+<ol>
+
+  <li>Gregory R. Andrews, <i>Concurrent Programming: Principles and
+      Practice</i>, Benjamin/Cummings, 1991.  Chapter 7:
+      Required Reading.
+
+</ol>
+
+
+<hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2014
+<a href="mailto:pmateti@wright.edu?subject=CEG7370: Distr Comp">
+  pmateti@wright.edu</a>
+
+</body>
+</html>

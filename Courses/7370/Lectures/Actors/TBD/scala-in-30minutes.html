@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>A Practical Intro to Scala</title>
+<!-- 2014-03-30 Sun 19:03 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="CEG7370 Distributed Computing"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<a href="../../Top/">CEG 7370 Distributed Computing</a> | <a href="./actors-akka-scala.html">Actors Akka Scala Overview </a>
+</div>
+<div id="content">
+<h1 class="title">A Practical Intro to Scala</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Scala REPL interactive</a></li>
+<li><a href="#sec-2">2. scalac followed by scala</a></li>
+<li><a href="#sec-3">3. Scala cf. Java</a></li>
+<li><a href="#sec-4">4. Concurrency in Scala</a></li>
+<li><a href="#sec-5">5. Scala can be Hard to Learn</a></li>
+<li><a href="#sec-6">6. Perspectives</a></li>
+<li><a href="#sec-7">7. References</a></li>
+<li><a href="#sec-8">8. TBD</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Scala REPL interactive</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Read-Eval-Print-Loop (REPL), similar to Scheme, Python, &#x2026;
+</li>
+<li><code>println("Hello, World!")</code>
+</li>
+<li><code>def fac(n: Int): BigInt = if (n==0) 1 else n * fac(n - 1)</code>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> scalac followed by scala</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>content of file named <code>hello-world-println.scala</code>
+<div class="org-src-container">
+
+<pre class="src src-scala">object HelloWorld {
+  def main(args: Array[String]) {
+    println("Hello, World!")
+  }
+}
+</pre>
+</div>
+</li>
+<li><code>% scalac hello-world-println.scala</code>
+</li>
+<li><code>% ls -l</code>
+<div class="org-src-container">
+
+<pre class="src src-bash">total 16
+-rw-rw-r-- 1 pmateti pmateti 595 Mar 29 21:26 HelloWorld.class
+-rw-rw-r-- 1 pmateti pmateti 608 Mar 29 21:26 HelloWorld$.class
+-rw-rw-r-- 1 pmateti pmateti  90 Mar 29 21:21 hello-world-println.scala
+</pre>
+</div>
+</li>
+<li><code>% scala HelloWorld</code>
+<div class="org-src-container">
+
+<pre class="src src-bash">Hello, World!
+</pre>
+</div>
+</li>
+</ol>
+
+<ol class="org-ol">
+<li><code>% javap HelloWorld.class HelloWorld\$.class</code>
+<div class="org-src-container">
+
+<pre class="src src-bash">Compiled from "hello-world-println.scala"
+public final class HelloWorld {
+  public static void main(java.lang.String[]);
+}
+Compiled from "hello-world-println.scala"
+public final class HelloWorld$ {
+  public static final HelloWorld$ MODULE$;
+  public static {};
+  public void main(java.lang.String[]);
+}
+</pre>
+</div>
+</li>
+</ol>
+
+<ol class="org-ol">
+<li><code>scala</code> and <code>scalac</code> are shell scripts on Linux. 200+ lines. Differ
+in just one line.  On windows, <code>scala.bat</code> and <code>scalac.bat</code>
+</li>
+
+<li>Scala version I am using [date: Mar 30, 2014] is
+<div class="org-src-container">
+
+<pre class="src src-scala">Welcome to Scala version 2.11.0-RC3 (Java HotSpot(TM) 64-Bit Server VM, Java 1.7.0_51).
+Type in expressions to have them evaluated.
+Type :help for more information.
+</pre>
+</div>
+</li>
+
+<li>bash: 
+<ol class="org-ol">
+<li><code>alias scala=/usr/local/scala-2.11.0-RC3/bin/scala</code>
+</li>
+<li><code>alias scalac=/usr/local/scala-2.11.0-RC3/bin/scalac</code>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Scala cf. Java</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Abstract classes, but no interfaces, instead partial classes called =trait=s
+</li>
+
+<li>TBD slide 4 of Sesoft
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Concurrency in Scala</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>Scala can do Signals and Monitors, SyncVars, Futures, Parallel
+Computations, Semaphores, Readers/Writers, Asynchronous Channels,
+Synchronous Channels, Threads, Workers, Mailboxes, and Actors.
+</li>
+
+<li>! is AMP  TBD
+</li>
+<li>!? is SMP
+</li>
+<li>!! is AMP + future
+</li>
+
+<li><code>List("one", "two", "three", "four").foreach { name =&gt;  new Thread { override def run() = { println("Thread " + name + " [" + this + "] says Hello World!") } }.start }</code>
+</li>
+</ol>
+
+<ol class="org-ol">
+<li>same code as above but prettied up
+<div class="org-src-container">
+
+<pre class="src src-scala">List("one", "two", "three", "four") .
+  foreach{
+    name =&gt;
+      new Thread {
+        override                       // needed
+        def run() = {
+          println(
+             "Thread " + name +
+             " [" + this + 
+             "] says Hello, World!"
+          )
+        }
+     }
+     .  start
+  }
+</pre>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Hello Word with Actors</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+
+<pre class="src src-scala">import scala.actors.Actor
+
+List("one", "two", "three", "four").foreach {
+ name =&gt;
+   new Actor {
+     override
+     def act() = {
+       println("Thread " + name + " says Hello World!")
+     }
+   }
+  .start
+}
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>hello-world-threaded.scala TBD
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Scala can be Hard to Learn</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Voluminous documentation aimed at programming newbies.  Too many
+(incompatible) versions.  24,066 questions tagged on
+<a href="http://stackoverflow.com/questions/tagged/scala">http://stackoverflow.com/questions/tagged/scala</a>
+</li>
+
+<li>Functional Programming paradigm: Imagine no variable can be
+assigned more than once.  Anonymous Functions. Currying.
+</li>
+
+<li>Lazy values.
+</li>
+
+<li>Futures, Promises
+</li>
+
+<li>Java classes/interfaces remixed: Multiple inheritance, Traits
+</li>
+
+<li>Type inheritance
+</li>
+
+<li>Omission of "things": the dot, the semicolon, &#x2026;
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Perspectives</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>Typical middleware almost always thread-based
+</li>
+<li>Actor frameworks exist for all popular PLs
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> References</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li>Martin Odersky, "Scala by Example".  Highly recommended read
+Chapter 17: Abstractions for Concurrency (10+ pages).  The full
+book is at <a href="http://www.scala-lang.org/docu/files/ScalaByExample.pdf">http://www.scala-lang.org/docu/files/ScalaByExample.pdf</a>,
+150+ pages.  Martin Odersky and others at EPFL, Switzerland are the
+designers of Scala.  Apparently the pdf gets generated every day.
+Caution: "Scala by Example": Despite the name of the book, only a
+few are ready-to-compile-and-run examples.
+</li>
+
+<li>Michel Schinz, Philipp Haller, "A Scala Tutorial for Java
+programmers",
+<a href="http://www.scala-lang.org/docu/files/ScalaTutorial.pdf">http://www.scala-lang.org/docu/files/ScalaTutorial.pdf</a>, 2014, 15
+pages.
+</li>
+
+<li><a href="https://typesafe.com/activator">https://typesafe.com/activator</a> is the place for
+ready-to-compile-and-run examples of Scala (or Java) with Akka.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> TBD</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li>scalax &#x2026; similar to javap
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2014  <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a>
+</div>
+</body>
+</html>

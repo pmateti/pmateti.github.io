@@ -1,0 +1,94 @@
+Mine Sweeper of Windows in CSP
+Prabhaker Mateti/Dec 94
+
+
+The "fat" bar is shown as #.  The modelling of smiley, the mine
+counter and the timer are left to you as a further exercise.
+
+
+/* number of mines in this cell */
+/* 0 or 1 -- no other values are possible */
+mymine := 0, or 1 
+
+/* what is "shown on the cell", enumerated type */
+/* uncovered: 0,1..8, the number of mines that neighbors have */
+/* uncovered: boom = 9 = game over = tripped a mine */
+/* uncovered: exposed = 10, exposed mine after tripping */
+/* uncovered: incorrect = 11 */
+/* covered: red-flag = 12, ? = qmark = 13, blank = 14 */
+cell := blank;	/* covered-blank */
+
+/* left, middle, right are mouse button clicks */
+
+
+*[P(a, b)?howmany -> P(a, b)!mine
+# P(a, b)?uncover -> UNCOVER
+# P(a, b)?show-mine -> SHOW-MINE
+# mouse?left -> UNCOVER
+# mouse?middle -> MID
+# mouse?right -> RIG
+]
+
+
+mined-neighbors(x, y)::
+/* at the end, nm == neighbors of (x, y) with mines */
+nm := 0; i := x - 2;
+*[i < x+1 ->
+  i := i+1; j := y - 2;
+  *[ j < y+1 ->
+     j := j+1;
+     [ i == x &  j == y -> skip
+     # i != x or j != y ->
+        P(i, j)!howmany; P(i, j)?n;
+	nm := nm + n
+     ]
+  ]
+]
+
+SHOW-MINE::
+[ cell <  red -> skip
+# cell >= red ->
+  [ cell == red ->
+    [ mymine == 0 -> cell := incorrect
+    # mymine == 1 -> skip
+    ]
+  # cell > red ->
+    [ mymine == 0 -> skip
+    # mymine == 1 -> cell := exposed
+    ]
+    send show-your-mine to all neighbors
+  ]
+]
+
+UNCOVER ::
+[cell != qmark and cell != blank -> skip
+#cell == qmark or  cell == blank ->
+ [ mine == 1 ->
+    /* game over */
+    cell := boom;
+    send show-your-mine to all neighbors
+ # mine == 0 ->
+    cell := nm of mined neighbors(x, y)
+    [cell >  0 -> skip
+    #cell == 0 ->
+       send uncover msgs to all neighbors
+    ]
+ ]
+]
+
+
+RIG ::
+/* # mouse?right -> */
+[ cell is red   -> cell := qmark
+# cell is qmark -> cell := blank
+# cell is blank -> cell := red
+]
+
+MID::
+/* # mouse?middle -> */
+case cell uncoverd:
+ [ cell == red-flagged neighbors ->
+   send uncover msgs to all neighbors
+ ]
+case cell covered:
+ "lower" the neighbors

@@ -1,0 +1,37 @@
+IPFS Hands on Introduction
+Demo:: {``Install IPFS on a server, create a new repo with ipfs init
+. Start a background IPFS node daemon process with: ipfs daemon \& ,
+add the files to the network with ipfs add -r <your-files> and pin the
+hash that you want to keep online forever with ipfs pin add -r
+<your-ipfs-hash/> .''
+
+atnnn.com August 2, 2016
+Serving a website over IPFS
+This page is available over HTTP at http://atnnn.com but also over
+IPFS at /ipns/atnnn.com. Here’s how I do it: The rest of this article
+goes into more details and explains why you might want to do it too.
+
+youtube.com Distributed Apps with IPFS (Juan Benet) - Full Stack Fest
+2016 The InterPlanetary File System (IPFS) is a new hypermedia
+distribution protocol, addressed by content and identities. IPFS
+enables the creation of completely distributed applications. It aims
+to make the web faster, safer, and more open. IPFS enables completely
+decentralized and distributed apps. An
+
+ipfs.ioMay 17, 2017 Take a look at pubsub on IPFS We recently merged a
+simple, experimental pubsub implementation into IPFS. This
+implementation is just a beginning. It is far from the performance and
+security goals we will achieve in our long-term target.
+
+youtube.com
+IPFS Hands on Introduction
+This is a Hands on Introduction to IPFS.Includes:- Discussion on the problems IPFS solves- The basic model of IPFS- In-depth first steps with the IPFS commandline interface- Demos of adding files, downloading files, media streaming, booting VMs, and publishing names.---Recorded on 2015-04-23Presente
+
+youtube.com July 12, 2017 Tutorial: How to build an Collaborative
+Editing Application with IPFS using CRDT This is a tutorial on how to
+create Distributed Web Applications with CRDT (Conflict-Free
+Replicated Data Types) and the JavaScript Implementation of
+IPFS*References:*- IPFS - https://ipfs.io- js-ipfs -
+https://github.com/ipfs/js-ipfs- Code for the Demo -
+https://github.com/ipfs-labs/shared-e...  }
+

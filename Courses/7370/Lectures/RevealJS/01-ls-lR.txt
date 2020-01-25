@@ -1,0 +1,828 @@
+.:
+total 60
+-rw-r--r--  1 pmateti users  468 Jul 28 06:45 00-broken-links.log
+-rw-r--r--  1 pmateti users 4107 Jul 28 07:03 00-ReadMe.txt
+drwxrwxr-x  3 pmateti users 4096 Jul 28 05:19 AppDevelop
+drwxr-xr-x  3 pmateti users 4096 Jul 28 05:19 Detection
+drwxrwxr-x 19 pmateti users 4096 Jul 29 12:21 Exploits
+drwxr-xr-x  2 pmateti users 4096 Jul 29 12:20 GetStarted
+-rw-r--r--  1 pmateti users  227 Jul 28 06:36 index.html
+-rw-r--r--  1 pmateti users  227 Jul 28 06:30 index-redirect.html
+drwxrwxr-x  6 pmateti users 4096 Jul 28 05:19 Internals
+drwxrwxr-x  2 pmateti users 4096 Jul 28 05:19 News
+drwxrwxr-x  2 pmateti users 4096 Jul 28 05:19 Prevention
+drwxrwxr-x  2 pmateti users 4096 Jul 28 05:19 Privacy
+drwxr-xr-x  7 pmateti users 4096 Jul 30 17:33 RevealJS
+drwxrwxr-x  3 pmateti users 4096 Jul 28 05:19 Security
+
+./AppDevelop:
+total 220
+-rw-r--r-- 1 pmateti users 11344 Jul 23 04:45 altDevEnv.html
+-rw-r--r-- 1 pmateti users  3651 Jul 28 05:19 altDevEnv.org
+-rw-r--r-- 1 pmateti users  7387 Jul 25 23:11 altDevEnv-slides.html
+-rw-r--r-- 1 pmateti users  9212 Jul 25 23:11 app-develop.html
+-rw-r--r-- 1 pmateti users  6430 Jun 24 17:30 app-development-lab.html
+-rw-r--r-- 1 pmateti users  2173 Jul 28 05:19 app-develop.org
+-rw-r--r-- 1 pmateti users  5241 Jul 25 23:11 app-develop-slides.html
+-rw-r--r-- 1 pmateti users 18568 Jul 25 23:06 AVD.html
+-rw-r--r-- 1 pmateti users 17629 Aug 12  2015 AVD-Networking.html
+-rw-r--r-- 1 pmateti users  8052 Jul 28 05:19 AVD-Networking.org
+-rw-r--r-- 1 pmateti users 13637 Jul 25 23:11 AVD-Networking-slides.html
+-rw-r--r-- 1 pmateti users  8098 Jul 28 05:19 AVD.org
+-rw-r--r-- 1 pmateti users 14490 Jul 25 23:11 AVD-slides.html
+-rw-r--r-- 1 pmateti users  6749 Jul 28 05:19 development-2.org
+-rw-r--r-- 1 pmateti users  1058 Jul 25 23:11 development-2-slides.html
+-rw-r--r-- 1 pmateti users  5513 Jul 28 05:19 development-3.org
+-rw-r--r-- 1 pmateti users  1058 Jul 25 23:11 development-3-slides.html
+drwxr-xr-x 2 pmateti users  4096 Jul 25 23:01 Figures
+-rw-r--r-- 1 pmateti users  5945 Jul 25 23:06 ideaj-v-eclipse.html
+-rw-r--r-- 1 pmateti users   726 Jul 28 05:19 ideaj-v-eclipse.org
+-rw-r--r-- 1 pmateti users  2445 Jul 25 23:11 ideaj-v-eclipse-slides.html
+lrwxrwxrwx 1 pmateti users    23 Jul 25 23:11 index.html -> app-develop-slides.html
+-rw-r--r-- 1 pmateti users   302 Jul 25 23:06 make.sh
+-rw-r--r-- 1 pmateti users 11429 Jun  1  2015 Sudoku-Open.html
+-rw-r--r-- 1 pmateti users  5063 Jul 28 05:19 Sudoku-Open.org
+-rw-r--r-- 1 pmateti users  7662 Jul 25 23:11 Sudoku-Open-slides.html
+
+./AppDevelop/Figures:
+total 144
+-rw-r--r-- 1 pmateti users 82637 May 27  2014 activity_lifecycle.png
+-rw-r--r-- 1 pmateti users 59286 May 27  2014 service_lifecycle.png
+
+./Detection:
+total 20
+-rw-r--r-- 1 pmateti users 5862 Jul 27 22:18 detection.html
+-rw-r--r-- 1 pmateti users  915 Jul 28 05:19 detection.org
+-rw-r--r-- 1 pmateti users 1927 Jul 27 22:22 detection-slides.html
+lrwxrwxrwx 1 pmateti users   21 Jul 27 22:17 index.html -> detection-slides.html
+drwxrwxr-x 3 pmateti users 4096 Jul 28 06:18 Reversing
+
+./Detection/Reversing:
+total 124
+-rw-r--r-- 1 pmateti users 14122 Jul 26 23:07 apk-dissected-2.html
+-rw-r--r-- 1 pmateti users  6069 Sep  7  2015 apk-dissected-ex.org
+-rw-r--r-- 1 pmateti users 13824 Jul 26 23:06 apk-dissection.html
+-rw-r--r-- 1 pmateti users 11239 Jul 26 23:33 apk-dissection.org
+-rw-r--r-- 1 pmateti users 10228 Sep  7  2015 apk-dissection-slides.html
+-rw-rw-r-- 1 pmateti users  5317 Aug 28  2015 dissection-dendroid.org
+drwxr-xr-x 2 pmateti users  4096 Jul 26 21:32 Figures
+lrwxrwxrwx 1 pmateti users    21 Jul 27 22:56 index.html -> reversing-slides.html
+-rw-r--r-- 1 pmateti users   479 Jul 26 21:33 make.sh
+-rw-r--r-- 1 pmateti users 14304 Jul 26 22:15 reversing.html
+-rw-r--r-- 1 pmateti users  8173 Jul 28 06:18 reversing-lab.html
+-rw-r--r-- 1 pmateti users  5742 Jul 26 22:15 reversing.org
+-rw-r--r-- 1 pmateti users 10261 Jul 26 22:15 reversing-slides.html
+
+./Detection/Reversing/Figures:
+total 472
+-rw-r----- 1 pmateti users 479581 Sep  7  2015 simplelocker-ru.png
+
+./Exploits:
+total 292
+drwxr-xr-x 2 pmateti users  4096 Jul 26 11:09 Binder
+-rw-r--r-- 1 pmateti users  6526 Jul 28 06:55 browser-exploit-2015.html
+-rw-r--r-- 1 pmateti users  1342 Jul 28 05:19 browser-exploit-2015.org
+drwxr-xr-x 2 pmateti users  4096 Jul 26 09:14 ClipBoard
+-rw-r--r-- 1 pmateti users  2943 Jul 29 12:16 ethicsStmt.html
+-rw-r--r-- 1 pmateti users 11893 Jul 29 11:54 exploits.html
+-rw-r--r-- 1 pmateti users  4863 Jul 29 11:54 exploits.org
+-rw-r--r-- 1 pmateti users  6834 Jul 28 06:48 exploits-slides.html
+drwxr-xr-x 2 pmateti users  4096 Jul 26 10:47 Figures
+drwxrwxr-x 2 pmateti users  4096 Oct 25  2015 Forensics
+drwxr-xr-x 2 pmateti users  4096 Jul 29 12:22 HeartBleed
+lrwxrwxrwx 1 pmateti users    20 Jul 25 22:33 index.html -> exploits-slides.html
+drwxrwxr-x 3 pmateti users  4096 Jul 26 00:45 Injection
+drwxr-xr-x 2 pmateti users  4096 Jul 22 21:22 KeyLogger
+drwxr-xr-x 2 pmateti users  4096 Jul 26 09:18 LibC
+drwxr-xr-x 2 pmateti users  4096 Jul 26 09:19 Linux
+-rw-r--r-- 1 pmateti users   332 Jul 28 06:58 make.sh
+-rw-r--r-- 1 pmateti users  8662 Jul 28 05:19 malware-mobile.org
+-rw-r--r-- 1 pmateti users  1058 Jul 25 22:33 malware-mobile-slides.html
+-rw-r--r-- 1 pmateti users  8874 Jul 23 05:04 misc.html
+-rw-r--r-- 1 pmateti users  3543 Jul 28 05:19 misc.org
+-rw-r--r-- 1 pmateti users  4990 Jul 25 22:33 misc-slides.html
+-rw-r--r-- 1 pmateti users 18946 Jul 23 06:36 mobile-malware.html
+-rw-rw-r-- 1 pmateti users  8669 Jul 28 05:19 mobile-malware.org
+-rw-r--r-- 1 pmateti users 15022 Jul 25 22:33 mobile-malware-slides.html
+drwxr-xr-x 2 pmateti users  4096 Jul 28 06:08 NetAttacks
+drwxr-xr-x 2 pmateti users  4096 Jul 26 09:03 NFC
+drwxr-xr-x 2 pmateti users  4096 Jul 28 05:01 PocketSpy
+-rw-r--r-- 1 pmateti users  6926 Jul 26 11:59 refs.html
+-rw-r--r-- 1 pmateti users  2081 Jul 28 05:19 refs.org
+-rw-r--r-- 1 pmateti users  7314 Jul 23 11:18 rooting-exploits.html
+-rw-r--r-- 1 pmateti users  1744 Jul 28 05:19 rooting-exploits.org
+-rw-r--r-- 1 pmateti users 20662 Jul 23 12:24 rooting.html
+-rw-r--r-- 1 pmateti users  9918 Jul 28 05:19 rooting.org
+-rw-r--r-- 1 pmateti users 16615 Jul 25 22:33 rooting-slides.html
+drwxr-xr-x 2 pmateti users  4096 Jul 26 09:25 Services
+drwxr-xr-x 3 pmateti users  4096 Jul 29 11:37 ShellShock
+drwxrwxr-x 2 pmateti users  4096 Jul 26 09:16 StageFright
+drwxr-xr-x 2 pmateti users  4096 Jul 26 09:17 WPA
+-rw-r--r-- 1 pmateti users  5244 Mar 22  2006 wsu-logo-xsm.gif
+drwxr-xr-x 2 pmateti users  4096 Jul 26 09:11 Zygote
+
+./Exploits/Binder:
+total 3752
+-rw-rw-r-- 1 pmateti users     631 Aug 27  2015 binder-attacks.org
+-rw-r--r-- 1 pmateti users   57667 Jul 26 09:11 binder-exploits.html
+-rw-r--r-- 1 pmateti users   47135 Jul 26 11:09 binder-exploits.org
+-rw-r----- 1 pmateti users 3235048 Aug 31  2015 binder-Man-In-The-blackhar-eu-2014-slides.pdf
+-rw-r----- 1 pmateti users  488579 Aug 28  2015 binder-Man-In-The-blackhar-eu-2014-wp.pdf
+
+./Exploits/ClipBoard:
+total 12
+-rw-r--r-- 1 pmateti users 5211 Jul 26 09:14 clipboard.html
+-rw-r--r-- 1 pmateti users  327 Jul 26 09:14 clipboard.org
+
+./Exploits/Figures:
+total 428
+-rw-r--r-- 1 pmateti users  68016 Jul 26 10:46 cost_benefit_risk_white_dice.png
+-rw-r--r-- 1 pmateti users 365363 Jul 26 10:41 omg.jpg
+
+./Exploits/Forensics:
+total 12
+-rw-r--r-- 1 pmateti users 5867 Oct 24  2015 index.html
+-rw-r--r-- 1 pmateti users 1443 Oct 30  2015 index.org
+
+./Exploits/HeartBleed:
+total 12
+-rw-r--r-- 1 pmateti users 5545 Jul 29 12:22 index.html
+-rw-r--r-- 1 pmateti users  707 Jul 29 12:22 index.org
+
+./Exploits/Injection:
+total 224
+-rw-r--r-- 1 pmateti users  8073 Oct 26  2015 ASLR.html
+-rw-r--r-- 1 pmateti users  1897 Oct 26  2015 ASLR.org
+-rw-r--r-- 1 pmateti users 59898 Sep 17  2015 BufferOverflow-alephOne.html
+-rw-r--r-- 1 pmateti users 28243 Sep 30  2015 BufferOverflow.html
+-rw-r--r-- 1 pmateti users  3781 Oct 16  2013 BufferOverflow-Lab-GS.html
+-rw-r--r-- 1 pmateti users  8228 Sep 30  2015 BufferOverflow-Lab.html
+-rw-r--r-- 1 pmateti users  3132 Sep 30  2015 BufferOverflow-Lab.org
+-rw-r--r-- 1 pmateti users 11103 Oct 16  2013 BufferOverflow-Lab-vm-setup.html
+-rw-r--r-- 1 pmateti users 11817 Sep 28  2015 BufferOverflow-modReturnAddress-acer602-20080507.html
+-rw-r--r-- 1 pmateti users  8187 Jul 26 00:44 code-inject.html
+-rw-r--r-- 1 pmateti users  6280 Jul 22 11:34 code-inject-lab.html
+-rw-r--r-- 1 pmateti users  1897 Jul 26 00:43 code-inject.org
+-rw-r--r-- 1 pmateti users  4265 Jul 26 00:44 code-inject-slides.html
+lrwxrwxrwx 1 pmateti users    23 Jul 26 00:45 index.html -> code-inject-slides.html
+-rw-r--r-- 1 pmateti users   135 Jul 26 00:39 make.sh
+-rwxr-xr-x 1 pmateti users  8696 Sep 28  2015 modret
+-rw-r--r-- 1 pmateti users  5140 Sep 28  2015 modret-asm.txt
+-rw-r--r-- 1 pmateti users   887 Oct 25  2015 modret.c
+-rw-r--r-- 1 pmateti users  9443 Jul 23 11:19 ROP.html
+-rw-r--r-- 1 pmateti users  4160 Jul 23 11:42 ROP.org
+drwxrwxr-x 2 pmateti users  4096 Jul 26 08:32 StageFright
+
+./Exploits/Injection/StageFright:
+total 12
+-rw-r--r-- 1 pmateti users 8158 Jul 26 08:32 index.html
+-rw-r--r-- 1 pmateti users 1639 Oct 19  2015 index.org
+
+./Exploits/KeyLogger:
+total 4
+-rw-r--r-- 1 pmateti users 717 Jul 22 21:21 keylogger-lab.org
+
+./Exploits/LibC:
+total 12
+-rw-r--r-- 1 pmateti users 5221 Jul 26 09:18 lib-c-exploits.html
+-rw-r--r-- 1 pmateti users  233 Jul 26 09:18 lib-c-exploits.org
+
+./Exploits/Linux:
+total 0
+
+./Exploits/NetAttacks:
+total 188
+-rw-r--r-- 1 pmateti users  9318 May 18  2015 arp-poisoning.html
+-rw-r--r-- 1 pmateti users  3258 Aug 13  2015 arp-poisoning.org
+-rw-r--r-- 1 pmateti users  6143 Aug 19  2015 arp-poisoning-slides.html
+-rw-r--r-- 1 pmateti users 10669 May 18  2015 dns-poisoning.html
+-rw-r--r-- 1 pmateti users  4067 May 18  2015 dns-poisoning.org
+-rw-r--r-- 1 pmateti users  7494 Aug 19  2015 dns-poisoning-slides.html
+-rw-r--r-- 1 pmateti users  9158 Aug 13  2015 dsploit-internals.html
+-rw-r--r-- 1 pmateti users  3312 Aug 13  2015 dsploit-internals.org
+lrwxrwxrwx 1 pmateti users    23 Jul 26 01:12 index.html -> net-attacks-slides.html
+-rw-r--r-- 1 pmateti users 11178 Jul 28 06:05 netattacks.html
+-rw-r--r-- 1 pmateti users  7708 Jul 28 06:08 netattacks-lab.html
+-rw-r--r-- 1 pmateti users  3676 Jul 27 22:49 netattacks.org
+-rw-r--r-- 1 pmateti users  7185 Jul 26 01:15 netattacks-slides.html
+-rw-rw-r-- 1 pmateti users  7078 May 18  2015 sms-exploits-full.org
+-rw-r--r-- 1 pmateti users 15766 May 18  2015 sms-exploits.html
+-rw-r--r-- 1 pmateti users  4825 May 18  2015 sms-exploits.org
+-rw-r--r-- 1 pmateti users 23160 Aug 19  2015 tcp-exploits.html
+-rw-r--r-- 1 pmateti users 12601 Aug 19  2015 tcp-exploits.org
+-rw-r--r-- 1 pmateti users 19874 Aug 19  2015 tcp-exploits-slides.html
+
+./Exploits/NFC:
+total 252
+-rw-r--r-- 1 pmateti users 91295 Jul 26 08:53 NFC.html
+-rw-r--r-- 1 pmateti users 77731 Jul 23 10:40 NFC.org
+-rw-r--r-- 1 pmateti users 85846 Jul 25 22:33 NFC-slides.html
+
+./Exploits/PocketSpy:
+total 16
+lrwxrwxrwx 1 pmateti users   22 Jul 28 05:01 index.html -> pocket-spy-slides.html
+-rw-r--r-- 1 pmateti users 6351 Jul 23 04:48 pocket-spy.html
+-rw-r--r-- 1 pmateti users 1110 Jul 23 10:39 pocket-spy.org
+-rw-r--r-- 1 pmateti users 2443 Jul 28 05:00 pocket-spy-slides.html
+
+./Exploits/Services:
+total 12
+-rw-r--r-- 1 pmateti users 5209 Jul 26 09:24 services.html
+-rw-r--r-- 1 pmateti users  325 Jul 26 09:25 services.org
+
+./Exploits/ShellShock:
+total 28
+drwxr-xr-x 2 pmateti users 4096 Jul 29 00:39 Figures
+lrwxrwxrwx 1 pmateti users   22 Jul 29 00:51 index.html -> shellshock-slides.html
+-rw-r--r-- 1 pmateti users 8369 Jul 29 11:37 shellshock.html
+-rw-r--r-- 1 pmateti users 2317 Jul 29 11:37 shellshock.org
+-rw-r--r-- 1 pmateti users 4315 Jul 29 00:50 shellshock-slides.html
+
+./Exploits/ShellShock/Figures:
+total 12
+-rw-r--r-- 1 pmateti users 12017 Jul 29 00:38 Shellshock-bug.png
+
+./Exploits/StageFright:
+total 24
+-rw-rw-r-- 1 pmateti users 8685 Jul 26 09:16 index.html
+-rw-rw-r-- 1 pmateti users 1947 Jul 26 09:16 index.org
+-rw-r--r-- 1 pmateti users 8158 Jul 22 21:26 index-saved.html
+
+./Exploits/WPA:
+total 12
+-rw-r--r-- 1 pmateti users 5215 Jul 26 09:17 wpa-exploit.html
+-rw-r--r-- 1 pmateti users  659 Jul 26 09:17 wpa-exploit.org
+
+./Exploits/Zygote:
+total 76
+-rw-r--r-- 1 pmateti users 23292 Jul 26 09:10 zygote.html
+-rw-r--r-- 1 pmateti users 14182 Jul 26 09:11 zygote.org
+-rw-r--r-- 1 pmateti users 35515 Jul 25 22:33 zygote-slides.html
+
+./GetStarted:
+total 180
+-rw-r--r-- 1 pmateti users 12622 Jul 29 12:19 amrita-2016.html
+-rw-r--r-- 1 pmateti users  4958 Jul 29 12:19 amrita-2016.org
+-rw-r--r-- 1 pmateti users  8449 Jul 29 12:20 amrita-2016-slides.html
+-rw-r--r-- 1 pmateti users  6984 Jul 28 05:59 android-lab-setup.html
+-rw-r--r-- 1 pmateti users  1763 Jul 28 05:19 android-lab-setup.org
+-rw-r--r-- 1 pmateti users  3082 Jul 28 07:06 android-lab-setup-slides.html
+-rw-r--r-- 1 pmateti users 16795 Jul 28 06:04 android-labs.html
+-rw-r--r-- 1 pmateti users  7752 Jul 28 06:04 android-labs.org
+-rw-r--r-- 1 pmateti users 12823 Jul 28 07:06 android-labs-slides.html
+-rw-r--r-- 1 pmateti users  6199 Jul 29 12:01 get-started.html
+-rw-r--r-- 1 pmateti users  7354 Jul 29 12:10 get-started-lab.html
+-rw-r--r-- 1 pmateti users   945 Jul 28 07:05 get-started.org
+-rw-r--r-- 1 pmateti users  2158 Jul 29 12:00 get-started-slides.html
+lrwxrwxrwx 1 pmateti users    16 Jul 28 07:06 index.html -> get-started.html
+-rw-r--r-- 1 pmateti users  7083 Jul 27 07:06 last-few-words.html
+-rw-r--r-- 1 pmateti users  1571 Jul 28 05:19 last-few-words.org
+-rw-r--r-- 1 pmateti users  2967 Jul 28 07:06 last-few-words-slides.html
+-rw-r--r-- 1 pmateti users   265 Jul 28 07:02 make.sh
+-rw-rw-r-- 1 pmateti users 13240 Jul 23  2015 sn719-overview.html
+-rw-r--r-- 1 pmateti users  9240 Jul 25 22:39 sn719-overview-slides.html
+-rw-r--r-- 1 pmateti users 11103 Oct 16  2013 vm-setup.html
+
+./Internals:
+total 1820
+-rw-r--r-- 1 pmateti users 539941 Aug  5  2015 Android-Internals-1.pdf
+-rw-r--r-- 1 pmateti users 988047 Aug  5  2015 Android-Internals-1.pptx
+-rw-r--r-- 1 pmateti users  16709 Aug 27  2015 Android-Internals-2.html
+-rw-r--r-- 1 pmateti users   8508 Jul 28 05:19 Android-Internals-2.org
+-rw-r--r-- 1 pmateti users   6855 Jul 26 00:47 Android-Internals-3.html
+-rw-r--r-- 1 pmateti users   1572 Jul 28 05:19 Android-Internals-3.org
+-rw-rw-r-- 1 pmateti users   9518 Jul 25 21:55 aosp-mako-build.html
+-rw-rw-r-- 1 pmateti users   2904 Jul 28 05:19 aosp-mako-build.org
+-rw-r--r-- 1 pmateti users  53763 Aug 27  2015 ape-fwk-all.png
+-rw-r--r-- 1 pmateti users  12132 Jul 26 12:06 binder.html
+-rw-r--r-- 1 pmateti users   4225 Jul 28 05:19 binder.org
+-rw-r--r-- 1 pmateti users   7943 Jul 25 21:51 binder-slides.html
+-rw-r--r-- 1 pmateti users   5565 Jul 22 21:19 build-Android-ROM.html
+-rw-r--r-- 1 pmateti users    717 Jul 28 05:19 build-Android-ROM.org
+drwxrwxr-x 2 pmateti users   4096 Jul 25 21:40 Figures
+drwxrwxr-x 2 pmateti users   4096 Oct 24  2015 HTML
+lrwxrwxrwx 1 pmateti users     21 Jul 25 21:34 index.html -> internals-slides.html
+-rw-r--r-- 1 pmateti users   8299 Aug 31  2015 init.html
+-rw-r--r-- 1 pmateti users   2137 Jul 28 05:19 init.org
+-rw-r--r-- 1 pmateti users   4871 Aug 31  2015 init-slides.html
+-rw-r--r-- 1 pmateti users  10042 Jul 26 10:42 internals.html
+-rw-r--r-- 1 pmateti users   2610 Jul 28 05:19 internals.org
+-rw-r--r-- 1 pmateti users   6077 Jul 25 21:34 internals-slides.html
+-rw-r--r-- 1 pmateti users    247 Jul 25 22:27 make.sh
+-rw-r--r-- 1 pmateti users  16880 Oct 30  2015 partitions.html
+-rw-r--r-- 1 pmateti users   9037 Jul 28 05:19 partitions.org
+drwxrwxr-x 3 pmateti users   4096 Jul 27 22:40 Refreshers
+-rw-rw-r-- 1 pmateti users   7154 Aug 30  2014 ROM-build.html
+-rw-rw-r-- 1 pmateti users   5283 Jul 28 05:19 ROM-build.org
+drwxrwxr-x 2 pmateti users   4096 Jul 23 12:02 RPC
+-rw-r--r-- 1 pmateti users  14293 Jul 26 12:11 system-server.html
+-rw-r--r-- 1 pmateti users   6301 Jul 28 05:19 system-server.org
+-rw-r--r-- 1 pmateti users   8962 Jul 25 22:33 system-server-slides.html
+-rw-r--r-- 1 pmateti users    905 Jul 28 05:19 tour-AOSP.org
+-rw-r--r-- 1 pmateti users   6072 Jul 26 00:50 zygote.html
+-rw-r--r-- 1 pmateti users   1023 Jul 28 05:19 zygote.org
+
+./Internals/Figures:
+total 556
+-rw-r--r-- 1 pmateti users  21379 Jun 10  2014 adb-client-server.png
+-rw-r--r-- 1 pmateti users  64053 Jun  9  2014 androidbootsequence1.jpg
+-rw-r--r-- 1 pmateti users 164969 Aug  5  2015 android_framework_details.png
+-rw-r--r-- 1 pmateti users  71993 Jul 24 08:12 android_software_stack.png
+-rw-r--r-- 1 pmateti users  24485 Jun 11  2014 app-launch-summary.jpg
+-rw-r--r-- 1 pmateti users  33405 Aug 28  2015 binder.png
+-rw-r--r-- 1 pmateti users 173449 Jun 10  2014 runtime.png
+
+./Internals/HTML:
+total 1912
+-rw-r--r-- 1 pmateti users  7114 Jun  9  2014 Android-Internals-1.html
+-rw-r--r-- 1 pmateti users  7956 Jun  9  2014 Android-Internals-2.html
+-rw-r--r-- 1 pmateti users   573 Jun  9  2014 img0.html
+-rw-r--r-- 1 pmateti users 12384 Jun  9  2014 img0.png
+-rw-r--r-- 1 pmateti users   636 Jun  9  2014 img10.html
+-rw-r--r-- 1 pmateti users 25880 Jun  9  2014 img10.png
+-rw-r--r-- 1 pmateti users   627 Jun  9  2014 img11.html
+-rw-r--r-- 1 pmateti users 38932 Jun  9  2014 img11.png
+-rw-r--r-- 1 pmateti users   627 Jun  9  2014 img12.html
+-rw-r--r-- 1 pmateti users 21970 Jun  9  2014 img12.png
+-rw-r--r-- 1 pmateti users   626 Jun  9  2014 img13.html
+-rw-r--r-- 1 pmateti users 93147 Jun  9  2014 img13.png
+-rw-r--r-- 1 pmateti users   627 Jun  9  2014 img14.html
+-rw-r--r-- 1 pmateti users 14410 Jun  9  2014 img14.png
+-rw-r--r-- 1 pmateti users   624 Jun  9  2014 img15.html
+-rw-r--r-- 1 pmateti users 26319 Jun  9  2014 img15.png
+-rw-r--r-- 1 pmateti users   648 Jun  9  2014 img16.html
+-rw-r--r-- 1 pmateti users 25750 Jun  9  2014 img16.png
+-rw-r--r-- 1 pmateti users   648 Jun  9  2014 img17.html
+-rw-r--r-- 1 pmateti users 28578 Jun  9  2014 img17.png
+-rw-r--r-- 1 pmateti users   641 Jun  9  2014 img18.html
+-rw-r--r-- 1 pmateti users 14223 Jun  9  2014 img18.png
+-rw-r--r-- 1 pmateti users   644 Jun  9  2014 img19.html
+-rw-r--r-- 1 pmateti users 40248 Jun  9  2014 img19.png
+-rw-r--r-- 1 pmateti users   637 Jun  9  2014 img1.html
+-rw-r--r-- 1 pmateti users 14050 Jun  9  2014 img1.png
+-rw-r--r-- 1 pmateti users   641 Jun  9  2014 img20.html
+-rw-r--r-- 1 pmateti users 18733 Jun  9  2014 img20.png
+-rw-r--r-- 1 pmateti users   629 Jun  9  2014 img21.html
+-rw-r--r-- 1 pmateti users 32957 Jun  9  2014 img21.png
+-rw-r--r-- 1 pmateti users   628 Jun  9  2014 img22.html
+-rw-r--r-- 1 pmateti users 18654 Jun  9  2014 img22.png
+-rw-r--r-- 1 pmateti users   634 Jun  9  2014 img23.html
+-rw-r--r-- 1 pmateti users 19971 Jun  9  2014 img23.png
+-rw-r--r-- 1 pmateti users   626 Jun  9  2014 img24.html
+-rw-r--r-- 1 pmateti users 14110 Jun  9  2014 img24.png
+-rw-r--r-- 1 pmateti users   643 Jun  9  2014 img25.html
+-rw-r--r-- 1 pmateti users 16197 Jun  9  2014 img25.png
+-rw-r--r-- 1 pmateti users   652 Jun  9  2014 img26.html
+-rw-r--r-- 1 pmateti users 26100 Jun  9  2014 img26.png
+-rw-r--r-- 1 pmateti users   642 Jun  9  2014 img27.html
+-rw-r--r-- 1 pmateti users 18351 Jun  9  2014 img27.png
+-rw-r--r-- 1 pmateti users   624 Jun  9  2014 img28.html
+-rw-r--r-- 1 pmateti users 27726 Jun  9  2014 img28.png
+-rw-r--r-- 1 pmateti users   644 Jun  9  2014 img29.html
+-rw-r--r-- 1 pmateti users 29456 Jun  9  2014 img29.png
+-rw-r--r-- 1 pmateti users   628 Jun  9  2014 img2.html
+-rw-r--r-- 1 pmateti users 33754 Jun  9  2014 img2.png
+-rw-r--r-- 1 pmateti users   628 Jun  9  2014 img30.html
+-rw-r--r-- 1 pmateti users 38381 Jun  9  2014 img30.png
+-rw-r--r-- 1 pmateti users   633 Jun  9  2014 img31.html
+-rw-r--r-- 1 pmateti users 28904 Jun  9  2014 img31.png
+-rw-r--r-- 1 pmateti users   650 Jun  9  2014 img32.html
+-rw-r--r-- 1 pmateti users 33940 Jun  9  2014 img32.png
+-rw-r--r-- 1 pmateti users   626 Jun  9  2014 img33.html
+-rw-r--r-- 1 pmateti users 17198 Jun  9  2014 img33.png
+-rw-r--r-- 1 pmateti users   626 Jun  9  2014 img34.html
+-rw-r--r-- 1 pmateti users 41624 Jun  9  2014 img34.png
+-rw-r--r-- 1 pmateti users   638 Jun  9  2014 img35.html
+-rw-r--r-- 1 pmateti users 32716 Jun  9  2014 img35.png
+-rw-r--r-- 1 pmateti users   645 Jun  9  2014 img36.html
+-rw-r--r-- 1 pmateti users 31827 Jun  9  2014 img36.png
+-rw-r--r-- 1 pmateti users   650 Jun  9  2014 img37.html
+-rw-r--r-- 1 pmateti users 27069 Jun  9  2014 img37.png
+-rw-r--r-- 1 pmateti users   578 Jun  9  2014 img38.html
+-rw-r--r-- 1 pmateti users 10194 Jun  9  2014 img38.png
+-rw-r--r-- 1 pmateti users   636 Jun  9  2014 img3.html
+-rw-r--r-- 1 pmateti users 13062 Jun  9  2014 img3.png
+-rw-r--r-- 1 pmateti users   621 Jun  9  2014 img4.html
+-rw-r--r-- 1 pmateti users 50277 Jun  9  2014 img4.png
+-rw-r--r-- 1 pmateti users   629 Jun  9  2014 img5.html
+-rw-r--r-- 1 pmateti users 27003 Jun  9  2014 img5.png
+-rw-r--r-- 1 pmateti users   724 Jun  9  2014 img6.html
+-rw-r--r-- 1 pmateti users 50323 Jun  9  2014 img6.png
+-rw-r--r-- 1 pmateti users   626 Jun  9  2014 img7.html
+-rw-r--r-- 1 pmateti users 21503 Jun  9  2014 img7.png
+-rw-r--r-- 1 pmateti users   636 Jun  9  2014 img8.html
+-rw-r--r-- 1 pmateti users 26006 Jun  9  2014 img8.png
+-rw-r--r-- 1 pmateti users   645 Jun  9  2014 img9.html
+-rw-r--r-- 1 pmateti users 28714 Jun  9  2014 img9.png
+-rw-r--r-- 1 pmateti users  6753 Jun  5  2014 index.html
+-rw-r--r-- 1 pmateti users   760 Jun  9  2014 text0.html
+-rw-r--r-- 1 pmateti users  1101 Jun  9  2014 text10.html
+-rw-r--r-- 1 pmateti users  1189 Jun  9  2014 text11.html
+-rw-r--r-- 1 pmateti users   929 Jun  9  2014 text12.html
+-rw-r--r-- 1 pmateti users   620 Jun  9  2014 text13.html
+-rw-r--r-- 1 pmateti users  1359 Jun  9  2014 text14.html
+-rw-r--r-- 1 pmateti users  1061 Jun  9  2014 text15.html
+-rw-r--r-- 1 pmateti users  1979 Jun  9  2014 text16.html
+-rw-r--r-- 1 pmateti users  1286 Jun  9  2014 text17.html
+-rw-r--r-- 1 pmateti users  1115 Jun  9  2014 text18.html
+-rw-r--r-- 1 pmateti users  1411 Jun  9  2014 text19.html
+-rw-r--r-- 1 pmateti users  2747 Jun  9  2014 text1.html
+-rw-r--r-- 1 pmateti users  1925 Jun  9  2014 text20.html
+-rw-r--r-- 1 pmateti users  1088 Jun  9  2014 text21.html
+-rw-r--r-- 1 pmateti users   877 Jun  9  2014 text22.html
+-rw-r--r-- 1 pmateti users   644 Jun  9  2014 text23.html
+-rw-r--r-- 1 pmateti users  1151 Jun  9  2014 text24.html
+-rw-r--r-- 1 pmateti users   662 Jun  9  2014 text25.html
+-rw-r--r-- 1 pmateti users  1240 Jun  9  2014 text26.html
+-rw-r--r-- 1 pmateti users   968 Jun  9  2014 text27.html
+-rw-r--r-- 1 pmateti users  1010 Jun  9  2014 text28.html
+-rw-r--r-- 1 pmateti users   664 Jun  9  2014 text29.html
+-rw-r--r-- 1 pmateti users  1127 Jun  9  2014 text2.html
+-rw-r--r-- 1 pmateti users   632 Jun  9  2014 text30.html
+-rw-r--r-- 1 pmateti users  1180 Jun  9  2014 text31.html
+-rw-r--r-- 1 pmateti users  1170 Jun  9  2014 text32.html
+-rw-r--r-- 1 pmateti users   620 Jun  9  2014 text33.html
+-rw-r--r-- 1 pmateti users   620 Jun  9  2014 text34.html
+-rw-r--r-- 1 pmateti users  1119 Jun  9  2014 text35.html
+-rw-r--r-- 1 pmateti users  1228 Jun  9  2014 text36.html
+-rw-r--r-- 1 pmateti users  1222 Jun  9  2014 text37.html
+-rw-r--r-- 1 pmateti users   757 Jun  9  2014 text38.html
+-rw-r--r-- 1 pmateti users  1480 Jun  9  2014 text3.html
+-rw-r--r-- 1 pmateti users   616 Jun  9  2014 text4.html
+-rw-r--r-- 1 pmateti users  1058 Jun  9  2014 text5.html
+-rw-r--r-- 1 pmateti users   723 Jun  9  2014 text6.html
+-rw-r--r-- 1 pmateti users   915 Jun  9  2014 text7.html
+-rw-r--r-- 1 pmateti users  1230 Jun  9  2014 text8.html
+-rw-r--r-- 1 pmateti users  1362 Jun  9  2014 text9.html
+-rw-r--r-- 1 pmateti users  2904 Jun  9  2014 thumb0.png
+-rw-r--r-- 1 pmateti users  5793 Jun  9  2014 thumb10.png
+-rw-r--r-- 1 pmateti users  8821 Jun  9  2014 thumb11.png
+-rw-r--r-- 1 pmateti users  5750 Jun  9  2014 thumb12.png
+-rw-r--r-- 1 pmateti users 32238 Jun  9  2014 thumb13.png
+-rw-r--r-- 1 pmateti users  8603 Jun  9  2014 thumb14.png
+-rw-r--r-- 1 pmateti users  7026 Jun  9  2014 thumb15.png
+-rw-r--r-- 1 pmateti users  9976 Jun  9  2014 thumb16.png
+-rw-r--r-- 1 pmateti users  8271 Jun  9  2014 thumb17.png
+-rw-r--r-- 1 pmateti users  5894 Jun  9  2014 thumb18.png
+-rw-r--r-- 1 pmateti users  7095 Jun  9  2014 thumb19.png
+-rw-r--r-- 1 pmateti users 11290 Jun  9  2014 thumb1.png
+-rw-r--r-- 1 pmateti users  7667 Jun  9  2014 thumb20.png
+-rw-r--r-- 1 pmateti users 10905 Jun  9  2014 thumb21.png
+-rw-r--r-- 1 pmateti users  8566 Jun  9  2014 thumb22.png
+-rw-r--r-- 1 pmateti users  8357 Jun  9  2014 thumb23.png
+-rw-r--r-- 1 pmateti users  7856 Jun  9  2014 thumb24.png
+-rw-r--r-- 1 pmateti users  5156 Jun  9  2014 thumb25.png
+-rw-r--r-- 1 pmateti users 10328 Jun  9  2014 thumb26.png
+-rw-r--r-- 1 pmateti users  4585 Jun  9  2014 thumb27.png
+-rw-r--r-- 1 pmateti users  6184 Jun  9  2014 thumb28.png
+-rw-r--r-- 1 pmateti users  9692 Jun  9  2014 thumb29.png
+-rw-r--r-- 1 pmateti users  6931 Jun  9  2014 thumb2.png
+-rw-r--r-- 1 pmateti users 13871 Jun  9  2014 thumb30.png
+-rw-r--r-- 1 pmateti users  7176 Jun  9  2014 thumb31.png
+-rw-r--r-- 1 pmateti users  7705 Jun  9  2014 thumb32.png
+-rw-r--r-- 1 pmateti users  6813 Jun  9  2014 thumb33.png
+-rw-r--r-- 1 pmateti users 14116 Jun  9  2014 thumb34.png
+-rw-r--r-- 1 pmateti users  9136 Jun  9  2014 thumb35.png
+-rw-r--r-- 1 pmateti users  5123 Jun  9  2014 thumb36.png
+-rw-r--r-- 1 pmateti users  8632 Jun  9  2014 thumb37.png
+-rw-r--r-- 1 pmateti users  2962 Jun  9  2014 thumb38.png
+-rw-r--r-- 1 pmateti users 11448 Jun  9  2014 thumb3.png
+-rw-r--r-- 1 pmateti users 17664 Jun  9  2014 thumb4.png
+-rw-r--r-- 1 pmateti users  5413 Jun  9  2014 thumb5.png
+-rw-r--r-- 1 pmateti users 16942 Jun  9  2014 thumb6.png
+-rw-r--r-- 1 pmateti users  5034 Jun  9  2014 thumb7.png
+-rw-r--r-- 1 pmateti users 11525 Jun  9  2014 thumb8.png
+-rw-r--r-- 1 pmateti users  7108 Jun  9  2014 thumb9.png
+
+./Internals/Refreshers:
+total 296
+-rw-r--r-- 2 pmateti users   4277 Aug 11  2015 DoD-v-OSI-model2.gif
+-rw-r--r-- 2 pmateti users  32710 Aug 11  2015 DoD-v-OSI-model3.jpg
+-rw-r--r-- 2 pmateti users  15184 Aug 11  2015 DoD-v-OSI-model.jpg
+-rw-r--r-- 2 pmateti users 115236 Aug 11  2015 ethernet-wifi.jpg
+drwxr-xr-x 2 pmateti users   4096 Jul 27 22:41 Figures
+-rw-r--r-- 1 pmateti users  10190 Aug 11  2015 file-systems.html
+-rw-r--r-- 1 pmateti users   3649 Aug 11  2015 file-systems.org
+lrwxrwxrwx 1 pmateti users     22 Jul 27 22:38 index.html -> refreshers-slides.html
+-rw-r--r-- 1 pmateti users   6903 Aug 10  2015 java.html
+-rw-r--r-- 1 pmateti users   1174 Aug 10  2015 java.org
+-rw-r--r-- 1 pmateti users  20410 Aug 12  2015 networking.html
+-rw-r--r-- 1 pmateti users   8441 Aug 12  2015 networking.org
+-rw-r--r-- 1 pmateti users  17619 Aug 11  2015 networking-slides.html
+-rw-r--r-- 1 pmateti users  13035 Aug 11  2015 programs-processes.html
+-rw-r--r-- 1 pmateti users   4745 Aug 11  2015 programs-processes.org
+-rw-r--r-- 1 pmateti users   6542 Jul 27 22:37 refreshers.html
+-rw-r--r-- 1 pmateti users   1479 Jul 27 22:37 refreshers.org
+-rw-r--r-- 1 pmateti users   2678 Jul 27 22:38 refreshers-slides.html
+
+./Internals/Refreshers/Figures:
+total 172
+-rw-r--r-- 2 pmateti users   4277 Aug 11  2015 DoD-v-OSI-model2.gif
+-rw-r--r-- 2 pmateti users  32710 Aug 11  2015 DoD-v-OSI-model3.jpg
+-rw-r--r-- 2 pmateti users  15184 Aug 11  2015 DoD-v-OSI-model.jpg
+-rw-r--r-- 2 pmateti users 115236 Aug 11  2015 ethernet-wifi.jpg
+
+./Internals/RPC:
+total 56
+-rw-r--r-- 1 pmateti users  1475 Jan 16  2014 Makefile.txt
+-rw-r--r-- 1 pmateti users 30670 Mar 11  2014 programs-processes.html
+-rw-r--r-- 1 pmateti users  3142 Jan  4  2014 rpc-diag-tikz.tex
+-rw-r--r-- 1 pmateti users 10260 Nov  2  2015 rpc.html
+-rw-r--r-- 1 pmateti users  3259 Nov  2  2015 rpc.org
+
+./News:
+total 16
+lrwxrwxrwx 1 pmateti users   16 Jul 27 22:43 index.html -> news-slides.html
+-rw-r--r-- 1 pmateti users 6849 Jul 27 22:44 news.html
+-rw-rw-r-- 1 pmateti users 1113 Jul 28 05:19 news.org
+-rw-r--r-- 1 pmateti users 2988 Jul 27 22:44 news-slides.html
+
+./Prevention:
+total 76
+-rw-r--r-- 1 pmateti users 11762 Jul 27 22:23 hardening.html
+-rw-r--r-- 1 pmateti users  3200 Jul 28 05:19 hardening.org
+lrwxrwxrwx 1 pmateti users    22 Jul 27 22:27 index.html -> prevention-slides.html
+-rw-rw-r-- 1 pmateti users 12393 Sep  9  2015 malware-prevention.html
+-rw-rw-r-- 1 pmateti users  3786 Jul 28 05:19 malware-prevention.org
+-rw-rw-r-- 1 pmateti users  8401 Jul 25 22:33 malware-prevention-slides.html
+-rw-r--r-- 1 pmateti users  5958 Jul 27 22:31 penetration.html
+-rw-r--r-- 1 pmateti users   763 Jul 28 05:19 penetration.org
+-rw-r--r-- 1 pmateti users  6237 Jul 27 22:26 prevention.html
+-rw-r--r-- 1 pmateti users  1049 Jul 28 05:19 prevention.org
+-rw-r--r-- 1 pmateti users  2296 Jul 27 22:27 prevention-slides.html
+
+./Privacy:
+total 44
+lrwxrwxrwx 1 pmateti users    19 Jul 27 22:55 index.html -> privacy-slides.html
+-rw-r--r-- 1 pmateti users 16534 Jul 27 22:54 privacy.html
+-rw-r--r-- 1 pmateti users  6815 Jul 28 05:19 privacy.org
+-rw-r--r-- 1 pmateti users 12604 Jul 27 22:54 privacy-slides.html
+
+./RevealJS:
+total 156
+-rw-r--r--  1 pmateti users 28672 Jul 30 17:33 01-ls-lR.txt
+-rw-r--r--  1 pmateti users   523 Jun 21 05:33 bower.json
+-rw-r--r--  1 pmateti users  1062 Jun 21 05:33 CONTRIBUTING.md
+drwxr-xr-x  4 pmateti users  4096 Jun 21 05:33 css
+-rw-r--r--  1 pmateti users 15805 Jun 21 05:33 demo.html
+-rw-r--r--  1 pmateti users  3332 Jun 21 05:33 Gruntfile.js
+-rw-r--r--  1 pmateti users  1479 Jun 21 05:33 index.html
+drwxr-xr-x  2 pmateti users  4096 Jun 21 05:33 js
+drwxr-xr-x  5 pmateti users  4096 Jun 21 05:33 lib
+-rw-r--r--  1 pmateti users  1075 Jun 21 05:33 LICENSE
+-rw-r--r--  1 pmateti users  1083 Jun 21 05:33 package.json
+drwxr-xr-x 11 pmateti users  4096 Jun 21 05:33 plugin
+-rw-r--r--  1 pmateti users 45103 Jun 21 05:33 README.md
+-rw-r--r--  1 pmateti users   493 Jul 24 08:50 revealjs-post.html
+-rw-r--r--  1 pmateti users   565 Jul 22 23:20 revealjs-post-wsu.html
+-rw-r--r--  1 pmateti users   560 Jul 25 21:48 revealjs-pre.html
+-rw-r--r--  1 pmateti users   655 Jul 22 23:20 revealjs-pre-wsu.html
+-rw-r--r--  2 pmateti users  2445 Jul 26 11:30 revealjs.sh
+drwxr-xr-x  3 pmateti users  4096 Jun 21 05:33 test
+
+./RevealJS/css:
+total 96
+drwxr-xr-x 2 pmateti users  4096 Jun 21 05:33 print
+-rw-r--r-- 1 pmateti users 48565 Jun 21 05:33 reveal.css
+-rw-r--r-- 1 pmateti users 37050 Jun 21 05:33 reveal.scss
+drwxr-xr-x 4 pmateti users  4096 Jul 22 23:40 theme
+
+./RevealJS/css/print:
+total 12
+-rw-r--r-- 1 pmateti users 4861 Jun 21 05:33 paper.css
+-rw-r--r-- 1 pmateti users 3036 Jun 21 05:33 pdf.css
+
+./RevealJS/css/theme:
+total 100
+-rw-r--r-- 1 pmateti users 6885 Jun 21 05:33 beige.css
+-rw-r--r-- 1 pmateti users 6282 Jun 21 05:33 black.css
+-rw-r--r-- 1 pmateti users 6732 Jun 21 05:33 blood.css
+-rw-r--r-- 1 pmateti users 6953 Jun 21 05:33 league.css
+-rw-r--r-- 1 pmateti users 6171 Jun 21 05:33 moon.css
+-rw-r--r-- 1 pmateti users 6086 Jun 21 05:33 night.css
+-rw-r--r-- 1 pmateti users 1605 Jun 21 05:33 README.md
+-rw-r--r-- 1 pmateti users 6160 Jun 21 05:33 serif.css
+-rw-r--r-- 1 pmateti users 6293 Jun 21 05:33 simple.css
+-rw-r--r-- 1 pmateti users 6694 Jun 21 05:33 sky.css
+-rw-r--r-- 1 pmateti users 6193 Jul 22 23:40 solarized.css
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 source
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 template
+-rw-r--r-- 1 pmateti users 6275 Jun 21 05:33 white.css
+
+./RevealJS/css/theme/source:
+total 44
+-rw-r--r-- 1 pmateti users 1225 Jun 21 05:33 beige.scss
+-rw-r--r-- 1 pmateti users 1175 Jun 21 05:33 black.scss
+-rw-r--r-- 1 pmateti users 1839 Jun 21 05:33 blood.scss
+-rw-r--r-- 1 pmateti users 1103 Jun 21 05:33 league.scss
+-rw-r--r-- 1 pmateti users 1269 Jun 21 05:33 moon.scss
+-rw-r--r-- 1 pmateti users  966 Jun 21 05:33 night.scss
+-rw-r--r-- 1 pmateti users  991 Jun 21 05:33 serif.scss
+-rw-r--r-- 1 pmateti users 1161 Jun 21 05:33 simple.scss
+-rw-r--r-- 1 pmateti users 1145 Jun 21 05:33 sky.scss
+-rw-r--r-- 1 pmateti users 1409 Jun 21 05:33 solarized.scss
+-rw-r--r-- 1 pmateti users 1174 Jun 21 05:33 white.scss
+
+./RevealJS/css/theme/template:
+total 16
+-rw-r--r-- 1 pmateti users 1619 Jun 21 05:33 mixins.scss
+-rw-r--r-- 1 pmateti users 1034 Jun 21 05:33 settings.scss
+-rw-r--r-- 1 pmateti users 6072 Jun 21 05:33 theme.scss
+
+./RevealJS/js:
+total 132
+-rw-r--r-- 1 pmateti users 131522 Jun 21 05:33 reveal.js
+
+./RevealJS/lib:
+total 12
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 css
+drwxr-xr-x 4 pmateti users 4096 Jun 21 05:33 font
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 js
+
+./RevealJS/lib/css:
+total 4
+-rw-r--r-- 1 pmateti users 947 Jun 21 05:33 zenburn.css
+
+./RevealJS/lib/font:
+total 8
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 league-gothic
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 source-sans-pro
+
+./RevealJS/lib/font/league-gothic:
+total 132
+-rw-r--r-- 1 pmateti users   308 Jun 21 05:33 league-gothic.css
+-rwxr-xr-x 1 pmateti users 25696 Jun 21 05:33 league-gothic.eot
+-rwxr-xr-x 1 pmateti users 64256 Jun 21 05:33 league-gothic.ttf
+-rwxr-xr-x 1 pmateti users 30764 Jun 21 05:33 league-gothic.woff
+-rw-r--r-- 1 pmateti users    92 Jun 21 05:33 LICENSE
+
+./RevealJS/lib/font/source-sans-pro:
+total 1804
+-rw-r--r-- 1 pmateti users   4632 Jun 21 05:33 LICENSE
+-rw-r--r-- 1 pmateti users   1424 Jun 21 05:33 source-sans-pro.css
+-rwxr-xr-x 1 pmateti users  75720 Jun 21 05:33 source-sans-pro-italic.eot
+-rwxr-xr-x 1 pmateti users 238084 Jun 21 05:33 source-sans-pro-italic.ttf
+-rwxr-xr-x 1 pmateti users  98556 Jun 21 05:33 source-sans-pro-italic.woff
+-rwxr-xr-x 1 pmateti users  88070 Jun 21 05:33 source-sans-pro-regular.eot
+-rwxr-xr-x 1 pmateti users 288008 Jun 21 05:33 source-sans-pro-regular.ttf
+-rwxr-xr-x 1 pmateti users 114324 Jun 21 05:33 source-sans-pro-regular.woff
+-rwxr-xr-x 1 pmateti users  89897 Jun 21 05:33 source-sans-pro-semibold.eot
+-rwxr-xr-x 1 pmateti users  75706 Jun 21 05:33 source-sans-pro-semibolditalic.eot
+-rwxr-xr-x 1 pmateti users 240944 Jun 21 05:33 source-sans-pro-semibolditalic.ttf
+-rwxr-xr-x 1 pmateti users  98816 Jun 21 05:33 source-sans-pro-semibolditalic.woff
+-rwxr-xr-x 1 pmateti users 284640 Jun 21 05:33 source-sans-pro-semibold.ttf
+-rwxr-xr-x 1 pmateti users 115648 Jun 21 05:33 source-sans-pro-semibold.woff
+
+./RevealJS/lib/js:
+total 20
+-rw-r--r-- 1 pmateti users 1582 Jun 21 05:33 classList.js
+-rw-r--r-- 1 pmateti users 9680 Jun 21 05:33 head.min.js
+-rw-r--r-- 1 pmateti users  235 Jun 21 05:33 html5shiv.js
+
+./RevealJS/plugin:
+total 36
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 highlight
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 markdown
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 math
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 multiplex
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 notes
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 notes-server
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 print-pdf
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 search
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 zoom-js
+
+./RevealJS/plugin/highlight:
+total 440
+-rw-r--r-- 1 pmateti users 449493 Jun 21 05:33 highlight.js
+
+./RevealJS/plugin/markdown:
+total 40
+-rw-r--r-- 1 pmateti users  4171 Jun 21 05:33 example.html
+-rw-r--r-- 1 pmateti users   230 Jun 21 05:33 example.md
+-rwxr-xr-x 1 pmateti users 12249 Jun 21 05:33 markdown.js
+-rw-r--r-- 1 pmateti users 15764 Jun 21 05:33 marked.js
+
+./RevealJS/plugin/math:
+total 4
+-rwxr-xr-x 1 pmateti users 1688 Jun 21 05:33 math.js
+
+./RevealJS/plugin/multiplex:
+total 16
+-rw-r--r-- 1 pmateti users  369 Jun 21 05:33 client.js
+-rw-r--r-- 1 pmateti users 1795 Jun 21 05:33 index.js
+-rw-r--r-- 1 pmateti users  819 Jun 21 05:33 master.js
+-rw-r--r-- 1 pmateti users  393 Jun 21 05:33 package.json
+
+./RevealJS/plugin/notes:
+total 16
+-rw-r--r-- 1 pmateti users 10127 Jun 21 05:33 notes.html
+-rw-r--r-- 1 pmateti users  4095 Jun 21 05:33 notes.js
+
+./RevealJS/plugin/notes-server:
+total 20
+-rw-r--r-- 1 pmateti users 1880 Jun 21 05:33 client.js
+-rw-r--r-- 1 pmateti users 1850 Jun 21 05:33 index.js
+-rw-r--r-- 1 pmateti users 9505 Jun 21 05:33 notes.html
+
+./RevealJS/plugin/print-pdf:
+total 4
+-rw-r--r-- 1 pmateti users 1215 Jun 21 05:33 print-pdf.js
+
+./RevealJS/plugin/search:
+total 8
+-rw-r--r-- 1 pmateti users 7151 Jun 21 05:33 search.js
+
+./RevealJS/plugin/zoom-js:
+total 8
+-rw-r--r-- 1 pmateti users 7989 Jun 21 05:33 zoom.js
+
+./RevealJS/test:
+total 128
+drwxr-xr-x 3 pmateti users  4096 Jun 21 05:33 examples
+-rw-r--r-- 1 pmateti users  4667 Jun 21 05:33 qunit-1.12.0.css
+-rw-r--r-- 1 pmateti users 58795 Jun 21 05:33 qunit-1.12.0.js
+-rw-r--r-- 1 pmateti users  1907 Jun 21 05:33 test.html
+-rw-r--r-- 1 pmateti users 20051 Jun 21 05:33 test.js
+-rw-r--r-- 1 pmateti users  3412 Jun 21 05:33 test-markdown-element-attributes.html
+-rw-r--r-- 1 pmateti users  2676 Jun 21 05:33 test-markdown-element-attributes.js
+-rw-r--r-- 1 pmateti users  1180 Jun 21 05:33 test-markdown.html
+-rw-r--r-- 1 pmateti users   268 Jun 21 05:33 test-markdown.js
+-rw-r--r-- 1 pmateti users  2897 Jun 21 05:33 test-markdown-slide-attributes.html
+-rw-r--r-- 1 pmateti users  3148 Jun 21 05:33 test-markdown-slide-attributes.js
+-rw-r--r-- 1 pmateti users  1657 Jun 21 05:33 test-pdf.html
+-rw-r--r-- 1 pmateti users   303 Jun 21 05:33 test-pdf.js
+
+./RevealJS/test/examples:
+total 28
+drwxr-xr-x 2 pmateti users 4096 Jun 21 05:33 assets
+-rw-r--r-- 1 pmateti users  678 Jun 21 05:33 barebones.html
+-rw-r--r-- 1 pmateti users  893 Jun 21 05:33 embedded-media.html
+-rw-r--r-- 1 pmateti users 5203 Jun 21 05:33 math.html
+-rw-r--r-- 1 pmateti users 4083 Jun 21 05:33 slide-backgrounds.html
+-rw-r--r-- 1 pmateti users 1992 Jun 21 05:33 slide-transitions.html
+
+./RevealJS/test/examples/assets:
+total 36
+-rw-r--r-- 1 pmateti users 21991 Jun 21 05:33 image1.png
+-rw-r--r-- 1 pmateti users 10237 Jun 21 05:33 image2.png
+
+./Security:
+total 492
+drwxrwxr-x 3 pmateti users   4096 Jul 26 01:02 AccessControl
+-rw-r--r-- 1 pmateti users 185873 Aug 13  2015 Android-Security-1.pdf
+-rw-r--r-- 1 pmateti users 210434 May 18  2015 Android-Security-1.pptx
+-rw-r--r-- 1 pmateti users   1058 Jul 25 22:12 binder-slides.html
+lrwxrwxrwx 1 pmateti users     20 Jul 25 22:25 index.html -> security-slides.html
+-rw-r--r-- 1 pmateti users    247 Jul 25 22:24 make.sh
+-rw-r--r-- 1 pmateti users   6585 Jul 25 22:15 malware-detection.html
+-rw-r--r-- 1 pmateti users   1235 Jul 28 05:19 malware-detection.org
+-rw-r--r-- 1 pmateti users   2686 Jul 25 22:25 malware-detection-slides.html
+-rw-r--r-- 1 pmateti users  13031 Jul 23 05:59 malware-prevention.html
+-rw-r--r-- 1 pmateti users   4688 Jul 28 05:19 malware-prevention.org
+-rw-r--r-- 1 pmateti users   9044 Jul 25 22:25 malware-prevention-slides.html
+-rw-r--r-- 1 pmateti users   7318 Jul 26 10:37 refs.html
+-rw-r--r-- 1 pmateti users   2190 Jul 28 05:19 refs.org
+-rw-r--r-- 1 pmateti users  10431 Jul 27 00:29 security.html
+-rw-rw-r-- 1 pmateti users   3580 Jul 28 05:19 security.org
+-rw-r--r-- 1 pmateti users   6472 Jul 27 00:30 security-slides.html
+
+./Security/AccessControl:
+total 156
+-rw-r--r-- 1 pmateti users 14528 Jul 25 22:57 access-control.html
+-rw-r--r-- 1 pmateti users  5211 Jul 25 22:59 access-control.org
+-rw-r--r-- 1 pmateti users 10503 Jul 25 22:57 access-control-slides.html
+-rw-r--r-- 1 pmateti users 11778 Jul 25 22:50 DAC.html
+-rw-r--r-- 1 pmateti users  3758 Sep  7  2015 DAC.org
+-rw-r--r-- 1 pmateti users  7765 Jul 25 22:57 DAC-slides.html
+drwxr-xr-x 2 pmateti users  4096 Jul 23 06:09 Figures
+lrwxrwxrwx 1 pmateti users    26 Jul 25 22:57 index.html -> access-control-slides.html
+-rw-r--r-- 1 pmateti users  7149 Jul 25 22:53 login-security.html
+-rw-r--r-- 1 pmateti users  1580 Jul 25 22:54 login-security.org
+-rw-r--r-- 1 pmateti users  3300 Jul 25 22:57 login-security-slides.html
+-rw-r--r-- 1 pmateti users   255 Jul 25 22:56 make.sh
+-rw-r--r-- 1 pmateti users   365 Jul 25 22:42 nsa-se-cuts.org
+-rw-r--r-- 1 pmateti users 22061 Jul 25 22:50 nsa-se.html
+-rw-r--r-- 1 pmateti users 11196 Jul 25 22:50 nsa-se.org
+-rw-r--r-- 1 pmateti users 18102 Jul 25 22:57 nsa-se-slides.html
+-rw-r--r-- 1 pmateti users  7481 Jul 26 00:57 permissions.html
+-rw-r--r-- 1 pmateti users  2323 Jul 26 01:00 permissions.org
+
+./Security/AccessControl/Figures:
+total 848
+-rw-rw-r-- 1 pmateti users  18988 Oct 16  2014 1-core.png
+-rw-rw-r-- 1 pmateti users  15883 Oct 16  2014 dac-mac-flow1.png
+-rw-rw-r-- 1 pmateti users  46897 Oct 16  2014 dac-mac-flow2.png
+-rw-rw-r-- 1 pmateti users  85167 Oct 16  2014 lsm-access.jpg
+-rw-rw-r-- 1 pmateti users  25302 Oct 14  2014 men-s-selinux-shirt-gildan_design.png
+-rw-rw-r-- 1 pmateti users  15883 Oct 14  2014 RHEL5-SELinux-Benchmark_1_original.png
+-rw-rw-r-- 1 pmateti users  46897 Oct 14  2014 RHEL5-SELinux-Benchmark_2_original.png
+-rw-rw-r-- 1 pmateti users  30790 Oct 14  2014 se-flow1.jpg
+-rw-rw-r-- 1 pmateti users   5269 Oct 14  2014 se-flow2.jpg
+-rw-rw-r-- 1 pmateti users 189616 Oct 14  2014 se-flow3.png
+-rw-rw-r-- 1 pmateti users   9882 Oct 16  2014 se-flow4.jpg
+-rw-rw-r-- 1 pmateti users  68305 Oct 16  2014 selinux architecture.png
+-rw-rw-r-- 1 pmateti users   5269 Oct 16  2014 selinux-init-hooks.jpg
+-rw-rw-r-- 1 pmateti users  30790 Oct 16  2014 selinux-init.jpg
+-rw-rw-r-- 1 pmateti users 189616 Oct 16  2014 se-linux-simple-view.png
+-rw-rw-r-- 1 pmateti users  38987 Oct 16  2014 se-timeline.jpg
+-rw-rw-r-- 1 pmateti users  11059 Oct 16  2014 solution-accelerators-for-android-security-thumb-260x201-176363.jpg

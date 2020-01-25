@@ -1,0 +1,48 @@
+
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE:  Distributed Computing Architecture
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: WSU CEG 7370 Distributed Computing
+#+BIND: org-export-html-preamble-format (("en" "<a href=\"../../Top/\">CEG 7370</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+
+* Distributed Computing Architectures
+
+1. No shared state/ memory
+1. Peer to Peer Computing
+2. Clients and Servers
+   1. RPC/ RMI
+   2. call backs
+
+* Peer to Peer Computing
+
+1. All processes/ nodes are "equal"
+1. Elections are possible; then some nodes are special
+1. May even wish: Any process can function as any other
+
+* Clients and Servers
+
+  1. Server: Has a menu of things it can do on request
+     1. How many nodes/ processes
+  2. Client: Requests a server to do one of the operations
+
+* Remote Procedure Call
+
+1. RPC aims to do the equivalent of local (ie., within the same
+   process) procedure call.
+
+1. RMI (remote method invocation) is the OOP version of RPC.
+
+1. "An RPC-like mechanism describes a scenario in which a process called
+  the server makes several procedures available to other processes and
+  after that the only thing it does is "sit and wait" for incoming
+  calls from client processes. When such a call is received, the
+  client's request is serviced by the server, which could possibly
+  also return some result(s) to the client."
+

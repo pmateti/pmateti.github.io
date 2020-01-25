@@ -1,0 +1,511 @@
+<html>
+
+<head>
+<title>Distributed Computing Lectures by Prabhaker Mateti</title>
+<meta name="author" content="Prabhaker Mateti">
+<meta name="keywords" content="Split binary semaphore, CSP, Linda, RPC, RMI">
+<meta name="description" content="Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+<baseDEL href="http://www.cs.wright.edu/~pmateti/" target="_blank" />
+
+<style type="text/css">
+  a:hover      { color: brown; background-color: ivory; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  TD P { text-align: justify }
+  LI { text-align: justify; }
+  pre {color: brown;}
+  tt {color: brown; border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  sr {color: brown;}
+  @media screen {BODY {white; margin: 15%} }
+  body {counter-reset: h2c;}
+  h1 {counter-reset: h2c; }
+  h2:before {content: counter(h2c) ". "; counter-increment: h2c; }
+  h3DNW:before {content: counter(h2c) "." counter(h3c) " "; counter-increment: h3c;}
+  h2.nonum:before {content: none; counter-increment: none;}
+</style>
+</head>
+
+<body>
+<link rel="stylesheet" href="RevealJS/css/reveal.min.css">
+<link rel="stylesheet" href="RevealJS/css/theme/serif.css" id="theme">
+
+<div class="reveal">
+  <div class="slides">
+
+<section>
+    <h4>
+<a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370:&nbsp;Distributed Computing Principles</a></h4>
+<h2 class=nonum>
+Mathematics of Shared Variables</h2>
+
+<h4>
+<a href="http://www.cs.wright.edu/~pmateti">
+Prabhaker Mateti</a>
+</h4>
+
+<p> This page is about shared variable concurrency issues, using
+mathematical logic.  It assumes you read through the notes on <a
+href="./assertions.html"> assertions</a>.
+
+</section><section><h2>Fine Grained Atomicity</h2>
+
+<table width=100%>
+<tr><td width="40%" valign=top>
+<sr>
+S1 :: x := y<br>
+S2 :: y := z<br>
+S0 :: co  S1  ||  S2 oc
+</sr>
+</td><td>&nbsp;</td>
+<td width="60%" valign=top>
+Final value of x can be:<br>
+old-y or z
+</td>
+<tr><td><hr></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td width="30%" valign=top>
+<sr>
+S1:: y := 0; z := 0<br>
+S2:: x := y + z<br>
+S3:: y := 1; z := 2<br>
+S0:: S1; co S2  ||  S3 oc
+</sr>
+</td><td>&nbsp;</td>
+<td width="60%" valign=top>
+Final value of x can be:<br>
+0, 1, 2, or 3
+</td></tr>
+<tr><td><hr></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<td width="30%" valign=top>
+<sr> co x := y + y  ||  y := 1 oc</sr>
+</td>
+<td>&nbsp;</td>
+<td width="60%" valign=top>
+<p>has two references to y. <sr>y + y</sr> can read both the old and
+new values of y in either instance.
+</p></td>
+</tr>
+<tr><td><hr></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><sr> || </sr> </td><td>&nbsp;</td><td>Interpret as (e.g. Java) threads </td></tr>
+</table>
+
+</section><section><h2>Specifying Synchronization</h2>
+
+<ol>
+<li>The await statement <sr>&lsaquo; await B &rarr; S &rsaquo;</sr> is a coarse grained
+construct.  </li>
+<li>Condition synchronization:  <sr>&lsaquo; await B &rsaquo;</sr></li>
+<li>Unconditional atomic action: <sr>&lsaquo; S &rsaquo;</sr></li>
+<li>Conditional atomic action:  <sr>&lsaquo; await B &rarr; S &rsaquo;</sr></li>
+<li><p>Is <sr> &lsaquo; await B &rsaquo;</sr> implemented as <sr>do not B &rarr;
+skip od</sr> correct?</p></li> 
+<li>
+<p style="color: blue">Await Rule:
+{P & B} S {Q} &rArr;  {P} &lsaquo; await B &rarr; S &rsaquo; {Q}</p>
+
+</ol>
+
+</section><section><h2>At-Most-Once(e)</h2>
+
+<ol>
+
+  <li> <p style="color: blue"> for-all x in sharedVars(e):
+  (nrefs(x,  e) &le; 1)</p>
+
+  <ol>
+    <li>
+    Simple variable &equiv; a whole variable, not a "part", e.g., array[i];
+    <li>
+    e is an expression of "this" process; P stands for any "other" process
+    <li>
+    writeVars(P) ::= vars P modifies; readVars(P) ::= vars P reads
+    <li>
+    sharedVars(e) ::= modified by others
+    <li>
+    nrefs(x, e) ::= (free) occurs of x in e
+  </ol>
+  <li><p><sr> &lsaquo; await B &rsaquo;</sr> implemented as <sr>do not B &rarr;
+  skip od</sr> is correct if
+  At-Most-Once(B)</p></li>
+  
+</ol>
+</section><section><h3>At-Most-Once(x := e)</h3>
+
+<ol>
+  <li>
+<p style="color: blue">
+(At-Most-Once(e) & x not-in readVars(P)) &nbsp; OR<br>
+(simpleVar(x) & refVars(e) disjoint-with writeVars(P))</p>
+
+<ol>
+<li>
+writeVars(P) ::= vars P modifies, readVars(P) ::= vars P reads<br>
+<li>refVars(P) ::= vars P reads/writes
+</ol>
+
+<li> <p> A statement using shared variables obeying the At-Most-Once
+property executes as if it were atomic.</p> </ol>
+
+</section><section><h2>Deduction Rules</h2>
+
+<ol>
+  <li> <sr>{x = 0 & y = 0} co x := x + 1 || y := y + 1 oc {??} </sr><br>
+  x = 1? y = 1? Yes.
+  <li>Can we generalize this? Suppose {Pi} Si {Qi}.  Can we then conclude<br>
+  <sr>
+  {P1 & P2 & ... & Pn}  co S1 || S2 || ... || Sn oc  {Q1 & Q2 &...& Qn}</sr>
+?</li>
+  <p>No. &nbsp;&nbsp E.g., &nbsp;&nbsp;
+  Si ::  x := x + 1, &nbsp;
+  Pi &equiv; {x = 0}, Qi &equiv; {x = 1}
+  <li><p>We have <i>interference.</i>
+</ol>
+
+</section><section><h2>Interference, Intuitively speaking ...</h2>
+
+<ol>
+
+  <li>A program consisting of several processes
+  (threads) works "well" zillions of times, but every once in a while
+  it works incorrectly.  Problem could be shared variable
+  interference.
+
+  <li>Consider the execution of statement Si of a chosen process.
+  There must be a precondition for Si (whether you bothered to write
+  it or not). Consider the weakest such precondition Pi.  In all the
+  zillions of times, this Pi was True, and Si works "well".
+
+  <li>Suppose Pi became False because of other processes.  Rarely,
+  ofcourse. Si no longer works "well".  This is not going to be solved
+  by inserting Si into &lsaquo; Si &rsaquo;
+
+  <li>Is this going to happen with all Si?  Only for certain
+  "important" ones.
+
+
+ </ol>
+
+</section><section><h2>Free of Interference</h2>
+
+ <ol>
+   <li>We will identify critical assertions in the sense of "highly
+   important".
+
+   <li>We verify that these are not becoming False due to other
+   processes.
+
+</ol>
+</section><section><h2>Critical Assertions</h2>
+
+<ol>
+  <li>Good coding: An assignment x := e executes atomically:
+  <ol><li>At-Most-Once(x := e)
+    <li>&lsaquo; x := e &rsaquo;
+  </ol>
+
+  <li>Complete proof oultine: An assertion before and after each statement.
+
+  <li>
+  <p><sr>{P(e)} &lsaquo; x := e &rsaquo; {P(x)}</sr>  P(e) is a critical assertion.
+
+  <li><sr>{P} &lsaquo; S1; {Q} S2 &rsaquo; {R}</sr> Q is not a critical
+  assertion. The state of the process after S1 is not visible to
+  others.
+
+  <li><p> Consider the complete proof of <sr>{P} S {Q}</sr>.  S
+  contains || and &lsaquo; &rsaquo;
+  <ol>
+    <li> <sr>Q</sr> is a <i>critical assertions</i>, and
+    <li> for each statement T within S that is not
+    within an await statement,<br>
+    <sr>{pre(T)} T {post(T)}</sr>, the
+    weakest predicate <sr>pre(T)</sr> is a <i>critical assertions</i>.
+    </ol>
+</ol>
+
+</section><section><h3>Non-Interference</h3>
+
+<ol>
+  <li>Assignment action A.  Critical assertion C.</p>
+
+  <li>A does not interfere with C, NI(A, C), if <sr>{C & pre(A)} A {C}</sr>.
+
+</section><section>
+
+<table width=100%>
+<tr><td width="45%" valign=top>
+<h3>Interference Freedom</h3>
+{Pi} Si {Qi}, 1 &le; i &le; n,<br>
+are <i>interference-free</i> if<br>
+&nbsp;&nbsp;&nbsp;&nbsp; for-all A in Si<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for-all C in Sj, i &ne; j,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+NI(A, C) holds.
+</td>
+<td>&nbsp;&nbsp;</td>
+<td width="55%" valign=top>
+<a name=ConcurrencyRule></a><h3>Concurrency Rule</h3>
+{Pi} Si {Qi}, 1 &le; i &le; n, are <i>interference-free</i><br>
+&rArr;<br>
+{P1 & ... & Pn}<br>
+co S1  ||  S2  ||  ...  ||  Sn oc<br>
+{Q1 & ... & Qn}
+</td></tr></table>
+
+</section><section><h2>Avoiding Interference</h2>
+
+<ol>
+  <li>#histories of a conc program is exponential in #atomic-actions
+  <li>#ways of interferences is much smaller
+  <li>Disjoint Variables:
+  (writeVars(P1) disjoint refVars(P2) & writeVars(P2) disjoint refVars(P1))
+  implies P1 and P2 do not interfere.
+</ol>
+
+</section><section><h3>Weakened Assertions-1</h3>
+
+<p>Concurrency Rule is sufficient, but not necessary.  E.g., we can
+intuitively see that x = 3 after S0 in the following.</p>
+
+<table width=100%>
+<tr><td width="30%" valign=top>
+<sr>
+X0:: x := 0<br><br>
+S1:: &lsaquo; x := x + 1 &rsaquo;<br>
+S2:: &lsaquo; x := x + 2 &rsaquo;<br>
+<br>
+
+S0:: X0; co S1  ||  S2 oc
+</sr>
+</td><td>&nbsp;</td>
+<td width="60%" valign=top>
+<p>
+Clearly, post S0 we have x = 3. But, with<br>
+{x = 0} S1 { x = 1}<br>
+{x = 0} S2 { x = 2}<br>
+valid (in isolation), that x = 3 cannot be proven.<br>
+<br>
+S1 interferes with x = 0, and x = 2.<br>
+S2 interferes with x = 0, and x = 1.<br>
+</td>
+</tr>
+</table>
+
+</section><section><h3>Weakened Assertions-2</h3>
+
+  <table width=100%>
+    <tr><td width="30%" valign=top>
+      <sr>
+      X0:: x := 0<br><br>
+      S1:: &lsaquo; x := x + 1 &rsaquo;<br>
+      S2:: &lsaquo; x := x + 2 &rsaquo;<br>
+      <br>
+
+      S0:: X0; co S1  ||  S2 oc
+      </sr>
+    </td><td>&nbsp;</td>
+    <td width="60%" valign=top>
+      <p>We can show, using the rules we have so far,<br><br>
+      {(x = 0 or x = 1) & (x = 0 or x = 2)}<br>
+      <sr>co S1  ||  S2 oc</sr><br>
+      {(x = 2 or x = 3) & (x = 1 or x = 3)}</p>
+
+      <p>Pre- simplifies to x = 0. Post- simplifies to x = 3.</p>
+
+    </td> </tr> </table>
+
+<ol>
+  <li> Even when writeVars(P) overlap refVars(P), there may not be
+  interference.
+  <li> The "Weekened Assertion" method is for this situation.
+  <blockquote>
+  About shared variables, make a weaker assertion than could be
+  made if processes were executed in isolation.
+  </blockquote>
+</ol>
+
+
+
+</section><section><h3>Weakened Assertions-3</h3>
+<p>
+weaken {x = 0} S1 { x = 1} to &nbsp;&nbsp; {x = 0 or x = 2} S1 { x = 1 or x = 3}<br>
+weaken {x = 0} S2 { x = 2} to &nbsp;&nbsp; {x = 0 or x = 1} S2 { x = 2 or x = 3}<br>
+
+<p>
+Claim:  S1 does not interfere with pre(S2).<br>
+Proof:
+  Show NI(S1, pre(S2)) holds.
+<ol>
+  <li>i.e., show {pre(S2) & pre(S1)} S1 {pre(S2)}.<br>
+  <li>i.e., show {(x = 0 or x = 1)  &  (x = 0 or x = 2)} S1 {(x = 0 or x = 1)} holds.
+  <li>i.e., show {x = 0} S1 {(x = 0 or x = 1)} holds.
+  <li>i.e., show (x = 0) &rArr; (x+1 = 0 or x+1 = 1) holds.
+  <li>i.e., show (x = 0) &rArr; (x = -1 or x = 0) holds.  QED
+</ol>
+
+</section><section><h3>Weakened Assertions-4</h3>
+<p>
+Claim:  S2 does not interfere with pre(S1).<br>
+Proof:  similar<br>
+
+<p>
+Now, we can instantiate the Concurrency Rule<br>
+{x = 0 or x = 2} S1 { x = 1 or x = 3}<br>
+{x = 0 or x = 1} S2 { x = 2 or x = 3}<br>
+no interference<br>
+&rArr;<br>
+{(x = 0 or x = 2) & (x = 0 or x = 1)} <sr>co S1  ||  S2 oc</sr> {(x = 1 or x = 3) & (x = 2 or x = 3)}<br>
+
+<p>
+The above simplifies to 
+{x = 0} <sr>co S1  ||  S2 oc</sr> {x = 3}<br>
+
+</section><section><h3>Global Invariants</h3>
+
+<ol>
+
+<li>An assertion I is a global invariant if it is true (i) before the
+processes begin, and (ii) before and after every assignment action of all
+processes.</li>
+
+<li>
+{I & pre(a)} <sr>a</sr> {I}, for all <sr>a</sr> taken from all processes.</li>
+
+<li> C &equiv; I & L, where C is a critical assertion of Pj and L an
+assertion about private/local variables of Pj.</li>
+
+<li> If all assertions are of the above form, the processes are
+interference-free.</li>
+
+<li>Study the proof of the Array Copy from Andrews book.
+</ol>
+
+</section><section><h3>Synchronization</h3>
+
+<ol>
+  <li><sr>co P1:: ... {pre(a)} a ...<br>
+  || &nbsp; P2:: ... S1; {C} S2 ...<br>
+  oc
+  </sr><br>
+  Suppose a interferes with critical assertion C.
+  
+  <li>Solution-1: Hide C from a, using mutex in P2: <sr>&lsaquo; S1; S2
+  &rsaquo;</sr>
+
+  <li>Solution-2: Replace a of P1 with <sr>&lsaquo; await not C or
+  wp(a, C) &rarr; a &rsaquo;</sr>
+
+</ol>
+
+</section><section><h2>Auxiliary Variables-1</h2>
+
+<ol>
+  <li>Program counters of different processes
+  <li>Introduce aux vars solely for proof purposes.
+  <li>
+  Suppose S' has aux variables.  S is S1 with all statements using aux
+  vars deleted.  Suppose P, Q are assertions about regular vars.  Then,
+<p>
+{P} S' {Q} &rArr; {P} S {Q}
+</ol>
+
+</section><section><h3>Auxiliary Variables-2</h3>
+
+<sr>var x := 0; var t1 := 0; var t2 := 0;</sr>&nbsp;{Let I &equiv; x = t1 + t2}<br>
+{I & t1 = 0 & t2 = 0}<br>
+<sr>co</sr> {I & t1 = 0} <sr>&lsaquo; x := x+1; t1 := 1 &rsaquo;</sr> {I & t1 = 1}<br>
+<sr>||</sr> &nbsp; {I & t2 = 0} <sr>&lsaquo; x := x+1; t2 := 1 &rsaquo;</sr> {I & t2 = 1}<br>
+<sr>oc</sr><br>
+{I & t1 = 1 & t2 = 1}
+</sr>
+
+<p>
+Each assertion is an & of a global invariant and an assertion on vars
+not used by the other process.  The above is interference-free.  Thus,
+the above is a valid conclusion.
+
+</section><section><h2>Proving Safety Properties</h2>
+
+<ol>
+
+  <li> See <a href="./temporal-logic.html">temporal logic</a> for defs
+  of safety and liveness.
+
+  <li>To prove that an assertion F is a safety property of a program
+  G, show that<br>
+  every C &rArr; F, where C are critical assertions from
+  {P} G {Q}
+  
+  <li>Our phrasing above differs from Andrews for th ebetter.
+
+  <li> Exclusion of Configs.  Suppose P & Q is false.  A process
+  cannot then be in a state satifying P when/while another process is
+  in a state statisfying Q.
+
+</ol>
+
+</section><section><h3>Liveness and Fairness</h3>
+
+<ol>
+
+  <li> Most liveness properties depend on fairness.  See <a
+  href="../Fundas/fairness-etc.html"> fairness-etc</a>.
+
+  <li> See <a href="./temporal-logic.html"> temporal logic</a> for defs
+  of weak and strong fairness.
+
+</ol>
+
+</section><section><h2>Exercises</h2>
+
+<ol>
+  <li>
+    See the Exercises in Andrews, Chapters 1 and 2.
+
+  <li> Does the precondition and statement {x&nbsp; &ge; 4 } &lsaquo; x := x - 4 
+    &rsaquo; interfere with the triple
+    {x is odd} &lsaquo; x := x + 5 &rsaquo; {x is even}.</li>
+  <li> Using the technique of weakened assertions, prove that {x = 1}
+    S {x = 7} is a theorem, where S is <sr>co &lsaquo; x := x+1&rsaquo;
+     ||  &lsaquo; x := x+2&rsaquo;  ||  &lsaquo; x := x+3&rsaquo; oc</sr></li>
+
+</ol>
+
+</section><section><h2>References</h2>
+
+<ol>
+
+  <li>Gregory R. Andrews, <i>Concurrent Programming: Principles and
+      Practice</i>, Benjamin/Cummings, 1991.  Chapters 1 and 2:
+      Required Reading.
+
+  <li> Mark Batty, Scott Owens, Susmit Sarkar, Peter Sewell, and Tjark
+    Weber, Mathematizing C++ Concurrency, ACM POPL 2011.  Web-search
+    for its pdf.  Recommended Reading.  </ol>
+
+
+</section><section>
+<hr size=1>
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2014
+<a href="mailto:pmateti@wright.edu?subject=CEG7370: Distr Comp">
+  pmateti@wright.edu</a>
+</section>
+  </div>
+</div>
+
+<script src="RevealJS/lib/js/head.min.js"></script>
+<script src="RevealJS/js/reveal.min.js"></script>
+<script>
+  Reveal.initialize({});
+</script>
+<script>
+  document.write( '<link rel="stylesheet" href="RevealJS/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+</script>
+
+
+  </body>
+</html>
+

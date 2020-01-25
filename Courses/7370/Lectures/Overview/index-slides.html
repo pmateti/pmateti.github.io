@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Lectures by Prabhaker Mateti</title>
+
+    <link rel="stylesheet" href="../../RevealJS/css/reveal.css">
+    <link rel="stylesheet"
+          href="../../RevealJS/css/theme/solarized.css"
+          id="theme">
+    <link rel="stylesheet" href="../../RevealJS/lib/css/zenburn.css">
+    <style> 
+      code, tt {color: green;}
+      pre {color: blue;}
+    </style>
+  </head>
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+<section "id=preamble">
+<h1 class="title">DistrComp  Course Overview</h1><h2 style="color: black"> Prabhaker Mateti<h2><h3> IIIT Delhi </h3><a href="https://pmateti.github.io"> pmateti.github.io</a></section>
+<section id="table-of-contents">
+<h2>Table of Contents</h2>
+
+<ul>
+<li><a href="#orgc9ad7e6">1. Course Home Page</a></li>
+<li><a href="#org91c343f">2. Syllabus</a></li>
+<li><a href="#org561b4eb">3. Grading</a></li>
+<li><a href="#org73e3001">4. Survey of Prerequisites</a></li>
+<li><a href="#orgef0b78e">5. Course Lecture Samples</a></li>
+<li><a href="#org375dc5c">6. References</a></li>
+</ul>
+</section>
+</section>
+
+<section id="outline-container-orgc9ad7e6" class="outline-2">
+<h2 id="orgc9ad7e6"><span class="section-number-2">1</span> Course Home Page</h2>
+<sectionX  id="text-1">
+<ol class="org-ol">
+<li>DIC <a href="https://cecs.wright.edu/~pmateti/Courses/7370/Top/index.html">Course Home Page</a> [Do click this link.]</li>
+<li>Visit this Home Page regularly.  Once a day?</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-org91c343f" class="outline-2">
+<h2 id="org91c343f"><span class="section-number-2">2</span> Syllabus</h2>
+<sectionX  id="text-2">
+<p>
+The next few slides will do:
+</p>
+<ol class="org-ol">
+<li>Course Description</li>
+<li>Source Materials</li>
+<li>Course Content</li>
+</ol>
+</section>
+
+
+<section id="outline-container-orgaf71fea" class="outline-3">
+<h3 id="orgaf71fea"><span class="section-number-3">2.1</span> What is Distributed Computing?</h3>
+<sectionX  id="text-2-1">
+<ol class="org-ol">
+<li>Distributed Computing is coordinated computing using machines at
+many locations.</li>
+<li>It primarily uses <i>message passing</i>.</li>
+<li>It tries to avoid <i>synchronization</i>.</li>
+<li>It tries to avoid <i>shared variables</i>.</li>
+<li>It tries to be robust in the presence of individual machine failures.</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-orgf5d1900" class="outline-3">
+<h3 id="orgf5d1900"><span class="section-number-3">2.2</span> Detailed content #1</h3>
+<sectionX  id="text-2-2">
+<ol class="org-ol">
+<li>Semantics of semicolon, parallel-bar, and fat-bar.</li>
+<li>Review of classic problems in concurrency.</li>
+<li>Semaphores: weak and strong, split-binary, distributed.</li>
+<li>Distributed Termination.</li>
+<li>CSP (Communicating Sequential Processes).</li>
+<li>GO Language Systems Programming.</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-org098bc23" class="outline-3">
+<h3 id="org098bc23"><span class="section-number-3">2.3</span> Detailed content #2</h3>
+<sectionX  id="text-2-3">
+<ol class="org-ol">
+<li>Distributed Tuple Space and Linda.</li>
+<li>Clients and Servers, RPC, RMI.</li>
+<li>Actors, Scala Akka.</li>
+<li>Distributed file servers.  IPFS.</li>
+<li>Semantics of Concurrency.  Axiomatic Semantics. Temporal Logic.</li>
+<li>Fairness.  Starvation.  Mutual exclusion.  Deadlocks. Livelocks.
+Interference.</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-org57dbc36" class="outline-3">
+<h3 id="org57dbc36"><span class="section-number-3">2.4</span> Prerequisites</h3>
+<sectionX  id="text-2-4">
+<ol class="org-ol">
+<li>Undergraduate course on OS Internals and Concurrent Programming</li>
+<li>Fluency in C++ and Java; Fluency in Go is not expected.</li>
+<li>Familiarity with Linux OS and IPC mechanisms.</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-orgfefb323" class="outline-3">
+<h3 id="orgfefb323"><span class="section-number-3">2.5</span> Course Objectives</h3>
+<sectionX  id="text-2-5">
+<ol class="org-ol">
+<li>Understand the technologies of Remote Invocation (RPC, RMI), and
+Actors in several languages.</li>
+<li>Understand the principles of concurrent, distributed, networked, and
+parallel computing.</li>
+<li>Understand non-deterministic computations and unfair scheduling as
+givens.</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-orgbfc558c" class="outline-3">
+<h3 id="orgbfc558c"><span class="section-number-3">2.6</span> Learning Outcomes</h3>
+<sectionX  id="text-2-6">
+<ol class="org-ol">
+<li>Write client-server programs using RPC in C/C++, RMI in Java, and
+Channels in Go, and Actors in Scala.</li>
+<li>Use distributed file server technology, e.g., IPFS.</li>
+<li>Reason about programs using assertions and temporal logic.</li>
+<li>Become fluent in Go and Scala.</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-orgc72a2a5" class="outline-3">
+<h3 id="orgc72a2a5"><span class="section-number-3">2.7</span> Source Materials: Books</h3>
+<sectionX  id="text-2-7">
+<ol class="org-ol">
+<li>Gregory R. Andrews, <i>Concurrent Programming: Principles and
+Practice</i>, Benjamin/Cummings, 1991.  {A classic.  Look for it on
+EBay?  Text Book.}  See also his revision of the above book.
+<a href="./andrews-multithreaded-toc.html">./andrews-multithreaded-toc.html</a>  [We will do Chapters 1 and 2 much
+later in our course.]</li>
+
+<li>Alan A. A. Donovan and Brian W. Kernighan. The Go Programming Language. 201x.</li>
+<li>Andrew S. Tanenbaum and Maaten Van Steen. Distributed Systems:
+Principles and Paradigms. 201x</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-orga0c33c2" class="outline-3">
+<h3 id="orga0c33c2"><span class="section-number-3">2.8</span> Source Materials: On Line</h3>
+<sectionX  id="text-2-8">
+<ol class="org-ol">
+<li><a href="https://cecs.wright.edu/people/faculty/pmateti/Courses/7370/">Course Home Page</a> All course related announcements will be posted on
+this page.</li>
+
+<li>Scala + Akka Documentation, <a href="https://doc.akka.io/docs/akka/current/?language=scala">https://doc.akka.io/docs/akka/current/?language=scala</a></li>
+
+<li>Java tutorial, <a href="https://docs.oracle.com/javase/tutorial/">https://docs.oracle.com/javase/tutorial/</a></li>
+<li><a href="https://github.com/theanalyst/awesome-distributed-systems">https://github.com/theanalyst/awesome-distributed-systems</a> "A curated
+list to learn about distributed systems."</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-orgc818124" class="outline-3">
+<h3 id="orgc818124"><span class="section-number-3">2.9</span> Fundamentals (4 lectures)</h3>
+<sectionX  id="text-2-9">
+<ol class="org-ol">
+<li>Starvation, deadlocks, livelocks. Interference, fairness, safety
+and liveness properties. Fine-grain and coarse-grain parallelism.</li>
+<li>Review of classic problems in concurrency.</li>
+<li>Proper definition of semaphore. Weak and strong semaphores. Split-binary semaphores.</li>
+<li>Starvation-free mutual exclusion.</li>
+<li>Readers-Writers and the technique of "passing the baton.''</li>
+</ol>
+</section>
+
+<section id="outline-container-org36d672f" class="outline-4">
+<h4 id="org36d672f"><span class="section-number-4">2.9.1</span> Refs</h4>
+<section class="outline-text-4" id="text-2-9-1">
+<ol class="org-ol">
+<li>Andrews, Chapters 1, 2, 3.1, 3.5, 4, 5, 6, and Section 10.2.</li>
+<li>Jan Tijmen Udding, "Absence of Individual Starvation Using Weak
+Semaphores,'' <i>Information Processing Letters</i>, Vol. 23, 1986,
+159-162.</li>
+<li>Allen B. Downey , "The Little Book of Semaphores", freely
+downloadable book, 201x, <a href="http://www.greenteapress.com/semaphores/">http://www.greenteapress.com/semaphores/</a></li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-orgb70fe77" class="outline-3">
+<h3 id="orgb70fe77"><span class="section-number-3">2.10</span> Remote Invocation (4)</h3>
+<sectionX  id="text-2-10">
+<ol class="org-ol">
+<li>Remote Procedure Calls (RPC), and Clients and
+Servers.</li>
+<li>Implementation of RPC. Stub generation, marshaling arbitrary data
+structures. External data representation (XDR) and RPCGEN. Study of
+an RPC example.</li>
+<li>Remote Method Invocation (RMI) and
+Object Serialization of Java.</li>
+</ol>
+</section>
+
+<section id="outline-container-org3c3335b" class="outline-4">
+<h4 id="org3c3335b"><span class="section-number-4">2.10.1</span> Refs</h4>
+<section class="outline-text-4" id="text-2-10-1">
+<ol class="org-ol">
+<li>Andrew D. Birrell and Bruce Jay Nelson, Implementing Remote
+Procedure Calls, ACM Transactions on Computer Systems (TOCS), 2, 1,
+pp. 39&#x2013;59, 1984. A classic paper.</li>
+<li>Oracle.com, ONC+ Developer's Guide;
+<a href="http://docs.sun.com/app/docs/doc/816-1435">http://docs.sun.com/app/docs/doc/816-1435</a>; Reference.  This is a
+highly recommended complete book on RPC.</li>
+<li><a href="https://www.cs.princeton.edu/courses/archive/fall16/cos418/docs/L3-rpc.pdf">https://www.cs.princeton.edu/courses/archive/fall16/cos418/docs/L3-rpc.pdf</a>
+Slides on
+Distributed Programming and Remote Procedure Calls (RPC)</li>
+<li>Java tutorial, <a href="http://download.oracle.com/javase/tutorial/">http://download.oracle.com/javase/tutorial/</a> Focus
+on the RMI trail.</li>
+<li>Andrews, Chapter 9.</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-orgc4a6b61" class="outline-3">
+<h3 id="orgc4a6b61"><span class="section-number-3">2.11</span> Distributed Algorithms (6)</h3>
+<sectionX  id="text-2-11">
+<ol class="org-ol">
+<li>CSP (Communicating Sequential Processes).</li>
+<li>Asynchronous and synchronous message passing.</li>
+<li>Logical clocks, ordering of events.</li>
+<li>Heartbeat, probe/echo, and broadcast algorithms.</li>
+<li>Distributed Mutual Exclusion.</li>
+<li>Implementation of Distributed Semaphores.</li>
+<li>Distributed Termination Detection.</li>
+</ol>
+</section>
+
+<section id="outline-container-org432687a" class="outline-4">
+<h4 id="org432687a"><span class="section-number-4">2.11.1</span> Refs</h4>
+<section class="outline-text-4" id="text-2-11-1">
+<ol class="org-ol">
+<li>C. A. R. Hoare, "Communicating Sequential Processes,''
+<i>Communications of the ACM</i>, 1978, Vol. 21, No. 8, 666-677.
+<a href="http://www.usingcsp.com/">http://www.usingcsp.com/</a> has an entire free book by Hoare describing
+further developements.  Hoare is a Turing Award Winner.</li>
+<li>Andrews, Chapters 7 and 8.</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-orge770f59" class="outline-3">
+<h3 id="orge770f59"><span class="section-number-3">2.12</span> Distributed Languages and Systems (8)</h3>
+<sectionX  id="text-2-12">
+<ol class="org-ol">
+<li><i>SR</i>: Multiple primitives,</li>
+<li><i>Linda</i>: Distributed data structures, and</li>
+<li>Java, and JavaSpaces,</li>
+<li>Actors + <i>Akka</i>.</li>
+<li>Distributed PLs: Erlang, Go, Scala.</li>
+<li>Distributed File Systems, IPFS</li>
+</ol>
+</section>
+
+<section id="outline-container-orgd968bd2" class="outline-4">
+<h4 id="orgd968bd2"><span class="section-number-4">2.12.1</span> Refs</h4>
+<section class="outline-text-4" id="text-2-12-1">
+<ol class="org-ol">
+<li>Andrews, Chapter 10.</li>
+<li>Sudhir Ahuja, Nicholas Carriero and David Gelernter, "Linda and
+Friends,'' <i>IEEE Computer</i> (magazine), Vol. 19, No. 8, 26-34.
+<a href="http://www.lindaspaces.com/">http://www.lindaspaces.com/</a> has an entire book.</li>
+<li>JavaSpaces <a href="http://en.wikipedia.org/wiki/Tuple_space">http://en.wikipedia.org/wiki/Tuple_space</a></li>
+<li>GO <a href="https://tour.golang.org/concurrency/1">https://tour.golang.org/concurrency/1</a> Goroutines and <a href="https://tour.golang.org/concurrency/2">https://tour.golang.org/concurrency/2</a> Channels</li>
+<li><a href="https://doc.akka.io/docs/akka/current/additional/books.html">Books and Docs on Akka</a></li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-orgc4fca08" class="outline-3">
+<h3 id="orgc4fca08"><span class="section-number-3">2.13</span> Semantics of Concurrency (4)</h3>
+<sectionX  id="text-2-13">
+<ol class="org-ol">
+<li>Programming logic.  Axiomatic Semantics.</li>
+<li>Assertions on process states.</li>
+<li>Pre-, post conditions, and loop invariants.</li>
+<li>Temporal logic.</li>
+</ol>
+</section>
+
+<section id="outline-container-orgc2f7c5f" class="outline-4">
+<h4 id="orgc2f7c5f"><span class="section-number-4">2.13.1</span> Refs</h4>
+<section class="outline-text-4" id="text-2-13-1">
+<ol class="org-ol">
+<li>Mateti, Lecture Notes on <a href="../Lectures/FormalMethods/">../Lectures/FormalMethods/</a></li>
+<li>Andrews, Chapter 2.</li>
+<li><a href="http://www.tlaplus.net/">http://www.tlaplus.net/</a> TLA "is a logic &#x2026; that consist[s] mainly
+of ordinary (non-temporal) mathematics with just a tiny bit of
+temporal logic."   Lamport is a 2013 Turing Award winner.</li>
+</ol>
+</section>
+</section>
+</section>
+</section>
+
+<section id="outline-container-org561b4eb" class="outline-2">
+<h2 id="org561b4eb"><span class="section-number-2">3</span> Grading</h2>
+<sectionX  id="text-3">
+</section>
+<section id="outline-container-org0770094" class="outline-3">
+<h3 id="org0770094"><span class="section-number-3">3.1</span> Exams 25+35%</h3>
+<sectionX  id="text-3-1">
+<ol class="org-ol">
+<li>Two exams.  Most likely take-home.  But, without searching the web
+or whatever for answers.  Honor code expected.</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-org7f10256" class="outline-3">
+<h3 id="org7f10256"><span class="section-number-3">3.2</span> Discussion Forum 5%</h3>
+<sectionX  id="text-3-2">
+<ol class="org-ol">
+<li><a href="https://piazza.com/wright/spring2020/ceg7370/home">https://piazza.com/wright/spring2020/ceg7370/home</a>  [Will rename soon.]</li>
+<li><a href="https://piazza.com/wright/spring2020/ceg7370/home">Piazza</a> is our discussion platform.</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-org56bc56c" class="outline-3">
+<h3 id="org56bc56c"><span class="section-number-3">3.3</span> Projects 35%</h3>
+<sectionX  id="text-3-3">
+<ol class="org-ol">
+<li>Projects P0 .. P3 5+10+10+10%</li>
+<li>P0 src code bundle is given.  Show that you can build and run it.</li>
+<li>P1 in C++, P2 in Java, P3 in Akka.  All are extensions of P0.</li>
+
+<li><a href="../Projects/7370projects.html">Projects</a>  [For full details click this link.]</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-org42dcec9" class="outline-3">
+<h3 id="org42dcec9"><span class="section-number-3">3.4</span> Home Work 0%</h3>
+<sectionX  id="text-3-4">
+<ol class="org-ol">
+<li>Homework will be given.  But neither collected nor graded.  Implies
+that you will work on various things on your own and discuss.</li>
+
+<li>Homework for this week, as a sample:</li>
+<li>Learn the Mine Sweeper game.  Imagine each cell is a computer
+system.  A cell talks to neighbors only through message passing.
+How do we program it?</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-org73e3001" class="outline-2">
+<h2 id="org73e3001"><span class="section-number-2">4</span> Survey of Prerequisites</h2>
+<sectionX  id="text-4">
+<ol class="org-ol">
+<li>We will try to fill you in on most of the prerequisites. The survey
+is for that purpose. In some ways it may be better that you have
+not heard of some of these things.</li>
+
+<li>Post on Piazza as well as interact now to this <a href="../Overview/survey.html">Survey of
+Prerequisites</a>.</li>
+</ol>
+</section>
+
+<section id="outline-container-org64eb62a" class="outline-3">
+<h3 id="org64eb62a"><span class="section-number-3">4.1</span> Survey: Concepts from Concurrency</h3>
+<sectionX  id="text-4-1">
+<ol class="org-ol">
+<li>How familiar are you with: critical sections, mutual exclusion,
+message passing, synchronization, fairness, starvation,
+non-determinism?</li>
+
+<li>Can you differentiate deadlocks from livelocks? safety from liveness?</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-org28c4a66" class="outline-3">
+<h3 id="org28c4a66"><span class="section-number-3">4.2</span> Survey: Constructs from Concurrent Programming</h3>
+<sectionX  id="text-4-2">
+<ol class="org-ol">
+<li>How familiar are you with: Critical Regions, Monitors, binary and
+general Semaphores?</li>
+
+<li>How familiar are you with IPC mechanisms of Linux?</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-org2b33b77" class="outline-3">
+<h3 id="org2b33b77"><span class="section-number-3">4.3</span> Survey: Classic Problems</h3>
+<sectionX  id="text-4-3">
+<ol class="org-ol">
+<li>How familiar are you with: Producers and Consumers, Readers and
+Writers, Dining Philosphers, Roll-Your-Own Cigarette Smoking,
+Sleeping Barber, Drinking Philosophers.</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-orgc5731a5" class="outline-3">
+<h3 id="orgc5731a5"><span class="section-number-3">4.4</span> Survey: Formal Semantics</h3>
+<sectionX  id="text-4-4">
+<ol class="org-ol">
+<li>How familiar are you with: assertions, pre- post-conditions, loop
+and class invariants.</li>
+
+<li>How familiar are you with: Happened Before?</li>
+<li>How familiar are you with: Propositions, Predicates and Temporal
+Logic?</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-org9f70560" class="outline-3">
+<h3 id="org9f70560"><span class="section-number-3">4.5</span> Survey: Program Development</h3>
+<sectionX  id="text-4-5">
+<ol class="org-ol">
+<li>How long is the longest C/C++ program that you have written
+individually?</li>
+
+<li>Same question but with Java.</li>
+
+<li>Same question but with Scala.  (Very possible that you have done
+nothing with this language.)</li>
+
+<li>How familiar are you with <code>make, ant, maven, gradle</code>, and various
+build-tools?</li>
+
+<li>What IDEs have you used and for how long?  E.g., idea/ eclipse/ 
+netbeans/ other-IDEs.  On Linux? On Windows?</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-orgef0b78e" class="outline-2">
+<h2 id="orgef0b78e"><span class="section-number-2">5</span> Course Lecture Samples</h2>
+<sectionX  id="text-5">
+<p>
+​1. We are picky about our terms.  Ex: "Process"
+</p>
+<ol class="org-ol">
+<li>All the following are conceptually the same: process, thread, task, job, &#x2026;</li>
+<li>On a given platform (e.g., Linux): process v thread v &#x2026; are different</li>
+<li>By def: a single process is sequential</li>
+
+<li>Muliprocess v Multiprocessor v Multi-core: Same? Similar?</li>
+</ol>
+</section>
+
+<section id="outline-container-org9eaf940" class="outline-3">
+<h3 id="org9eaf940"><span class="section-number-3">5.1</span> Concurrency Fundamentals #1: Non-Determinacy</h3>
+<sectionX  id="text-5-1">
+<ol class="org-ol">
+<li>Ex: Consider the simple assignment statement
+<ol class="org-ol">
+<li>{x := 3 [] 7} (Note the fat-bar)</li>
+<li>What is the value of x?</li>
+<li>Either 3 or 7; nothing else; but which??</li>
+<li>Code better be prepared for either.</li>
+</ol></li>
+<li>The above computation P is non-determinant. Each time we run, the
+result of P may change "for no good reason."  Why? Because
+"non-determinacy" [] is baked in.</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-orgf836d2e" class="outline-3">
+<h3 id="orgf836d2e"><span class="section-number-3">5.2</span> Concurrency Fundamentals #2: Meta Terminology</h3>
+<sectionX  id="text-5-2">
+<ol class="org-ol">
+<li>Fundamentals v Principles v Foundations</li>
+<li>Concurrency Fundamentals constitute the core of this course.</li>
+<li>Until the last week of this course, we will use <i>concurrency</i> as a
+term covering all of <i>networked</i>-, <i>parallel</i>-, and <i>distributed</i>-
+computing.</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-org7cbc777" class="outline-3">
+<h3 id="org7cbc777"><span class="section-number-3">5.3</span> Semaphores Defs</h3>
+<sectionX  id="text-5-3">
+<ol class="org-ol">
+<li>A <i>semaphore</i> s is an OOP ADT (abstract data type) variable. It has
+an integer private data member s, only operable with two public
+methods called P and V, apart from being initialized.</li>
+<li>P(s) ≡ ‹ await  s &gt; 0 → s := s-1 ›</li>
+<li>V(s) ≡ ‹ s := s+1 ›</li>
+<li>The complications in the defs are (i) the atomic angular-brackets
+and (ii) the meaning of <i>await</i>.</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-org18c35b1" class="outline-3">
+<h3 id="org18c35b1"><span class="section-number-3">5.4</span> Starvation-Free Mutual Exclusion</h3>
+<sectionX  id="text-5-4">
+<ol class="org-ol">
+<li>{semaphore m := 1; P(m); Process-i; V(m)}</li>
+<li>This is starvation-<i>prone</i> in a  distributed context.</li>
+<li>Designing starvation-free solutions is part of this course.</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-org1a03fc0" class="outline-3">
+<h3 id="org1a03fc0"><span class="section-number-3">5.5</span> Starvation-Free MutEx: One Solution Idea</h3>
+<sectionX  id="text-5-5">
+
+<section class="figure">
+<img src="./Figures/starv-free.jpg" alt="starv-free.jpg" border="0" />
+</p>
+</section>
+<ol class="org-ol">
+<li>The dots are processes.  The thick-rectangles are gates letting in
+one process at a time. The black rectangle is where we require starve-free
+mutex.  A process finishing this will exit as the black dot did,
+skipping over the black-, red- and green boundaries.</li>
+<li>What is the rest of the "idea"?</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-org51608e3" class="outline-3">
+<h3 id="org51608e3"><span class="section-number-3">5.6</span> Axiomatics #1</h3>
+<sectionX  id="text-5-6">
+<ol class="org-ol">
+<li>Axiomatics is a way of defining the meaning of PL constructs, in a
+way much better than English prose.</li>
+<li>Notationally, we use the triplet &lt; P, S, Q &gt; whre P and Q are
+assertions (True/False Boolexp) on process state, S is a piece of code.</li>
+<li>Q describes the state after S completed.  It assumes that P was
+true when code S started.</li>
+<li>P is called a <i>pre-condition</i>.  Q is called a <i>post-condition.</i></li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-orgf3edc75" class="outline-3">
+<h3 id="orgf3edc75"><span class="section-number-3">5.7</span> Axiomatics #2</h3>
+<sectionX  id="text-5-7">
+<ol class="org-ol">
+<li>Here is an example applied to semaphore def.</li>
+
+<li>P(s) can be defined as follows: Given [(R and s &gt; 0) ⇒
+Q(s, s-1)], we can conclude &lt;R, P(s), Q&gt;</li>
+<li>V can be defined as follows: Given [R ⇒ Q(s, s+1),
+we can conclude &lt;R, V(s), Q&gt;</li>
+<li>There will be considerable discussion on this.</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-orgb9cb1d8" class="outline-3">
+<h3 id="orgb9cb1d8"><span class="section-number-3">5.8</span> Project on RPC #1</h3>
+<sectionX  id="text-5-8">
+<ol class="org-ol">
+<li>RPC Architecture [We will go over this in considerable detail.]</li>
+</ol>
+
+<section class="figure">
+<img src="./Figures/rpc-diag-tikz.jpg" alt="rpc-diag-tikz.jpg" width="60%" />
+</p>
+</section>
+</section>
+</section>
+
+
+<section id="outline-container-org0597438" class="outline-3">
+<h3 id="org0597438"><span class="section-number-3">5.9</span> Project on RPC #2 Marshalling/ Serializing</h3>
+<sectionX  id="text-5-9">
+<ol class="org-ol">
+<li>How do we send data structures that contain links/addresses to
+machines across the network?</li>
+</ol>
+
+
+<section class="figure">
+<img src="./Figures/rpc-marshalling-tikz.jpg" alt="rpc-marshalling-tikz.jpg" width="35%" />
+</p>
+</section>
+</section>
+</section>
+
+<section id="outline-container-org2d63868" class="outline-3">
+<h3 id="org2d63868"><span class="section-number-3">5.10</span> Actors</h3>
+<sectionX  id="text-5-10">
+<ol class="org-ol">
+<li>An <i>actor</i> is an extremely light weight process communicating with
+other actors through mailboxes.  No shared variables.</li>
+
+<li></li>
+</ol>
+
+<section class="figure">
+<img src="./Figures/fig-actors.jpg" alt="fig-actors.jpg" width="40%" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Carl Hewitt's Actors</p>
+</section>
+</section>
+</section>
+
+
+<section id="outline-container-org6d8361a" class="outline-3">
+<h3 id="org6d8361a"><span class="section-number-3">5.11</span> Dining Philosophers in Akka</h3>
+<sectionX  id="text-5-11">
+
+<section class="figure">
+<img src="./Figures/dining-philosophers.png" alt="dining-philosophers.png" width="50%" />
+</p>
+</section>
+
+<p>
+A problem created to illustrate concurrency issues. In our course, we
+wish to do this in Scala with Akka actors.
+</p>
+</section>
+</section>
+
+<section id="outline-container-org686cdf5" class="outline-3">
+<h3 id="org686cdf5"><span class="section-number-3">5.12</span> Distributed File Systems</h3>
+<sectionX  id="text-5-12">
+<ol class="org-ol">
+<li><i>DFS</i>: A file volume spatially distributed over many machines.</li>
+<li>Requirements: Transparency, Concurrency, Replication,
+Heterogeneity, Fault tolerance, Consistency, Security, Efficiency.</li>
+
+<li>Fault tolerance == Robustness, 24x7: Immune to (individual) machine
+failures.  cf. CAP "theorem".</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-org90edade" class="outline-3">
+<h3 id="org90edade"><span class="section-number-3">5.13</span> IPFS</h3>
+<sectionX  id="text-5-13">
+<ol class="org-ol">
+<li>Inter Planetary File System [Ha ha! For now, only on earth.]</li>
+<li><a href="https://ipfs.io/">https://ipfs.io/</a> [Do click] "IPFS powers the Distributed Web"</li>
+<li>Involves Blockchain and Filecoin.</li>
+<li>Link to Mateti's lectures <a href="../DistFileSys/IPFS/">../DistFileSys/IPFS/</a> [Not expected to
+click today]</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-org375dc5c" class="outline-2">
+<h2 id="org375dc5c"><span class="section-number-2">6</span> References</h2>
+<sectionX  id="text-6">
+<ol class="org-ol">
+<li>I will list specific chapters from Recommended Books later.  See
+also Source Materials #1 Books and Source Materials #2 On Line.</li>
+
+<li>M. Ben-Ari, Principles of Concurrent and Distributed Programming,
+Addison-Wesley/Pearson, 2006.  {Another classic.}</li>
+
+<li>George Coulouris, Jean Dollimore, Tim Kindberg, and Gordon Blair,
+Distributed Systems: Concepts and Design, 2011.  {Systems as
+opposed to principles, and foundations.}</li>
+</ol>
+</section>
+
+<section id="outline-container-org125352c" class="outline-3">
+<h3 id="org125352c"><span class="section-number-3">6.1</span> ACK</h3>
+<sectionX  id="text-6-1">
+<ol class="org-ol">
+<li>RevealJS: This presentation was made with <a href="https://revealjs.com">https://revealjs.com</a>, a FOSS HTML
+Presentation Framework</li>
+
+<li>Nearly all figures are borrowed from the web</li>
+</ol>
+</section>
+</section>
+</section>
+</section>
+<section id="postamble" class="status">
+<hr size=1>Copyright &copy; 2020 &bull; <a href=mailto:pmateti@iiitd.ac.in>pmateti@iiitd.ac.in</a> &bull; 2019-12-28
+</section>
+</body>
+</html>
+</section>
+</section>
+
+</div>
+</div>
+
+
+		<script src="../../RevealJS/js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+        slideNumber: true,
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+//  rollingLinks: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

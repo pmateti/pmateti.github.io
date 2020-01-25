@@ -1,0 +1,78 @@
+<title>CEG 7370 Distr Comp by Mateti</title>
+<base target="_top">
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  li { text-align: justify; }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+</head>
+
+<body>
+
+<h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370:&nbsp;Distributed Computing Principles</a></h3>
+<h1>Synchronous Message Passing SMP</h1>
+
+<h3>Prabhaker Mateti</h3>
+
+<p>This web page is organized in way that is useful during my lecture,
+instead of ppt slides.</p>
+
+<hr size=1>
+
+<h2>Synchronous Message Passing SMP</h2>
+
+<ol>
+<li> send message e to process B<br>
+  -- e an expression
+<li> receive message x from process A<br>
+  -- var x local to B
+<li> receiver waits for a message
+<li> send operation blocks until received<br>
+-- implies no/zero buffering<br>
+-- implied synchronization<br>
+-- cannot send messages to self<br>
+-- communication + sync
+
+<li> sender and receiver execute independently<br>
+<li> "time gap" <b>between</b> send and the corresponding receive is "zero"  
+<li> "time taken" by send and the corresponding receive is ...
+</ol>
+
+<h2>PL constructs for SMP</h2>
+
+<ol>
+<li><tt>Q ! e </tt> &nbsp; to process Q send the value of expression e
+<li><tt>P ? v </tt> &nbsp;
+receive message sent by P and deposit it in variable v
+<li>based on CSP
+</ol>
+
+
+<h2>References</h2>
+
+<ol>
+  <li>Gregory R. Andrews, Concurrent Programming: Principles and
+    Practice, Benjamin/Cummings, 1991.  Chapter 8 on SMP and also
+    Section 10.2 on Occam.  Required Reading.
+
+  <li>C. A. R. Hoare, ``Communicating Sequential
+    Processes,'' <i>Communications of the ACM</i>, 1978, Vol. 21,
+    No. 8, 666-677. This paper has many exercises for you to do.</li>
+
+</ol>
+</body>
+<hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2014
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+  Prabhaker Mateti</a>
+</html>

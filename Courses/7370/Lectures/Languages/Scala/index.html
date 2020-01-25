@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-12-25 Wed 15:16 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>A Practical Intro to Scala</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<meta name="description" content="Distributed Computing"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">A Practical Intro to Scala</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orge33c43d">1. Scala Tutorial in Five Pages</a></li>
+<li><a href="#org31c4e2b">2. Scala Tutorial in 75 minutes</a></li>
+<li><a href="#orge08dfcc">3. Scala REPL interactive</a></li>
+<li><a href="#org77c4b4f">4. Scala Tools</a></li>
+<li><a href="#org5d248d8">5. Concurrency in Scala</a>
+<ul>
+<li><a href="#org4a70881">5.1. Thread Example</a></li>
+<li><a href="#org67aa817">5.2. Signals and Monitors</a></li>
+<li><a href="#org2702aa6">5.3. Semaphores</a></li>
+<li><a href="#org748d4cb">5.4. Bounded Buffers / Producers-Consumers</a></li>
+<li><a href="#orgd587e73">5.5. Mailboxes</a></li>
+<li><a href="#org43045bd">5.6. Readers/Writers</a></li>
+<li><a href="#orge1439e8">5.7. Asynchronous Channels</a></li>
+<li><a href="#orgfbc2b8e">5.8. Synchronous Channels</a></li>
+<li><a href="#orgca9d7bd">5.9. SyncVars</a></li>
+<li><a href="#org68e322a">5.10. Futures</a></li>
+<li><a href="#org17e5d30">5.11. Hello Word with Actors</a></li>
+</ul>
+</li>
+<li><a href="#org47fec21">6. Functional</a></li>
+<li><a href="#org7c3f495">7. Misc</a></li>
+<li><a href="#orgd9faa56">8. Scala cf. Java</a>
+<ul>
+<li><a href="#org591ec4c">8.1. Tokens</a></li>
+<li><a href="#orgb648dc1">8.2. Case Classes and Pattern Matching</a></li>
+<li><a href="#orgaab3f49">8.3. Genericity</a></li>
+<li><a href="#org8405be6">8.4. (Dis) Similar to Java</a></li>
+<li><a href="#orga43e2f8">8.5. Dont Use</a></li>
+</ul>
+</li>
+<li><a href="#orgbeaf363">9. Scala can be Hard to Learn</a></li>
+<li><a href="#org5266645">10. scala, scalac details</a>
+<ul>
+<li><a href="#org3a3be85">10.1. Execute External Program</a></li>
+<li><a href="#orgc885398">10.2. scalac options</a></li>
+<li><a href="#org1d2cf7b">10.3. Scala Misc Info</a></li>
+<li><a href="#org443ce53">10.4. Scala Misc Info-2</a></li>
+<li><a href="#orgbde7eb0">10.5. Disassembly with javap</a></li>
+</ul>
+</li>
+<li><a href="#org061a9b9">11. References</a>
+<ul>
+<li><a href="#org76f204a">11.1. References #2</a></li>
+</ul>
+</li>
+<li><a href="#orgec81e38">12. End</a></li>
+</ul>
+</div>
+</div>
+<p>
+WIP Being revised. TBD Check links.
+</p>
+
+<div id="outline-container-orge33c43d" class="outline-2">
+<h2 id="orge33c43d"><span class="section-number-2">1</span> Scala Tutorial in Five Pages</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Scala is a "large" language.  It has built-in support for
+functional and procedural programming, OOP, and concurrency.  Its
+compilers can generate JVM as well as TBD native machine code.</li>
+<li>In 5 pages we cannot make you an expert in Scala.  But you will
+learn enough Scala to start writing concurrent programs &#x2013; provided
+you have taken an OS-level Concurrent Prog course, and are fluent
+in Java.</li>
+
+<li>We will use "actors" and Akka in this course.  See <a href="../../Actors">../../Actors</a>.</li>
+<li>Page 1:</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org31c4e2b" class="outline-2">
+<h2 id="org31c4e2b"><span class="section-number-2">2</span> Scala Tutorial in 75 minutes</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>How?  We defocus functional programming, and fancy features.</li>
+<li>Link to Source Code Examples: <a href="./scalaExamples">./scalaExamples</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orge08dfcc" class="outline-2">
+<h2 id="orge08dfcc"><span class="section-number-2">3</span> Scala REPL interactive</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li><code>scala</code> without args is a Read-Eval-Print-Loop (REPL), similar to
+Scheme, Python, &#x2026;</li>
+<li>Try <code>println("Hello, World!")</code></li>
+<li>Try <code>def fac(n: Int): BigInt = { if (n==0) 1 else n * fac(n - 1) }</code></li>
+<li>Note the declaration style; the {} can be omitted</li>
+<li>Try <code>{ val x = 5; x + 2 }</code> A "block" yields the value of the last
+expresseion</li>
+<li>Caution: Scala is a large language; a simple mistake can produce
+difficult to understand error.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org77c4b4f" class="outline-2">
+<h2 id="org77c4b4f"><span class="section-number-2">4</span> Scala Tools</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li><code>sbt</code> <a href="https://www.scala-sbt.org/">https://www.scala-sbt.org/</a> Simple Build Tool. Cf. <code>make</code>, <code>ant</code></li>
+<li>Intellij IDEA plugin <a href="http://www.jetbrains.com/idea/features/scala.html">http://www.jetbrains.com/idea/features/scala.html</a></li>
+<li><a href="http://www.scalatest.org/">http://www.scalatest.org/</a></li>
+
+<li><p>
+content of file named <code>hello-world-println.scala</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-scala">object HelloWorld {
+  def main(args: Array[String]) {
+    println("Hello, World!")
+  }
+}
+</pre>
+</div></li>
+<li>Compile <code>% scalac hello-world-println.scala</code></li>
+<li><p>
+<code>% ls -o</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">total 16
+-rw-rw-r-- 1 pmateti 595 Mar 29 21:26 HelloWorld.class
+-rw-rw-r-- 1 pmateti 608 Mar 29 21:26 HelloWorld$.class
+-rw-rw-r-- 1 pmateti  90 Mar 29 21:21 hello-world-println.scala
+</pre>
+</div></li>
+<li><p>
+<code>% scala HelloWorld</code> (similar to <code>java ClassName</code>)
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">Hello, World!
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org5d248d8" class="outline-2">
+<h2 id="org5d248d8"><span class="section-number-2">5</span> Concurrency in Scala</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Scala can do the following whose descriptions you must have run
+into in the concurrent/ distributed programming literature: Signals
+and Monitors, SyncVars, Futures, Parallel Computations, Semaphores,
+Readers/Writers, Asynchronous Channels, Synchronous Channels,
+Threads, Workers, Mailboxes, and Actors.</li>
+</ol>
+</div>
+
+
+
+<div id="outline-container-org4a70881" class="outline-3">
+<h3 id="org4a70881"><span class="section-number-3">5.1</span> Thread Example</h3>
+<div class="outline-text-3" id="text-5-1">
+<ol class="org-ol">
+<li><p>
+Try this in Scala REPL
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scala">List( "one", "two", "three", "four" ) .
+  foreach {
+    name =&gt;
+      new Thread {
+          override // needed
+          def run() = {
+            println(
+             "Thread " + name +
+             " [" + this + "] " +
+             "says Hello, World!"
+            )
+          }
+      }
+      .  start
+  }
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org67aa817" class="outline-3">
+<h3 id="org67aa817"><span class="section-number-3">5.2</span> Signals and Monitors</h3>
+<div class="outline-text-3" id="text-5-2">
+<ol class="org-ol">
+<li>Read: Andrews, Chapter 6: Monitors.</li>
+
+<li><code>def synchronized[A] (e: =&gt; A): A</code> Executes <code>e</code> in mutex mode</li>
+
+<li><code>def wait()</code> Running thread suspends itself by waiting on a
+<i>signal</i>.  (Unrelated to Linux signals.)</li>
+
+<li><code>def wait(msec: Long)</code> As above, but waits at most <code>msec</code> milli-seconds.</li>
+
+<li><code>def notify()</code> Cooperate with a <code>wait</code> -ing process, and check its
+condition <code>C</code> and inform.  Even so, do <code>while (!C) wait()</code></li>
+
+<li><code>def notifyAll()</code> How many being waken up: one in <code>notify()</code> and
+all in <code>notifyAll()</code> Many subtleties.  Look up the docs.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org2702aa6" class="outline-3">
+<h3 id="org2702aa6"><span class="section-number-3">5.3</span> Semaphores</h3>
+<div class="outline-text-3" id="text-5-3">
+<ol class="org-ol">
+<li><p>
+We had a pristine description of what semaphores are.  Scala
+semaphores are close, but no cigar.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scala">package scala.concurrent
+class Lock {
+  var available = true
+
+  def acquire = synchronized {
+    while (!available) wait()
+    available = false
+  }
+
+  def release = synchronized {
+    available = true
+    notify()
+  }
+}
+</pre>
+</div></li>
+
+<li>Similar to our DC Official Binary Semaphores (but <b>not</b> exactly).
+The above is implemented using a monitor.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org748d4cb" class="outline-3">
+<h3 id="org748d4cb"><span class="section-number-3">5.4</span> Bounded Buffers / Producers-Consumers</h3>
+<div class="outline-text-3" id="text-5-4">
+<div class="org-src-container">
+<pre class="src src-scala">class BoundedBuffer(N: Int) {
+  val buf = new Array[Int](N)
+  var in, out = 0	// indices of buf
+  var n = 0		// #items in buf
+
+  def put(x: Int) = synchronized {
+    while (n &gt;= N) { println("buf full") ; wait() }
+    buf(in) = x ; in = (in + 1) % N ; n += 1
+    if (n == 1) notifyAll() }
+
+  def get: Int = synchronized {
+    while (n == 0) wait()
+    val x = buf(out) ; out = (out + 1) % N ; n -= 1
+    if (n == N - 1) notifyAll()
+    x }
+}
+</pre>
+</div>
+
+<p>
+complete source:  <a href="./scalaExamples/bounded-buffers.scala">./scalaExamples/bounded-buffers.scala</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd587e73" class="outline-3">
+<h3 id="orgd587e73"><span class="section-number-3">5.5</span> Mailboxes</h3>
+<div class="outline-text-3" id="text-5-5">
+<div class="org-src-container">
+<pre class="src src-scala">class MailBox {
+  def send(msg: Any) synchronized { ... }
+  def receive[A](f: PartialFunction[Any, A]): A // uses synchronized { ... }
+  def receiveWithin[A](msec: Long)(f: PartialFunction[Any, A]): A
+}
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>type <code>Any</code> is the super-type of all (other) types.</li>
+<li><code>PartialFunction</code></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org43045bd" class="outline-3">
+<h3 id="org43045bd"><span class="section-number-3">5.6</span> Readers/Writers</h3>
+<div class="outline-text-3" id="text-5-6">
+<div class="org-src-container">
+<pre class="src src-scala">class ReadersWriters {
+  val m = new MailBox
+
+  private case class Writers(n: Int)  { m send this }
+  private case class Readers(n: Int) { m send this }
+
+  Writers(0); Readers(0)
+
+  //  see slide (down-arrow) also
+
+  def endRead = m receive {  // dot omitted
+    case Readers(n) =&gt; Readers(n-1)
+  }
+
+  def endWrite = m receive {
+    case Writers(n) =&gt; Writers(n-1)
+    if (n == 0) Readers(0)
+  }
+}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org8e849e9" class="outline-4">
+<h4 id="org8e849e9"><span class="section-number-4">5.6.1</span> Readers/Writers, contd</h4>
+<div class="outline-text-4" id="text-5-6-1">
+<div class="org-src-container">
+<pre class="src src-scala">def startRead = m receive {
+  case Writers(n) if n == 0 =&gt; m receive {
+    case Readers(n) =&gt; Writers(0); Readers(n+1)
+  }
+}
+
+def startWrite = m receive {
+  case Writers(n) =&gt;
+    Writers(n+1)
+    m receive { case Readers(n) if n == 0 =&gt; }
+}
+</pre>
+</div>
+
+<p>
+TBD URL to CEG 7370 Readers/Writers with priority for writers
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge1439e8" class="outline-3">
+<h3 id="orge1439e8"><span class="section-number-3">5.7</span> Asynchronous Channels</h3>
+<div class="outline-text-3" id="text-5-7">
+<div class="org-src-container">
+<pre class="src src-scala">class Channel[A] {
+  private var written = new LinkedList[A]
+  private var lastWritten = written
+  private var nreaders = 0
+  def write(x: A) = synchronized {
+    lastWritten.elem = x
+    lastWritten.next = new LinkedList[A]
+    lastWritten = lastWritten.next
+    if (nreaders &gt; 0) notify()   }
+
+  def read: A = synchronized {
+    if (written.next == null) {
+      nreaders += 1; wait(); nreaders -= 1
+    }
+    val x = written.elem
+    written = written.next
+    x  }
+}
+</pre>
+</div>
+
+<p>
+API <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.package">scala.concurrent.package</a>; cf. CEG 7370 <b>Semi</b> AMP
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfbc2b8e" class="outline-3">
+<h3 id="orgfbc2b8e"><span class="section-number-3">5.8</span> Synchronous Channels</h3>
+<div class="outline-text-3" id="text-5-8">
+<div class="org-src-container">
+<pre class="src src-scala">class SyncChannel[A] {
+  private var data: A = _
+  private var reading = false
+  private var writing = false
+  def write(x: A) = synchronized {
+    while (writing) wait()
+    data = x
+    writing = true
+    if (reading) notifyAll()
+    else while (!reading) wait()
+  }
+  def read: A = synchronized {
+    while (reading) wait()
+    reading = true
+    while (!writing) wait()
+    val x = data
+    writing = false
+    reading = false
+    notifyAll()
+    x
+  }
+}
+</pre>
+</div>
+
+
+<p>
+API <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.package">scala.concurrent.package</a>; cf. CEG 7370 SMP
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgca9d7bd" class="outline-3">
+<h3 id="orgca9d7bd"><span class="section-number-3">5.9</span> SyncVars</h3>
+<div class="outline-text-3" id="text-5-9">
+<div class="org-src-container">
+<pre class="src src-scala">package scala.concurrent
+class SyncVar[A] {
+  private var isDefined: Boolean = false
+  private var v: A = _
+  def get = synchronized
+      {while (!isDefined) wait(); v}
+  def set(x: A) = synchronized
+      {v = x; isDefined=true; notifyAll()}
+  def isSet: Boolean = synchronized {isDefined}
+  def unset = synchronized {isDefined = false} // API
+}
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>API <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.SyncVar">scala.concurrent.SyncVar</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org68e322a" class="outline-3">
+<h3 id="org68e322a"><span class="section-number-3">5.10</span> Futures</h3>
+<div class="outline-text-3" id="text-5-10">
+<ol class="org-ol">
+<li>An expression yet to be computed.  In the future.  When possible.
+When needed.  In parallel with something else.</li>
+
+<li><p>
+Use
+</p>
+<div class="org-src-container">
+<pre class="src src-scala">import scala.concurrent.ops._
+
+val fut = future(someLengthyComputation)
+anotherLengthyComputation
+val y = f(fut()) + g(fut())
+</pre>
+</div></li>
+
+<li><p>
+API <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.actors.Futures$">Futures</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scala">def future[A](p: =&gt; A): Unit =&gt; A = {
+  val result = new SyncVar[A]
+  fork { result.set(p) }
+  (() =&gt; result.get)
+}
+</pre>
+</div></li>
+
+<li>More on futures in <a href="./akka.html">akka</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org17e5d30" class="outline-3">
+<h3 id="org17e5d30"><span class="section-number-3">5.11</span> Hello Word with Actors</h3>
+<div class="outline-text-3" id="text-5-11">
+<div class="org-src-container">
+<pre class="src src-scala">import scala.actors.Actor
+
+List("one", "two", "three", "four").foreach {
+ name =&gt;
+   new Actor {
+     override
+     def act() = {
+       println("Thread " + name + " says Hello World!")
+     }
+   }
+  .start
+}
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>Use <code>akka.actors</code></li>
+<li>read <a href="./actors.html">actors</a> and <a href="./akka.html">akka</a></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-org47fec21" class="outline-2">
+<h2 id="org47fec21"><span class="section-number-2">6</span> Functional</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>Functions are first class values. Can be given as arguments.  Can
+be computed and returned also.</li>
+
+<li>Main strength of Scala is its combo of OO and Functional</li>
+
+<li>Closures</li>
+
+<li>Futures</li>
+
+<li>Promises</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org7c3f495" class="outline-2">
+<h2 id="org7c3f495"><span class="section-number-2">7</span> Misc</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li>var alst: List[ActorRef] = List();</li>
+
+<li>dependency injection frameworks?  Guice (pronounced 'juice') is a
+lightweight dependency injection framework for Java 5 and above,
+brought to you by Google.</li>
+
+<li><a href="http://docs.scala-lang.org/overviews/core/futures.html">http://docs.scala-lang.org/overviews/core/futures.html</a></li>
+
+<li>"Scala’s for loops are compiled to higher-order function calls, but
+while loops are low-level as in Java or C.  &#x2026; Concurrency and
+correctness might be easier to achieve with more functional code."</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd9faa56" class="outline-2">
+<h2 id="orgd9faa56"><span class="section-number-2">8</span> Scala cf. Java</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li>Scala <code>object</code> v Java <code>static</code></li>
+<li><code>Boolean</code>, <code>Int</code>, <code>Long</code>, <code>Float</code>, etc. are (built-in) classes/types.</li>
+<li>There are no <code>break</code> s or <code>continue</code> s in <code>for</code> loops</li>
+</ol>
+</div>
+
+<div id="outline-container-org591ec4c" class="outline-3">
+<h3 id="org591ec4c"><span class="section-number-3">8.1</span> Tokens</h3>
+<div class="outline-text-3" id="text-8-1">
+<ol class="org-ol">
+<li>Identifiers, operators, &#x2026; as in most languages.</li>
+<li>! ? with Hoare's CSP semantics.</li>
+<li><code>recvActor ! msg</code> send a message msg to recvActor</li>
+<li>Unusual symbolic tokens: <code>::=</code>  <code>:</code>, :+ and :\ TBD</li>
+
+<li>new special tokens: <code>_</code>, <code>&lt;-</code>, <code>::</code>  (+ several more)</li>
+<li><code>object</code>, <code>Unit</code>, <code>Any</code>, <code>Nil</code>, <code>None</code>, <code>Some(x)</code></li>
+<li><code>case</code> is used in different ways</li>
+<li>Constructors: <code>Array</code>, <code>List</code></li>
+<li><code>var x, y, z: Int = 0</code></li>
+
+<li><code>val x, y, z: Int = 0</code>  assigned one-time</li>
+
+<li>no <code>++</code>, or <code>--</code>; use instead <code>+=1</code> or <code>-=1</code></li>
+</ol>
+</div>
+
+<div id="outline-container-org007fb7b" class="outline-4">
+<h4 id="org007fb7b"><span class="section-number-4">8.1.1</span> Tokens-2</h4>
+<div class="outline-text-4" id="text-8-1-1">
+<ol class="org-ol">
+<li>Alphanumeric identifiers,  Operator identifiers, Mixed identifiers</li>
+
+<li><p>
+(from stackOverFlow.com ) Here are some valid examples:
+</p>
+<div class="org-src-container">
+<pre class="src src-scala">val !#%&amp;*+-/:&lt;=&gt;?@\^|~ = 1 // all simple opchars
+val wordEndingInOpChars_!#%&amp;*+-/:&lt;=&gt;?@\^|~ = 1
+val !^©® = 1 // opchars and symbols
+val abcαβγ_!^©® = 1 // mixing unicode letters and symbols
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb648dc1" class="outline-3">
+<h3 id="orgb648dc1"><span class="section-number-3">8.2</span> Case Classes and Pattern Matching</h3>
+<div class="outline-text-3" id="text-8-2">
+<ol class="org-ol">
+<li>Example expression:  <code>(x + y*2) / (1 + 3*z)</code></li>
+<li><p>
+Develop a tree representation for use in a Calc program.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scala">abstract class Tree
+case class Sum(l: Tree, r: Tree) extends Tree
+case class Var(n: String) extends Tree
+case class Const(v: Int) extends Tree
+</pre>
+</div></li>
+
+<li><a href="./scalaExamples/calc.scala">./scalaExamples/calc.scala</a> source code for a complete program but without * and /</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgaab3f49" class="outline-3">
+<h3 id="orgaab3f49"><span class="section-number-3">8.3</span> Genericity</h3>
+<div class="outline-text-3" id="text-8-3">
+<ol class="org-ol">
+<li>Genericity is the ability to write code where types can be substituted.</li>
+<li><div class="org-src-container">
+<pre class="src src-scala">class Reference[T] {
+  private var contents: T = _
+  def set(value: T) { contents = value }
+  def get: T = contents
+}
+</pre>
+</div></li>
+
+<li>Here, the underscore stands for the default value (of type T).
+This default is 0 for numerics, <code>false</code> for Boolean, <code>()</code> for the
+<code>Unit</code> type and <code>null</code> for all object types.</li>
+
+<li><div class="org-src-container">
+<pre class="src src-scala">object IntegerReference {
+  def main(args: Array[String]) {
+    val cell = new Reference[Int]
+    cell.set(13)
+    println("Reference contains the half of " + (cell.get * 2))
+  }
+}
+</pre>
+</div></li>
+
+<li>source code:  <a href="./scalaExamples/generics.scala">./scalaExamples/generics.scala</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org8405be6" class="outline-3">
+<h3 id="org8405be6"><span class="section-number-3">8.4</span> (Dis) Similar to Java</h3>
+<div class="outline-text-3" id="text-8-4">
+<ol class="org-ol">
+<li><code>toString</code></li>
+<li>Cf Scala <code>traits</code> v Java <code>interfaces</code></li>
+<li>Java <code>static</code> v Scala <code>object</code></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orga43e2f8" class="outline-3">
+<h3 id="orga43e2f8"><span class="section-number-3">8.5</span> Dont Use</h3>
+<div class="outline-text-3" id="text-8-5">
+<ol class="org-ol">
+<li>Implicit arguments</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgbeaf363" class="outline-2">
+<h2 id="orgbeaf363"><span class="section-number-2">9</span> Scala can be Hard to Learn</h2>
+<div class="outline-text-2" id="text-9">
+<ol class="org-ol">
+<li>Voluminous documentation aimed at programming newbies.  Too many
+(incompatible) versions.  E.g., 94,218 questions tagged on
+<a href="http://stackoverflow.com/questions/tagged/scala">http://stackoverflow.com/questions/tagged/scala</a> as of Dec 2019.</li>
+
+<li>Functional Programming paradigm: Imagine no variable can be
+assigned more than once.  Anonymous Functions. Currying. Closures.
+Functions as first class values.  Lazy values.</li>
+
+<li>Futures, Promises</li>
+
+<li>Type inferance; Co-variance and contra-variance; Monads</li>
+
+<li>Omission of "things": Implicit arguments, the dot, the semicolon, &#x2026;</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org5266645" class="outline-2">
+<h2 id="org5266645"><span class="section-number-2">10</span> scala, scalac details</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+<div id="outline-container-org3a3be85" class="outline-3">
+<h3 id="org3a3be85"><span class="section-number-3">10.1</span> Execute External Program</h3>
+<div class="outline-text-3" id="text-10-1">
+<div class="org-src-container">
+<pre class="src src-scala">import scala.sys.process._
+val cmd = "/usr/local/scala-2.11.0-RC3/bin/scalac -help"
+val txt = cmd.!!  // captures stdout
+val i : Int = Process("ls -l")!
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc885398" class="outline-3">
+<h3 id="orgc885398"><span class="section-number-3">10.2</span> scalac options</h3>
+<div class="outline-text-3" id="text-10-2">
+<ol class="org-ol">
+<li><code>% scalac -help</code> Print a synopsis of options.</li>
+<li><code>% scalac -X</code>  Print a synopsis of advanced options.</li>
+<li><code>% scalac -print pingObj-actor.scala</code> Print program with Scala-specific features removed.</li>
+<li><code>% scalac -Xprint:typer fileName.scala</code> Syntax trees at end of <code>typer</code>.</li>
+<li><code>% scalac -Xprint:all fileName.scala</code> Check it out!</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org1d2cf7b" class="outline-3">
+<h3 id="org1d2cf7b"><span class="section-number-3">10.3</span> Scala Misc Info</h3>
+<div class="outline-text-3" id="text-10-3">
+<ol class="org-ol">
+<li><code>scala</code> invokes <code>java</code> with Scala's libraries.</li>
+
+<li><code>scala</code> and <code>scalac</code> are shell scripts on Linux. 200+ lines. Differ
+in just one line.  On windows, <code>scala.bat</code> and <code>scalac.bat</code></li>
+
+<li><p>
+Scala version I am using [date: Mar 30, 2014] is
+</p>
+<div class="org-src-container">
+<pre class="src src-scala">Welcome to Scala version 2.11.0-RC3
+(Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0).
+Type in expressions to have them evaluated.
+Type :help for more information.
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org443ce53" class="outline-3">
+<h3 id="org443ce53"><span class="section-number-3">10.4</span> Scala Misc Info-2</h3>
+<div class="outline-text-3" id="text-10-4">
+<ol class="org-ol">
+<li>bash: 
+<ol class="org-ol">
+<li><code>export SCALA_HOME=/usr/local/scala-2.11.0-RC3</code></li>
+<li><code>alias scala=/usr/local/scala-2.11.0-RC3/bin/scala</code></li>
+<li><code>alias scalac=/usr/local/scala-2.11.0-RC3/bin/scalac</code></li>
+<li><code>PATH=$PATH:$SCALA_HOME/bin</code></li>
+</ol></li>
+
+<li>scala <code>classpath</code> example
+<ol class="org-ol">
+<li><code>% scalac -classpath /usr/share/java/scala-swing.jar HelloGui.scala</code></li>
+<li><code>% scala -classpath .:/usr/share/java/scala-swing.jar HelloWorld</code></li>
+</ol></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgbde7eb0" class="outline-3">
+<h3 id="orgbde7eb0"><span class="section-number-3">10.5</span> Disassembly with javap</h3>
+<div class="outline-text-3" id="text-10-5">
+<ol class="org-ol">
+<li><p>
+<code>% javap HelloWorld.class HelloWorld\$.class</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">Compiled from <span style="color: #8b2252;">"hello-world-println.scala"</span>
+public final class HelloWorld {
+  public static void main(java.lang.String[]);
+}
+Compiled from <span style="color: #8b2252;">"hello-world-println.scala"</span>
+public final class HelloWorld$ {
+  public static final HelloWorld$ MODULE$;
+  public static {};
+  public void main(java.lang.String[]);
+}
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org061a9b9" class="outline-2">
+<h2 id="org061a9b9"><span class="section-number-2">11</span> References</h2>
+<div class="outline-text-2" id="text-11">
+<ol class="org-ol">
+<li>Link to Source Code Examples: <a href="./scalaExamples">./scalaExamples</a></li>
+
+<li><a href="https://scala-lang.org/documentation/learn.html">https://scala-lang.org/documentation/learn.html</a> Learning Resources.</li>
+
+<li><a href="https://typesafe.com/activator">https://typesafe.com/activator</a> is the place for ready-to-compile
+-and-run examples of Scala (or Java) with Akka.  Required Visit.</li>
+
+<li>Martin Odersky, "Scala by Example".  {pmateti: A PDF book by the
+designer of the language.  Highly recommended read: Chapter 17:
+Abstractions for Concurrency (10+ pages).  Web search for the full
+book with ScalaByExample.pdf, 150+ pages.  Apparently the pdf is
+generated every day. Some of my slides are based on this
+book. Recommended Reading. Latest build June 2014. Despite the name
+of the book, only a few were ready-to-compile-and-run examples.}</li>
+</ol>
+</div>
+
+<div id="outline-container-org76f204a" class="outline-3">
+<h3 id="org76f204a"><span class="section-number-3">11.1</span> References #2</h3>
+<div class="outline-text-3" id="text-11-1">
+<ol class="org-ol">
+<li><a href="http://www.flotsam.nl/dispatch-periodic-table.html">http://www.flotsam.nl/dispatch-periodic-table.html</a> "All operators of
+Scala's marvelous Dispatch library on a single page."</li>
+
+<li><a href="https://airtable.com/shrDCOpnMP8iA6kOn">https://airtable.com/shrDCOpnMP8iA6kOn</a> 2019 Scala Developer Survey</li>
+
+<li><a href="https://people.cs.ksu.edu/~schmidt/705a/Scala/">https://people.cs.ksu.edu/~schmidt/705a/Scala/</a></li>
+
+<li><a href="https://scastie.scala-lang.org/">https://scastie.scala-lang.org/</a> Scastie is Scala + sbt in your browser!</li>
+
+<li><a href="https://developer.lightbend.com/start/">https://developer.lightbend.com/start/</a></li>
+<li>Intellij IDEA for Scala</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgec81e38" class="outline-2">
+<h2 id="orgec81e38"><span class="section-number-2">12</span> End</h2>
+<div class="outline-text-2" id="text-12">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2019-12-06
+</div>
+</body>
+</html>

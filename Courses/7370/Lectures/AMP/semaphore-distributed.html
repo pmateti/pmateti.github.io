@@ -1,0 +1,178 @@
+<title>CEG 7370 Distr Comp by Mateti</title>
+<base target="_top">
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  li { text-align: justify; }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+</head>
+
+<body>
+
+<h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370:&nbsp;Distributed Computing Principles</a></h3>
+<h1>Distributed Semaphores</h1>
+
+<h3>Prabhaker Mateti</h3>
+
+<p>This web page is organized in way that is useful during my lecture,
+instead of ppt slides.</p>
+
+<hr size=1>
+
+<h2>Semaphore Invariant, Distributed</h2>
+
+<p> The number nP of completed P operations is at most the number nV
+of completed V operations plus iV the semaphore's initial value:<p> nP
+&le; nV + iV.
+
+<p>Distributed: The state of the semaphore s must be distributed.
+These counters must not be maintained by just one process.
+Replicated?
+
+<p>
+We need a way to count P and V operations and a way to delay P
+operations.  Moreover, the processes that share a semaphore need to
+cooperate so they maintain the semaphore invariant even though the
+program state is distributed.
+
+<h2>Andrews Algorithm</h2>
+
+<p>
+The following algorithm implements one semaphore; let us call it, s.
+
+<ol>
+<li>Semaphore s is to be used by n (user) processes.  n does not grow
+  or shrink.
+<pre>
+User[i: 1..n]::
+ var lc : int := O  # users logical clock
+ var ts : int       # received in go messages
+</pre>
+
+<li>Uses an additional n helper processes. Helpers do not do P(s) or
+  V(s).  Initial value of s is magically given to all Helpers.
+<li>Fully distributed.  No process has the numerical value of s.  "Way
+  too many" messages.  Strictly peer-to-peer.
+<li>Uses logical clocks.  As required, every send/recv includes LC.
+<li><tt>type kind = enum(VEE, PEE, ACK)</tt> used below.
+<li><tt>channel semop[1..n](sender: int, k: kind, timestamp: int)</tt>
+  <p>User processes broadcast on semop[] with k = PEE or VEE only.<br>
+<li><tt>channel go[1..n](timestamp: int)</tt> <p>This is a collection of n
+    private channels -- in the sense that only User[i] receives on go[i]
+    what is sent by Helper[i].
+<li>Each Helper maintains
+  <tt>var mq : queue of (int, kind, int)</tt> in which the elements
+  are ordered by the third item, namely timestamp.
+<li>Helper processes broadcast on semop[] with k = ACK only.
+
+</ol>
+
+
+<h3>V operation</h3>
+
+<p>When the i-th User process wishes to do a V(s), it does the following.
+
+<pre>
+ broadcast semop(i, VEE, lc);
+ lc := lc + 1
+</pre>
+
+<h3>P operation</h3>
+
+<p>When the i-th User process wishes to do a P(s), it does the following.
+
+<pre>
+ broadcast semop(i, PEE, lc); lc := lc+1;
+ receive go[i](ts);
+ lc := max(lc, ts+1); lc := lc+1
+</pre>
+
+<h3>i-th Helper Process</h3>
+
+<p>
+The following is a slightly modified version of 387p, Figure 7.20 of
+Andrews book.
+
+<pre>
+Helper[i: 1..n]::
+ var mq : queue of (int, kind, int) # ordered by timestamps
+ var lc : int := O                  # logical clock
+ var sem : int:= initial value      # int value of semaphore
+ var sender : int, k : kind, ts : int
+
+do true --&gt;   { loop invariant DSEM }
+   receive semop[i](sender, k, ts); lc := max(k, t.s+1); lc := lc+1;
+   if k = PEE  or  k = VEE  --&gt;
+      insert (sender, k, ts) at appropriate place in mq;
+      broadcast semop(i, ACK, lc); lc := lc+1;
+   [] k = ACK  --&gt;
+      record that another ACK has been seen;
+      do for all msg in fully acknowledged V messages --&gt;
+          remove msg from mq; sem := sem + 1
+      od;
+      do for all msg in fully acknowledged P messages such that sem > 0 --&gt;
+          remove msg from mq; sem := sem - 1;
+          if sender = i --&gt; send go[i](lc); lc:= lc+1 fi
+      od
+   fi
+od
+</pre>
+
+
+<h3>"Fully Acknowledged"</h3>
+
+<p>Helper processes send ACKs. They are used to determine
+when a message in mq has become fully acknowledged.
+
+<p>
+Consider a message m = (s, k, t) in the queue.
+Then once the process has received a message with a larger
+time stamp from every other process, it is assured that it will
+never see a message with a smaller timestamp.  At this point, message
+m is said to be fully acknowledged.  
+
+<p>Moreover, once m is fully acknowledged, then every other message in
+front of it in mq will also be fully acknowledged since they all have
+smaller timestamps.  Thus, the part of mq containing fully
+acknowledged messages is a stable prefix: No new messages will ever be
+inserted into it.
+
+<h2>Exercises</h2>
+
+<ol>
+<li>How many messages are used for one P(s)?
+<li>How many messages are used for one V(s)?
+<li>Will the values of sem in all the Helpers ever equal?  (after
+  intitialization, that is.)
+<li>Is sender = i correct?
+<li>What must we do if we need, say, three semaphores?
+</ol>
+
+
+<h2>References</h2>
+
+<ol>
+  <li>Gregory R. Andrews, Concurrent Programming: Principles and
+    Practice, Benjamin/Cummings, 1991.  Chapter 7 on AMP.  Required
+    Reading.
+  <li>M. Ben-Ari, Principles of Concurrent and Distributed
+    Programming, Second Edition Addison-Wesley, 0-321-31283-X, 2006.
+    Available on safaribooksonline.com.  Chapter 10. Distributed
+    Algorithms.  Recommended Reading.
+</ol>
+</body>
+<hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2012
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+  Prabhaker Mateti</a>
+</html>

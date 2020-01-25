@@ -1,0 +1,91 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE: Semantics of ; || []
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: WSU CEG 7370 Distributed Computing
+#+BIND: org-export-html-preamble-format (("en" "<a href=\"../../Top/\">CEG 7370</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2014 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+
+For now, let us focus on executional semantics.  We will revisit these
+after Hoare's Axioms and Dijkstra's Weakest Preconditions.
+
+* Semantics of Semicolon ;
+
+1. Consider the execution of S \equiv S1 ; S2.  Think of semi-colon as
+   an operator, much like + * are arithmetic operators.
+2. What is the meaning of S given the meanings of S1 and S2?
+
+3. Let Tb(Si) stand for the state at the beginning of Si, and Te(Si)
+   at the end.  Let tb(Si) stand for the timestamp of when Si began,
+   and te(Si) when it ended (if it did).
+
+4. The meaning of S1 tells us about the relation between Te(S1) and Tb(S1).
+5. Clearly, Tb(S2) = Te(S1) and tb(S2) >= te(S1)
+6. Must tb(S2) == te(S1)?
+7. Is it acceptable if tb(S2) == te(S1) + 10 hours?
+
+* Semantics of Parallel Bar ||
+
+1. Let S \equiv S1 || S2.  Often written as =co S1 || s2 oc=
+1. Is {S1 || S2} the same as {S2 || S1}?
+1. Must it be tb(S2) == tb(S1)?
+   1. Even so, we cannot expect that te(S2) == te(S1)
+1. Is it acceptable/ necessary: tb(S2) >= te(S1)?
+1. Is it acceptable:  tb(S2) < tb(S1)?
+1. te(S) == max(te(S1), te(S2))?
+1. tb(S) == min(tb(S1), tb(S2))?
+1. Is {S1 ; S2} a "pathological" version of  {S1 || S2}?
+
+* Semantics of Fat Bar [] 
+
+1. Let S \equiv S1 [] S2.  Non-determinism
+   1. This is *defined* as execute one of S1 or S2.  Never both.
+   2. Choice is *deliberately* unspecified.
+1. Is {S1 [] S2} the same as {S2 [] S1}?
+1. Non-determinism does *not* mean random.
+
+* Guarded Commands of Dijkstra
+
+** IF statement
+if G0 ==> S0\\
+[] G1 ==> S1\\
+...\\
+[] Gn ==> Sn\\
+fi\\
+
+The Gi are boolean expressions, called the guards.  Imagine: The Gi
+are evaluated at the top of the if-stmt.  An Si is enbaled if its
+Gi evalueted to true.  If multiple Gi were true, all the corresponding
+Si are enabled.
+
+Case 1: One or more Si are enabled. From among the enabled Si, choose
+one non-determininistically, and execute it.
+
+Case 2: If no Si are enabled the if-stmt aborts.
+
+** DO statement
+
+
+do G0 ==> S0\\
+[] G1 ==> S1\\
+...\\
+[] Gn ==> Sn\\
+od\\
+
+1. This gives us a loop.
+1. Corresp if-stmt: Replace the =do= with =if= and =fi= for =od=.
+1. The do-stmt terminates if and when all the guards are false.
+1. We execute the corresp if-stmt first. If any of the guards were
+   true, then we execute the do-stmt again.
+
+
+* Exercise
+
+Consider
+{y := 0; z := 0; co x := y + z || {y := 1; z := 2} co}
+How can x be 0, 1, 2 or 3 on page 60 of Andrew's Concurrent Programming?

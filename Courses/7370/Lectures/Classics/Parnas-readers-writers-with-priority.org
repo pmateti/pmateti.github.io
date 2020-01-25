@@ -1,0 +1,72 @@
+# -*- mode: org -*-
+#+DATE: 2015-03-13
+#+TITLE: Parnas' Solution to the Readers/Writers
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7370 Distributed Computing
+#+OPTIONS: toc:nil
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {font-family: monospace; font-size: 10pt; color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\"> CEG 7370</a> | <a href=\"./actorsAkkaScala.html\"> Actors Akka Scala Overview</a> | <a href=\"./scalaPracticalSlides.html\"> Slides</a> | <a href=\"./scalaPracticalOnePage.html\"> Single-Page</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+REVEAL_ROOT: http://www.cs.wright.edu/~pmateti/RevealJS
+#+REVEAL_PREAMBLE: <a href="./scalaPracticalOnePage.html">single-page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: yellow;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: cyan;} </style>
+#+REVEAL_THEME: night
+#+REVEAL_TRANS: default
+#+REVEAL_HLEVEL: 2
+#+REVEAL-SLIDE-NUMBER: t
+#+OPTIONS: reveal_control:t reveal_progress:t reveal_history:t reveal_center:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t
+#+REVEAL_TITLE_SLIDE_TEMPLATE: <h1>%t</h1><h3>%a</h3>%e<h2>%d</h2>An introduction to Scala, assuming OS and Java fluency<br><a href="../../Top/">CEG 7370 Distributed Computing</a>
+#+ATTR_REVEAL: highlight-blue  # not working
+
+
+
+#+begin_src pseudo
+m1, m2, m3, r, w  : semaphore := 1
+nreaders, nwriters : integer := 0
+
+Reader Process {
+  P(m3);
+    P(r);
+      P(m1);
+      nreaders++;
+      if (nreaders == 1) then P(w) fi;
+      V(m1)
+    V(r);
+  V(m3);
+  ... reading ...;
+  P(m1);
+  nreaders--;
+  if (nreaders == 0) then V(w) fi;
+  V(m1);
+}
+
+Writer Process {
+  P(m2);
+  nwriters++;
+  if (nwriters == 1) then P(r) fi;
+  V(m2);
+  P(w);
+  ... writing ...;
+  V(w);
+  P(m2);
+  nwriters--;
+  if (nwriters == 0) then V(r) fi;
+  V(m2)
+}
+#+end_src
+
+1. Note that "... reading ..." is *not* immediately preceded by a =P=
+   operation.  But note the =P(w)=.
+1. Make sure you understand the need for =m3=
+1. Does the above provide "priority" to writers?
+
+* References
+
+1. Courtois, Pierre-Jacques, Frans Heymans, and David Lorge
+   Parnas. "Concurrent control with “readers” and “writers”."
+   Communications of the ACM 14.10 (1971): 667-668.
+
+1. Courtois, Pierre-Jacques, F. Heymans, and David Lorge
+   Parnas. "Comments on “A comparison of two synchronizing concepts by
+   PB Hansen”." Acta Informatica 1.4 (1972): 375-376.
+

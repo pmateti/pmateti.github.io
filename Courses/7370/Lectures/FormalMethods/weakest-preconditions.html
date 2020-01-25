@@ -1,0 +1,172 @@
+<html>
+
+<head>
+<title>Distributed Computing Lectures by Prabhaker Mateti</title>
+<meta name="author" content="Prabhaker Mateti">
+<meta name="keywords" content="Split binary semaphore, CSP, Linda, RPC, RMI">
+<meta name="description" content="Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+<base href="http://www.cs.wright.edu/~pmateti/" target="_blank">
+<style type="text/css">
+  a:hover      { color: blue; background-color: ivory; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  TD { text-align: justify }
+  LI { text-align: justify; }
+  pre.sol {color: brown;}
+  tt {border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+
+</head>
+
+<link rel="stylesheet" href="RevealJS/css/reveal.min.css">
+<link rel="stylesheet" href="RevealJS/css/theme/serif.css" id="theme">
+<link rel="stylesheet" href="RevealJS/lib/css/zenburn.css">
+
+<body>
+<div class="reveal">
+  <div class="slides">
+
+<section><h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370:&nbsp;Distributed Computing</a></h3>
+
+<h1>Weakest Preconditions</h1>
+
+<h3 style="color: brown">Prabhaker Mateti</h3>
+
+This page is about assertions, without concurrency related issues.
+
+</section>
+
+
+<section><h2>Weakest Precondition</h2>
+
+<ol>
+<li>Let R stand for wp(S, Q).  R is an assertion/ predicate/
+condition.  R is a <i>weakest precondition</i> if the following holds.
+
+
+<li>For all states s that satisfy R, executing S on s always
+terminates, and the resulting state s' satisfies Q.
+
+<li> Hoare's triplet {wp(S, Q)} S {Q} is therefore True.
+
+<li>Note that wp() is about total correctness: It includes
+termination.
+</ol>
+
+</section>
+
+<section><h2>wp Defined for a PL</h2>
+
+<ol>
+<li>
+wp(skip, R) is R
+<li>
+wp(abort, R) is False
+<li>
+wp(x := e, R) is R with x replaced by e
+<li>
+wp(S1; S2, R) is wp(S1, wp(S2, R))
+<li>
+wp(if B then S1 else S2 fi,  R) is<br> ((B &rArr; wp(S1, R)) and (not B &rArr; wp(S2, R)))
+<li>
+wp(while B do S od) is ...
+<li>
+See Andrews, Chapter 1.
+<li>
+Also, http://en.wikipedia.org/ wiki/ Predicate_ transformer_ semantics
+</ol>
+</section>
+
+<section><h3>Law of Excluded Miracle</h3>
+
+<ol>
+<li><i>wp(S, False) = False</i> is impossible.
+
+<li>
+This is known as the Law of Excluded Miracle.  The phrase "is
+impossible" can be confusing.  Understand it as "we cannot do it" as
+in we cannot satisfy the precondition False, execute S, and expect
+False to be True.  So, for any Q, <i>wp(S, Q) = False</i> is
+impossible.
+
+<li>
+<i>wp(S, True) = True</i>?  Dos this define liveness of S?
+</ol>
+
+</section><section><h3>wp Example Answers</h3>
+
+<p>Determine weakest preconditions of the following. Show <i>all</i>
+intermediate steps. Assume that all variables are of integer type.  PL
+code is shown enclosed in braces.
+
+
+</section><section><h3>Weakest Preconditions-4</h3>
+<i><pre>
+wp( {n := n + m; m := n + m; n := m - n},  (n == 6) and (m == 1) )</pre></i>
+<pre class=sol>
+= wp( {n := n + m; m := n + m}, (m - n == 6) and (m == 1) )
+= wp( {n := n + m}, (n + m - n == 6) and (n + m == 1) )
+= wp( {n := n + m}, (m == 6) and (n + m == 1) )
+= (m == 6) and (n + m + m == 1)
+= m == 6 and n == -11
+</pre>
+
+</section><section><h3>Weakest Preconditions-5</h3>
+
+<i><pre>
+wp( {if  i > j then i := i - j else j := i fi},  i == j )</pre></i>
+
+<pre class=sol>
+= (i > j => wp({i := i - j},i == j)) and (i <= j => wp({j := i}, i == j))
+= (i > j => i - j == j) and (i <= j => i == i)
+= (i > j => i == 2*j) and (i > j or true)
+= (i <= j or i == 2*j) and (true)
+= (i <= j or i == 2*j)
+</pre>
+
+</section><section><h3>Weakest Preconditions-6</h3>
+<i><pre>
+wp( {while i > 3 do i := i - 3 od},  i == 3 )</pre></i>
+
+<pre class=sol>
+P0 = (i <= 3) and (i == 3) = (i == 3)
+P1 = (i > 3) and wp({i := i - 3}, i==3) = (i > 3) and (i-3 == 3) = (i == 6)
+P2 = (i > 3) and wp({i := i - 3}, i==6) = (i > 3) and (i-3 == 6) = (i == 9)
+Pk = i == 3*(k+1)
+
+wp( {while i > 3 do i := i - 3 od},  i == 3 ) =  (P0 or &exist; k>= 0: Pk)
+= (i == 3 or (&exist; k>= 0: i == 3*(k+1)))
+= (&exist; k>= 1: i == 3*k)
+= i == 3*k, for some k > 0
+</pre>
+
+</ol>
+</section>
+<section><hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2014
+<a href="mailto:pmateti@wright.edu?subject=CEG7370: Distr Comp">
+  pmateti@wright.edu</a>
+</section>
+
+  </div>
+</div>
+
+<script src="RevealJS/lib/js/head.min.js"></script>
+<script src="RevealJS/js/reveal.min.js"></script>
+<script>
+  Reveal.initialize({});
+</script>
+<script>
+  document.write( '<link rel="stylesheet" href="RevealJS/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+</script>
+
+
+  </body>
+</html>
+

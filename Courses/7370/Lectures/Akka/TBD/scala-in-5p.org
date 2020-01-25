@@ -1,0 +1,131 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE: Scala Tutorial in Five Pages
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: CEG7370 Distributed Computing
+#+BIND: org-export-html-preamble-format (("en" "<a href=\"../../Top/\">CEG 7370 Distributed Computing</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2014 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+
+
+
+
+Obviously, in 5 pages we cannot make you an expert in Scala.  But you
+will learn enough Scala to start writing programs involving actors --
+provided you have taken an OS course.
+
+
+1. The one impression I would like to dispel is that it should be
+   Typesafe's job alone doing that. Typesafe is not in the language
+   market (one does not make money from programming languages,
+   period). It supports Scala because it uses it itself for all its
+   products, and many of its customers use it also. But the ecosystem
+   around Scala is much bigger than Typesafe. There's also Twitter
+   with its Scala school, universities like EPFL and Trinity and many,
+   many individual contributors. We need to draw on the resources of
+   this much larger community to make Scala a welcoming environment
+   for newcomers. Best, - Martin Prof. Martin Odersky, LAMP/IC, EPFL,
+   Station 14, 1015 Lausanne, Switzerland, Tel: +41 21 693 6863
+
+* A Ten-Line Example Scala Program
+
+1. TBD change TimeManager time etc
+#+begin_src scala
+import akka.actor.Actor;
+import akka.actor.ActorRef;
+
+class TimeManager extends Actor {
+  def receive = getBehavior(Nil)
+  def getBehavior(actors: List[ActorRef]): Receive = {
+    case AdvanceTime() => actors foreach (_ ! DateTime.now)
+    case AddListener(x) => context become getBehavior(x :: actors)
+  }
+}
+#+end_src
+
+1. =% scalac -classpath /usr/share/java/scala-swing.jar HelloGui.scala=
+1. =% scala -classpath .:/usr/share/java/scala-swing.jar HelloWorld=
+1. http://scalatutorials.com/tour/
+
+* Tokens of Scala
+
+1. var x, y, z: Int = 0
+1. ! ? similar to those in Hoare's CSP
+
+1. ::= By allowing any Unicode identifiers to be used as method names
+   and functions (including symbolics) the standard Scala library has
+   grown to include emoticons functions such as =:=, :+ and :\ amongst
+   others. Scala's trade-off is to improve writeability at the
+   potential cost of its readability.
+
+* Functional
+
+1. Functions are first class values. Can be given as arguments.  Can
+   be computed and returned also.
+
+1. Main strength of Scala is its combo of OO and Functional
+
+1. Closures 
+
+1. Futures
+
+1. Promises
+
+
+* (Dis) Similar to Java
+
+1. =toString=
+1. Cf Scala =traits= v Java =interfaces=
+1. Java =static= v Scala =object=
+
+* Dont Use
+
+1. Implicit arguments
+
+* Misc
+
+1. var alst: List[ActorRef] = List();
+
+1. sbt
+
+1. dependency injection frameworks?  Guice (pronounced 'juice') is a
+   lightweight dependency injection framework for Java 5 and above,
+   brought to you by Google.
+
+1. http://docs.scala-lang.org/overviews/core/futures.html
+
+1. "Scala’s for loops are compiled to higher-order function calls, but
+   while loops are low-level as in Java or C.  ... Concurrency and
+   correctness might be easier to achieve with more functional code."
+
+1. Scala is still evolving
+
+
+* References
+
+1. Martin Odersky, Scala By Example,
+   http://www.scala-lang.org/docu/files/ScalaByExample.pdf.  Legit and
+   free pdf.  A book of some 140pp.  By the designer of the
+   language. 2014.  Apparently the pdf is generated every day.
+
+1. Horstmann, Cay S. "Scala for the Impatient." Pearson Education, 2012.
+   A legit pdf of the first 100 pages or so is widely downloadable.
+
+1. http://www.unlimitednovelty.com/2009/04/why-i-dont-like-scala.htmla
+
+1. http://www.codecommit.com/blog/scala/roundup-scala-for-java-refugees 
+
+1. http://zeroturnaround.com/rebellabs/scala-sink-or-swim-part-1/
+   Opinion Time: What to avoid in the Scala ecosystem
+   http://zeroturnaround.com/rebellabs/scala-sink-or-swim-part-2/
+
+1. http://docs.scala-lang.org/style/
+
+1. http://www.flotsam.nl/dispatch-periodic-table.html All operators of
+   Scala's marvelous Dispatch library on a single page
+
+1. http://www.scala-lang.org/docu/files/ScalaTutorial.pdf

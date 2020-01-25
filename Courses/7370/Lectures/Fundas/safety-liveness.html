@@ -1,0 +1,124 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>CEG 7370</title>
+<base target="_top">
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  LI { text-align: justify; }
+  P { text-align: justify }
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  li { text-align: justify; }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+</head>
+
+<body>
+
+  <h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+      CEG 7370:&nbsp;Distributed Computing Principles</a></h3>
+  <h1>Safety and Liveness</h1>
+  <h3>Prabhaker Mateti</h3>
+
+  <a href="../Slides/matetiSafetyLiveness.pptx">
+    matetiSafetyLiveness.pptx</a>
+
+  <p>
+    A ``safety'' property is defined thus: Let BAD be a predicate
+    characterizing any arbitrary condition or state of program code
+    segment S that you consider is ``bad''.  Assume that {P} S {Q}
+    holds.  Assume that I is a {global invariant}.  If I &rArr; 
+    $\neg$ BAD, we say that $\neg$ BAD is a safety property
+    for S.
+
+  <p>
+    Our Andrews' text book unfortunately uses the subjective words
+    "good" and "bad" in defining Safety and Liveness.  Instead think
+    of (i) safety as a property that is true from the beginning of the
+    process to its end of life, and (ii) liveness as a property that
+    will become true at a future moment in time, perhaps just once or
+    many many times.  So, safety is an invariant property -- good or
+    bad subjectively.  Obviously, in a real enough context, we do not
+    want a "bad" thing to ever happen, i.e., not-bad should be true at
+    all times.
+
+<ol class=o>
+<li><h2>Safety examples</h2>
+
+
+<ol>
+
+<li>
+Variable x is always non-negative.
+<li>
+Two processes are never in their critical sections.
+<li>
+A message is received only after it is sent.
+<li>
+No sent message is lost.
+<li>
+A philosopher remains hungry until it eats.
+</ol>
+
+<li>
+<h2>Liveness examples</h2>
+
+<ol>
+
+
+<li>
+Variable x will become divisible by 7.
+<li>
+Even in the presence of contentions, one of the processes will enter
+its critical section.
+<li>
+A sent message is eventually received.
+<li>
+A philosopher will eat.
+
+</ol>
+
+<li>
+<h2>Exercises</h2>
+
+<ol>
+
+  <li>
+    ``Every philosopher will eventually get hungry.'' is a safety, not
+    liveness, property. True/False? Explain.
+
+  <li>
+    A safety property states that nothing ``bad'' will ever happen,
+    whereas a liveness property states that something ``good'' will
+    happen in the next minute.
+
+
+  <li>
+    Often there is no difference between safety and liveness properties.
+
+
+  <li>The negation of a safety property is a liveness property.
+
+
+  <li>"Some day, if not at the end of CEG 7370, you will appreciate
+    and marvel at the book Concurrent Programming by Andrews."
+    Explain if this is a safety, or liveness property, or perhaps
+    neither.</li>
+</ol>
+</ol>
+<hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2012
+<a href="mailto:pmateti@wright.edu?subject=CEG7370: Distr Comp">
+  pmateti@wright.edu</a>
+
+</body>
+</html>

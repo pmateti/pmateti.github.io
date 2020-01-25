@@ -1,0 +1,96 @@
+
+# -*- mode: org -*-
+#+date: 2019-12-06
+#+TITLE: Cluster Computing, MapReduce, Hadoop, Spark
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2019 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+Work-in-Progress
+
+* Cluster Computing
+
+1. [[./matetiClusterIntro.ppt]]
+1. [[./matetiClusters.pptx]]
+
+1. [[./matetiBWF.ppt]]
+
+1. [[./matetiMPI.ppt]]
+1. [[./matetiNOW.ppt]]
+1. [[./matetiPVM.ppt]]
+
+* MapReduce
+
+1. [[./MapReduce-UofI-2015.ppt]]
+1. [[./MapReduce-UToronto-2014.ppt]]
+1. [[./mapreduce-wordcount.C]]
+
+
+* Hadoop
+
+1. [[./matetiHadoop.pptx]]
+1. [[./hadoopAlternatives.html]]
+1. [[./Hadoop-WordCount_files/]]
+1. [[./Hadoop-WordCount.htm]]
+
+1. https://intellipaat.com/blog/tutorial/hadoop-tutorial/
+
+* Spark
+
+1. http://spark.apache.org/ "" Apache Spark is a fast and general engine
+   for large-scale data processing.  Applications can be written in
+   Scala, which is an very powerful and expressive functional
+   programming language (Stratosphere also supports Scala). It is
+   really fast on job setup, hence it is very suited for small and
+   medium sized data and ad-hoc evaluations.
+
+1. https://prestodb.io/ "" According to Facebook, Presto is a new
+   interactive query system that operates fast at petabyte scale that
+   is founded on a distributed SQL query engine optimized for ad-hoc
+   analysis at interactive speed. And like Spark, all processing is in
+   memory. Facebook recently open-sourced the code and the Presto
+   community can be found here.  Unlike Spark or Hadoop, Presto can
+   concurrently use a number of data stores as sources. All that is
+   needed are “connectors” that provide interfaces for metadata, data
+   locations, and data access. This obviates the need to move data
+   around in order to query it—a requirement that’s becoming critical
+   to many IT administrators. Simply plug the data source into Presto
+   and—presto!—it can be interactively queried in real
+   time. Connectors are currently available for Hadoop/Hive (Apache
+   and Cloudera distributions) and Cassandra. But one can imagine more
+   could be built for the enterprises’ existing data stores.
+
+1. https://databricks.com/spark/getting-started-with-apache-spark
+
+** Short Examples of Spark Programs
+
+1. Spark can be used for compute-intensive tasks. This code estimates
+   π by "throwing darts" at a circle. We pick random points in the
+   unit square ((0, 0) to (1,1)) and see how many fall in the unit
+   circle. The fraction should be π / 4, so we use this to get our
+   estimate.
+
+   #+begin_example scala
+val count = sc.parallelize(1 to NUM_SAMPLES).filter { _ =>
+  val x = math.random
+  val y = math.random
+  x*x + y*y < 1
+}.count()
+println(s"Pi is roughly ${4.0 * count / NUM_SAMPLES}")
+#+end_example
+
+* Reading beyond the Lectures
+
+1. [[./dean-ghemawat-mapreduce-osdi04.pdf]]
+
+1. [[./pmNotes-hadoop.org]]
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

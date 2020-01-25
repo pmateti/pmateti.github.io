@@ -1,0 +1,108 @@
+<title>CEG 7370 Distr Comp by Mateti</title>
+<base target="_top">
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  pre {border:lightgray 1px dotted ; background:AntiqueWhite; }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+</head>
+
+<body>
+
+<h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370:&nbsp;Distributed Computing Principles</a></h3>
+<h1>Readers-Writers</h1>
+
+<p>This web page is organized in way that is useful during my lecture,
+instead of ppt slides.
+
+<h2>Problem Modeling</h2>
+
+<table width="100%">
+<tr>
+<td width="50%">
+<pre>
+reader[i:1..M]::
+do true &rarr;
+  &lsaquo;nr := nr+1&rsaquo;
+  ... read ...  (*)
+  &lsaquo;nr := nr-1&rsaquo;
+od
+</pre>
+</td>
+<td width="50%">
+<pre>
+writer[i:1..N]::
+do true &rarr;
+  &lsaquo;nw := nw+1&rsaquo;
+  ... write ... (*)
+  &lsaquo;nw := nw-1&rsaquo;
+od
+</pre>
+</td>
+</tr></table>
+
+<p>
+Required invariant at (*)  RW:
+<blockquote>
+<p> (nr = 0 or nw = 0) and nw &le; 1
+</blockquote>
+
+<p>
+Modify the atomic statements so that the above is guaranteed.
+Additionally, all the familiar requirements (progress, no turns, ...)
+must be satisfied.
+
+<h2>Await-based Solution</h2>
+
+[without priority for writers]
+
+
+<table width="100%">
+<tr>
+<td width="50%">
+<pre>
+reader[i:1..M]::
+do true &rarr;
+  &lsaquo;await nw == 0 &rarr; nr := nr+1&rsaquo;
+  ... read ...  (*)
+  &lsaquo;nr := nr-1&rsaquo;
+od
+</pre>
+</td>
+<td width="50%">
+<pre>
+writer[i:1..N]::
+do true &rarr;
+  &lsaquo;await nr = 0 and nw = 0 &rarr; nw := nw+1&rsaquo;
+  ... write ... (*)
+  &lsaquo;nw := nw-1&rsaquo;
+od
+</pre>
+</td>
+</tr></table>
+
+
+<h2>References</h2>
+
+<ol>
+  <li>
+    Gregory R. Andrews, <i>Concurrent Programming:
+      Principles and Practice</i>, Benjamin/Cummings, 1991. The book
+      is now in its fifth printing.  Chapter 4.
+
+</li>
+</ol>
+
+</body>
+<hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2012
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+  Prabhaker Mateti</a>
+</html>

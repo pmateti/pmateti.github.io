@@ -1,0 +1,2066 @@
+
+From ldebrock Fri May 14 08:55:52 1993
+Date: Fri, 14 May 93 08:55:49 -0400
+From: ldebrock (Laura DeBrock)
+To: pmateti
+Subject: CS7370 exam
+Status: OR
+
+Dr. Mateti:
+
+TOPIC:  CS7370 EXAM, CPS problem redo
+
+	May we put our processes: F,G,H into an array?  So that we could
+refer to process F as S(1), etc.  I am currently considering an
+algorithm similar to the token-ring passing to determine distributed
+termination where instead of passing a token, I would pass a process's
+current minimum value.  If a process receives the minimum value he sent
+then he would know that that was the common minimum.  He would then send
+a suitable done message around the ring, etc.  But in order to do this
+neatly, I would really like to refer to the processes as S(1), S(2),
+as opposed to F, G, H.
+
+
+
+Laura DeBrock
+
+From jholt Sun May 16 13:35:15 1993
+Date: Sun, 16 May 93 13:35:12 -0400
+From: jholt (John Holt)
+To: pmateti
+Subject: Symetric algorithm for Prob. 3
+Status: OR
+
+
+P(i:0..2)::[                    /*array of integers in order is present*/
+                                /*arrayCount > 0 for all P(i)          */
+                                /*array(j) <= array(j+1) for j=1 to    */
+                                /*                        arrayCount -1*/
+  left, right, leftCount, rightCount, low:integer;
+  lowLeft, lowRight: integer;
+   [left := i-1 mod 3 || right := i+1 mod 3]
+
+    /*Determine how many times to ask/answer via parallel exchange*/
+    [   P(left)!arrayCount      /*A: P(left) & P(right) are running    */
+     || P(left)?leftCount       /*     and in this state.              */
+     || P(right)!arrayCount
+     || P(right)?rightCount
+    ]
+
+    [  askedLeft:integer:= 1    
+     ||askedRight:integer:=1    
+    ]
+
+    /* exchange lowest number by parallel exchange*/
+    [  P(left)?lowLeft          /*A: P(left) & P(right) are running    */ 
+     ||P(right)?lowRight        /*     and in this state.              */ 
+     ||P(left)!array(1)                                                   
+     ||P(right)!array(1)
+    ]
+    /* determine low value */
+    low:=array(1);
+    lowRight<low ->low:=lowRight; 
+    lowLeft<low ->low:=lowLeft;
+
+    [done: boolean := false || match:boolean := false || entry:integer:=1]
+
+    /* check for early termination */
+                                /*A: the values of low in all three     */
+                                /*   processes are identical 
+                                /*   == {low assert}  (used again)      */
+    low=array(1); arrayCount=1 -> done := true;
+    low=lowLeft; leftCount=1 -> done := true;
+    low=lowRight; rightCount=1 -> done:= true;
+    array(1)=low; lowRight=low; lowLeft=low -> [match :=true; done := true]
+
+    /* loop through reading next value from the process(es) with lowest*/
+    /* value.  Terminate when a match is found, or we have exhausted a */
+    /* a list and that list has the lowest value                       */
+    /* Note: all conversations occur in parallel                       */
+   *[ done = false  ->          /*A: entry <= arrayCount,               */
+                                /*   askedLeft<=leftCount,              */
+                                /*   askedRight <= rightCount           */
+
+       /* in parallel, the low P(i)'s speak their number to the left */
+       /* and the right, so catch it*/
+      [[  (lowLeft=low)->       /*A: askedLeft <leftCount & {low assert}*/
+                P(left)?lowLeft;askedLeft:=askedLeft+1
+
+        ||(lowRight=low) ->     /*A: askedRight<rightCount &{low assert}*/
+                P(right)?lowRight;askedRight:=askedRight+1
+
+       /* we are a low P(i), so say next value to our left & right */
+        ||(low=array(entry))->  /*A: entry < arrayCount & {low assert}  */
+           [   entry:= entry + 1;
+             [  P(left)!array(entry)
+              ||P(right)!array(entry)
+             ]
+           ]
+        ]
+
+        /**************************/
+        /*determine new low value */
+        /**************************/
+                               /*A: All P(i)'s have read next from the */
+        low:=array(entry);     /*   P(j)'s with lowest value           */
+        (lowRight<low)-> low:=lowRight;
+        (lowLeft<low)->low:=lowLeft;
+
+                               /*A: {low assert}                       */
+        array(entry)=low;lowRight=low;lowLeft=low -> match:=true;done:=true
+
+                               /*A: askedRight = entry.P(right)        */
+        lowRight=low; askedRight=rightCount -> done:= true
+
+                               /*A: askedLeft = entry.P(left)          */
+        lowLeft=low;  askedLeft=leftCount   -> done:= true
+
+                               /*A: entry = askedLeft.P(right) and     */
+                               /*   entry = askedRight.P(left)         */
+        array(entry)=low; entry=arrayCount  -> done:= true
+      ]
+    ]
+
+    /**********************************************/
+    /* we are done, each process will say results */
+    /**********************************************/
+    [  match=true ->  <print command> low " is the lowest number in common"
+     []match=false -> <print command> "no numbers in common"
+    ]
+
+ ]
+
+
+
+From sghosh Mon May 17 19:15:29 1993
+Status: RO
+X-VM-v5-Data: ([nil nil nil nil nil nil nil nil nil]
+	[nil nil nil nil nil nil nil nil nil nil nil nil "^To:" nil nil nil])
+Received: by kiwi.cs.wright.edu (5.65/7.3.WRIGHT.SPOTS)
+	id AA18075; Mon, 17 May 1993 19:15:24 -0400
+Posted-Date: Mon, 17 May 1993 19:15:24 -0400
+Message-Id: <9305172315.AA18075@kiwi.cs.wright.edu>
+To: pmateti
+Subject: Symmetric Soln. to Q3
+Date: Mon, 17 May 1993 19:15:24 -0400
+
+		Symetric Solution to Question  3
+		--------------------------------
+
+S(i:1..3)::
+[j,k,my_min:integer;
+ buff(1..n):integer;
+ j:=1; my_min:=buff(j);
+ *[   true -> S(i mod 3 + 1)!my_min;
+   [] S((i+1) mod 3 + 1)?token(k) -> BODY;
+   [] S(0)?token(k) -> BODY;
+   ]
+]
+
+BODY:
+     [his_min:integer;S((i+1) mod 3 + 1)?his_min
+     *[   his_min = -1 -> skip;
+       [] my_min = his_min -> k:=k+1;
+         [   k = 3 -> skip;
+          [] k <> 3 -> S(i mod 3 + 1)!token(k);
+		       S(i mod 3 + 1)!my_min;
+         ]
+       [] my_min <> his_min -> k = 1;
+		               SEARCH(his_min);
+      ]
+     ]
+
+SEARCH(his_min):
+[i,k:integer; buff(1..n):integer;
+ i:=2;
+ *[   buff(i) = his_min -> my_min = buff(i);
+			  k:=k+1;
+			  [   k = 3 -> skip;
+			   [] k <> 3 -> S(i mod 3 + 1)!token(k);
+			      		S(i mod 3 + 1)!my_min;
+			  ]
+   [] buff(i) < his_min -> i:=i+1;
+   [] buff(i) > his_min -> my_min = buff(i);
+			   S(i mod 3 + 1)!token(k);
+			   S(i mod 3 + 1)!my_min;
+   [] i >= n -> my_min = -1;
+		S(i mod 3 + 1)!token(k);
+		S(i mod 3 + 1)!my_min;
+  ]
+]
+
+S(0)::
+[S(1)!token(1);
+]
+
+Explaination:
+Assume a process S(0) which initiates this algorithm, it initialises the
+algorithm by sending the token to S(1) with a initial value of 1.
+The mod arithmetics require some explaination :
+				i=1	i=2	i=3
+   	S(i mod 3 + 1)!--	 2	 3	 1
+        S((i+1) mod 3 + 1)?--	 3	 1	 2
+Since each process outputs to its next and inputs from its previous,this
+ensures the circularity of message passing.
+
+In the outer loop of the S(i)'s each of them is ready to output their
+min. or receive the token from its predecessor or S(0). Only when a
+process gets a token it can input the min. of its predecessor, thus
+although each of the process is ready to output its min. only the one
+which has its succesor having the token can output it. This ensures
+there is no deadlock among the processes. 
+
+The process with the token now has 3 options :
+ 1) if the his_min it receives is -1 then there can be no common minimun
+    so it skips (ie the algorithm halts).
+ 2) If the his_min = my_min, then a counter k is incremented. If k=3
+    then the my_min's of each of the processes are the same and is the
+    common minimun, so the algorithm terminates, else k is incremented 
+    and sent out along with the token and the current min. of two
+    processes.
+ 3) If the his_min <> my_min then the termination counter k is reset to
+    1 and the SEARCH procedure is entered.
+
+SEARCH:
+ The process having the token, now searches through its array, starting
+from the seconds element. 
+ 1) If any of the elements of S(i) equals his_min,
+    then the token is sent to the next process with k updated and then the
+    common min. so far.
+ 2) If buff(i) > his_min then this number is used as the one to search for
+    the smallest common min.
+ 3) If buff(i) is smaller than his_min then the array is scanned forward.
+ 4) If the end of the array is reached with buff(i) still less than his_min
+    then we know that there can be no common min. (eg. if his_min is 10 and
+    the buff(n) = 9) so -1 is sent to the next process to terminate the
+    algorithm.
+
+
+From hgreider Mon May 17 20:43:31 1993
+Status: RO
+X-VM-v5-Data: ([nil nil nil nil nil nil nil nil nil]
+	[nil nil nil nil nil nil nil nil nil nil nil nil "^To:" nil nil nil])
+Received: by kiwi.cs.wright.edu (5.65/7.3.WRIGHT.SPOTS)
+	id AA19663; Mon, 17 May 1993 20:43:18 -0400
+Posted-Date: Mon, 17 May 1993 20:43:18 -0400
+Message-Id: <9305180043.AA19663@kiwi.cs.wright.edu>
+To: pmateti
+Date: Mon, 17 May 1993 20:43:18 -0400
+
+Here is a symmetric solution to the CSP problem on the midterm. I use 
+the asymmetric solution to produce the symmetric solution by including 
+all three processes in each process (I should have done the midterm 
+problem as asymmetric in the first place).
+
+In this solution each of the processes must know which is first, second,
+and third. Also, if F is first, G must be second, and H must be
+third. If G is first, H must be second, and F must be third. If 
+H is first, F must be second, and G must be third. This may stretch
+symmetry a bit, but here it is anyway.
+
+This solution implements the filter solution. The first process sends
+all its values to the second, which sends all command values to the
+third. The third sends the least common (or -1 if none) to the first
+and second.
+
+F:: n:array[1..max] of integer; Fcur:integer:=1; done:boolean:=false;
+    least_common:integer;
+
+    [ is_first() -> { F returns is_first() AND G returns is_second() }
+         *[ Fcur<=max -> G!n[Fcur]; Fcur:=Fcur+1]   /* send values */
+         G!-1; H?least_common     /* send sentinel, get least_common */
+
+    [] x:integer; is_second() -> 
+       { H returns is_first() AND F returns is_second() }
+         *[ !done; { H has not sent sentinel }; H?x ->
+            *[ !done; Fcur<=max; x=n[Fcur] -> G!x; Fcur:=Fcur+1
+            [] !done; Fcur<=max; x>n[Fcur] -> Fcur:=Fcur+1
+            [] !done; x=-1 -> done:=true
+            ]  { x<n[Fcur] OR Fcur>max OR x=-1 }
+         ] { x=-1 }
+         G?least_common
+
+    [] x:integer; !is_first; !is_second() -> 
+       { G returns is_first() AND H returns is_second() }
+         *[ !done; H?x ->
+            *[ !done; Fcur<=max; x=n[Fcur] -> least_common:=x; done:=true
+            [] !done; Fcur<=max; x>n[Fcur] -> Fcur:=Fcur+1
+            [] !done; x=-1 -> done:=true; least_common=-1
+            ]  { x<n[Fcur] OR Fcur>max OR x=-1 OR least common found }
+         ] { x=-1 OR least common found }
+         /* read rest of values */
+         *[ x<>-1 -> H?x]
+         G!least_common; H!least_common
+    ]
+    { least_common contains least common value OR least_common=-1 }
+
+
+From dhou Tue May 18 12:11:23 1993
+Date: Tue, 18 May 93 12:11:21 -0400
+From: dhou (Dan Hou)
+To: pmateti
+Status: OR
+
+
+Q3  Solution. 
+
+Three processes are identical, because if we view them as S(i:0..2), 
+S(i) will receive massages only from s(i-1) and send masseges only to 
+s(i+1).  We assume the algorithm begin with s(1). Each process has a 
+local array: content(0..99) which is non-empty.  We also assume that 
+CSP has variable size array and limit is the upbound. (This is an 
+assumption that each local array may or may not has same length.). 
+
+There are three kinds of messages. One is an integer, the smallest candidate. 
+The other two are signals no(n) and yes(m), n and m are integers indicating
+how many times the signals have been passed, respectively.  An local
+integer variable "common" is used as a pointer, common is initially
+-1.  If there is a smallest common value, it is content[common].  
+
+
+
+ S(i:0..2)::
+   content:(0..99); i:integer; 
+   x,y:integer;
+   common:interger; common=-1;    
+   more:boolean; more=true;
+
+   [i=1 -> s(i+1)!content(0)   /* assume begin with s(1) */ 
+    [] i<>1  -> skip 
+   ]    
+
+{Key assertions: 
+ 1.If no smallest common value -> after search the local array, k>limit;
+ 2.If content(k) is a smallest common value -> the value of content(k)
+ is sent out by the process has received and found out from content() again.
+ 3.The process terminates if it receive a no(n) signal or yes(m) signal.
+ }  
+
+   *[ more; S((i-1) mod 3)?x -> SEARCH; n,m:integer;
+                                [ k>limit; -> n:=1; s((j+1) mod 3)!no(n)
+                                   /* no such element exits */ 
+                                 []k<limit -> [common=k -> m:=1; 
+                                                         s((j+1) mod 3)!yes(m)
+                                         /* content(k) is a smallest common value */ 
+                                                []common<>k -> common:=k;
+                                                           s((j+1) mod 3)!y
+                                                ]
+                                ]
+
+    [] n:interger
+       more; s((i-1) mod 3)?no(n) -> print("No smallest common value")
+                                     more=false
+                                     [  n=3 -> skip
+                                      []n<3 -> n:=n+1; s((i+1) mod 3)!no(n)
+                                     ] 
+        /* Terminates, and send message no(n) to the next process. If
+           n is 3, all processes have received no(n) signal and
+           terminated.  
+        */ 
+    [] m:integer
+       more; s((i-1) mod 3)?yes(m) -> print(content(common));
+                                      more=false 
+                                      [  m=3 -> skip 
+                                       []m<3 -> m:=m+1; s((i+1) mod 3)!yes(m) 
+                                      ] 
+       /* content(common) is the smallest common value, terminates, and send 
+          message to the next process. If m is 3, all processes have
+          received yes(m) signal and terminated.  */  
+
+    ]   
+
+where  SEARCH is an abbreviation for: 
+
+     k:integer; k:=0; 
+     t:boolean; t:=true;
+     *[t;  k<limit ->[  content(k) < x  -> k:=k+1
+                      []content(k) > x -> y:=content(k); t:=false
+                      []content(k) = x -> y:=x; t:=false
+                     ]
+      ] 
+
+In  SEARCH, candidate of the smallest common value x is compared with content:
+    (1). If it is greater than current value of content, x is compared with the
+         next value of content; 
+    (2). If it is less than current value of content, the current 
+         value of content will become new candidate to be sent to the next 
+         process;
+
+    (3). If it is found in content, it is still a candidate to be sent to the
+         next process.  
+
+
+***********************
+Another solution
+***********************
+
+  After receiving your e-mails talking about symmetric solution, I tried again.
+The following is the solution.
+
+
+F, G, and H are three symmetric processes.  There are three kinds of messages.
+One is an integer, the smallest candidate. The other two are signals no()
+and yes().  There are some boolean variables to control which kinds of message
+are ready to send and receive.  Each process has a local array:
+content(0..limit). Two integer variable to store the smallest candidatas sent
+by the other two processes, respectively. In F, for example, they are Gmin
+Hmin.  At the beginning, F can't send yes() or no() to G or H.  F can send
+its candidate to G, and disables "sendG" until it receives a cadidate from
+G next time if yes() or no() signal are not generated; the same process as 
+send to H.  Or F receives a candidate from G(the same as receives from H),
+it searches its local array, the result may be yes()
+(find the smallest common value), or no() (does not find), or repeats from
+the begining except the i pointing to a local array may be changed. 
+As soon as F finds yes() or no(), or receives yes() or no(), the process 
+terminates.
+
+F:: 
+  content:(0..limit); 
+  i:integer; i:=0;
+  common:integer; common:=-1;
+  Gmin, Hmin:integer; 
+  Gmin:= content(0) - 100;    
+  Hmin:= content(0) - 200;
+     /* initialize Gmin and Hmin smaller than content(0), and Gmin and Hmin
+        are not equal.  
+     */   
+  sendG, sendH, receiveG, receiveH, 
+  sendYes, sendNo, receiveYes, receiveNo: boolean;
+  sendG, sendH, receiveG, receiveH, receiveYes, receiveNo:=True;
+  sendYes, sendNo:=False;
+
+  *[  sendG; G!content(i)  ->  sendG:= False
+    []sendH; H!content(i)  ->  sendH:= False
+    []receiveG; G?Gmin     ->  min:integer; min:=Gmin
+                               SEARCH
+                               [  i>=limit   -> disableMessage
+                                                sendNO:= True
+                                []i<limit    ->
+                                  [  Gmin=content(i) and  Gmin=Hmin->disableMessage
+                                                                  sendYes:=True
+                                                                  common:=i
+                                   []Gmin!=content(i) or Gmin!=Hmin->sendG:=True
+                                  ]
+                                ]
+    []receiveH; H?Hmin     ->  min:integer; min:=Hmin
+                               SEARCH
+                               [  i>=limit   -> disableMessage
+                                                sendNO:= True       
+                                []i<limit    ->         
+                                  [  Hmin=content(i) and  Gmin=Hmin->disableMess
+age
+                                                                  sendYes:=True  
+                                                                  common:=i
+                                   []Hmin!=content(i) or Gmin!=Hmin->sendG:=True
+                                  ]                             
+                                ]
+                             
+    []sendYes; G!Yes()       -> H!Yes(); disableSignal; disableMessage
+    []sendYes; H!Yes()       -> G!Yes(); disableSignal; disableMessage
+    []sendNo;  G!No()        -> H!No();  disableSignal; disableMessage
+    []sendNo;  H!No()        -> G!No();  disableSignal; disableMessage
+    []receiveYes; G?Yes()    -> common=i; disableSignal; disableMessage
+    []receiveYes; H?Yes()    -> common=i; disableSignal; disableMessage
+    []receiveNo;  G?No()     -> disableSignal; disableMessage
+    []receiveNo;  H?No()     -> disableSignal; disableMessage
+   ] 
+
+
+where  SEARCH is an abbreviation for: 
+
+     *[i<limit; min>content(i) -> i:=i+1] ;
+
+disableMessage is an abbreviation for: 
+
+      [sendG:=False; sendH:= False; receiveG:=False; receiveH:= False]; 
+
+disableSignal is an abbreviation for: 
+ 
+      [sendYes:=False; sendNo=False; receiveYes:=False; receiveNo:=False]. 
+
+
+
+G and H can be written symmetrically. The key assertions are: 
+
+F::  if there is a smallest common value: content(i) in F -> Gmin=Hmin=content(i);
+     otherwise there is no smallest common value.   
+     
+G::  if there is a smallest common value: content(i) in G  -> Fmin=Hmin=content(i);
+     otherwise there is no smallest common value. 
+H::  if there is a smallest common value: content(i) in H  -> Fmin=Gmin=content(i);
+     otherwise there is no smallest common value. 
+ 
+
+
+
+From mmitnala Tue May 18 12:16:55 1993
+Date: Tue, 18 May 93 12:16:52 -0400
+From: mmitnala (Mallikarjuna Mitnala)
+To: pmateti
+Status: OR
+
+
+Let the processes be P(0), P(1), P(2).
+
+P(i:0..2):: b:boolean; y:boolean; Prev,m:integer; Yes:boolean;
+	a[1..n]:array of integer; b:=true; y:=true; Prev:= -100 (say)
+	Yes:= true; m:=1;
+	*[
+	  b;i = 0; y; P(i+1 mod 3)!a[m] --> Prev:= a[m]; y:= false;
+	 []
+	  b;P(i+2 mod 3)?x --> [
+				Prev = x --> P(i+1 mod 3)!common(x); Yes := false;
+			       [] true --> i:=m;
+					   *[i<=n;a[i]<x --> i:=i+1]
+					   [ i<=n --> m:=i; P(i+1 mod 3) ! a[m];
+						      Prev:=a[m]
+					    []
+					     i>n --> P(i+1 mod 3) ! no_common();
+					     	     b:=false; Yes := false;
+					   ]
+				]
+	[]
+	 b;P(i+2 mod 3) ? common(x) --> b:= false;
+					Yes --> P(i+1 mod 3)!common(x);
+	[]
+	 b;P(i+2 mod 3) ? no_common() --> b:= false;
+					  Yes --> P(i+1 mod 3)!no_common()
+	]
+
+--------------------------------------
+
+A process begins the game by sending it's minimum to it's succesor, which
+is waiting for that number. This process checks if it has that number in
+it's array. If it is present the same number is transmitted to it's
+successor. Otherwise it sends a number which is greater than the number
+received. Hence when a process receives a number it means the common
+element is to be found in the set of numbers greater than or equal to the
+number received. While sending a number to it's successor it remembers
+that number in variable Prev. When a process finds that it has received a
+number from it's predecessor which is equal to Prev, it concludes that it
+has found the common element. This is because , my predecessor can send me
+a number = Prev only when it's pred( i.e., my succ) has sent a number <= Prev.
+But I have sent a Prev to my succ. Hence it is obliged to send a number >=
+Prev. The logical conclusion is that my succ has sent Prev too to my pred
+, which my pred has sent me ==> Prev is common.
+
+If a process finds that it has no number greater than the number received , it
+straightaway concludes that there is no common element and terminates.
+
+Though the processes are symmetric , one process has to initiate the game.
+Otherwise we may get wrong results before the ring is stabilised. This is
+the reason that only P(i) where i=0 initiates while all other are put in
+listening mode.
+
+Also I have used output gaurds which is permitted in the text book, whereas
+they were not used in the paper by Hoare. This is done to prevent
+deadlock. 
+
+-- Mallikarjuna Mitnala.
+
+
+
+From mvemulap Tue May 18 14:08:05 1993
+Date: Tue, 18 May 93 14:08:00 -0400
+From: mvemulap (Murali K. Vemulapalli)
+To: pmateti
+Subject: "Solution to Q3 of CS7370 Mid Term"
+Status: OR
+
+Solution to the Q3 of CS7370 Mid term :
+--------------------------------------
+
+	This solution is symmetric one. Every process executes this
+piece of code. For notational purpose, I assumed processes as p(0),
+P(1) & p(2). Assumed that these processes forms a ring like
+P(0)->P(1)->P(2)->P(0).  Each process in the beginning is ready to
+send some value to next process in the ring and at the same time ready
+to receive a value from the previous process in the ring. When a process
+sends a value to another process, that process checks for that value in
+its local array. If it finds that value then it checks whether that
+value is same as that send by this process,previously. If it is equal then the
+computation is terminated, We found the smallest comman number. If it is
+not equal then it sends its present value to the next process and
+remembers this value and present location in the array so far we
+searched. In this searching process, If we reach end of array then also
+the computation is terminated and There is no smallest comman value. 
+
+	I hope there is no dead lock. Because each process is ready to 
+send and receive initially, Which is decided nondeterminstically.
+
+Assume [] as a fatbar.
+
+P(m:0..2):: a:(1..N)integer;notdone,start:boolean;
+			notdone:true;start:true;
+			nocommon:boolean;nocommon:=false;
+			j:integer; j:=1
+			sent:integer; { initialised to some strange
+				value assumed to be not in the array. }
+
+    *[got:integer;
+         start;notdone;P(m+1 mod 3)!a(1) -> sent := a(1); start:=false
+
+      [] notdone;P(m+2 mod 3)?got -> search:boolean;search:=true;i:=j
+		
+		*[search;i<=N;got=a(i) ->
+			[   sent=got  -> notdone:=false;search:=false
+			 [] sent<>got -> sent:=got;P(m+1 mod 3)!a(i)
+			]
+
+		  [] search; i<=N; got < a(i) -> P(m+1 mod 3)!a(i);
+		      search:=false;sent:=a(i);j:=i
+
+		  [] search; i<=N; got > a(i) -> i:=i+1 
+
+		  [] search; i>N -> notdone := false; search := false;
+					nocommon:=true
+		]
+     ]
+
+   [  nocommon -> {comment  execute code for no common element}
+   [] !nocommon-> {comment  execute code for common element. Common
+			element in variable 'sent'}
+   ]
+...
+
+
+
+Explanation of variables:
+------------------------
+
+    got : integer ,  value got from the previous process.
+    sent: integer ,  value sent by this process, thus by initiating
+		search. The process is terminated when this proceess
+		receives the same value sent by it, previously.
+    i : integer, Present location in the array, to compare with.
+    j : integer, Remembering the location until which search has been completed. 
+    search : boolean, searchs in this local array. sets true initially
+		reset to false, when this process initiates search or
+		end of array is reached. When this process initiates
+		search it waits to receive value from previous process
+		in ring.
+    notdone : boolean, Tells whether the computation is terminated or not.
+		initialised to true. Reset to false (i.e done = true)
+		when the process founds smallest common value or nocommon
+		exists.
+    nocommon: boolean, Sets to false initially. Reset to true when smallest 
+		common value was found. 
+    start : boolean, Initialised to true. After starting computation reset
+		to false, From then it waits to receive value from the
+		previous process.
+
+
+
+From bdenison Tue May 18 14:50:37 1993
+Date: Tue, 18 May 93 14:50:33 -0400
+From: bdenison (Barbara Denison)
+To: pmateti
+Status: OR
+
+Assumptions:  There is a calling process, C, which calls P(i)!least()
+              The least common value will be returned to C.
+              If there is no least common value, a value of -1 will
+be returned to C.  This forces the array values to be >= 0.  It could
+be handled differently by returning a none function and having a guard 
+in C.
+              C || P(i:0..2)
+              [] means fat bar.
+End Assumptions.
+
+
+P(i:0..2) ::  {n >= 1 and each  Array(i) >= 0 and Array(i) <= Array(j), for
+               each i < j }
+n: integer;  Array[1..n]: integer;
+m: integer;
+
+*[ C?least() -> j:integer := 1;
+       k: integer := 1;  x: integer;
+       l: integer := 1;  y: integer;
+       more: boolean := true;
+       P((i+1) mod 3)!next(k); P((i+1) mod 3)?x;
+       P((i+2) mod 3)!next(l); P((i+2) mod 3)?y;
+
+    *[ more; Array(j) = x; Array(j) = y -> {more and Array(j)=x=y}
+                                      C!x; more:= false;
+                                           {return least common
+integer}
+    [] more; Array(j) < x ->   {more and (Array(j) < x) }
+                             [ j < n -> j:= j + 1;
+                            [] j >= n -> C!(-1); more:=false;
+                            {return no least common integer and not
+more}
+                             ]
+    [] more; Array(j) < y -> [ j < n -> j:= j + 1;
+                            [] j >= n -> C!(-1); more:=false;
+                            {return no least common integer and not
+more}
+                             ]
+    [] more; Array(j) > x -> k:= k + 1; P((i+1) mod 3)!next(k);
+                             [ P((i+1) mod 3)?x;
+                            [] P((i+1) mod 3)?none() -> C!(-1);
+                                     more:= false;
+                             ]
+    [] more; Array(j) > y -> l:= l + 1; P((i+2) mod 3)!next(l);
+                             [ P((i+2) mod 3)?y;
+                            [] P((i+2) mod 3)?none() -> C!(-1);
+                                     more:= false;
+                             ]
+    ]
+[] P((i+1) mod 3)?next(m) ->   {m > 0}
+         [ m <= n -> {m<=n}
+                     P((i+1) mod 3)!Array(m);
+             {m > 0 and m<=n and Array(m) value is output}
+        [] m > n ->  {m > n}
+                     P((i+1) mod 3)!none();
+             {m > n and none() is output}
+         ]
+[] P((i+2) mod 3)?next(m) ->   {m > 0}
+         [ m <= n -> { m <= n}
+                     P((i+2) mod 3)!Array(m);
+             {m > 0 and m<=n and Array(m) value is output}
+        [] m > n ->  { m > n }
+                     P((i+2) mod 3)!none();
+             {m > n and none() is output}
+         ]
+{ n>= 1 and each  Array(i) >= 0 and Array(i) <= Array(j), for
+               each i < j and P(i) does not change n or Array}
+]
+
+
+
+
+From mwolfe Tue May 18 17:15:39 1993
+Status: RO
+X-VM-v5-Data: ([nil nil nil nil nil nil nil nil nil]
+	[nil nil nil nil nil nil nil nil nil nil nil nil "^From:" nil nil nil])
+From: mwolfe (Matthew P. Wolfe)
+To: pmateti
+Date: Tue, 18 May 93 17:15:36 -0400
+
+
+Symmetric Solution to Smallest Common Integer Problem
+
+by: Matt Wolfe (mwolfe@valhalla) 18 May 1993
+
+General Approach:
+======= ========
+
+( The original problem asked about three processes. This solution is
+  expressed in the more general form of n processes, n > 1. )
+
+    Consider the n process connected in a ring. The first process will
+start the search for the minimun common value. The nth process will 
+send results to the 1st. The current candidate for minimum value is
+"candidate". It is passed around ring along with the number of processes
+that have accepted that value. When the number of accepting processes is
+n, then success is indicated and the processes are instructed to halt.
+When any one array is exhausted before success has been indicated, then
+failure is indicated and all processes are halted.
+
+Assumptions:
+===========
+
+1. Each array has positive integers, trailed with zeros. (This assumption
+was made rather than assuming a) -1 in array after the integer values, 
+or b) the existance of "maxindex" for each array to use as a check. The
+only effect of this assumption is in the check to see if the array is
+exhausted. Both a) or b) could be implemented with little change to the
+algorithm shown. 
+
+2. The n processes are all started via some external process. No 
+abnormal termination is allowed. The "n" value is abstract in this
+design, but fixed in the implementation and is known to all processes.
+
+
+Algorithm: Comments are shown in braces. 
+=========
+
+Pi(i=2,n):: array() { positive non-zero integers, then trailing zeros } 
+            candidate : integer       { received value }
+            n_ok      : integer       { received value }
+            position  : integer = 1   { local, initial value 1 }
+[
+  [ i = 1 --> P(2)!array(1); P(2)!1 ] { first proc starts search }
+
+ *[       { start main non-terminating loop }
+
+     P(i-1 mod n)?candidate; P(i-1 mod n)?n_ok  -->    
+                                      { prev proc sends candidate } 
+                                      { and num of acceptances }
+        [
+        candidate = -1 --> halt    { search can be ended }   
+        []
+        candidate > 0 -->          { this array must be scanned }
+           [
+            *[ candidate > array(position);  { scans local array }
+               array(position) > 0 --> position ++ ] 
+             
+                 { at this point, your array position points to a value
+                   that is zero, larger, or the same as the candidate } 
+                [ 
+                array(position) = candidate -->
+                    [
+                    n_ok = n - 1 --> signal success;   { n acceptances }
+                                     print candidate;
+                                     P(i+1 mod n)!-1;
+                                     P(i+1 mod n)!0;
+                    []
+                    n_ok < n - 1 -->                   { keep looking }
+                                     P(i+1 mod n)!candidate;
+                                     P(i+1 mod n)!n_ok + 1;
+                    ]
+                 []
+                 array(position) = 0 --> signal failure; { out of data }
+                                         P(i+1 mod n)!-1;
+                                         P(i+1 mod n)!0;
+                 []
+                 array(position) > candidate -->      { new candidate }
+                                     P(i+1 mod n)!candidate;
+                                     P(i+1 mod n)!1;
+                 ]
+           ]
+       ]
+  
+  ]
+]
+
+Observation:
+
+Deadlock is avoided by carefully matching each data send to a data
+query, even if dummy data sends are needed. However, any abnormal
+process termination will cause serious deadlock problems. 
+ 
+
+
+From kandrews Tue May 18 17:29:16 1993
+Status: RO
+X-VM-v5-Data: ([nil nil nil nil nil nil nil nil nil]
+	[nil nil nil nil nil nil nil nil nil nil nil nil "^From:" nil nil nil])
+From: kandrews (Keith  M. Andrews)
+To: pmateti
+Cc: kandrews
+Subject: The Exam Question Extension
+Date: Tue, 18 May 93 17:29:11 -0400
+
+Student: Keith Andrews
+Course: CS 7370 Distributed Computing Principles
+Date: 5-18-93
+Special Question Extension
+
+
+The problem:
+          Given are three processes P(0), P(1), and P(2).  Each has a local
+        array of integers.  They may or may not be of the same length, but
+        are definitely not empty.  All Three arrays are already sorted in non-
+        decreasing order.  Write a CSP algorithm using only these processes so
+        that each process determines the smallest common value.  Give key
+        assertions in each process.  Messages should contain only one integer
+        at a time.
+ 
+Problem extension:
+          The CSP code for each process has to be identical.  
+ 
+Discussion:
+           This additional requirement posses a problem of deadlock.  If
+        the CSP code is written such that all processes will be executing the
+        same pieces of code simultaneously, then there could never be
+        communication between the processes because they would all attempt a
+        Bang or Query operation at the same time.  Thus, after careful thought
+        I concluded that a mechanism must be incorporated into the code that
+        would designate the task of "Announcer" to one of the processes and by
+        default assign the task of "Responder" to the other two. 
+           This "Announcer" process would send its smallest integer from its
+        local array to both processes.  The "Responders" task would them be to
+        search its local array for the integer received.  If it found a match 
+        it would respond by sending this integer.  However, if no match
+        is found the process will send the first value it has greater than the
+        one requested.  This process would also recognize that all previous
+        values in it's local array are not shared by the current "Announcer".
+        Thus, its index for its local array need not be restored to its original
+        value.
+           Once the current "Announcer" receives both responses it will then 
+        check if they match the integer it sent out.  If one processes
+        responds with a value that is different then the tasks are shifted and
+        the system continues.  However, if both "Responders" return the 
+        correct value the the "Announcer" process will terminate.  This will
+        cause the others to terminate once they can no longer communicate with
+        the previously mentioned process.  At such a point each process should
+        have a local index specifying the common integer in their local array.
+          This mechanism could have easily been implemented by passing a token.
+        However, because additional message types were not allowed I chose to
+        utilize an internal counter.  This counter, "n", would be used to
+        recognize which process should be the "Announcer".  Therefore, at the
+        point where the tasks are rotated this local counter, "n", of each
+        process must be incremented.
+ 
+ 
+Key to The Following Code
+ 
+   Variables:        
+               i:  The integer value that specifies which process is being 
+                        referred to.
+         content:  An array of integers whose size is greater than zero and
+                        designated by the symbol SIZE
+               n:  The task counter
+        smallest:  The index of counter representing the smallest possible
+                        integer these process could have in common         
+              in:  The integer value received by the process in "Responder"
+                        mode
+             out:  The integer value found by the process in "Responder" mode
+         return1:  One of the integer responses received by the current
+                        "Announcer"
+         return2:  The second integer response received by the current
+                        "Announcer"
+ 
+   Symbols:
+        " -> "  is the Arrow Symbol from the CSP code
+        " || "  is the Parallel Symbol from the CSP code
+        " [] "  is the Fat Bar Symbol from the CSP code
+        " <> "  is used to represent not equal.
+        "SIZE"  is just a local symbol to represent the size of the local array
+ "*/" and "/*"  represent comment symbols
+ 
+ 
+Complete Solution:
+ 
+P(i:0..2)::
+        content:(0..SIZE)integer;
+        n:integer;                n := 0;
+        smallest:integer;        smallest := 0;
+        in:integer;
+        out:integer;
+        return1:integer;
+        return2:integer;
+        *[ (n mod 3) = i ->                        /* Enter "Announcer" Mode */
+                [  P(i+1 mod 3)!content(y)         /* Send smallest to other */
+                || P(i+2 mod 3)!content(y) ];                   /* processes */
+                [  P(i+1 mod 3)?return1            /* Get response from both */
+                || P(i+2 mod 3)?return2  ];                     /* processes */
+                [   return1 <> content(y) ->  n := n + 1
+                []  return2 <> content(y) ->  n := n + 1
+                ]                        /* If one response doesn't matches 
+                                           continue and shift tasks.
+                                           Otherwise it can't be resolved
+                                           and the process will terminate */
+ 
+        [] (n mod 3) <> i ->                       /* Enter "Responder" Mode */
+                P(n mod 3)?in;               /* Get integer from "Announcer" */
+                *[ y < SIZE;                       /* Search for its Match   */
+                   content(y) < in ->  y := y + 1 ];
+                P(n mod 3)!content(y);          /* Respond with the Match or
+                                                      next Smallest Integer  */
+                n := n + 1                        /* Shift the tasks        */
+         ]
+ 
+
+
++----------------------------------------------------+-------------------+
+|   Keith Andrews   "kandrews@valhalla.cs.wright.edu"| I'm a very        |
+| _        _  __ __  __                              | dangerous man when|
+| \\  /\  // /_/ ||  ||  Wright State University     | I don't know what |
+|  \\//\\// _\\  ||__||  Russ Engineering Center     | I'm doing....     |
+|   \/  \/./__/. \____/.      Dayton,  Ohio          |        -- Dr. Who |
++----------------------------------------------------+-------------------+
+
+
+From hgreider Wed May 19 14:51:04 1993
+Status: RO
+X-VM-v5-Data: ([nil nil nil nil nil nil nil nil nil]
+	[nil nil nil nil nil nil nil nil nil nil nil nil "^To:" nil nil nil])
+Received: by kiwi.cs.wright.edu (5.65/7.3.WRIGHT.SPOTS)
+	id AA21629; Wed, 19 May 1993 14:49:43 -0400
+Posted-Date: Wed, 19 May 1993 14:49:43 -0400
+Message-Id: <9305191849.AA21629@kiwi.cs.wright.edu>
+To: pmateti
+Subject: Problem 3, Version 3
+Date: Wed, 19 May 1993 14:49:43 -0400
+
+Herm Greider
+Midterm Problem 3
+Version 3
+
+Hopefully the third time is a charm. There are three main concurrent
+operations with several other cases to achieve termination. 
+
+This algorithm assumes that n[max] is -1. If that is not valid, then
+make max one larger and insert a statement at the beginning n[max] = -1.
+This is the sentinel value used for termination.
+
+Main concurrent operations
+1) Sending values to G - cases 1 and 2, gdone initially false.
+   case 1: Guarded by !gdone. Block on next() signal from G. When 
+           signal received, send the next value. 
+   case 2: Guarded by !gdone. Block on done() signal from G. When 
+           signal received, set gdone=true to stop cases 1 and 2.
+2) Sending values to H - cases 3 and 4. Same as cases 1 and 2 for H.
+3) Getting values from G and H - cases 5-10, case 5 performed first - 
+   Ganother is initially true.
+   case 5: Ganother is true, get values from G 
+           1) if common found, Hanother:=true to do case 6
+           2) if G sent -1, do cases 7 and 8
+           3) otherwise repeat case 5
+   case 6: Hanother is true (after G found common), get values from H 
+           1) if common found, cases 5-6 are finished, do cases 7 and 8
+           2) if -1 sent, cases 5-6 are finished, do cases 7 and 8
+           3) if H sent a value larger than common that G found, 
+              repeat case 5 by Ganother:=true
+           4) otherwise repeat case 6
+   case 7: send done signal to G to unblock case 2, if G did not 
+           send -1 in case 5 perform case 9
+   case 8: send done signal to H to unblock case 4, if H did not 
+           send -1 in case 6 perform case 10
+   case 9: send next signal to G to unblock at case 1, get dummy value,
+           cases 5,6,7,9 finished at this point
+   case 10: send next signal to H to unblock at case 3, get dummy value,
+           cases 5,6,8,10 finished at this point
+
+
+F:: n:array[1..max] of integer; 
+    Hanother,gdone,hdone,stopg,stoph,glast,hlast:boolean:=false;
+    Ganother:boolean:=true; 
+    Hcur,Gcur,Fcur:integer:=1;
+    common:integer:=-1;
+    x:integer;
+
+    { (!gdone AND Gcur<=max) AND 
+      (!hdone AND Hcur<=max) AND
+      (Ganother AND !Hanother AND !stopg AND !stoph AND !glast AND !hlast)
+    }
+    /* case 1 */
+    *[ !gdone; Gcur<=max; G?next() ->
+               G!n[Gcur]; Gcur:=Gcur+1
+
+    /* case 2 */
+    [] !gdone; G?done() -> gdone:=true; 
+
+    /* case 3 */
+    [] !hdone; Hcur<=max; H?next() -> 
+               H!n[Hcur]; Hcur:=Hcur+1
+    
+    /* case 4 */
+    [] !hdone; H?done() -> hdone:=true
+
+    /* case 5 */
+    [] doagain:boolean:=true; Ganother; G!next() -> 
+       {Ganother AND !Hanother AND !stopg AND !stoph AND !lastg AND !lasth }
+               G?x; Ganother:=false;
+               *[ x<>-1; doagain; x=n[Fcur] -> 
+                      Hanother:=true; doagain:=false
+               [] x<>-1; doagain; x<n[Fcur] -> 
+                      Ganother:=true; doagain:=false
+               [] x<>-1; doagain; x>n[Fcur] -> 
+                      Fcur:=Fcur+1; 
+               [] x=-1; doagain -> 
+                      stopg,stoph:=true; doagain:=false
+               ]
+       { (Hanother OR Ganother) OR 
+         (x=-1 AND (!Hanother AND !Ganother) AND (stopg AND stoph))
+       }
+
+    /* case 6 */
+    [] Hanother; H!next() -> 
+       {Hanother AND !Ganother AND !stopg AND !stoph AND !lastg AND !lasth }
+               H?x; Hanother:=false;
+               [  x<>-1; x=n[Fcur] -> stopg,stoph:=true; common:=x
+               [] x<>-1; x<n[Fcur] -> Hanother:=true
+               [] x<>-1; x>n[Fcur] -> Fcur:=Fcur+1; Ganother:=true
+               [] x=-1; -> stopg,stoph:=true
+               ]
+       { (Hanother OR Ganother) OR
+         (x=-1 AND (!Hanother AND !Ganother) AND (stopg AND stoph) OR
+         (common<>-1 AND (!Hanother AND !Ganother) AND (stopg AND stoph))
+       }
+
+    /* case 7 */
+    [] stopg; G!done() -> 
+       { !Hanother AND !Ganother }
+              stopg :=false; [x<>-1 -> glast:=true]
+       { (x=-1 AND (!Hanother AND !Ganother) AND !stopg AND glast) OR
+         (x<>-1 AND (!Hanother AND !Ganother) AND !stopg AND !glast)
+       }
+    
+    /* case 8 */
+    [] stoph; H!done() -> 
+       { !Hanother AND !Ganother }
+              stoph :=false; [x<>-1 -> hlast:=true]
+       { (x=-1 AND (!Hanother AND !Ganother) AND !stoph AND hlast) OR
+         (x<>-1 AND (!Hanother AND !Ganother) AND !stoph AND !hlast)
+       }
+
+    /* case 9 */
+    [] glast; G!next() -> G?x; glast:=false
+       { !Hanother AND !Ganother AND !stopg AND !glast }
+    
+    /* case 10 */
+    [] hlast; H!next() -> H?x; hlast:=false
+       { !Hanother AND !Ganother AND !stoph AND !hlast }
+
+    ]
+
+    { !Hanother AND !Ganother AND !stopg AND !stoph AND !glast AND !hlast
+      AND gdone AND hdone AND (common contains least common OR common=-1) }
+
+
+
+From sghosh Wed May 19 17:22:23 1993
+Status: RO
+X-VM-v5-Data: ([nil nil nil nil nil nil nil nil nil]
+	[nil nil nil nil nil nil nil nil nil nil nil nil "^To:" nil nil nil])
+Received: by kiwi.cs.wright.edu (5.65/7.3.WRIGHT.SPOTS)
+	id AA24396; Wed, 19 May 1993 17:21:42 -0400
+Posted-Date: Wed, 19 May 1993 17:21:42 -0400
+Message-Id: <9305192121.AA24396@kiwi.cs.wright.edu>
+To: pmateti
+Subject: Corrected solution for Q3, please ignore previous soln.
+Date: Wed, 19 May 1993 17:21:42 -0400
+
+		Symetric Solution to Question  3
+		--------------------------------
+	Corrections made since handing in the hard-copy in class;
+	All corrections are explained at the end of the explaination.
+
+S(i:1..3)::
+[j,k,my_min:integer;
+ buff(1..n):integer;
+ b:boolean; b := true;
+ j:=1; my_min:=buff(j);
+ *[   b -> S(i mod 3 + 1)!my_min;
+   [] S((i+1) mod 3 + 1)?token(k) -> BODY;
+   [] S(0)?token(k) -> BODY;
+  ]
+]
+
+BODY:
+     [his_min:integer;S((i+1) mod 3 + 1)?his_min
+      [   his_min = -1 -> my_min := his_min; k := k + 1;
+                          [   k = 3 -> b := false;
+                           [] k <> 3 -> S(i mod 3 + 1)!token(k);
+					S(i mod 3 + 1)!my_min;
+                          ]
+       [] my_min = his_min -> k:=k+1;
+         [   k = 3 -> b := false;
+          [] k <> 3 -> S(i mod 3 + 1)!token(k);
+		       S(i mod 3 + 1)!my_min;
+         ]
+       [] my_min < his_min -> k = 1;
+            	              SEARCH(his_min);
+       [] my_min > his_min -> k = 1;
+			      S(i mod 3 + 1)!token(k);
+			      S(i mod 3 + 1)!my_min;
+      ]
+     ]
+
+SEARCH(his_min):
+[i,k:integer; buff(1..n):integer;
+ b1:boolean; b1 := true;
+ i:=2;
+ *[   buff(i) = his_min; b1 -> my_min = buff(i);
+			       k:=k+1;
+           		       b1 := false;
+			       [   k = 3 -> b := false;
+			        [] k <> 3 -> S(i mod 3 + 1)!token(k);
+			         	     S(i mod 3 + 1)!my_min;
+			       ]
+   [] buff(i) < his_min; b1 -> i:=i+1; 
+   [] buff(i) > his_min; b1 -> my_min = buff(i);
+			       b1 := false;
+			       S(i mod 3 + 1)!token(k);
+			       S(i mod 3 + 1)!my_min;
+   [] i >= n; b1  -> my_min = -1;
+		     k := 1;
+		     S(i mod 3 + 1)!token(k);
+		     S(i mod 3 + 1)!my_min;
+		     b1 := false;
+  ]
+]
+
+S(0)::
+[S(1)!token(1);
+]
+
+Explaination:
+Assume a process S(0) which initiates this algorithm, it initialises the
+algorithm by sending the token to S(1) with a initial value of 1.
+The mod arithmetics require some explaination :
+				i=1	i=2	i=3
+   	S(i mod 3 + 1)!--	 2	 3	 1
+        S((i+1) mod 3 + 1)?--	 3	 1	 2
+Since each process outputs to its next and inputs from its previous,this
+ensures the circularity of message passing.
+
+In the outer loop of the S(i)'s each of them is ready to output their
+min. or receive the token from its predecessor or S(0). Only when a
+process gets a token it can input the min. of its predecessor, thus
+although each of the process is ready to output its min. only the one
+which has its succesor having the token can output it. This ensures
+there is no deadlock among the processes. 
+
+The process with the token now has 3 options :
+ 1) if the his_min it receives is -1 then there can be no common minimun.
+    If k = 3 then all processes know this then the algorithm terminates,
+    (b is set to false) else the value of -1 is sent to the next
+    process.
+ 2) If the his_min = my_min, then a counter k is incremented. If k=3
+    then the my_min's of each of the processes are the same and is the
+    common minimun, so the algorithm terminates, else k is incremented 
+    and sent out along with the token and the current min. of two
+    processes.
+ 3) If my_min < his_min then the termination counter k is reset to
+    1 and the SEARCH procedure is entered.
+ 4) If my_min > his_min then k is reset to 1 and my_min is sent out as
+    the new number to search for the least common minimum.
+
+SEARCH:
+ The process having the token, now searches through its array, starting
+from the seconds element. 
+ 1) If any of the elements of S(i) equals his_min,
+    then the token is sent to the next process with k updated and then the
+    common min. so far.
+ 2) If buff(i) > his_min then this number is used as the one to search for
+    the smallest common min.
+ 3) If buff(i) is smaller than his_min then the array is scanned forward.
+ 4) If the end of the array is reached with buff(i) still less than his_min
+    then we know that there can be no common min. (eg. if his_min is 10 and
+    the buff(n) = 9) so -1 is sent to the next process to terminate the
+    algorithm.
+
+	Explaination of Correction to previous solution.
+ 1) The gaurd for the bang in the outer loop is changed from being 
+    unconditionally true to a boolean variable gaurd. The variable b
+    remains  true until all the three processes have computed the common
+    minimum as the value of their my_min's or know that there can be no
+    common minimum (ie their my_min's = -1). Then b becomes false and
+    the processes exit from the outer loop.
+ 2) BODY is impemented as an IF statement rather than a loop.
+ 3) A boolean variable b1, is used in SEARCH to fall out of the SEARCH
+    loop when required.
+ 4) We need two cases if my_min <> his_min, so now there are two clauses
+    in BODY to deal with this.
+
+
+
+From dhou Wed May 19 19:53:32 1993
+Status: RO
+X-VM-v5-Data: ([nil nil nil nil nil nil nil nil nil]
+	[nil nil nil nil nil nil nil nil nil nil nil nil "^To:" nil nil nil])
+Received: by kiwi.cs.wright.edu (5.65/7.3.WRIGHT.SPOTS)
+	id AA26601; Wed, 19 May 1993 19:53:26 -0400
+Posted-Date: Wed, 19 May 1993 19:53:26 -0400
+Message-Id: <9305192353.AA26601@kiwi.cs.wright.edu>
+To: pmateti
+Date: Wed, 19 May 1993 19:53:26 -0400
+
+*******************
+Q3  Solution.           by Dan Hou   May 19, 1993
+******************* 
+F, G, and H are three symmetric processes.  They communicate with each
+other through  three kinds of messages.  One is an integer, the
+smallest candidate. The other two are signals no() and yes().  There
+are some boolean variables to control which kinds of message
+are ready to send or receive.  Each process has a local 
+array:content(0..limit). We assume that CSP has variable size array 
+and limit is the upbound(This is an assumption that each local array
+may or may not has same length.).  Two local integer variables store 
+the smallest candidates sent by the other two processes, respectively.
+In F, for example, they are Gmin and Hmin.  
+
+We take process F as an example to explain how the F(G,H) works. In
+F, there are 12 non-deterministic choices, each of them has a boolean
+prefix.  F can't send yes() or no() to G or H until F finds answer.
+If F sends its candidate to G, it will not able to send to G again
+(set sendG to False) until the next time it receives a candidate from G  
+and yes() or no() signal are not ready; F sends its candidate to
+H is similar.  If F receives a candidate from G, it searches its local
+array, the result may be (1) ready to send yes() to G or H(finds the
+smallest common value); or(2) ready to send no() to G or H(does not find);
+or(3) repeats from the beginning, noticing that the pointer i in local
+array may be changed. F receives a candidate from H is similar. As soon
+as F finds  answer: yes if Hmin=Gmin=content(i) or no if i>limit, or F 
+receives yes() signal or no() signal  from G or H, the process F terminates. 
+
+F::
+   { If there is a smallest common value: content(i) in F ->
+       Gmin=Hmin=content(i) or  receives yes() signal from G or H;
+     If there is no smallest common value -> 
+       i>=limit  or  receives no() signal from G or H. }  
+ 
+  content:(0..limit); 
+  i:integer; i:=0;
+  common:integer; common:=-1;
+     /* indicating the result */ 
+  Gmin, Hmin:integer; 
+  Gmin:= content(0) - 100;    
+  Hmin:= content(0) - 200;
+     /* initialize Gmin and Hmin smaller than content(0), and Gmin and Hmin
+        are not equal.  
+     */   
+  sendG, sendH, receiveG, receiveH, 
+  sendYes, sendNo, receiveYes, receiveNo: boolean;
+  sendG, sendH, receiveG, receiveH, receiveYes, receiveNo:=True;
+  sendYes, sendNo:=False;
+     /* boolean  prefixes */ 
+
+
+  *[  sendG; G!content(i)  ->  sendG:= False
+    []sendH; H!content(i)  ->  sendH:= False
+    []receiveG; G?Gmin     ->  min:integer; min:=Gmin
+                               SEARCH
+                               [  i>=limit   ->/* find no answer */
+                                      disableMessage
+                                      sendNO:= True
+                                []i<limit    ->
+                                  [  Gmin=content(i) and  Gmin=Hmin->
+                                               /* find yes answer */
+                                      disableMessage
+                                      sendYes:=True
+                                      common:=i
+                                   []Gmin!=content(i) or Gmin!=Hmin->
+                                               /* repeat */
+                                      sendG:=True
+                                  ]
+                                ]
+    []receiveH; H?Hmin     ->  min:integer; min:=Hmin
+                               SEARCH
+                               [  i>=limit   ->/* find no answer */ 
+                                      disableMessage
+                                      sendNO:= True       
+                                []i<limit    ->        
+                                  [  Hmin=content(i) and  Gmin=Hmin->
+                                               /* find yes answer */ 
+                                      disableMessage
+                                      sendYes:=True  
+                                      common:=i
+                                   []Hmin!=content(i) or Gmin!=Hmin->
+                                               /* repeat */
+                                      sendH:=True
+                                  ]                             
+                                ]
+                             
+    []sendYes; G!Yes()       -> H!Yes(); disableSignal; disableMessage
+    []sendYes; H!Yes()       -> G!Yes(); disableSignal; disableMessage
+    []sendNo;  G!No()        -> H!No();  disableSignal; disableMessage
+    []sendNo;  H!No()        -> G!No();  disableSignal; disableMessage
+    []receiveYes; G?Yes()    -> common=i; disableSignal; disableMessage
+    []receiveYes; H?Yes()    -> common=i; disableSignal; disableMessage
+    []receiveNo;  G?No()     -> disableSignal; disableMessage
+    []receiveNo;  H?No()     -> disableSignal; disableMessage
+   ] 
+
+
+where  SEARCH is an abbreviation for: 
+
+     *[i<limit; min>content(i) -> i:=i+1] ;
+
+disableMessage is an abbreviation for: 
+
+      [sendG:=False; sendH:= False; receiveG:=False; receiveH:= False]; 
+
+disableSignal is an abbreviation for: 
+ 
+      [sendYes:=False; sendNo=False; receiveYes:=False; receiveNo:=False]. 
+
+
+
+G and H can be written symmetrically( We replace every G in F process to 
+F in G process and replace every H in F process to F in H process). 
+The key assertions of G and H are: 
+
+     
+G::  If there is a smallest common value: content(i) in G  -> 
+       Fmin=Hmin=content(i) or receives yes() signal from F or H;
+     If there is no smallest common value -> 
+       i>=limit  or receives no() signal from F or H. 
+
+ 
+H::  If there is a smallest common value: content(i) in H  -> 
+       Fmin=Gmin=content(i) or receives yes() signal from F or G;
+     If there is no smallest common value -> 
+       i>=limit  or receives no() signal from F or G. 
+ 
+
+
+
+From jthomas Wed May 19 20:20:48 1993
+Date: Wed, 19 May 93 20:20:12 -0400
+From: jthomas (John Thomas)
+To: pmateti
+Status: OR
+
+John Thomas
+Problem 3.
+
+
+
+
+
+  P::        a(1..m):integer;       {array of numbers}
+             n:integer; n:=1;       {index to array}
+
+  *[n =< m:  x:=-1; y=-1;
+            
+      [     P(i-1)?x;
+        ||  P(i-1)!a[n];
+        ||  P(i+1)?y;
+        ||  P(i+1)!a[n];
+      ]
+       
+      [     x = y; x = a[n] --> announce lowest common number 'a[n]'; n:=m+1;
+        []  x >= a[n]; y >= a[n] --> n++;
+        []  x = -1 --> n:=m+1;
+        []  y = -1 --> n:=m+1;
+      ]
+
+   ]
+
+This being a symmetric algorithm, the same code can be run in processes F, G and H.
+
+The loop statement will terminate on any of the following conditions becoming true:
+
+1. A common number is found (x=y; x=a[n])
+2. No more numbers exist in the executing process (n>m)
+3. No more numbers exist in any of the other 2 processes (this will cause x or y to 
+   remain -1).
+
+If x and y are both found to be at least as large as a[n], then it is time to compare
+the next element in the array (n++).
+
+Till the above conditions become true, the three processes will continue to exchange
+numbers and compare them for equality. Since the numbers exchanged are obtained from
+the arrays of the processes in increasing order, the common number, if found, will be
+their least common number.
+
+
+
+From dsavage Wed May 19 22:10:59 1993
+Received: by kiwi.cs.wright.edu (5.65/7.3.WRIGHT.SPOTS)
+	id AA28144; Wed, 19 May 1993 22:10:54 -0400
+Date: Wed, 19 May 1993 22:10:54 -0400
+Posted-Date: Wed, 19 May 1993 22:10:54 -0400
+Message-Id: <9305200210.AA28144@kiwi.cs.wright.edu>
+To: pmateti
+Subject: Symmetry Solution
+Cc: dsavage
+Status: OR
+
+
+
+Symmetrical Least Common Element Algorithm             David Savage
+
+Each process begins with its own array of positive integers, presorted in
+ascending order.  The solution will allow each process to determine the 
+smallest integer common to each array.  The problem with a symmetric 
+solution is that for each output operation, there must be a corresponding
+input operation by the approriate receiver.  If there is not, deadlock 
+will occur with two or more processes trying to output (or input) at the
+same time.  To avoid this problem, I have attempted to create two layers
+of deadlock avoidance.  The first layer will break a deadlock situation
+by allowing only two of the three processes to communicate.  Which two
+processes these are is irrelevant, what is important is that the communi-
+cation begins.  Once the first two 'speakers' has been determined, a
+second layer of guarded, indeterminant input/output statements is
+entered to avoid deadlock between the two 'speakers'.  Once these two
+processes have completed their data exchange, they will both try to
+exchange data with  the third process.  The third process, which has been
+blocked at the outer layer, will start to communicate with one of the
+other processes.  Which one is again irrelevant since upon completion of
+the exchange, it will then complete the exchange with the remaining process.
+At this point, each process has its own value from its own array, as well
+as the value from the array of the other two processes.  Now it is merely a
+matter of each process determining its next action based upon the values
+of these three items.  If all values are equal, obviously the smallest common
+element has been found.  If your processes value is greater than either of 
+the other two processes values, then simply re-output your value again since
+it could still be the least common element.  If your value is less than either
+of the other two processes value, then your value could not possibly be the
+least common value, so output the next value from your array for interrogation
+by the other two processes.  This loop will continue until the common element
+has been found or until any of the processes have exhausted their data.
+
+The algorithm, with key assertions, follows:
+
+ where:  no_elem - # of elements in each array
+         search  - flag to continue searching for the least common element
+         A       - array of positive integers in ascending order
+         j       - pointer to current position in array
+         n       - value of the jth element of your array
+         x       - value of the element from your (i+1) mod 3 process
+         y       - value of the element from your (i+2) mod 3 process
+ 
+
+search : boolean : true;
+no_elem : integer;
+A : array(1..no_elem) of integer;
+j : integer := 1;
+
+P(i:0..2)::
+  *[n,x,y : integer; search -> {search = true ^ j <= no_elem+1}
+
+        /* get element from array, if none left, end search */
+
+     [  j > no_elem -> {j > no_elem ^ n<>x<>y} n:= -1; search := false
+     [] j <= no_elem -> {j <= no_elem ^ search = true} n:= A(j)
+     ];
+
+                    /* Input/Output Guards */
+
+     [  P((i+1) mod 3) ! n -> 
+        [  P((i+1) mod 3) ? x;
+           [  P((i+2) mod 3) ! n -> P((i+2) mod 3) ? y
+           [] P((i+2) mod 3) ? y -> P((i+2) mod 3) ! n
+           ]
+        ];
+       
+     [] P((i+1) mod 3) ? x -> 
+        [  P((i+1) mod 3) ! n;
+           [  P((i+2) mod 3) ! n -> P((i+2) mod 3) ? y
+           [] P((i+2) mod 3) ? y -> P((i+2) mod 3) ! n
+           ]
+        ];
+
+     [] P((i+2) mod 3) ! n ->
+        [  P((i+2) mod 3) ? x;
+           [  P((i+1) mod 3) ! n -> P((i+1) mod 3) ? y
+           [] P((i+1) mod 3) ? y -> P((i+1) mod 3) ! n
+           ]
+        ];
+
+     [] P((i+2) mod 3) ? x -> 
+        [  P((i+2) mod 3) ! n;
+           [  P((i+1) mod 3) ! n -> P((i+1) mod 3) ? y
+           [] P((i+1) mod 3) ? y -> P((i+1) mod 3) ! n
+           ]
+        ];
+     ];
+
+                 /* Disposition of array elements */
+
+     [  n = x -> {n=x ^ j <= no_elem+1}
+        [  n = y -> {n=x=y ^ j <= no_elem ^ j = LCE} search := false
+        [] n > y -> {n=x ^ n>y ^ j <= no_elem} skip
+        [] n < y -> {n=x ^ n<y ^ j <= no_elem+1} j := j+1
+        ]
+
+     [] n < x -> {n<x ^ j <= no_elem+1} j := j+1
+
+     [] n > x -> {n>x ^ j <= no_elem}
+        [  n > y -> {n>x ^ n>y} skip
+        [] n = y -> {n>x ^ n=y} skip
+        [] n < y -> {n>x ^ n<y} j := j+1
+        ]
+     ];
+
+        /* If any other process is out of data, you are done also */
+
+     [  x = -1 -> {x = -1} search := false
+     [] y = -1 -> {y = -1} search := false
+     ];
+
+   ];
+
+
+
+From CSE0649@DESIRE.WRIGHT.EDU Thu May 20 21:09:22 1993
+Received: from DESIRE.WRIGHT.EDU by DESIRE.WRIGHT.EDU (PMDF #2485 ) id
+ <01GYEN29UJA8001JX0@DESIRE.WRIGHT.EDU>; Thu, 20 May 1993 17:26:37 EDT
+Date: 20 May 1993 17:26:37 -0400 (EDT)
+From: CSE0649@DESIRE.WRIGHT.EDU
+Subject: Q3 Extension
+To: pmateti@valhalla
+Message-Id: <01GYEN29UJAA001JX0@DESIRE.WRIGHT.EDU>
+X-Envelope-To: pmateti@VALHALLA.CS.WRIGHT.EDU
+X-Vms-To: IN%"pmateti@valhalla.cs.wright.edu"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7BIT
+Status: OR
+
+Student: Keith Andrews
+Course: CS 7370 Distributed Computing Principles
+Date: 5-18-93
+Special Question Extension
+
+
+The problem:
+          Given are three processes P(0), P(1), and P(2).  Each has a local
+        array of integers.  They may or may not be of the same length, but
+        are definitely not empty.  All Three arrays are already sorted in non-
+        decreasing order.  Write a CSP algorithm using only these processes so
+        that each process determines the smallest common value.  Give key
+        assertions in each process.  Messages should contain only one integer
+        at a time.
+ 
+Problem extension:
+          The CSP code for each process has to be symmetrical.  
+ 
+Discussion:
+           This additional requirement posses a problem of deadlock.  If
+        the CSP code is written such that all processes will be executing the
+        same pieces of code simultaneously, then there could never be
+        communication between the processes because they would all attempt a
+        Bang or Query operation at the same time.  Thus, form the hint given
+	on page 429 of the text I devised a new code to comply with the 
+	symmetry stipulation.
+
+
+Key to The Following Code
+ 
+   Variables:        
+               i:  The integer value that specifies which process is being 
+                        referred to.
+         content:  An array of integers whose size is greater than zero and
+                        designated by the symbol SIZE
+        smallest:  The index of counter representing the smallest possible
+                        integer these process could have in common         
+	      in:  The integer response from the processes neighbor
+	     in2:  The integer response from the processes 2nd neighbor
+	finished:  A Flag to determine if any neighbors still have values
+			smaller than your own which help govern termination.
+ 
+   Symbols:
+        " -> "  is the Arrow Symbol from the CSP code
+        " || "  is the Parallel Symbol from the CSP code
+        " [] "  is the Fat Bar Symbol from the CSP code
+        " <> "  is used to represent not equal.
+        " >= "  is used to represent greater than or equal to.
+        "SIZE"  is just a local symbol to represent the size of the local array
+ "*/" and "/*"  represent comment symbols
+ 
+ 
+Complete Solution:
+ 
+P(i:0..2)::
+        content:(0..SIZE)integer;
+        smallest:integer;        smallest := 0;
+        in:integer;
+        in2:integer;
+	finished:boolean;
+        *[ [  P(i+1 mod 3)!content(smallest) ->
+				P(i+2 mod 3)?in
+	   [] P(i+2 mod 3)?in ->  			
+				P(i+1 mod 3)!content(smallest)
+           ];                /* Pass your smallest Value to your 2nd neighbor
+				and get your 1st neighbor's's smallest Value */
+
+           [  P(i+2 mod 3)!content(smallest)->
+				P(i+1 mod 3)?in2
+           [] P(i+1 mod 3)?in2 ->
+				P(i+2 mod 3)!content(smallest)
+           ];		     /* Pass your smallest Value to your 1st neighbor
+				and get your 2nd neighbor's smallest Value */
+
+	   finished := true; /* Set the finished Flag to true */	   
+
+	   [  in < content(smallest) -> finished := false
+	   [] in >= content(smallest) -> skip
+	   ];                /* If your 1st neighbors value is smaller than 
+				yours set finished Flag to false. */
+	   
+	   [  in2 < content(smallest) -> finished := false
+	   [] in2 >= content(smallest) -> skip
+	   ];		     /* If your 2nd neighbors value is smaller than
+				yours set the finished Flag to false */
+	   
+	   [  in > content(smallest) -> smallest := smallest + 1
+	   [] in2 > content(smallest) -> smallest := smallest + 1
+	   [] finished <> true -> skip
+	   ];
+          ]		     /* If your neighbors smallest value is larger
+				than yours then increment your smallest index
+				and continue.  If finished is not true then
+				continue.  However if a match has been found
+				no guards can be considered true and the
+				process will terminate.  (ie finished will
+				be true because neither in or in2 were <
+				content(smallest) or > content(smallest) */
+ 
+
+
+
+From mwolfe Thu May 20 18:49:46 1993
+Date: Thu, 20 May 93 18:49:40 -0400
+From: mwolfe (Matthew P. Wolfe)
+To: pmateti
+Status: OR
+
+
+Symmetric Solution to Smallest Common Integer Problem
+
+by: Matt Wolfe (mwolfe@valhalla) 18 May 1993
+                                 20 May 1993 (revised)
+General Approach:
+======= ========
+
+( The original problem asked about three processes. This solution is
+  expressed in the more general form of n processes, n > 1. )
+
+    Consider the n process connected in a ring. The first process will
+start the search for the minimun common value. The nth process will 
+send results to the 1st. The current candidate for minimum value is
+"candidate". It is passed around ring along with the number of processes
+that have accepted that value. When the number of accepting processes is
+n, then success is indicated and the processes are instructed to halt.
+When any one array is exhausted before success has been indicated, then
+failure is indicated and all processes are halted.
+
+Assumptions:
+===========
+
+1. Each array has positive integers, trailed with zeros. (This assumption
+was made rather than assuming a) -1 in array after the integer values, 
+or b) the existance of "maxindex" for each array to use as a check. The
+only effect of this assumption is in the check to see if the array is
+exhausted. Both a) or b) could be implemented with little change to the
+algorithm shown. 
+
+2. The n processes are all started via some external process. No 
+abnormal termination is allowed. The "n" value is abstract in this
+design, but fixed in the implementation and is known to all processes.
+
+
+Algorithm: Assertions are shown in braces. Comments are in /* */
+=========
+
+Pi(i=2,n):: array() { positive non-zero integers, then trailing zeros } 
+            candidate : integer       
+            n_ok      : integer     
+            position  : integer = 1   { first array index is 1 }
+[
+  [ i = 1 --> P(2)!array(1); P(2)!1 ] { i=1 for only one process }
+
+ *[      /* start main non-terminating loop */
+
+     P(i-1 mod n)?candidate; P(i-1 mod n)?n_ok  -->    
+                                      { prev proc sends candidate } 
+                                      { and num of acceptances }
+        [
+        candidate = -1 --> halt    { search can be ended }   
+        []
+        candidate > 0 -->          { this array must be scanned }
+           [
+            *[ candidate > array(position);  { scans local array }
+               array(position) > 0 --> position ++ ] 
+             
+                 { at this point, your array position points to a value
+                   that is zero, larger, or the same as the candidate } 
+                [ 
+                array(position) = candidate -->
+                    [
+                    n_ok = n - 1 --> signal success;   { n acceptances }
+                                     print candidate;
+                                     P(i+1 mod n)!-1;  { next process  } 
+                                     P(i+1 mod n)!0;   { waiting       }
+                    []
+                    n_ok < n - 1 -->                   { keep looking }
+                                     P(i+1 mod n)!candidate;
+                                     P(i+1 mod n)!n_ok + 1; { ditto }
+                    ]
+                 []
+                 array(position) = 0 --> signal failure; { out of data }
+                                         P(i+1 mod n)!-1;   { ditto }
+                                         P(i+1 mod n)!0;
+                 []
+                 array(position) > candidate -->      { new candidate }
+                                     P(i+1 mod n)!candidate; { ditto }
+                                     P(i+1 mod n)!1;
+                 ]
+           ]
+       ]
+  
+  ]
+]
+
+Observation:
+
+Deadlock is avoided by carefully matching each data send to a data
+query, even if dummy data sends are needed. However, any abnormal
+process termination will cause serious deadlock problems. 
+ 
+
+
+
+From kandrews Sat May 22 14:30:21 1993
+Date: Sat, 22 May 93 14:30:15 -0400
+From: kandrews (Keith  M. Andrews)
+To: pmateti
+Subject: Q3 Answer
+Status: OR
+
+Dear Dr. Mateti,
+       Because Valhalla was down this past Thursday, I was unfortunately
+     forced to reproduce this code on the Vax Desire Machine from memory.
+     After careful examination of the code I had previously written and
+     memory of what I had sent to you last Thursday,  I realized that the
+     code I had hurredly reproduce had a major flaw.  Apparently because
+     the number of process is odd, the CSP code I proposed would always
+     result in a deadlock.
+       For example if P(0) chose to send its smallest value first
+     this means that P(1) must receive first and send to P(2) later.  Thus,
+     in P(2) because P(0)!s1 and P(1)?in1 are neither true at that instance
+     P(2) will be forced to termiate.
+       The following code was what I had originally written on the Valhalla
+     system.  I think it dealt with this problem in a better fashion by
+     performing the message passing concurrently.
+       I do realize that I was unable to get this correct code to you by the
+     extended deadline.   Hopefully this will prove to you that I have put
+     alot of time into considering this problem.  At least I would like to
+     respectfully withdraw the code I submitted last Thursday for the obvious
+     reasons I have expressed earlier.
+
+                                                        Sincerely
+                                                      Keith Andrews
+
+-------------------------- Answer Follows Here ------------------------------
+
+
+
+Student: Keith Andrews
+Course: CS 7370 Distributed Computing Principles
+Date: 5-18-93
+Special Question Extension
+
+
+The problem:
+          Given are three processes P(0), P(1), and P(2).  Each has a local
+        array of integers.  They may or may not be of the same length, but
+        are definitely not empty.  All Three arrays are already sorted in non-
+        decreasing order.  Write a CSP algorithm using only these processes so
+        that each process determines the smallest common value.  Give key
+        assertions in each process.  Messages should contain only one integer
+        at a time.
+ 
+Problem extension:
+          The CSP code for each process has to be symmetrical.  
+ 
+Discussion:
+           This additional requirement posses a problem of deadlock.  If
+        the CSP code is written such that all processes will be executing the
+        same pieces of code simultaneously, then there could never be
+        communication between the processes because they would all attempt a
+        Bang or Query operation at the same time.  Thus, form the hint given
+	on page 429 of the text I devised a new code to comply with the
+	symmetry stipulation.
+
+
+Key to The Following Code
+ 
+   Variables:        
+               i:  The integer value that specifies which process is being 
+                        referred to.
+         content:  An array of integers whose size is greater than zero and
+                        designated by the symbol SIZE
+              s1:  A temporary variable storing content(smallest) so the
+                        concurent code will not access content simultaniously
+              s2:  A temporary variable storing content(smallest) so the
+                        concurent code will not access content simultaniously
+        smallest:  The index of counter representing the smallest possible
+                        integer these process could have in common         
+	     in1:  The integer response from the processes neighbor
+	     in2:  The integer response from the processes 2nd neighbor
+	finished:  A Flag to determine if any neighbors still have values
+			smaller than your own which help govern termination.
+
+   Symbols:
+        " -> "  is the Arrow Symbol from the CSP code
+        " || "  is the Parallel Symbol from the CSP code
+        " [] "  is the Fat Bar Symbol from the CSP code
+        " <> "  is used to represent not equal.
+        " >= "  is used to represent greater than or equal to.
+        "SIZE"  is just a local symbol to represent the size of the local array
+ "*/" and "/*"  represent comment symbols
+ 
+ 
+Complete Solution:
+ 
+P(i:0..2)::
+        content:(0..SIZE)integer;
+        smallest:integer;        smallest := 0;
+        s1:integer;
+        s2:integer;
+        in:integer;
+        in2:integer;
+	finished:boolean;
+        *[ s1 := content(smallest);     /* Define temp. variables so the ||
+           s2 := content(smallest);        code will not be accessing the
+                                           content array simultantiously.*/
+
+           [	[  P(i+1 mod 3)!s1 ->
+				P(i+2 mod 3)?in1
+	   	[] P(i+2 mod 3)?in1 ->
+				P(i+1 mod 3)!s1
+           	];       /* Pass your smallest Value to your 1st neighbor
+			   and get your 1st neighbor's's smallest Value */
+	   ||
+	   	[  P(i+2 mod 3)!s2->
+				P(i+1 mod 3)?in2
+                [] P(i+1 mod 3)?in2 ->
+				P(i+2 mod 3)!s2
+                ];      /* Pass your smallest Value to your 2nd neighbor
+	   		   and get your 2nd neighbor's smallest Value   */
+	   ];           /* Both communications must occur to continue.  */
+
+   	   finished := true;           /* Set the finished Flag to true */
+
+   	   [  in1 < content(smallest) -> finished := false
+   	   [] in1 >= content(smallest) -> skip
+   	   ];    	/* If your 1st neighbors value is smaller than
+	                   yours set finished Flag to false.            */
+
+   	   [  in2 < content(smallest) -> finished := false
+   	   [] in2 >= content(smallest) -> skip
+   	   ];     	/* If your 2nd neighbors value is smaller than
+	    		   yours set the finished Flag to false         */
+
+   	   [  in1 > content(smallest) -> smallest := smallest + 1
+   	   [] in2 > content(smallest) -> smallest := smallest + 1
+   	   [] finished <> true -> skip
+   	   ];          /* If your neighbor's smallest value is larger
+			   than yours then increment your smallest index
+                           and continue.  If finished is not true then
+                           continue.  However if a match has been found
+                           no guards can be considered true and the
+                           process will terminate.  (ie finished will
+                           be true because neither in1 or in2 were <
+                           content(smallest) or > content(smallest)     */
+        ]
+
+
+
+From dhou Wed May 19 19:53:32 1993
+Status: RO
+X-VM-v5-Data: ([nil nil nil t nil nil nil nil nil]
+	[nil nil nil nil nil nil nil nil nil nil nil nil "^To:" nil nil nil])
+Received: by kiwi.cs.wright.edu (5.65/7.3.WRIGHT.SPOTS)
+	id AA26601; Wed, 19 May 1993 19:53:26 -0400
+Posted-Date: Wed, 19 May 1993 19:53:26 -0400
+Message-Id: <9305192353.AA26601@kiwi.cs.wright.edu>
+To: pmateti
+Date: Wed, 19 May 1993 19:53:26 -0400
+
+*******************
+Q3  Solution.           by Dan Hou   May 19, 1993
+******************* 
+F, G, and H are three symmetric processes.  They communicate with each
+other through  three kinds of messages.  One is an integer, the
+smallest candidate. The other two are signals no() and yes().  There
+are some boolean variables to control which kinds of message
+are ready to send or receive.  Each process has a local 
+array:content(0..limit). We assume that CSP has variable size array 
+and limit is the upbound(This is an assumption that each local array
+may or may not has same length.).  Two local integer variables store 
+the smallest candidates sent by the other two processes, respectively.
+In F, for example, they are Gmin and Hmin.  
+
+We take process F as an example to explain how the F(G,H) works. In
+F, there are 12 non-deterministic choices, each of them has a boolean
+prefix.  F can't send yes() or no() to G or H until F finds answer.
+If F sends its candidate to G, it will not able to send to G again
+(set sendG to False) until the next time it receives a candidate from G  
+and yes() or no() signal are not ready; F sends its candidate to
+H is similar.  If F receives a candidate from G, it searches its local
+array, the result may be (1) ready to send yes() to G or H(finds the
+smallest common value); or(2) ready to send no() to G or H(does not find);
+or(3) repeats from the beginning, noticing that the pointer i in local
+array may be changed. F receives a candidate from H is similar. As soon
+as F finds  answer: yes if Hmin=Gmin=content(i) or no if i>limit, or F 
+receives yes() signal or no() signal  from G or H, the process F terminates. 
+
+F::
+   { If there is a smallest common value: content(i) in F ->
+       Gmin=Hmin=content(i) or  receives yes() signal from G or H;
+     If there is no smallest common value -> 
+       i>=limit  or  receives no() signal from G or H. }  
+ 
+  content:(0..limit); 
+  i:integer; i:=0;
+  common:integer; common:=-1;
+     /* indicating the result */ 
+  Gmin, Hmin:integer; 
+  Gmin:= content(0) - 100;    
+  Hmin:= content(0) - 200;
+     /* initialize Gmin and Hmin smaller than content(0), and Gmin and Hmin
+        are not equal.  
+     */   
+  sendG, sendH, receiveG, receiveH, 
+  sendYes, sendNo, receiveYes, receiveNo: boolean;
+  sendG, sendH, receiveG, receiveH, receiveYes, receiveNo:=True;
+  sendYes, sendNo:=False;
+     /* boolean  prefixes */ 
+
+
+  *[  sendG; G!content(i)  ->  sendG:= False
+    []sendH; H!content(i)  ->  sendH:= False
+    []receiveG; G?Gmin     ->  min:integer; min:=Gmin
+                               SEARCH
+                               [  i>=limit   ->/* find no answer */
+                                      disableMessage
+                                      sendNO:= True
+                                []i<limit    ->
+                                  [  Gmin=content(i) and  Gmin=Hmin->
+                                               /* find yes answer */
+                                      disableMessage
+                                      sendYes:=True
+                                      common:=i
+                                   []Gmin!=content(i) or Gmin!=Hmin->
+                                               /* repeat */
+                                      sendG:=True
+                                  ]
+                                ]
+    []receiveH; H?Hmin     ->  min:integer; min:=Hmin
+                               SEARCH
+                               [  i>=limit   ->/* find no answer */ 
+                                      disableMessage
+                                      sendNO:= True       
+                                []i<limit    ->        
+                                  [  Hmin=content(i) and  Gmin=Hmin->
+                                               /* find yes answer */ 
+                                      disableMessage
+                                      sendYes:=True  
+                                      common:=i
+                                   []Hmin!=content(i) or Gmin!=Hmin->
+                                               /* repeat */
+                                      sendH:=True
+                                  ]                             
+                                ]
+                             
+    []sendYes; G!Yes()       -> H!Yes(); disableSignal; disableMessage
+    []sendYes; H!Yes()       -> G!Yes(); disableSignal; disableMessage
+    []sendNo;  G!No()        -> H!No();  disableSignal; disableMessage
+    []sendNo;  H!No()        -> G!No();  disableSignal; disableMessage
+    []receiveYes; G?Yes()    -> common=i; disableSignal; disableMessage
+    []receiveYes; H?Yes()    -> common=i; disableSignal; disableMessage
+    []receiveNo;  G?No()     -> disableSignal; disableMessage
+    []receiveNo;  H?No()     -> disableSignal; disableMessage
+   ] 
+
+
+where  SEARCH is an abbreviation for: 
+
+     *[i<limit; min>content(i) -> i:=i+1] ;
+
+disableMessage is an abbreviation for: 
+
+      [sendG:=False; sendH:= False; receiveG:=False; receiveH:= False]; 
+
+disableSignal is an abbreviation for: 
+ 
+      [sendYes:=False; sendNo=False; receiveYes:=False; receiveNo:=False]. 
+
+
+
+G and H can be written symmetrically( We replace every G in F process to 
+F in G process and replace every H in F process to F in H process). 
+The key assertions of G and H are: 
+
+     
+G::  If there is a smallest common value: content(i) in G  -> 
+       Fmin=Hmin=content(i) or receives yes() signal from F or H;
+     If there is no smallest common value -> 
+       i>=limit  or receives no() signal from F or H. 
+
+ 
+H::  If there is a smallest common value: content(i) in H  -> 
+       Fmin=Gmin=content(i) or receives yes() signal from F or G;
+     If there is no smallest common value -> 
+       i>=limit  or receives no() signal from F or G. 
+ 
+
+

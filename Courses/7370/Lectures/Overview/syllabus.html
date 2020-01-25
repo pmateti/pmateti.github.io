@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-12-27 Fri 19:25 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Distributed Computing Syllabus 2020</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Distributed Computing Syllabus 2020</h1>
+
+<div id="outline-container-org2e2c87e" class="outline-2">
+<h2 id="org2e2c87e"><span class="section-number-2">1</span> Course Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Distributed Computing is coordinated computing using machines at many
+locations.  It primarily uses message passing.  It tries to avoid
+synchronization.  It tries to avoid shared variables.  It tries to be
+robust in the presence of individual machine failures.
+</p>
+
+<p>
+<b>Detailed content</b>: Semantics of semicolon, parallel-bar, and fat-bar.
+Review of classic problems in concurrency.  Semaphores: weak and
+strong, split-binary, distributed. Distributed Termination. CSP
+(Communicating Sequential Processes). GO Language Systems Programming.
+Distributed Tuple Space and Linda.  Clients and Servers, RPC, RMI,
+Scala Actors.  Distributed file servers.  IPFS.  Semantics of
+Concurrency. Fairness.  Starvation.  Mutual exclusion.  Deadlocks.
+Livelocks.  Interference.  Axiomatic Semantics. Temporal Logic.
+</p>
+
+<p>
+<b>Prerequisites</b>: (i) Undergraduate course on Concurrent Programming
+(ii) Fluency in C++ and/or Java; Fluency in Go is not expected. (iii)
+Familiarity with Linux OS and IPC mechanisms.
+</p>
+
+<p>
+Course Objectives:
+</p>
+
+<ol class="org-ol">
+<li>Understand the technologies of RPC, RMI, and Actors in several
+languages.</li>
+<li>Understand the principles of concurrent, distributed, networked, and
+parallel computing.</li>
+<li>Understand non-deterministic computations and unfair scheduling as
+givens.</li>
+</ol>
+
+
+<p>
+Learning Outcomes:
+</p>
+
+<ol class="org-ol">
+<li>Write client-server programs using RPC in C/C++, RMI in Java, and
+Channels in Go, and Actors in Scala.</li>
+<li>Use distributed file server technology, e.g., IPFS.</li>
+<li>Reason about programs using assertions and temporal logic.</li>
+<li>Becomes fluent in Go and Scala.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org21c9e37" class="outline-2">
+<h2 id="org21c9e37"><span class="section-number-2">2</span> Source Materials</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li><b>Course Home Page</b>
+<a href="https://cecs.wright.edu/people/faculty/pmateti/Courses/7370/">https://cecs.wright.edu/people/faculty/pmateti/Courses/7370/</a>
+Bookmark this link and visit it periodically. All course related
+announcements will be posted on this page.</li>
+<li>Recommended Books: 
+<ol class="org-ol">
+<li>(Andrews below refers to:) Gregory R. Andrews, <i>Concurrent
+Programming: Principles and Practice</i>, Benjamin/Cummings, 1991.
+(A classic.  Look for it on EBay?)</li>
+<li>Alan A. A. Donovan and Brian W. Kernighan. The Go Programming Language.</li>
+<li>Andrew S. Tanenbaum and Maaten Van Steen. Distributed Systems:
+Principles and Paradigms.</li>
+<li>Scala + Akka Documentation,  <a href="http://doc.akka.io/docs/akka/current/scala.html">http://doc.akka.io/docs/akka/current/scala.html</a></li>
+<li>Java tutorial, <a href="http://download.oracle.com/javase/tutorial/">http://download.oracle.com/javase/tutorial/</a> or
+another book of your choice on client/server programming in Java</li>
+<li><a href="https://github.com/theanalyst/awesome-distributed-systems">https://github.com/theanalyst/awesome-distributed-systems</a> A
+curated list to learn about distributed systems.</li>
+</ol></li>
+<li>Other references listed below.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org55d4ab3" class="outline-2">
+<h2 id="org55d4ab3"><span class="section-number-2">3</span> Course Content</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+This course is about the foundations, principles and technologies
+involved in distributed computing systems with an introduction to
+recent systems and languages.
+</p>
+
+<p>
+The numbers in parentheses at the end of each topic is an estimate of
+the number of (75-minute) lectures I intend to devote. I lecture on
+only the conceptually difficult portions of the cited references,
+leaving the rest as reading assignments.  Do not deduce the order of
+lectures based on this list.
+</p>
+</div>
+
+<div id="outline-container-orgfd3f881" class="outline-3">
+<h3 id="orgfd3f881"><span class="section-number-3">3.1</span> Fundamentals (4)</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Starvation, deadlocks, livelocks. Interference, fairness, safety and
+liveness properties. Fine-grain and coarse-grain parallelism. Review
+of classic problems in concurrency.  Proper definition of semaphore.
+Weak and strong semaphores. Split-binary semaphores. Starvation-free
+mutual exclusion. The technique of ``passing the baton.''
+</p>
+
+<ol class="org-ol">
+<li>Andrews, Chapters 1, 2, 3.1, 3.5, 4, 5, 6, and Section 10.2.</li>
+<li>Jan Tijmen Udding, ``Absence of Individual Starvation Using Weak
+Semaphores,'' <i>Information Processing Letters</i>, Vol. 23, 1986,
+159-162.</li>
+<li>Allen B. Downey , "The Little Book of Semaphores", freely
+downloadable book, 201x, <a href="http://www.greenteapress.com/semaphores/">http://www.greenteapress.com/semaphores/</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org13b4389" class="outline-3">
+<h3 id="org13b4389"><span class="section-number-3">3.2</span> Remote Invocation (4)</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Remote Procedure Calls (RPC), and Clients and Servers. Implementation
+of RPC. Stub generation, marshaling arbitrary data structures.
+External data representation (XDR) and RPCGEN. Study of an RPC
+example. Remote Method Invocation (RMI) and Object Serialization of
+Java.
+</p>
+
+<ol class="org-ol">
+<li>Andrew D. Birrell and Bruce Jay Nelson, Implementing Remote
+Procedure Calls, ACM Transactions on Computer Systems (TOCS), 2, 1,
+pp. 39&#x2013;59, 1984. A classic paper.</li>
+<li>Oracle.com, ONC+ Developer's Guide;
+<a href="http://docs.sun.com/app/docs/doc/816-1435">http://docs.sun.com/app/docs/doc/816-1435</a>; Reference.  This is a
+highly recommended complete book on RPC.</li>
+<li><a href="https://www.cs.princeton.edu/courses/archive/fall16/cos418/docs/L3-rpc.pdf">https://www.cs.princeton.edu/courses/archive/fall16/cos418/docs/L3-rpc.pdf</a>
+Slides on
+Distributed Programming and Remote Procedure Calls (RPC)</li>
+<li>Java tutorial, <a href="http://download.oracle.com/javase/tutorial/">http://download.oracle.com/javase/tutorial/</a> Focus
+on the RMI trail.</li>
+<li>Andrews, Chapter 9.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb989d24" class="outline-3">
+<h3 id="orgb989d24"><span class="section-number-3">3.3</span> Distributed Algorithms (6)</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+CSP, communicating sequential processes. Asynchronous and synchronous
+message passing. Logical clocks, ordering of events. Heartbeat,
+probe/echo, and broadcast algorithms. Distributed mutual exclusion,
+Distributed implementation of semaphores, and distributed termination
+detection.
+</p>
+
+<ol class="org-ol">
+<li>C. A. R. Hoare, ``Communicating Sequential Processes,''
+<i>Communications of the ACM</i>, 1978, Vol. 21, No. 8, 666-677.
+<a href="http://www.usingcsp.com/">http://www.usingcsp.com/</a> has an entire book by Hoare describing
+further developements.</li>
+<li>Andrews, Chapters 7 and 8.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org99e8436" class="outline-3">
+<h3 id="org99e8436"><span class="section-number-3">3.4</span> Distributed Languages and Systems (8)</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+SR: Multiple primitives, <i>Linda</i>: Distributed data structures, and Java,
+JavaSpaces, Actors + Akka, and Hadoop. Distributed PLs: Erlang, Go,
+Scala. Distributed File Systems
+</p>
+
+<ol class="org-ol">
+<li>Andrews, Chapter 10.</li>
+<li>Sudhir Ahuja, Nicholas Carriero and David Gelernter, ``Linda and
+Friends,'' <i>IEEE Computer</i> (magazine), Vol. 19, No. 8, 26-34.
+<a href="http://www.lindaspaces.com/">http://www.lindaspaces.com/</a> has an entire book.</li>
+<li>JavaSpaces <a href="http://en.wikipedia.org/wiki/Tuple_space">http://en.wikipedia.org/wiki/Tuple_space</a></li>
+<li>GO <a href="https://tour.golang.org/concurrency/1">https://tour.golang.org/concurrency/1</a> Goroutines and <a href="https://tour.golang.org/concurrency/2">https://tour.golang.org/concurrency/2</a> Channels</li>
+<li><a href="https://doc.akka.io/docs/akka/current/additional/books.html">Books and Docs on Akka</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd9df1cc" class="outline-3">
+<h3 id="orgd9df1cc"><span class="section-number-3">3.5</span> Semantics of Concurrency (4)</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+Programming logic.  Axiomatic Semantics.  Assertions on process
+states.  Pre-, post conditions, and loop invariants.  Temporal logic.
+</p>
+
+<ol class="org-ol">
+<li>Mateti, Lecture Notes on <a href="../Lectures/FormalMethods/">../Lectures/FormalMethods/</a></li>
+<li>Andrews, Chapter 2.</li>
+
+<li><a href="http://www.tlaplus.net/">http://www.tlaplus.net/</a> TLA "is a logic &#x2026; that consist[s] mainly
+of ordinary (non-temporal) mathematics with just a tiny bit of
+temporal logic." This site hosts a number of free software tools
+and articles on a subset of temporal logic developed by
+Lamport.</li>
+
+<li>Leslie Lamport, Specifying Systems: The TLA+ Language and Tools for
+Hardware and Software Engineers, Pearson Education, Inc, 2002. (A
+free PDF of this book, for personal use, is available at
+<a href="http://research.microsoft.com/en-us/um/people/lamport/">http://research.microsoft.com/en-us/um/people/lamport/</a> Leslie
+Lamport is a 2013 Turing Award winner.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb1f453c" class="outline-2">
+<h2 id="orgb1f453c"><span class="section-number-2">4</span> Grading</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgcb8ea42" class="outline-3">
+<h3 id="orgcb8ea42"><span class="section-number-3">4.1</span> Class and Discussion Wiki Participation 5%</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Concurrent algorithms and concepts are often subtle. Please participate
+in the class room discussions. Feel free to discuss openly, to ask what
+may appear to be dumb questions, and to catch any errors that I make. Be
+alert, study the backup material right away, and solve the exercises
+promptly.
+</p>
+
+<p>
+No problems will be assigned specifically as ``home work.'' However, you
+are expected to have studied problems that appeared in the old exams of
+this course, and the exercises of our textbooks.
+</p>
+
+<p>
+There is a local discussion wiki (see the link on the course home page)
+that you should read and participate regularly as a vehicle for
+discussing your solutions. I will read this group regularly, and note
+silently who is contributing what. I expect other students to be able to
+find flaws and fix them. Only when the most fundamental errors are being
+made will I break my silence and contribute a response.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1a19bc3" class="outline-3">
+<h3 id="org1a19bc3"><span class="section-number-3">4.2</span> Exams 25+35%</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+There will be two exams contributing 25% plus 35% to the final grade.
+The date for the midterm exam will be announced in class. The date for
+the final exam is as set by the Registrar. Both exams are closed-book,
+and comprehensive. Many of the old exams for this course are available
+at the course home page.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4554a0b" class="outline-3">
+<h3 id="org4554a0b"><span class="section-number-3">4.3</span> Projects 5+10+10+10%</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+It is necessary that you are comfortable in the <i>use</i> of networked
+machines based on Linux and X. It is also assumed that you are fluent
+in Java, C++ and Linux process-related system calls.  There are
+programming projects using these that implement a multi-workstation
+oriented <i>WhiteBoard</i> (WB) client-server program.  (It is <b>not</b>
+assumed that you are familiar with either RPC or RMI, Scala, or Akka.
+These will be taught in the course.)
+</p>
+
+<p>
+The projects are <i>required</i>. Not producing demonstrable (even if faulty)
+projects will award you a grade no better than an F in the whole course
+regardless of your performance in the exams.
+</p>
+
+<p>
+The projects must be work done by <i>you</i> as a <i>single individual</i>. Do not
+use code from other sources, not even if it was given by the instructor
+in a past term. The projects are evaluated both by a demo and by
+skimming the source code and associated documentation.
+</p>
+
+<p>
+The due dates and further description of the projects are on the course
+home page.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2020 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2019-12-04
+</div>
+</body>
+</html>

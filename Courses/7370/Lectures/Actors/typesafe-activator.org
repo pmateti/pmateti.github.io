@@ -1,0 +1,160 @@
+# -*- mode: org -*-
+#+TITLE: TypeSafe Activator
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7370 Distributed Computing
+#+OPTIONS: toc:1 
+#+OPTIONS: timestamp:t
+#+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
+#+OPTIONS: html-scripts:t html-style:t html5-fancy:t tex:t
+#+OPTIONS: org-html-indent:nil
+#+LINK_HOME: ./akka-slides.html
+#+LINK_UP: ./akka-slides.html
+#+HTML_CONTAINER: div
+#+HTML_DOCTYPE: xhtml-strict
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">CEG 7370 Distributed Computing</a> | <a href=\"./actorsAkkaScala.html\"> Actors Akka Scala Overview</a> | <a href=\"./akkaSlides.html\"> Akka Slides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 %d %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.4)
+
+#+HTML_HEAD_EXTRA:
+#+REVEAL_ROOT: http://www.cs.wright.edu/~pmateti/RevealJS
+#+REVEAL_PREAMBLE: <a href="./akkaOnePage.html">Single-Page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: yellow;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: cyan;} </style>
+#+REVEAL_THEME: night
+#+REVEAL_TRANS: default
+#+REVEAL_HLEVEL: 2
+#+REVEAL-SLIDE-NUMBER: t
+#+OPTIONS: reveal_control:t reveal_progress:t reveal_history:t reveal_center:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t
+#+REVEAL_TITLE_SLIDE_TEMPLATE: <h1>%t</h1><h3>%a</h3>%e<h2>%d</h2>An introduction to Akka, assuming familiarity with the Actors and Scala<br><a href="../../Top/">CEG 7370 Distributed Computing</a>
+#+ATTR_REVEAL: highlight-blue  # not working
+
+* TypeSafe Activator: Akka Get Started
+
+1. Activator Reactive (= Concurrency + events) Application Developer Environment
+1. Include several examples: src code + tutorials
+1. Covers: Scala, Actors, and Akka Runtime 
+1. [[http://www.typesafe.com/platform/getstarted]] "The best way to start
+   learning Akka ..."
+
+** Activator Practical Details
+
+1. Activator is web browser based application.  =% activator ui= will
+   bring up a browser based UI.  Without the =ui= argument, yiu get a
+   cli. =%= is my shell prompt.
+
+1. Using remotely: =ssh 130.108.17.112=
+
+1. =% activator ui -Dhttp.address=130.108.17.112= =-Dhttp.port=8080=
+   =-Dbrowser=/usr/bin/google-chrome= if you wish to provide more control.
+
+1. Copies/Creates its applications in =~/.activator/= and =~=
+
+** Akka, without Activator, Practical Details
+
+1. Akka can be used without defining a
+   configuration, since sensible default values are provided.
+
+    #+begin_src scala
+// application.conf at the root of the class path.
+akka {
+  loggers = ["akka.event.slf4j.Slf4jLogger"]
+  loglevel = "DEBUG"
+  stdout-loglevel = "WARNING"
+  actor {
+    provider = "akka.cluster.ClusterActorRefProvider"
+    default-dispatcher {
+      # set to 1 for as fair as possible
+      throughput = 10
+    }
+  }
+  remote {    netty.tcp.port = 2552  }
+}
+#+end_src
+
+
+* What is Akka?
+
+1. Akka is an implementation of Hewitt's [[./actors.html][Actor Model]], in Scala (and
+   hence JVM).  It makes practical concessions to the pure actor
+   model.
+
+1. "Akka is a toolkit and runtime for building highly concurrent,
+   distributed, and fault tolerant event-driven applications on the
+   JVM" http://www.akka.io.  [Note the use of concurrent and
+   distributed.]
+
+1. Helps with scaling both UP (utilizing multi-core processors) and
+   OUT (utilizing the cloud/ grid/ cluster).
+
+1. [[http://www.typesafe.com/platform/getstarted]] "The best way to start
+   learning Akka ..."
+
+
+** What is Akka? v.Frivolous
+
+1. https://www.google.com/search?q=akka+mountain
+
+1. https://www.google.com/search?q=akka+finnish+goddess&safe=active
+
+1. https://www.google.com/search?q=akka+indian&safe=active
+
+1. https://www.google.com/search?q=akka+telugu&safe=active
+
+1. Should we give equal time to Bing, Yahoo, DuckDuckGo?
+
+** Who Is Using Akka?
+
+#+CAPTION: Who Is Using Akka?
+#+ATTR_HTML: :alt fig-actor-users.png :align center :width 50%
+[[./fig-actor-users.png]]
+
+
+** What is Akka? v.nonFrivolous
+
+1. Includes an implementation of Actor Model, with improvements for practicality.
+
+1. Also includes Software Transactional Memory (STM).
+
+1. Event driven, middleware framework
+
+1. Part of Typesafe Stack. Open source, Apache License.  
+
+1. Created by Jonas Bonér.
+
+** Akka Practical Use Overview
+
+1. Versions: Scala 2.11+, Akka 2.3.1+.  Code for older versions may
+   not work with these versions.  Most, not 100%, is open source.
+
+1. The code shown in boxes below is not always self-contained enough to
+   compile it stand-alone.
+
+1. =scala.actor= is deprecated.  Caution: Many articles on the web
+   are based on scala.actor.  Use =import akka.actor= .
+   http://docs.scala-lang.org/overviews/core/actors-migration-guide.html
+
+1. Akka library can be used in Java as well.  http://www.pykka.org/
+   with Python.
+
+** How Does Akka work?
+
+#+CAPTION: How Does Akka work?
+#+ATTR_HTML: :alt fig-actor-users.png :align center :width 100%
+[[./fig-akka-how-works.png]]
+
+
+* Link to a Full Lecture
+
+1. [[./akka.html]]
+
+
+
+* References
+
+1. http://akka.io/docs/akka/snapshot/AkkaScala.pdf about 360 pages.
+   Nearly all the code snippets and figures are from here.  Reference.
+
+1. Jonas Biner, "Above the Clouds: Introducing Akka", 2011.  Web
+   search for "Above the Clouds: Introducing Akka".  Video or pdf.
+   Highly recommended.
+

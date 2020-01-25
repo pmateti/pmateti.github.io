@@ -1,0 +1,12 @@
+
+Some of you asked me to post the material included for the MidTerm.
+Everything that I specifically lectured on, and related issues, is
+included.  I recommend that you study, at least, the following:
+
+From the text book: Chapters 1 to 5, Sections 7.1, 7.7, 8.1, 10.4;
+excluded sections: 1.4, 3.6, 3.7.
+
+Papers:  Udding, Hoare.
+
+Project-related: RPC architecture, rpcgen, *.x, and svc_run() etc.
+Java and Linda are excluded.  SR is included: section 10.4.

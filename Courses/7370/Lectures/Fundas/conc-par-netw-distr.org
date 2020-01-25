@@ -1,0 +1,194 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+TITLE: Concurrent-  Parallel-  Networked- Distributed- Computing
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Concurrent v Parallel v Networked v Distributed computing
+
+#+OPTIONS: toc:1
+#+STARTUP:showeverything
+#+OPTIONS: timestamp:t
+#+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
+#+OPTIONS: html-scripts:t html-style:t html5-fancy:t tex:t
+#+OPTIONS: org-html-indent:nil
+#+LINK_HOME: ../Top
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">CEG 7370 Distributed Computing</a> | <a href=\"./conc-par-netw-distr-Slides.html\"> Slides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2014 %d %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+REVEAL_ROOThm: http://192.168.17.223/pmateti/RevealJS
+#+REVEAL_ROOT: http://www.cs.wright.edu/~pmateti/RevealJS
+#+REVEAL_PREAMBLE: <a href="./conc-par-netw-distr-OnePage.html"> Single-Page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: red;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: brown;} </style>
+#+REVEAL_THEME: surya
+#+REVEAL_TRANS: default
+#+REVEAL_HLEVEL: 2
+#+REVEAL-SLIDE-NUMBER: t
+#+OPTIONS: reveal_control:t reveal_progress:t reveal_history:t reveal_center:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t
+#+REVEAL_TITLE_SLIDE_TEMPLATE: <h1>%t</h1><h3>%a</h3>%e<h2>%d</h2>A discussion at the end of this course<br><a href="../../Top/">CEG 7370 Distributed Computing</a>
+#+ATTR_REVEAL: highlight-blue  # not working
+
+* Too Many Adjectives?
+
+1. The adjectives Sequential, Concurrent, Parallel, Networked, Distributed are
+   applicable to Computing.
+
+1. What do they mean?
+
+1. Are the defs of Concurrent and Parallel parochial?
+
+* Sequential Computing
+
+1. Recall our defs of =;=  =||= and =[]=
+1. Assume:  Process creation operations are *unavailable*.
+1. Assume:  Operators =||= and =[]= do not occur.
+1. Assume:  Underlying processor has just one core.
+1. Assume:  Not aware of other processes.
+
+* Networked Computing
+
+1. Processes communicate only via send and receive of messages.
+1. Processes do not have shared state/ memory.
+1. How do they "know" each other?
+   1. IP addresses, DNS, UDP/TCP port numbers, ...
+   1. RPC, RMI, ... discovery mechanisms
+1. Independent lives?  Cooperative? Contentious? Malicious?
+1. Loss of messages? Possible.
+1. Order of sends = Order of receives? May not be.
+1. Design and implement SMP (Synchronous Message Passing) only.
+1. Some nodes may provide AMP services based on SMP.
+1. Scalabe? Yes, but ...
+1. Nondeterminism  (our fat-bar)
+
+* Distributed Computing
+
+1. Networked Computing + "Synergy"
+
+** Lookup Some Words
+
+1. Contemporary
+1. Simultaneous
+   1. walk and chew gum
+
+1. Sharing and Ownership
+1. Synergy
+
+
+** Synergy-1
+
+  [[http://www.merriam-webster.com/dictionary/synergy][www.merriam-webster.com]]
+
+  1. syn.er.gy noun {si-ner-jea} : the increased effectiveness that
+     results when two or more people or businesses work together.
+     Plural synergies
+ 
+  1. synergism; broadly:  combined action or operation
+
+  2. a mutually advantageous conjunction or compatibility of distinct
+     business participants or elements (as resources or efforts)
+
+  3. Examples of SYNERGY:
+   1. A synergy has developed among the different groups working on this project.
+   1. two companies that have found synergy
+
+** Synergy-2
+
+ http://wordnet.princeton.edu/
+
+  1. Noun 1. synergy - the working together of two things (muscles or
+     drugs for example) to produce an effect greater than the sum of
+     their individual effects
+
+  1. potentiation = (medicine) the synergistic effect of two drugs
+     given simultaneously
+
+** Distributed Computing, contd.
+
+1. Networked Computing + Synergy
+1. Processes communicate only via send and receive.
+   1. Loss of messages?  No.
+   1. Order of sends = Order of receives?  Yes?
+1. Processes do not have shared state/ memory.
+
+** Distributed Computing-1
+
+1. Independent lives? Yes; 
+1. Cooperative? Yes; 
+1. Contentious? No; 
+1. Malicious? No.
+
+** Distributed Computing-2
+
+1. How do they "know" each other?
+   1. Established naming protocols
+   1. PL support
+1. Scalabe? Yes. (Note the "but" part in networked computing.)
+1. Nondeterminism  (our fat-bar)
+
+** Distributed Shared Memory
+
+1. =x :== =a= by P1 vs =x :== =b= by P2 vs =read x= by P3
+1. Must P3 be able to see: a and/or b? when?
+1. Are we assuming priorities among P1, P2, P3?
+1. Global clock?
+1. Unclear semantics; implied expections of "memory"
+
+** Distributed Shared Data
+
+1. Large, Conceptually One, "Data Structure". Databases.
+1. Partitioned and stored across many nodes.
+1. Migrate the partitions as needed.
+1. Replicate some partitions for reads, track writes
+
+* Parallel Computing
+
+1. What is described here is a consensus view.
+2. Does not assume the absence of the other computing models.
+
+** Parallel Computing
+
+3. Assumes multiple processors/ cores.
+4. Assumes shared memory.
+5. Assumes life-times of processes overlap.
+6. Assumes arbitrarily fine granularity
+   1. memory read v write v write by different cores
+   2. E.g., =a +== =b= and simultaneouly =c -== =d=
+      1. Could a be an alias for c?
+
+* Concurrent Computing
+
+1. What is described here is a consensus view.
+1. Does not assume the absence of the other computing models.
+
+** Concurrent Computing-1
+
+1. Permits but does not assume multiple processors/ cores.
+1. Permits but does not assume shared memory.
+1. Permits but does not assume life-times of processes overlap.
+1. Assumes "not-so-fine" granularity of execution of basic instructions.
+
+** Concurrent Computing-2
+1. Higher level abstract view
+1. Mutual exclusion of code segments
+1. Synchronization of indpendent processes
+1. Send and receive messages
+
+* Exercises
+
+1. Distributed but not concurrent?
+1. Client-Server always distributed?
+1. Peer-to-peer only in distributed systems?
+1. RPC/RMI inherently client-server?
+1. Order of importance: Efficient, Correct, Symmetric, Scalable,
+   Deadlock-free, Livelock-free, Starvation-free, ...?
+
+* References
+
+1. Rob Pike - 'Concurrency Is Not Parallelism', 2013, video:
+   http://www.youtube.com/watch?v=cN_DpYBzKso, slides:
+   http://concur.rspace.googlecode.com/hg/talk/concur.html;
+   interview: http://www.infoq.com/interviews/pike-concurrency .  Rob
+   Pike is a Distinguished Engineer at Google, Inc.  Highly
+   Recommended that you watch.
+
+1. Robert Harper, Parallelism is not concurrency,
+   http://existentialtype.wordpress.com/2011/03/17/ 2011.  Robert
+   Harper is a CS professor at CMU.  Highly Recommended Reading.
+

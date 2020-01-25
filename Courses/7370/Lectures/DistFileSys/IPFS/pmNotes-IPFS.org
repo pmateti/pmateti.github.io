@@ -1,0 +1,499 @@
+# -*- mode: org -*-
+#+DATE: 2019-05-18
+#+TITLE: The Design of Distributed Apps on IPFS
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Goal of these Lectures
+
+1. Take an example dApp, and study it in detail.
+1. The New Decentralized Future.
+1. Private Data on a Public Blockchain
+1. Concepts: Decentralized content storage network.
+1. Explain what dApps are.  This necessarily depends on blockchains,
+   decentralized content storage, etc.  We focus on dApps on IPFS, and
+   NuCypher.
+1. IPFS: The decentralized content storage network.  Uncensorable.
+   Undeletable.  Distributed across countries.
+1. Explain the 2014 Draft#3 IPFS paper by Juan Benet.
+1. I will make it obvious: My opinions and assessments.
+
+** Terminaology/ Acronyms
+
+1. ERC20-compatible blockchain tokens 
+1. Distributed key management system (KMS)
+1. Ethereum,
+1. Proxy re-encryption services on data.
+1. homomorphic encryption
+
+** Major Projects
+
+1. 0x [https://0x.org/] Powering Decentralized Exchange. 0x is an open protocol that
+   enables the peer-to-peer exchange of assets on the Ethereum
+   blockchain.], A protocol for decentralized exchange that is
+   utilized by platforms like Radar Relay, DDEX, and Paradex.
+
+1. Golem [https://golem.network/ Golem enables users and
+   applications (requestors) to rent out cycles of other users’
+   (providers) machines.], 
+1. Augur [https://www.augur.net/]: A decentralized prediction market
+   for forecasting real world events.
+1. Aragon
+   [https://aragon.org/ lets you freely organize and collaborate
+   without borders or intermediaries. Create global, bureaucracy-free
+   organizations, companies, and communities.]
+1. Augur
+
+* Course Curriculum
+
+Orientation Module:
+Welcome to Your Online Campus
+Module 1:
+An introduction to blockchain technology
+
+Module 2:
+Bitcoin and the curse of the double-spending problem
+
+Module 3: 
+Costless verification: Blockchain technology and the last mile problem
+
+Module 4: 
+Bootstrapping network effects through blockchain technology and cryptoeconomics
+
+Module 5: 
+Using tokens to design new types of digital platforms
+
+Module 6:
+The future of blockchain technology, AI, and digital privacy
+
+Blockchain Science:  Blockchain math?
+
+Blockchain Code: 
+
+** The Six Grand Challenges
+
+1. Scaling and Performance: Scaling up blockchains to handle intensive global workloads for both permissionless decentralized blockchains, and permissioned/consortium blockchains supporting >100,000 transactions/sec.
+1. Correctness by Design and Construction: Making it easy, and even automatic, for blockchain developers to produce secure protocols and code, by utilizing (1) programming language techniques to create correct code, and (2) cryptographic protocols with security proofs.
+1. Confidentiality: Combining transparency with confidentiality in blockchains, by utilizing (1) cryptographic techniques, as well as (2) trusted-hardware.
+1. Authenticated Data Feeds: Supporting a robust ecosystem of trustworthy data feeds for blockchains and contributing high-trust data feed solutions.
+1. Safety and Compliance: Enabling techniques and protocols for effective monitoring and targeted intervention in blockchains, informed by evaluations of traditional contract law and risks of crime in smart contracts.
+1. Sound Migration: Formulating practical migration paths to production blockchain deployments and enabling integration of new blockchain systems with legacy systems.
+1. https://www.initc3.org/projects.html
+
+** Refs
+
+1. https://www.initc3.org/ IC3: ADVANCING THE SCIENCE AND APPLICATIONS
+   OF BLOCKCHAINS 2019 IC3 is an initiative of faculty members at
+   Cornell University, Cornell Tech, EPFL, ETH Zurich, UC Berkeley,
+   University College London, UIUC and the Technion. It's based at the
+   Jacobs Technion-Cornell Institute at Cornell Tech in NYC.
+
+1. https://dci.mit.edu/researchprojects
+
+1. https://decentralize.ece.illinois.edu/
+
+1. https://blockchain.berkeley.edu/courses/spring-2018-fundamentals-decal/
+   Includes a schedule of lectures with links to materials.
+
+* Blockchain
+
+1. https://emeritus-executive.berkeley.edu/blockchain/
+
+* Ethereum
+
+1. Ethereum – a Decentralised Consensus Network
+
+1. https://www.edureka.co/blog What is Blockchain? Ethereum Tutorial,
+   ... Apr 2019 https://www.edureka.co/blog/smart-contracts/ Apr 2018
+
+1. Dr. Gavin Wood, Founder, Ethereum & Ethcore gavin@ethcore.io
+   http://gavwood.com/paper.pdf Ethereum: A Secure Decentralised
+   Generalised Transaction Ledger (EIP-150 Revision), Abstract. The
+   blockchain paradigm when coupled with cryptographically-secured
+   transactions has demonstrated its utility through a number of
+   projects, not least Bitcoin. Each such project can be seen as a
+   simple application on a decentralised, but singleton, compute
+   resource. We can call this paradigm a transactional singleton
+   machine with shared-state.  Ethereum implements this paradigm in a
+   generalised manner. Furthermore it provides a plurality of such
+   resources, each with a distinct state and operating code but able
+   to interact through a message-passing framework w with others. We
+   discuss its design, implementation issues, the opportunities it
+   provides and the future hurdles we envisage.
+1. https://blog.ethereum.org/
+
+1. The Ultimate Beginners' Guide. Ethereum is an open-source
+   blockchain-based platform that essentially enables hundreds of
+   decentralized cryptocurrencies and projects to be built and
+   deployed without having to build their own blockchains.
+   https://coincentral.com/what-is-ethereum-the-ultimate-beginners-guide/
+   Jul 9, 2018
+
+* IPFS FAQ
+
+1. SUNY Buffalo blog discussion on
+   hackernews. http://muratbuffalo.blogspot.com/2018/02/paper-review-ipfs-content-addressed.html
+   Feb 2018.
+
+* dApps
+
+1. "dApps are decentralized applications where no single entity has
+   the power to control that app because it is deployed on a
+   distributed blockchain ledger."
+
+1. https://www.stateofthedapps.com/whats-a-dapp
+
+1. https://dappsforbeginners.wordpress.com/
+
+** Lists of dApps
+
+1. 9 Best DApps On Ethereum Platform https://coinsutra.com/ethereum-dapps/
+1. https://app.co/ipfs Universal dapp store - discover decentralized
+   apps.  IPFS. Rank. Auth. Storage.  Blockchain. Tweets/Week.
+   Filesharing App and IPFS node on Android.
+
+1. https://media.consensys.net/40-ethereum-apps-you-can-use-right-now-d643333769f7
+   90+ Ethereum Apps You Can Use Right Now.  Aug 2018.
+
+1. https://www.stateofthedapps.com/dapps/nucypher
+
+** Example dApps
+
+1. This is a collection of dApp names that interested me as I ran into
+   them.
+
+1. https://www.stateofthedapps.com/dapps/smartcheck Mar 2018
+   SmartCheck - is a static analyzer for Solidity programming
+   language. It automatically checks Smart Contracts for
+   vulnerabilities and bad practices, highlights them in the code and
+   gives a detailed explanation of the problem. Free version of the
+   tool is available online: you can scan your Solidity code right
+   now. All you need to do is to upload the code of any contract
+   written in Solidity (drop .sol files/folders or paste the code) ,
+   click “Submit for scan” button and wait for several seconds.
+
+1. https://securify.chainsecurity.com/?utm_source=StateOfTheDApps
+   Security Scanner for Ethereum Smart Contracts.  The Ethereum
+   security scanner is based on the latest research from the ICE
+   center, ETH Zurich. https://arxiv.org/pdf/1806.01143.pdf ACM CCS
+   2018
+
+1. https://metamask.io/ Web browser plug-in that connects your device
+   to the Ethereum network.  It allows you to run Ethereum dApps right
+   in your browser.
+
+* NuCypher
+
+1. https://cdn2.hubspot.net/hubfs/2807639/Nucypher-June2017/Docs/NuCypher-White-Paper-1.pdf
+   NuCypher Hadoop: Delegated Access Control and Encryption Management
+   System 2016
+
+1. NuCypher.  The privacy layer.  Building the Applications and Tools
+   for Unconditional Privacy.  A proxy re-encryption network to
+   empower privacy in decentralized systems.
+
+1. "NuCypher KMS: Uncensorable decentralized encryption service"
+
+1. NuCypher is written in Python.  Uses several Py packages.
+   https://pypi.org/project/nucypher/
+
+1. https://github.com/nucypher/pyUmbral "pyUmbral is the cryptographic
+   engine behind nucypher, a proxy re-encryption network to empower
+   privacy in decentralized systems."  NuCypher's reference
+   implementation of Umbral (threshold proxy re-encryption) using
+   OpenSSL and Cryptography.io https://pyumbral.readthedocs.io.
+   "Using Umbral, Alice (the data owner) can delegate decryption
+   rights to Bob for any ciphertext intended to her, through a
+   re-encryption process performed by a set of semi-trusted proxies or
+   Ursulas. When a threshold of these proxies participate by
+   performing re-encryption, Bob is able to combine these independent
+   re-encryptions and decrypt the original message using his private
+   key."
+
+1. https://nucypher.readthedocs.io/en/latest/guides/quickstart.html Nucypher Quickstart
+
+1. https://medium.com/dcryptinc/about-8bb07cc08b29 {pmateti: Overview
+   article.  Not bad.  Tech glossary table at the end.}
+
+** Topics Beyond the Scope of Jayal'sthis Study
+
+1. Not exhaustive.
+
+1. https://www.originprotocol.com/ Origin is a protocol for creating
+   peer-to-peer marketplaces using the Ethereum blockchain and IPFS
+
+
+* Hako
+
+1. https://github.com/drbh/hako Mar 2019 "Unlike other file sharing
+   services such as Dropbox and Google Drive, Hako does not place your
+   keys in the hands of a large companies. The user is always in
+   control of your keys and your data."
+
+1. Centralized storage has a single point of failure (the company) and
+   require a user to be online (connected to the central servers) in
+   order to transfer data and delegate access.
+
+1. It consists of a library called NCIPFS and the application
+   Hako. Hako is powered by NCIPFS and is provides a REST interface
+   and web-app to the underlying methods of NCIPFS.
+
+1. Futari
+1. NUCID
+
+* NuCypher Chrome Extension
+
+1. https://github.com/if1242/NuCypherChromeExtensionCoinlistHack by
+   Ivan Fedorov. The NuCypher Google Chrome Extension helps "sharing
+   your datafiles in a safe way using NuCypher technology. ...  The
+   extension is fully functional and you can try it in action after
+   installation."
+   https://www.youtube.com/watch?v=pmoMzzIR458&feature=youtu.be 1:19
+   Apr 2019
+1. Native Messaging protocol
+
+1. https://discordapp.com/channels/411401661714792449
+   A channel for discussion on NuCypher
+
+* Privacy
+
+1. Definition of privacy: We do not have a definition (as of 2019) of
+   what privacy is.  TBD Link explains via examples.  TBD Browse the
+   content of eff.org. https://www.eff.org/issues/privacy
+
+1. https://medium.com/pinata/ipfs-privacy-711f4b72b2ea Apr 2019 How
+   Private is IPFS?
+
+1. https://medium.com/@EVALUAPE1/nycypher-privacy-layer-for-distributed-systems-and-decentralized-applications-f8a1c4c14da8
+   uCypher: Privacy layer for distributed systems and decentralized
+   applications.  EVALUAPE Sep 10, 2018  {pmateti: Shallow}
+
+* References
+
+1. Not all are collected here.  Often present in a relavant section.
+
+1. https://nvankempen.com/wp-content/uploads/2018/12/paper.pdf An
+   Introduction to IPFS Nicolas Van Kempen 2018 November
+
+1. https://pinata.cloud/ Pinata simplifies decentralized storage with
+   our easy IPFS API and toolkit. Our IPFS pinning service improves
+   your experience by deploying the underlying infrastructure so you
+   don't have to.
+
+
+1. https://www.cs.ru.nl/bachelors-theses/2018/Jasper_Haasdijk___4449754___Searching_IPFS.pdf
+   Bachelor thesis Computing Science Radboud University Nijmegen
+   Searching IPFS Author: Jasper Haasdijk jhaasdijk@protonmail.com
+   First supervisor/assessor: prof. dr. ir. A.P. de Vries
+   a.devries@cs.ru.nl Second assessor: dr. ir. E. Poll e.poll@cs.ru.nl
+
+1. http://dspace.baskent.edu.tr:8080/bitstream/handle/11727/2986/10224923.pdf?sequence=1&isAllowed=y
+   BAŞKENT UNIVERSITY INSTITUTE OF SCIENCE AND ENGINEERING ANALYSIS OF
+   CRYPTOCURRENCIES GÖRKEM ULUSOY MASTER OF SCIENCE THESIS 2018
+
+1. http://www.diva-portal.org/smash/record.jsf?pid=diva2%3A1307991&dswid=-9412
+   Performance Evaluation of a Blockchain-based Traceability System: A
+   Case Study at IKEA
+
+1. https://craft.co/nucypher NuCypher is a security and encryption
+   platform for distributed systems, including big data, cloud,
+   blockchain, and IoT
+
+1. CypherPress is a WYSIWYG that allows developers and individuals to
+   leverage NuCypher's privacy layer and IPFS to build decentralised
+   storage platforms. It can be used to build something like a
+   decentralised dropbox, or a secret sharing application,
+   etc. Basically, cypherpress allows you to use Nucypher and IPFS
+   without writing any code. We are to nucypher what wordpress is to
+   websites.
+
+1. NuCypher Google Chrome extension which helps sharing your datafiles
+   in a safe way using NuCypher
+   technology. https://coinlist.co/build/nucypher/projects/a3273c0d-34c6-4f4c-b768-efdeaced34a5;
+   NuCypher Hackathon Building the Applications and Tools for
+   Unconditional Privacy
+
+1. https://news.ycombinator.com/item?id=19647692 IPFS Roadmap
+   Apr 2019.  Several highly critical opinions.
+1. https://medium.com/zkcapital/ipfs-the-distributed-web-e21a5496d32d
+   IPFS: A Complete Analysis of The Distributed Web Sep 2018
+
+1. https://hackernoon.com/hako-3825c3a033d7 Apr 2019 Hako A super
+   secure decentralized file sharing application powered by Web 3.0.
+   Uses NuCypher and IPFS.
+
+1. IPFS Companion, add-on for Chrome and FireFox.  Official browser
+   extension that simplifies access to IPFS resources;
+   https://github.com/ipfs-shipyard/ipfs-companion;
+   https://chrome.google.com/webstore/detail/ipfs-companion/nibjojkomfdiaoajekhjakgkdhaomnch?hl=en
+
+1. Blockchains.  Book https://bitcoinbook.cs.princeton.edu/; YouTube
+   play list
+   https://www.youtube.com/watch?v=fOMVZXLjKYo&list=PLQIX_E46U4XYE5GR6029FpnaX9aBXbt0B
+1. Intro to IPFS and dApps by Prabhaker Mateti
+   https://cecs.wright.edu/~pmateti/Research/IPFS/Lectures/ 
+1. NuCypher https://github.com/nucypher;
+   https://docs.nucypher.com/en/latest/guides/installation_guide.html
+1. dApps https://www.stateofthedapps.com/
+1. NCIPFS Third place winner in the NuCypher + Coinlist Hackathon
+   March 2019.  A developer friendly python library to easily store,
+   encrypt, share and decrypt data on IPFS with NuCypher's proxy
+   re-encryption. https://coinlist.co/build/nucypher/votes,
+
+1. https://www.youtube.com/results?search_query=nucypher Several
+   videos on YouTube.  Have not watched them yet.
+
+1. https://cryptozombies.io/ CryptoZombies is a free, interactive code
+   school that teaches you to build games on Ethereum.
+
+** Links
+
+1. http://ipfs.io/
+1. https://discuss.ipfs.io/ previously, http://github.com/ipfs/faq
+1. https://github.com/ipfs/ipfs
+1. https://dweb-primer.ipfs.io/decentralized-web-primer.pdf 66pp. Apr 2017.
+1. https://www.youtube.com/watch?v=Nv_Teb--1zg Tutorial: How to build
+   an application with IPFS PubSub Room, Jul 2017
+
+1. IPFS paper. https://github.com/ipfs/papers/raw/master/ipfs-cap2pfs/ipfs-p2p-file-system.pdf
+
+1. https://www.reddit.com/r/ipfs/
+1. https://www.reddit.com/r/ipfs/comments/8nhg48/
+   the_fundamental_problem_with_ipfs/
+
+1. https://decentralized.blog/understanding-the-ipfs-white-paper-part-1.html
+   Catching the Blockchain Train
+
+1. https://www.reddit.com/r/Bluzelle/comments/7vvdv7/feedback_to_article_difference_between_bluzelle/
+
+** Links Demo
+
+1. https://medium.com/coinmonks/a-hands-on-introduction-to-ipfs-ee65b594937
+1. https://www.shiftnrg.org/ Why Wait for Filecoin? Use IPFS Today on
+   the Shift Platform
+
+
+1. https://macwright.org/2017/08/09/decentralize-ipfs.html
+1. https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc
+
+** Links 20180805 TBD
+
+1. https://medium.com/@ConsenSys/an-introduction-to-ipfs-9bba4860abd0
+1. https://medium.com/wolverineblockchain/what-is-ipfs-b83277597da5
+1. https://www.reddit.com/r/ipfs/comments/8o96yg/ipfs_on_android/
+
+
+
+** T
+
+1. Bitcoin and Cryptocurrency Technologies (Princeton textbook) by Arvind Narayanan, Joseph Bonneau, Edward Felten, Andrew Miller, and Steven Goldfeder:
+https://d28rh4a8wq0iu5.cloudfront.net/bitcointech/readings/princeton_bitcoin_book.pdf
+
+1. (Optional/Additional) Mastering Bitcoin by Andreas Antonopoulos:
+PDF: https://drive.google.com/file/d/0B8lgcDXI8hEfbXFYcTh6aXNqRkk/view?usp=sharing
+Source: https://github.com/bitcoinbook/bitcoinbook
+
+1. https://hn.algolia.com/?query=dapps
+1. https://saurabh-srivastava.github.io/ Saurabh Srivastava, Synthetic
+   Minds: Securing smart contracts using program synthesis.
+   https://news.ycombinator.com/item?id=17508562 20n: Designing new
+   genetically engineered organisms. PhD: Software that writes
+   code. (U of Maryland, 2010)
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+# -*- mode: org -*-
+#+DATE: 2018-08-04
+#+TITLE: The Design of Distributed Apps on IPFS
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Goal of these Lectures
+
+1. Explain the 2014 Draft#3 IPFS paper by Juan Benet.
+1. I will make it obvious: My opinions and assessments.
+
+* DHT
+
+1. Q: It uses a DHT, does that mean my machine becomes part of the
+   routeing system?
+
+1. A: By default, yes, you'll help route the location of content and
+   other such records.  You can run the daemon in dhtclient mode
+   instead, and just read the dht without helping providing any
+   routing though, by doing =ipfs daemon --routing=dhtclient=
+
+* IPFS Clusters
+
+* IPFS Private
+
+
+
+* Links
+
+1. http://ipfs.io/
+1. https://discuss.ipfs.io/ previously, http://github.com/ipfs/faq
+1. https://github.com/ipfs/ipfs
+1. https://dweb-primer.ipfs.io/decentralized-web-primer.pdf 66pp. Apr 2017.
+1. https://www.youtube.com/watch?v=Nv_Teb--1zg Tutorial: How to build
+   an application with IPFS PubSub Room, Jul 2017
+
+1.IPFS paper. https://github.com/ipfs/papers/raw/master/ipfs-cap2pfs/ipfs-p2p-file-system.pdf
+
+1. https://www.reddit.com/r/ipfs/
+
+1. https://decentralized.blog/understanding-the-ipfs-white-paper-part-1.html
+   Catching the Blockchain Train
+
+1. https://www.reddit.com/r/Bluzelle/comments/7vvdv7/feedback_to_article_difference_between_bluzelle/
+
+1. https://flyingzumwalt.gitbooks.io/decentralized-web-primer/content/
+   web based full book
+
+1. https://gnunet.org/bibliography Peer-to-Peer applications of the
+   GNUnet system.
+
+1. https://news.ycombinator.com/item?id=18005488 Introducing
+   Cloudflare’s IPFS Gateway sep 17, 2018
+
+** Links Demo
+
+
+1. https://github.com/paulogr/dstatuspage A Decentralized StatusPage with no single point of failure published to IPFS.
+1. https://medium.com/coinmonks/a-hands-on-introduction-to-ipfs-ee65b594937
+1. https://www.shiftnrg.org/ Why Wait for Filecoin? Use IPFS Today on
+   the Shift Platform
+
+
+1. https://macwright.org/2017/08/09/decentralize-ipfs.html
+1. https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc
+
+** Links 20180805 TBD
+
+1. https://medium.com/@ConsenSys/an-introduction-to-ipfs-9bba4860abd0
+1. https://medium.com/wolverineblockchain/what-is-ipfs-b83277597da5
+1. https://www.reddit.com/r/ipfs/comments/8o96yg/ipfs_on_android/
+
+* IPFS FAQ
+
+SUNY Buffalo blog discussion on hackernews.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Hadoop Alternatives</title>
+<!-- 2015-04-21 Tue 16:23 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="CEG7370 Distributed Computing"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {font-family: monospace; font-size: 10pt; color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<a href="../../Top/"> CEG 7370</a>
+</div>
+<div id="content">
+<h1 class="title">Hadoop Alternatives</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Apache Flink</a></li>
+<li><a href="#sec-2">2. Apache Spark</a></li>
+<li><a href="#sec-3">3. Hydra</a></li>
+<li><a href="#sec-4">4. SEDA</a></li>
+<li><a href="#sec-5">5. Software Transactional Memory</a></li>
+<li><a href="#sec-6">6. References</a></li>
+</ul>
+</div>
+</div>
+<p>
+The paragraph descriptions are cut-and-pasted from the project web
+sites.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Apache Flink</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li><a href="https://flink.apache.org/">https://flink.apache.org/</a> "" Fast: State-of-the art performance
+exploiting in-memory processing and data streaming.  Reliable:
+Flink is designed to perform very well even when the cluster's
+memory runs out.  Expressive: Write beautiful, type-safe code in
+Java and Scala. Execute it on a cluster.  Scalable: Tested on
+clusters of 100s of machines, Google Compute Engine, and Amazon
+EC2.  Hadoop-compatible: Flink runs on YARN and HDFS and has a
+Hadoop compatibility package.  2014+
+</li>
+
+<li>Stratosphere is now Apache
+Flink. <a href="https://github.com/apache/incubator-flink">https://github.com/apache/incubator-flink</a> "" . "It has a
+novel model that allows for more operators than just map and
+reduce. (It also natively supports match, cross and more). It
+additionally allows for arbitrary complex job graphs. So you can
+combine these operators in any way you like. So you could have
+three inputs, that are joined, reduced, mapped and reduced (by
+another key). You can even write to as many outputs as you want.
+Additionally, Stratosphere also supports iterative algorithms
+(often needed for Data Mining/Machine Learning). Since this is
+"natively" implemented into the system, Stratosphere does way
+better on those jobs than traditional hadoop systems."  There is an
+actively developed open source version of it on github:
+<a href="https://github.com/dimalabs/ozone">https://github.com/dimalabs/ozone</a> Stratosphere also supports Scala.
+Apache Flink is an open source system for fast and versatile data
+analytics in clusters. Flink supports batch and streaming
+analytics, in one system. Analytical programs can be written in
+concise and elegant APIs in Java and Scala.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Apache Spark</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li><a href="http://spark.apache.org/">http://spark.apache.org/</a> "" Apache Spark is a fast and general engine
+for large-scale data processing.  Applications can be written in
+Scala, which is an very powerful and expressive functional
+programming language (Stratosphere also supports Scala). It is
+really fast on job setup, hence it is very suited for small and
+medium sized data and ad-hoc evaluations.
+</li>
+
+<li><a href="https://prestodb.io/">https://prestodb.io/</a> "" According to Facebook, Presto is a new
+interactive query system that operates fast at petabyte scale that
+is founded on a distributed SQL query engine optimized for ad-hoc
+analysis at interactive speed. And like Spark, all processing is in
+memory. Facebook recently open-sourced the code and the Presto
+community can be found here.  Unlike Spark or Hadoop, Presto can
+concurrently use a number of data stores as sources. All that is
+needed are “connectors” that provide interfaces for metadata, data
+locations, and data access. This obviates the need to move data
+around in order to query it—a requirement that’s becoming critical
+to many IT administrators. Simply plug the data source into Presto
+and—presto!—it can be interactively queried in real
+time. Connectors are currently available for Hadoop/Hive (Apache
+and Cloudera distributions) and Cassandra. But one can imagine more
+could be built for the enterprises’ existing data stores.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Hydra</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li><a href="https://github.com/addthis/hydra">https://github.com/addthis/hydra</a> "" It may not have the name
+recognition or momentum of Hadoop. But Hydra, the distributed task
+processing system first developed six years ago by the social
+bookmarking service maker AddThis, is now available under an open
+source Apache license, just like Hadoop. And according to Hydra’s
+creator, the multi-headed platform is very good at some big data
+tasks that the yellow pachyderm struggles with–namely real-time
+processing of very big data sets.
+
+<p>
+"" Hydra is a big data storage and processing platform developed by
+Matt Abrams and his colleagues at AddThis (formerly Clearspring),
+the company that develops the Web server widgets that allow
+visitors to easily share something via their Twitter, Facebook,
+Pintrest, Google+, or Instagram accounts.
+</p>
+
+<p>
+"" When AddThis started scaling up its business in the mid-2000s,
+it got flooded with data about what users were sharing. The company
+needed a scalable, distributed system that could deliver real-time
+analysis of that data to its customers. Hadoop wasn’t a feasible
+option at that time. So it built Hydra instead.
+</p>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> SEDA</h2>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Software Transactional Memory</h2>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> References</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li><a href="http://www.fromdev.com/2015/03/hadoop-alternatives.html">http://www.fromdev.com/2015/03/hadoop-alternatives.html</a> "35+ Hadoop
+Alternatives For Big Data".  But stretches what we mean by
+"alternatives".
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2015 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2015-03-13
+</div>
+</body>
+</html>

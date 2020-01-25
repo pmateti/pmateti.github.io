@@ -1,0 +1,134 @@
+
+\section{Introduction}
+
+
+What is IPFS? What does it offer?
+
+IPFS whitepaper by Juan Benet
+\url{https://medium.com/@ConsenSys/an-introduction-to-ipfs-9bba4860abd0}
+
+youtube.comNovember 19, 2016
+The Decentralized Web, IPFS and Filecoin - Juan Benet
+Recorded at the Silicon Valley Ethereum Meetup - October 22nd, 2016
+
+youtube.com December 8, 2016 The next Internet Revolution | Juan Benet
+| TEDxSanFrancisco Juan explains why the web is in danger and how
+there's an open source movement focused on creating a new way of
+sharing knowledge is building the Interplanetary Files System
+(IPFS).The Interplanetary Files System (IPFS), an open source movement
+focused on creating a new way of sharing knowledge.
+
+“IPFS is a distributed file system that seeks to connect all computing
+devices with the same system of files. In some ways, this is similar
+to the original aims of the Web, but IPFS is actually more similar to
+a single bittorrent swarm exchanging git objects. IPFS could become a
+new major subsystem of the internet. If built right, it could
+complement or replace HTTP. It could complement or replace even
+more. It sounds crazy. It is crazy.”[1]
+
+``IPFS is a global, versioned, peer-to-peer filesystem. It combines
+good ideas from Git, BitTorrent, Kademlia, SFS, and the web. It is
+like a single bittorrent swarm, exchanging git objects. IPFS provides
+an interface as simple as the HTTP web, but with permanence built
+in. You can also mount the world at /ipfs.IPFS could become a new
+major subsystem of the internet. If built right, it could complement
+or replace HTTP.''
+\url{https://alternativeto.net/software/ipfs/}
+
+``IPFS is a new hypermedia distribution protocol, addressed by content and identities. IPFS enables the creation of completely distributed applications. It aims to make the web faster, safer, and more open.''
+New? 201x?
+
+``Ten terrible attempts to make the Inter Planetary File System human-friendly
+This article is part 6 of the Blockchain train journal, start reading
+here: Catching the Blockchain Train.
+hackernoon.comSeptember 26, 2017''
+
+decentralized.blogAugust 10, 2017
+Understanding the IPFS White Paper part 1
+This article is part 4 of the Blockchain train journal, start reading
+here: Catching the Blockchain Train. The crypto currency/blockchain
+world loves its white papers, and IPFS is no exception.
+
+https://blockchainmind.com/ipfs/
+
+https://blockonomi.com/interplanetary-file-system/
+
+``Most people aren't running IPFS nodes, and IPFS isn't seen yet as a
+valuable resource by censors. So they'll probably just block the whole
+domain, and now people won't know about or download IPFS. We saw this
+progression with GitHub in China.''
+
+\subsection{Paper Organization}
+
+
+IPFS Hands on Introduction
+Demo:: {``Install IPFS on a server, create a new repo with ipfs init
+. Start a background IPFS node daemon process with: ipfs daemon & ,
+add the files to the network with ipfs add -r <your-files> and pin the
+hash that you want to keep online forever with ipfs pin add -r
+<your-ipfs-hash/> .''
+
+atnnn.com August 2, 2016
+Serving a website over IPFS
+This page is available over HTTP at http://atnnn.com but also over
+IPFS at /ipns/atnnn.com. Here’s how I do it: The rest of this article
+goes into more details and explains why you might want to do it too.
+
+youtube.com Distributed Apps with IPFS (Juan Benet) - Full Stack Fest
+2016 The InterPlanetary File System (IPFS) is a new hypermedia
+distribution protocol, addressed by content and identities. IPFS
+enables the creation of completely distributed applications. It aims
+to make the web faster, safer, and more open. IPFS enables completely
+decentralized and distributed apps. An
+
+ipfs.ioMay 17, 2017 Take a look at pubsub on IPFS We recently merged a
+simple, experimental pubsub implementation into IPFS. This
+implementation is just a beginning. It is far from the performance and
+security goals we will achieve in our long-term target.
+
+youtube.com
+IPFS Hands on Introduction
+This is a Hands on Introduction to IPFS.Includes:- Discussion on the problems IPFS solves- The basic model of IPFS- In-depth first steps with the IPFS commandline interface- Demos of adding files, downloading files, media streaming, booting VMs, and publishing names.---Recorded on 2015-04-23Presente
+
+youtube.com July 12, 2017 Tutorial: How to build an Collaborative
+Editing Application with IPFS using CRDT This is a tutorial on how to
+create Distributed Web Applications with CRDT (Conflict-Free
+Replicated Data Types) and the JavaScript Implementation of
+IPFS*References:*- IPFS - https://ipfs.io- js-ipfs -
+https://github.com/ipfs/js-ipfs- Code for the Demo -
+https://github.com/ipfs-labs/shared-e...  }
+
+{ Nextgen Web? Replace HTTPS.  news.ycombinator.comDecember 16, 2016
+  An introduction to IPFS : Hacker News The claim is that IPFS could
+  replace HTTP, the web, and so on. The only thing I see, however, is
+  a distributed filesystem, which is only one part of the puzzle.  }
+
+
+DApp:: { medium.comAugust 13, 2017 The ultimate end-to-end tutorial to
+  create and deploy a fully decentralized Dapp in ethereum In this
+  tutorial my objective is to walk you through the steps required to
+  create a descentralized application from start to finish and deploy
+  it in ethereum.
+
+news.ycombinator.comMarch 29, 2018
+OpenBazaar 2.0, powered by IPFS : Hacker News
+How do you intend to prevent sybil attacks on seller ratings? Since there are no account sign ups and subsequent verifications, it would be theoretically possible to create a large number of accounts with fake reviews. There are a few factors that still make reviews somewhat useful though.
+
+hackernoon.comJune 11, 2018
+A short trip to Jupyter via the Inter-planetary File System
+IPFS is the Distributed Web. It is an idea and a protocol designed to
+support a distributed file system that seeks to connect all computing
+devices with the same system of files. There has been plenty of hype
+around IPFS, but much of it is well-deserved.
+
+nytimes.comJune 8, 2018
+Beyond the Bitcoin Bubble
+The sequence of words is meaningless: a random array strung together
+by an algorithm let loose in an English dictionary. What makes them
+valuable is that they’ve been generated exclusively for me, by a
+software tool called MetaMask. In the lingo of cryptography, they’re
+known as my seed phrase.
+
+}
+
+https://getpocket.com/explore/ipfs

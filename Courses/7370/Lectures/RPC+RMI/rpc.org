@@ -1,0 +1,115 @@
+# -*- mode: org -*-
+#+DATE: 2016-08-30
+#+TITLE: RPC, Remote Procedure Call
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../
+#+HTML_LINK_UP: ../../Lectures
+#+DESCRIPTION: WSU CEG 7370 Distributed Computing
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\">../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+HTML_HEAD: <style> P, LI {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+* Overview
+
+1. Remote Procedure Call (Java Remote Method Invocation RMI) is a
+   fundamental idea in Distributed Computing.
+
+1. A simple architecture for Client-Server computing.
+1. Emulate "ordinary" (local) procedure calls in the context of
+   Client-Server computing.
+
+* Local v Remote
+
+1. [[./rpc-slides.html][Slides]]
+
+1. We will use local in the sense of process address space, not
+   as in local/global lexical scoping
+
+1. Remote may not always mean that a node *is* remote.  It really
+   means that it *can* be.
+
+1. Obviously, we have some way of naming these; usually, IP address,
+   or FQHN fully qualified host name.
+
+1. We are ignoring all kinds of "firewalling" issues.
+
+* Operational Semantics of Local Procedure Call
+
+1. The code of both P and Q are in the address space of a single process.
+1. Procedure P makes a call Q(a, b, c) on procedure Q.
+1. Arguments a, b, c are from the run time context of P.
+1. These are "passed" to Q: i.e., bound to the three formal parameters of Q
+1. Control is in Q  ==> P is waiting for the answers by Q
+1. P resumes at the point below the call, when Q returns
+
+* Parameter Passing
+
+1. Procedure P makes a call Q(a, b, c) on procedure Q.
+1. P gives to Q the input arguments
+1. P receives from Q the results
+1. Call by val, by ref, by name, ... ?
+1. Call by values-in + values-out: expressions a, b, c are evaluated.
+
+* The Idea of RPC
+
+1. The code of P is in one process PP and that of Q in another QQ.
+1. Do the "equivalent" of local procedure call -- semantically
+1. Must we make some assumptions?
+
+
+* How to Develop RPC programs
+   1. Start with sequential version of the program QPRG
+   2. Select the remote procedures
+   3. Describe the interface
+   4. Generate the stub procedures
+   5. Build two programs: server SPRG, client CPRG
+   6. semantics of QPRG "equals" SPRG + CPRG
+   7. Example [[./Makefile.txt][=Makefile=]]
+
+
+* Automated Build of RPC programs
+
+2. Lots of assumptions
+   1. no globals shared between SPRG and CPRG
+   2. ...
+
+3. How do we locate/ declare SPRG?
+   1. Globally unique program identifier
+   2. Transient versions
+
+4. =rpcgen= Generate the stub procedures
+
+* A Design of RPC
+
+1. A Typical RPC architecture [[../RPC+RMI/rpc-diag-tikz.pdf]]
+   2. [[../RPC+RMI/05-rpc-case_studies.ppt]] from Rutgers
+   3. [[../RPC+RMI/7b.pptx]] from Portland State
+   4. [[../RPC+RMI/L16-17.fa14.ppt]] from U of Illinois, UC
+   5. Required study: At least one of the above three.
+   6. Highly Recommended: All three.  See also the ONC+ Guide below.
+1. NFS is based on ONC/Sun RPC
+
+
+* Practical Linux RPC
+
+1. Make sure that =rpcbind/portmap= is started at boot. Option =-i=
+1. Check the result of =rpcinfo -p=
+
+* References
+
+1.  Andrew D. Birrell and Bruce Jay Nelson, Implementing Remote
+    Procedure Calls, ACM Transactions on Computer Systems (TOCS), 2,
+    1, pp. 39--59, 1984. A classic paper.  Highly recommended reading.
+
+1. Oracle.com, ONC+ Developer's Guide;
+   http://docs.sun.com/app/docs/doc/816-1435; Reference.  This is a
+   highly recommended complete book on RPC.  
+
+1. Andrews book, Chapter 9.  Highly recommended reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,79 @@
+
+# -*- mode: org -*-
+#+date: 2017-04-20
+#+TITLE: Block Chains 2017
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: Android Internals and Security
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2017 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+Wish to learn this topic.  For myself.  Write a good tutorial for others.
+
+1. http://www.decentralstation.com/  THIS SITE is a curated list of
+   links with an introductory essay. Feel free to skip the essay and
+   explore the links. 
+
+1. https://news.ycombinator.com/item?id=14161695 https://status.im/ A
+   Mobile Ethereum OS This app uses re-natal, a wrapper of React
+   Native for ClojureScript. It also uses a ClojureScript framework
+   called "re-frame" for data flow and "reagent" for wrapping
+   React. It's a pleasure to work with (most of the time, there are
+   hiccups here and there) and you can develop for iOS and Android
+   simultaneously. I highly recommend checking it
+   out. https://github.com/drapanjanas/re-natal
+   https://github.com/status-im/status-react/;; Remarkably similar to
+   Token from Coinbase, which launched just yesterday:
+   https://www.tokenbrowser.com ;; A decentralized cryptocurrency is a
+   lovely ideal, but in the dirty real world, Ethereum and its ilk
+   will win out.  You can find a comprehensive list of dapps here:
+   http://dapps.ethercasts.com;; Is the intention here to run mini
+   react-native apps (Dapps?) within a bigger app (status app
+   itself)?;; Status is decentralized messaging platform to access the
+   Ethereum Network (Web 3.0). Essentially we're building a network
+   that's completely operated by it's own users, and runs entirely on
+   peer-to-peer technologies.  Users can send encrypted messages,
+   payments, and can interact and chat with decentralized
+   applications. What's exciting about Ethereum is it removes the need
+   not only for centralized servers, but also for intermediaries that
+   were traditionally required in order to partake in trade or legal
+   agreements. A good place to start if you'd like to learn more:
+   http://www.ethdocs.org/en/latest/introduction/what-is-ethere...;;
+   Well, the other option is to explain how it's like existing methods
+   of delivering online functionality, but decentralised - a thing
+   that nobody really values - plus also incredibly slow, fairly
+   complex, and you have to pay for everything that happens, and also
+   the entire ecosystem is centred around a volatile speculation-rife
+   currency and an approach to financial transactions which has been
+   full of real and significant security problems - including the
+   theft of millions of dollars from the flagship implementation right
+   under the noses of many of the core devs, despite paying corrupt
+   levels of money to other core boosters of the platform for
+   completely hopeless security reviews...
+
+1. Totally with you here. The blockchain is an awesome experiment and prototype of what a good decentralized, verifiable system could look like, but it has several significant flaws, some of which are obvious even in the limited context of a worldwide ledger (bitcoin).
+In particular, throwing away 47 zetaflops/s of computing power (the current compute power of the bitcoin network [0]) and all of the electricity required to generate it in order to verify the transactions of the tiny quantity of people currently using bitcoin is obscene, and the mechanism that encourages this should be recognized as the unscalable disaster that it is. Basing "Web 3.0" on such mechanisms is, frankly, a ridiculous proposition.
+And all of this "decentralization" is thrown out the window by virtually everyone, because to store a full copy of the blockchain on your local disk, you need -- let's see --
+    $ du -sh /mnt/apps_syn/dot_bitcoin/
+    118G    /mnt/apps_syn/dot_bitcoin/
+120 gigabytes of space. So you end up just trusting Coinbase or whoever you have your wallet from anyway, no different than trusting your bank.
+If Coinbase had an Ethereum moment, they could fork the chain that all of their wallets use, and with their MtGox-like domination of the market, any resistance to their fork would seriously damage Bitcoin overall. I imagine most miners would go along with it because they don't want their btc to drop to 0.
+Consider also that there is virtually no transparency into the actual miner operations. The biggest miners are behind "pools" -- relays -- and though the idea is that pools are made up of tens of thousands of independently-controlled computers, I suspect that if we could see through to which machines were actually doing most of the work, bitcoin would suddenly seem a lot less "decentralized".
+This is not to mention that miners behind pools are totally at the pool's mercy, or that 5 pools hold over 50% of the network's hashrate, and that these pool operators have been in one room together to decide on blockchain policy (re blocksize, which miners are incentivized to oppose, since smaller blocksize == higher transaction fees). That is little different than big banks meeting under the auspices of the Federal Reserve to control monetary policy.
+It's very sad that people saw bitcoin and thought it was a good idea
+to expand its flawed model out, instead of accepting it for the
+forward-thinking prototype it was and thinking about how to improve it
+before jumping all in.
+
+1. https://bitcoinwatch.com
+
+1. https://2030.io/
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

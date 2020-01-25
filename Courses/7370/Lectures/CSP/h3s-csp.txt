@@ -1,0 +1,63 @@
+
+at[e] = i	elevator e is at floor i; turn the i-th light for e on
+		and the other light that was on now goes off.
+
+dir[e]		the travel direction of elevator e
+req[i]		requests made at floor i: none, go-up, go-dn, both
+stop[e][i]	elev e must stop on floor i
+bot[e]		lowest floor to go to; initialized to the top-most floor
+top[e]		highest floor to go to; initialized to the ground floor
+
+control ::
+
+stop[.][1] := true; stop[.][f] := true; req[.][.] := false;
+bot[.] := f; top[.] := 1; at[.] := 1;
+dir[.] := stopped;
+
+*[ floor?(i, updn) ->
+     req[i][updn] := true;
+     bot := min(bot, i); top := max(top, i);
+ | elev?(a, i)     ->
+     stop[a][i] := true;
+     bot := min(bot, i); top := max(top, i);
+ | for some a: bot[a] < top[a] and dir[a] = stopped ->
+     [ at[a] < bot[a] -> elev!(a, go-dn);
+       at[a] = bot[a] -> elev!(a, go-up);
+       at[a] > top[a] -> elev!(a, go-dn);
+     ]
+ | sensor?(a, i)   ->
+     at[a] := i; d := dir[a];
+     if req[i][d] or stop[a][i] ->
+       elev!(a, stop-cmd); req[i][d] := false;
+       [ i = bot -> d := up;
+       | i = top -> d := dn;
+       | i > 1 and i < f -> stop[a][i] := false; 
+       ]
+       if bot < top -> alarm!(delay, a, d) fi;
+       [ d = up -> bot := bot + 1;
+       | d = dn -> top := top - 1;
+       ]
+     fi
+ ]
+
+ 
+
+
+
+alarm ::
+ need-next := false; nxtt := 0; t := 1;
+ *[ clock?tick()  -> t := t + 1;
+    control?(d, a, cmd) ->
+      [ d < 0 -> skip;
+        d = 0 -> elev!(a, cmd);
+        d > 0 ->
+          insert (t+d, a, cmd) into ordered list;
+          if not need-next -> need-next := true;
+      ]
+    need-next ->
+      (nxtt, nxta, nxtc) := remove the head item;
+      need-next := false;
+    nxtt = t ->
+      elev!(nxta, nxtc);
+      need-next := list != empty;
+  ]

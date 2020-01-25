@@ -1,0 +1,451 @@
+
+<title>CEG 7370 Distr Comp by Mateti</title>
+<base target="_top">
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  li { text-align: justify; }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+
+<base href="http://www.cs.wright.edu/~pmateti/" target="_blank">
+
+</head>
+
+
+<body>
+
+
+<link rel="stylesheet" href="RevealJS/css/reveal.min.css">
+<link rel="stylesheet" href="RevealJS/css/theme/serif.css" id="theme">
+<link rel="stylesheet" href="RevealJS/lib/css/zenburn.css">
+
+<div class="reveal">
+  <div class="slides">
+
+<section><h4><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+WSU CEG 7370:&nbsp;Distributed Computing Principles</a></h4>
+<h1>Temporal Logic</h1>
+
+<h3 style="color: brown">Prabhaker Mateti</h3>
+
+
+</section><section><h2>Symbols</h2>
+
+<div  align=center>
+<table>
+<tr><td> &not;</td><td> negation/not;</td>
+</tr><tr><td> !</td><td> negation/not;</td>
+</tr><tr><td> &forall;</td><td> for-all;</td>
+</tr><tr><td> &exist;</td><td> there-exists-a;</td>
+</tr><tr><td> &loz;</td><td> eventually;</td>
+</tr><tr><td> &#9633;</td><td> always ;</td>
+</tr><tr><td>&rArr;</td><td> implies; </td>
+</tr><tr><td>::=  </td><td>is-defined-as, </td>
+</tr><tr><td>&equiv;</td><td> is-the-same-as</td></tr>
+</table>
+</div>
+
+</section><section><h2>Classical v Temporal Logic</h2>
+
+<ol>
+
+<li>
+Classical mathematical logic deals with timeless statements.
+<p style="color: brown">"This basket has 5 red balls and 10 blue balls."
+
+<p style="color: brown">&forall;n : &exist;m : g(n + m)</p> asserts that g(i) is true for infinitely
+many values of i. 
+
+
+<li>
+Classical logic cannot express: 
+<p style="color: brown">"This basket will have 10 red balls."
+
+<li>
+Interesting statements about processes depend on time.
+<p style="color: brown">A and B are mutually exclusive for ever.
+
+<li>
+Temporal logic can describe time-dependent properties without
+introducing time explicitly.  
+<p style="color: brown">   Process 2 will be in the critical section.
+
+<li>Without temporal logic, we would be
+forced to explicitly involve time as a variable:
+<p>for-all t: not (A(t) and B(t)) 
+</ol>
+
+</section><section><h2>Temporal Logic Overview</h2>
+
+</section><section><h3>TL Example Assertions</h3>
+
+<div>
+<ol>
+<li> keywords: Always, Eventually, Sometime, Next, Until
+<li>Always x != 0
+<li>Sometime  x == 0
+<li>{x == y} Until {y == 0}
+<li>{x == 0}  implies {Next {Always {x != 0}}}<br>
+  // x is zero only once
+<li>Sometime {! this.isInterrupted()}<br>
+  // this thread is not interrupted forever<br>
+  // this thread is never interrupted<br>
+
+<li>
+Always {x.isWaitingOn(y) implies {! y.isWaitingOn(x)}} 
+
+<li>forall agent in AgentPool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+forall document in TopSecretDocumentPool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{! agent.canView(document)} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Until {agent.hasClearanceFor(document)}
+</ol>
+</div>
+
+</section><section>
+<h3>Modal Operators</h3>
+
+<p>The semantics of temporal logic is based on <i>behaviors</i>.
+A behavior is an infinite sequence of <i>states</i>.
+
+</section><section>
+<dl>
+<dt><h3>always P (&#9633;P)</h3></dt>
+<dd><p>P is always True.  &#9633; Square.  Unary prefix.  Also called,
+    Henceforth.
+  <p  style="color: brown">An assertion that something may never happen is called
+  a <i>safety</i> property.
+</dd>
+
+</section><section>
+<dt><h3>eventually P (&loz;P)</h3></dt>
+
+<dd>
+  <p> It is not the case that P is always False.  P is eventually True.
+    Same as, "sometime".  &loz; Diamond box.
+  <p>As you can see, (eventually P) is the same as (not always not P);
+    &loz;P &equiv; !&#9633;!P 
+  <p  style="color: brown">An assertion that something eventually does happen is called a
+    <i>liveness</i> property. 
+</dd>
+</section><section>
+<dt><h3>P until Q</h3></dt>
+<dd><p>Q holds now or in the future, and P has to hold until that time.
+From that time on, P does not have to hold any more.  Binary
+infix. </dd>
+
+</section><section><dt><h3>P leads-to Q (P ~&rarr; Q) </h3></dt>
+<dd>
+  <p> P leads-to Q ::= (always (P implies eventually Q))
+  <p> Using wiggly-arrow ~&rarr; for leads-to
+  <p> P ~&rarr; Q ::= &#9633;(P &rArr; &loz;Q) 
+  <p> Binary infix.
+  <p>This is transitive.
+</dd>
+</section><section>
+<dt><h3>Infinitely Often (&#9633;&loz;P)</h3></dt>
+<dd><p>The formula &#9633;&loz;P (always eventually P) is true for a
+    behavior iff &loz;P is true at all times n during that behavior, and
+    &loz;P is true at time n iff P is true at some time m greater than
+    or equal to n.
+</dd>
+
+</section><section>
+<dt><h3>Eventually Always  (&loz;&#9633;P)</h3></dt>
+<dd><p>The formula &loz;&#9633;P asserts that eventually P is always
+    True.
+</dd>
+
+</section><section>
+<dt><h3>Eventually Always implies Infinitely Often</h3></dt>
+<dd>
+  <p>
+    &loz;&#9633;P  &rArr; &#9633;&loz;P, for any P
+</dd>
+
+</dl>
+
+</section><section><h2>Temporal Properties</h2>
+
+<table width=100% border="0" cellpadding="2" cellspacing="15">
+<tr>
+<td valign=top width="38%">&#9633; F &rArr; F</td>
+<td valign=top width="50%">Always F implies F.</td>
+</tr>
+
+<tr><td valign=top>
+&not; &#9633;F &hArr; &loz;&not;F  &nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td valign=top width="50%">
+F is not always true iff it is eventually false.</td>
+</tr>
+
+<tr>
+<td valign=top>
+&#9633;(F & G ) &hArr; &#9633;F & &#9633;G  &nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td valign=top width="50%">
+F and G are both always true iff F is always true and G is always true.
+Another way of saying this is that &#9633; distributes over & .
+</td>
+</tr>
+
+</table>
+</section><section>
+<table width=100% border="0" cellpadding="2" cellspacing="15">
+
+<tr>
+<td valign=top>&#9633; F or &#9633; G &rArr; &#9633;(F or G)</td>
+<td valign=top width="50%">&#9633; distributes over or?<br>  [Note the implies]</td>
+</tr>
+
+<tr>
+<td valign=top>&#9633;(F or G) &#8655; (&#9633; F or &#9633; G)</td>
+<td valign=top width="50%">Reverse of above does not hold.</td>
+</tr>
+
+
+<tr>
+<td valign=top>&loz;(F or G ) &hArr; &loz;F or &loz;G</td>
+<td valign=top width="50%">
+Eventually distributes over OR.
+</td>
+</tr>
+
+</table>
+</section><section>
+<table width=100% border="0" cellpadding="2" cellspacing="15">
+
+<tr>
+<td valign=top>
+&#9633; &loz;(F or G) &hArr; (&#9633;&loz;F) or (&#9633;&loz;G)</td>
+<td valign=top width="50%">
+Always-Eventually distributes over OR.
+</td>
+</tr>
+<tr>
+<td valign=top>
+&loz;&#9633; (F & G) &hArr; (&loz;&#9633; F) & (&loz;&#9633; G)</td>
+<td valign=top width="50%">
+Eventually-Always distributes over AND.</td>
+</tr>
+
+</table>
+</section><section>
+<table width=100% border="0" cellpadding="2" cellspacing="15">
+
+<tr><td valign=top>
+from P &rArr; P', P' &rArr;&#9633;Q', Q' &rArr;Q<br>
+infer
+P &rArr; &#9633;Q
+</td>
+<td valign=top width="50%">Consequence Rule</td>
+</tr>
+
+<tr><td valign=top>
+from P &rArr;&#9633;R, R &rArr;&#9633Q
+infer
+P &rArr;&#9633Q</td>
+<td valign=top width="50%">Catenation Rule</td>
+</tr>
+
+</table>
+</section><section>
+<table width=100% border="0" cellpadding="2" cellspacing="15">
+
+<tr><td valign=top>
+from F infer &#9633;F
+<td valign=top width="50%">Generalization Rule</td>
+</tr>
+
+
+<tr><td valign=top>
+from F &rArr; G infer
+&#9633;F &rArr; &#9633;G
+<td valign=top width="50%">Implies Generalization Rule</td>
+</tr>
+
+</table>
+
+</section><section><h2>Weak/Strong Fairness</h2>
+
+<table><tr>
+<td width=45% valign=top>
+<a name="prog"></a>
+
+int x := 0, y := 0;<br>
+do  < await true --> x := x + 1><br>
+[]  < await true --> y := y + 1><br>
+od<br>
+
+</td>
+<td width=10%>&nbsp;</td>
+<td width=45% valign=top>
+Do any of the following hold?<br>
+always x = 0<br>
+eventually x > 5<br>
+eventually always y = 3
+</td>
+</tr>
+</table>
+
+</section><section><h3>Weak Fairness</h3>
+
+<p>
+An operation must be executed if it remains possible to do so for a
+long enough time. 
+
+<p>"Long enough" means until the operation is executed,
+so weak fairness asserts that eventually the operation must either be
+executed or become impossible to execute. It may mean perhaps only briefly.
+
+</section><section><h3>Strong Fairness</h3>
+
+<p>An operation must be executed if it is infinitely often possible to
+do so.  
+
+<p>Either the operation is eventually executed, or its execution
+is not infinitely often possible. Not infinitely often possible is the
+same as eventually always impossible (&not;&#9633;&loz;
+. . . &equiv; &loz;&#9633;&not; . . .), so we get
+<p>strong fairness: (&loz; executed) or (&loz;&#9633; impossible) 
+
+<p>We formalize action A is "executed" and A is "impossible" later.
+
+</section><section><h3>Naive Formulation</h3>
+
+<p>weak fairness: (eventually executed) or (eventually impossible)
+<p>strong fairness: (eventually executed) or (eventually always impossible)
+
+<p>In symbols,
+
+<p>weak fairness&nbsp;&nbsp;: (&loz; executed) or (&loz; impossible)
+<p>strong fairness: (&loz; executed) or (&loz; &#9633; impossible)
+
+<p>We formalize action A is "executed" and A is "impossible" later.
+
+</section><section><h3>Intermediate Formulation</h3>
+
+<p>The two naive temporal formulas assert fairness at "time zero", but we
+want fairness to hold at all times. The correct formulas are:
+
+<p>weak fairness : &#9633;((&loz; executed) or (&loz; impossible))<br>
+strong fairness: &#9633;((&loz; executed) or (&loz;&#9633; impossible))
+
+<p>
+Temporal logic reasoning, using the semantic definitions of &#9633;
+and &loz;, shows that these conditions are equivalent to
+
+<p>
+weak fairness : (&#9633;&loz; executed) or (&#9633;&loz; impossible)<br>
+strong fairness: (&#9633;&loz; executed) or (&loz;&#9633; impossible)
+
+</section><section><h3>Final Formulation</h3>
+
+<ol>
+<li>Enabled A ::= the predicate that is true for a state iff it is
+  possible to take an A step starting in that state.
+
+<li>If A is an atomic operation of a program, then Enabled A is true
+for those states in which it is possible to perform the operation.
+
+<li>Formalizing action A is "executed" and A is "impossible", we get
+
+<li>
+WF<sub>f</sub>(A) ::=
+ (&#9633;&loz; A f )  or  (&#9633;&loz;&not;Enabled A f ) <br>
+SF<sub>f</sub>(A) ::=
+ (&#9633;&loz; A f )  or  (&loz;&#9633;&not;Enabled A f )<br>
+
+<li>
+Since &loz;&#9633;P &rArr; &#9633;&loz;P for any P, SFf(A) &rArr; WFf(A).
+</ol>
+
+</section><section><h2>Exercises</h2>
+
+<ol>
+<li>
+  Prove that (eventually P) is the same as (not always not P).
+<li>
+  In the context of the program shown <a href="#prog">above</a>, do
+  any of the following hold?  always x = 0, eventually x > 5,
+  eventually always y = 3.  Assume weak fairness.
+<li> Assume strong fairness.  Answer Q2.
+<li>Under what conditions does this terminate?
+<p>
+bool b := true;<br>
+process LP::  do b &rarr; skip od<br>
+process ST::  b := false<br>
+
+
+<li>Claim: Strong:  Terminates.  Weak:  May not terminate.  Prove it.
+<div style=center>
+bool continue := true, try := false;<br>
+process LP::<br>
+do continue &rarr;<br>
+&nbsp;&nbsp;    try := true;<br>
+&nbsp;&nbsp;    try := false  <br>
+od<br>
+process ST:: < await try &rarr; continue := false >
+</div>
+</ol>
+
+
+</section><section><h2>References</h2>
+
+<ol>
+
+  <li>Gregory R. Andrews, <i>Concurrent Programming: Principles and
+      Practice</i>, Benjamin/Cummings, 1991.  Chapter 2:
+    Required Reading.
+  <li>
+    <a href="http://www.tlaplus.net/"> http://www.tlaplus.net/</a> TLA
+    "is a logic ... that consist[s] mainly of ordinary (non-temporal)
+    mathematics with just a tiny bit of temporal logic."  This site
+    hosts a number of free software tools and articles on a subset of
+    temporal logic developed by Lamport.  Recommended Visit.
+
+  <li>
+    Leslie Lamport, <i>Specifying Systems: The TLA+ Language and Tools
+    for Hardware and Software Engineers</i>, Pearson Education, Inc,
+    2002.  (A free PDF of this book, for personal use, is available at
+    <a href="http://research.microsoft.com/en-us/um/people/lamport/tla/tla.html">
+      http://research.microsoft.com/en-us/um/ people/ lamport/ tla/ tla.html</a>)
+
+    <a href="http://research.microsoft.com/en-us/um/people/lamport/tla/hyperbook.html"> http://research.microsoft.com/en-us/ um/people/ lamport/ tla/ hyperbook.html</a>
+
+Suggested Reading.
+
+</ol>
+</section>
+<section>
+
+<hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2014
+<a href="mailto:pmateti@wright.edu?subject=CEG7370: Distr Comp">
+  pmateti@wright.edu</a>
+</section>
+
+  </div>
+</div>
+
+<script src="RevealJS/lib/js/head.min.js"></script>
+<script src="RevealJS/js/reveal.min.js"></script>
+<script>
+  Reveal.initialize({});
+</script>
+<script>
+  document.write( '<link rel="stylesheet" href="RevealJS/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+</script>
+
+</body>
+</html>
