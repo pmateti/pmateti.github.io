@@ -1,0 +1,266 @@
+<html>
+
+<head>
+<title>CEG 7370</title>
+<base target="_top">
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  li { text-align: justify; }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+</head>
+
+<body>
+<h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370:&nbsp;Distributed Computing Principles</a></h3>
+
+<h1>Commentary on Udding's Algorithm</h1>
+<h3>David Carral</h3>
+
+<p>February 2012</p>
+
+<blockquote>Abstract:
+Udding's solution as presented in his paper and in our class is
+correct (i.e., starvation-free). However, Udding's wording of what
+constitutes a weak semaphore needs to be improved.
+</blockquote>
+
+<h2>Udding's Algorithm</h2>
+<table width=100%>
+<tr>
+<td width=40%>
+<pre>1 P(eu); ne := ne+1; V(eu);
+2 P(qu); 
+3  P(eu);
+4  nm := nm+1;
+5  ne := ne-1;
+6  if ne > 0 --> V(eu)
+7  [] ne = 0 --> V(mu)
+8  fi;
+9 V(qu);
+a P(mu); nm := nm-1;
+b Critical Section
+c if nm > 0 -->  V(mu)
+d [] nm = 0 -->  V(eu)
+e fi
+</pre>
+</td>
+<td>&nbsp;&nbsp;</td>
+<td width=50% valign=top>
+Initially, ne = 0; nm = 0;<br> eu = 1; mu = 0; qu = 1;<br> Split
+ binary semaphores: 0 &le; eu + mu &le; 1.<br>  eu satisfies UDWS,
+ stated below.
+</td>
+</tr>
+</table>
+
+
+<h2>Udding's Weak Semaphore Assumption</h2>
+
+<p>
+"A semaphore is called weak if absence of individual starvation among
+processes blocked at that semaphore cannot be guaranteed. For weak
+semaphores, one assumption is made, however, viz. (S1) a process that
+executes a V-operation on a semaphore will not be the one to perform
+the NEXT P-operation on that semaphore, if a process has been blocked
+at that semaphore. (S2) One of the waiting processes is allowed to pass
+that semaphore."  We will call it UDWS.
+
+<p>The problem is that UDWS can be easily misinterpreted.  Udding's
+assumption consists of two sentences as marked above.
+
+<p>Interpretation A: If we interpret S2 as "One of the waiting
+processes will be chosen whenever a V operation is executed and will
+be the next one to pass the semaphore" then S1 is redundant. Since the
+process to perform the next P operation has already been chosen from
+the waiting ones it is obviously not the process that just performed
+the V operation. This interpretation is equivalent to Morris' and I
+actually think this is what Udding meant.  The fact that the first
+sentence is there may cause the reader to neglect the second sentence.
+
+<p>Interpretation B: We can also interpret the "is allowed to pass" of
+S2 as "waiting processes may pass (or permitted to pass) from now on,
+but they don't necessarily have to".  Now S1 is obviously not
+redundant, since it imposes a restriction not implied by S2.  Under
+this interpretation starvation can occur. This interpretation is not
+equivalent to Morris' assumption.  This one looks much more appealing,
+but should no be chosen, because we can have the scenario described
+below.
+
+
+<h2>Example Bad Scenario</h2>
+
+  Imagine
+  we have processes P1, P2, and P3.
+
+
+<ol>
+<li>
+To help explain, we will draw a timeline of PV-operations of all
+the processes.
+<pre>
+ne=0, nm=0    eu=1           qu=0                          mu=0
+--------------1--------------2----------3--------------------a------
+P1, P2, P3 at 1
+</pre>
+
+<li>
+<p>Suppose P1 executes all of line 1. Further suppose, it also
+executes P(qu) in line 2. P1 cannot execute 3:P(eu) [because of UDWS]
+and therefore it waits at the beginning of line 3.  We stll have P2,
+P3 waiting at 1:P(eu).
+
+<pre>
+ne=1, nm=0    eu=1           qu=0                          mu=0
+--------------1--------------2----------3--------------------a------
+                P1             P1     P1
+        P2, P3
+</pre>
+
+
+<li>
+
+<p>Let P2 execute line 1. It waits at the beginning of line 2 since qu
+= 0.
+
+<pre>
+ne=2, nm=0    eu=1           qu=0                          mu=0
+--------------1--------------2--------3--------------------a------
+                P1             P1   P1
+                P2         P2
+            P3
+</pre>
+
+<li>
+P1 is no longer the last one to do a V(eu); P1 is now enabled to
+complete 3:P(eu).  In order to illustrate Udding' weakness, we (the
+system) choose to let P1 execute lines 3, 4, and 5.  Now ne = 1, P1
+executes 6:V(eu), 9:V(qu). P1 waits at a:P(mu), since mu = 0.  We now
+have P2 waiting at 2:P(qu), P3 waiting at 1:P(eu).
+
+<pre>
+ne=1, nm=1    eu=1           qu=1                          mu=0
+--------------1--------------2--------3--------------------a------
+                P1             P1       P1               P1
+                P2         P2
+            P3
+</pre>
+
+<li>
+We choose to let P2 execute line 2.  We now have: P1 is waiting at
+a:P(mu).  P2 is waiting at 3:P(eu). P3 is waiting at 1:P(eu).
+
+<pre>
+ne=1, nm=1    eu=1           qu=0                          mu=0
+--------------1--------------2--------3--------------------a------
+                P1             P1       P1               P1
+                P2             P2   P2
+            P3
+</pre>
+
+
+<li>
+Among the two processes waiting on P(eu), UDWS does not compel us to
+choose P3 over P2.  (If we want to prevent starvation, it should do
+so.)  We let P2 complete 3:P(eu).
+
+<p>Let P2 continue through lines 4 and 5. When P2 arrives at line 6,
+ne = 0, so P2 executes 7:V(mu), and 9: V(qu).  We now have: P1, P2 are
+waiting at a:P(mu).  P3 is waiting at 1:P(eu).  No process is waiting
+on qu.
+
+<pre>
+ne=0, nm=2    eu=0           qu=1                          mu=1
+--------------1--------------2--------3--------------------a------
+                P1             P1       P1               P1
+                P2             P2       P2               P2
+            P3
+</pre>
+
+<li>P1 and P2 can now proceed, in either order, into the Critical
+  Section while P3 waits at 1:P(eu).  After P1 and P2 finish executing
+  the Critical Section, suppose they go back to line 1.  We have the
+  same initial situation: P1, P2, P3, are waiting at 1:P(eu).  P1 and
+  P2 can repeat again the process described. (If P2 executes the last
+  V(eu) operation, P1 can start the firs P(eu); if P1 executes the
+  last V(eu), we can repeat exactly the process described with P2 in
+  the place of P1 and P1 in the place of P2) P3 gets starved.
+
+</ol>
+
+<h2>Morris' Assumption</h2>
+
+
+<p>
+Morris states his assumption (MDWS) for weak semaphores as follows:
+"If any process is waiting to complete a P(s) operation, and
+another process performs a V(s), the semaphore is not incremented, and
+one of the waiting processes completes its P(s)."</p>
+
+
+<p>Execution of 7:V(mu) (see item 6 above) does not happen under MDWS.
+The moment P1 executes the 6:V(eu) (item 4 above) one of the processes
+waiting at 1:P(eu) completes it and increment ne.
+
+<p>In fact the execution would be different from way earlier. Strictly
+following MDWS, right after P1 has performed the 1:V(eu), one of the
+other processes has to perform the P(eu) operation. This will occur
+again when any other process finishes the line or executes a V(eu)
+operation, and if there are processes waiting at the beginning of line
+1 they will sequentially execute P(eu). Starvation does not occur
+under Morris' definition.
+
+<h2>Mark Ijbema's MS Thesis</h2>
+
+<p>Section 3.2 of Mark Ijbema is especially interesting in this
+discussion. It compares both assumptions and concludes that:
+
+<p>"This [Udding's assumption] is only marginally weaker [Morris'
+assumption], because the only difference is when the elected process
+makes the step into the guarded zone. In Udding's version this might
+be postponed until the elected process is scheduled again, instead of
+immediately. On first reading Udding's definition seems much weaker,
+because of the (redundant) first sentence. An interesting question is
+whether the algorithms would still be correct without the second
+sentence, that is, only demanding that the last process to execute the
+V operation cannot be the first to execute the P operation, if already
+processes were waiting. We look further into this question in appendix
+C."
+
+<p>The "(redundant)" was very important for me to understand the problem.
+
+<p>In Appendix C, we have the above situation described (for the
+second time).  Based on this, Ijbema explains why
+<i>buffered semaphores</i> (defined by Ijbema) need to be used instead
+of <i>polite semaphores</i> (extensively explained in the
+thesis). Essentially polite semaphores only enforce one restriction:
+The process that executed the last V does not execute the next P. They
+only imply the first sentence of Udding's assumption. Buffered
+semaphores actually choose a new process when a V operation is
+executed from the waiting ones that will be the only one continuing
+its execution. The process "chosen" need not perform the P operation
+right away, but it is the only one to finish the P-operation. Buffered
+semaphores implement the second sentence of Udding's assumption under
+Interpretation A.
+
+<h2>Conclusion</h2>
+
+<p>Udding is essentially right both in his solution and assumption,
+but the phrasing of the weak semaphore assumption should be improved.
+
+</body>
+<hr size=1>
+
+<p>This article was written by David Carral; edited by
+<a href="mailto:pmateti@wright.edu?subject=CEG7370: Distr Comp">
+  pmateti@wright.edu</a></td>
+
+</html>
+

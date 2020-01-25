@@ -1,0 +1,98 @@
+# -*- mode: org -*-
+#+Date: 2016-09-06
+#+TITLE: Semaphores
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: WSU CEG 7370 Distributed Computing
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\">../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P, LI {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+
+* Semapahores
+
+1. Def: An ADT, with P, V operations on integers, and atomicity and await
+1. [[./semaphoreSemantics.html]]
+
+* Split Binary Semaphores
+
+** Def
+
+1. Consider a binary semaphore b.
+1. Imagine "splitting" it into multiple binary semaphores such that
+   1. sum-of b = {b_1 + b_2 + ... + b_n}, at all times
+
+** Uses
+
+1. Starvation-Free Mutex
+1. Passing the Baton Technique (cf. Readers-Writers)
+
+* Starvation-Free Mutex Semaphore
+
+1. The std solution  is not starvation-free.
+1. Fairness: "Weak v Strong" semaphores.
+1. [[./split-binary-semaphores.org]]
+1. [[./udding-morris-algs.html]]
+
+* Distributed Semaphores
+
+1. Implement semaphores in the distributed context: strictly peer-to-peer
+1. Where is "the" "queue" of processes waiting to finish P(m) located?
+1. Andrews Algorithm: [[./semaphore-distributed.html]]
+1. Many "better" algorithms now exist.
+1. Most distributed implementations are "suspect".
+
+
+* The Power of semaphores
+
+1. Semaphore Ops: P and V.
+1. Will we improve the "power" of Semaphores with additional ops?
+
+** Add Peek and Pp?
+
+1. peek(s) defined as "return <s > 0>"
+
+2. Pp(s) defined as
+   #+begin_src bash
+	function Pp(s): boolean
+	  if <s > 0> -> <s := s - 1>; return True
+	  [] <s < 0> -> return False
+	  fi
+	end
+#+end_src
+
+1. Would either of the two ops add "power" to the semaphore?
+
+** Cigarette Smokers Problem
+
+1. What problems of concurrency can semaphores solve?
+1. Introduces an array of semaphores.
+1. Cigarette Smokers Problem cannot be solved without arrays.
+1. [[https://en.wikipedia.org/wiki/Cigarette_smokers_problem][Cigarette Smokers Problem]]
+
+* References
+
+1. Allen B. Downey, The Little Book of Semaphores, book, 290+
+   pp, 2016.  Free pdf, http://greenteapress.com/wp/semaphores/.
+
+
+1. Leslie Lamport, title = {The Mutual Exclusion Problem - Part I: A
+   Theory of Interprocess Communication}, year = {2000}
+   http://research.microsoft.com/users/lamport/pubs/mutual1.pdf
+
+1. author = {L. Lamport}, title = {The Mutual Exclusion Problem - Part
+   II: Statement and Solutions}, year = {2000}
+   http://research.microsoft.com/users/lamport/pubs/mutual2.pdf
+
+
+1. Vlad Popov and Oleg Mazonka, Faster Fair Solution for the
+   Reader-Writer Problem, 2013.  http://arxiv.org/pdf/1309.4507.pdf
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,256 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>CEG 7370</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+
+<style type="text/css">
+  a:hover      { color: blue; background-color: ivory; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify; }
+  li {text-align: justify;}
+  code {color: brown;}
+  pre {border:lightgray 1px dotted ; background:AntiqueWhite; }
+  @media screen {BODY {white; margin: 15%} }
+
+  body {counter-reset: chapter; counter-reset: section;}
+  h2:before {content: counter(section) ". "; counter-increment: section; }
+
+</style>
+</head>
+
+<body>
+<div style="text-align:right;">
+ <a href="../../Lectures"> UP </a> |
+ <a href="../../../../"> HOME </a>
+</div>
+
+<div class="reveal">
+  <div class="slides">
+
+<section><h4><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370:&nbsp;Distributed Computing</a></h4>
+<h1>Starvation-Free Mutual Exclusion</h1>
+
+Udding and Morris Algorithms using Weak Semaphores
+<p>
+<h3>Prabhaker Mateti</h3>
+
+
+
+</section><section>
+
+<h2>The Four+ Requirements</h2>
+
+<ol>
+<li>R1: Mutex
+<li>R2: Deadlock-Free
+<li>R3: No Unnec Delay
+<li>R4: Eventual Entry
+<li>"Std" mutex solution: sem m := 1; ... P(m); CS; V(m); ...
+<li>R5: Starvation Free
+</ol>
+
+</section><section><h2>Semaphore Def</h2>
+
+<p style="margin-left: 10%;">
+Recall:<br><br>
+
+P(s) &equiv; &lsaquo; await s &gt; 0 &rarr; s := s-1  &rsaquo;<br>
+V(s) &equiv; &lsaquo; s := s+1  &rsaquo;
+</p>
+
+</section><section><h2>Udding's Solution</h2>
+
+<p style="margin-left: 10%; font-family: mono">
+1 P(eu); ne := ne+1; V(eu);<br>
+2 P(qu); P(eu);<br>
+3 nm := nm+1;<br>
+4 ne := ne-1;<br>
+5 if   ne > 0 => V(eu)<br>
+6 []   ne = 0 => V(mu)<br>
+7 fi;<br>
+8 V(qu);<br>
+9 P(mu); nm := nm-1;<br>
+a Critical Section<br>
+b if nm > 0 =>  V(mu)<br>
+c [] nm = 0 =>  V(eu)<br>
+d fi<br>
+
+</section><section><h3>Udding's Solution</h3>
+<ol type=i>
+<li>semaphores: eu := 1, mu := 0, qu := 1;
+<li>counters: ne := 0; nm := 0;
+<li>split binary semaphores invariant:<br> 0 &le; eu + mu &le; 1
+<li>idea: inner/outer gates
+</ol>
+
+</section><section><h3>Udding's Solution</h3>
+
+<p>
+Idea: Inner/Outer Gates; black-box = critical section; tiny circles =
+processes; the black circle just finished the CS.
+</p>
+
+<a href="./starv-free.svg">
+<svg height="7cm" width="100%">
+  <image height="100%" width="100%" xlink:href="./starv-free.svg" />
+</svg>
+</a>
+
+<p>
+After understanding the idea, disassociate the diagram from the
+Udding-alg.  The gates do not quite correspond to eu mu, and the blue
++ red processes do not get counted as ne nm.
+</p>
+
+</section><section><h2>Deeper Analysis</h2>
+
+<ol>
+<li>
+Consider the following situation.  Suppose s == 0.  A process P1 is
+about to do a V(s).    
+
+<li>
+CP := Collection of processes waiting to do P(s) in that scenario
+
+<li>
+If CP is empty, there is nothing
+interesting. If CP is non-empty, ...
+
+</section><section><h3>Deeper Analysis</h3>
+
+<ol>
+<li> Is P1 in CP?
+
+<li>
+When s becomes 1, a process from CP completes the P-operation.  
+
+<li>
+Which
+process?  Any one?  FCFS?
+
+<li>
+What is the time gap between the completion of V(s) and await-testing
+of s > 0?
+
+<li>
+Can P1 join CP? &nbsp;&nbsp;&nbsp;  (P1 has code of the form {...; V(s); ...; P(s);
+...})
+</ol>
+
+</section><section><h2>Weak Semaphore Assumption</h2>
+
+When s becomes 1, an arbitrary process from CP
+completes the P-operation.
+
+
+</section><section><h2>Udding's Solution</h2>
+<p>
+Is this important in the solution above?
+
+<p>
+What is the semaphore qu doing?
+
+
+</section><section><h2>Purpose of Semaphore qu</h2>
+
+Discover it!
+
+
+</section><section><h2>Comparison</h2>
+
+<p>The solutions by Udding and Morris to the starvation-free mutual
+exclusion problem are reproduced below.  Conclude nothing from the
+code line-up.</p>
+
+<p style="font-family: mono; text-align: left">
+Udding's&nbsp;solution&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Morris'&nbsp;solution<br>
+1&nbsp;P(eu);&nbsp;ne&nbsp;:=&nbsp;ne+1;&nbsp;V(eu);&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;P(em);&nbsp;ne&nbsp;:=&nbsp;ne+1;&nbsp;V(em);<br>
+2&nbsp;P(qu);&nbsp;P(eu);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;P(qm);<br>
+3&nbsp;&nbsp;nm&nbsp;:=&nbsp;nm+1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;nm&nbsp;:=&nbsp;nm+1;<br>
+4&nbsp;&nbsp;ne&nbsp;:=&nbsp;ne-1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;P(em);&nbsp;ne&nbsp;:=&nbsp;ne-1;<br>
+5&nbsp;&nbsp;if&nbsp;ne&nbsp;>&nbsp;0&nbsp;-->&nbsp;V(eu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;if&nbsp;ne&nbsp;>&nbsp;0&nbsp;-->&nbsp;V(em);V(qm)<br>
+6&nbsp;&nbsp;[]&nbsp;ne&nbsp;=&nbsp;0&nbsp;-->&nbsp;V(mu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[]&nbsp;ne&nbsp;=&nbsp;0&nbsp;-->&nbsp;V(em);V(mm)<br>
+7&nbsp;&nbsp;fi;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;fi;<br>
+8&nbsp;V(qu);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+9&nbsp;P(mu);&nbsp;nm&nbsp;:=&nbsp;nm-1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;P(mm);&nbsp;nm&nbsp;:=&nbsp;nm-1;<br>
+a&nbsp;Critical&nbsp;Section;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;Critical&nbsp;Section;<br>
+b&nbsp;if&nbsp;nm&nbsp;>&nbsp;0&nbsp;-->&nbsp;&nbsp;V(mu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;if&nbsp;nm&nbsp;>&nbsp;0&nbsp;-->&nbsp;&nbsp;V(mm)<br>
+c&nbsp;[]&nbsp;nm&nbsp;=&nbsp;0&nbsp;-->&nbsp;&nbsp;V(eu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[]&nbsp;nm&nbsp;=&nbsp;0&nbsp;-->&nbsp;&nbsp;V(qm)<br>
+d&nbsp;fi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;fi&nbsp;</p>
+
+</section><section><h2>References</h2>
+
+This lecture is based on
+
+<ul>
+  <li>J.M. Morris, A starvation-free solution to the mutual exclusion problem. 
+    Information Processing Letters, 8:76--80, 1979. Recommended
+    Reading.
+
+  <li>J.T. Udding, Absence of individual starvation using weak
+     semaphores, Information Processing Letters, 23:159--162, 1986.
+     Highly Recommended Reading.</li>
+</ul>
+</section><section><h3>References</h3>
+
+<ul>
+  <li>
+    Wim Hesselink, Mark IJbema, "Starvation-free mutual exclusion with
+    semaphores", Formal Aspects of Computing, 2011, pp. 1-23.  A journal
+    paper based on IJbema's MS.  Recommended Reading.
+
+  <li>Mark IJbema,
+    "Mutual Exclusion Using Weak Semaphores", Master's Thesis
+    <a href="http://scripties.fwn.eldoc.ub.rug.nl/FILES/scripties/Informatica/Master/2011/IJbema.M./INFOR_MA_2011_IJbemaM.pdf"> [PDF] </a>,
+    75 pp, Univ of Groningen, The Netherlands, 2011.  Explores the
+    Morris and Udding algorithms deeply.  Recommended Reading.
+  </li>
+
+  <li>
+    Stuart A. Friedberg and Gary L. Peterson, "An efficient solution to
+    the mutual exclusion problem using weak semaphores", Information
+    Processing Letters, Volume 25, Issue 5, 1987.  Another solution
+    using semaphores. Highly Recommended Reading.</li>
+</ul>
+
+</section><section><h3>References</h3>
+
+<ul>  <li>
+    Anderson, James H., Kim, Yong-Jik, Herman, Ted, "Shared-memory
+    mutual exclusion: major research trends since 1986" Distributed
+    Computing, 2003, pp 75--110.  Broadens your
+    understanding. Relevant Reading.
+  </li>
+
+  <li>
+    Alex Aravind, Wim Hesselink, "A queue based mutual exclusion
+    algorithm", Acta Informatica, 73--86, 46, 1, 2009.  Not part of
+    this course.  Relevant Reading.
+
+  <li>
+    Edsger W. Dijkstra, "A tutorial on the split binary semaphore",
+    EWD703, <a href="http://www.cs.utexas.edu/~EWD/ewd07xx/EWD703.PDF">
+    http://www.cs.utexas.edu/~EWD/ewd07xx/EWD703.PDF</a>, 1979.
+    Introduced the idea of split binary semaphores.  Classic.  Turning
+    award winner.  Relevant Reading.
+</ul>
+
+</section><section><hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2012
+<a href="mailto:pmateti@wright.edu?subject=CEG7370: Distr Comp">
+  pmateti@wright.edu</a></td>
+
+  </div>
+</div>
+
+  </body>
+</html>
+

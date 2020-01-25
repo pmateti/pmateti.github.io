@@ -1,0 +1,76 @@
+<title>CEG 7370 Distr Comp by Mateti</title>
+<base target="_top">
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  pre {border:lightgray 1px dotted ; background:AntiqueWhite; }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+</head>
+
+<body>
+
+<h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370:&nbsp;Distributed Computing Principles</a></h3>
+<h1>Semantics of Semaphores</h1>
+
+<ol>
+<li>Semaphore Definition
+<blockquote>
+P(s) &equiv; &lsaquo; await s > 0 &rarr; s := s-1  &rsaquo;<br>
+V(s) &equiv; &lsaquo; s := s+1  &rsaquo;
+</blockquote>
+
+<li>Semaphore Invariant
+<blockquote>
+  nP &le; nV + initValue<br>
+  s = initValue + nV - nP <br>
+  SEM:  s &ge; 0<br>
+</blockquote>
+</li>
+<li>Synchronization Rule
+<table width=100%>
+<tr>
+<td width=50%>
+<blockquote>
+{R and B} S {Q}
+<hr size="1">
+{R}  &lsaquo;await B &rarr; S &rsaquo; {Q}
+</blockquote>
+</td>
+<td>&nbsp;</td>
+</tr></table>
+
+
+
+<li>Semaphore Ops
+<table width=100%>
+<tr>
+<td width=50%>
+<blockquote>
+  (R and s > 0) &rArr; Q<sup>s</sup><sub>s-1</sub>
+  <hr size="1">
+  {R} P(s) {Q}
+</blockquote>
+</td>
+<td width=50%>
+<blockquote>
+  R &rArr; Q<sup>s</sup><sub>s+1</sub>
+  <hr size="1">
+  {R} V(s) {Q}
+</blockquote>
+</td>
+</tr></table>
+</ol>
+
+</body>
+<hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2012
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+  Prabhaker Mateti</a>
+</html>
