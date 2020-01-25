@@ -1,0 +1,152 @@
+\documentstyle[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\ellipsis{\ldots}
+\def\pbar{\parallel}
+\def\rar{\rightarrow}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\co{{\bf co}}
+\def\oc{{\bf oc}}
+\def\pa{{$\parallel$}}
+\def\lb{$\langle$}
+\def\rb{$\rangle$}
+\def\ra{$\rightarrow$}
+\def\await{{\bf await}}
+\def\zand{\wedge}\def\zor{\vee}	\def\znot{\neg}
+%\topmargin 0pt
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles}\\[5pt]
+{Mateti,  Spring Quarter 2000, Wright State U}\\
+Mid Term Exam\\
+May 4, 2000 \quad 100 points max \quad 75 minutes\\
+\hrule
+
+\begin{enumerate}
+
+\item (5*5 points)
+Explain, in a few lines, the truth or falsity of the statements.
+
+\begin{enumerate}
+
+\item
+In the context of \RPC, A procedure designed to be used remotely {\em
+can} use global variables to communicate with the caller.
+
+\item
+There is no difference between safety and liveness properties.
+
+\item
+The technique of {\em passing the baton} can only be used for the
+Readers/Writers Problem, and not for mutual exclusion, starvation-free
+or not, of two or more processes.
+
+\item Any group of processes communicating only via message passing
+constitutes a ``distributed system.''
+
+
+\item We need only have one clock per processor (not process)
+in order to correctly compute a happened-before relation.
+
+\end{enumerate}
+
+\item (25 points) There are three \CSP\ processes $A$, $B$ and $C$
+each with a local array of size $n$ of integers.  Among these $3n$
+numbers, there are at least $n$ even numbers, and at least $n$ odd
+numbers.  Write an algorithm in \CSP\ so that the processes send each
+other integers, one at a time, eventually terminating with process $A$
+having in its array only even numbers, process $C$ having in its array
+only odd numbers.  You must make sure no number originally present is
+lost.  You are not permitted to introduce any new arrays.  A high
+degree of concurrency is expected.
+
+\item 
+\begin{enumerate}
+\item (5 points)
+Explain the inference rule 2.11, {\bf Concurrency Rule}, page 67, of
+Andrews book reproduced below.
+
+\begin{centering}
+\{$P_i\} S_i \{Q_i\}$ are interference-free theorems, $1 \leq i \leq
+n$\\[-8pt]
+~.\hrulefill\\[-4pt]
+$\{P_1 \zand \ellipsis \zand P_n\}$
+\quad\co\quad $S_1 \pbar \ellipsis \pbar S_n$ \quad\oc\quad
+$\{Q_1 \zand \ellipsis \zand Q_n\}$\par
+\end{centering}
+
+\item 
+\begin{minipage}[t]{2in}
+(10 points)
+Determine the predicate P that characterizes the weakest deadloc-free
+precondition for the program at right,
+\end{minipage}\quad
+\begin{minipage}[t]{2in}
+\begin{tabbing}
+\co\= \lb \await0\= $x \geq 3$ \=\ra0\= $x := x - 3$ \rb\kill
+\co\> \lb \await \> $x \geq 3$ \>\ra \>$x := x - 3$ \rb\\
+\pa\> \lb \await \> $x \geq 2$ \>\ra \>$x := x - 2$ \rb\\
+\pa\> \lb \await \> $x = 1$ \>\ra \>$x := x + 5$ \rb\\
+\oc
+\end{tabbing}
+\end{minipage}\\
+\noindent that is, the largest set of states such
+that, if the program is begun in a state satisfying $P$, then it will
+terminate if scheduling is weakly-fair. Explain your
+answer.
+
+\item (15 points)
+The following is claimed to be an implementation of
+the conditional critical region {\bf region $v$ when $B$ do $S$ end}.
+
+\begin{minipage}{2in}
+{\bf
+\begin{tabbing}
+00\=then~\=00\=\kill
+semaphore $e := 1$, $d := 0$;\\
+int $nd := 0$;\\
+\\
+P$(e)$;\\
+do not $B \rar$\+\\
+  $nd := nd + 1$;\\
+  V$(e)$;\quad  P$(d)$;\quad   P$(e)$\-\\
+od;\\
+$S$;\\
+do $nd > 0 \rar$\+\\
+  $nd := nd - 1$;\\
+  V$(d)$\-\\
+od;\\
+V$(e)$
+\end{tabbing}
+}
+\end{minipage}\quad
+\begin{minipage}{2in}
+(5 points) Annotate the solution with assertions.\\
+
+(10 points) Does this solution work correctly?  If so, give a
+convincing argument that it correctly implements a {\bf region}
+statement.  If not, clearly explain what the error is, and give an
+example of an execution sequence that causes problems.
+\end{minipage}
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item (5 points) Discuss fully why the ``standard''
+solution\quad
+{\quad \tt P(m); CS; V(m);}\quad
+is not starvation-free.
+\item (15 points) Udding's solution to the mutual exclusion problem is
+reproduced on the board.  (a) Explain the purpose of each counter variable,
+and each semaphore.  State the weak semaphore assumption.  Explain the
+algorithm. (b) Explain why this assumption is necessary for the
+Udding's solution to be starvation-free.  (c) Simplify the Udding's
+solution assuming first-come first-served queing discipline on all
+semaphore operations on all three semaphores.
+\end{enumerate}
+
+\end{enumerate}
+\end{document}

@@ -1,0 +1,104 @@
+\documentstyle[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\SR{{\sc sr}}
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Systems I\\[5pt]
+\large Final Exam\\[10pt]
+June 1992 \quad 100 points max \quad 120 minutes\\
+}
+\bigskip
+{Mateti,  Spring Quarter 1991, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (5*5 points)
+Explain, in a few lines, the truth or falsity of the following
+statements.
+
+\begin{enumerate}
+\item
+A procedure designed to be used remotely {\em can} use global
+variables to communicate with the caller.
+
+\item
+In \SR, when invoking an operation implemented by a {\tt proc} through
+a {\tt send} the effect is that of a rendezvous.
+
+\item
+The difference between asynchronous and synchronous message
+passing is trivial.
+
+\item
+Message passing primitives, {\tt send(msg)} and {\tt recv(msg)}, can
+be implemented using semaphore operations {\tt P(sem)}
+and {\tt V(sem)}.
+
+\item
+It is not possible to implement strong semaphores in a distributed
+system.
+
+\end{enumerate}
+
+
+\item (10+10 points)
+(a) Explain the client/server paradigm.  (b) In the context of \RPC,
+describe the tasks performed by the stub procedures in the client and
+in the server.
+
+\item (10 points)  
+Describe two different techniques that can be used to solve the
+distributed mutual exclusion problem.
+
+\item (15 points) Give a solution to the following problem in Linda.
+Explain your solution fully.  Maximize concurrency.  The tuple space
+{\sc ts} is pre-loaded with a bag $B$ of integers {\tt <"B", i>} for
+all {\tt i} in $B$, the size of the bag {\tt <"nB", nb>}, and {\tt
+<"zfind", z>}.  Compute the number {\tt <"zoccurs", nz>} which is the
+number of times the number {\tt z} appears in the bag {\tt B}.
+
+
+\item (15 points) Give a simulation of the Five Dining Philosophers, with or
+without a servant, in \SR.
+
+\newpage
+\item (15 points)
+The following is claimed to be an implementation of {\bf region $v$
+when $B$ do $S$ end}.
+
+{\bf
+\begin{tabbing}
+00\=00\=00\=\kill
+semaphore $e := 1$, $g := 0$, $d := 0$ initially;\\
+integer $nd := 0$, $ng := 0$ initially;\\
+\\
+P$(e)$;\\
+while not $B$ do\+\\
+  $nd := nd + 1$;\\
+  if $ng > 0$ then V$(g)$ else V$(e)$ fi;\\
+  P$(d)$;\\
+  P$(g)$;\\
+  $ng := ng - 1$\-\\
+od;\\
+$S$;\\
+while $nd > 0$ do\+\\
+  V$(d)$;\\
+  $nd := nd - 1$;\\
+  $ng := ng + 1$\-\\
+od;\\
+if $ng > 0$ then V$(g)$ else V$(e)$ fi\\
+\end{tabbing}
+}
+
+\noindent
+Either give a proof that the above algorithm is correct, or give a
+scenario demonstrating a situation that violates a requirement of
+the problem.
+\end{enumerate}
+\end{document}

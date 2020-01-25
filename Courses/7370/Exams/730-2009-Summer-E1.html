@@ -1,0 +1,120 @@
+<html><head>
+<title>CEG730 Distributed Computing Midterm</title>
+</head>
+<body>
+
+<table cellSpacing="10" cellPadding="10" width="100%" border="0" height="130">
+<tbody><tr>
+<td width="16%">
+  <a href="http://www.wright.edu/" target="_blank">
+    <img src="../../../images/wsu-logo-xsm.gif" border="0" width="98"
+    height="46"></a></td>
+<td vAlign="top" width="72%">
+<h3>CEG 730 Distributed Computing Principles</h3>
+<h4>Summer 2009//Mid Term Exam//75 minutes//100 points</h4> 
+
+<p>This is a closed book, closed notes exam. Do not give or take help
+during the exam.</td>
+</tr>
+</tbody></table>
+<ol>
+  <li>(6*5 points) Explain/ discuss/ dispute/ compute the following
+    statements. It is <i>possible</i> to write no more than, say, ten,
+    sentences each, and yet receive full score.
+
+    <ol type="a">
+      <li>Consider the following program segment:
+	<pre>
+	  co &lt;await x &gt;= 3 -&gt; x := x - 3&gt;
+	  || &lt;await x &gt;= 2 -&gt; x := x - 2&gt;
+	  || &lt;await x == 1 -&gt; x := x + 5&gt;
+	  oc</pre>
+
+	Let <i>P</i> be a predicate that characterizes the weakest
+	deadlock-free precondition for the program, i.e., the largest
+	set of states such that, if the program is begun in a state
+	satisfying <i>P</i>, then it will terminate if scheduling is
+	weakly-fair. Determine <i>P</i>.  Explain how you arrived at P. </li>
+
+      <li> Compute <i>wp(S, i = 2)</i>, where S is <tt>if i < 2 -> i
+	    := i+1 [] i > 2 -> i := 2 fi</tt></li>
+
+      <li>The semantics of&nbsp; <TT>S1 || S2</TT> permits their
+	execution as if it is <TT>S1;S2</TT> True/False? Explain.</li>
+      <li>The code <code>V(s); P(s)</code> is <i>always</i> equivalent
+      to a no-op (&quot;skip&quot;, or do-nothing).  True/False? Explain.</li>
+
+      <li>In the context of RPC, a procedure designed to be called remotely
+	<i>can</i> use global variables to communicate with the
+	caller.  True/False? Explain.</li>
+      <li>Marshalling in RPC is no more than a tight-packing of the
+	bytes of the input arguments. True/False? Explain.</li>
+    </ol>
+  </li>
+  
+
+<li>(30 points) The <i><it>Recursive Data Representation: Small Set of
+      Integers</it></i> of Hoare's CSP paper is reproduced below. (a)
+      (20 points) Extend it to respond to a
+      command <tt>S(1)!remove(x)</tt> from S(0) that removes x from
+      the set, if it contains it, and does nothing if it does not. (b)
+      (10 points) Include a convincing argument that your extension is
+      correct.
+  <blockquote>  <pre>
+    S(i: 1 .. 100) ::
+    *[   n: integer; S(i-1)?has(n) --> S(0)!false
+     []  n: integer; S(i-1)?insert(n) -->
+            *[  m: integer; S(i-1)?has(m) -->
+                 [   m <=  n --> S(0)!(m = n)
+                 []  m >   n --> S(i+1)!has(m)
+                 ]
+             [] m: integer; S(i-1)?insert(m) -->
+                 [  m < n --> S(i+1)!insert(n); n := m
+                 [] m = n -->  skip
+                 [] m > n --> S(i+1)!insert(m)
+     ] ] ]</pre>  </blockquote>
+</li>
+
+<li>(40 points) Consider the following as an <b>await</b>-statement
+  based model of the classic Dining Philosophers problem.   The
+  expression <tt>i + 1</tt> throughout is modulo 5. The <tt>up</tt>
+  and <tt>dn</tt> (down) refer to whether the philosopher picked the
+  fork up or put the fork down.
+  <ol type="a">
+    <li>(20 points) Using the Pass-the-Baton technique systematically convert it
+      to an equivalent algorithm using semaphores only. For now, disregard if 
+      the above is a ``solution'' or not.
+    <li>(10 points) Is this ``solution'' free from starvation? Explain your 
+      answers fully. A simple yes/no will not do.<li>(10 points) Is this a ``solution'' to the Dining Philosophers problem? If 
+      so, explain. If not so, fix it at the <b>await</b>-statement level .
+     </ol>
+  <blockquote>
+    <pre>   var up[0..4], dn[0..4] initially all 0;
+   philosopher[i: 0..4]::
+     do true -&gt;
+   	think
+   	&lt;await up[i] == dn[i] --&gt; up[i] ++&gt;
+   	&lt;await up[i+1] == dn[i+1] --&gt; up[i+1] ++&gt;
+   	eat
+   	&lt;dn[i] ++&gt;
+   	&lt;dn[i+1] ++&gt;
+     od</pre>
+  </blockquote>
+
+
+</li>
+
+</ol>
+
+<hr size="1">
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td align="left">
+      <a
+ href="../../../../copyright.html">Copyright &copy;</a> 2009
+<a href="http://www.cs.wright.edu/~pmateti" target="_blank">Prabhaker Mateti</a></td><td align="right">July 23, 2009</td></tr></tbody></table>
+
+</body>
+</html>

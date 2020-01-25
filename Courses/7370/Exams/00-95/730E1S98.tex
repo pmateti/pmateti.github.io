@@ -1,0 +1,104 @@
+\documentstyle[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\rar{\rightarrow}
+\def\pr{$\parallel$}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Mid Term Exam\\[10pt]
+May 7, 1998 \quad 100 points max \quad 75 minutes\\
+}
+
+\bigskip
+{Mateti,  Spring Quarter 1998, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (6*5 points)
+Explain, in a few lines, the degree of truth of the following
+statements.
+
+\begin{enumerate}
+
+\item
+The semantics of the semicolon `;' operator as in $S_1 ; S_2$
+is that execution of $S_2$ must begin immediately after the
+end of $S_1$.
+
+\item 
+The ``standard'' solution \quad {\tt P(m); CS; V(m);} \quad is not
+starvation-free only in the distributed systems context, but is
+ok when the system is a single-cpu system.
+
+\item
+Udding's solution will not work correctly unless each of its three
+semaphores satisfies the ``weak semaphore assumption.''
+
+\item
+Given any two arbitrary processes, they are {\em concurrent}
+with each other.
+
+\item
+The technique of {\em passing the baton} can only be used for the
+Readers/Writers Problem, and not for mutual exclusion, starvation-free
+or not, of two or more processes.
+
+\item Any group of processes communicating only via message passing
+constitutes a ``distributed system.''
+
+\item We need only have one clock per processor (not process)
+in order to correctly compute a happened-before relation.
+
+\item
+In the distributed semaphore implementation, there is no need for {\sc ack}
+messages.
+
+\item
+In \SR, when invoking an operation implemented by a {\tt proc} through
+a {\tt send} the effect is that of a rendezvous.
+\end{enumerate}
+
+\item (30 points)
+\item (4*15 points)
+
+Process A is ready and willing to output a stream of $k$ integers, one
+at a time, to process S[0].  We are interested in computing the second
+and third largest integers among this stream.  Use an array of CSP
+processes {\tt S[0 .. n]} to solve the problem.  Note that the
+sequence is not guaranteed to have at least three distinct numbers, in
+which case the second and third largest may not differ.  Choose $n$
+appropriately.  As usual, we wish to maximize concurrency, and
+symmetry.  Explain your solution fully.
+
+\item (15 points)
+Exercise 3.9 from Andrews is reproduced below.  Why does it not
+guarantee mutual exclusion?  Does it guarantee eventual entry?  What
+changes would make it correct with respect to mutual exclusion?
+
+\begin{tabbing}
+00\=00\=00\=\kill
+var $lock := 0$\\
+$P[i:1..n]$ ::\+\\
+do true $\rar$\+\\
+  $<$ await $lock = 0 >;$\\
+  $lock := i$\\
+  do $lock \neq i \rar$\+\\
+    Delay\\
+    $<$ await $lock = 0 >;$\\
+    $lock := i$\-\\
+  od\\
+  critical section\\
+  $lock := 0$\\
+  non-critical section\-\\
+od
+\end{tabbing}
+
+
+\end{enumerate}
+\end{document}

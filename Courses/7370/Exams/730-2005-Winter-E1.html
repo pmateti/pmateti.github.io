@@ -1,0 +1,199 @@
+<html><head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+
+
+<meta http-equiv="Content-Type" 
+
+content="text/html; charset=iso-8859-1">
+
+
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+
+<title>CEG730 Distributed Computing Midterm</title>
+
+
+
+</head>
+
+
+
+<body bgcolor="#FFFFFF">
+
+
+
+<table cellSpacing="10" cellPadding="10" width="100%" border="0" 
+
+height="125">
+
+<tbody><tr><td width="33%" height="95">
+
+<a href="http://www.wright.edu/" target="_blank">
+
+<img src="../../../images/wsu-logo-xsm.gif" border="0" width="150" 
+
+height="66"></a><br>
+
+<a href="http://www.cs.wright.edu/">College of Engineering &amp; CS</a><br>
+
+<a href="http://www.wright.edu/">Wright State University</a><br>
+
+<a href="http://www.dayton.net/dayton/">Dayton,</a>
+
+<a href="http://www.state.oh.us/">Ohio</a> 45435-0001</td>
+
+<td vAlign="top" width="67%" height="95"><h2>CEG 730 Distributed 
+
+Computing Principles</h2>
+
+<h4>Winter 2005//Mid Term Exam//75 minutes//100 points</h4>
+
+<p>
+
+<a href="http://www.cs.wright.edu/~pmateti" target="_blank"><b>
+
+Prabhaker Mateti</b></a> </p><p>
+
+This is a closed book (except for Chapters 1 and 2 of Andrews), closed notes exam. Do not give or take
+
+help during the exam.</td></tr>
+
+</tbody></table>
+
+<ol>
+
+ <li>(10*5 points) The following statements may or may not be (fully or 
+	partially) valid.&nbsp; Explain/ discuss/ dispute the statement. &nbsp; It is <i>possible</i> to 
+
+ write no more than, say, ten, sentences each, and yet receive full 
+
+ score.
+
+ <ol type="i">
+
+  <li>&quot;Some day, if not at the end of CEG 730, you will appreciate and marvel at 
+
+	the book Concurrent Programming by Andrews.''&nbsp; is neither a safety, 
+
+	nor liveness property.</li>
+
+	<li>The semantics of the fat-bar operator <tt>[] </tt>permits us to 
+	equivalently replace <tt>S1 [] S2</tt> with simply <code>S1</code>.</li>
+
+  <li>Explain the difference in meaning of the notation {P} S {Q} versus <i>wp</i>(<i>S</i>,
+
+	<i>Q</i>). </li>
+
+	<li><code>wp(i := 5,&nbsp; i == 8 or i == 7) == false</code>.</li>
+
+  <li>The code <code>V(s); P(s)</code> is always equivalent to a no-op (&quot;skip&quot;, 
+
+	or do-nothing).</li>
+
+	<li>
+Determine the predicate that characterizes the weakest deadlock-free precondition for the 
+following code segment.</td><br>
+<code>co &lt;await x &gt;= 4&nbsp; -&gt; x := x - 4&gt;<br>
+
+	|| &lt;await x &gt;= 5&nbsp; -&gt; x := x - 4&gt;<br>
+
+	|| &lt;await x == 1&nbsp; -&gt; x := x + 8&gt;<br>
+
+	oc</code> 
+</li>
+
+      <li> Every client-server program is based on RPC (-like)
+mechanism.</li>
+      <li>Marshalling in RPC is no more than a tight-packing of the bytes 
+
+  of the input arguments or resulting values.</li>
+	<li>In the context of RPC, a procedure designed to be used remotely <i>can</i> use global variables to communicate with the caller. 
+	</li>
+	<li>The technique of&nbsp; <i>passing the baton</i> can only be used for the 
+	Readers/Writers Problem, and not for mutual exclusion, starvation-free or 
+	not, of two or more processes. <br>
+	<br>
+	<br>
+	<br>
+&nbsp;</li>
+
+ </ol>
+
+ </li>
+
+ <li>(10+5 points) (a) Discuss if all of the ACKs are necessary in the 
+	distributed implementation of&nbsp; semaphore.&nbsp; (b) Can any solution to the distributed mutual exclusion problem be 
+		thought of as a solution to the problem of implementing semaphores in a 
+		distributed system, and vice versa.<br>
+	<br>
+&nbsp;</li>
+ <li>(7*5 points) Next page.<br>
+	<br>
+	<br>
+	<br>
+&nbsp;<p>The solutions by Udding and Morris to the 
+ starvation-free mutual exclusion problem are reproduced below.
+ <ol type="a">
+  <li>What are the initial values of the six semaphores below?</li>
+  <li>State the weak semaphore assumption.</li>
+  <li>Must each of the three semaphores in Udding's solution satisfy 
+  this assumption?</li>
+  <li>Must each of the three semaphores in Morris' solution satisfy 
+  this assumption?</li>
+  <li>Is the functionality/purpose of the eu<tt> </tt>and e<tt>m</tt> 
+  semaphores the same?</li>
+  <li>Is the functionality/purpose of the mu<tt> </tt>and <tt>mm</tt> 
+  semaphores the same?</li>
+  <li>Is the functionality/purpose of the <tt>qu </tt>and <tt>qm</tt> 
+  semaphores the same?</li>
+ </ol>
+ <pre>Udding's solution&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Morris' solution
+&nbsp;1 P(eu); ne := ne+1; V(eu);&nbsp;&nbsp;&nbsp; | P(em); ne := ne+1; V(em);
+&nbsp;2 P(qu); P(eu);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | P(qm);
+&nbsp;3&nbsp; nm := nm+1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; nm := nm+1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;4&nbsp; ne := ne-1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; P(em); ne := ne-1;
+&nbsp;5&nbsp; if ne &gt; 0 --&gt; V(eu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; if ne &gt; 0 --&gt; V(em);V(qm)
+&nbsp;6&nbsp; [] ne = 0 --&gt; V(mu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; [] ne = 0 --&gt; V(em);V(mm)
+&nbsp;7&nbsp; fi;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; fi;
+&nbsp;8 V(qu);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+&nbsp;9 P(mu); nm := nm-1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | P(mm); nm := nm-1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10&nbsp; &lt;cs &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; &lt;cs &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11&nbsp; if nm &gt; 0 --&gt;&nbsp; V(mu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; if nm &gt; 0 --&gt;&nbsp; V(mm)&nbsp;
+12&nbsp; [] nm = 0 --&gt;&nbsp; V(eu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; [] nm = 0 --&gt;&nbsp; V(qm)&nbsp;
+13&nbsp; fi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; fi</pre>
+ </li>
+</ol>
+<div align="right">
+<table style="border-collapse: collapse;" border="0"
+ bordercolor="#111111" cellpadding="0" cellspacing="0" width="100%" id="table1">
+  <tbody>
+    <tr>
+      <td align="left">
+      <a
+ href="../../../../pmatetiWeb/Courses/433/Top/copyright.html">Copyright
+&copy;</a> 2005 <a
+ href="mailto:pmateti@cs.wright.edu?subject=CEG433:OperatingSystems">
+pmateti@cs.wright.edu</a></td>
+      <td align="right">
+		<!--webbot bot="Timestamp" s-type="EDITED" s-format="%B %d, %Y" startspan -->February 16, 2005<!--webbot bot="Timestamp" endspan i-checksum="41415" --></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+	<p>&nbsp;</li>
+
+
+
+
+</body>
+
+</html>
+

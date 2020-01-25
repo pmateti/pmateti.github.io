@@ -1,0 +1,132 @@
+\documentstyle[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\SR{{\sc sr}}
+\def\co{{\bf co}}
+\def\oc{{\bf oc}}
+\def\pa{{$\parallel$}}
+\def\lb{\langle}
+\def\rb{\rangle}
+\def\ra{$\rightarrow$}
+\def\await{{\bf await}}
+\textheight=8.1in
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Final Exam\\[10pt]
+June 10, 1993 \quad 100 points max \quad 120 minutes\\
+}
+\bigskip
+{Mateti,  Spring Quarter 1993, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (5*5 points)
+Explain, in a few lines, the (degree of) truth or falsity of the
+following statements.
+
+\begin{enumerate}
+\item
+The little-endian-ness of a machine has no relevance to \RPC.
+
+\item
+{\sl All} client-server applications are based on \RPC.
+
+
+\item
+\RPC\ cannot be used for peer-to-peer distributed computing.
+
+
+\item
+The \CSP\ code {\tt [X!2 \pa\ Y!3]} is equivalent to \\
+{\tt
+[  true \ra\ X!2; Y!3\\
+\fat\ true \ra\ Y!3; X!2\\
+]}
+
+\item
+The ``standard'' solution \quad {\tt P(m); CS; V(m);} \noindent is not
+starvation-free only in the distributed systems context, but is
+ok when the system is a single-cpu system.
+
+
+\end{enumerate}
+
+\item (4*15 points)
+The stable marriage problem is the following.  There are $n$ ``men,''
+and the same number of ``women.''  Each woman ranks the men from $1$ to
+$n$, and each man ranks the women from $1$ to $n$.  A pairing is a
+one-to-one correspondence of men and women.  A pairing is stable if,
+for two women $w_1$ and $w_2$ and their paired men $m_1$ and $m_2$,
+both the following conditions are satisfied:
+
+1. $w_1$ ranks $m_1$ higher than $m_2$, or $m_2$ ranks $w_2$ higher than $w_1$; and\\
+2. $w_2$ ranks $m_2$ higher than $m_1$, or $m_1$ ranks $w_1$ higher than $w_2$.
+
+Put slightly differently, a pairing is unstable if a woman and man
+would both prefer each other to their current pairing.  A solution to
+the stable marriage problem is a set of $n$ pairings, all of which are
+stable.
+
+\begin{enumerate}
+\item Give a predicate that specifies the goal.
+
+\item Write a \CSP\ algorithm that solves the problem.  Each person
+becomes a process.  In addition, you can have a few additional
+processes; the more additional processes you have the more points you
+lose.  Assume that the rankings are already availbale in an array
+local to each man/woman process.  Explain your solution strategy.
+
+\item Write an \SR\ program that solves the problem.  Each person
+becomes a process within a resource.  In addition, you can have a few
+additional processes; the more additional processes you have the more
+points you lose.  Assume that the rankings are already availbale in an
+array local to each man/woman process.  Explain your solution
+strategy.
+
+\item Write a C-Linda algorithm that solves the problem.  Assume that
+the number $n$, and the rankings are already availbale in the tuple
+space: $\lb ``w'', i, j, r \rb$ is the rank $r$ given by woman $i$ to
+man $j$; similarly $\lb ``m'', i, j, r \rb$.  Explain your solution
+strategy.  The number of processes is a constant $c$.
+
+\end{enumerate}
+
+
+\item (15 points)
+Study the following code as a `solution' for the starvation-free
+mutual exclusion problem.  Make the same assumption regarding weak
+semaphores that [Morris 79] and [Udding 86] do.
+
+\begin{verbatim}
+local x, y;  global z=0, b=false, s[0]=1, s[1]=1;
+x := z;
+P(s[x]);
+  if z = x then
+    y := 1 - z;
+    P(s[y]);
+      z := y;
+      repeat
+        b := true;
+        V(s[x]);
+        P(s[x]);
+      until b;
+      <critical section>
+    V(s[y])
+  else
+    b := false;
+    <critical section>
+  fi
+V(s[x])
+\end{verbatim}
+Either give a convincing argument that the above algorithm is correct,
+or give a scenario demonstrating a situation that violates the
+requirements of the problem.
+
+\end{enumerate}
+\end{document}

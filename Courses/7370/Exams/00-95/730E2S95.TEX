@@ -1,0 +1,130 @@
+\documentstyle[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\SR{{\sc sr}}
+\def\co{{\bf co}}
+\def\oc{{\bf oc}}
+\def\zand{\wedge}\def\zor{\vee}	\def\znot{\neg}
+\def\ellipsis{\ldots}
+\def\pbar{\parallel}
+\def\lb{\langle}
+\def\rb{\rangle}
+\def\ra{\rightarrow}
+\def\await{{\bf await}}
+%\textheight=8.3in
+\parindent=0pt
+\pagestyle{empty}
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Final Exam\\[10pt]
+June 8, 1995 \quad 100 points max \quad 120 minutes\\
+}
+\bigskip
+{Mateti,  Spring Quarter 1995, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (10*5 points)
+Explain/Discuss/Dispute/Answer, in a few lines, the following.
+
+
+\begin{enumerate}
+\item ``The book {\sl Concurrent Programming} by Andrews improves
+with each reading.''  Explain if this is a safety, or liveness
+property, or perhaps neither.
+
+\item
+Explain the inference rule 2.11, page 67, of Andrews book reproduced
+below.
+\begin{quote}
+\begin{centering}
+\{$P_i\} S_i \{Q_i\}$ are interference-free theorems, $1 \leq i \leq
+n$\\[-8pt]
+~\hrulefill\\[-4pt]
+$\{P_1 \zand \ellipsis \zand P_n\}$
+\co\quad $S_1 \pbar \ellipsis \pbar S_n$ \quad\oc
+$\{Q_1 \zand \ellipsis \zand Q_n\}$\par
+\end{centering}
+\end{quote}
+\item Describe the weakly fair scheduling policy.
+
+\item
+Consider the following program segment:
+
+\def\await{{\bf await}}
+\co\  $\lb $\await\quad $x \geq 3 \ \ra\quad x := x + 5 \rb$\par
+$\pbar\  \lb $\await\quad $x \geq 8 \ \ra\quad x := x - 5 \rb$\par
+$\pbar\  \lb $\await\quad $x \geq 0 \ \ra\quad x := x + 1 \rb$\par
+\oc\par
+
+Let $P$ be a predicate that characterizes the weakest deadlock-free
+precondition for the program, i.e., the largest set of states such
+that, if the program is begun in a state satisfying $P$, then it will
+terminate if scheduling is weakly-fair.  Determine $P$.  Explain your
+answer.
+
+\item
+\RPC\ cannot be used for peer-to-peer distributed computing.
+
+\item
+The \RPC\ runtime locates a server for each invocation
+of a server operation.
+
+\item
+Given asynchronous message passing primitives, called {\tt asend()}
+and {\tt arecv()}, build the synchronous message passing primitives
+called {\tt ssend()} and {\tt srecv()}.
+
+\item
+We need only have one clock per node in order to correctly compute a
+happened-before relation.
+
+\item
+There is no way to implement a ``strong'' semaphore in Linda.
+
+\item Token-passing algorithms were discussed under the heading 
+of ``asynchronous message passing.''  Does token-passing make sense
+under synchronous message passing?  Why, or why not?
+
+
+\end{enumerate}
+
+\item (10+10 points)
+There are two integer arrays $a[1..m]$ and $b[1..n]$.  We wish to
+exchange the odd integers of $a$ with the even integers of $b$, so
+that at the end $a$ has as many even integers as possible.  Obviously,
+this exchange is limited by the possibly different values of $m$ and
+$n$, and is dependent on how many odd numbers there are in
+$a[\ellipsis]$ versus the even numbers in $b[\ellipsis]$.
+
+Develop and explain two solutions, one using \CSP, and the other in C-Linda.  In both, maximize
+concurrency.
+
+In the \CSP\ solution,  assume that process $A$ owns $a$, and process
+$B$ owns $b$.  There must not be any shared
+variables whatsoever.
+
+In the C-Linda solution, assume that the tuple space is
+loaded as follows: the array $a$ is loaded as $\lb ``a", i, a[i]\rb$
+for $1 \leq i \leq m$, and $b$ is loaded as $\lb ``b", j, b[j]\rb$
+for $1 \leq j \leq n$.  At the end of execution of
+the Linda algorithm, the tuple space should contain nothing but
+$\lb ``newa", i, a[i]\rb$ tuples
+for $1 \leq i \leq m$, and $\lb ``newb", j, b[j]\rb$
+for $1 \leq j \leq n$ where the $a[i]$ and $b[j]$ now refer
+to the current values of the conceptual arrays $a$ and $b$.
+Do not use {\tt inp} or {\tt rdp}.
+
+
+\item (3*10 points)
+(i) What is the problem of termination detection?  (ii) Why is
+termination detection a nontrivial problem in distributed systems?
+(iii) Describe a token-passing distributed termination detection
+algorithm.  Do not assume that the process graph is a tree.
+\end{enumerate}
+\end{document}

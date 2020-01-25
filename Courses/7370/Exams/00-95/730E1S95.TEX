@@ -1,0 +1,112 @@
+\documentstyle[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\rar{\rightarrow}
+\def\pr{$\parallel$}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 730 Distributed Computing Principles\\[5pt]
+\large Mid Term Exam\\[10pt]
+April 24, 1995 \quad 100 points max \quad 75 minutes\\
+}
+\bigskip
+{Mateti,  Spring Quarter 1995, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (30 points)
+The \CSP\ solution given in Section 4.5, namely {\sl Recursive Data
+Representation: Small Set of Integers}, of Hoare's \CSP\ paper is
+reproduced below.  Extend the solution to respond to a command to
+yield the least member of the set and to remove it from the set.
+
+\begin{tabbing}
+00\=\kill
+$S(i: 1 .. 100)$ ::\+\\
+$ *$\= $[\ $ \= $n$: integer; $S(i-1)$?has$(n) \rar S(0)$!false\+\\
+ \fat\> $n$: integer; $S(i-1)$?insert$(n) \rar$\+\\
+     $*$\= $[\ $ \= $m$: \= integer; $S(i-1)$?has$(m) \rar$\+\+\\
+       $[$\ \= $m \leq n \rar S(0)!(m = n)$\\
+       \fat \> $m > n \rar S(i+1)$!has$(m)$\\
+       $]$ \-\-\\
+  \> \fat\ $m$: integer; $S(i-1)$?insert$(m) \rar$\+\+\\
+    $[\  m < n \rar S(i+1)$!insert($n$); $n := m$\\
+    \fat\ $m = n \rar $ skip\\
+    \fat\ $m > n \rar S(i+1)$!insert$(m)$\-\-\-\\
+]\>\>]\>]\\
+\end{tabbing}
+
+\item (6*5 points)
+Explain, in a few lines, the following statements.
+
+\begin{enumerate}
+
+
+\item
+Given any two arbitrary processes, they are {\em concurrent}
+with each other.
+
+\item
+{\sl ``A hungry philosopher will eat.''} is an example of a safety
+property.
+
+\item
+``Passing the baton'' is a technique for translating {\bf await}-based
+solutions into {\bf semaphore}-based solutions.
+
+\item It is possible for a small box, say like that of a PC, to
+contain a distributed system.
+
+\item
+The little-endian-ness of a machine has no relevance to \RPC.
+
+\item
+A procedure designed to be called remotely {\em must not} have
+(the equivalent of Pascal's) var parameters.
+
+
+\end{enumerate}
+
+\item (10+15 points)
+(a) Explain the client/server paradigm.  (b) In the context of \RPC,
+describe the tasks performed by the stub procedures in the client and
+in the server.
+
+
+\item (15 points)
+The following is claimed to be an implementation of
+the conditional critical region {\bf region $v$ when $B$ do $S$ end}.
+
+{\bf
+\begin{tabbing}
+00\=then~\=00\=\kill
+semaphore $e := 1$, $d := 0$ initially;\\
+integer $nd := 0$ initially;\\
+\\
+P$(e)$;\\
+do not $B \rar$\+\\
+  $nd := nd + 1$;\\
+  V$(e)$;\quad  P$(d)$;\quad   P$(e)$\-\\
+od;\\
+$S$;\\
+do $nd > 0 \rar$\+\\
+  $nd := nd - 1$;\\
+  V$(d)$\-\\
+od;\\
+V$(e)$
+\end{tabbing}
+}
+
+(5 points) Annotate the solution with assertions.\\
+
+(10 points) Does this solution work correctly?  If so, give a
+convincing argument that it correctly implements a {\bf region}
+statement.  If not, clearly explain what the error is, and give an
+example of an execution sequence that causes problems.
+
+\end{enumerate}
+\end{document}

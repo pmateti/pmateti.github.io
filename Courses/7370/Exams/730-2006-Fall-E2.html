@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+  <meta name="ProgId" content="FrontPage.Editor.Document">
+  <title>CEG730 Distributed Computing / Final Exam</title>
+</head>
+<body bgcolor="#FFFFFF" leftmargin=50 rightmargin=50>
+<table border="0" cellpadding="10" cellspacing="10" height="90"
+ width="100%">
+  <tbody>
+    <tr>
+      <td width="27%"><a href="http://www.wright.edu/"
+ target="_blank"><img
+ src="../../../../pmatetiWeb/images/wsu-logo-xsm.gif" border="0"
+ height="66" width="150"></a></td>
+      <td height="60" valign="top" width="73%">
+      <h2>CEG 730 Distributed Computing Principles</h2>
+      <h4>Fall 2006// Final Exam // 120 minutes // 100 points<br>
+      <a href="http://www.cs.wright.edu/%7Epmateti" target="_blank">Prabhaker
+Mateti</a>     </h4>
+This is a closed book, closed notes exam. Do not give or take
+help during the exam.
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ol>
+  <li> 
+	<p align="justify">(6*5 points) The following statements may or may not be (fully
+or partially) valid.&nbsp;&nbsp; Explain/ discuss/
+dispute the statement.&nbsp; It is <i>possible</i> to write no more
+than, say, five thoughtful sentences each, and yet receive full score.
+    <ol type="a">
+      <li>Every<i> distributed system</i> must also be a <i>concurrent system</i>.</li>
+      <li> <i>Asynchronous</i>&nbsp; message passing is more fundamental than <i>
+      synchronous</i> message passing.</li>
+      <li> 
+		<p align="justify"> <i>Token-passing </i>algorithms were discussed under the heading of&nbsp; asynchronous message passing because token-passing does not make
+sense under synchronous message passing.</li>
+      <li> 
+		<p align="justify">The <i>happened
+before</i><b> </b>relation, as in the book, requires a logical clock for every 
+      process.&nbsp; But&nbsp; a typical machine (node) in a distributed system 
+      runs several processes. It is sufficient to maintain a logical clock per 
+      node that is shared by all processes running on that node.</li>
+		<li> Peer-to-peer distributed computing is just an academic 
+		term for the commercial term client-server computing.</li>
+		<li> The code <code>V(s); P(s)</code> is always equivalent to a no-op (&quot;skip&quot;, 
+
+	or do-nothing).<br>
+&nbsp;</li>
+    </ol></li>
+  <li>(5+5+5+5 points) It is <i>possible</i> to write no more
+than, say, five thoughtful sentences each, and yet receive full score.
+    <ol type="a">
+      <li>Discuss why it is difficult to implement a semaphore in the truly 
+		distributed context. </li>
+		<li>Discuss if all of the ACKs are necessary in the solution discussed 
+		in the lectures.</li>
+		<li>Discuss if any solution to the distributed mutual exclusion problem 
+		be thought of as a solution to the problem of implementing semaphores in 
+		a distributed system, and vice versa.</li>
+		<li>Describe the problem of &quot;termination detection.&quot;<br>
+&nbsp;</li>
+    </ol>
+  </li>
+  <li>
+	<p align="justify">(10+20+20 points) You are given a large (in the zillions) bag 
+	<i>B</i> of 
+	pairs of unsigned integers <i>(x,&nbsp; d)</i>.&nbsp; Each pair represents a horizontal line 
+  segment of length <i>d</i> in the Euclidean plane whose left end point is at 
+	<i>(x, 
+	y) </i>with <i>y</i> always equal to 0.&nbsp;&nbsp; A segment <i>(x1,  
+  d1)</i> <i>contains</i> <i>(x2, d2)</i> if&nbsp; <i>x1  &le; x2</i> and <i>x1 + d1 &ge; x2 + 
+  d2</i>.&nbsp; We wish to compute the bag <i>Bmin</i> which minimizes the size (== number of 
+	pairs) of&nbsp; <i>B</i> so that every original pair in B is contained in some 
+  pair in the resulting collection <i>Bmin</i>.&nbsp;
+	<ol type="a">
+		<li>
+		<p align="justify">(5 + 5 points)
+  As usual, we wish to maximize concurrency, we prefer a 
+  symmetric solution, we rate correctness much higher than efficiency, and 
+  cannot tolerate deadlocks or livelocks. Defend <i>why</i> we prefer a symmetric solution 
+  (5 points) , and&nbsp; 
+  <i>why</i>
+we rate correctness much higher than efficiency (5 points) .</li>
+		<li>
+		<p align="justify">(10 + 10 points)
+  Fully explain (10 points) your solution design&nbsp; in English/pseudo-code for Linda and 
+	on a <u>fresh page</u> implement&nbsp; (10 points) it in C-Linda.
+Assume that the tuple space already contains <tt>&lt;"t&quot;, x, d&gt;</tt> 
+  of B, and the size of this
+bag <tt>&lt;"sz", N&gt;</tt>. You lose 2 points for each use of <tt>inp</tt>
+or <tt>rdp</tt>. </li>
+		<li>
+		<p align="justify">(10 + 10 points)&nbsp; Fully explain &nbsp;(10 points) your solution design in English/pseudo-code for CSP.&nbsp;&nbsp; 
+  It is not required that this use the same &quot;design idea(s)&quot; of the above. Implement&nbsp; (10 points) 
+  on a fresh page the design in CSP.&nbsp; The bag B is now generated by 
+  process Q whose structure is<br>
+		<code>Q :: *[ ... --&gt; P!(x, d) ]</code>.&nbsp; Develop the process 
+  P and 
+  any others.</li>
+	</ol></li>
+</ol>
+<div align="right">
+<table style="border-collapse: collapse;" border="0"
+ bordercolor="#111111" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td align="left">
+      <a
+ href="../../../../pmatetiWeb/Courses/433/Top/copyright.html">Copyright
+&copy;</a> 2006 <a
+ href="mailto:pmateti@cs.wright.edu?subject=CEG433:OperatingSystems">
+pmateti@cs.wright.edu</a></td>
+      <td align="right">
+      <!--webbot bot="Timestamp" s-type="EDITED" 
+      s-format="%B %d, %Y" startspan -->November 13, 2006<!--webbot bot="Timestamp" endspan i-checksum="39584" --></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</body>
+</html>

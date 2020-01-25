@@ -1,0 +1,137 @@
+\documentstyle[12pt]{article}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\co{{\bf co}}
+\def\oc{{\bf oc}}
+\def\pa{{$\parallel$}}
+\def\lb{$\langle$}
+\def\rb{$\rangle$}
+\def\ra{$\rightarrow$}
+\def\await{{\bf await}}
+\def\rar{\rightarrow}
+\def\pr{$\parallel$}
+
+\parindent=0pt
+\begin{document}
+
+{\bf CEG 730 Distributed Computing Principles\\[5pt]
+\large Mid Term Exam\\[10pt]
+May 2, 1996 \quad 100 points max \quad 75 minutes\\
+}
+\bigskip
+{Mateti,  Spring Quarter 1996, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (6*5 points)
+Do you agree or  disagree with the following statements?
+Explain, in a few lines.
+
+\begin{enumerate}
+
+\item One difference between a weak semaphore {\tt w} and a strong
+semaphore {\tt s} is that {\tt V(s); P(s)} is equivalent to a no-op
+whereas {\tt V(w); P(w)} is not.
+
+\item
+{\sl ``A hungry philosopher will eat.''} is an example of a safety
+property.
+
+\item
+The little-endian-ness of a machine has no relevance to \RPC.
+
+\item
+The \CSP\ code {\tt [X!2 \pr Y!3]} is equivalent to \par
+{\tt
+[  true --> X!2; Y!3 \quad \fat\ \quad true --> Y!3; X!2]
+}
+
+\item
+The difference between asynchronous and synchronous message passing is
+trivial: one can be implemented in terms of the other.
+
+
+\item
+A typical machine (node) in a distributed system can run several
+concurrent processes.  Each of these processes must maintain its own
+logical clock in order to correctly deal with the {\sl happened
+before} relation.
+\end{enumerate}
+
+
+\item (30 points)
+We have a \CSP\ process {\tt C} that outputs an unending stream of
+non-negative numbers to a process named, say, {\tt X}.  We want {\tt
+X} to be able to receive requests of the form {\tt X!nthmin(n)} from a
+user process {\tt U} and respond with {\tt U!x}, where $x$ is the
+$n$-th smallest number it has seen so far from {\tt C}.  If {\tt X}
+has seen fewer than $n$ numbers so far, or if $n$ is greater than 10,
+or less than 1, the value of $x$ to use is -1.  Write the process {\tt
+X} in \CSP.  Maximize concurrency.  Process {\tt C} must not suffer
+delays.
+
+
+\item (20 points)
+Implement the {\bf await} statements with semaphores in the following
+coarse-grained {\tt deposit} and {\tt fetch} of the producer/consumer
+problem, {\em using} the technique of passing the baton.  Show the
+details of the derivation.
+
+\begin{minipage}{2.5in}
+\begin{verbatim}
+deposit:
+< await count < n ->
+  buf[rear] := m;
+  rear := rear mod n + 1;
+  count := count + 1 >
+\end{verbatim}
+\end{minipage}
+\begin{minipage}{2in}
+\begin{verbatim}
+fetch:
+< await count > 0 ->
+  m := buf[front];
+  front := front mod n + 1;
+  count := count - 1 >
+\end{verbatim}
+\end{minipage}
+
+\item (10+10 points)
+Study the following code as a `solution' for the starvation-free
+mutual exclusion problem.  Make the same assumption regarding weak
+semaphores that [Morris 79] and [Udding 86] do.
+
+\begin{verbatim}
+local x, y;  global z := 0, b := false, s[0] := 1, s[1] := 1;
+x := z;
+P(s[x]);
+  if (z == x) then
+    y := 1 - z;
+    P(s[y]);
+      z := y;
+      repeat
+        b := true;
+        V(s[x]);
+        P(s[x]);
+      until b;
+      critical section
+    V(s[y])
+  else
+    b := false;
+    critical section
+  fi
+V(s[x])
+\end{verbatim}
+
+(a) Annotate the solution with assertions
+before and after each semaphore operation.\par
+
+(b) Does this solution work correctly?  If so, give a
+convincing argument that it correctly implements a {\bf region}
+statement.  If not, clearly explain what the error is, and give an
+example of an execution sequence that causes problems.
+
+\end{enumerate}
+\end{document}

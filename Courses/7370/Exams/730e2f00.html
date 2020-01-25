@@ -1,0 +1,63 @@
+
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+</head>
+
+<h2>CEG 730 Distributed Computing Principles</h2>
+<p>Final Exam 100 points max 120 minutes<br>
+Mateti, Fall Quarter 2000, Wright State U</p>
+<hr>
+<ol>
+  <li>(6*5 points) Explain, in a few lines, the truth or falsity of the
+    following statements.
+    <ol type="a">
+      <li>Any solution to the distributed mutual exclusion problem can be
+        thought of as a solution to the problem of implementing semaphores in a
+        distributed system, and vice versa.</li>
+      <li>A &quot;safety'' property is defined thus: Let&nbsp; <b>bad</b> be a
+        predicate characterizing a ``bad'' state of program code segment S.
+        Assume that {P}S {Q} holds. Assume that I is a global invariant. If I
+        implies the&nbsp; negation of <b>bad</b>, we say that <b>not bad </b>is
+        a safety property for S. Thus, it all depends on whether&nbsp; <i>we
+        consider a certain property good or bad.</i></li>
+      <li>&quot;Some day, if not at the end of CEG 730, you will appreciate and
+        marvel at the book Concurrent Programming by Andrews.'' Explain if this
+        is a safety, or liveness property, or perhaps neither.</li>
+      <li>Asynchronous message passing cannot be implemented using synchronous
+        message passing primitives.</li>
+      <li>The CSP code <tt>[X!2 || Y!3]</tt> is equivalent to&nbsp;<tt><br>
+        [true -&gt; X!2; Y!3 [] true -&gt; Y!3; X!2]</tt></li>
+      <li>Java RMI is RPC applied in the context of the Java language.<br>
+      </li>
+    </ol>
+  <li>(25 points) Given a bag B of integers, and the size b of it. It is known
+    that each element in the bag appears exactly d times. We wish to delete the
+    duplicates resulting in a set of only b/d distinct elements that occurred in
+    the bag. It is guaranteed that d &gt; 0, b &gt; 0. Unfortunately, the value
+    d is unavailable and needs to be computed by examining the bag B. Design (15
+    points, with full explanation) and implement (10 points) a solution in
+    C-Linda. Assume that the tuple space already contains <tt>&lt;&quot;B&quot;,
+    i&gt; </tt>for all <tt>i</tt> in B, and the size of the bag <tt>&lt;&quot;nB&quot;,
+    b&gt; </tt>. You lose 2 points for each use of <tt>inp</tt> or <tt>rdp</tt>.
+    As usual, we wish to maximize concurrency, we prefer a symmetric solution,
+    and correctness rates much much higher than efficiency.<br>
+  </li>
+  <li>(25 points) Consider the above problem in the context of CSP, but with the
+    following differences.&nbsp; There are b processes each holding exactly one
+    number of the bag B.&nbsp; Each of these processes also has the number d.&nbsp;
+    Do not assume that the elements they hold are in any particular numerical
+    order. Design (15 points, with full explanation) and&nbsp; implement (10
+    points) a CSP solution so that at the end of the algorithm the first b/d
+    processes each hold one number, in no particular order, and all the
+    remaining processes are empty handed.&nbsp; Explain your solution fully.&nbsp;
+    As usual, we wish to maximize concurrency, we prefer a symmetric solution,
+    and correctness rates much much higher than efficiency.<br>
+  </li>
+  <li>(5+5+5+5 points) (a) Discuss why it is difficult to implement a semaphore
+    in the truly distributed context. (b) Describe the happened-before relation.
+    (c) Describe the distributed implementation of semaphore of our text book.
+    (d) Does it implement a weak, strong or neither semaphore?</li>
+</ol>
+<hr>

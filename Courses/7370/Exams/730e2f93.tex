@@ -1,0 +1,154 @@
+\documentstyle[12pt]{article}
+\def\CSP{{\sc csp}}
+\def\SR{{\sc sr}}
+\def\RPC{{\sc rpc}}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\co{{\bf co}}
+\def\oc{{\bf oc}}
+\def\pa{{$\parallel$}}
+\def\lb{$\langle$}
+\def\rb{$\rangle$}
+\def\ra{$\rightarrow$}
+\def\await{{\bf await}}
+
+\parskip=0pt
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Final Exam\\[10pt]
+Nov 29, 1993 \quad 100 points max \quad 120 minutes\\
+}
+\bigskip
+{Mateti,  Fall Quarter 1993, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (6*5 points)
+Explain/Discuss/Answer, in a few lines, the following.
+
+\begin{enumerate}
+
+\item
+Discuss the required invariant for the Readers and Writers (with or
+without priority for writers, your choice) problem.
+
+
+\item Give a rigorous definition of interference-free.
+
+\item Describe the weakly fair scheduling policy.
+
+\item
+Given asynchronous message passing primitives, called {\tt asend()}
+and {\tt arecv()}, build the synchronous message passing primitives
+called {\tt ssend()} and {\tt srecv()}.
+
+\item
+Describe the effect of {\tt send()}-ing to an operation
+implemented as a {\tt proc} in \SR.
+
+\item
+Implement a binary semaphore named $s$, initially set to 1, in Linda.
+
+\end{enumerate}
+
+
+\item (6*5 points)
+The following items deal with the  client/server paradigm.  
+
+
+\begin{enumerate}
+
+\item
+In the context of \RPC, 
+describe the tasks performed by the stub
+procedures in the client and in the server.
+
+\item
+In the context of \RPC, 
+decsribe a scheme for locating the servers.
+
+\item
+In the context of \RPC, 
+why is it the case that a remotely callable procedure must not
+have a global variable?
+
+\item
+Explain the terms: big endian, exactly once, at most once, at least
+once, and idempotent.
+
+\item
+Sketch how client/server paradigm can be implemented in Linda.
+
+\item
+Why is the client/server paradigm so popular in our times?
+
+
+\end{enumerate}
+
+
+\item (20 points)
+Write an algorithm in Linda for the following problem.  Given, in the
+tuple space {\sc ts}, a bag $B$ of integers {\tt <"B", i>} for all
+{\tt i} in $B$, and the size of the bag {\tt <"nB", nb>}, compute the
+second largest number {\tt <"secondmaxB", ? mx2>} in the bag.
+The number of workers to use is given as {\tt <"nprocesses", p>}. 
+Assume that there are at least two distinct numbers in $B$.
+Maximize concurrency.
+Explain your algorithm fully.
+
+\item (5+5+10 points)
+Study the following code as a `solution' for the star\-vation-free
+mutual exclusion problem.  Make the same assumption regarding weak
+semaphores that [Udding 86] does.  Obviously, {\tt s[0]} and {\tt
+s[1]} are semaphores.  The integer {\tt z} is a variable shared by all
+processes, whereas integers {\tt x} and {\tt y} are local to each.
+Note that the critical section appears twice.
+
+\begin{minipage}{2in}
+\begin{verbatim}
+global var z : int := ...;
+var x : int := ...;
+    y : int := ...;
+
+x := z;
+P(s[x]);
+  if z = x then
+    y := 1 - z;
+    P(s[y]);
+      z := y;
+      repeat
+        b := true;
+        V(s[x]);
+        P(s[x]);
+      until b;
+      <critical section>
+    V(s[y])
+  else
+    b := false;
+    <critical section>
+  fi;
+V(s[x])
+\end{verbatim}
+\end{minipage}
+\begin{minipage}{3in}
+\begin{enumerate}
+\item
+List the initial values that make sense for all the semaphores, and
+integers.
+
+\item Are the semaphores binary, or general?
+Give a rigorous argument supporting your answer.
+
+\item
+Either give a convincing argument that the above algorithm is correct,
+or give a scenario demonstrating a situation that violates the
+requirements of the problem.
+
+\end{enumerate}
+\end{minipage}
+\end{enumerate}
+\end{document}

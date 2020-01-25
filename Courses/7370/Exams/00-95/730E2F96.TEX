@@ -1,0 +1,110 @@
+\documentstyle{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\SR{{\sc sr}}
+\def\co{{\bf co}}
+\def\oc{{\bf oc}}
+\def\pa{{$\parallel$}}
+\def\lb{\langle}
+\def\rb{\rangle}
+\def\ra{$\rightarrow$}
+\def\await{{\bf await}}
+\def\zimplies{\Rightarrow}
+%
+\topmargin 0pt
+\oddsidemargin 17pt \evensidemargin 17pt
+\textheight 8.3in %
+\textwidth 6.0in
+
+\parindent=0pt
+\pagestyle{empty}
+\begin{document}
+
+
+{\bf CS 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Exam 2\\[10pt]
+Nov 26, 1996 \quad 99 points max \quad 75 minutes\\
+}
+\bigskip
+{Mateti,  Fall Quarter 1996, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (8*5 points)
+Explain/Discuss/Dispute/Suggest/Answer, in a {\em few} lines, the following.
+
+\begin{enumerate}
+\item Dispute:
+A {\em critical assertion} is one without which a program will abort.
+
+
+\item Explain the four bold-faced terms in the following
+attempt at defining what a ``safety'' property is.  Let {\sc bad} be a
+{\bf predicate} characterizing a  ``bad'' {\bf state} of program code
+segment S.  Assume that {\bf \{P\} S \{Q\}} holds.  Assume that I is a
+{\bf global invariant}.  If I $\zimplies$ $\neg$ {\sc bad}, we say
+that $\neg$ {\sc bad} is a safety property for S.
+
+\item
+``Some day, if not at the end of {\sc cs} 730, you will appreciate the
+book {\em Concurrent Programming} by Andrews.''  Explain if this is a
+safety, or liveness property, or perhaps neither.
+
+\item
+Discuss:
+\RPC\ cannot be used for peer-to-peer distributed computing.
+
+\item
+Dispute: The \RPC\ runtime locates a server for each invocation
+of a server operation.
+
+\item
+Suggest a mechanism similar to RPC but in the context of Linda.
+
+
+\item
+Discuss:
+A typical machine (node) in a distributed system can run several
+concurrent processes.  Each of these processes must maintain its own
+logical clock in order to correctly deal with the {\em happened
+before} relation -- even if all the processes are running
+on no more than two nodes.
+
+\item
+In the Andrews' distributed semaphore implementation of our textbook
+that we discussed, there are numerous {\sc ack} messages being sent.
+Discuss if these are unnecessary.
+\end{enumerate}
+
+
+\item (19 points)
+Describe a distributed termination algorithm, with or without tokens.
+The process graph is a binary tree.
+
+\item (20*2 points)
+In both items below $a_i$ is the same as {\tt a[i]}.\\
+
+(a) Assume that the Linda tuple space is loaded with tuples $\lb
+``nt'', n_t \rb$, $\lb ``nd'', n_d \rb$, $\lb ``d'', d \rb$, $\lb
+``p'', p \rb$ so that $0 \le n_d \le n_t$, and $\lb ``s'', i, a_i
+\rb$, for $1 \le i \le n_t$, so that the $a_i$ sequence is sorted in
+the non-decreasing order.  In this sequence there are {\em at least}
+$n_d$ occurrences of $d$ which need to be removed.  Develop a C-Linda
+solution for this removal and adjustment of indices $i$ for numbers
+beyond the deleted $d$'s.  At the end, the tuple space contains the
+$a_i$ after the removal of $d$'s.  Use $p$ processes.  Assume that $p
+<< n_t$.
+
+(b) Now in \CSP.  The values $a_i$, for $1 \le i \le n_t$, are now
+held by processes $P_i$, one per process, as in the Small Set of
+Integers.  Initially, the $a_i$ sequence is sorted in the
+non-decreasing order.  $P_0$ sends $d$ to $P_1$, which sends it to
+$P_2$, etc.  Write a \CSP algorithm so that all $d$ are ``removed''.
+Note that no $n_d$ is given.  At the end,
+the $a_i$ sequence should be sorted in the
+non-decreasing order.
+\end{enumerate}
+\end{document}

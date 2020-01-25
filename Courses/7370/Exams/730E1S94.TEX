@@ -1,0 +1,100 @@
+\documentstyle[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\rar{\rightarrow}
+\def\pr{$\parallel$}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Mid Term Exam\\[10pt]
+May 4, 1994 \quad 100 points max \quad 75 minutes\\
+}
+
+\bigskip
+{Mateti,  Spring Quarter 1994, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (6*5 points)
+Explain, in a few lines, the degree of truth of the following
+statements.
+
+\begin{enumerate}
+
+\item
+The semantics of the semicolon `;' operator as in $S_1 ; S_2$
+is that execution of $S_2$ must begin immediately after the
+end of $S_1$.
+
+\item
+Given any two arbitrary processes, they are {\em concurrent}
+with each other.
+
+\item
+The technique of {\em passing the baton} can only be used for the
+Readers/Writers Problem, and not for mutual exclusion, starvation-free
+or not, of two or more processes.
+
+\item Any group of processes communicating only via message passing
+constitutes a ``distributed system.''
+
+
+\item We need only have one clock per processor (not process)
+in order to correctly compute a happened-before relation.
+
+\item
+In the distributed semaphore implementation, there is no need for {\sc ack}
+messages.
+
+\end{enumerate}
+
+\item (30 points)
+There are three \CSP\ processes $A$, $B$ and $C$ each with a local
+array of size $n$ of integers.  Among these $3n$ numbers, there are at
+least $n$ even numbers, and at least $n$ odd numbers.  Write an
+algorithm in \CSP\ so that the processes send each other integers, one
+at a time, eventually terminating with process $A$ having in its array
+only even numbers, process $C$ having in its array only odd numbers.
+You must make sure no number originally present is lost.  A high
+degree of concurrency is expected.
+
+\newpage
+\item (10+15 points) (a) Discuss fully why the ``standard''
+solution\\
+{\tt P(m); CS; V(m);}\\
+\noindent is not starvation-free.  (b) Describe
+Udding's solution to the starvation-free mutual exclusion problem.  It
+is not necessary to reproduce his algorithm, but you must explain
+carefully the function of {\em each} semaphore and counter used.
+
+\item (15 points)
+Exercise 3.9 from Andrews is reproduced below.  Why does it not
+guarantee mutual exclusion?  Does it guarantee eventual entry?  What
+changes would make it correct with respect to mutual exclusion?
+
+\begin{tabbing}
+00\=00\=00\=\kill
+var $lock := 0$\\
+$P[i:1..n]$ ::\+\\
+do true $\rar$\+\\
+  $<$ await $lock = 0 >;$\\
+  $lock := i$\\
+  do $lock \neq i \rar$\+\\
+    Delay\\
+    $<$ await $lock = 0 >;$\\
+    $lock := i$\-\\
+  od\\
+  critical section\\
+  $lock := 0$\\
+  non-critical section\-\\
+od
+\end{tabbing}
+
+
+\end{enumerate}
+\end{document}

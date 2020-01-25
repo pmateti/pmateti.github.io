@@ -1,0 +1,122 @@
+\documentclass[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\pr{$\parallel$}
+\def\rar{$\rightarrow$}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\SR{{\sc sr}}
+
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+{\large \bf 730 Distributed Computing Principles}\\[5pt]
+Final Exam\quad Nov 29, 1999\quad 100 points max \quad 120 minutes}\\
+{Mateti,  Fall Quarter 1999, Wright State U}\\[-5pt]
+\bigskip
+\hrule
+
+\begin{enumerate}
+
+\item (8*5 points)
+Explain, in a few lines, the truth or falsity of the following
+statements.
+
+\begin{enumerate}
+
+\item
+Any solution to the {\em distributed mutual exclusion} problem can be
+thought of as a solution to the problem of implementing semaphores in
+a distributed system, and vice versa.
+
+\item
+A {\em critical assertion} is one without which a program will abort.
+
+\item A ``safety'' property is defined thus: Let {\sc bad} be a
+{predicate} characterizing a ``bad'' {state} of program code segment
+S.  Assume that {\{P\} S \{Q\}} holds.  Assume that I is a {global
+invariant}.  If I $\Rightarrow$ $\neg$ {\sc bad}, we say that $\neg$
+{\sc bad} is a safety property for S.  Thus, it all depends on whether
+{\em we} consider a certain property good or bad.
+
+\item
+``Some day, if not at the end of {\sc ceg} 730, you will appreciate
+and marvel at the book {\em Concurrent Programming} by Andrews.''
+Explain if this is a safety, or liveness property, or perhaps neither.
+
+\item
+Asynchronous message passing cannot be implemented using synchronous
+message passing primitives.
+
+\item
+The \CSP\ code {\tt [X!2 \pr Y!3]} is equivalent to \\
+{\tt
+[  true \rar\ X!2; Y!3 \fat\ true \rar\ Y!3; X!2]}
+
+\item
+In \SR, when invoking an operation implemented by a {\tt proc} through
+a {\tt send} the effect is that of a rendezvous.
+
+\item
+Java RMI is RPC applied in the context of the Java language.
+
+\end{enumerate}
+
+\item (25 points)
+Given: A bag $B$ of integers, and the size $b$ of it.  It is known
+that each element in the bag appears exactly $d$ times.  We wish to
+delete the duplicates resulting in a set of only $b/d$ distinct
+elements that occurred in the bag.  It is guaranteed that $d > 0, b >
+0$.  Unfortunately, the value $d$ is unavailable and needs to be
+computed by examining the bag $B$.
+
+Design (15 points, with full explanation) and implement (10 points) a
+solution in C-Linda.  Assume that the tuple space already contains
+{\tt <"B", i>} for all {\tt i} in $B$, and the size of the bag {\tt
+<"nB", b>}.  You lose 2 points for {\sl each} use of {\tt inp} or {\tt
+rdp}.  As usual, we wish to maximize concurrency, we prefer a
+symmetric solution, and correctness rates much much higher than
+efficiency.
+
+\item (25 points)
+We discussed in class the {\em Mine Sweeper} game of Windows.  Each
+cell contains a small collection (say less than 5) of processes.  Program these
+in \CSP\ so that  all the cells together behave as the game does.
+Explain your solution fully.
+
+
+\item (10 points) The following is claimed to be an implementation of
+{\bf region $v$ when $B$ do $S$ end}.  Either give a convincing
+argument that the above algorithm is correct, or give a scenario
+demonstrating a situation that violates a requirement of the problem.
+Nothing is given regarding the semaphores if they are weak, strong,
+etc.
+
+{\bf
+\begin{tabbing}
+00\=00\=00\=\kill
+semaphore $e := 1$, $g := 0$, $d := 0$ initially;\\
+integer $nd := 0$, $ng := 0$ initially;\\
+\\
+P$(e)$;\\
+while not $B$ do\+\\
+  $nd := nd + 1$;\\
+  if $ng > 0$ then V$(g)$ else V$(e)$ fi;\\
+  P$(d)$;\\
+  P$(g)$;\\
+  $ng := ng - 1$\-\\
+od;\\
+$S$;\\
+while $nd > 0$ do\+\\
+  V$(d)$;\\
+  $nd := nd - 1$;\\
+  $ng := ng + 1$\-\\
+od;\\
+if $ng > 0$ then V$(g)$ else V$(e)$ fi
+\end{tabbing}
+}
+
+
+\end{enumerate}
+\end{document}
