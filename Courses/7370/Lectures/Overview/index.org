@@ -1,5 +1,5 @@
 # -*- mode: org -*-
-#+Date: 2019-12-28
+#+Date: 2020-01-02
 #+TITLE: DistrComp  Course Overview
 #+AUTHOR: Prabhaker Mateti
 #+DESCRIPTION: Mateti's Distributed Computing Overview.  Without links.
