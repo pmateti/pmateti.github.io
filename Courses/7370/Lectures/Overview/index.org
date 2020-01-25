@@ -1,0 +1,434 @@
+# -*- mode: org -*-
+#+Date: 2019-12-28
+#+TITLE: DistrComp  Course Overview
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti's Distributed Computing Overview.  Without links.
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\">../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 &bull; <a href=mailto:pmateti@iiitd.ac.in>pmateti@iiitd.ac.in</a> &bull; %d"))
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P, LI {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+* Course Home Page
+
+1. DIC [[https://cecs.wright.edu/~pmateti/Courses/7370/Top/index.html][Course Home Page]] [Do click this link.]
+1. Visit this Home Page regularly.  Once a day?
+
+
+* Syllabus
+
+The next few slides will do:
+1. Course Description
+1. Source Materials
+1. Course Content
+
+
+** What is Distributed Computing?
+
+1. Distributed Computing is coordinated computing using machines at
+   many locations.
+1. It primarily uses /message passing/.
+1. It tries to avoid /synchronization/.
+1. It tries to avoid /shared variables/.
+1. It tries to be robust in the presence of individual machine failures.
+
+** Detailed content #1
+
+1. Semantics of semicolon, parallel-bar, and fat-bar.
+1. Review of classic problems in concurrency.
+1. Semaphores: weak and strong, split-binary, distributed. 
+1. Distributed Termination. 
+1. CSP (Communicating Sequential Processes).
+1. GO Language Systems Programming.
+
+** Detailed content #2
+1. Distributed Tuple Space and Linda.
+1. Clients and Servers, RPC, RMI.
+1. Actors, Scala Akka.
+1. Distributed file servers.  IPFS.
+1. Semantics of Concurrency.  Axiomatic Semantics. Temporal Logic.
+1. Fairness.  Starvation.  Mutual exclusion.  Deadlocks. Livelocks.
+   Interference.
+
+** Prerequisites
+
+1. Undergraduate course on OS Internals and Concurrent Programming
+2. Fluency in C++ and Java; Fluency in Go is not expected.
+3. Familiarity with Linux OS and IPC mechanisms.
+
+** Course Objectives
+
+1. Understand the technologies of Remote Invocation (RPC, RMI), and
+   Actors in several languages.
+1. Understand the principles of concurrent, distributed, networked, and
+   parallel computing.
+1. Understand non-deterministic computations and unfair scheduling as
+   givens.
+
+
+** Learning Outcomes
+
+1. Write client-server programs using RPC in C/C++, RMI in Java, and
+   Channels in Go, and Actors in Scala.
+1. Use distributed file server technology, e.g., IPFS.
+1. Reason about programs using assertions and temporal logic.
+1. Become fluent in Go and Scala.
+
+
+** Source Materials: Books
+
+1. Gregory R. Andrews, /Concurrent Programming: Principles and
+   Practice/, Benjamin/Cummings, 1991.  {A classic.  Look for it on
+   EBay?  Text Book.}  See also his revision of the above book.
+   [[./andrews-multithreaded-toc.org]]  [We will do Chapters 1 and 2 much
+   later in our course.]
+
+2. Alan A. A. Donovan and Brian W. Kernighan. The Go Programming Language. 201x.
+3. Andrew S. Tanenbaum and Maaten Van Steen. Distributed Systems:
+   Principles and Paradigms. 201x
+
+** Source Materials: On Line
+
+1. [[https://cecs.wright.edu/people/faculty/pmateti/Courses/7370/][Course Home Page]] All course related announcements will be posted on
+   this page.
+
+5. Scala + Akka Documentation, https://doc.akka.io/docs/akka/current/?language=scala
+
+6. Java tutorial, https://docs.oracle.com/javase/tutorial/ 
+7. https://github.com/theanalyst/awesome-distributed-systems "A curated
+   list to learn about distributed systems."
+
+** Fundamentals (4 lectures)
+
+1. Starvation, deadlocks, livelocks. Interference, fairness, safety
+   and liveness properties. Fine-grain and coarse-grain parallelism.
+1. Review of classic problems in concurrency.  
+1. Proper definition of semaphore. Weak and strong semaphores. Split-binary semaphores.
+1. Starvation-free mutual exclusion.
+1. Readers-Writers and the technique of "passing the baton.''
+
+*** Refs
+
+1. Andrews, Chapters 1, 2, 3.1, 3.5, 4, 5, 6, and Section 10.2.
+2. Jan Tijmen Udding, "Absence of Individual Starvation Using Weak
+   Semaphores,'' /Information Processing Letters/, Vol. 23, 1986,
+   159-162.
+3. Allen B. Downey , "The Little Book of Semaphores", freely
+   downloadable book, 201x, [[http://www.greenteapress.com/semaphores/]]
+
+** Remote Invocation (4)
+
+1. Remote Procedure Calls (RPC), and Clients and
+   Servers. 
+1. Implementation of RPC. Stub generation, marshaling arbitrary data
+   structures. External data representation (XDR) and RPCGEN. Study of
+   an RPC example.
+1. Remote Method Invocation (RMI) and
+   Object Serialization of Java.
+
+*** Refs
+
+
+1. Andrew D. Birrell and Bruce Jay Nelson, Implementing Remote
+   Procedure Calls, ACM Transactions on Computer Systems (TOCS), 2, 1,
+   pp. 39--59, 1984. A classic paper.
+2. Oracle.com, ONC+ Developer's Guide;
+   [[http://docs.sun.com/app/docs/doc/816-1435]]; Reference.  This is a
+   highly recommended complete book on RPC.
+1. https://www.cs.princeton.edu/courses/archive/fall16/cos418/docs/L3-rpc.pdf
+   Slides on
+   Distributed Programming and Remote Procedure Calls (RPC)
+3. Java tutorial, [[http://download.oracle.com/javase/tutorial/]] Focus
+   on the RMI trail.
+4. Andrews, Chapter 9.
+
+** Distributed Algorithms (6)
+
+1. CSP (Communicating Sequential Processes).
+1. Asynchronous and synchronous message passing.
+1. Logical clocks, ordering of events. 
+1. Heartbeat, probe/echo, and broadcast algorithms.
+1. Distributed Mutual Exclusion.
+1. Implementation of Distributed Semaphores.
+1. Distributed Termination Detection.
+
+*** Refs
+
+1. C. A. R. Hoare, "Communicating Sequential Processes,''
+   /Communications of the ACM/, 1978, Vol. 21, No. 8, 666-677.
+   [[http://www.usingcsp.com/]] has an entire free book by Hoare describing
+   further developements.  Hoare is a Turing Award Winner.
+2. Andrews, Chapters 7 and 8.
+
+** Distributed Languages and Systems (8)
+
+1. /SR/: Multiple primitives,
+1. /Linda/: Distributed data structures, and
+1. Java, and JavaSpaces, 
+1. Actors + /Akka/.
+1. Distributed PLs: Erlang, Go, Scala. 
+1. Distributed File Systems, IPFS
+
+*** Refs
+
+1. Andrews, Chapter 10.
+2. Sudhir Ahuja, Nicholas Carriero and David Gelernter, "Linda and
+   Friends,'' /IEEE Computer/ (magazine), Vol. 19, No. 8, 26-34.
+   [[http://www.lindaspaces.com/]] has an entire book.
+3. JavaSpaces [[http://en.wikipedia.org/wiki/Tuple_space]]
+4. GO https://tour.golang.org/concurrency/1 Goroutines and https://tour.golang.org/concurrency/2 Channels
+5. [[https://doc.akka.io/docs/akka/current/additional/books.html][Books and Docs on Akka]]
+
+** Semantics of Concurrency (4)
+
+1. Programming logic.  Axiomatic Semantics.
+1. Assertions on process states.
+1. Pre-, post conditions, and loop invariants.
+1. Temporal logic.
+
+*** Refs
+
+1. Mateti, Lecture Notes on [[../FormalMethods/]]
+1. Andrews, Chapter 2.
+1. http://www.tlaplus.net/ TLA "is a logic ... that consist[s] mainly
+   of ordinary (non-temporal) mathematics with just a tiny bit of
+   temporal logic."   Lamport is a 2013 Turing Award winner.
+
+* Grading
+
+** Exams 25+35%
+
+4. Two exams.  Most likely take-home.  But, without searching the web
+   or whatever for answers.  Honor code expected.
+
+** Discussion Forum 5%
+
+1. https://piazza.com/wright/spring2020/ceg7370/home  [Will rename soon.]
+6. [[https://piazza.com/wright/spring2020/ceg7370/home][Piazza]] is our discussion platform.
+
+** Projects 35%
+
+1. Projects P0 .. P3 5+10+10+10%
+1. P0 src code bundle is given.  Show that you can build and run it.
+1. P1 in C++, P2 in Java, P3 in Akka.  All are extensions of P0.
+
+3. [[../Projects/7370projects.html][Projects]]  [For full details click this link.]
+
+** Home Work 0%
+
+1. Homework will be given.  But neither collected nor graded.  Implies
+   that you will work on various things on your own and discuss.
+
+1. Homework for this week, as a sample:
+1. Learn the Mine Sweeper game.  Imagine each cell is a computer
+   system.  A cell talks to neighbors only through message passing.
+   How do we program it?
+
+* Survey of Prerequisites
+
+
+1. We will try to fill you in on most of the prerequisites. The survey
+   is for that purpose. In some ways it may be better that you have
+   not heard of some of these things.
+
+1. Post on Piazza as well as interact now to this [[../Overview/survey.org][Survey of
+   Prerequisites]].
+
+** Survey: Concepts from Concurrency
+
+1. How familiar are you with: critical sections, mutual exclusion,
+   message passing, synchronization, fairness, starvation,
+   non-determinism?
+
+1. Can you differentiate deadlocks from livelocks? safety from liveness?
+
+
+** Survey: Constructs from Concurrent Programming
+
+1. How familiar are you with: Critical Regions, Monitors, binary and
+   general Semaphores?
+
+1. How familiar are you with IPC mechanisms of Linux?
+
+** Survey: Classic Problems
+
+1. How familiar are you with: Producers and Consumers, Readers and
+   Writers, Dining Philosphers, Roll-Your-Own Cigarette Smoking,
+   Sleeping Barber, Drinking Philosophers.
+
+** Survey: Formal Semantics
+
+1. How familiar are you with: assertions, pre- post-conditions, loop
+   and class invariants.
+
+1. How familiar are you with: Happened Before?
+1. How familiar are you with: Propositions, Predicates and Temporal
+   Logic?
+
+
+** Survey: Program Development
+
+1. How long is the longest C/C++ program that you have written
+   individually?
+
+1. Same question but with Java.
+
+1. Same question but with Scala.  (Very possible that you have done
+   nothing with this language.)
+
+1. How familiar are you with =make, ant, maven, gradle=, and various
+   build-tools?
+
+1. What IDEs have you used and for how long?  E.g., idea/ eclipse/ 
+   netbeans/ other-IDEs.  On Linux? On Windows?
+
+* Course Lecture Samples
+
+​1. We are picky about our terms.  Ex: "Process"
+1. All the following are conceptually the same: process, thread, task, job, ...
+2. On a given platform (e.g., Linux): process v thread v ... are different
+1. By def: a single process is sequential
+
+1. Muliprocess v Multiprocessor v Multi-core: Same? Similar?
+
+** Concurrency Fundamentals #1: Non-Determinacy
+
+1. Ex: Consider the simple assignment statement
+   1. {x := 3 [] 7} (Note the fat-bar)
+   1. What is the value of x?
+   2. Either 3 or 7; nothing else; but which??
+   4. Code better be prepared for either.
+2. The above computation P is non-determinant. Each time we run, the
+   result of P may change "for no good reason."  Why? Because
+   "non-determinacy" [] is baked in.
+
+** Concurrency Fundamentals #2: Meta Terminology
+
+1. Fundamentals v Principles v Foundations
+1. Concurrency Fundamentals constitute the core of this course.
+1. Until the last week of this course, we will use /concurrency/ as a
+   term covering all of /networked/-, /parallel/-, and /distributed/-
+   computing.
+
+** Semaphores Defs
+
+1. A /semaphore/ s is an OOP ADT (abstract data type) variable. It has
+   an integer private data member s, only operable with two public
+   methods called P and V, apart from being initialized.
+1. P(s) ≡ ‹ await  s > 0 → s := s-1 ›
+1. V(s) ≡ ‹ s := s+1 ›
+1. The complications in the defs are (i) the atomic angular-brackets
+   and (ii) the meaning of /await/.
+
+
+** Starvation-Free Mutual Exclusion
+
+1. {semaphore m := 1; P(m); Process-i; V(m)}
+2. This is starvation-/prone/ in a  distributed context.
+1. Designing starvation-free solutions is part of this course.
+
+** Starvation-Free MutEx: One Solution Idea
+
+#+ATTR_HTML: :border 0
+[[./Figures/starv-free.jpg]]
+1. The dots are processes.  The thick-rectangles are gates letting in
+   one process at a time. The black rectangle is where we require starve-free
+   mutex.  A process finishing this will exit as the black dot did,
+   skipping over the black-, red- and green boundaries.
+1. What is the rest of the "idea"?
+
+** Axiomatics #1
+
+1. Axiomatics is a way of defining the meaning of PL constructs, in a
+   way much better than English prose.
+1. Notationally, we use the triplet < P, S, Q > where P and Q are
+   assertions (True/False Boolexp) on process state, S is a piece of code.
+1. Q describes the state after S completed.  It assumes that P was
+   true when code S started.
+1. P is called a /pre-condition/.  Q is called a /post-condition./
+
+** Axiomatics #2
+
+1. Here is an example applied to semaphore def.
+
+1. P(s) can be defined as follows: Given [(R and s > 0) ⇒
+   Q(s, s-1)], we can conclude <R, P(s), Q>
+2. V(s) can be defined as follows: Given [R ⇒ Q(s, s+1),
+      we can conclude <R, V(s), Q>
+3. There will be considerable discussion on this.
+
+** Project on RPC #1
+
+1. RPC Architecture [We will go over this in considerable detail.]
+#+ATTR_HTML: :width 60%
+[[./Figures/rpc-diag-tikz.jpg]]
+
+
+** Project on RPC #2 Marshalling/ Serializing
+
+1. How do we send data structures that contain links/addresses to
+   machines across the network?
+
+#+ATTR_HTML: :width 35%
+[[./Figures/rpc-marshalling-tikz.jpg]]
+
+** Actors
+
+1. An /actor/ is an extremely light weight process communicating with
+   other actors through mailboxes.  No shared variables.
+
+1. 
+#+CAPTION: Carl Hewitt's Actors
+#+ATTR_HTML: :width 40%
+[[./Figures/fig-actors.jpg]]
+
+
+** Dining Philosophers in Akka
+
+#+ATTR_HTML: :width 50%
+[[./Figures/dining-philosophers.png]]
+
+A problem created to illustrate concurrency issues. In our course, we
+wish to do this in Scala with Akka actors.
+
+** Distributed File Systems
+
+1. /DFS/: A file volume spatially distributed over many machines.
+1. Requirements: Transparency, Concurrency, Replication,
+   Heterogeneity, Fault tolerance, Consistency, Security, Efficiency.
+
+1. Fault tolerance == Robustness, 24x7: Immune to (individual) machine
+   failures.  cf. CAP "theorem".
+
+** IPFS
+
+1. Inter Planetary File System [Ha ha! For now, only on earth.]
+1. https://ipfs.io/ [Do click] "IPFS powers the Distributed Web"
+1. Involves Blockchain and Filecoin.
+1. Link to Mateti's lectures [[../DistFileSys/IPFS/]] [Not expected to
+   click today]
+
+* References
+
+1. I will list specific chapters from Recommended Books later.  See
+   also Source Materials #1 Books and Source Materials #2 On Line.
+
+1. M. Ben-Ari, Principles of Concurrent and Distributed Programming,
+   Addison-Wesley/Pearson, 2006.  {Another classic.}
+
+1. George Coulouris, Jean Dollimore, Tim Kindberg, and Gordon Blair,
+   Distributed Systems: Concepts and Design, 2011.  {Systems as
+   opposed to principles, and foundations.}
+
+** ACK
+
+1. RevealJS: This presentation was made with https://revealjs.com, a FOSS HTML
+   Presentation Framework
+
+1. Nearly all figures are borrowed from the web
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,145 @@
+# -*- mode: org -*-
+#+DATE: 2018-08-04
+#+TITLE: The Design of IPFS
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Goal of this Lecture
+
+1. Explain the 2014 Draft#3 IPFS paper by Juan Benet.
+1. I will make it obvious: My opinions and assessments.
+
+* What does "IPFS" Offer?
+
+1. IPFS offers the following "combined" when finished (?).
+1. Linux/ ... OS File System.
+1. Web content, as it is now (2018).
+1. Network accessible.
+
+
+** Object Storage
+
+1. Digital Objects are stored across the globe: distributed,
+   decentralized.
+
+** Permanency
+
+1. A permanent storage system for (files and other) digital objects.
+
+** Ownership
+
+1. No single entity owns the system, or any part of it.
+
+
+** Permissions
+
+** Content Addressed
+
+1. Content addressed, not location addressed.
+1. Location Based Addressing
+1. Content Based Addressing
+
+** Immutable
+
+1. Version controlled, immutable.
+1. Digital ledgers,
+
+** Network Accessible Uniformly
+
+** Distributed Web Applications (DApps)
+
+** FAQs
+
+1. Will something added to IPFS remain available to others if I turn
+   off my computer? https://github.com/ipfs/faq/issues/8  TBD
+
+1. Can I delete (my) content from the network? No.
+   https://github.com/ipfs/faq/issues/9
+
+1. Does IPFS guarantee anonymity?
+   https://github.com/ipfs/faq/issues/12 Not yet, TBD it's a simple
+   DHT router but TOR-like routing is planned.
+
+1. Is ipfs fit for personal blog pages? https://github.com/ipfs/faq/issues/30
+1. https://github.com/ipfs/faq/issues/45
+
+
+* What is "IPFS"?
+
+1. IPFS, an acronym for "InterPlanetary File System".
+1. A peer-to-peer hypermedia protocol: =ipfs://=.  TBD
+1. A networked storage system that can be =mount= -ed.
+
+** Terminology
+
+1. Distributed
+1. Decentralized
+1. Associative Arrays
+1. Key-Value Stores
+1. Crypto Hash
+
+
+
+* Technologies Used
+
+1. Kademlia
+1. BitTorrent
+1. Git
+1. Self-certifying File System
+
+* Subsystems
+
+1. https://github.com/ipfs/examples/tree/master/examples/ipns The
+   IPNS InterPlanetary Naming System
+
+1. IPLD
+
+* Merkle Trees/ Forest
+
+
+* Selected Applications
+
+1. Orbit chat https://orbit.chat/
+1. Image "hosting": http://ipfs.pics/
+
+* Storage
+
+1.  no guarantees of redundancy, need people to request your data.[faq#5](https://github.com/ipfs/faq/issues/5)
+  1. [filecoin](http://filecoin.io/) as an incentize to replicate data
+1. [Is it possible to limit the size of a local storage?](https://github.com/ipfs/faq/issues/34)
+1. [Can I control the amount of storage/bandwidth dedicated to IPFS?](https://github.com/ipfs/faq/issues/11)
+
+* Security
+
+1. https://medium.com/@mycoralhealth/learn-to-securely-share-files-on-the-blockchain-with-ipfs-219ee47df54c
+   Learn to securely share files on the blockchain with IPFS!
+
+* Privacy & Anonymity
+
+
+1. Having a private swarm is not implemented yet (cf. [faq#4](https://github.com/ipfs/faq/issues/4))
+  1. possible alternative: could encrypt files and store them on public IPFS
+1. 
+
+* Links
+
+1. http://ipfs.io/
+1. https://discuss.ipfs.io/ previously, http://github.com/ipfs/faq
+1. https://github.com/ipfs/ipfs
+1. https://dweb-primer.ipfs.io/decentralized-web-primer.pdf 66pp. Apr 2017.
+1. https://www.youtube.com/watch?v=Nv_Teb--1zg Tutorial: How to build
+   an application with IPFS PubSub Room, Jul 2017
+
+1.IPFS paper. https://github.com/ipfs/papers/raw/master/ipfs-cap2pfs/ipfs-p2p-file-system.pdf
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

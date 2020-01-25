@@ -1,0 +1,37 @@
+\item (30 points)
+We have a \CSP\ process {\tt C} that outputs an unending stream of
+non-negative numbers to a process named, say, {\tt X}.  We want {\tt
+X} to be able to receive requests of the form {\tt X!nthmin(n)} from a
+user process {\tt U} and respond with {\tt U!x}, where $x$ is the
+$n$-th smallest number it has seen so far from {\tt C}.  If {\tt X}
+has seen fewer than $n$ numbers so far, or if $n$ is greater than 10,
+or less than 1, the value of $x$ to use is -1.  Write the process {\tt
+X} in \CSP.  Maximize concurrency.  Process {\tt C} must not suffer
+delays.
+
+
+S(i: 1..10) ::
+  *[ S(0)?out() -> U!-1
+  [] S(i-1)?x ->
+     *[ S(0)?out() -> U!x
+     [] S(i-1)?y ->
+         [  x = y -> skip
+         [] x < y -> S(i+1)!y
+         [] x > y -> S(i+1)!x; x := y
+         ]
+     ]
+  ]
+
+
+S(0) ::
+  *[ C?n -> S(1)!n
+  [] U?nthmin(n) ->
+      [  1 > n or  n > 10 -> U!-1
+      [] 0 < n and n < 11 -> S(n)!out()
+      ]
+  ]
+
+
+S(11) ::  *[ S(10)?x -> skip ]
+
+X :: S(i: 0..11)

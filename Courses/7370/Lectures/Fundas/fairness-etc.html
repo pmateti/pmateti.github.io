@@ -1,0 +1,110 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>CEG 7370</title>
+<base target="_top">
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  LI { text-align: justify; }
+  P { text-align: justify }
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  li { text-align: justify; }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+</head>
+
+<body>
+
+<h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370:&nbsp;Distributed Computing Principles</a></h3>
+<h1>
+Fairness, Deadlocks, Livelocks, and Starvation
+</h1>
+<h3>Prabhaker Mateti</h3>
+
+
+
+<hr size=1>
+
+<h2>Fairness</h2>
+
+Fairness deals with "scheduling".  It is a "system" property, not that
+of a (collection) of process(es).  You cannot deduce it from the text
+of the code of the processes.
+
+<p>
+Consider EP = LP // ST. The booleans are global to LP and ST.
+Does EP terminate?
+
+</p>
+
+<table>
+<tr><td valign=top width=40%>
+<pre>
+b := true;
+LP::  do b --> skip od
+ST::  b := false
+</pre>
+
+
+</td><td>&nbsp;&nbsp;</td>
+<td valign=top  width=40%>
+<pre>
+b := true; t := false;
+LP::  do b --> t := true; t := false  od
+ST::  < await t --> b := false >
+</pre>
+</td><td>
+</tr></table>
+
+<p>
+It is not "possible" to devise a scheduling policy so that
+<ol>
+<li> it is practical, and
+<li> strongly fair
+</ol>
+
+<h2>Deadlocks</h2>
+
+<p>
+Dinining Philosophers Problem illustrates Deadlocks, Livelocks, and
+Starvation well.
+
+<p>
+If each philosopher picks up their left fork and won't let go off it
+until he finishes eating, we have a deadlock.
+
+<h2>Livelocks</h2>
+
+
+<p>
+If each philosopher picks up their left fork and being very
+considerate give it up when he cannot get hold of the right fork, we
+have a livelock if each one of them does this synchronously.
+
+
+<h2>Starvation</h2>
+
+<p>
+Both deadlocks and livelocks cause starvation.  But there are other
+ways of causing it.
+
+
+</ol>
+
+</body>
+<hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2012
+<a href="mailto:pmateti@wright.edu?subject=CEG7370: Distr Comp">
+  pmateti@wright.edu</a></td>
+
+</html>

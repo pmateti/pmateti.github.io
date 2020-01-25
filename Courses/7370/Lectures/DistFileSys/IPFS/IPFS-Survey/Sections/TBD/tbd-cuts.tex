@@ -1,0 +1,220 @@
+
+This is a collection of cuts made.  Just for archival purpose.
+
+Sections dropped or merged elsewhere: challenges.tex, problem.tex.
+
+
+Mobile phones are now indispensable devices. We use our smart phones
+for all our day to day works. Among all the mobile operating systems,
+Android is the most widely used.
+
+% \subsection{Smartphones in the Hands of Criminals}
+
+%\nocite{almohri2014}
+\nocite{burguera2011crowdroid}
+\nocite{gehani2012spade}
+\nocite{Nikhil2015}
+\nocite{elenkov2014android}
+\nocite{isohara2011kernel}
+\nocite{Mateti}
+\nocite{kwong2012droidscope}
+\nocite{lin2013identifying}
+\nocite{linuxkernelarchives}
+\nocite{connectivitymanager}
+\nocite{linuxprocesses}
+\nocite{SystemCalls}
+\nocite{straceinandroid}
+\nocite{dropboxcloud}
+\nocite{wifimanager}
+\nocite{yoon2012appscope}
+\nocite{armando2014mobile}
+\nocite{connectivitymanager}
+\nocite{wifimanager}
+\nocite{dropboxcloud}
+
+  Malware harms the mobile phones like draining the battery,
+to more seriously stealing the user's data, to making the device be a
+part of attacks.
+
+\subsection{Android OS}
+
+Android is (largely) an open source mobile operating system.
+Following are the layers\footnote{\url{https://source.android.com/}}
+found above the Linux kernel.
+
+\subsection{What is a Process?}
+
+A process is a program in execution and is meant to carry out tasks
+within the operating system.  A process is a run time volatile entity
+created by the system call {\tt exec()}.  Every running app is at
+least one process, and many processes contain several threads.
+Android includes several Linux level command line utilities such as
+{\tt ps, top, strace} and {\tt ltrace}.
+
+\begin{itemize}
+\item Hardware Abstraction Layer (HAL) - It is resposible for providing
+  interface that show the hardware capabilities to the above Java API
+  framework.
+\item Android Runtime (ART) - ART is the equivalent of Java Virtual
+  Machine.  Each app has its own instance of ART and runs in its own
+  process.  ART provides the following features:
+  ahead of time and just in time compilation,
+  garbage collection, and
+  debugging support.
+
+\item Native C/C++ Libraries - Many Android system components are
+  built using written C and C++.
+\item Java API Framework - Apps are generally, but not always, written
+  in Java using the Android Java API framework.  They provide a rich
+  feature set and includes the following:
+  View System,
+  Resource Manager,
+  Notification Manager,
+  Activity Manager, and
+  Content Providers
+
+\item System Apps - Android has a set of system apps (located in {\tt
+  /system/app} for various functionalities like e-mail, calendar,
+  internet browsing, SMS and more.  The system apps cater to the end
+  users and also provide key capabilities for third party apps.
+\end{itemize}
+
+
+
+We use Android's API such as {\tt RunningAppProcessInfo, Activity
+  Manager}, etc., to retrieve the details of present running
+processes.  
+
+
+If there is a system that
+monitors each application by analyzing the processes of the
+application we will be able to track the activities within the Android
+OS.  Be it a useful or a malicious application, it would be of great
+help to know what these are doing inside the system when something
+goes wrong.
+
+
+All components of an application run in the same process.  But if we
+want to change which process a certain component belongs to, we can
+change this in the manifest file.
+
+In the end,
+{\tt file strace} should show {\tt strace: ELF 32-bit LSB executable,
+  ARM, version 1 (SYSV), for GNU/Linux 2.6.14, statically linked}.
+
+Get
+an instance of this class by calling
+\begin{lstlisting}[breaklines=true]
+Context.getSystemService(Context.CONNECTIVITY_SERVICE).
+\end{lstlisting}
+The primary responsibilities of this class are to
+
+\begin{itemize}
+
+ 	\item    Monitor network connections (Wi-Fi, GPRS, UMTS, etc.).
+    \item Send broadcast intents when network connectivity changes.
+    \item Attempt to fail over to another network when connectivity to a network is lost.
+    \item Provide an API that allows applications to query the coarse-grained or fine-grained state of the available networks.
+    \item Provide an API that allows applications to request and select networks for their data traffic.
+\end{itemize}
+We use the method  getActiveNetwork() of this class to the network connection details like Network Type, Roaming State and Extra Info.
+
+Returns a Network object corresponding to the currently active default data network.  
+
+calling
+\begin{lstlisting}
+
+
+         Context.getSystemService(Context.WIFI_SERVICE).  
+         \end{lstlisting}
+         It deals with several categories of items.
+\begin{itemize}
+
+	\item The list of configured networks.  
+	\item The list can be viewed and updated, and attributes of individual entries can be modified.
+    \item The currently active Wi-Fi network, if any.  
+    \item Connectivity can be established or torn down, and dynamic information about the state of the network can be queried.
+    \item Results of access point scans, containing enough information to make decisions about what access point to connect to.
+    \item It defines the names of various Intent actions that are broadcast upon any sort of change in Wi-Fi state.  
+    \end{itemize}
+
+
+  \begin{minipage}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{Figures/application_details}
+    \caption{Application Details}
+    \label{applicationdetails}
+  \end{minipage}
+
+\begin{figure}[hb]\centering
+  \begin{minipage}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{Figures/past_process_list}
+    \caption{List of Past Process}
+    \label{pastprocess}
+  \end{minipage}\hfill
+  \begin{minipage}{0.24\textwidth}
+    \includegraphics[width=\textwidth]{Figures/past}
+    \caption{Details of the past process mv}
+    \label{pastprocess}
+  \end{minipage}
+\end{figure}
+
+\subsection{Battery Information}\label{seBattery}
+
+\TBD{Not part of this article.}
+The {\tt BatteryManager} class contains strings and constants used for
+values in the ACTION BATTERY CHANGED Intent.  We discover the level of
+battery, the health of the battery, whether it is Good, Overheated,
+Dead, Over Voltage, Failure, the status of the battery (Charging,
+Discharging, Full, Not Charging) as follows.
+
+{\small
+\begin{lstlisting}
+  int level = intent.getIntExtra("level", 0); 
+  int scale = intent.getIntExtra("scale", 100); 
+  String lStr = String.valueOf( level * 100 / scale ) + '%';
+  data.add( new String[]{
+    getString( R.string.batt_level ), lStr} );
+  int health = intent.getIntExtra("health", BatteryManager.BATTERY_HEALTH_UNKNOWN );
+  int status = intent.getIntExtra("status", BatteryManager.BATTERY_STATUS_UNKNOWN );
+  int temperature = intent.getIntExtra("temperature", 0 ); 
+  int voltage = intent.getIntExtra("voltage", 0 ); //$NON-NLS-1$
+  String vStr = String.valueOf( voltage ) + "mV"; //$NON-NLS-1$
+  data.add( new String[]{
+    getString( R.string.batt_voltage ), vStr} );
+\end{lstlisting}}
+
+\hrule
+
+title={{AppScope}: Application Energy Metering Framework for Android
+  Smartphone Using Kernel Activity Monitoring.}
+\citep{yoon2012appscope}
+
+\subsection{{\tt strace} of Running Process}
+
+\TBD{Delete} 
+When a process terminates, strace saves its logged data to a text
+file.  Our current implementation did not consider the strace output
+of currently running process.  The strace log files of currently
+running process should also be read and interpreted, by using
+buffering methods, to get the provenance of currently running process.
+This will make this work, more resourceful.
+
+\subsection{Disadvantages Of Using JNI}
+\begin{itemize}
+	\item Portability issues because of using native codes.
+	\item Core dumps and segmentation faults may rise due to poor coding practice, which in turn may cause the whole application to crash.  
+	\item Debugging runtime error in native code is very difficult.  
+	\item Potential security risk.
+\end{itemize}
+
+All the logged details will be uploaded in cloud server.  A log
+uploader will be uploading all the logs to clouds in a configurable
+way like configurable time interval for log upload.  All the uploaded
+logs will be deleted from the device.
+
+\subsection{Use of Provenance in Security}
+
+title={Identifying {Android} Malicious Repackaged Applications by
+                  Thread-Grained System Call Sequences}
+\citep{lin2013identifying}
+

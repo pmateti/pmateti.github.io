@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Questions on IPFS Usage &bull; 2018-09-01</title>
+<!-- 2018-09-02 Sun 22:47 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="https://cecs.wright.edu/~pmateti/Research/IPFS/Lectures/"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a> | <a href=./index-slides.html>Slides</a>
+</div>
+<div id="content">
+<h1 class="title">Questions on IPFS Usage &bull; 2018-09-01</h1>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Abstract</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is a rewrite of "Queries.pdf" I received from Sethu on
+Aug 31, 2018.  For my own clarity.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Problem Context: Share a Secret among a Group</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>Consider a group of 5 people X1, X2, X3, X4, and X5.  X1 wants to
+share a file F1 with the others.  [pm: Is the number of X<sub>i</sub> the
+same as number of "shares"?]
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Visual Cryptography (VC)</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>X1 will apply VC secret sharing scheme (1, 3, 5).  The 5 indicates
+that F1 will be "split" into pieces (called shares in VC) S1, S2,
+S3, S4, and S5.
+</li>
+
+<li>The 1 in (1, 3, 5) indicates that one piece among the 5 pieces, say
+S<sub>1</sub>, is essential, in the following sense.  The 3 indicates that
+the essential piece and any two other shares are necessary and
+sufficient to regenerate the file F1.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> IPFS Deployment</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>All the 5 pieces Si are stored in the IPFS.  [pm: Do we store F1?]
+[pm: Did we apply asymmetric crypto?]
+</li>
+
+<li>The hash [pm: Five hashes?] generated by IPFS is [are] given to
+everyone in the group.  Each individual of the group will maintain
+a chain [pm: ??]  that stores hash of the share along with the file
+ID [pm: F1?].
+</li>
+<li>Retrieve on demand basis: When some nodes want to recreate the file
+the shares need to recombine with the essential share.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> IPFS Deployment #2</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li>Requirement: Others (!= Xi) should not be able to access F1 or the S1.
+</li>
+<li>Requirement: Other pieces (S2, &#x2026;, S5) can be viewed by
+anyone. [pm: Decrypted?]
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> IPFS Deployment #3</h3>
+<div class="outline-text-3" id="text-2-4">
+<ol class="org-ol">
+<li>PM: How are the hashes of S1, &#x2026;, S5 given to X<sub>i</sub>?
+</li>
+<li>PM: Above actions are carried out by X1.
+</li>
+<li>PM: How is S1 identified?
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Work Done</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+[PM: Did not have the patience to include JPGs of
+pure-text screenshots.]
+[PM: Outline of these steps is not useful.  I am assuming that you are
+following <a href="https://ipfs.io/docs/getting-started/">https://ipfs.io/docs/getting-started/</a>.]
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Step 1: Installed go-ipfs</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Installed IPFS in two systems (consider as node A and Node B) that were in
+same subnet (Intranet).
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Step 2: Initiated Daemon</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li>Peer ID
+</li>
+<li>Public Key
+</li>
+<li>Private Key
+</li>
+<li>Exported the IPFS to different path and viewed
+</li>
+<li>Modification Observed in above all 3 parameters
+</li>
+<li>When a new terminal is opened and IPFS id is given it will display the initial ID
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Step 3: Add Files to IPFS</h3>
+<div class="outline-text-3" id="text-3-3">
+<ol class="org-ol">
+<li>Once a file is added, hash is generated and displayed
+</li>
+<li>Hash is used for retrieving
+</li>
+<li>Pin (recursive and indirect) and Unpin the file
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Questions</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Q1: DHT</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>Q1: Is the path traceable using DHT? (as DHT stores the pointer to
+the node that stores digital object).  AmritaU Claim: If it is
+traceable, Content Reveal Attack [pm: cite?] is possible.  [pm:
+What path?]
+<ol class="org-ol">
+<li>If the value is "short", it can be stored as the paired value
+DHT[key] in the DHT itself.
+</li>
+</ol>
+</li>
+
+<li>A1: [PM] I have to check this out.  On my PC, IPFS is not
+functioning well.  I would like to experiment more with DHT.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> Q2:  Availability of Content after Unpin</h3>
+<div class="outline-text-3" id="text-4-2">
+<ol class="org-ol">
+<li>Q2: When the node has pinned the digital objects, and then unpinned the
+same, will the content be still available? (Because in IPFS
+the data lives forever.)
+</li>
+
+<li>A2: [PM] See my answer to Q5.
+</li>
+<li>[PM] Read <a href="https://github.com/ipfs/go-ipfs/issues/590">https://github.com/ipfs/go-ipfs/issues/590</a> "Pinning semantics
+slightly confusing". Jan 2015. Protocol Labs person "whyrusleeping"
+closed the topic though. jbenet is Juan Benet.
+</li>
+
+<li>[PM] I am yet to find clear defs of "direct" and "recursive" pinning.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Q2: Pin Semantics [contd]</h3>
+<div class="outline-text-3" id="text-4-3">
+<ol class="org-ol">
+<li>direct = pin that specific object.
+</li>
+<li>recursive = pin that specific object, and indirectly pin all its decendants
+</li>
+<li>indirect = pinned indirectly by an ancestor (like a refcount)
+</li>
+<li>From jbenet Mar 7, 2015
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Q3: Peer IDs</h3>
+<div class="outline-text-3" id="text-4-4">
+<ol class="org-ol">
+<li>Q3: Is the peer ID unique?
+</li>
+<li>A3: [By AmritaU] Yes, Peer ID is unique for the system/
+node. Though multiple export action performed finally when we tried
+to retrieve IPFS ID, the initial value is displayed ( peer id
+generated at the time of initial installation).
+</li>
+<li>Peer IDs are unique.  Across the world.  This is similar to
+<a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">https://en.wikipedia.org/wiki/Universally_unique_identifier</a>.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> Q4: Config File</h3>
+<div class="outline-text-3" id="text-4-5">
+<ol class="org-ol">
+<li>Q4: Replace the config file and verify the peer ID is over written
+or not.
+</li>
+<li>A4: Config file is by default at <code>~/.ipfs/config</code>.  Replacing this
+file ought to be followed buy <code>ipfs init</code>.  Then peer id and other
+details change.
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-6" class="outline-3">
+<h3 id="sec-4-6"><span class="section-number-3">4.6</span> Q5: Availability of Content</h3>
+<div class="outline-text-3" id="text-4-6">
+<ol class="org-ol">
+<li>Q5: When a node is down/ disconnected from network, will be able to
+get the content pinned by that node?
+</li>
+<li>A5: [AmritaU] Yes, it is possible to retrieve the content.
+</li>
+<li>A5: [PM] Not guaranteed, unless incentivization (filecoin) is in
+place, etc.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> End</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1><a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2018-08-31
+</div>
+</body>
+</html>

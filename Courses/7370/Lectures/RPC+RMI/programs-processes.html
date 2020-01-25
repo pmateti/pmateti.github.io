@@ -1,0 +1,791 @@
+<html>
+
+<head>
+<title>Programs v Processes by Prabhaker Mateti</title>
+<meta name="author" content="Prabhaker Mateti">
+<meta name="keywords" 
+      content="Internet security, Network security, TCP/IP security">
+<meta name="description" content="This page is part of a set of lecture notes for a course on OS Concepts and Usage by Prabhaker Mateti
+http://www.cs.wright.edu/~pmateti/">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css">
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  li {text-align: justify;}
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  @media screen {BODY {margin: 10%;} }
+</style>
+</head>
+
+<body>
+<div style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a href="../../Lectures"> UP </a> |
+ <a href="../../"> HOME </a>
+</div>
+
+<a href="../../Top/">CEG 7370</a>
+
+<h1>Programs and Processes</h1>
+
+<blockquote>
+<p>The word &quot;program&quot; is often used loosely, and
+interchangeably with the word &quot;process&quot;.  But we should be
+very careful in the use of this word.  It is silly to say that &quot;a
+program is running.&quot; It should be &quot;a process is
+running.&quot; This article and the associated lab experiment serve as
+a technical introduction at the freshman level to programs and
+processes.  It introduces the control of processes as in stopping,
+resuming, changing priorities, and explains the resources (such as CPU
+time, etc.) consumed.
+</ol>
+</p></blockquote>
+
+<h1><a name="Programs">Programs</a></h1>
+
+<p>A <i>program</i> is a static (i.e., unchanging/passive)
+entity.  It is a file whose content is rigidly formulated as
+needed by the operating system.  For each OS, there are several
+such rigid formats.  In Linux, ELF is the most common, and there
+are other formats.  In Windows, the EXE format is the most
+common, and the obsolete COM format is till in use.</p>
+
+
+<p>Programs are divided into two classes for the purposes of this
+course: Applications and Systems Programs.  Programs such as word
+processors, email clients, web browsers are applications.  Programs
+such as init (that controls the sessions of an OS), the loader that
+load a program into memory as a required prelude to making the program
+into a process, ifconfig/ ipconfig (that set the parameters of network
+cards) are systems programs.  Programs whose absence would make an OS
+incomplete/ crippled are called <i>systems</i> programs.  Programs
+that make a computer system useful in a particular way are
+applications.  This definition has been evolving over the decades.
+E.g., compilers, linkers, and shells used be considered systems
+programs.
+</p>
+
+<h2>Creation of Programs</h2>
+
+<p><i>We</i> write the <i>source code</i> of programs.  A program may
+also have help files, documentation, and other such files. These are
+not essential in that their absence will not disable the launching of
+a program.  When these files are asked for, you will only get a
+&quot;missing file&quot; error.</p>
+
+<h3>Compiling</h3>
+
+<p>
+The source code is a file of text that must abide by the syntax and
+semantics of some programming language.  Some well known programming
+languages are C++, Java, Perl, Python, and Assembly.  For reasons of
+modularity and manageability, the source code is often split into
+multiple files.</p>
+
+
+<p>
+Source code files are processed by programs called compilers,
+interpreters, and assemblers.  After compilation of the source
+code, <i>object code</i> files are produced.  The content of the
+object files is rigidly controlled.  It is often the case that source
+code files written in different programming langauges are compiled
+into object code files that can be linked together.
+
+<p>In Linux, object code files have .o extension; in Windows, the
+extension for object code files is <tt>.obj</tt>.
+
+<p>Java files typically get compiled into the byte code of JVM, which is
+platform (i.e., CPU and OS) independent; the extension for these byte
+code files is <tt>.class</tt>.  There are regular compilers also
+that compile Java straight into the machine code of a specific
+CPU.</p>
+
+Integrated development environments (IDE) are the primary tools for
+developing programs.  Behind the scences, they compile, link, and
+manage the entire development activity.  In this course, we are trying
+to understand these activities.  In Linux, the command line tools with
+the names gcc or g++ are <i>driver</i> programs that examine the
+arguments in a sophisticated way given and invoke appropriate tools
+(such as compilers, assemblers, and linkers) based on the arguments.
+
+
+<h3>Linking</h3>
+
+<p>The object code files and methods/ procedures/ functions from
+pre-existing library files are <i>linked</i> into an <i>executable
+file</i> that is then qualified to be called a
+<i>program</i>.  In Linux, programs (traditionally) do not have any
+extension.  In Windows, program files have <tt>.exe</tt>
+extension.  Files with<tt> .com</tt> extension are 
+old format program files dating from MS DOS.  
+
+<p>
+The structure and content of an object code file obeys rigid rules.
+Conceptually, we can think of each file beginning with a TOC (table of
+contents like in a book), followed by the executable machine code of
+the various methods.  The TOC describes among aother things imported
+and exported symbols (i.e., names of variables, methods, etc).  A
+given object file may use names that are defined elsewhere; these are
+imported sysmbols.  A given object code file may define some symbols
+that may or may not be used within that file, but are intended to be
+of use elsewhere.  These are exported symbols.
+
+<p>A linker (also called linkage editor) essentially "stitches" the
+object code files together replacing all references of imported
+symbols with their addresses defined in the exports list.  This
+stitching succeeds only when all the imported symbols across all
+object code files, that make up one program, are found among the
+exported symbols (including those exported by various libraries).
+
+<p>In Linux, the linker is actually named ld for historical reasons.
+It has nothing to do with the loading activity described below.
+
+<h3>Libraries</h3>
+
+<p>Certain methods are so common and so useful that over the decades
+the code for these has been developed carefully and optimized into
+collections known as libraries.  A library can be viewed as a
+catenation of object code files with a TOC up front.
+
+<p>In Linux, library files have names ending with the extension .so
+and in Windows .dll.  These are essential in that the absence of any
+such file will cause the launch of a program to fail.  </p>
+
+<p>Programs are typically dynamically linked with the many
+widely-known libaries.  The command ldd displays the list of such
+libraries.
+
+<pre>
+% ldd /bin/ls
+ linux-vdso.so.1 =>  (0x00007fffcdfff000)
+ libselinux.so.1 => /lib/x86_64-linux-gnu/libselinux.so.1 (0x00007fdcbca3e000)
+ librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007fdcbc836000)
+ libacl.so.1 => /lib/x86_64-linux-gnu/libacl.so.1 (0x00007fdcbc62d000)
+ libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fdcbc26e000)
+ libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fdcbc06a000)
+ /lib64/ld-linux-x86-64.so.2 (0x00007fdcbcc93000)
+ libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fdcbbe4c000)
+ libattr.so.1 => /lib/x86_64-linux-gnu/libattr.so.1 (0x00007fdcbbc47000)
+</pre>
+
+<p>The program file /bin/ls does not duplicate the code of the methods it
+uses from these libaries.  These are linked at run-time as needed in
+the process image of the program.  The content of /bin/ls remains
+as-was.  It is possible to statically link every thing by changing
+relevant settings in the IDE or linker.  Obviously, a statically
+linked program file will be much larger.
+
+<h3>System Calls</h3>
+
+Every OS includes methods that are intended to be called by processes.
+These methods cause a change of mode: the process may be in the
+so-called "user" (or unprivileged) mode, and this call of an OS
+internal method causes the process to enter into a "kernel"
+(i.e. privileged) mode for the duration of this method.  Such calls
+are known as <i>system calls</i>.  To support this, all modern CPUs
+have special instructions variously called INTerrupt, trap, svc
+(supervisor call), distinct from an instruction, usually labeled CALL,
+that calls another method.
+
+<p> A typical example of system calls are following four on files:
+open a file, read the next several bytes of a file, write the next
+several bytes of a file, close the file.
+</p>
+
+<p>Both OS have some 300+ system calls.  These can be invoked
+directly, but more commonly the system calls are wrapped inside more
+convenient library methods.
+</p>
+
+<h3>"Interoperability" of Programs</h3>
+
+<p>
+Consider the file <tt>/bin/ls</tt>.  This is a program in the Linux
+OS.  Suppose we copy this file over to Windows -- no changes,
+byte-for-byte an exact copy.  Windows refuses to recognize this as a
+program.    Obviously a program contains the machine code specific to
+a CPU.  So if we move a program from an Intel CPU machine to an ARM
+CPU machine, it cannot be invoked.
+
+<p>
+A program is a file with a rigorous structure at the level of byte
+sequences.  Standards such as ELF and COFF describe this structure.
+Humans do not construct programs "by hand" any more -- Linkers do.
+class of programs
+
+<p>In recent years, virtual machines, and emulators of immense
+capabilities have appeared.  E.g., It is possible to a run a Linux
+program, as-is, on Windows and vice-versa.  Examples of such software:
+virtualbox, wine, qemu, crossover.
+
+<h2>Directories of Programs</h2>
+
+<p>What does installing a program do? install, *.deb, *.rpm.  *.msi,
+installable *.exe files.  
+
+<p>Programs are <i>installed</i> into specific directories.  An
+installation package is a "bundle" of files.  In Linux, the "tar ball"
+is used.  In Windows, a zip, an .msi, or even a specially constructed
+.exe is used.  Installation is performed by invoking a special program
+(for now, let us call it the installer).  This involves unbundling the
+files, and moving the files into the destination directories.  Before
+such an installation, the installer checks the veracity of the
+package.  The details of installer will be discussed further under the
+heading of Sys Admin.</p>
+
+<p>The standard directories are shown below.  The rows are roughly
+aligned based on their functionality.  The /usr/bin and C:\Program
+Files directories contain applications.  The /sbin, /usr/sbin,
+C:\Windows\system32 contain system programs.
+</p>
+
+<table>
+<tr>
+</tr>
+<td width="45%">
+On Linux
+<ol>
+  <li>/bin</li>
+  <li>/usr/bin</li>
+  <li>/sbin</li>
+  <li>/usr/sbin</li>
+</ol>
+</td>
+<td width="10%">
+.</td>
+<td width="45%" valign=top>
+<p>On Windows
+<ol>
+  <li>C:\Windows</li>
+  <li>C:\Program Files</li>
+  <li>C:\Windows</li>
+  <li>C:\Windows\system32</li>
+</ol>
+</td>
+</table>
+
+<p>On Windows, C: is used as an example only; do <tt>echo
+%SystemDrive%</tt> in <tt>cmd</tt> or <tt>powershell</tt> to see the
+actual drive name on the PC your are working on.</p>
+
+<h2><a name="Utilities0"> Utilities on Programs</a></h2>
+
+<p>The following are standard programs that you are expected to learn
+as part of this course in the context of programs.  For further
+details on the commands, look it up in the text book, man/help pages,
+and the web.</p>
+<table border="0" width="100%" cellspacing="5" cellpadding="0">
+  <tr>
+    <td> </td>
+    <td><b>Linux</b></td>
+    <td><b>Windows</b></td>
+    <td><b>Brief description</b></td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>file</td>
+    <td> </td>
+    <td>Heuristically determine what kind of a file the given one is</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>size</td>
+    <td> </td>
+    <td>Display sizes of code, bss, and data of a program</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>ldd</td>
+    <td>tasklist /m</td>
+    <td>Display the libraries needed to invoke a program</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>env</td>
+    <td>set</td>
+    <td>Display the Environment of the invoking shell</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>install</td>
+    <td> </td>
+    <td>Install a program</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>nm</td>
+    <td> </td>
+    <td>Display the names of variables,  methods, etc defined in a 
+      program or object code file</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>strip</td>
+    <td> </td>
+    <td>Strip the above names etc.</td>
+  </tr>
+</table>
+
+<p>In tables such as the above, some entries are/will-be blank.  This
+does not mean that the OS cannot do the equivalent.  It simply means
+that the standard installation did/does not come with an equivalent
+program.  There is a well-known subsystem
+<a href="http://www.cygwin.com/"> http://www.cygwin.com/</a> that runs
+under Windows providing most of Linux functionality, using the program
+names of Linux.  On our lab machines, cygwin is installed, but these
+are clearly not Winodws-native.
+</p>
+
+<p>Linux includes many utilities for extracting information about the
+contents of files. Two of the most important are <tt>file</tt>
+and <tt>size</tt>.</p>
+
+<p><tt>file FILENAME...</tt> will output the type of the given
+files, such as &quot;ASCII text&quot; or &quot;MP3 file with ID3
+version 2.3.0 tag&quot;. It does this by examining certain distinctive
+patterns of bytes within a file (called the type's
+<i>magic number</i>), and can often get quite detailed information.</p>
+
+<p><tt>size</tt> outputs information about object files or
+compiled executables, such as those produced by GCC. Specifically, it
+lists the sizes of the various <i>sections</i> of the object file. The
+&quot;text&quot; section is the code, &quot;data&quot; contains data
+which is initialized, and &quot;bss&quot; is the uninitialized part of
+the data segment. (Recall the difference between initializing a
+variable and merely declaring it from CS240.)</p>
+
+<h2>System Programs v. Applications</h2>
+
+<p>
+System Programs are programs that are essential to the OS.  Their
+absence will cause significant loss of OS functionality.  E.g., the
+"login" program/process takes the userid and password of a user and
+instantiates a working session for the user.  The "loader"
+program/process loads the program file into memory in preparation to
+giving birth to the corresponding process.  The "ifconfig" assigns an
+IP address to a/the network card.  The "mount" makes file volumes
+accessible.  In Linux, system programs are located in /sbin, and
+/usr/sbin.  In Windows, system programs are located in C:\Windows, and
+C:\Windows\system32.
+
+<p>
+Unfortunately some non-systems programs slip into these directories.
+Whereas C:\Windows\regedit.exe is a system program, e.g.,
+C:\Windows\write.exe and C:\Windows\System32\notepad.exe are rather
+trivial applications.
+
+<p>Over this decade, some programs that used to be considered system
+programs are now viewed as applications.  Shells (graphical or not,
+such as bash, explorer), compilers, linkers are applications.
+
+<h1><a name="Processes">Processes</a></h1>
+
+<p>A successful <i>invocation</i> of a program results in a process.
+The invocation is typically done either via a shell (cmd, PowerShell
+or bash) or a menu system (which is a &quot;graphical&quot; shell).
+Internally, the shells make a system call (built into the OS) that
+accomplishes this.  More technically, in response to an <i>exec system
+call</i>, the OS <i>loads</i> the program into main memory, constructs
+certain OS-internal data structures.  The resulting entity is called
+a <i>process</i>.  A process is a dynamic (i.e., changing/active)
+entity.</p>
+
+<p>The word &quot;load&quot; is a highly technical term and, at the
+level of CEG 2350, a difficult one to describe.  Often students are
+confuse linking with loading.  Adding to this confusion are the terms
+static and ynamic prefixed to both.  Static linking is a compile-time
+activity; per program, we need only do this once.  When a program is
+invoked, static loading brings the entire program into memory before
+the resulting process begins its execution.  In dynamic loading, only
+portions are brought in as needed, and some portions of the program
+may never be brought in.  Static loading is an activity that happens
+just before running.  Dynamic linking links all the object code files
+together into a program but postpones linking the methods of the
+libraries; such a program file is considerably smaller than an
+equivalent statically linked program.  Dynamic linking and loading
+happens during running of the process.</p>
+
+<p>The loader program/process is often invisible to the users.  In
+Linux, the programs named ld.so and ld-linux accomplish the dynamic
+linking and loading as part of the exec system call.
+
+<p>The main(argc, argv, envp) method of a freshly created process is
+supplied three arguments by the invoker process.  The argv is a vector
+of pointers to strings, argc a count of items in argv[], and envp a
+pointer a an array of characters known as the environment.  A shell (a
+CLI, or GUI shell such as explorer) facilitates the construction of
+these arguments from keyboard/ mouse/ user given input.
+The <i>environment</i> is the set of string variables available to all
+processes. In Linux, <tt>env</tt> command displays the environment
+and the <tt>set</tt> command manipulates it.</p>
+
+<p>Since all programs can access the environment string, it's
+frequently used as a way to supply options to commands without
+repeating them every time the command is invoked. (<tt>ls</tt>
+reads <tt>LS_OPTIONS</tt>, for example).</p>
+
+<p>Other examples of values commonly stored in the environment are:</p>
+<ul>
+  <li><tt>HISTSIZE</tt>: the number of items to store
+    in <tt>~/.bash_history</tt> (or <tt>HISTFILE</tt>)</li>
+  <li><tt>PATH</tt>: the path searched for commands by the shell</li>
+  <li><tt>PWD</tt>: the current working directory</li>
+  <li><tt>PS1</tt>: the format of the command prompt</li>
+  <li><tt>DISPLAY</tt>: the computer on which to show X programs</li>
+</ul>
+
+<p>It is a Linux/Windows convention that all global environment
+variable names be upper-case.</p>
+
+<p>In bash and in powershell, environment variables may be manipulated
+just like any other shell variable.  In bash, e.g., <tt>
+PATH=$PATH:~/bin</tt> appends the user's own <tt>bin</tt>
+directory to the path.</p>
+
+<h2>Process Management</h2>
+
+A primary fucntion of any OS is: Given a program, create a process and
+run it.  Both OS Concepts and Usage run many processes "simultaneouly" and
+strive to guarantee that no process interferes with another, that each
+is given a fair share of resources, and given the hardware, the
+overall performance is maximized.
+
+
+<h3>Process States</h3>
+
+<p>Lecture Outline: Process states: Read-to-run, Running, Waiting for
+an event, swapped out.  State transitions occur as a result of process
+scheduling by the OS.  Preemption.  Priorities.  See the Required
+Reading.
+<img src="./process-states-wiki.png">
+from <a href="http://en.wikipedia.org/wiki/Process_states">
+  http://en.wikipedia.org/wiki/Process_states</a>
+</p>
+
+<h3>Resources Used by Processes</h3>
+
+<p>Every process consumes some resources.  The most obvious ones are
+CPU time, memory, open files, and devices.  No process is able to
+"get" them unless they request the OS. These are granted to the
+processes as requested/ needed/ available by the OS.</p>
+
+<p>Every process begins with an <i>Open File Table</i> containing
+three entries in indices 0, 1 and 2.  The &quot;stdout&quot; and
+&quot;stdin&quot; are the normal text input and output of commands,
+i.e.  what shows up in the terminal. C++ programmers can think of them
+as like &quot;cout&quot; and &quot;cin&quot;. There is also a
+&quot;stderr&quot; for the output of error messages.  The shell
+usually refers to them by number: stdin == 0, stdout == 1, and stderr
+== 2.  The stdin is initially bound to the keyboard; the stdout and
+stderr are initially bound to the screen.  When additional files are
+opened these are inserted into the Open File Table; as files get
+closed, these are vacated.  So, at any given moment, the Open File
+Table may not be contiguously filled.  There is a limit on the size of
+this table imposed by the sys admin of the system; typically, it is
+around 30.</p>
+
+<h3>Standard Processes in Linux</h3>
+
+<p>The following list was generated by <tt>ps aux</tt> and then
+pruned to show only a few of the standard processes.  This list does
+vary from PC to PC depending on the hardware installed and the OS
+configuration.</p>
+<pre>
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.1   2952  1852 ?        Ss   Nov23   0:01 /sbin/init
+daemon    4118  0.0  0.0   1812   552 ?        Ss   Nov23   0:00 /sbin/portmap
+statd     4137  0.0  0.0   1876   716 ?        Ss   Nov23   0:00 /sbin/rpc.statd
+root      4407  0.0  0.0   1696   520 tty1     Ss+  Nov23   0:00 /sbin/getty 38400 tty1
+root      4914  0.6  6.6  77020 69344 tty7     SLs+ Nov23  45:50 /usr/bin/X
+root      4931  0.0  0.0   5280   992 ?        Ss   Nov23   0:00 /usr/sbin/sshd
+root      5506  0.0  1.2  31692 13132 ?        S    Nov27   0:00 kded [kdeinit]            
+pmateti   5828  0.0  1.2  31868 13024 ?        S    Nov23   1:57 kwin [kdeinit]
+pmateti   5830  0.0  1.7  35256 17660 ?        S    Nov23   0:44 kdesktop [kdeinit]                                          
+pmateti   5832  0.0  1.8  37200 19476 ?        S    Nov23   1:06 kicker [kdeinit]                                            
+pmateti   5863  0.0  0.1   4712  2044 pts/0    Ss   Nov23   0:00 /bin/bash
+
+</pre>
+<h3>Standard Processes in Windows</h3>
+<p>The following list was generated by <tt>tasklist</tt> and then pruned to show only 
+a few of the 
+standard processes.  This list does vary from PC to PC depending on the 
+hardware installed and the OS configuration.</p>
+<pre>
+
+Image Name                   PID Session Name     Session#    Mem Usage
+========================= ====== ================ ======== ============
+System Idle Process            0 Console                 0         28 K
+System                         4 Console                 0        236 K
+smss.exe                     812 Console                 0        380 K
+csrss.exe                    876 Console                 0      3,460 K
+winlogon.exe                 904 Console                 0      6,452 K
+services.exe                 948 Console                 0      5,908 K
+lsass.exe                    960 Console                 0      1,632 K
+ati2evxx.exe                1120 Console                 0      3,344 K
+svchost.exe                 1152 Console                 0      5,252 K
+spoolsv.exe                 2012 Console                 0      5,356 K
+avgamsvr.exe                 312 Console                 0        332 K
+MDM.EXE                      436 Console                 0      2,852 K
+explorer.exe                1312 Console                 0     29,260 K
+alg.exe                     1332 Console                 0      3,552 K
+wmiprvse.exe                6488 Console                 0      5,632 K
+</pre>
+
+<h3>Process <a name="Utilities">Utilities</a></h3>
+
+<p>The following are standard programs that you are expected to learn
+as part of this course in the context of processes.  For further
+details on the commands, look it up in the text book, man/help pages,
+and the web.</p>
+
+<table border="0" width="100%" cellspacing="5" cellpadding="0">
+  <tr>
+    <td> </td>
+    <td><b>Linux</b></td>
+    <td><b>Windows</b></td>
+    <td><b>Brief description/Limitations in the Learning Objective, if any</b></td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>ksysguard</td>
+    <td>taskmgr</td>
+    <td>Continuously updated GUI view of processes</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>ps</td>
+    <td>tasklist</td>
+    <td>Display processes currently alive</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>top</td>
+    <td> </td>
+    <td>Continuously updated text view of processes</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>nice</td>
+    <td> </td>
+    <td>Invoke the rest of the command at a lower priority</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>time</td>
+    <td> </td>
+    <td>Invoke the rest of the command and time it</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>kill</td>
+    <td>taskkill /pid</td>
+    <td>Kill a process whose number is given.</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>killall</td>
+    <td>taskkill /im</td>
+    <td>Kill a process whose name is given.</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>bg</td>
+    <td> </td>
+    <td>Place the last suspended process in the background</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>fg</td>
+    <td> </td>
+    <td>Place the last suspended process in the foreground</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td> </td>
+    <td>sc</td>
+    <td>Service Controller</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>ltrace</td>
+    <td> </td>
+    <td>Show library calls being made</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>strace</td>
+    <td> </td>
+    <td>Show system calls being made</td>
+  </tr>
+</table>
+
+<h4>Signals and the Kill Command</h4>
+
+<p><b>Syntax:</b> <tt>kill -[SIGNAL] PID...</tt></p>
+
+<p>Despite its name, ending processes is only one function of
+the <tt>kill</tt> command. More generally, it sends <i>signals</i>
+to processes (i.e., it raises exceptions). Programs can either catch
+these signals and handle them gracefully, or allow the operating
+system default to handle them.</p>
+<p>The default signal sent by kill is SIGTERM. A different signal can
+be given before the PIDs, either by number (<tt>kill -1</tt>) or
+by name (with or without the &quot;SIG&quot;, <tt>kill -HUP</tt>
+and <tt>kill -SIGHUP</tt> both work).</p>
+
+<p>Signals are sent for other events besides the user
+running <tt>kill</tt>.  Many of the most common signals are never
+sent directly by users except when testing. Bugs in a program may
+cause it to terminate with SIGSEGV, and pressing control-c usually
+sends SIGINT, for example.</p>
+
+<p>Unfortunately, signal numbers vary between Unix flavors. The most
+common signals usually stay the same, but it's a good idea to
+check <tt>kill -l</tt> for supported signals. Further, although
+many systems provide convenience utilities for common tasks, they
+sometimes have different effects when moving between systems. For
+example, the command that kills all processes matching a certain name
+on Linux will end <i>all</i> running processes on Solaris!</p>
+
+<h4>Common Signals:</h4>
+<table border="0" width="100%" cellspacing="5" cellpadding="0">
+  <tr>
+    <td><b>Number</b></td>
+    <td><b>Name</b></td>
+    <td><b>Meaning</b></td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>SIGHUP</td>
+    <td>&quot;Hang up&quot;, causes programs to quit or reload their configuration.</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>SIGINT</td>
+    <td>&quot;Interrupt&quot;, like control-c in Bash</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>SIGILL</td>
+    <td>&quot;Illegal instruction&quot;, meaning bad assembly code.</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>SIGKILL</td>
+    <td>Cannot be caught and thus causes any process to terminate 
+      immediately.</td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td>SIGSEGV</td>
+    <td>&quot;Segmentation fault&quot;, a memory or pointer error.</td>
+  </tr>
+  <tr>
+    <td>15</td>
+    <td>SIGTERM</td>
+    <td>Terminate the process, with whatever graceful shutdown it provides 
+      (the default).</td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td>SIGPIPE</td>
+    <td>Pipe redirection failure.</td>
+  </tr>
+  <tr>
+    <td>(Varies)</td>
+    <td>SIGSTOP</td>
+    <td>Suspends the process, like control-z in Bash. (18 on Linux, 23 on 
+      Solaris)</td>
+  </tr>
+  <tr>
+    <td>(Varies)</td>
+    <td>SIGCONT</td>
+    <td>Continues a suspended process, like <tt>fg</tt> in Bash. (18 on 
+      Linux, 25 on Solaris)</td>
+  </tr>
+</table>
+
+<h3><a name="Windows_PsTools">Windows PsTools</a></h3>
+
+<p>The tools needed for Linux are readily present in a
+  typical Linux distribution, but the tools needed for Windows (known
+  as <i>PsTools)</i> need to be downloaded from
+  <a href="http://technet.microsoft.com/en-us/sysinternals/bb896649">
+  http://technet.microsoft.com/en-us/sysinternals/</a> None of the
+  tools requires any special installation. The tools included in
+  the <i>PsTools</i> suite are: </p>
+
+<table border="0" cellpadding="0" cellspacing="5">
+  <tr>
+    <td>
+      PsExec</i></a></td><td>execute processes remotely</td>
+</tr>
+<tr>
+  <td>
+      PsFile</i></a></td><td>shows files opened remotely</td>
+</tr>
+<tr>
+  <td>
+      PsGetSid</i></a></td><td>display the SID of a computer or a user</td>
+</tr>
+<tr>
+  <td>
+      PsInfo</i></a></td><td>list information about a system </td>
+</tr>
+<tr>
+  <td>
+      PsKill</i></a></td><td>kill processes by name or process ID</td>
+</tr>
+<tr>
+  <td>
+      PsList</i></a></td><td>list detailed information about processes</td>
+</tr>
+<tr>
+  
+  <td>
+      PsLoggedOn</i></a></td><td>see who's logged on locally and via resource 
+  sharing</td>
+</tr>
+<tr>
+  
+  <td>
+      PsLogList</i></a></td><td>dump event log records</td>
+</tr>
+<tr>
+  
+  <td>
+      PsPasswd</i></a></td><td>changes account passwords</td>
+</tr>
+<tr>
+  
+  <td>
+      PsService</i></a></td><td>view and control services</td>
+</tr>
+<tr>
+  
+  <td>
+      PsShutdown</i></a></td><td>shuts down and optionally reboots a computer</td>
+</tr>
+<tr>
+  
+  <td>
+      PsSuspend</i></a></td><td>suspends processes</td>
+</tr>
+</table>
+
+<p>(The author of the above alerts us that some anti-virus scanners
+  may report that one or more of the tools are infected with a
+  &quot;remote admin&quot; virus.  None of the PsTools contain
+  viruses, but they have been used by viruses, which is why they
+  trigger virus notifications.)  See the References below.</p>
+
+<hr size=1>
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html"> Copyright ©</a>
+2012
+<a href="http://www.cs.wright.edu/~pmateti">Prabhaker Mateti</a>
+
+</body>
+
+</html>

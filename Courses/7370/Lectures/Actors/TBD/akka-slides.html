@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>(Akka TBD)</title>
+<meta name="author" content="(Prabhaker Mateti)"/>
+<meta name="description" content="CEG7370 Distributed Computing"/>
+<link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/reveal.min.css"/>
+<link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/theme/beige.css" id="theme"/>
+
+<link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/print/pdf.css" type="text/css" media="print"/>
+</head>
+<body>
+<a href="./akka.html">single-page</a>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>Akka TBD</h1><h3>Prabhaker Mateti</h3><a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a><h2></h2><p>An introduction to Akka, assuming Scala and Java fluency<br><a href="../../Top/">CEG 7370 Distributed Computing</a></p></section>
+<section>
+<h2>Table of Contents</h2><ul>
+<li>
+<a href="#sec-1">What is Akka?</a>
+</li>
+<li>
+<a href="#sec-2">Akka Overview</a>
+</li>
+<li>
+<a href="#sec-3">Defining An Actor</a>
+</li>
+<li>
+<a href="#sec-4">ActorSystem</a>
+</li>
+<li>
+<a href="#sec-5">Become</a>
+</li>
+<li>
+<a href="#sec-6">Supervise</a>
+</li>
+<li>
+<a href="#sec-7">Dispatchers</a>
+</li>
+<li>
+<a href="#sec-8">Routers</a>
+</li>
+<li>
+<a href="#sec-9">Futures and Promises</a>
+</li>
+<li>
+<a href="#sec-10">Thread-based vs. Event-based actors</a>
+</li>
+<li>
+<a href="#sec-11">Actor scheduling in Scala</a>
+</li>
+<li>
+<a href="#sec-12">Large Scale Examples of Akka + Scala</a>
+</li>
+<li>
+<a href="#sec-13">TypeSafe Akka Get Started Examples</a>
+</li>
+<li>
+<a href="#sec-14">Notes</a>
+</li>
+<li>
+<a href="#sec-15">References</a>
+</li>
+</ul>
+</section>
+
+<section id="sec-1"  data-background="white">
+
+<h2><span class="section-number-2">1</span> What is Akka?</h2>
+<ol class="org-ol">
+<li>Akka is an implementation of Hewitt's <a href="./actors.html">Actor Model</a>, in Scala (and
+hence JVM).  It makes practical concessions to the pure actor
+model.
+</li>
+
+<li>"Akka is a toolkit and runtime for building highly concurrent,
+distributed, and fault tolerant event-driven applications on the
+JVM" <a href="http://www.akka.io">http://www.akka.io</a>
+
+<ol class="org-ol">
+<li>Note the use of concurrent and distributed.
+</li>
+</ol>
+</li>
+
+<li><a href="http://www.typesafe.com/platform/getstarted">http://www.typesafe.com/platform/getstarted</a> "The best way to start
+learning Akka &#x2026;"
+</li>
+
+<li>Versions: Scala 2.11, Akka TBD.  Code for older versions may not work with
+these versions.
+</li>
+
+<li>The code shown in boxes below is not always self-contained enough to
+compile it stand-alone.
+</li>
+</ol>
+</section>
+<section id="sec-2" >
+
+<h2><span class="section-number-2">2</span> Akka Overview</h2>
+<ol class="org-ol">
+<li>Use <code>import akka.actor._</code>
+</li>
+
+<li>Akka library can be used in Java as well.
+</li>
+
+<li>TBD Use both Java and Scala; check that they work
+</li>
+
+<li>TBD akka toolkit Slides.html#/17
+</li>
+</ol>
+
+</section>
+<section id="sec-3" >
+
+<h2><span class="section-number-2">3</span> Defining An Actor</h2>
+<ol class="org-ol">
+<li>In Scala TBD
+</li>
+</ol>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">class A extends Actor{
+}
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>In Java
+
+<div class="org-src-container">
+
+<pre class="src src-java">public class Greeting implements Serializable {
+  public final String who;
+  public Greeting(String who) {
+    this.who = who;
+  }
+}
+
+public class GreetingActor extends UntypedActor {
+  LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+  public void onReceive(Object message) throws Exception {
+    if (message instanceof Greeting)
+      log.info("Hello {}", ((Greeting) message).who);
+      getSender.tell("Thanks");
+  }
+} 
+
+ActorSystem acsy = ActorSystem.create("WSU-CEG-7370-Actors");
+ActorRef greeter = acsy . actorOf
+  (new Props(GreetingActor.class), "greeter");
+greeter.tell(new Greeting("Charlie Parker TBD"));
+</pre>
+</div>
+</li>
+</ol>
+
+
+
+<ol class="org-ol">
+<li>Normal request/reply in Scala
+
+<div class="org-src-container">
+
+<pre class="src src-scala">receive {
+    case Msg(sender, value) =&gt;
+        val r = process(value)
+        sender ! Response(r)
+}
+
+receive {
+    case Msg(value) =&gt;
+        val r = process(value)
+        reply(Response(r))
+}
+</pre>
+</div>
+</li>
+</ol>
+</section>
+<section id="sec-4" >
+
+<h2><span class="section-number-2">4</span> ActorSystem</h2>
+<ol class="org-ol">
+<li>Allocate internal threads: <code>ActorSystem acsy = ActorSystem.create("WSU-CEG-7370-Actors");</code>
+</li>
+
+<li>Several actor systems, possibly with different configurations, can
+co-exist
+</li>
+</ol>
+</section>
+<section id="sec-5" >
+
+<h2><span class="section-number-2">5</span> Become</h2>
+<ol class="org-ol">
+<li><code>become</code> <code>unbecome</code> internal stack of receiving methods
+</li>
+<li><code>import akka.actor.{ Actor, ActorRef, FSM }</code>
+</li>
+
+<li>Dynamically redefines Actor’s behaviour
+</li>
+
+<li>Triggered reactively by receive of message
+</li>
+
+<li>In a type system analogy it is as if the object changed type -
+changed interface, protocol &amp; implementation TBD
+</li>
+
+<li>Will now react differently to the messages it receives
+</li>
+
+<li>Behaviours are stacked; pushed and popped
+</li>
+
+<li>FSM (Finite State Machine)
+</li>
+
+<li>Spawn up generic Actor that can become whatever the Master currently needs
+</li>
+
+<li>Let a highly contended Actor adaptively transform himself into an Actor Pool or a Router
+</li>
+
+<li>Implement graceful degradation
+</li>
+</ol>
+
+</section>
+<section>
+<div class="org-src-container">
+
+<pre class="src src-java">Procedure&lt;Object&gt; angry = new Procedure&lt;Object&gt;() {
+    @Override
+    public void apply(Object message) {
+      if (message.equals("bar")) {
+        getSender().tell("I am already angry?", getSelf());
+      } else if (message.equals("foo")) {
+        getContext().  become  (happy);           //
+      }
+    }
+  };
+
+  Procedure&lt;Object&gt; happy = new Procedure&lt;Object&gt;() {
+    @Override
+    public void apply(Object message) {
+      if (message.equals("bar")) {
+        getSender().tell("I am already happy :-)", getSelf());
+      } else if (message.equals("foo")) {
+        getContext(). become  (angry);           //
+      }
+    }
+  };
+
+public void onReceive(Object message) {
+    if (message.equals("bar")) {
+      getContext().become(angry);
+    } else if (message.equals("foo")) {
+      getContext().  become   (happy);          //
+    } else {
+      unhandled(message);
+    }
+  }
+</pre>
+</div>
+</section>
+<section id="sec-6" >
+
+<h2><span class="section-number-2">6</span> Supervise</h2>
+<ol class="org-ol">
+<li>Traditional failure management:
+
+<ol class="org-ol">
+<li>You are given a single thread of control
+</li>
+<li>Need to do all explicit error handling WITHIN this single thread
+</li>
+<li>Errors do not propagate between threads
+</li>
+<li>Leads to defensive programming, with error handling tangled with
+business logic
+</li>
+</ol>
+</li>
+
+<li>"Let it crash!"
+
+<ol class="org-ol">
+<li>Error handling in actors is handle by letting Actors monitor
+(supervise) each other for failure
+</li>
+<li>If an Actor crashes, a notification will be sent to his
+supervisor, who can react upon the failure (<code>Restart</code>, <code>Resume</code>,
+<code>Stop</code>, <code>Escalate</code>)
+</li>
+<li>Provides clean separation of processing and error handling
+</li>
+</ol>
+</li>
+</ol>
+</section>
+<section>
+<div class="org-src-container">
+
+<pre class="src src-java">private static SupervisorStrategy strategy =
+  new OneForOneStrategy(10, Duration.create("1 minute"),
+    new Function&lt;Throwable, Directive&gt;() {
+      @Override
+      public Directive apply(Throwable t) {
+        if (t instanceof ArithmeticException) {
+          return resume();
+        } else if (t instanceof NullPointerException) {
+          return restart();
+        } else if (t instanceof IllegalArgumentException) {
+          return stop();
+        } else {
+          return escalate();
+        }
+      }
+    });
+
+@Override
+public SupervisorStrategy supervisorStrategy() {
+  return strategy;
+}
+</pre>
+</div>
+</section>
+<section>
+<div class="org-src-container">
+
+<pre class="src src-java">public void preStart() {
+}
+
+public void preRestart(Throwable reason, scala.Option&lt;Object&gt; message) {
+  for (ActorRef each : getContext().getChildren()) {
+    getContext().unwatch(each);
+    getContext().stop(each);
+  }
+  postStop();
+}
+
+public void postRestart(Throwable reason) {
+  preStart();
+}
+
+public void postStop() {
+}
+</pre>
+</div>
+
+</section>
+<section id="sec-7" >
+
+<h2><span class="section-number-2">7</span> Dispatchers</h2>
+<ol class="org-ol">
+<li>A dispatcher chooses an actor and a message from the actors mbox,
+and allocates a thread.
+</li>
+
+<li>Every ActorSystem will have a default dispatcher.  Dispatchers
+implement the <code>ExecutionContext</code> interface.  Think of execution
+contexts as thread pools.
+</li>
+
+<li>Pinned dispatcher: Each actor has its own dedicated thread. Ideal
+for blocking operations.
+</li>
+
+<li>Balancing dispatcher: Redistribute the work from busy actors to
+idle ones.  All actors it handles share a mbox.
+</li>
+</ol>
+
+</section>
+<section>
+<section id="sec-7-1" >
+
+<h3><span class="section-number-3">7.1</span> The BalancingDispatcher</h3>
+<ol class="org-ol">
+<li>Distribute work to a collection of Actors trying to equalize load
+</li>
+
+<li>a work stealing dispatcher; 
+</li>
+
+<li>BalancingDispatcher is an actor.  It is in-charge of sending
+messages to several actors (known as workers).
+</li>
+
+<li>TBD <a href="http://letitcrash.com/post/29044669086/balancing-workload-across-nodes-with-akka-2">http://letitcrash.com/post/29044669086/balancing-workload-across-nodes-with-akka-2</a>
+</li>
+</ol>
+</section>
+
+
+
+</section>
+<section id="sec-8" >
+
+<h2><span class="section-number-2">8</span> Routers</h2>
+<ol class="org-ol">
+<li>A router is a type of actor.  Routes incoming messages to
+outbound actors.
+</li>
+
+<li>There is no router´s mailbox
+</li>
+</ol>
+
+<div class="org-src-container">
+
+<pre class="src src-java">ActorRef roundRobinRouter = getContext().actorOf(
+    Props.create(PrintlnActor.class).withRouter(new RoundRobinRouter(5)),
+  "router");
+
+for (int i = 1; i &lt;= 10; i++) {
+  roundRobinRouter.tell(i, getSelf());
+}
+</pre>
+</div>
+
+</section>
+<section>
+<section id="sec-8-1" >
+
+<h3><span class="section-number-3">8.1</span> Throttling</h3>
+<ol class="org-ol">
+<li>printer: A simple actor that prints whatever it receives
+</li>
+</ol>
+
+
+<div class="org-src-container">
+
+<pre class="src src-java">  ActorRef printer = system.actorOf(Props.create(Printer.class));
+  ActorRef throttler = system.actorOf(Props.create(TimerBasedThrottler.class,
+      new Throttler.Rate(3, Duration.create(1, TimeUnit.SECONDS))));
+  // Set the target
+  throttler.tell(new Throttler.SetTarget(printer), null);
+  // These three messages will be sent to the target immediately
+  throttler.tell("1", null);
+  throttler.tell("2", null);
+  throttler.tell("3", null);
+  // These two will wait until a second has passed
+  throttler.tell("4", null);
+  throttler.tell("5", null);
+
+public class Printer extends UntypedActor {
+  @Override
+  public void onReceive(Object msg) {
+    System.out.println(msg);
+  }
+}
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="sec-8-2" >
+
+<h3><span class="section-number-3">8.2</span> Circuit Breakers</h3>
+<div class="org-src-container">
+
+<pre class="src src-java">public class DangerousJavaActor extends UntypedActor {
+
+  private final CircuitBreaker breaker;
+  private final LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+
+  public DangerousJavaActor() {
+    this.breaker = new CircuitBreaker(
+      getContext().dispatcher(), getContext().system().scheduler(),
+      5, Duration.create(10, "s"), Duration.create(1, "m"))
+      .onOpen(new Runnable() {
+        public void run() {
+          notifyMeOnOpen();
+        }
+      });
+  }
+
+  public void notifyMeOnOpen() {
+    log.warning("My CircuitBreaker is now open, and will not close for one minute");
+  }
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-java"></pre>
+</div>
+</section>
+</section>
+<section id="sec-9" >
+
+<h2><span class="section-number-2">9</span> Futures and Promises</h2>
+<ol class="org-ol">
+<li>Akka gets Futures and Promises from Scala.
+</li>
+</ol>
+
+</section>
+<section>
+<section id="sec-9-1" >
+
+<h3><span class="section-number-3">9.1</span> Futures</h3>
+<ol class="org-ol">
+<li>A Future is a placeholder object for a result that has not been
+computed yet.  A related CS term is <b>lazy evaluation</b>.
+</li>
+
+<li>A Future may only be assigned once.
+</li>
+
+<li>Needs an <code>ExecutionContext</code>
+</li>
+
+<li>Invoke the <code>future</code> method which starts an asynchronous computation
+and returns a future. The result becomes available once the future
+<b>completes</b>.
+
+<div class="org-src-container">
+
+<pre class="src src-scala">import scala.concurrent.{ future, promise }
+import scala.concurrent.ExecutionContext.Implicits.global
+val session = socialNetwork.createSessionFor("user", credentials)
+val f: Future[List[Friend]] = future {
+  session.getFriends()           // may take a while
+}
+</pre>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="sec-9-2" >
+
+<h3><span class="section-number-3">9.2</span> Promises</h3>
+<ol class="org-ol">
+<li>A Promise is a writable, single-assignment container that completes
+a future. Methods: <code>success</code>, <code>failure</code>, <code>complete</code>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">import scala.concurrent.{ future, promise }
+import scala.concurrent.ExecutionContext.Implicits.global
+val p = promise[T]
+val f = p.future
+val prdcr = future {               // producer
+  val r = produceSomething()
+  p . success . r
+  continueDoingSomethingUnrelated()
+}
+val cnsmr = future {              // consumer
+  startDoingSomething()
+  f . onSuccess {
+    case r =&gt; doSomethingWithResult()
+  }}
+</pre>
+</div>
+</li>
+
+<li>Analogous to <code>success</code>, calling <code>failure</code> and <code>complete</code> on a <code>promise</code>
+that has already been completed will throw an
+<code>IllegalStateException.</code>
+</li>
+</ol>
+</section>
+</section>
+<section id="sec-10" >
+
+<h2><span class="section-number-2">10</span> Thread-based vs. Event-based actors</h2>
+
+</section>
+<section id="sec-11" >
+
+<h2><span class="section-number-2">11</span> Actor scheduling in Scala</h2>
+
+
+</section>
+<section id="sec-12" >
+
+<h2><span class="section-number-2">12</span> Large Scale Examples of Akka + Scala</h2>
+<ol class="org-ol">
+<li><a href="http://www.playframework.com/">http://www.playframework.com/</a> "The High Velocity Web Framework For
+Java and Scala" Built on Akka, Play provides predictable and
+minimal resource consumption (CPU, memory, threads) for
+highly-scalable applications.  RESTful by default.
+
+<ol class="org-ol">
+<li>REST stands for "Representational State Transfer".  It
+describes web architecture.
+</li>
+</ol>
+</li>
+
+<li>Play is used in <a href="http://www.typesafe.com/platform/getstarted">http://www.typesafe.com/platform/getstarted</a>
+</li>
+
+<li><a href="http://spray.io/">http://spray.io/</a> "Elegant, high-performance HTTP for your Akka
+Actors."  <code>spray</code> is an open-source toolkit for building
+REST/HTTP-based integration layers on top of Scala and Akka.  Being
+asynchronous, actor-based, fast, lightweight, modular and testable
+it's a great way to connect your Scala applications to the world.
+</li>
+
+<li><a href="http://twitter.github.io/finagle">http://twitter.github.io/finagle</a> Finagle is an extensible RPC
+system for the JVM, Finagle is written in Scala, but provides both
+Scala and Java idiomatic APIs.
+</li>
+</ol>
+</section>
+<section id="sec-13" >
+
+<h2><span class="section-number-2">13</span> TypeSafe Akka Get Started Examples</h2>
+<ol class="org-ol">
+<li><a href="http://www.typesafe.com/platform/getstarted">http://www.typesafe.com/platform/getstarted</a> "The best way to start
+learning Akka &#x2026;"
+</li>
+
+<li>Switch to Laptop &#x2026;
+</li>
+</ol>
+</section>
+<section id="sec-14" >
+
+<h2><span class="section-number-2">14</span> Notes</h2>
+<ol class="org-ol">
+<li><code>scala.actor</code> is deprecated.  Caution: Many articles on the web
+are based on scala.actor.  Use <code>import akka.actor._</code>
+<a href="http://docs.scala-lang.org/overviews/core/actors-migration-guide.html">http://docs.scala-lang.org/overviews/core/actors-migration-guide.html</a>
+</li>
+
+<li>Synchronous messaging "The synchronous message passing style
+available in Scala (using !?) provides programmers with a
+convenient way of doing messaging round-trips. This allows for a
+familiar style of programming, similar to remote method
+invocation." <a href="http://savanne.be/articles/concurrency-in-erlang-scala/">http://savanne.be/articles/concurrency-in-erlang-scala/</a>
+</li>
+
+<li>application.conf
+</li>
+<li>def !(message: Any)(implicit sender: ActorRef = Actor.noSender)
+</li>
+<li>context.system.shutdown() ExecutionContext
+</li>
+</ol>
+</section>
+<section id="sec-15" >
+
+<h2><span class="section-number-2">15</span> References</h2>
+<ol class="org-ol">
+<li><a href="http://akka.io/docs/">http://akka.io/docs/</a> is the official documentation site. 
+   <a href="http://doc.akka.io/docs/akka/snapshot/AkkaScala.pdf">http://doc.akka.io/docs/akka/snapshot/AkkaScala.pdf</a> about 360 pages.
+</li>
+</ol>
+</section>
+</div>
+</div>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/lib/js/head.min.js"></script>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/js/reveal.min.js"></script>
+<script>
+
+        		// Full list of configuration options available here:
+        		// https://github.com/hakimel/reveal.js#configuration
+        		Reveal.initialize({
+        			controls: true,
+        			progress: true,
+        			history: true,
+        			center: true,
+                                slideNumber: true,
+        			rollingLinks: true,
+        			keyboard: true,
+        			overview: true,
+        			 // slide width
+        			 // slide height
+        			 // slide margin
+        			 // slide minimum scaling factor
+        			 // slide maximum scaling factor
+
+
+        			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        			transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        			transitionSpeed: 'default',
+
+        			// Optional libraries used to extend on reveal.js
+        			dependencies: [
+        				{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+         				
+        			]
+        		});
+</script>
+</body>
+</html>

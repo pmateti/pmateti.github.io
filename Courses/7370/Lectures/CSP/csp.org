@@ -1,0 +1,382 @@
+
+# -*- mode: org -*-
+#+date: 2019-12-06
+#+TITLE: Hoare's CSP
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+This page contains a few examples of distributed computing done in CSP.
+Our focus is not on time or space complexity, but on the more
+qualitative issues. Some of the "solutions" may not be correct, and,
+when they are, can easily be improved. A few times I chose to 'describe'
+in English rather than write pseudo-code in order to explain the ideas.
+I am sure you can all fill-in the details and code it in CSP. Not all
+solutions are complete.
+
+TBD Typography: The fat-bar is shown as either '|' or '[]'. The parallel
+bar is shown as '//'. CSP loop is shown either as =*[ ... ]= or as
+=do ... od=. CSP guarded if is shown either as = if ... fi= or as
+= [ ... ]=. I will make it consistent one of these days ;-)
+
+--------------
+
+* Qualities in Distributed Programs
+
+We wish to (a) maximize concurrency, (b) we prefer a symmetric solution,
+(c) we rate correctness much higher than efficiency, and (d) cannot
+tolerate deadlocks or (e) livelocks.  Defend /why/ for each of these
+five.
+
+Of course, we do not mean "maximize" in the pure mathematical sense it
+is used in algorithm analyis.
+
+* Modeling "Real" Devices
+
+We are faced with the problem of controlling the two-way traffic on an
+old bridge. The bridge is so old and weak that it can only hold at most
+10 cars at a time. Trucks and other heavy vehicles are forbidden.
+Traffic lights, and sensors that detect the passing of cars are
+installed on both ends of the bridge. Present all the processes in CSP.
+State clearly any other assumptions that you found necessary for your
+solution.
+
+| ---------------------------------------------\\   |      | In our visualization, the bridge is drawn horizontally with the top lane with traffic going from right-to-left, and the bottom lane with traffic going from left-to-right. There is an entry sensor (s2, s3) and an exit sensor (s1, s4) installed in each lane that detects cars passing over. TL1 and TL2 are traffic lights.   |
+| s1 <-- right-to-left <--- s2 TL1\\                |      |                                                                                                                                                                                                                                                                                                                                   |
+| ---------------------------------------------\\   |      |                                                                                                                                                                                                                                                                                                                                   |
+| TL2 s3 --> left-to-right ---> s4\\                |      |                                                                                                                                                                                                                                                                                                                                   |
+| ---------------------------------------------\\   |      |                                                                                                                                                                                                                                                                                                                                   |
+
+We cannot present *all* the processes -- such as the cars. In a problem
+such as this, the "environment" is a collection of processes that our
+CSP processes interact with.
+
+E.g., the following models the physical traffic light for us as an
+output device.
+
+#+BEGIN_EXAMPLE
+    trafficLight::
+      int bulbColor := red;
+      do controller ? bulbColor --> skip od
+#+END_EXAMPLE
+
+Here is a model of the mouse for us as an input device.
+
+#+BEGIN_EXAMPLE
+    Mouse::
+      int x := 0, y := 0;
+      do human ? click(buttonNumber) --> clientProcess ! buttonNumber 
+      [] human ? motion(dx, dy) --> x += dx; y += dy; clientProcess ! (x, y)
+      od
+#+END_EXAMPLE
+
+We cannot describe the human process -- obviously! In our CSP examples,
+we would model the mouse far more abstractly. See, e.g., the Mine
+Sweeper.
+
+#+BEGIN_EXAMPLE
+    sensor(i: 1 .. 4) ::
+      int count := 0;
+      do car ? passesOver -->
+         count ++;
+         controller ! count
+      od
+#+END_EXAMPLE
+
+The problem above is asking you to write the code for controller.
+
+* Remove the Least Member in SSI
+
+Solve the exercise in Section 4.6 of Hoare's CSP paper. That is, provide
+a least() "remove the least member" operation in the small set of
+integers process-collection.
+
+We just need to introduce a boolean to represent empty-handed or not.
+And, fix the new case below properly.
+
+#+BEGIN_EXAMPLE
+    S(i: 1..100) ::
+      empty := true;
+      do empty -->
+        if S(i-1)?has(n) --> S(0)!false
+        [] S(i-1)?insert(n) --> empty := false
+        [] S(i-1)?least() --> S(i-1)!noneleft()
+        fi
+      [] not empty -->
+        if S(i-1)?has(m) --> ... as before ...
+        [] S(i-1)?insert(m) --> ... as before ...
+        [] S(i-1)?least() --> ...new code ...
+            fi
+      od
+#+END_EXAMPLE
+
+* n-th Minimum
+
+We have a CSP process /C/ that outputs an unending stream of
+non-negative numbers to a process named, say, /X/. We want /X/ to be
+able to receive requests of the form /X!nthmin(n)/ from a user process
+/U/ and respond with /U!x/, where $x$ is the $n$-th smallest number it
+has seen so far from /C/. If /X/ has seen fewer than $n$ numbers so far,
+or if $n$ is greater than 10, or less than 1, the value of $x$ to use is
+-1. Write the process /X/ in CSP. Maximize concurrency. Process /C/ must
+not suffer delays.
+
+#+BEGIN_EXAMPLE
+    S(i: 1..10) ::
+      do S(0)?out() --> U!-1
+      [] S(i-1)?x -->
+         do S(0)?out() --> U!x
+         [] S(i-1)?y -->
+             if  x = y --> skip
+             []x < y --> S(i+1)!y
+             []x > y --> S(i+1)!x; x := y
+             fi
+         od
+      od
+
+    S(0) ::
+      do C ? n --> S(1)!n
+      [] U ? nthmin(n) -->
+          if 1 > n or  n > 10 --> U !-1
+          [] 0 < n and n < 11 --> S(n) ! out()
+          fi
+      od
+
+    S(11) ::  do S(10)?x --> skip od
+    X :: S(i: 0..11)
+#+END_EXAMPLE
+
+* Exchange Evens With Odds
+
+There are three CSP processes $A$, $B$ and $C$ each with a local array
+of size $n$ of integers. Among these $3*n$ numbers, there are at least
+$n$ even numbers, and at least $n$ odd numbers. Write an algorithm in
+CSP so that the processes send each other integers, one at a time,
+eventually terminating with process $A$ having in its array only even
+numbers, process $C$ having in its array only odd numbers. Process B may
+end up with the rest of even/odd numbers. You must make sure no number
+originally present is lost.
+
+#+BEGIN_EXAMPLE
+    EO ::
+        e := 0;     /* a[1..e] are even */
+        d := n+1;   /* a[d..n] are odd  */
+        do e+1 < d   & even a[e+1] --> e := e + 1
+        [] e+1 < d   & odd  a[d-1] --> d := d - 1
+        [] e+1 < d-1 & odd  a[e+1] & even a[d-1] -->
+            d := d - 1; e := e + 1;
+            swap a[d] with a[e]
+        od
+
+    A ::    EO; do e < n --> e := e + 1; B!a[e]; B?a[e] od
+    C ::    EO; do d > 1 --> d := d - 1; B!a[d]; B?a[d] od
+    B ::    EO;
+        do e > 0;   A?x --> A!a[e]; e := e-1; d := d-1; a[d] := x 
+        [] d < n+1; C?x --> C!a[d]; e := e+1; d := d+1; a[e] := x
+        od
+#+END_EXAMPLE
+
+How does the following differ from above? Is it correct? Is it better?
+
+#+BEGIN_EXAMPLE
+    A ::    i := 1;
+        do i < n+1 -->
+            if even a[i] --> skip
+            [] odd  a[i] --> B!a[i]; B?a[i]
+            fi;
+            i := i + 1
+        od
+
+    C ::    i := 1;
+        do i < n+1 ->
+            if odd  a[i] --> skip
+            [] even a[i] --> B!a[i]; B?a[i]
+            fi;
+            i := i + 1
+        od
+
+    B ::    e := 0;     /* a[1..e] are even */
+        d := n+1;   /* a[d..n] are odd */
+        do e+1 < d   & even a[e+1] --> e := e + 1
+        [] e+1 < d   & odd  a[d-1] --> d := d - 1
+        [] e+1 < d-1 & odd  a[e+1] & even a[d-1] -->
+            d := d - 1; e := e + 1;
+            swap a[d] with a[e]
+        [] e > 0;   A?x --> A!a[e]; a[e] := x; e := e - 1
+        [] d < n+1; C?x --> C!a[d]; a[d] := x; d := d + 1
+        od
+#+END_EXAMPLE
+
+* Mine Sweeper in CSP
+
+This is a CSP rendering of the well known game. Quite incomplete. The
+modeling of smiley, the mine counter and the timer are left to you as a
+further exercise.
+
+#+BEGIN_EXAMPLE
+    mymine := 0, or 1 
+    /* number of mines in this cell */
+    /* 0 or 1 -- no other values are possible */
+
+    cell := blank;
+    /* what is "shown on the cell", enumerated type */
+    /* uncovered: 0,1..8, the number of mines that neighbors have */
+    /* uncovered: boom = 9 = game over = tripped a mine */
+    /* uncovered: exposed = 10, exposed mine after tripping */
+    /* uncovered: incorrect = 11 */
+    /* covered: red-flag = 12, ? = qmark = 13, blank = 14 */
+
+    /* left, middle, right are mouse button clicks */
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+    do P(a, b)?howmany -> P(a, b)!mine
+    [] P(a, b)?uncover -> UNCOVER
+    [] P(a, b)?show-mine -> SHOW-MINE
+    [] mouse?left -> UNCOVER
+    [] mouse?middle -> MID
+    [] mouse?right -> RIG
+    od
+#+END_EXAMPLE
+
+* Elevator Simulation
+
+This simulation is often used in courses that teach the use of
+processes. There are T floors, and N elevators. Add whatever missing
+detail.
+
+We may need to maintain the following info. Distribute it among our
+processes.
+
+| evat[e]      | elevator e is at floor i = at[e]; turn the i-th light for e on          |
+|              | and the other light that was on now goes off.                           |
+| dir[e]       | the travel direction --stopped, going-up, going-down -- of elevator e   |
+| req[i]       | requests made at floor i: clear =00, goUp =01, goDn =10, both =11       |
+| stop[e][i]   | elev e must stop on floor i, true/false                                 |
+| bot[e]       | lowest floor to go to                                                   |
+| top[e]       | highest floor to go to                                                  |
+| [.]          | means for all indices                                                   |
+
+Elevator model, bare minimum. Elevator motor is powered on unless dir =
+stopped, and is moving in that direction. Add an internal display panel.
+
+#+BEGIN_EXAMPLE
+    elevator(e: 1 .. N) ::
+      int dir := stopped, d, f :=  1;
+      do humanInTheElevator ? presses(f) --> controller! button(f)
+      [] sensor ? detects(f) --> controller! at(f)
+      [] controller? motor(d) --> dir := d
+      [] controller? doorsOpen() --> skip
+      [] controller? doorsClose() --> skip
+      od
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+    floor(f: 1 .. T)::
+      buttons := clear;
+      do  humanOnTheFloor ? button(goBits) --> controller! button(goBits)
+      []  controller ? buttons -> skip
+      od
+#+END_EXAMPLE
+
+We are to write the code for Controller. Describe as precisely
+(mathematically?) as you can what the functionality of the controller
+ought to be.
+
+#+BEGIN_EXAMPLE
+    controller ::
+    int goBits
+    stop[.][.] := false; req[.]:= clear;
+    at[.] := 1; dir[.] := stopped; bot[.] := ...; top[.] := ...; 
+
+    do floor(f) ? button(goBits) --> req[f] := req[f] | goBits; floor(f)! req(f)
+    [] elevator(e)? button(f) --> stop[e][f] := true
+    [] elevator(e)? at(f) -->
+        evat[e] := f
+        ... should we stop the elevator, open doors, ...
+    od
+#+END_EXAMPLE
+
+* Exercises
+
+1. Process A has a set S of m integers and B has a set T of n integers.
+   The two processes are to exchange values one at a time until all
+   elements of S are less than all elements of T. Assume that all the
+   m+n integers are distinct.
+2. The solution given for /Recursive Data Representation: Small Set of
+   Integers/ of Hoare's CSP paper is reproduced below.
+
+   #+BEGIN_EXAMPLE
+          S(i: 1 .. 100) ::
+           do   n: integer; S(i-1)?has(n) --> S(0)!false
+           []   n: integer; S(i-1)?insert(n) -->  
+               do m:   integer; S(i-1)?has(m) -->  
+                   if   m <=  n --> S(0)!(m = n)
+                   []  m >   n --> S(i+1)!has(m)
+                   fi 
+                   [] m: integer; S(i-1)?insert(m) -->  
+                   if  m < n --> S(i+1)!insert(n); n := m
+                   [] m = n --> skip
+                   [] m > n --> S(i+1)!insert(m)
+                               fi
+           od  od 
+   #+END_EXAMPLE
+
+   1. Write convincing argument that the algorithms for has and insert
+      are correct.
+   2. Write a loop invariant for the inner loop.
+   3. Extend the solution to respond to a command =S(1)!remove(x)= from
+      S(0) that removes x from the set, if it contains it, and does
+      nothing if it does not.
+   4. Extend the solution to respond to a command =removeMin()= that
+      removes the least member of the set, if non-empty, and does
+      nothing if the set is empty. Explain your solution. Annotate your
+      algorithm.
+   5. Extend it to respond to a request =S(1)!count()= from S(0) that
+      expects a reply with the number of elements in the set.
+
+3. Is the CSP code = [X!2 // Y!3]= equivalent to
+   = if    true --> X!2; Y!3   [] true --> Y!3; X!2 ]= ?
+4. Windows made the game of Mine Sweepers popular. Imagine each cell is
+   populated with CSP processes. Describe further details.
+5. Given a large (in the zillions) bag B of integers, find the third
+   largest number in B. Assume that B has at least three distinct
+   integers. Two solutions, one in CSP and another in C-Linda are to be
+   developed. It is not required that both use the same "idea." Present
+   your solutions with full explanations. For CSP, the bag is generated
+   by process B whose structure is =B :: do ... --> P!n od=. Develop the
+   process P and appropriately chosen other processes.
+6. You are given a large (in the zillions) bag B of triplets of unsigned
+   integers (x, y, d). Each triplet represents a horizontal line segment
+   of length d in the Euclidean plane whose left end point is at (x, y).
+   A (x1, y1, d1) /contains/ (x2, y2, d2) if y1 == y2 and x1 <= x2 and
+   x1 + d1 >= x2 + d2. We wish to minimize the size (== number of
+   triplets) of the given bag of triplets so that every original triplet
+   is contained in some triplet in the resulting collection. Fully
+   explain your solution design (10 points) in English for CSP.
+   Implement (10 points) the design in CSP. The bag is generated by
+   process Q whose structure is =Q :: do ... --> P!(x, y, d)]=. Develop
+   the process P and any others.
+
+* References
+
+1. C. A. R. Hoare, ``Communicating Sequential Processes,''
+   /Communications of the ACM/, 1978, Vol. 21, No. 8, 666-677. This
+   paper has many exercises for you to do.
+2. Andrews, Chapter 8 on Synchronous Message Passing, and also Section
+   10.2 on Occam.
+3. U of Kent, Communicating Sequential Processes for Java (JCSP),
+   [[http://www.cs.kent.ac.uk/projects/ofa/jcsp/]]
+
+1. http://www.cs.ox.ac.uk/ucs/ Bill Roscoe's book Understanding
+   Concurrent Systems.  2010, ISBN 978-1-84882-257-3.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

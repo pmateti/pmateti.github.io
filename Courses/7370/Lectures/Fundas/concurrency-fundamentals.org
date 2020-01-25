@@ -1,0 +1,89 @@
+# -*- mode: org -*-
+#+TITLE: Concurrency Fundamentals
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../
+#+HTML_LINK_UP: ../../Lectures
+#+DESCRIPTION: WSU CEG 7370 Distributed Computing
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\">../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+
+* Concurrency Problems
+
+1. Mutual Exclusion
+1. (Asynchronous) Message Passing
+1. Synchronization
+
+** Concurrency Folk Theorems
+1. Folk Theorem: Given any one mechanism for the above, the others cannot be built
+1. Folk Theorem: Given any two of the above, the third can be built.
+
+* Elementary Constructs
+
+** [[./semicolon-par-fat-bars.html]]
+
+1. Semantics of Semicolon ;
+1. Semantics of Parallel Bar ||
+1. Semantics of Fat Bar []
+
+** =<>= statements
+
+1. Angular-brackets: The enclosed statements are performed
+   /atomically/.
+
+1. Defining the semantics of "atomic" is a goal of this course.
+1. For now: No interleaving of other processes/ threads.
+
+** =<await>= statements
+
+1. =<await B => S>= B is a side-effect-free Boolean expression.  S is
+   a code segment.  
+
+2. Semantics, first cut: 
+   1. {Wait until B is true.  Execute S.  Atomically.  Once.} 
+1. Semantics, more to come.
+
+** [[../Semaphores/semaphores.html][Semaphores]]
+
+1. An Abstract Data Type with two methods: P and V.
+   1. Some literature uses "wait" instead of P, and "signal" instead
+      of V.
+   2. Uses await-statements.
+2. [[../Semaphores/semaphores.html][Semaphores]]
+
+** Send + Recv Primitives
+
+1. In process Q: =P ! msg= to process P send message msg
+1. In process P: =Q ? v= from process Q receive a message and store it in v
+1. The send from Q and the recv by P appear as a single event to an
+   external observer.
+1. No "buffering".
+1. *The* primitives of /distributed computing/.
+
+** Shared Tuple Space
+
+1. A /tuple/ is an ordered sequence of values, not necessarily of the
+   same type.
+
+   1. Ex: ("hello", true, 0.123, 50)
+
+2. T, a shared tuple space, a /bag/ of tuples. Collection possibly
+   with dupes.  For now, assume just one T.
+3. read from a shared tuple space T: read("hello", ?bl, ?rn, ?in);
+   item read remains in T.
+4. input("hello", ?bl, ?rn, ?in); T loses the item input.  Atomically.
+3. write into a shared tuple space T: output("there", 44); T gains the
+   item written.  Atomically.
+
+
+* Distributed Computing Architectures
+
+1. [[../DC/client-server.html]]
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

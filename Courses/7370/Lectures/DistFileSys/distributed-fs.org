@@ -1,0 +1,207 @@
+
+# -*- mode: org -*-
+#+date: 2019-12-06
+#+TITLE: Distributed File Systems
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+Note: The descriptions that are cut-and-pasted from the project web
+sites have the double quotes in them.
+
+* Expected Characteristics
+
+1. Store petabytes (10^15),  Exabyte, Zettabyte, Yottabytes
+
+1. Across 10^3 ... of machines
+
+1. Where is file metadata stored? distributed?
+
+1. Consistency
+
+1. Migration
+
+1. Fault Tolerance
+
+1. Partial disconnected operation
+
+* Well Established DFS
+
+1. https://access.redhat.com/videos/215133 Red Hat Summit 2012 -
+   Distributed File System Choices: Red Hat Storage, GlusterFS & pNFS
+   February 8 2015 at 2:36 AM
+
+1. http://www.coda.cs.cmu.edu/ Coda is a distributed filesystem with
+   its origin in AFS2.  disconnected operation for mobile computing is
+   freely available under a liberal license high performance through
+   client side persistent caching server replication security model
+   for authentication, encryption and access control continued
+   operation during partial network failures in server network network
+   bandwith adaptation good scalability well defined semantics of
+   sharing, even in the presence of network failures
+
+1. http://www.openafs.org/ AFS is a distributed filesystem product,
+   pioneered at Carnegie Mellon University and supported and developed
+   as a product by Transarc Corporation (now IBM Pittsburgh Labs). It
+   offers a client-server architecture for federated file sharing and
+   replicated read-only content distribution, providing location
+   independence, scalability, security, and transparent migration
+   capabilities.
+
+1. http://technet.microsoft.com/en-us/library/bb727150.aspx The
+   Distributed File System (DFS) in the Microsoft Windows® 2000
+   operating system provides a mechanism for administrators to create
+   logical views of directories and files, regardless of where those
+   files physically reside in the network. Fault tolerance of network
+   storage resources is also possible using Dfs.
+   http://blogs.technet.com/b/josebda/ archive/2009/ 03/10/
+   the-basics-of-the- windows-server-2008- distributed- file- system-
+   dfs.aspx
+
+
+
+* Gluster
+
+1. http://www.gluster.org/ GlusterFS is a unified, poly-protocol,
+   scale-out filesystem serving many petabytes of data.
+
+1. https://www.howtoforge.com/how-to-install-glusterfs-with-a-replicated-volume-over-2-nodes-on-ubuntu-14.04
+   Version 1.0 Author: Srijan Kishore Last edited: 16/July/2014
+
+1. http://moo.nac.uci.edu/~hjm/fhgfs_vs_gluster.html June 28th, 2014
+   We evaluated the Fraunhofer (FhGFS) and Gluster (Glfs) distributed
+   filesystem technologies on multiple hardware platforms under widely
+   varying conditions.
+1. "" They are now providing "granular locking" for large files. 
+1. http://www.networkcomputing.com/storage/gluster-vs-ceph-open-source-storage-goes-head-to-head/a/d-id/1113581 1/27/2014
+
+
+* Ceph
+
+"" Like Gluster, Ceph is an open source storage platform designed to
+massively scale, but it has taken a fundamentally different approach
+to the problem. At its base, Ceph is a distributed object store ,
+called RADOS, that interfaces with an object store gateway, a block
+device or a file system. Ceph has a very sophisticated approach to
+storage that allows it to be a single storage backend with lots of
+options built in, all managed through a single interface. Ceph also
+features native integration with KVM+QEMU. It also has tested support
+for Apache CloudStack cloud orchestration for both primary storage
+running virtual machines and as an image store using the S3 or Swift
+interface.
+
+"" Aside from a variety of support storage interfaces, Ceph offers
+compelling features that can be enabled depending your
+workloads. Pools of storage can have a read-only or write-back caching
+tier. The physical location of data can be managed using CRUSH maps
+whereas snapshots can be handled entirely by the storage backend.
+
+"" Ceph is versatile and can be tuned to any environment for any storage
+need.  It also has the ability to gracefully scale to 1000s of hosts.
+Ceph is an excellent candidate for use on any task where a distributed
+file system would be used.
+
+"" Like Gluster, Ceph is designed to run on commodity hardware to
+effectively deal with the inevitable failure of hardware. Recently,
+Red Hat acquired both Gluster and Inktank, the designers of Ceph. Red
+Hat intends to integrate both storage technologies into their current
+product line.
+
+* HDFS
+
+1. http://www-01.ibm.com/software/data/infosphere/hadoop/hdfs/ What is
+   the Hadoop Distributed File System (HDFS)?
+
+1. "" Check out Hadoop Filesystem (HDFS). Its focus is on very large
+   files and parallel task computing (with map/reduce), it has a high
+   latency but very high throughput. It is currently used on such
+   large installations as Facebook and amazon.com
+
+* Lustre
+
+1. "" "mature proven solution, used by a lot of big companies,
+   best with >10G files is a kernel driver."
+
+* Nutanix
+
+Nutanix distributed file system converges storage and compute into a
+single appliance based on commodity hardware. Like Gluster and Ceph,
+Nutanix features a scale out design that allows it to achieve
+redundancy and reliability while managing the inevitable hardware
+failures of scale.
+
+One of the main features of Nutanix is that it uses solid-state drives
+in each appliance node to store hot data. This allows Nutanix to
+automatically shuffle hot data between the faster and slower disks as
+it becomes hot and cold. Nutanix storage architecture also features
+deduplication and compression.
+
+It currently isn’t supported by CloudStack; however Nutanix supports NFS and iSCSI which allows it to be used with most hypervisors that are found in an enterprise. The self management capability of storage makes Nutanix one of the most turn key solutions on the market.
+
+As you can see there are many types of distributed file systems in the market today and storage is typically one of the harder components when architecting a cloud solution. It is important to understand the difference between the top distributed file systems so you can find the storage solution that is right for your business.
+
+* Seaweed-FS
+
+"" Seaweed-FS is a simple and highly scalable distributed file
+system. There are two objectives: to store billions of files! to serve
+the files fast! Instead of supporting full POSIX file system
+semantics, Seaweed-FS choose to implement only a key~file
+mapping. Similar to the word "NoSQL", you can call it as "NoFS".
+
+
+* IPFS
+
+1. IPFS is an acronym for Inter Planetary File System.  My opinion:
+   Too pompously named, but the very crucial ideas of un-censorable,
+   tamper proof, for-ever-persistent spatially distributed and owned
+   by no entity carried to real implementations.
+1. [[./IPFS]] More here.
+
+
+* Miscellaneous
+
+1. https://github.com/quantcast/qfs "" Quantcast File System (QFS) is a
+   high-performance, fault-tolerant, distributed file system developed
+   to support MapReduce processing, or other applications reading and
+   writing large files sequentially.
+
+1. http://www.xtreemfs.org/ "" XtreemFS is a fault-tolerant distributed
+   file system.
+
+1. http://en.wikipedia.org/wiki/Wuala; http://www.wuala.com/;
+   https://cdn.wuala.com/repo/deb/wuala_current_amd64.deb
+
+* References
+
+1. http://en.wikipedia.org/wiki/Category:Distributed_file_systems
+   Required Reading.
+
+1. http://pages.cs.wisc.edu/~remzi/OSTEP/dist-intro.pdf  Required Reading.
+
+1. CalvinFS: Consistent WAN Replication and Scalable Metadata
+   Management for Distributed File Systems @inproceedings {188412,
+	author = {Alexander Thomson and Daniel J. Abadi},
+	title = {CalvinFS: Consistent WAN Replication and Scalable Metadata Management for Distributed File Systems},
+	booktitle = {13th USENIX Conference on File and Storage Technologies (FAST 15)},
+	year = {2015},
+	isbn = {978-1-931971-201},
+	address = {Santa Clara, CA},
+	pages = {1--14},
+	url = {https://www.usenix.org/conference/fast15/technical-sessions/presentation/thomson},
+	publisher = {USENIX Association},
+}
+Recommended Reading.
+
+1. http://www.quora.com/What-are-the-difficulties-in-implementing-a-distributed-file-system Required Reading
+
+1. https://www.youtube.com/watch?v=bVt1GQxCqDg UMass OS  Recommended Watching.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

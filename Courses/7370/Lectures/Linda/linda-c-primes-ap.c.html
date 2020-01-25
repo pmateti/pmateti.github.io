@@ -1,0 +1,73 @@
+<!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000000">real_main</font></b><font color="#990000">(</font><font color="#009900">int</font> argc<font color="#990000">,</font> <font color="#009900">char</font> <font color="#990000">*</font>argv<font color="#990000">[])</font> <font color="#FF0000">{</font>
+  <font color="#009900">int</font> eot<font color="#990000">,</font> first_num<font color="#990000">,</font> i<font color="#990000">,</font> length<font color="#990000">,</font> new_primes<font color="#990000">[</font>GRAIN<font color="#990000">],</font> np2<font color="#990000">;</font>
+  <font color="#009900">int</font> num<font color="#990000">,</font> num_prices<font color="#990000">,</font> primes<font color="#990000">[</font>MAX<font color="#990000">],</font> p2<font color="#990000">[</font>MAX<font color="#990000">];</font>
+
+  <font color="#009900">int</font> num_workers <font color="#990000">=</font> <b><font color="#000000">atoi</font></b><font color="#990000">(</font>argv<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">]);</font>
+  <b><font color="#0000FF">for</font></b> <font color="#990000">(</font>i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> num_workers<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font> <b><font color="#000000">eval</font></b><font color="#990000">(</font><font color="#FF0000">"worker"</font><font color="#990000">,</font> <b><font color="#000000">worker</font></b><font color="#990000">());</font>
+  num_primes <font color="#990000">=</font> <b><font color="#000000">init_primes</font></b><font color="#990000">(</font>primes<font color="#990000">,</font> p2<font color="#990000">);</font>
+  first_num <font color="#990000">=</font> primes<font color="#990000">[</font>num_primes<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">+</font> <font color="#993399">2</font><font color="#990000">;</font>
+  <b><font color="#000000">out</font></b><font color="#990000">(</font><font color="#FF0000">"next task"</font><font color="#990000">,</font> first_num<font color="#990000">);</font>
+  eot <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font>			<i><font color="#9A1900">/* "end of table" */</font></i>
+  <b><font color="#0000FF">for</font></b> <font color="#990000">(</font>num <font color="#990000">=</font> first_num<font color="#990000">;</font> num <font color="#990000">&lt;</font> LIMIT<font color="#990000">;</font> num <font color="#990000">+=</font> GRAIN<font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#000000">in</font></b><font color="#990000">(</font><font color="#FF0000">"result"</font><font color="#990000">,</font> num<font color="#990000">,</font> <font color="#990000">?</font> new_primes<font color="#990000">:</font>length<font color="#990000">);</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font>i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> length<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">,</font> <font color="#990000">++</font>num_primes<font color="#990000">)</font> <font color="#FF0000">{</font>
+      primes<font color="#990000">[</font>num_primes<font color="#990000">]</font> <font color="#990000">=</font> new_primes<font color="#990000">[</font>i<font color="#990000">];</font>
+      <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>eot<font color="#990000">)</font> <font color="#FF0000">{</font>
+	np2 <font color="#990000">=</font> new_primes<font color="#990000">[</font>i<font color="#990000">]*</font>new_primes<font color="#990000">[</font>i<font color="#990000">];</font>
+	<b><font color="#0000FF">if</font></b> <font color="#990000">(</font>np2 <font color="#990000">&gt;</font> LIMIT<font color="#990000">)</font> <font color="#FF0000">{</font>
+	  eot <font color="#990000">=</font> <font color="#993399">1</font><font color="#990000">;</font>
+	  np2 <font color="#990000">=</font> <font color="#990000">-</font><font color="#993399">1</font><font color="#990000">;</font>
+	<font color="#FF0000">}</font>
+	<b><font color="#000000">out</font></b> <font color="#990000">(</font><font color="#FF0000">"primes"</font><font color="#990000">,</font> num_primes<font color="#990000">,</font> new_primes<font color="#990000">[</font>i<font color="#990000">],</font> np2<font color="#990000">);</font>
+      <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+  <font color="#FF0000">}</font>
+  <i><font color="#9A1900">/* "? int" means "match any int; throw out the value" */</font></i>
+  <b><font color="#0000FF">for</font></b> <font color="#990000">(</font>i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> num_workers<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font> <b><font color="#000000">in</font></b><font color="#990000">(</font><font color="#FF0000">"worker"</font><font color="#990000">,</font> <font color="#990000">?</font> <font color="#009900">int</font><font color="#990000">);</font>
+  <b><font color="#000000">printf</font></b><font color="#990000">(</font><font color="#FF0000">"count: %d</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font><font color="#990000">,</font> num_primes<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+
+<b><font color="#000000">worker</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+  <font color="#009900">int</font> count<font color="#990000">,</font> i<font color="#990000">,</font> limit<font color="#990000">,</font> num<font color="#990000">,</font> ok<font color="#990000">,</font> start<font color="#990000">;</font>
+  <font color="#009900">int</font> my_primes<font color="#990000">[</font>GRAIN<font color="#990000">],</font> primes<font color="#990000">[</font>MAX<font color="#990000">],</font> p2<font color="#990000">[</font>MAX<font color="#990000">];</font>
+
+  <font color="#009900">int</font> num_primes <font color="#990000">=</font> <b><font color="#000000">init_primes</font></b><font color="#990000">(</font>primes<font color="#990000">,</font> p2<font color="#990000">);</font>
+  <font color="#009900">int</font> eot <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font>
+  <b><font color="#0000FF">while</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#000000">in</font></b><font color="#990000">(</font><font color="#FF0000">"next task"</font><font color="#990000">,</font> <font color="#990000">?</font> num<font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>num <font color="#990000">==</font> <font color="#990000">-</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+      <b><font color="#000000">out</font></b><font color="#990000">(</font><font color="#FF0000">"next task"</font><font color="#990000">,</font> <font color="#990000">-</font><font color="#993399">1</font><font color="#990000">);</font>
+      <b><font color="#0000FF">return</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    limit <font color="#990000">=</font> num <font color="#990000">+</font> GRAIN<font color="#990000">;</font>
+    <b><font color="#000000">out</font></b><font color="#990000">(</font><font color="#FF0000">"next task"</font><font color="#990000">,</font> <font color="#990000">(</font>limit <font color="#990000">&gt;</font> LIMIT<font color="#990000">)</font> <font color="#990000">?</font> <font color="#990000">-</font><font color="#993399">1</font> <font color="#990000">:</font> limit<font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>limit <font color="#990000">&gt;</font> LIMIT<font color="#990000">)</font> limit <font color="#990000">=</font> LIMIT<font color="#990000">:</font>
+      start <font color="#990000">=</font> num<font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font>count <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> num <font color="#990000">&lt;</font> limit<font color="#990000">;</font> num <font color="#990000">+=</font> <font color="#993399">2</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+      <b><font color="#0000FF">while</font></b> <font color="#990000">(!</font>eot <font color="#990000">&amp;&amp;</font> num <font color="#990000">&gt;</font> p2<font color="#990000">[</font>num_primes<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">])</font> <font color="#FF0000">{</font>
+	<b><font color="#000000">rd</font></b> <font color="#990000">(</font><font color="#FF0000">"primes"</font><font color="#990000">,</font> num_primes<font color="#990000">,</font> <font color="#990000">?</font>primes<font color="#990000">[</font>num_primes<font color="#990000">],</font> <font color="#990000">?</font>p2<font color="#990000">[</font>num_primes<font color="#990000">]);</font>
+	<b><font color="#0000FF">if</font></b> <font color="#990000">(</font>p2<font color="#990000">[</font>num_primes<font color="#990000">]</font> <font color="#990000">&lt;</font> <font color="#993399">0</font><font color="#990000">)</font>
+	  eot <font color="#990000">=</font> <font color="#993399">1</font><font color="#990000">;</font>
+	<b><font color="#0000FF">else</font></b>
+	  <font color="#990000">++</font>num_primes<font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      <b><font color="#0000FF">for</font></b> <font color="#990000">(</font>i <font color="#990000">=</font> <font color="#993399">1</font><font color="#990000">,</font> ok <font color="#990000">=</font> <font color="#993399">1</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> num_primes<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font> <font color="#FF0000">{</font>
+	<b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>num<font color="#990000">%</font>primes<font color="#990000">[</font>i<font color="#990000">]))</font> <font color="#FF0000">{</font>
+	ok <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font>
+	<b><font color="#0000FF">break</font></b> <font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>num <font color="#990000">&lt;</font> p2<font color="#990000">[</font>i<font color="#990000">])</font> <b><font color="#0000FF">break</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ok<font color="#990000">)</font> <font color="#FF0000">{</font>
+      my_primes<font color="#990000">[</font>count<font color="#990000">]</font> <font color="#990000">=</font> num<font color="#990000">;</font>
+      <font color="#990000">++</font>count<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+  <font color="#FF0000">}</font>
+  <i><font color="#9A1900">/* Send the control process any primes found. */</font></i>
+  <b><font color="#000000">out</font></b><font color="#990000">(</font><font color="#FF0000">"result"</font><font color="#990000">,</font> start<font color="#990000">,</font> my_primes<font color="#990000">:</font>count<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+</tt></pre>

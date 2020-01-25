@@ -1,0 +1,223 @@
+# -*- mode: org -*-
+#+DATE: 2015-03-13
+#+TITLE: Distributed Programming Language Sampler: Erlang
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7370 Distributed Computing
+#+OPTIONS: toc:1 
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {font-family: monospace; font-size: 10pt; color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\"> CEG 7370</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+REVEAL_ROOT: http://www.cs.wright.edu/~pmateti/RevealJS
+#+REVEAL_PREAMBLE: <a href="./scalaPracticalOnePage.html">single-page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: yellow;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: cyan;} </style>
+#+REVEAL_THEME: night
+#+REVEAL_TRANS: default
+#+REVEAL_HLEVEL: 2
+#+REVEAL-SLIDE-NUMBER: t
+#+OPTIONS: reveal_control:t reveal_progress:t reveal_history:t reveal_center:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t
+#+REVEAL_TITLE_SLIDE_TEMPLATE: <h1>%t</h1><h3>%a</h3>%e<h2>%d</h2>An introduction to Scala, assuming OS and Java fluency<br><a href="../../Top/">CEG 7370 Distributed Computing</a>
+#+ATTR_REVEAL: highlight-blue  # not working
+
+* Facts
+
+1. TBD Year, Ericsson
+
+1. http://www.erlang.org/ There is an Erlang PDF book legit free to
+   download.  Has examples.
+
+* Hype
+
+1. Buzz Words: concurrent real-time distributed fault-tolerant long-running
+
+1. "Erlang is a programming language which has many features more
+   commonly associated with an operating system</a> than with a
+   programming language: concurrent processes</a>, scheduling, garbage
+   collection</a>, distribution, networking, etc." It permits only a
+   single assignment of a value to any variable.</p>
+
+1. "Learn how to write truly concurrent programs -- programs that run
+   on ... hundreds of local and remote processors. See how to write
+   high reliability applications -- even in the face of network and
+   hardware failure" 
+
+1. "" Erlang is a language that was designed to support distributed,
+   fault-tolerant, soft-realtime applications with requirements for
+   high availability and high concurrency.
+
+1. "" Erlang is a programming language used to build massively
+   scalable soft real-time systems with requirements on high
+   availability. Some of its uses are in telecoms, banking,
+   e-commerce, computer telephony and instant messaging. Erlang's
+   runtime system has built-in support for concurrency, distribution
+   and fault tolerance.
+
+1. "" Erlang is a programming language created specifically to support
+   long-running, concurrent, highly reliable distributed systems.
+
+1. "" OTP is a set of Erlang libraries and design principles providing
+   middle-ware to develop these systems. It includes its own
+   distributed database, applications to interface towards other
+   languages, debugging and release handling tools.
+
+* Hello World
+
+#+begin_src erlang
+-module(hello).
+-export([hello_world/0]).
+hello_world() -> io:fwrite("Hello, World!\n").
+#+end_src
+
+
+* Quick Sort
+
+#+begin_src erlang
+qsort([]) -> [];
+qsort([X|Xs]) ->
+   qsort([ Y || Y <- Xs, Y < X]) ++ [X] ++ qsort([ Y || Y <- Xs, Y >= X]).
+#+end_src
+
+* Concurrently Say "Enjoy" "Rosetta" "Code"
+
+#+begin_src erlang
+-module(hw).
+-export([start/0]).
+ 
+start() ->
+   [ spawn(fun() ->  say(self(), X) end)
+     || X <- ['Enjoy', 'Rosetta', 'Code'] ],
+   wait(2),
+   ok.
+ 
+say(Pid,Str) ->
+   io:fwrite("~s~n",[Str]),
+   Pid ! done.
+ 
+wait(N) ->
+   receive
+       done -> case N of
+           0 -> 0;
+           _N -> wait(N-1)
+       end
+   end.
+#+end_src
+
+
+* A TCP/IP time server
+
+#+begin_src erlang
+% Author  : Claes Wikstrom <klacke@erix.ericsson.se>
+
+-module(time_server).
+-author('klacke@erix.ericsson.se').
+
+-export([start/0, loop0/1]).
+
+-define(PORTNO, 2345).
+
+start() ->
+    start(?PORTNO).
+start(Pno) ->
+    spawn(?MODULE, loop0, [Pno]).
+
+loop0(Port) ->
+    case gen_tcp:listen(Port, [binary, {packet, 0}, {active, false}]) of
+	{ok, LSock} ->
+	    loop(LSock);
+	_ ->
+	    stop
+    end.
+
+loop(Listen) ->
+    case gen_tcp:accept(Listen) of
+	{ok, S} ->
+	    gen_tcp:send(S, io_lib:format("~p~n", [{date(), time()}])),
+	    gen_tcp:close(S),
+	    loop(Listen);
+	_ ->
+	    loop(Listen)
+    end.
+#+end_src
+
+* Compute the Digits of Pi
+
+#+begin_src erlang
+% http://shootout.alioth.debian.org/ contributed by Mark Scandariato
+% erl -noshell -noinput -run pidigits main 7
+
+-module(pidigits).
+-export([main/1]).
+
+is_safe(Z, N) -> N == extr(Z, 4).
+next(Z)       -> extr(Z, 3).
+prod(Z, N)    -> comp({10, -10*N, 0, 1}, Z).
+cons(Z, Zp)   -> comp(Z, Zp).
+
+-define(unit, {1,0,0,1}).
+comp({Q,R,S,T}, {Qp, Rp, Sp, Tp}) ->
+    {Q*Qp + R*Sp, Q*Rp + R*Tp, S*Qp + T*Sp, S*Rp + T*Tp}.
+extr({Q,R,S,T}, X) -> (Q * X + R) div (S * X + T).
+
+lft(K) -> {K, 4*K+2, 0, 2*K+1}.
+
+stream(N) -> stream(N, 0, 1, ?unit, []).
+stream(N, N, _, _, P) -> print(N,P);
+stream(N, C, K, Z, P) ->
+    Y = next(Z),
+    case is_safe(Z, Y) of
+        true  ->
+            stream(N, C+1, K, prod(Z,Y), update(C,Y,P));
+        false ->
+            stream(N, C, K+1, cons(Z, lft(K)), P)
+    end.
+
+update(C, D, P) when C rem 10 == 0, C > 0 ->
+    print(C, P),
+    [D];
+
+update(_, D, P) -> [D|P].
+
+print(C, P) -> do_print(C, lists:reverse(P)).
+
+do_print(C, []) when C rem 10 == 0 -> io:fwrite("\t:~p~n", [C]);
+do_print(C, []) -> io:fwrite("~*.1c:~p~n", [10 - C rem 10, $\t, C]);
+do_print(C, [H|T]) -> io:fwrite("~p", [H]), do_print(C, T).
+
+
+main([Arg]) ->
+    N = list_to_integer(Arg),
+    main(N),
+    erlang:halt(0);
+
+main(N) when N > 1 -> stream(N).
+#+end_src
+
+* RESTful Services with Erlang and Yaws
+
+1. Yaws "Yet Another Web Server".  Written in Erlang.  For serving
+   dynamic RESTful web.  
+
+1. REST = Representational State Transfer.  An architecture
+   for large-scale distributed systems, like the web.
+
+1. Static web page servers: lighttpd, nginx
+
+
+
+
+* Erlang References
+
+1. http://www.erlang.org/ Download, etc.
+   http://www.erlang.org/download/erlang-book-part1.pdf Legit
+   download.  This manuscript contains the complete text of Part I of
+   "Concurrent programming in Erlang" (ISBN 0-13-508301-X). 2015
+
+1. http://www.infoq.com/articles/vinoski-erlang-rest
+
+1. http://rosettacode.org/ "Rosetta Code is a programming chrestomathy
+   site. The idea is to present solutions to the same task in as many
+   different languages as possible, to demonstrate how languages are
+   similar and different, and to aid a person with a grounding in one
+   approach to a problem in learning another. Rosetta Code currently
+   has 766 tasks, 144 draft tasks, and is aware of 567 languages,
+   though we do not (and cannot) have solutions to every task in every
+   language." 2015

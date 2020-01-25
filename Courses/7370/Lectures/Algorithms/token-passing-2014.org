@@ -1,0 +1,191 @@
+# -*- mode: org -*-
+#+TITLE: Token Passing Algorithms
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7370 Distributed Computing
+#+OPTIONS: toc:1 
+#+OPTIONS: timestamp:t
+#+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
+#+OPTIONS: html-scripts:t html-style:t html5-fancy:t tex:t
+#+OPTIONS: org-html-indent:nil
+#+LINK_HOME: ./akka-slides.html
+#+LINK_UP: ./akka-slides.html
+#+HTML_CONTAINER: div
+#+HTML_DOCTYPE: xhtml-strict
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">CEG 7370 Distributed Computing</a> | <a href=\"./actors-akka-scala.html\"> Actors Akka Scala Overview</a> | <a href=\"./akkaSlides.html\"> Akka Slides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2014 %d %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.4)
+
+#+HTML_HEAD_EXTRA:
+#+REVEAL_ROOT: http://www.cs.wright.edu/~pmateti/RevealJS
+#+REVEAL_PREAMBLE: <a href="./akkaOnePage.html">Single-Page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: yellow;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: cyan;} </style>
+#+REVEAL_THEME: night
+#+REVEAL_TRANS: default
+#+REVEAL_HLEVEL: 2
+#+REVEAL-SLIDE-NUMBER: t
+#+OPTIONS: reveal_control:t reveal_progress:t reveal_history:t reveal_center:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t
+#+REVEAL_TITLE_SLIDE_TEMPLATE: <h1>%t</h1><h3>%a<br>%e</h3><h2>%d</h2><a href="../../Top/">CEG 7370 Distributed Computing</a>
+#+ATTR_REVEAL: highlight-blue  # not working
+
+* Probe/Echo for Topology of a Network
+
+#+begin_src sr
+type kind = enum(probe, echo);
+type boolmatrix = [1..n][1..n]: bool; 
+channel pec[1..n](k: kind, sender: int, links: boolmatrix);
+channel fin(links: boolmatrixbsp;  # final echo
+#+end_src
+
+** Initiator::
+#+begin_src sr
+constant source = ...;     # initiator's index
+var topo: boolmatrix;
+send pec[source](probe, source, emptySet)
+receive fin(topo)           # network topology
+#+end_src
+
+** Node[p:1..n] variables
+
+#+begin_src sr
+    var links[1..n] : bool := neighbors of node p;
+    var localtopo: boolmatrix := ([1..n][1..n] false);
+    var newtopo: boolmatrix;
+    var first, sender: 1..n;
+    var k : kind;
+    var needecho: int := num neighbors of p - 1
+#+end_src
+
+** Node[p:1..n] algorithm
+#+begin_src sr
+    localtopo[p] := links;
+    receive pec[p](k, first, newtopo);      # k = probe
+    for all q := 1 to n such that links[q] and q &ne; first do 
+         send pec[q](probe, p, emptySet)
+    od
+    do needecho &gt; 0 &rarr;
+        receive pec[p](k, sender, newtopo)
+        if k = probe &rarr;
+            
+send pec[sender](echo, p, emptySet)
+        [] k = echo &rarr;
+            
+  localtopo := localtopo or newtopo; 
+            
+  needecho := needecho - 1
+        fi
+    od
+    if p = source &rarr;  send fin(localtopo)
+    [] p &ne; source &rarr; send pec[first](echo, p, localtopo)
+    fi
+#+end_src
+
+1. Figure 7.19 [Andrews] Probe/echo algorithm for topology of a network
+
+
+* Mutual Exclusion with a Token Ring
+
+1. four channels =kch, enter, go, exit=, each [1..n].
+1. User processes P[1..n]
+1. Helpers [1..n]
+
+** DMUTEX invariant
+
+1. The token is a message on some kch[i].
+
+1. invariant :
+    
+  1. (There is exactly one token) and
+  1. (for-all i: 1 <= i <= n: P[i] in its CS implies Helper[i] has the token)
+
+** empty(ch)
+channel ch has no messages
+non blocking
+by the time "the next" receive is done "situation" may have changed.
+
+
+** Helper[i: 1..n]
+
+1. i-th Helper uses only the i-th numbered channels.
+
+#+begin_src sr
+do true => { DMUTEX }
+    receive kch[i]()
+    if not(empty(enter[i])) =>
+      receive  enter[i](); # will not block
+      send     go[i]();
+      receive exit[i]()
+    fi
+    send kch[i mod n + 1]() # pass the token on
+od
+#+end_src
+
+
+** P[i: 1..n]
+
+#+CAPTION: Figure 7.22.  Mutual exclusion with a token ring.
+#+begin_src sr
+do true =>
+    send enter[i]() # P[i] wishes to enter its CS
+    receive go[i]()
+    CS
+    send exit[t]()     # exit protocol
+    non-critical  section
+od
+#+end_src
+
+* Termination Detection
+
+1. Distributed State.  Global state is distributed.
+1. Not visible as a snapshot to any process.
+1. Messages in transit (i.e., "still" in the channels)
+
+** Process Idle/Busy
+
+1. Distributed Computation = send/recv + synergy
+
+1. Any process can subdivide a dc and request others to work on pieces
+
+1. Busy = Process is working on the assigned piece of computation
+
+1. Idle = Process is done with the assigned piece of computation
+
+
+** Toplogy Ring
+
+1. P[i] does a send on ch[i+1]
+1. P[i] does a receive on ch[i]
+
+** Termination Detection in a ring
+
+1. Figure 7.23 Termination detection in a ring
+
+1. invariant RING: =P[1]= blue implies
+    (=P[ 1 ] .. P[1+token]= are blue) &
+    (=ch[ 2 ] .. ch[token mod n + 1]= are empty)
+
+1. actions of =P[1]= when it first becomes idle:\\
+   =color[ 1 ] : = blue; token : = 0; send ch[2](token)=
+
+1. actions of =P[i: 1..n]= upon receiving a regular message:\\    
+   =color[ i ] : = red=
+
+1. actions of =P[i: 2..n]= upon receiving the token:\\
+   =color[ i ] : = blue; token : = token+1; send ch[i mod n + 1](token)=
+
+1. actions of =P[1]= upon receiving the token:\\    
+   if =color[ 1 ] is blue => announce termination and halt fi;
+   =color[ 1 ] : = blue; token : = 0; send ch[2](token)=
+
+
+1. Normal computation of =P[i]= is not shown.
+1. The integer value of token is used only in the reasoning of the alg.
+1. color is a single-int local variable; we use =[i]= to identify the process.
+
+
+* References
+
+1. Gregory R. Andrews, /Concurrent Programming: Principles and
+   Practice/, Benjamin/Cummings, 1991.  Chapter 7: Required Reading.
+
+

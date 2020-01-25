@@ -1,0 +1,70 @@
+# -*- mode: org -*-
+#+Date: 2020-01-01
+#+TITLE: Distributed Computing Survey of Prerequisites
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Distributed Computing
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\">../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P, LI {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+
+
+I will try to fill you in on most of the prerequisites.  The survey
+below is for that purpose.  In some ways it may be better that you
+have not heard of some of these things.  Post on Piazza this survey
+answered in (some) detail.
+
+* Concepts from Concurrency
+
+1. How familiar are you with: critical sections, mutual exclusion,
+   message passing, synchronization, fairness, starvation,
+   non-determinism?
+
+1. Can you differentiate deadlocks from livelocks? safety from liveness?
+
+
+* Constructs from Concurrent Programming
+
+1. How familiar are you with: Critical Regions, monitors, binary and
+   general semaphores?
+
+1. How familiar are you with IPC mechanisms of Linux?
+
+* Classic Problems
+
+1. How familiar are you with: Producers and Consumers, Readers and
+   Writers, Dining Philosphers, Roll-Your-Own Cigarette Smoking,
+   Sleeping Barber, Drinking Philosophers.
+
+* Formal Semantics
+
+1. How familiar are you with: assertions, pre- post-conditions, loop
+   and class invariants.
+
+* Program Development
+
+1. What is your program development experience using Linux, and using
+   Windows?
+
+1. What is the largest C/C++ program that you have written personally?
+   Give the (approximated) number in pages. (A typical code page has
+   about 50 lines, a line may be typically 20 characters.)
+
+1. Same question but with Java.
+
+1. Same question but with Scala.  (Very possible that you have done
+   nothing with this language.)
+
+1. How familiar are you with =make, ant, maven=, and various
+   cli-tools?
+
+1. What IDEs have you used and for how long?  E.g., idea/ eclipse/ 
+   netbeans/ other-IDEs.
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,6 @@
+
+distributed-fs.
+
+1. http://www.cs.ox.ac.uk/ucs/ Bill Roscoe's book Understanding
+   Concurrent Systems.  2010, ISBN 978-1-84882-257-3.
+

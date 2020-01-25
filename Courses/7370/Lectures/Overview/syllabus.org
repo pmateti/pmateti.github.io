@@ -1,0 +1,224 @@
+
+# -*- mode: org -*-
+#+date: 2019-12-04
+#+TITLE: Distributed Computing Syllabus 2020
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Course Description
+
+Distributed Computing is coordinated computing using machines at many
+locations.  It primarily uses message passing.  It tries to avoid
+synchronization.  It tries to avoid shared variables.  It tries to be
+robust in the presence of individual machine failures.
+
+*Detailed content*: Semantics of semicolon, parallel-bar, and fat-bar.
+Review of classic problems in concurrency.  Semaphores: weak and
+strong, split-binary, distributed. Distributed Termination. CSP
+(Communicating Sequential Processes). GO Language Systems Programming.
+Distributed Tuple Space and Linda.  Clients and Servers, RPC, RMI,
+Scala Actors.  Distributed file servers.  IPFS.  Semantics of
+Concurrency. Fairness.  Starvation.  Mutual exclusion.  Deadlocks.
+Livelocks.  Interference.  Axiomatic Semantics. Temporal Logic.
+
+*Prerequisites*: (i) Undergraduate course on Concurrent Programming
+(ii) Fluency in C++ and/or Java; Fluency in Go is not expected. (iii)
+Familiarity with Linux OS and IPC mechanisms.
+
+Course Objectives:
+
+1. Understand the technologies of RPC, RMI, and Actors in several
+   languages.
+1. Understand the principles of concurrent, distributed, networked, and
+   parallel computing.
+1. Understand non-deterministic computations and unfair scheduling as
+   givens.
+
+
+Learning Outcomes:
+
+1. Write client-server programs using RPC in C/C++, RMI in Java, and
+   Channels in Go, and Actors in Scala.
+1. Use distributed file server technology, e.g., IPFS.
+1. Reason about programs using assertions and temporal logic.
+1. Becomes fluent in Go and Scala.
+
+
+* Source Materials
+
+- *Course Home Page*
+  https://cecs.wright.edu/people/faculty/pmateti/Courses/7370/
+  Bookmark this link and visit it periodically. All course related
+  announcements will be posted on this page.
+- Recommended Books: 
+  1. (Andrews below refers to:) Gregory R. Andrews, /Concurrent
+     Programming: Principles and Practice/, Benjamin/Cummings, 1991.
+     (A classic.  Look for it on EBay?)
+  2. Alan A. A. Donovan and Brian W. Kernighan. The Go Programming Language. 
+  3. Andrew S. Tanenbaum and Maaten Van Steen. Distributed Systems:
+     Principles and Paradigms.
+  5. Scala + Akka Documentation,  [[http://doc.akka.io/docs/akka/current/scala.html]]
+  6. Java tutorial, [[http://download.oracle.com/javase/tutorial/]] or
+     another book of your choice on client/server programming in Java
+  7. https://github.com/theanalyst/awesome-distributed-systems A
+     curated list to learn about distributed systems.
+- Other references listed below.
+
+* Course Content
+
+This course is about the foundations, principles and technologies
+involved in distributed computing systems with an introduction to
+recent systems and languages.
+
+The numbers in parentheses at the end of each topic is an estimate of
+the number of (75-minute) lectures I intend to devote. I lecture on
+only the conceptually difficult portions of the cited references,
+leaving the rest as reading assignments.  Do not deduce the order of
+lectures based on this list.
+
+** Fundamentals (4)
+
+Starvation, deadlocks, livelocks. Interference, fairness, safety and
+liveness properties. Fine-grain and coarse-grain parallelism. Review
+of classic problems in concurrency.  Proper definition of semaphore.
+Weak and strong semaphores. Split-binary semaphores. Starvation-free
+mutual exclusion. The technique of ``passing the baton.''
+
+1. Andrews, Chapters 1, 2, 3.1, 3.5, 4, 5, 6, and Section 10.2.
+2. Jan Tijmen Udding, ``Absence of Individual Starvation Using Weak
+   Semaphores,'' /Information Processing Letters/, Vol. 23, 1986,
+   159-162.
+3. Allen B. Downey , "The Little Book of Semaphores", freely
+   downloadable book, 201x, [[http://www.greenteapress.com/semaphores/]]
+
+** Remote Invocation (4)
+
+Remote Procedure Calls (RPC), and Clients and Servers. Implementation
+of RPC. Stub generation, marshaling arbitrary data structures.
+External data representation (XDR) and RPCGEN. Study of an RPC
+example. Remote Method Invocation (RMI) and Object Serialization of
+Java.
+
+1. Andrew D. Birrell and Bruce Jay Nelson, Implementing Remote
+   Procedure Calls, ACM Transactions on Computer Systems (TOCS), 2, 1,
+   pp. 39--59, 1984. A classic paper.
+2. Oracle.com, ONC+ Developer's Guide;
+   [[http://docs.sun.com/app/docs/doc/816-1435]]; Reference.  This is a
+   highly recommended complete book on RPC.
+1. https://www.cs.princeton.edu/courses/archive/fall16/cos418/docs/L3-rpc.pdf
+   Slides on
+   Distributed Programming and Remote Procedure Calls (RPC)
+3. Java tutorial, [[http://download.oracle.com/javase/tutorial/]] Focus
+   on the RMI trail.
+4. Andrews, Chapter 9.
+
+** Distributed Algorithms (6)
+
+CSP, communicating sequential processes. Asynchronous and synchronous
+message passing. Logical clocks, ordering of events. Heartbeat,
+probe/echo, and broadcast algorithms. Distributed mutual exclusion,
+Distributed implementation of semaphores, and distributed termination
+detection.
+
+1. C. A. R. Hoare, ``Communicating Sequential Processes,''
+   /Communications of the ACM/, 1978, Vol. 21, No. 8, 666-677.
+   [[http://www.usingcsp.com/]] has an entire book by Hoare describing
+   further developements.
+2. Andrews, Chapters 7 and 8.
+
+** Distributed Languages and Systems (8)
+
+SR: Multiple primitives, /Linda/: Distributed data structures, and Java,
+JavaSpaces, Actors + Akka, and Hadoop. Distributed PLs: Erlang, Go,
+Scala. Distributed File Systems
+
+1. Andrews, Chapter 10.
+2. Sudhir Ahuja, Nicholas Carriero and David Gelernter, ``Linda and
+   Friends,'' /IEEE Computer/ (magazine), Vol. 19, No. 8, 26-34.
+   [[http://www.lindaspaces.com/]] has an entire book.
+3. JavaSpaces [[http://en.wikipedia.org/wiki/Tuple_space]]
+4. GO https://tour.golang.org/concurrency/1 Goroutines and https://tour.golang.org/concurrency/2 Channels
+5. [[https://doc.akka.io/docs/akka/current/additional/books.html][Books and Docs on Akka]]
+
+** Semantics of Concurrency (4)
+
+Programming logic.  Axiomatic Semantics.  Assertions on process
+states.  Pre-, post conditions, and loop invariants.  Temporal logic.
+
+1. Mateti, Lecture Notes on [[../Lectures/FormalMethods/]]
+1. Andrews, Chapter 2.
+
+1. http://www.tlaplus.net/ TLA "is a logic ... that consist[s] mainly
+   of ordinary (non-temporal) mathematics with just a tiny bit of
+   temporal logic." This site hosts a number of free software tools
+   and articles on a subset of temporal logic developed by
+   Lamport.
+
+1. Leslie Lamport, Specifying Systems: The TLA+ Language and Tools for
+   Hardware and Software Engineers, Pearson Education, Inc, 2002. (A
+   free PDF of this book, for personal use, is available at
+   http://research.microsoft.com/en-us/um/people/lamport/ Leslie
+   Lamport is a 2013 Turing Award winner.
+
+* Grading
+
+** Class and Discussion Wiki Participation 5%
+
+Concurrent algorithms and concepts are often subtle. Please participate
+in the class room discussions. Feel free to discuss openly, to ask what
+may appear to be dumb questions, and to catch any errors that I make. Be
+alert, study the backup material right away, and solve the exercises
+promptly.
+
+No problems will be assigned specifically as ``home work.'' However, you
+are expected to have studied problems that appeared in the old exams of
+this course, and the exercises of our textbooks.
+
+There is a local discussion wiki (see the link on the course home page)
+that you should read and participate regularly as a vehicle for
+discussing your solutions. I will read this group regularly, and note
+silently who is contributing what. I expect other students to be able to
+find flaws and fix them. Only when the most fundamental errors are being
+made will I break my silence and contribute a response.
+
+** Exams 25+35%
+
+There will be two exams contributing 25% plus 35% to the final grade.
+The date for the midterm exam will be announced in class. The date for
+the final exam is as set by the Registrar. Both exams are closed-book,
+and comprehensive. Many of the old exams for this course are available
+at the course home page.
+
+** Projects 5+10+10+10%
+
+It is necessary that you are comfortable in the /use/ of networked
+machines based on Linux and X. It is also assumed that you are fluent
+in Java, C++ and Linux process-related system calls.  There are
+programming projects using these that implement a multi-workstation
+oriented /WhiteBoard/ (WB) client-server program.  (It is *not*
+assumed that you are familiar with either RPC or RMI, Scala, or Akka.
+These will be taught in the course.)
+
+The projects are /required/. Not producing demonstrable (even if faulty)
+projects will award you a grade no better than an F in the whole course
+regardless of your performance in the exams.
+
+The projects must be work done by /you/ as a /single individual/. Do not
+use code from other sources, not even if it was given by the instructor
+in a past term. The projects are evaluated both by a demo and by
+skimming the source code and associated documentation.
+
+The due dates and further description of the projects are on the course
+home page.
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

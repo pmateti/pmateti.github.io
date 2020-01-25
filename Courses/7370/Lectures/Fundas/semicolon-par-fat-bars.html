@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-12-10 Tue 08:38 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Semantics of ; || []</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<meta name="description" content="WSU CEG 7370 Distributed Computing"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Semantics of ; || []</h1>
+<p>
+For now, let us focus on executional semantics.  We will revisit these
+after Hoare's Axioms and Dijkstra's Weakest Preconditions.
+</p>
+
+<div id="outline-container-org15f3340" class="outline-2">
+<h2 id="org15f3340"><span class="section-number-2">1</span> Semantics of Semicolon ;</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Consider the execution of S &equiv; S1 ; S2.  Think of semi-colon as
+an operator, much like + * are arithmetic operators.</li>
+<li>What is the meaning of S given the meanings of S1 and S2?</li>
+
+<li>Let Tb(Si) stand for the state at the beginning of Si, and Te(Si)
+at the end.  Let tb(Si) stand for the timestamp of when Si began,
+and te(Si) when it ended (if it did).</li>
+
+<li>The meaning of S1 tells us about the relation between Te(S1) and Tb(S1).</li>
+<li>Clearly, Tb(S2) = Te(S1) and tb(S2) &gt;= te(S1)</li>
+<li>Must tb(S2) == te(S1)?</li>
+<li>Is it acceptable if tb(S2) == te(S1) + 10 hours?</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org0996645" class="outline-2">
+<h2 id="org0996645"><span class="section-number-2">2</span> Semantics of Parallel Bar ||</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>Let S &equiv; S1 || S2.  Often written as <code>co S1 || s2 oc</code></li>
+<li>Is {S1 || S2} the same as {S2 || S1}?</li>
+<li>Must it be tb(S2) == tb(S1)?
+<ol class="org-ol">
+<li>Even so, we cannot expect that te(S2) == te(S1)</li>
+</ol></li>
+<li>Is it acceptable/ necessary: tb(S2) &gt;= te(S1)?</li>
+<li>Is it acceptable:  tb(S2) &lt; tb(S1)?</li>
+<li>te(S) == max(te(S1), te(S2))?</li>
+<li>tb(S) == min(tb(S1), tb(S2))?</li>
+<li>Is {S1 ; S2} a "pathological" version of  {S1 || S2}?</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orge47d3a1" class="outline-2">
+<h2 id="orge47d3a1"><span class="section-number-2">3</span> Semantics of Fat Bar []</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Let S &equiv; S1 [] S2.  Non-determinism
+<ol class="org-ol">
+<li>This is <b>defined</b> as execute one of S1 or S2.  Never both.</li>
+<li>Choice is <b>deliberately</b> unspecified.</li>
+</ol></li>
+<li>Is {S1 [] S2} the same as {S2 [] S1}?</li>
+<li>Non-determinism does <b>not</b> mean random.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgda4d4a0" class="outline-2">
+<h2 id="orgda4d4a0"><span class="section-number-2">4</span> Guarded Commands of Dijkstra</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgc9e57a0" class="outline-3">
+<h3 id="orgc9e57a0"><span class="section-number-3">4.1</span> IF statement</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+if G0 ==&gt; S0<br />
+[] G1 ==&gt; S1<br />
+&#x2026;<br />
+[] Gn ==&gt; Sn<br />
+fi<br />
+</p>
+
+<p>
+The Gi are boolean expressions, called the guards.  Imagine: The Gi
+are evaluated at the top of the if-stmt.  An Si is enbaled if its
+Gi evalueted to true.  If multiple Gi were true, all the corresponding
+Si are enabled.
+</p>
+
+<p>
+Case 1: One or more Si are enabled. From among the enabled Si, choose
+one non-determininistically, and execute it.
+</p>
+
+<p>
+Case 2: If no Si are enabled the if-stmt aborts.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0c6d8b7" class="outline-3">
+<h3 id="org0c6d8b7"><span class="section-number-3">4.2</span> DO statement</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+do G0 ==&gt; S0<br />
+[] G1 ==&gt; S1<br />
+&#x2026;<br />
+[] Gn ==&gt; Sn<br />
+od<br />
+</p>
+
+<ol class="org-ol">
+<li>This gives us a loop.</li>
+<li>Corresp if-stmt: Replace the <code>do</code> with <code>if</code> and <code>fi</code> for <code>od</code>.</li>
+<li>The do-stmt terminates if and when all the guards are false.</li>
+<li>We execute the corresp if-stmt first. If any of the guards were
+true, then we execute the do-stmt again.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org0b8d275" class="outline-2">
+<h2 id="org0b8d275"><span class="section-number-2">5</span> Exercise</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Consider
+{y := 0; z := 0; co x := y + z || {y := 1; z := 2} co}
+How can x be 0, 1, 2 or 3 on page 60 of Andrew's Concurrent Programming?
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Prabhaker Mateti (<a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.1.9)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

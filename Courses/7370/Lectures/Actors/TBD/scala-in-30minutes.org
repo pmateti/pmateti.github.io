@@ -1,0 +1,188 @@
+# -*- mode: org -*-
+#+TITLE: A Practical Intro to Scala
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7370 Distributed Computing
+#+OPTIONS: toc:1 
+#+LINK_HOME: ./akka-slides.html
+#+LINK_UP: ./akka-slides.html
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">CEG 7370 Distributed Computing</a> | <a href=\"./actors-akka-scala.html\">Actors Akka Scala Overview </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2014 %d %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+REVEAL_ROOT: http://www.cs.wright.edu/~pmateti/RevealJS
+#+REVEAL_PREAMBLE: <a href="./akka.html">single-page</a>
+#+REVEAL_THEME: night
+#+REVEAL_TRANS: default
+#+REVEAL_HLEVEL: 2
+#+REVEAL-SLIDE-NUMBER: t
+#+OPTIONS: reveal_control:t reveal_progress:t reveal_history:t reveal_center:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t
+#+REVEAL_TITLE_SLIDE_TEMPLATE: <h1>%t</h1><h3>%a</h3>%e<h2>%d</h2><p>An introduction to Akka, assuming Scala and Java fluency<br><a href="../../Top/">CEG 7370 Distributed Computing</a></p>
+#+ATTR_REVEAL: highlight-blue  # not working
+#+DATE:
+
+* Scala REPL interactive
+
+  1. Read-Eval-Print-Loop (REPL), similar to Scheme, Python, ...
+  1. =println("Hello, World!")=
+  1. =def fac(n: Int): BigInt = if (n==0) 1 else n * fac(n - 1)=
+
+* scalac followed by scala
+
+1. content of file named =hello-world-println.scala=
+     #+BEGIN_SRC scala
+object HelloWorld {
+  def main(args: Array[String]) {
+    println("Hello, World!")
+  }
+}
+#+END_SRC
+2. =% scalac hello-world-println.scala=
+3. =% ls -l=
+     #+BEGIN_SRC bash
+total 16
+-rw-rw-r-- 1 pmateti pmateti 595 Mar 29 21:26 HelloWorld.class
+-rw-rw-r-- 1 pmateti pmateti 608 Mar 29 21:26 HelloWorld$.class
+-rw-rw-r-- 1 pmateti pmateti  90 Mar 29 21:21 hello-world-println.scala
+#+END_SRC
+4. =% scala HelloWorld=
+     #+BEGIN_SRC bash
+Hello, World!
+#+END_SRC
+
+#+REVEAL: split
+5. =% javap HelloWorld.class HelloWorld\$.class=
+     #+BEGIN_SRC bash
+Compiled from "hello-world-println.scala"
+public final class HelloWorld {
+  public static void main(java.lang.String[]);
+}
+Compiled from "hello-world-println.scala"
+public final class HelloWorld$ {
+  public static final HelloWorld$ MODULE$;
+  public static {};
+  public void main(java.lang.String[]);
+}
+#+END_SRC
+
+#+REVEAL: split
+1. =scala= and =scalac= are shell scripts on Linux. 200+ lines. Differ
+   in just one line.  On windows, =scala.bat= and =scalac.bat=
+
+1. Scala version I am using [date: Mar 30, 2014] is
+     #+BEGIN_SRC scala
+Welcome to Scala version 2.11.0-RC3 (Java HotSpot(TM) 64-Bit Server VM, Java 1.7.0_51).
+Type in expressions to have them evaluated.
+Type :help for more information.
+#+END_SRC
+
+1. bash: 
+   1. =alias scala=/usr/local/scala-2.11.0-RC3/bin/scala=
+   1. =alias scalac=/usr/local/scala-2.11.0-RC3/bin/scalac=
+
+
+
+* Scala cf. Java
+
+1. Abstract classes, but no interfaces, instead partial classes called =trait=s
+
+1. TBD slide 4 of Sesoft
+
+
+* Concurrency in Scala
+
+1. Scala can do Signals and Monitors, SyncVars, Futures, Parallel
+   Computations, Semaphores, Readers/Writers, Asynchronous Channels,
+   Synchronous Channels, Threads, Workers, Mailboxes, and Actors.
+
+1. ! is AMP  TBD
+1. !? is SMP
+1. !! is AMP + future
+
+2. =List("one", "two", "three", "four").foreach { name =>  new Thread { override def run() = { println("Thread " + name + " [" + this + "] says Hello World!") } }.start }=
+
+#+REVEAL: split
+3. same code as above but prettied up
+     #+BEGIN_SRC scala
+List("one", "two", "three", "four") .
+  foreach{
+    name =>
+      new Thread {
+        override                       // needed
+        def run() = {
+          println(
+             "Thread " + name +
+             " [" + this + 
+             "] says Hello, World!"
+          )
+        }
+     }
+     .  start
+  }
+#+END_SRC
+
+** Hello Word with Actors
+
+     #+BEGIN_SRC scala
+import scala.actors.Actor
+
+List("one", "two", "three", "four").foreach {
+ name =>
+   new Actor {
+     override
+     def act() = {
+       println("Thread " + name + " says Hello World!")
+     }
+   }
+  .start
+}
+#+END_SRC
+
+1. hello-world-threaded.scala TBD
+
+* Scala can be Hard to Learn
+
+1. Voluminous documentation aimed at programming newbies.  Too many
+   (incompatible) versions.  24,066 questions tagged on
+   http://stackoverflow.com/questions/tagged/scala
+
+1. Functional Programming paradigm: Imagine no variable can be
+   assigned more than once.  Anonymous Functions. Currying.
+
+1. Lazy values.
+
+1. Futures, Promises
+
+1. Java classes/interfaces remixed: Multiple inheritance, Traits
+
+1. Type inheritance
+
+1. Omission of "things": the dot, the semicolon, ...
+
+* Perspectives
+
+1. Typical middleware almost always thread-based
+1. Actor frameworks exist for all popular PLs
+
+
+* References
+
+1. Martin Odersky, "Scala by Example".  Highly recommended read
+   Chapter 17: Abstractions for Concurrency (10+ pages).  The full
+   book is at http://www.scala-lang.org/docu/files/ScalaByExample.pdf,
+   150+ pages.  Martin Odersky and others at EPFL, Switzerland are the
+   designers of Scala.  Apparently the pdf gets generated every day.
+   Caution: "Scala by Example": Despite the name of the book, only a
+   few are ready-to-compile-and-run examples.
+
+1. Michel Schinz, Philipp Haller, "A Scala Tutorial for Java
+   programmers",
+   http://www.scala-lang.org/docu/files/ScalaTutorial.pdf, 2014, 15
+   pages.
+
+1. https://typesafe.com/activator is the place for
+   ready-to-compile-and-run examples of Scala (or Java) with Akka.
+
+
+* TBD
+
+1. scalax ... similar to javap

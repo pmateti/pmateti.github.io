@@ -1,0 +1,207 @@
+<html>
+<head>
+<title>CEG7370 Distributed Computing Midterm</title>
+<meta name="AUTHOR" content="Prabhaker Mateti">
+<style type="text/css">
+  body.margin {margin: 2cm 2cm 2cm 2cm}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  pre {background:AntiqueWhite; }
+  pre.sol {background: yellow; }
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  @media print {BODY {font-size: 10pt; line-height: 120%; background: white;} }
+  @media screen {BODY {font-size: medium; background: white; margin: 5em} }
+</style>
+</head>
+<body>
+
+<h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370:&nbsp;Distributed Computing Principles</a></h3>
+
+<h1>Notes on Passing The Baton Technique</h1>
+
+Converting an await-based solution to one that uses semaphores.
+
+<h2>Semaphores/Counters</h2>
+
+<p>
+Introduce<br>
+
+        e: semaphore := 1;<br>
+        b[j]: semaphore := 0;<br>
+        d[j]: counter := 0;<br>
+
+<p>
+The e and the b[j] together constitute a split-binary semaphore.&nbsp;
+That is, sumOfAll b[k] = e is either a 0 or a 1.
+
+<p>
+Collect the code segments into the two groups, N[i] and A[j] and
+replace them with the code shown below.<br />
+
+<h2>N[i] === < S[i] ></h2>
+
+<p>N[i] are atomic code segments with no awaits.
+
+<pre>
+P(e); 
+S[i]; 
+PASS-BATON
+</pre>	
+
+<h2>A[j] === < await B[j] &rarr; S[j] > </h2>
+
+<p>A[j] are atomic code segments *with* awaits.
+
+
+<pre>
+P(e);          
+if not B[j] ->
+  d[j] := d[j] + 1;
+  V(e); 
+  P(b[j]); 
+fi;            
+S[j];
+PASS-BATON 	
+</pre>	
+
+<h2>PASS-BATON</h2>
+
+<pre>
+                                  //  Invariant I === sumOfAll b[k] == 0 ^ e=0 
+if
+.
+.
+.
+[] B[k] ^ d[k] > 0 ->
+                                  // {I ^ B[k] ^ d[k] > 0 } 
+  d[k] := d[k] - 1;               // {I ^ B[k] ^ d[k] &ge; 0 } 
+  V(b[k])                         // {I ^ B[k] ^ d[k] &ge; 0 } 
+[]
+.
+.
+.
+            
+[] else --> V(e) 
+fi
+</pre>   
+<hr>
+
+<h2>Readers/Writers by Andrew, 1990 - Original</h2>
+
+<pre>
+Initially: 
+  counter nr := 0, nw := 0, dr := 0, dw := 0
+  semaphore e := 1, r := 0, w := 0
+Invariant: RW == ( [nr = 0] or [nw = 0] ) and nw <= 1
+</pre>
+
+<h2>Reader[i:1..M] ::</h2>
+
+<pre>
+do true ->
+    P(e) ;
+    if nw = 0 -> skip 
+    [] nw > 0 -> 
+       dr++ ;
+       V(e) ;
+       P(r) 
+    fi 
+    nr++ ;
+    if dr = 0 -> V(e) 
+    [] dr > 0 -> dr--; V(r) 
+    fi 
+
+    ...read...;
+
+    P(e) ;
+    nr-- ;
+    if nr > 0 or dw = 0  -> V(e) 
+    [] nr = 0 and dw > 0  -> dw--; V(w) 
+    fi 
+od
+</pre>
+
+<h2>Writer[j:1..N] ::</h2>
+
+<pre>
+do true ->         
+  P(e) ;
+  if nr = 0 and nw = 0 -> skip 
+  [] nr > 0 or nw > 0 -> 
+     dw++ ;
+     V(e) ;
+     P(w) 
+  fi ;
+  nw++; 
+  V(e) ;
+
+  ...write...;
+            
+  P(e) ;
+  nw-- ;
+  if dr = 0 and dw = 0  ->V(e) 
+  [] dw > 0 -> dw--; V(w) 
+  [] dr > 0 -> dr--; V(r)
+  fi         
+od
+</pre>    
+<hr>
+
+<h2>Readers/Writers by Andrew - With writers having priority</h2>
+
+
+<h2>Reader[i:1..M] ::</h2>
+
+<pre>
+do true ->
+    P(e); 
+    if nw = 0 -> skip 
+    [] nw > 0 or dw > 0 ->  //new readers are delayed if a writer is waiting now
+       dr++ ;
+       V(e) ;
+       P(r) 
+    fi ;
+    nr++; 
+    if dr = 0 -> V(e) 
+    [] dr > 0 -> dr--; V(r) 
+    fi 
+
+    ...read...
+
+    P(e) ;
+    nr-- ;
+    if nr > 0 or dw = 0  -> V(e) 
+    [] nr = 0 and dw > 0  -> dw--; V(w) 
+    fi 
+od
+</pre>
+
+<h2>Writer[j:1..N] ::</h2>
+
+<pre>
+do true ->         
+  P(e) ;
+  if nr = 0 and nw = 0 -> skip 
+  [] nr > 0 or nw > 0 -> 
+     dw++ ;
+     V(e) ;
+     P(w) 
+  fi ;
+  nw++; 
+  V(e) 
+
+  ...write...;
+            
+  P(e) ;
+  nw-- ;
+  if dr = 0 and dw = 0  -> V(e) 
+  [] dw > 0 -> dw--; V(w) 
+  [] dr > 0 and dw = 0 -> dr--; V(r) //a delayed reader is resumed only if no writer is waiting
+  fi         
+od
+</pre>    
+<hr>
+</body>
+</html>

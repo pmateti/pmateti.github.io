@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>(Concurrent-  Parallel-  Networked- Distributed- Computing)</title>
+<meta name="author" content="(Prabhaker Mateti)"/>
+<meta name="description" content="Concurrent v Parallel v Networked v Distributed computing"/>
+<link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/reveal.min.css"/>
+<link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/theme/surya.css" id="theme"/>
+
+<link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/print/pdf.css" type="text/css" media="print"/>
+</head>
+<body>
+<a href="./conc-par-netw-distr-OnePage.html"> Single-Page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: red;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: brown;} </style>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>Concurrent-  Parallel-  Networked- Distributed- Computing</h1><h3>Prabhaker Mateti</h3><a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a><h2></h2>A discussion at the end of this course<br><a href="../../Top/">CEG 7370 Distributed Computing</a></section>
+<section>
+<h2>Table of Contents</h2><ul>
+<li>
+<a href="#sec-1">Too Many Adjectives?</a>
+</li>
+<li>
+<a href="#sec-2">Sequential Computing</a>
+</li>
+<li>
+<a href="#sec-3">Networked Computing</a>
+</li>
+<li>
+<a href="#sec-4">Distributed Computing</a>
+</li>
+<li>
+<a href="#sec-5">Parallel Computing</a>
+</li>
+<li>
+<a href="#sec-6">Concurrent Computing</a>
+</li>
+<li>
+<a href="#sec-7">Exercises</a>
+</li>
+<li>
+<a href="#sec-8">References</a>
+</li>
+</ul>
+</section>
+
+<section id="sec-1" >
+
+<h2><span class="section-number-2">1</span> Too Many Adjectives?</h2>
+<ol class="org-ol">
+<li>The adjectives Sequential, Concurrent, Parallel, Networked, Distributed are
+applicable to Computing.
+</li>
+
+<li>What do they mean?
+</li>
+
+<li>Are the defs of Concurrent and Parallel parochial?
+</li>
+</ol>
+</section>
+<section id="sec-2" >
+
+<h2><span class="section-number-2">2</span> Sequential Computing</h2>
+<ol class="org-ol">
+<li>Recall our defs of <code>;</code>  <code>||</code> and <code>[]</code>
+</li>
+<li>Assume:  Process creation operations are <b>unavailable</b>.
+</li>
+<li>Assume:  Operators <code>||</code> and <code>[]</code> do not occur.
+</li>
+<li>Assume:  Underlying processor has just one core.
+</li>
+<li>Assume:  Not aware of other processes.
+</li>
+</ol>
+</section>
+<section id="sec-3" >
+
+<h2><span class="section-number-2">3</span> Networked Computing</h2>
+<ol class="org-ol">
+<li>Processes communicate only via send and receive of messages.
+</li>
+<li>Processes do not have shared state/ memory.
+</li>
+<li>How do they "know" each other?
+<ol class="org-ol">
+<li>IP addresses, DNS, UDP/TCP port numbers, &#x2026;
+</li>
+<li>RPC, RMI, &#x2026; discovery mechanisms
+</li>
+</ol>
+</li>
+<li>Independent lives?  Cooperative? Contentious? Malicious?
+</li>
+<li>Loss of messages? Possible.
+</li>
+<li>Order of sends = Order of receives? May not be.
+</li>
+<li>Design and implement SMP (Synchronous Message Passing) only.
+</li>
+<li>Some nodes may provide AMP services based on SMP.
+</li>
+<li>Scalabe? Yes, but &#x2026;
+</li>
+<li>Nondeterminism  (our fat-bar)
+</li>
+</ol>
+</section>
+<section id="sec-4" >
+
+<h2><span class="section-number-2">4</span> Distributed Computing</h2>
+<ol class="org-ol">
+<li>Networked Computing + "Synergy"
+</li>
+</ol>
+
+</section>
+<section>
+<section id="sec-4-1" >
+
+<h3><span class="section-number-3">4.1</span> Lookup Some Words</h3>
+<ol class="org-ol">
+<li>Contemporary
+</li>
+<li>Simultaneous
+<ol class="org-ol">
+<li>walk and chew gum
+</li>
+</ol>
+</li>
+
+<li>Sharing and Ownership
+</li>
+<li>Synergy
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-4-2" >
+
+<h3><span class="section-number-3">4.2</span> Synergy-1</h3>
+<p>
+<a href="http://www.merriam-webster.com/dictionary/synergy">www.merriam-webster.com</a>
+</p>
+
+<ol class="org-ol">
+<li>syn.er.gy noun {si-ner-jea} : the increased effectiveness that
+results when two or more people or businesses work together.
+Plural synergies
+</li>
+
+<li>synergism; broadly:  combined action or operation
+</li>
+
+<li>a mutually advantageous conjunction or compatibility of distinct
+business participants or elements (as resources or efforts)
+</li>
+
+<li>Examples of SYNERGY:
+<ol class="org-ol">
+<li>A synergy has developed among the different groups working on this project.
+</li>
+<li>two companies that have found synergy
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="sec-4-3" >
+
+<h3><span class="section-number-3">4.3</span> Synergy-2</h3>
+<p>
+<a href="http://wordnet.princeton.edu/">http://wordnet.princeton.edu/</a>
+</p>
+
+<ol class="org-ol">
+<li>Noun 1. synergy - the working together of two things (muscles or
+drugs for example) to produce an effect greater than the sum of
+their individual effects
+</li>
+
+<li>potentiation = (medicine) the synergistic effect of two drugs
+given simultaneously
+</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="sec-4-4" >
+
+<h3><span class="section-number-3">4.4</span> Distributed Computing, contd.</h3>
+<ol class="org-ol">
+<li>Networked Computing + Synergy
+</li>
+<li>Processes communicate only via send and receive.
+<ol class="org-ol">
+<li>Loss of messages?  No.
+</li>
+<li>Order of sends = Order of receives?  Yes?
+</li>
+</ol>
+</li>
+<li>Processes do not have shared state/ memory.
+</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="sec-4-5" >
+
+<h3><span class="section-number-3">4.5</span> Distributed Computing-1</h3>
+<ol class="org-ol">
+<li>Independent lives? Yes; 
+</li>
+<li>Cooperative? Yes; 
+</li>
+<li>Contentious? No; 
+</li>
+<li>Malicious? No.
+</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="sec-4-6" >
+
+<h3><span class="section-number-3">4.6</span> Distributed Computing-2</h3>
+<ol class="org-ol">
+<li>How do they "know" each other?
+<ol class="org-ol">
+<li>Established naming protocols
+</li>
+<li>PL support
+</li>
+</ol>
+</li>
+<li>Scalabe? Yes. (Note the "but" part in networked computing.)
+</li>
+<li>Nondeterminism  (our fat-bar)
+</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="sec-4-7" >
+
+<h3><span class="section-number-3">4.7</span> Distributed Shared Memory</h3>
+<ol class="org-ol">
+<li><code>x :=</code> <code>a</code> by P1 vs <code>x :=</code> <code>b</code> by P2 vs <code>read x</code> by P3
+</li>
+<li>Must P3 be able to see: a and/or b? when?
+</li>
+<li>Are we assuming priorities among P1, P2, P3?
+</li>
+<li>Global clock?
+</li>
+<li>Unclear semantics; implied expections of "memory"
+</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="sec-4-8" >
+
+<h3><span class="section-number-3">4.8</span> Distributed Shared Data</h3>
+<ol class="org-ol">
+<li>Large, Conceptually One, "Data Structure". Databases.
+</li>
+<li>Partitioned and stored across many nodes.
+</li>
+<li>Migrate the partitions as needed.
+</li>
+<li>Replicate some partitions for reads, track writes
+</li>
+</ol>
+</section>
+</section>
+<section id="sec-5" >
+
+<h2><span class="section-number-2">5</span> Parallel Computing</h2>
+<ol class="org-ol">
+<li>What is described here is a consensus view.
+</li>
+<li>Does not assume the absence of the other computing models.
+</li>
+</ol>
+
+</section>
+<section>
+<section id="sec-5-1" >
+
+<h3><span class="section-number-3">5.1</span> Parallel Computing</h3>
+<ol class="org-ol">
+<li>Assumes multiple processors/ cores.
+</li>
+<li>Assumes shared memory.
+</li>
+<li>Assumes life-times of processes overlap.
+</li>
+<li>Assumes arbitrarily fine granularity
+<ol class="org-ol">
+<li>memory read v write v write by different cores
+</li>
+<li>E.g., <code>a +=</code> <code>b</code> and simultaneouly <code>c -=</code> <code>d</code>
+<ol class="org-ol">
+<li>Could a be an alias for c?
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</section>
+<section id="sec-6" >
+
+<h2><span class="section-number-2">6</span> Concurrent Computing</h2>
+<ol class="org-ol">
+<li>What is described here is a consensus view.
+</li>
+<li>Does not assume the absence of the other computing models.
+</li>
+</ol>
+
+</section>
+<section>
+<section id="sec-6-1" >
+
+<h3><span class="section-number-3">6.1</span> Concurrent Computing-1</h3>
+<ol class="org-ol">
+<li>Permits but does not assume multiple processors/ cores.
+</li>
+<li>Permits but does not assume shared memory.
+</li>
+<li>Permits but does not assume life-times of processes overlap.
+</li>
+<li>Assumes "not-so-fine" granularity of execution of basic instructions.
+</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="sec-6-2" >
+
+<h3><span class="section-number-3">6.2</span> Concurrent Computing-2</h3>
+<ol class="org-ol">
+<li>Higher level abstract view
+</li>
+<li>Mutual exclusion of code segments
+</li>
+<li>Synchronization of indpendent processes
+</li>
+<li>Send and receive messages
+</li>
+</ol>
+</section>
+</section>
+<section id="sec-7" >
+
+<h2><span class="section-number-2">7</span> Exercises</h2>
+<ol class="org-ol">
+<li>Distributed but not concurrent?
+</li>
+<li>Client-Server always distributed?
+</li>
+<li>Peer-to-peer only in distributed systems?
+</li>
+<li>RPC/RMI inherently client-server?
+</li>
+<li>Order of importance: Efficient, Correct, Symmetric, Scalable,
+Deadlock-free, Livelock-free, Starvation-free, &#x2026;?
+</li>
+</ol>
+</section>
+<section id="sec-8" >
+
+<h2><span class="section-number-2">8</span> References</h2>
+<ol class="org-ol">
+<li>Rob Pike - 'Concurrency Is Not Parallelism', 2013, video:
+<a href="http://www.youtube.com/watch?v=cN_DpYBzKso">http://www.youtube.com/watch?v=cN_DpYBzKso</a>, slides:
+<a href="http://concur.rspace.googlecode.com/hg/talk/concur.html">http://concur.rspace.googlecode.com/hg/talk/concur.html</a>;
+interview: <a href="http://www.infoq.com/interviews/pike-concurrency">http://www.infoq.com/interviews/pike-concurrency</a> .  Rob
+Pike is a Distinguished Engineer at Google, Inc.  Highly
+Recommended that you watch.
+</li>
+
+<li>Robert Harper, Parallelism is not concurrency,
+<a href="http://existentialtype.wordpress.com/2011/03/17/">http://existentialtype.wordpress.com/2011/03/17/</a> 2011.  Robert
+Harper is a CS professor at CMU.  Highly Recommended Reading.
+</li>
+</ol>
+</section>
+</div>
+</div>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/lib/js/head.min.js"></script>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/js/reveal.min.js"></script>
+<script>
+
+        		// Full list of configuration options available here:
+        		// https://github.com/hakimel/reveal.js#configuration
+        		Reveal.initialize({
+        			controls: true,
+        			progress: true,
+        			history: true,
+        			center: true,
+                                slideNumber: true,
+        			rollingLinks: true,
+        			keyboard: true,
+        			overview: true,
+        			 // slide width
+        			 // slide height
+        			 // slide margin
+        			 // slide minimum scaling factor
+        			 // slide maximum scaling factor
+
+
+        			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        			transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        			transitionSpeed: 'default',
+
+        			// Optional libraries used to extend on reveal.js
+        			dependencies: [
+        				{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+         				
+        			]
+        		});
+</script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>(Token Passing Algorithms)</title>
+<meta name="author" content="(Prabhaker Mateti)"/>
+<meta name="description" content="CEG7370 Distributed Computing"/>
+<link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/reveal.min.css"/>
+<link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/theme/night.css" id="theme"/>
+
+<link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/print/pdf.css" type="text/css" media="print"/>
+</head>
+<body>
+<a href="./akkaOnePage.html">Single-Page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: yellow;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: cyan;} </style>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>Token Passing Algorithms</h1><h3>Prabhaker Mateti<br><a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a></h3><h2></h2><a href="../../Top/">CEG 7370 Distributed Computing</a></section>
+<section>
+<h2>Table of Contents</h2><ul>
+<li>
+<a href="#sec-1">Probe/Echo for Topology of a Network</a>
+</li>
+<li>
+<a href="#sec-2">Mutual Exclusion with a Token Ring</a>
+</li>
+<li>
+<a href="#sec-3">Termination Detection</a>
+</li>
+<li>
+<a href="#sec-4">References</a>
+</li>
+</ul>
+</section>
+
+<section id="sec-1" >
+
+<h2><span class="section-number-2">1</span> Probe/Echo for Topology of a Network</h2>
+<div class="org-src-container">
+
+<pre class="src src-sr">type kind = enum(probe, echo);
+type boolmatrix = [1..n][1..n]: bool; 
+channel pec[1..n](k: kind, sender: int, links: boolmatrix);
+channel fin(links: boolmatrixbsp;  # final echo
+</pre>
+</div>
+
+</section>
+<section>
+<section id="sec-1-1" >
+
+<h3><span class="section-number-3">1.1</span> Initiator::</h3>
+<div class="org-src-container">
+
+<pre class="src src-sr">constant source = ...;     # initiator's index
+var topo: boolmatrix;
+send pec[source](probe, source, emptySet)
+receive fin(topo)           # network topology
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="sec-1-2" >
+
+<h3><span class="section-number-3">1.2</span> Node[p:1..n] variables</h3>
+<div class="org-src-container">
+
+<pre class="src src-sr">var links[1..n] : bool := neighbors of node p;
+var localtopo: boolmatrix := ([1..n][1..n] false);
+var newtopo: boolmatrix;
+var first, sender: 1..n;
+var k : kind;
+var needecho: int := num neighbors of p - 1
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="sec-1-3" >
+
+<h3><span class="section-number-3">1.3</span> Node[p:1..n] algorithm</h3>
+<div class="org-src-container">
+
+<pre class="src src-sr">    localtopo[p] := links;
+    receive pec[p](k, first, newtopo);      # k = probe
+    for all q := 1 to n such that links[q] and q &amp;ne; first do 
+         send pec[q](probe, p, emptySet)
+    od
+    do needecho &amp;gt; 0 &amp;rarr;
+        receive pec[p](k, sender, newtopo)
+        if k = probe &amp;rarr;
+
+send pec[sender](echo, p, emptySet)
+        [] k = echo &amp;rarr;
+
+  localtopo := localtopo or newtopo; 
+
+  needecho := needecho - 1
+        fi
+    od
+    if p = source &amp;rarr;  send fin(localtopo)
+    [] p &amp;ne; source &amp;rarr; send pec[first](echo, p, localtopo)
+    fi
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>Figure 7.19 [Andrews] Probe/echo algorithm for topology of a network
+</li>
+</ol>
+</section>
+
+</section>
+<section id="sec-2" >
+
+<h2><span class="section-number-2">2</span> Mutual Exclusion with a Token Ring</h2>
+<ol class="org-ol">
+<li>four channels <code>kch, enter, go, exit</code>, each [1..n].
+</li>
+<li>User processes P[1..n]
+</li>
+<li>Helpers [1..n]
+</li>
+</ol>
+
+</section>
+<section>
+<section id="sec-2-1" >
+
+<h3><span class="section-number-3">2.1</span> DMUTEX invariant</h3>
+<ol class="org-ol">
+<li>The token is a message on some kch[i].
+</li>
+
+<li>invariant :
+
+<ol class="org-ol">
+<li>(There is exactly one token) and
+</li>
+<li>(for-all i: 1 &lt;= i &lt;= n: P[i] in its CS implies Helper[i] has the token)
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="sec-2-2" >
+
+<h3><span class="section-number-3">2.2</span> empty(ch)</h3>
+<p>
+channel ch has no messages
+non blocking
+by the time "the next" receive is done "situation" may have changed.
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-2-3" >
+
+<h3><span class="section-number-3">2.3</span> Helper[i: 1..n]</h3>
+<ol class="org-ol">
+<li>i-th Helper uses only the i-th numbered channels.
+</li>
+</ol>
+
+<div class="org-src-container">
+
+<pre class="src src-sr">do true =&gt; { DMUTEX }
+    receive kch[i]()
+    if not(empty(enter[i])) =&gt;
+      receive  enter[i](); # will not block
+      send     go[i]();
+      receive exit[i]()
+    fi
+    send kch[i mod n + 1]() # pass the token on
+od
+</pre>
+</div>
+</section>
+
+</section>
+<section>
+<section id="sec-2-4" >
+
+<h3><span class="section-number-3">2.4</span> P[i: 1..n]</h3>
+<div class="org-src-container">
+<label class="org-src-name">Figure 7.22.  Mutual exclusion with a token ring.</label>
+<pre class="src src-sr">do true =&gt;
+    send enter[i]() # P[i] wishes to enter its CS
+    receive go[i]()
+    CS
+    send exit[t]()     # exit protocol
+    non-critical  section
+od
+</pre>
+</div>
+</section>
+</section>
+<section id="sec-3" >
+
+<h2><span class="section-number-2">3</span> Termination Detection</h2>
+<ol class="org-ol">
+<li>Distributed State.  Global state is distributed.
+</li>
+<li>Not visible as a snapshot to any process.
+</li>
+<li>Messages in transit (i.e., "still" in the channels)
+</li>
+</ol>
+
+</section>
+<section>
+<section id="sec-3-1" >
+
+<h3><span class="section-number-3">3.1</span> Process Idle/Busy</h3>
+<ol class="org-ol">
+<li>Distributed Computation = send/recv + synergy
+</li>
+
+<li>Any process can subdivide a dc and request others to work on pieces
+</li>
+
+<li>Busy = Process is working on the assigned piece of computation
+</li>
+
+<li>Idle = Process is done with the assigned piece of computation
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-3-2" >
+
+<h3><span class="section-number-3">3.2</span> Toplogy Ring</h3>
+<ol class="org-ol">
+<li>P[i] does a send on ch[i+1]
+</li>
+<li>P[i] does a receive on ch[i]
+</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="sec-3-3" >
+
+<h3><span class="section-number-3">3.3</span> Termination Detection in a ring</h3>
+<ol class="org-ol">
+<li>Figure 7.23 Termination detection in a ring
+</li>
+
+<li>invariant RING: <code>P[1]</code> blue implies
+(<code>P[ 1 ] .. P[1+token]</code> are blue) &amp;
+(<code>ch[ 2 ] .. ch[token mod n + 1]</code> are empty)
+</li>
+
+<li>actions of <code>P[1]</code> when it first becomes idle:<br  />
+   <code>color[ 1 ] : = blue; token : = 0; send ch[2](token)</code>
+</li>
+
+<li>actions of <code>P[i: 1..n]</code> upon receiving a regular message:<br  />
+   <code>color[ i ] : = red</code>
+</li>
+
+<li>actions of <code>P[i: 2..n]</code> upon receiving the token:<br  />
+   <code>color[ i ] : = blue; token : = token+1; send ch[i mod n + 1](token)</code>
+</li>
+
+<li>actions of <code>P[1]</code> upon receiving the token:<br  />
+   if <code>color[ 1 ] is blue =&gt; announce termination and halt fi;
+   =color[ 1 ] : = blue; token : = 0; send ch[2](token)</code>
+</li>
+</ol>
+
+
+<ol class="org-ol">
+<li>Normal computation of <code>P[i]</code> is not shown.
+</li>
+<li>The integer value of token is used only in the reasoning of the alg.
+</li>
+<li>color is a single-int local variable; we use <code>[i]</code> to identify the process.
+</li>
+</ol>
+</section>
+
+</section>
+<section id="sec-4" >
+
+<h2><span class="section-number-2">4</span> References</h2>
+<ol class="org-ol">
+<li>Gregory R. Andrews, <i>Concurrent Programming: Principles and
+Practice</i>, Benjamin/Cummings, 1991.  Chapter 7: Required Reading.
+</li>
+</ol>
+</section>
+</div>
+</div>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/lib/js/head.min.js"></script>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/js/reveal.min.js"></script>
+<script>
+
+        		// Full list of configuration options available here:
+        		// https://github.com/hakimel/reveal.js#configuration
+        		Reveal.initialize({
+        			controls: true,
+        			progress: true,
+        			history: true,
+        			center: true,
+                                slideNumber: true,
+        			rollingLinks: true,
+        			keyboard: true,
+        			overview: true,
+        			 // slide width
+        			 // slide height
+        			 // slide margin
+        			 // slide minimum scaling factor
+        			 // slide maximum scaling factor
+
+
+        			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        			transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        			transitionSpeed: 'default',
+
+        			// Optional libraries used to extend on reveal.js
+        			dependencies: [
+        				{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+         				
+        			]
+        		});
+</script>
+</body>
+</html>

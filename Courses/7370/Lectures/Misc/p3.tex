@@ -1,0 +1,52 @@
+\documentstyle[12pt]{article}
+\newcounter{iex}\setcounter{iex}{1}
+\def\itm{\medskip\noindent \theiex. ~\stepcounter{iex}}
+\def\CSP{{\sc csp}}
+\def\SR{{\sc sr}}
+\def\ISIS{{\sc isis}}
+\parindent=0pt
+\parskip=0pt
+\begin{document}
+
+
+{\bf CS
+\Large \bf 7370 Distributed Computing Principles}\\[5pt]
+\bigskip
+
+{Fall Qtr 1995, Wright State U}
+
+\bigskip
+
+\section*{Project 3}
+
+Project 1 was about program-comprehension.  The {\sl WB} is a
+multi-workstation oriented {\sl WhiteBoard} client-server program, and
+deals with {\sc rpc}-usage and {\sc x11} through a pre-packaged module
+of mine.  All relevant source and documentation is in
+\verb|/usr/local/lib/Languages/7370/| 
+Your task in Project 1 was to run the server on one node, and at least
+four clients on four different nodes of at least three different
+architectures and two different whiteboards.
+
+
+Project 3 asks you to modify the code of Project 1 to make it better.
+
+\begin{enumerate}
+
+\item Server responds to query from a client with full information
+(name of the board, names of the host machines where the boards are in
+use, etc.) regarding all whiteboards.
+
+\item Server responds to a request to clone itself on a named node.
+The old server(s) together with the newly created clone together
+serve the pool of client whiteboards by dividing the clients.
+
+\item A server responds to a request to transfer a named client
+whiteboard
+from one server to another.
+
+\end{enumerate}
+
+
+{\vfill\tiny Oct 1995}
+\end{document}

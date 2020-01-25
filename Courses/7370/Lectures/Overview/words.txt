@@ -1,0 +1,14 @@
+Distributed Computing is coordinated computing using machines
+locations  message passing.  
+synchronization.  shared variables.  
+robust machine failures.
+Computing Computing Computing Computing
+Semantics of semicolon, parallel-bar,
+fat-bar.
+classic problems in concurrency.  Semaphores: weak and
+strong, split-binary, distributed. Distributed Termination. CSP
+(Communicating Sequential Processes). GO Language Systems Programming.
+Distributed Tuple Space and Linda.  Clients and Servers, RPC, RMI,
+Scala Actors.  Distributed file servers.  IPFS.
+Concurrency. Fairness.  Starvation.  Mutual exclusion.  Deadlocks.
+Livelocks.  Interference.  Axiomatic . Temporal Logic.

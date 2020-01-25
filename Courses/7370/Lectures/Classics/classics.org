@@ -1,0 +1,98 @@
+# -*- mode: org -*-
+#+DATE: 2015-03-13
+#+TITLE: Classic Problems in Concurrency
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7370 Distributed Computing
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\">../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P, LI {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+Every student of distributed computing should know quite a bit about
+the fundamentals of concurrency.  A good chunk of that is knowing why
+the following problems (not necessarily their solutions) are worthy of
+study.
+
+The classic problems mentioned below are well defined; so do a web
+search.
+
+* [[https://en.wikipedia.org/wiki/Dining_philosophers_problem][Dining Philosophers Problem]]
+   1. Illustrates deadlock
+   2. Illustrates livelock
+   3. Illustrates malicious cooperation
+   4. Assume or not: Communication among them
+
+* [[https://en.wikipedia.org/wiki/Mutual_exclusion][Mutual Exclusion Problem]]
+   1. Consider two or more processes.  Each P_i has an area of code
+      C_i "sensitive enough" that we call it a "critical section" CS.
+   2. Assume CS always terminates.
+   3. "Sensitive enough" == shared variable, usually
+
+** Mutual Exclusion Problem
+
+   4. Find a solution that satisfies four requirements:
+      1. R1 Mutual Exclusion: Number of processes in the CS, at any time
+         == 0 or 1.
+      2. R2: Deadlock-Free + Live-lock-free
+      3. R3: No Unnecessary Delay
+      4. R4: Eventual Entry or Bounded Waiting: A process wishing to enter its CS, must be
+         able to enter it in a finite amount of wait.
+
+** Mutual Exclusion Problem
+
+
+   5. Typically solved with semaphores.  
+      1. m : semaphore := 1
+      2. Entry to CS: P(m);
+      3. Exit from CS: V(m);
+
+** Mutual Exclusion Problem
+
+
+   6. Also, read about solutions such as Dekker's and Peterson's,
+      using ordinary variables.
+
+** Mutual Exclusion Problem
+
+
+   1. Two processes can illustrate the essence of the issue, but we
+      are also interested in "starvation-free" semaphore based
+      solutions, especially in distributed systems.
+      1. The above solution is not starvation free.
+
+   2. Starvation-free Mutex Solutions Using Split Binary Semaphores
+      1. .[[./Semaphores/udding-morris-algs.html]]
+
+* [[https://en.wikipedia.org/wiki/Readers%E2%80%93writers_problem][Readers-Writers Problem]]
+   1. Read-Sharing a resource
+   2. Exclusive update of the resource
+   3. Andrews' [[./passing-the-baton-ns.html][Notes on Passing The Baton Technique]]
+   4. [[./Parnas-readers-writers-with-priority.org][Parnas readers-writers]]
+
+* Producers-Consumers Problem
+
+1. aka Bounded Buffer Problem
+1. [[https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem][Producers-Consumers Problem]]
+
+
+* Cigarette Smokers Problem
+
+
+1. What problems of concurrency can semaphores solve?
+1. Introduces an array of semaphores.
+1. Cigarette Smokers Problem cannot be solved without arrays.
+1. [[https://en.wikipedia.org/wiki/Cigarette_smokers_problem][Cigarette Smokers Problem]]
+
+
+
+* [[https://en.wikipedia.org/wiki/Dining_cryptographers_problem][Dining Cryptographers Problem]]
+* [[https://en.wikipedia.org/wiki/Sleeping_barber_problem][Sleeping Barber Problem]]
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

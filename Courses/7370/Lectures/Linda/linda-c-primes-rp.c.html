@@ -1,0 +1,29 @@
+<!-- Generator: GNU source-highlight 3.1.5
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000000">real_main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+  <font color="#009900">int</font> count <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">,</font> i<font color="#990000">,</font> <b><font color="#000000">is_prime</font></b><font color="#990000">(),</font> ok<font color="#990000">;</font>
+  <b><font color="#0000FF">for</font></b><font color="#990000">(</font>i <font color="#990000">=</font> <font color="#993399">2</font><font color="#990000">;</font> i <font color="#990000">&lt;=</font> LIMIT<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font> <b><font color="#000000">eval</font></b><font color="#990000">(</font><font color="#FF0000">"primes"</font><font color="#990000">,</font> i<font color="#990000">,</font> <b><font color="#000000">is_prime</font></b><font color="#990000">(</font>i<font color="#990000">));</font>
+
+  <b><font color="#0000FF">for</font></b><font color="#990000">(</font>i <font color="#990000">=</font> <font color="#993399">2</font><font color="#990000">;</font> i <font color="#990000">&lt;=</font> LIMIT<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#000000">rd</font></b><font color="#990000">(</font><font color="#FF0000">"primes"</font><font color="#990000">,</font> i<font color="#990000">,</font> <font color="#990000">?</font> ok<font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ok<font color="#990000">)</font> <font color="#990000">++</font>count<font color="#990000">;</font>
+  <font color="#FF0000">}</font>
+  <b><font color="#000000">printf</font></b><font color="#990000">(</font><font color="#FF0000">"%d.</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font><font color="#990000">,</font> count<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+
+<b><font color="#000000">is_prime</font></b><font color="#990000">(</font><font color="#009900">int</font> me<font color="#990000">)</font> <font color="#FF0000">{</font>
+  <font color="#009900">int</font>
+    <font color="#009900">double</font>
+    i<font color="#990000">,</font> limit<font color="#990000">,</font> ok<font color="#990000">;</font>
+  <b><font color="#000000">sqrt</font></b><font color="#990000">();</font>
+  limit <font color="#990000">=</font> <b><font color="#000000">sqrt</font></b><font color="#990000">((</font><font color="#009900">double</font><font color="#990000">)</font> me<font color="#990000">)</font> <font color="#990000">+</font> <font color="#993399">1</font><font color="#990000">;</font>
+  <b><font color="#0000FF">for</font></b> <font color="#990000">(</font>i <font color="#990000">=</font> <font color="#993399">2</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> limit<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#000000">rd</font></b><font color="#990000">(</font><font color="#FF0000">"primes"</font><font color="#990000">,</font> i<font color="#990000">,</font> <font color="#990000">?</font> ok<font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ok <font color="#990000">&amp;&amp;</font> <font color="#990000">(</font>me<font color="#990000">%</font>i <font color="#990000">==</font> <font color="#993399">0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <font color="#993399">0</font><font color="#990000">;</font>
+  <font color="#FF0000">}</font>
+  <b><font color="#0000FF">return</font></b> <font color="#993399">1</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+</tt></pre>

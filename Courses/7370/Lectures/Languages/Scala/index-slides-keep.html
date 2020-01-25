@@ -1,0 +1,1096 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>(A Practical Intro to Scala)</title>
+<meta name="author" content="(Prabhaker Mateti)"/>
+<meta name="description" content="CEG7370 Distributed Computing"/>
+<link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/reveal.min.css"/>
+<link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/theme/night.css" id="theme"/>
+
+<link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/print/pdf.css" type="text/css" media="print"/>
+</head>
+<body>
+<a href="./scalaPractical.html">single-page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: yellow;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: cyan;} </style>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>A Practical Intro to Scala</h1><h2>Prabhaker Mateti</h2><a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a><br><h3>An introduction to Scala,<br> assuming OS and Java fluency</h3><a href="../../Top/">CEG 7370 Distributed Computing</a></br>2019-03-13</section>
+<section>
+<h2>Table of Contents</h2><ul>
+<li>
+<a href="#sec-1">75 minutes or less?</a>
+</li>
+<li>
+<a href="#sec-2">Scala REPL interactive</a>
+</li>
+<li>
+<a href="#sec-3">Scala Tools</a>
+</li>
+<li>
+<a href="#sec-4">Short Examples</a>
+</li>
+<li>
+<a href="#sec-5">Scala cf. Java</a>
+</li>
+<li>
+<a href="#sec-6">Concurrency in Scala</a>
+</li>
+<li>
+<a href="#sec-7">Scala can be Hard to Learn</a>
+</li>
+<li>
+<a href="#sec-8">scala, scalac details</a>
+</li>
+<li>
+<a href="#sec-9">References</a>
+</li>
+</ul>
+</section>
+
+
+<section id="sec-1" >
+
+<h2><span class="section-number-2">1</span> 75 minutes or less?</h2>
+<ol class="org-ol">
+<li>Obviously, in 75 minutes or less, we cannot make you an expert in
+Scala.  But you will learn enough Scala to start writing programs
+involving actors &#x2013; provided you 
+<ol class="org-ol">
+<li>have taken an OS course, and
+</li>
+<li>are fluent in Java.  
+</li>
+</ol>
+</li>
+
+<li>However, we defocus functional programming, and fancy features.
+</li>
+
+<li>Link to Source Code Examples: <a href="./scalaExamples">./scalaExamples</a>
+</li>
+<li>Martin Odersky and others, at EPFL, Switzerland, are the designers of
+Scala.
+</li>
+<li>Scala is still evolving
+</li>
+</ol>
+
+</section>
+<section id="sec-2" >
+
+<h2><span class="section-number-2">2</span> Scala REPL interactive</h2>
+<ol class="org-ol">
+<li><code>scala</code> without args is a Read-Eval-Print-Loop (REPL), similar to Scheme, Python, &#x2026;
+</li>
+<li>Try <code>println("Hello, World!")</code>
+</li>
+<li>Try <code>def fac(n: Int): BigInt = { if (n==0) 1 else n * fac(n - 1) }</code>
+</li>
+<li>Note the declaration style; the {} can be omitted
+</li>
+<li>Try <code>{ val x = 5; x + 2 }</code>  A "block" yields the value of the last expresseion
+</li>
+<li>Caution: Scala is a large language; a simple mistake can produce
+difficult to understand error.
+</li>
+</ol>
+
+</section>
+<section id="sec-3" >
+
+<h2><span class="section-number-2">3</span> Scala Tools</h2>
+<ol class="org-ol">
+<li><code>sbt</code> Simple Build Tool. Cf. <code>make</code>, <code>ant</code>
+</li>
+<li>Intellij IDEA plugin <a href="http://www.jetbrains.com/idea/features/scala.html">http://www.jetbrains.com/idea/features/scala.html</a>
+</li>
+<li>Eclipse plugin <a href="http://scala-ide.org/">http://scala-ide.org/</a>
+</li>
+<li><a href="http://www.scalatest.org/">http://www.scalatest.org/</a>
+</li>
+</ol>
+
+</section>
+<section>
+<section id="sec-3-1" >
+
+<h3><span class="section-number-3">3.1</span> scalac followed by scala</h3>
+<ol class="org-ol">
+<li>content of file named <code>hello-world-println.scala</code>
+<div class="org-src-container">
+
+<pre class="src src-scala">object HelloWorld {
+  def main(args: Array[String]) {
+    println("Hello, World!")
+  }
+}
+</pre>
+</div>
+</li>
+<li><code>% scalac hello-world-println.scala</code>
+</li>
+<li><code>% ls -o</code>
+<div class="org-src-container">
+
+<pre class="src src-bash">total 16
+-rw-rw-r-- 1 pmateti 595 Mar 29 21:26 HelloWorld.class
+-rw-rw-r-- 1 pmateti 608 Mar 29 21:26 HelloWorld$.class
+-rw-rw-r-- 1 pmateti  90 Mar 29 21:21 hello-world-println.scala
+</pre>
+</div>
+</li>
+<li><code>% scala HelloWorld</code> (similar to <code>java ClassName</code>)
+<div class="org-src-container">
+
+<pre class="src src-bash">Hello, World!
+</pre>
+</div>
+</li>
+</ol>
+</section>
+
+</section>
+<section id="sec-4" >
+
+<h2><span class="section-number-2">4</span> Short Examples</h2>
+</section>
+<section>
+<section id="sec-4-1" >
+
+<h3><span class="section-number-3">4.1</span> Quick Sort (Layout of a Complete Prog)</h3>
+<ol class="org-ol">
+<li>array indexing <code>()</code> not []
+</li>
+<li>while loop: <code>while (a(i) &lt; pivot) i +=</code> <code>1</code>
+</li>
+<li>for loop: 
+<div class="org-src-container">
+
+<pre class="src src-scala">for (i &lt;- 0 until a.length)
+  a(i) = util.Random.nextInt() % 100
+</pre>
+</div>
+</li>
+<li><code>val size = 20</code> scala  inferred the type of <code>size</code> as integer
+</li>
+<li><code>val</code> assignment once only
+</li>
+<li>source code <a href="./scalaExamples/quickSort.scala">./scalaExamples/quickSort.scala</a>
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-4-2" >
+
+<h3><span class="section-number-3">4.2</span> The N-Queens Problem (For-Comprehensions)</h3>
+<ol class="org-ol">
+<li>8-queens problem: Given a standard chess-board, place 8 queens so
+that no queen is in check from any other.
+</li>
+
+<li>For-Comprehensions stx: <code>for</code>  generator filter <code>yield</code> transformerExp
+</li>
+
+<li>For-Comprehensions
+<div class="org-src-container">
+
+<pre class="src src-scala">for { 
+  queens &lt;- placeQueens(k - 1)
+  column &lt;- List.range(1, n + 1)
+  if isSafe(column, queens, 1) 
+}
+yield
+  column :: queens
+</pre>
+</div>
+</li>
+
+<li>source code <a href="./scalaExamples/nqueens.scala">./scalaExamples/nqueens.scala</a>
+</li>
+</ol>
+</section>
+
+
+</section>
+<section>
+<section id="sec-4-3" >
+
+<h3><span class="section-number-3">4.3</span> CallBack</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">object CallBackEx {
+  def oncePerSecond(callback: () =&gt; Unit) {
+    while (true) { callback(); Thread sleep 1000 }
+  }
+  def timeFlies() {
+    println("time flies like an arrow...")
+  }
+  def main(args: Array[String]) {
+    oncePerSecond(timeFlies)
+  }
+}
+</pre>
+</div>
+</section>
+
+</section>
+<section>
+<section id="sec-4-4" >
+
+<h3><span class="section-number-3">4.4</span> CallBack, Anonymous</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">object CallBackExAnonymous {
+  def oncePerSecond(callback: () =&gt; Unit) {
+    while (true) { callback(); Thread sleep 1000 }
+  }
+  def main(args: Array[String]) {
+    oncePerSecond(() =&gt;
+      println("time flies like an arrow..."))
+  }
+}
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>Note <code>timeFlies</code> removed
+</li>
+<li><code>() =&gt; println("time flies like an arrow...")</code> is an anonymous
+function
+</li>
+<li>Type inferred: <code>() =&gt; Unit</code>  Unit cf. void
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-4-5" >
+
+<h3><span class="section-number-3">4.5</span> Classes, Inheritance and Overriding</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">class Complex(real: Double, imaginary: Double) {
+  def re = real
+  def im = imaginary
+  override def toString() =
+    "" + re + (if (im &lt; 0) "" else "+") + im + "i"
+}
+</pre>
+</div>
+
+<ol class="org-ol">
+<li><code>re</code> is a getter method with no arguments; parens omittable.
+</li>
+<li>Note the embedded <code>if</code>-expression.
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-4-6" >
+
+<h3><span class="section-number-3">4.6</span> Traits</h3>
+<ol class="org-ol">
+<li>Java has just single inheritance, and so uses multiple interfaces.
+</li>
+<li>Scala Traits are "partial" classes; they contain code for methods.
+</li>
+<li>A Scala class can import code from several traits.
+</li>
+<li>source code <a href="./scalaExamples/traitEx.scala">./scalaExamples/traitEx.scala</a>
+</li>
+<li>source code <a href="./scalaExamples/compare.scala">./scalaExamples/compare.scala</a> ; <code>def &lt;</code>, <code>&gt;</code>, &#x2026;
+</li>
+<li>type <code>Any</code> is the super-type of all (other) types.
+</li>
+</ol>
+</section>
+
+
+</section>
+<section id="sec-5" >
+
+<h2><span class="section-number-2">5</span> Scala cf. Java</h2>
+<ol class="org-ol">
+<li>Scala <code>object</code> v Java <code>static</code>
+</li>
+<li><code>Boolean</code>, <code>Int</code>, <code>Long</code>, <code>Float</code>, etc. are (built-in) classes/types.
+</li>
+<li>There are no <code>break</code> s or <code>continue</code> s in <code>for</code> loops
+</li>
+</ol>
+
+</section>
+<section>
+<section id="sec-5-1" >
+
+<h3><span class="section-number-3">5.1</span> Tokens</h3>
+<ol class="org-ol">
+<li>new special tokens: <code>_</code>, <code>&lt;-</code>, <code>::</code>  (+ several more)
+</li>
+<li><code>object</code>, <code>Unit</code>, <code>Any</code>, <code>Nil</code>, <code>None</code>, <code>Some(x)</code>
+</li>
+<li><code>case</code> is used in different ways
+</li>
+<li>Constructors: <code>Array</code>, <code>List</code>
+</li>
+<li><code>var x, y, z: Int = 0</code>
+</li>
+
+<li><code>val x, y, z: Int = 0</code>  assigned one-time
+</li>
+
+<li>no <code>++</code>, or <code>--</code>; use instead <code>+=1</code> or <code>-=1</code>
+</li>
+</ol>
+
+</section>
+<section id="sec-5-1-1" >
+
+<h4><span class="section-number-4">5.1.1</span> Tokens-2</h4>
+<ol class="org-ol">
+<li>Alphanumeric identifiers,  Operator identifiers, Mixed identifiers
+</li>
+
+<li>(from stackOverFlow.com ) Here are some valid examples:
+<div class="org-src-container">
+
+<pre class="src src-scala">val !#%&amp;*+-/:&lt;=&gt;?@\^|~ = 1 // all simple opchars
+val wordEndingInOpChars_!#%&amp;*+-/:&lt;=&gt;?@\^|~ = 1
+val !^©® = 1 // opchars and symbols
+val abcαβγ_!^©® = 1 // mixing unicode letters and symbols
+</pre>
+</div>
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-5-2" >
+
+<h3><span class="section-number-3">5.2</span> Case Classes and Pattern Matching</h3>
+<ol class="org-ol">
+<li>Example expression:  <code>(x + y*2) / (1 + 3*z)</code>
+</li>
+<li>Develop a tree representation for use in a Calc program.
+
+<div class="org-src-container">
+
+<pre class="src src-scala">abstract class Tree
+case class Sum(l: Tree, r: Tree) extends Tree
+case class Var(n: String) extends Tree
+case class Const(v: Int) extends Tree
+</pre>
+</div>
+</li>
+
+<li><a href="./scalaExamples/calc.scala">./scalaExamples/calc.scala</a> source code for a complete program but without * and /
+</li>
+</ol>
+</section>
+
+
+</section>
+<section>
+<section id="sec-5-3" >
+
+<h3><span class="section-number-3">5.3</span> Genericity</h3>
+<ol class="org-ol">
+<li>Genericity is the ability to write code where types can be substituted.
+</li>
+<li><div class="org-src-container">
+
+<pre class="src src-scala">class Reference[T] {
+  private var contents: T = _
+  def set(value: T) { contents = value }
+  def get: T = contents
+}
+</pre>
+</div>
+</li>
+
+<li>Here, the underscore stands for the default value (of type T).
+This default is 0 for numerics, <code>false</code> for Boolean, <code>()</code> for the
+<code>Unit</code> type and <code>null</code> for all object types.
+</li>
+
+<li><div class="org-src-container">
+
+<pre class="src src-scala">object IntegerReference {
+  def main(args: Array[String]) {
+    val cell = new Reference[Int]
+    cell.set(13)
+    println("Reference contains the half of " + (cell.get * 2))
+  }
+}
+</pre>
+</div>
+</li>
+
+<li>source code:  <a href="./scalaExamples/generics.scala">./scalaExamples/generics.scala</a>
+</li>
+</ol>
+</section>
+
+
+
+</section>
+<section id="sec-6" >
+
+<h2><span class="section-number-2">6</span> Concurrency in Scala</h2>
+</section>
+<section>
+<section id="sec-6-1" >
+
+<h3><span class="section-number-3">6.1</span> Threads</h3>
+<ol class="org-ol">
+<li>Try this in scala REPL: <code>List("one", "two", "three", "four").foreach { name =&gt;  new Thread { override def run() = { println("Thread " + name + " [" + this + "] says Hello World!") } }.start }</code>
+</li>
+<li>Next: same code as above but prettied up
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-6-2" >
+
+<h3><span class="section-number-3">6.2</span> Thread Example, prettied up</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">List( "one", "two", "three", "four" ) .
+  foreach {
+    name =&gt;
+      new Thread {
+          override // needed
+          def run() = {
+            println(
+             "Thread " + name +
+             " [" + this + "] " +
+             "says Hello, World!"
+            )
+          }
+      }
+      .  start
+  }
+</pre>
+</div>
+</section>
+
+</section>
+<section>
+<section id="sec-6-3" >
+
+<h3><span class="section-number-3">6.3</span> Concurrency in Scala</h3>
+<ol class="org-ol">
+<li>Scala can do Signals and Monitors, SyncVars, Futures, Parallel
+Computations, Semaphores, Readers/Writers, Asynchronous Channels,
+Synchronous Channels, Threads, Workers, Mailboxes, and Actors.
+</li>
+
+<li><code>recvActor ! msg</code> send a message msg to recvActor
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-6-4" >
+
+<h3><span class="section-number-3">6.4</span> Signals and Monitors</h3>
+<ol class="org-ol">
+<li>Read: Andrews, Chapter 6: Monitors.
+</li>
+
+<li><code>def synchronized[A] (e: =&gt; A): A</code> Executes <code>e</code> in mutex mode
+</li>
+
+<li><code>def wait()</code> Running thread suspend itself by waiting on a
+<i>signal</i>.  (Unrelated to Linux signals.)
+</li>
+
+<li><code>def wait(msec: Long)</code> As above, but waits at most <code>msec</code> milli-seconds.
+</li>
+
+<li><code>def notify()</code> Cooperate with a <code>wait</code> -ing process, and check its
+condition <code>C</code> and inform.  Even so, do <code>while (!C) wait()</code>
+</li>
+
+<li><code>def notifyAll()</code> How many being waken up: one in <code>notify()</code> and
+all in <code>notifyAll()</code> Many subtleties.  Look up the docs.
+</li>
+</ol>
+</section>
+
+
+</section>
+<section>
+<section id="sec-6-5" >
+
+<h3><span class="section-number-3">6.5</span> Semaphores</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">package scala.concurrent
+class Lock {
+  var available = true
+
+  def acquire = synchronized {
+    while (!available) wait()
+    available = false
+  }
+
+  def release = synchronized {
+    available = true
+    notify()
+  }
+}
+</pre>
+</div>
+
+<p>
+Similar to our CEG 7370 Official Binary Semaphores (but <b>not</b>
+exactly).  The above is implemented using a monitor.
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-6-6" >
+
+<h3><span class="section-number-3">6.6</span> Bounded Buffers / Producers-Consumers</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">class BoundedBuffer(N: Int) {
+  val buf = new Array[Int](N)
+  var in, out = 0       // indices of buf
+  var n = 0             // #items in buf
+
+  def put(x: Int) = synchronized {
+    while (n &gt;= N) { println("buf full") ; wait() }
+    buf(in) = x ; in = (in + 1) % N ; n += 1
+    if (n == 1) notifyAll() }
+
+  def get: Int = synchronized {
+    while (n == 0) wait()
+    val x = buf(out) ; out = (out + 1) % N ; n -= 1
+    if (n == N - 1) notifyAll()
+    x }
+}
+</pre>
+</div>
+
+<p>
+complete source:  <a href="./scalaExamples/bounded-buffers.scala">./scalaExamples/bounded-buffers.scala</a>
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-6-7" >
+
+<h3><span class="section-number-3">6.7</span> Mailboxes</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">class MailBox {
+  def send(msg: Any) synchronized { ... }
+  def receive[A](f: PartialFunction[Any, A]): A // uses synchronized { ... }
+  def receiveWithin[A](msec: Long)(f: PartialFunction[Any, A]): A
+}
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>type <code>Any</code> is the super-type of all (other) types.
+</li>
+<li><code>PartialFunction</code>
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-6-8" >
+
+<h3><span class="section-number-3">6.8</span> Readers/Writers</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">class ReadersWriters {
+  val m = new MailBox
+
+  private case class Writers(n: Int)  { m send this }
+  private case class Readers(n: Int) { m send this }
+
+  Writers(0); Readers(0)
+
+  //  see slide (down-arrow) also
+
+  def endRead = m receive {  // dot omitted
+    case Readers(n) =&gt; Readers(n-1)
+  }
+
+  def endWrite = m receive {
+    case Writers(n) =&gt; Writers(n-1)
+    if (n == 0) Readers(0)
+  }
+}
+</pre>
+</div>
+
+</section>
+<section id="sec-6-8-1" >
+
+<h4><span class="section-number-4">6.8.1</span> Readers/Writers, contd</h4>
+<div class="org-src-container">
+
+<pre class="src src-scala">def startRead = m receive {
+  case Writers(n) if n == 0 =&gt; m receive {
+    case Readers(n) =&gt; Writers(0); Readers(n+1)
+  }
+}
+
+def startWrite = m receive {
+  case Writers(n) =&gt;
+    Writers(n+1)
+    m receive { case Readers(n) if n == 0 =&gt; }
+}
+</pre>
+</div>
+
+<p>
+TBD URL to CEG 7370 Readers/Writers with priority for writers
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-6-9" >
+
+<h3><span class="section-number-3">6.9</span> Asynchronous Channels</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">class Channel[A] {
+  private var written = new LinkedList[A]
+  private var lastWritten = written
+  private var nreaders = 0
+  def write(x: A) = synchronized {
+    lastWritten.elem = x
+    lastWritten.next = new LinkedList[A]
+    lastWritten = lastWritten.next
+    if (nreaders &gt; 0) notify()   }
+
+  def read: A = synchronized {
+    if (written.next == null) {
+      nreaders += 1; wait(); nreaders -= 1
+    }
+    val x = written.elem
+    written = written.next
+    x  }
+}
+</pre>
+</div>
+
+<p>
+API <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.package">scala.concurrent.package</a>; cf. CEG 7370 <b>Semi</b> AMP
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-6-10" >
+
+<h3><span class="section-number-3">6.10</span> Synchronous Channels</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">class SyncChannel[A] {
+  private var data: A = _
+  private var reading = false
+  private var writing = false
+  def write(x: A) = synchronized {
+    while (writing) wait()
+    data = x
+    writing = true
+    if (reading) notifyAll()
+    else while (!reading) wait()
+  }
+  def read: A = synchronized {
+    while (reading) wait()
+    reading = true
+    while (!writing) wait()
+    val x = data
+    writing = false
+    reading = false
+    notifyAll()
+    x
+  }
+}
+</pre>
+</div>
+
+
+<p>
+API <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.package">scala.concurrent.package</a>; cf. CEG 7370 SMP
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-6-11" >
+
+<h3><span class="section-number-3">6.11</span> SyncVars</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">package scala.concurrent
+class SyncVar[A] {
+  private var isDefined: Boolean = false
+  private var v: A = _
+  def get = synchronized
+      {while (!isDefined) wait(); v}
+  def set(x: A) = synchronized
+      {v = x; isDefined=true; notifyAll()}
+  def isSet: Boolean = synchronized {isDefined}
+  def unset = synchronized {isDefined = false} // API
+}
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>API <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.SyncVar">scala.concurrent.SyncVar</a>
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-6-12" >
+
+<h3><span class="section-number-3">6.12</span> Futures</h3>
+<ol class="org-ol">
+<li>An expression yet to be computed.  In parallel with something else.
+</li>
+
+<li>Use
+<div class="org-src-container">
+
+<pre class="src src-scala">import scala.concurrent.ops._
+
+val fut = future(someLengthyComputation)
+anotherLengthyComputation
+val y = f(fut()) + g(fut())
+</pre>
+</div>
+</li>
+
+<li>API <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.actors.Futures$">Futures</a>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">def future[A](p: =&gt; A): Unit =&gt; A = {
+  val result = new SyncVar[A]
+  fork { result.set(p) }
+  (() =&gt; result.get)
+}
+</pre>
+</div>
+</li>
+
+<li>More on futures in <a href="./akka.html">akka</a>
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-6-13" >
+
+<h3><span class="section-number-3">6.13</span> Hello Word with Actors</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">import scala.actors.Actor
+
+List("one", "two", "three", "four").foreach {
+ name =&gt;
+   new Actor {
+     override
+     def act() = {
+       println("Thread " + name + " says Hello World!")
+     }
+   }
+  .start
+}
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>NOte the use of <code>import scala.actors.Actor</code>
+</li>
+<li><code>scala.actors.-</code> are about be deprecated.
+</li>
+<li>Use <code>akka.actors</code>
+</li>
+<li>read <a href="./actors.html">actors</a> and <a href="./akka.html">akka</a>
+</li>
+</ol>
+</section>
+
+
+</section>
+<section id="sec-7" >
+
+<h2><span class="section-number-2">7</span> Scala can be Hard to Learn</h2>
+<ol class="org-ol">
+<li>Voluminous documentation aimed at programming newbies.  Too many
+(incompatible) versions.  24,066 questions tagged on
+<a href="http://stackoverflow.com/questions/tagged/scala">http://stackoverflow.com/questions/tagged/scala</a>
+</li>
+
+<li>Functional Programming paradigm: Imagine no variable can be
+assigned more than once.  Anonymous Functions. Currying. Closures.
+Functions as first class values.  Lazy values.
+</li>
+
+<li>Futures, Promises
+</li>
+
+<li>Type inferance; Co-variance and contra-variance; Monads
+</li>
+
+<li>Omission of "things": Implicit arguments, the dot, the semicolon, &#x2026;
+</li>
+</ol>
+
+</section>
+<section id="sec-8" >
+
+<h2><span class="section-number-2">8</span> scala, scalac details</h2>
+</section>
+<section>
+<section id="sec-8-1" >
+
+<h3><span class="section-number-3">8.1</span> Execute External Program</h3>
+<div class="org-src-container">
+
+<pre class="src src-scala">import scala.sys.process._
+val cmd = "/usr/local/scala-2.11.0-RC3/bin/scalac -help"
+val txt = cmd.!!  // captures stdout
+val i : Int = Process("ls -l")!
+</pre>
+</div>
+</section>
+
+</section>
+<section>
+<section id="sec-8-2" >
+
+<h3><span class="section-number-3">8.2</span> scalac options</h3>
+<ol class="org-ol">
+<li><code>% scalac -help</code> Print a synopsis of options.
+</li>
+<li><code>% scalac -X</code>  Print a synopsis of advanced options.
+</li>
+<li><code>% scalac -print pingObj-actor.scala</code> Print program with Scala-specific features removed.
+</li>
+<li><code>% scalac -Xprint:typer fileName.scala</code> Syntax trees at end of <code>typer</code>.
+</li>
+<li><code>% scalac -Xprint:all fileName.scala</code> Check it out!
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-8-3" >
+
+<h3><span class="section-number-3">8.3</span> Scala Misc Info</h3>
+<ol class="org-ol">
+<li><code>scala</code> invokes <code>java</code> with Scala's libraries.
+</li>
+
+<li><code>scala</code> and <code>scalac</code> are shell scripts on Linux. 200+ lines. Differ
+in just one line.  On windows, <code>scala.bat</code> and <code>scalac.bat</code>
+</li>
+
+<li>Scala version I am using [date: Mar 30, 2014] is
+<div class="org-src-container">
+
+<pre class="src src-scala">Welcome to Scala version 2.11.0-RC3
+(Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0).
+Type in expressions to have them evaluated.
+Type :help for more information.
+</pre>
+</div>
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-8-4" >
+
+<h3><span class="section-number-3">8.4</span> Scala Misc Info-2</h3>
+<ol class="org-ol">
+<li>bash: 
+<ol class="org-ol">
+<li><code>export SCALA_HOME=/usr/local/scala-2.11.0-RC3</code>
+</li>
+<li><code>alias scala=/usr/local/scala-2.11.0-RC3/bin/scala</code>
+</li>
+<li><code>alias scalac=/usr/local/scala-2.11.0-RC3/bin/scalac</code>
+</li>
+<li><code>PATH=$PATH:$SCALA_HOME/bin</code>
+</li>
+</ol>
+</li>
+
+<li>scala <code>classpath</code> example
+<ol class="org-ol">
+<li><code>% scalac -classpath /usr/share/java/scala-swing.jar HelloGui.scala</code>
+</li>
+<li><code>% scala -classpath .:/usr/share/java/scala-swing.jar HelloWorld</code>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+
+</section>
+<section>
+<section id="sec-8-5" >
+
+<h3><span class="section-number-3">8.5</span> Disassembly with javap</h3>
+<ol class="org-ol">
+<li><code>% javap HelloWorld.class HelloWorld\$.class</code>
+<div class="org-src-container">
+
+<pre class="src src-bash">Compiled from "hello-world-println.scala"
+public final class HelloWorld {
+  public static void main(java.lang.String[]);
+}
+Compiled from "hello-world-println.scala"
+public final class HelloWorld$ {
+  public static final HelloWorld$ MODULE$;
+  public static {};
+  public void main(java.lang.String[]);
+}
+</pre>
+</div>
+</li>
+</ol>
+</section>
+
+
+</section>
+<section id="sec-9" >
+
+<h2><span class="section-number-2">9</span> References</h2>
+<ol class="org-ol">
+<li>Link to Source Code Examples: <a href="./scalaExamples">./scalaExamples</a>
+</li>
+
+<li><a href="https://typesafe.com/activator">https://typesafe.com/activator</a> is the place for ready-to-compile
+-and-run examples of Scala (or Java) with Akka.  Required Visit.
+</li>
+
+<li>Martin Odersky, "Scala by Example".  A book by the designer of the
+language.  Highly recommended read: Chapter 17: Abstractions for
+Concurrency (10+ pages).  The full book is at
+<a href="http://www.scala-lang.org/docu/files/ScalaByExample.pdf">http://www.scala-lang.org/docu/files/ScalaByExample.pdf</a>, 150+
+pages.  June 2014. Despite the name of the book, only a few were
+ready-to-compile-and-run examples.  Some of my slides are based on
+this book. Recommended Reading.
+</li>
+
+<li>Lewis, Laufer, and Thiruvathukal, "SIGCSE Workshop on Scala", March
+2014, <a href="http://scalaworkshop.cs.luc.edu/latex/sigcse-scala.pdf">http://scalaworkshop.cs.luc.edu/latex/sigcse-scala.pdf</a>;
+SIGCSE = ACM Special Interest Group on Computer Science Education.
+<a href="http://www.sigcse.org/">http://www.sigcse.org/</a> Recommended Reading.
+</li>
+</ol>
+
+</section>
+<section>
+<section id="sec-9-1" >
+
+<h3><span class="section-number-3">9.1</span> References, contd</h3>
+<ol class="org-ol">
+<li>Horstmann, Cay S. "Scala for the Impatient." Pearson
+Education, 2012.  A legit pdf of the first 100+ pages is widely
+downloadable.  "Currently the best compact introduction to Scala"
+&#x2013; Martin Odersky.  Recommended Reading.
+</li>
+
+<li>Martin Odersky, <a href="https://www.coursera.org/courses?search=scala">https://www.coursera.org/courses?search=scala</a> The
+"Principles of Reactive Programming" is relevant to this course.
+</li>
+
+<li>Michel Schinz, Philipp Haller, "A Scala Tutorial for Java
+programmers",
+<a href="http://www.scala-lang.org/docu/files/ScalaTutorial.pdf">http://www.scala-lang.org/docu/files/ScalaTutorial.pdf</a>, 2014, 15
+pages.  Some of my examples are from this booklet.  Recommended
+Reading.
+</li>
+
+<li>Peter Sestoft, <a href="http://www.itu.dk/courses/BPRD/E2013/lecture11.pdf">"Programs as Data; The Scala language, an overview"</a>,
+slides, Univ of Copenhagen, 2013.  Some of my slides are adapted
+from here.
+</li>
+
+<li>Opinions:
+<a href="http://www.unlimitednovelty.com/2009/04/why-i-dont-like-scala.html">http://www.unlimitednovelty.com/2009/04/why-i-dont-like-scala.html</a>;
+<a href="http://zeroturnaround.com/rebellabs/scala-sink-or-swim-part-1/">http://zeroturnaround.com/rebellabs/scala-sink-or-swim-part-1/</a> What
+to avoid in the Scala ecosystem.  Do visit &#x2013; <b>after</b> you learn
+enough Scala and Akka.
+</li>
+</ol>
+</section>
+</section>
+</div>
+</div>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/lib/js/head.min.js"></script>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/js/reveal.min.js"></script>
+<script>
+
+        		// Full list of configuration options available here:
+        		// https://github.com/hakimel/reveal.js#configuration
+        		Reveal.initialize({
+        			controls: true,
+        			progress: true,
+        			history: true,
+        			center: true,
+                                slideNumber: true,
+        			rollingLinks: true,
+        			keyboard: true,
+        			overview: true,
+        			 // slide width
+        			 // slide height
+        			 // slide margin
+        			 // slide minimum scaling factor
+        			 // slide maximum scaling factor
+
+
+        			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        			transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        			transitionSpeed: 'default',
+
+        			// Optional libraries used to extend on reveal.js
+        			dependencies: [
+        				{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }
+        				,{ src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: 'http://www.cs.wright.edu/~pmateti/RevealJS/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+         				
+        			]
+        		});
+</script>
+</body>
+</html>

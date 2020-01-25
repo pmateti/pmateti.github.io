@@ -1,0 +1,70 @@
+
+\section{Background}\label{seBackground}
+
+Juan Benet (the BDFL of IPFS).
+
+https://decentralized.blog/catching-the-blockchain-train.html
+
+\url{https://decentralized.blog/understanding-the-ipfs-white-paper-part-2.html}
+figures.
+
+\subsection{HTTP}
+\subsection{BlockChain}
+\subsection{Web Sockets}
+\subsection{TBD}
+\subsection{TBD}
+\subsection{TBD}
+
+
+\url{https://ipfs.io/docs/getting-started/} Add more details.
+
+peer-to-peer systems
+distributed file system
+
+Kademlia + BitTorrent + Git
+non-blockchain protocol
+an object storage engine (think S3)
+IPFS Companion 2.2.0 brings window.ipfs to your Browser ipfs.io
+
+a dat version
+
+File Permanance
+decentralized 
+
+Censor-Proof Networks
+
+
+youtube.comFebruary 18, 2017
+Juan Benet: Enter the Merkle Forest
+Juan Benet, founder of IPFS and Filecoin, describes IPLD and "The Merkle Forest" at the IPFS Ethereum Hackathon hosted by MetaMask, Seattle 2017.
+
+{Ethereum: A single shared computer living on the network, modeled
+  after Bitcoin. It's essentially a computer everyone can trust to
+  store data and to execute code.}
+
+\subsection{Hashes}
+
+\begin{verbatim}
+$ echo -n 'hello' > /tmp/hello.txt
+$ sha256sum /tmp/hello.txt
+2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824  /tmp/hello.txt
+\end{verbatim}
+
+Double-sha256 is sha256(sha256(data)); note the missing ``sum''.
+
+\subsection{MerkleTree}
+
+A Merkle tree is an n-ary tree in which every leaf node is labelled
+with the hash of a data block and every non-leaf node is labelled with
+the hash of the labels of its child nodes.  Merkle trees are typically
+implemented as binary trees,.
+
+Figures/merkle-bin-tree.png
+Figures/merkle-tree.jpg
+Figures/merkle-tree-2.png
+
+Once built, data can be audited (known as a Merkle-Proof) using only
+the root hash in logarithmic time to the number of leaves.
+\url{https://en.bitcoin.it/wiki/Protocol_documentation#Merkle_Trees}
+
+\subsection{Blockchain}

@@ -1,0 +1,184 @@
+<html>
+
+<head>
+<title>Distributed Computing Lectures by Prabhaker Mateti</title>
+<meta name="author" content="Prabhaker Mateti">
+<meta name="keywords" content="Split binary semaphore, CSP, Linda, RPC, RMI">
+<meta name="description" content="Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+<style type="text/css">
+  a:hover      { color: blue; background-color: ivory; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  TD { text-align: justify }
+  LI { text-align: justify; }
+  pre.sol {color: brown;}
+  tt {border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+
+</head>
+
+<body>
+
+<section><h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+Distributed Computing</a></h3>
+
+<h1>Assertions</h1>
+
+<h3 style="color: brown">Prabhaker Mateti</h3>
+
+<p>This page is about assertions, without concurrency related issues.
+<a href="assertions-slides.html">
+slides</a>
+</p>
+</section><section><h3>Propositions</h3>
+
+<ol>
+<li>
+True and False are propositions.  
+
+<li>
+For other
+propositions, we often use letters.  These are assigned a True or
+False value in an interpretation.  <li>
+A formula involves these things and
+the and (^) or (v) not (~) symbols also.  <li>
+A well-formed-formula (wff)
+is defined synatctically.
+</ol>
+
+</section><section><h3>Predicates</h3>
+
+<ol>
+<li> Ex: x > 1 is a predicate.  <li>It has one free variable, x.  
+<li> In the programming context, think of free variables as globally
+scoped variables.
+
+<li>Predicates can involve for-all and there-exists quantifiers.
+</ol>
+
+</section><section><h3>P ==> Q ie P is Stronger than Q</h3>
+
+<ol>
+
+<li>Meaning of P implies Q: Consider a particular assignment A of
+values for each of the free variables x, y, z of P and Q that make P
+come out True.  A should also make Q True.  If this happens for all A
+then we say P implies Q.
+<ul>
+  <li>Simple example: x > 7 implies x > 1.
+
+  <li>We say that P is stronger than Q.  Alt: Q
+    is weaker than P.
+
+  <li>In the context of programming, we can refer to this A as a "state".
+</ul>
+
+<li>Let C(Q) be the collection of such assignment of values that make Q
+come out as True.
+<ul>
+<li>C(P) is a subset of C(Q)
+
+<li>If C(P) = C(Q), P is equivalent to Q.
+</ul>
+
+</section><section><h2>Floyd-Hoare Triples</h2>
+
+{P} S {Q}<br>
+
+<p>
+is defined as<br><br>
+
+<p style="text-align: center">For all states s that satisfy P, executing S on s, the resulting
+state s' is such that s' satisfies Q, if and when S terminates.
+
+<br><br>
+<p>Note that the above is about partial correctness: It omits
+termination.
+
+</section><section><h2>Programming with Assertions</h2>
+
+<p>
+<a href="./practical-advice.html">
+Practical Advice on Writing Assertions</a> by Prabhaker Mateti
+
+<p>
+<a href="http://docs.oracle.com/javase/1.4.2/docs/guide/lang/assert.html">
+Programming With Assertions in Java</a> "Experience has shown that
+writing assertions while programming is one of the quickest and most
+effective ways to detect and correct bugs. As an added benefit,
+assertions serve to document the inner workings of your program,
+enhancing maintainability.  This document shows you how to program
+with assertions."
+
+<p>
+<a href="http://ftp.gnu.org/old-gnu/Manuals/nana-1.14/html_chapter/nana_toc.html">
+GNU Nana</a> "Improved support for assertions and logging in C and
+C++."  Open source.
+
+</section><section><h3>Programming with Assertions-2</h3>
+
+<p>
+<a href="http://www.splint.org/"> splint.org</a> Splint is a tool for
+compile-time checking C of programs beyond what typical compilers do
+on the same source code.  If additional assertions are added, Splint
+can perform even stronger checking.  Open source.
+
+<p>
+<a href="http://frama-c.com/"> frama-c.com</a> Frama-C is a suite of
+tools using assertions to mathematically analyse C code.  Open source.
+
+
+</section><section><h2>Exercises</h2>
+
+  <ol>
+    <li>Study the Mine Sweepers game.  Write down in English prose the
+      numerical relations ships of the displayed numbers of bombs in
+      neighbors, etc.  Now, redo using PL boolean expressions.
+
+    <li>Develop assertions for classic sorting algorithms, e.g.,
+      bubble sort.
+
+    <li>
+      See the Exercises in Andrews.
+
+  <li> Does the precondition and statement {x&nbsp; &ge; 4 } &lt; x := x - 4 
+    &gt; interfere with the triple<br>
+    {x is odd} &lt; x := x + 5 &gt; {x is even}.</li>
+  <li> Using the technique of weakened assertions, prove that {x = 1}
+    S {x = 7} is a theorem, where S is <tt> &nbsp;co &lt; x := x+1&gt;
+    || &lt; x := x+2&gt; || &lt; x := x+3&gt; oc</tt></li>
+
+</ol>
+
+</section><section><h2>References</h2>
+
+<ol>
+
+  <li>Gregory R. Andrews, <i>Concurrent Programming: Principles and
+      Practice</i>, Benjamin/Cummings, 1991.  Chapters 1 and 2:
+      Required Reading.
+
+  <li>
+    Mark Batty, Scott Owens, Susmit Sarkar, Peter Sewell, and Tjark Weber,
+    Mathematizing C++ Concurrency, POPL 2011.
+    Recommended Reading.
+</ol>
+
+
+</section><section><hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2020
+<a href="mailto:pmateti@wright.edu?subject=CEG7370: Distr Comp">
+  pmateti@wright.edu</a>
+</section>
+
+  </div>
+</div>
+
+  </body>
+</html>
+

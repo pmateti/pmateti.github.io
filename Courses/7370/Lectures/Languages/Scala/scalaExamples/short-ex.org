@@ -1,0 +1,100 @@
+
+* Short Examples
+
+** Quick Sort (Layout of a Complete Prog)
+
+1. array indexing =()= not []
+1. while loop: =while (a(i) < pivot) i +== =1=
+1. for loop: 
+   #+begin_src scala
+for (i <- 0 until a.length)
+  a(i) = util.Random.nextInt() % 100
+#+end_src
+1. =val size = 20= scala  inferred the type of =size= as integer
+1. =val= assignment once only
+1. source code [[./scalaExamples/quickSort.scala]]
+
+** The N-Queens Problem (For-Comprehensions)
+
+1. 8-queens problem: Given a standard chess-board, place 8 queens so
+   that no queen is in check from any other.
+
+1. For-Comprehensions stx: =for=  generator filter =yield= transformerExp
+
+1. For-Comprehensions
+     #+BEGIN_SRC scala
+        for { 
+          queens <- placeQueens(k - 1)
+          column <- List.range(1, n + 1)
+          if isSafe(column, queens, 1) 
+        }
+        yield
+          column :: queens
+#+END_SRC
+
+1. source code [[./scalaExamples/nqueens.scala]]
+
+
+** CallBack
+     #+BEGIN_SRC scala
+object CallBackEx {
+  def oncePerSecond(callback: () => Unit) {
+    while (true) { callback(); Thread sleep 1000 }
+  }
+  def timeFlies() {
+    println("time flies like an arrow...")
+  }
+  def main(args: Array[String]) {
+    oncePerSecond(timeFlies)
+  }
+}
+#+END_SRC
+
+** CallBack, Anonymous
+
+    #+BEGIN_SRC scala
+object CallBackExAnonymous {
+  def oncePerSecond(callback: () => Unit) {
+    while (true) { callback(); Thread sleep 1000 }
+  }
+  def main(args: Array[String]) {
+    oncePerSecond(() =>
+      println("time flies like an arrow..."))
+  }
+}
+#+END_SRC
+
+1. Note =timeFlies= removed
+1. =() => println("time flies like an arrow...")= is an anonymous
+   function
+1. Type inferred: =() => Unit=  Unit cf. void
+
+** Classes, Inheritance and Overriding
+
+    #+BEGIN_SRC scala
+class Complex(real: Double, imaginary: Double) {
+  def re = real
+  def im = imaginary
+  override def toString() =
+    "" + re + (if (im < 0) "" else "+") + im + "i"
+}
+#+END_SRC
+
+1. =re= is a getter method with no arguments; parens omittable.
+1. Note the embedded =if=-expression.
+
+** Traits
+
+1. Java has just single inheritance, and so uses multiple interfaces.
+1. Scala Traits are "partial" classes; they contain code for methods.
+1. A Scala class can import code from several traits.
+1. source code [[./scalaExamples/traitEx.scala]]
+1. source code [[./scalaExamples/compare.scala]] ; =def <=, =>=, ...
+1. type =Any= is the super-type of all (other) types.
+
+   1. Link to Source Code Examples: [[./scalaExamples]]
+1. Page 2:
+1. Page 3:
+1. Page 4:
+1. Page 5:
+

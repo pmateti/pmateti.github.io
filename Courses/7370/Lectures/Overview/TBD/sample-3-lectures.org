@@ -1,0 +1,51 @@
+* Three Sample Lectures
+
+1. These are samples.  We will re-visit these topics for a full
+   exploration.
+
+1. Distributed Computing Technology
+2. Semantics of SemiColon, Parallel-Bar, and Vertical Bar
+3. Mathematics of Concurrency
+
+** Distributed Computing Technology
+
+1. Peer-to-peer computing vs Client-Server computing
+1. Message passing v shared variables
+1. RPC (Remote Procedure Call), RMI (Remote Method Invocation)
+1. [[../Projects/rpc-diag-tikz.pdf]]  RPC/RMI Architecture
+1. [[../Projects/rpc-marshalling-tikz.pdf]] Marshalling/Serializing of Data Structures
+
+
+** Semantics of SemiColon, Parallel-Bar, and Vertical Bar
+
+1. Meaning of
+   1. =S1 ;; S2= 
+   2. =S1 || S2=
+   3. =S1 [] S2=
+
+2. Consider p60 of Andrew's Concurrent Programming [now using single
+   semicolon]
+   #+begin_src SR
+   { 
+     y := 0; z := 0;
+     co x := y + z 
+     || {y := 1; z := 2}
+     oc
+   }
+#+end_src
+
+3. Can x be 0, 1, 2 or 3 at the end of the above code?
+1. We will have a lecture on [[../Fundas/semicolon-par-fat-bars.org]]
+
+** Mathematics of Concurrency
+1. [[../FormalMethods/assertions-slides.html]] This page is about
+   assertions, without concurrency related issues.
+1. [[../FormalMethods/math-of-concurrency.html]] Mathematics of Shared
+   Variables.  This page is about shared variable concurrency issues,
+   using mathematical logic.
+1. [[../FormalMethods/temporal-logic-slides.html]] Classical mathematical
+   logic deals with timeless statements.  Classical logic cannot
+   express: "This basket will have 10 red balls."  Interesting
+   statements about processes depend on time.
+
+

@@ -1,0 +1,40 @@
+\section{Challenges of Android Dashboard of Processes}\label{Challenges}
+
+This section describes solutions to various problems that evolved
+while developing and implementing the paper.
+
+\subsection{Filtering Strace Output}
+
+The output of strace can be enormous.  It analyses each and every
+system calls executed by the running process.  We can reduce the size
+of the strace output by limiting the output to one or a few system
+calls that are of most important for our work.  This can be achieved
+by usibg the option {\tt -e} along with system calls we want to
+analyze: e.g., strace -e open PID, analyzes the open system call for
+the given process id.  In this paper, we concentrate mostly on file
+and network related system calls.  To analyze all the file related
+system calls, we can use {\tt strace -e trace=file PID} and for all
+network related system calls we can use {\tt strace -e trace=network
+  PID}.
+	
+\subsection{Disadvantages Of Using JNI}
+\begin{itemize}
+	\item Portability issues because of using native codes.
+	\item Core dumps and segmentation faults may rise due to poor coding practice, which in turn may cause the whole application to crash.  
+	\item Debugging runtime error in native code is very difficult.  
+	\item Potential security risk.
+\end{itemize}
+
+\subsection{Storage}
+
+A cloud storage for the collected log files is preferred, as the log
+files keeps on getting accumulated while the processes are running.
+
+All the logged details will be uploaded in cloud server.  A log
+uploader will be uploading all the logs to clouds in a configurable
+way like configurable time interval for log upload.  All the uploaded
+logs will be deleted from the device.
+
+JSON and OAuth API is used for cloud integration.  There are many free
+cloud storage providers available.  We can choose any one of them, for
+our cloud upload.

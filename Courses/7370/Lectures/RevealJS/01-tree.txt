@@ -1,0 +1,638 @@
+.
+├── 00-broken-links.log
+├── 00-ReadMe.txt
+├── AppDevelop
+│   ├── altDevEnv.html
+│   ├── altDevEnv.org
+│   ├── altDevEnv-slides.html
+│   ├── app-develop.html
+│   ├── app-development-lab.html
+│   ├── app-develop.org
+│   ├── app-develop-slides.html
+│   ├── AVD.html
+│   ├── AVD-Networking.html
+│   ├── AVD-Networking.org
+│   ├── AVD-Networking-slides.html
+│   ├── AVD.org
+│   ├── AVD-slides.html
+│   ├── development-2.org
+│   ├── development-2-slides.html
+│   ├── development-3.org
+│   ├── development-3-slides.html
+│   ├── Figures
+│   │   ├── activity_lifecycle.png
+│   │   └── service_lifecycle.png
+│   ├── ideaj-v-eclipse.html
+│   ├── ideaj-v-eclipse.org
+│   ├── ideaj-v-eclipse-slides.html
+│   ├── index.html -> app-develop-slides.html
+│   ├── make.sh
+│   ├── Sudoku-Open.html
+│   ├── Sudoku-Open.org
+│   └── Sudoku-Open-slides.html
+├── Detection
+│   ├── detection.html
+│   ├── detection.org
+│   ├── detection-slides.html
+│   ├── index.html -> detection-slides.html
+│   └── Reversing
+│       ├── apk-dissected-2.html
+│       ├── apk-dissected-ex.org
+│       ├── apk-dissection.html
+│       ├── apk-dissection.org
+│       ├── apk-dissection-slides.html
+│       ├── dissection-dendroid.org
+│       ├── Figures
+│       │   └── simplelocker-ru.png
+│       ├── index.html -> reversing-slides.html
+│       ├── make.sh
+│       ├── reversing.html
+│       ├── reversing-lab.html
+│       ├── reversing.org
+│       └── reversing-slides.html
+├── Exploits
+│   ├── Binder
+│   │   ├── binder-attacks.org
+│   │   ├── binder-exploits.html
+│   │   ├── binder-exploits.org
+│   │   ├── binder-Man-In-The-blackhar-eu-2014-slides.pdf
+│   │   └── binder-Man-In-The-blackhar-eu-2014-wp.pdf
+│   ├── browser-exploit-2015.html
+│   ├── browser-exploit-2015.org
+│   ├── ClipBoard
+│   │   ├── clipboard.html
+│   │   └── clipboard.org
+│   ├── ethicsStmt.html
+│   ├── exploits.html
+│   ├── exploits.org
+│   ├── exploits-slides.html
+│   ├── Figures
+│   │   ├── cost_benefit_risk_white_dice.png
+│   │   └── omg.jpg
+│   ├── Forensics
+│   │   ├── index.html
+│   │   └── index.org
+│   ├── HeartBleed
+│   │   ├── index.html
+│   │   └── index.org
+│   ├── index.html -> exploits-slides.html
+│   ├── Injection
+│   │   ├── ASLR.html
+│   │   ├── ASLR.org
+│   │   ├── BufferOverflow-alephOne.html
+│   │   ├── BufferOverflow.html
+│   │   ├── BufferOverflow-Lab-GS.html
+│   │   ├── BufferOverflow-Lab.html
+│   │   ├── BufferOverflow-Lab.org
+│   │   ├── BufferOverflow-Lab-vm-setup.html
+│   │   ├── BufferOverflow-modReturnAddress-acer602-20080507.html
+│   │   ├── code-inject.html
+│   │   ├── code-inject-lab.html
+│   │   ├── code-inject.org
+│   │   ├── code-inject-slides.html
+│   │   ├── index.html -> code-inject-slides.html
+│   │   ├── make.sh
+│   │   ├── modret
+│   │   ├── modret-asm.txt
+│   │   ├── modret.c
+│   │   ├── ROP.html
+│   │   ├── ROP.org
+│   │   └── StageFright
+│   │       ├── index.html
+│   │       └── index.org
+│   ├── KeyLogger
+│   │   └── keylogger-lab.org
+│   ├── LibC
+│   │   ├── lib-c-exploits.html
+│   │   └── lib-c-exploits.org
+│   ├── Linux
+│   ├── make.sh
+│   ├── malware-mobile.org
+│   ├── malware-mobile-slides.html
+│   ├── misc.html
+│   ├── misc.org
+│   ├── misc-slides.html
+│   ├── mobile-malware.html
+│   ├── mobile-malware.org
+│   ├── mobile-malware-slides.html
+│   ├── NetAttacks
+│   │   ├── arp-poisoning.html
+│   │   ├── arp-poisoning.org
+│   │   ├── arp-poisoning-slides.html
+│   │   ├── dns-poisoning.html
+│   │   ├── dns-poisoning.org
+│   │   ├── dns-poisoning-slides.html
+│   │   ├── dsploit-internals.html
+│   │   ├── dsploit-internals.org
+│   │   ├── index.html -> net-attacks-slides.html
+│   │   ├── netattacks.html
+│   │   ├── netattacks-lab.html
+│   │   ├── netattacks.org
+│   │   ├── netattacks-slides.html
+│   │   ├── sms-exploits-full.org
+│   │   ├── sms-exploits.html
+│   │   ├── sms-exploits.org
+│   │   ├── tcp-exploits.html
+│   │   ├── tcp-exploits.org
+│   │   └── tcp-exploits-slides.html
+│   ├── NFC
+│   │   ├── NFC.html
+│   │   ├── NFC.org
+│   │   └── NFC-slides.html
+│   ├── PocketSpy
+│   │   ├── index.html -> pocket-spy-slides.html
+│   │   ├── pocket-spy.html
+│   │   ├── pocket-spy.org
+│   │   └── pocket-spy-slides.html
+│   ├── refs.html
+│   ├── refs.org
+│   ├── rooting-exploits.html
+│   ├── rooting-exploits.org
+│   ├── rooting.html
+│   ├── rooting.org
+│   ├── rooting-slides.html
+│   ├── Services
+│   │   ├── services.html
+│   │   └── services.org
+│   ├── ShellShock
+│   │   ├── Figures
+│   │   │   └── Shellshock-bug.png
+│   │   ├── index.html -> shellshock-slides.html
+│   │   ├── shellshock.html
+│   │   ├── shellshock.org
+│   │   └── shellshock-slides.html
+│   ├── StageFright
+│   │   ├── index.html
+│   │   ├── index.org
+│   │   └── index-saved.html
+│   ├── WPA
+│   │   ├── wpa-exploit.html
+│   │   └── wpa-exploit.org
+│   ├── wsu-logo-xsm.gif
+│   └── Zygote
+│       ├── zygote.html
+│       ├── zygote.org
+│       └── zygote-slides.html
+├── GetStarted
+│   ├── amrita-2016.html
+│   ├── amrita-2016.org
+│   ├── amrita-2016-slides.html
+│   ├── android-lab-setup.html
+│   ├── android-lab-setup.org
+│   ├── android-lab-setup-slides.html
+│   ├── android-labs.html
+│   ├── android-labs.org
+│   ├── android-labs-slides.html
+│   ├── get-started.html
+│   ├── get-started-lab.html
+│   ├── get-started.org
+│   ├── get-started-slides.html
+│   ├── index.html -> get-started.html
+│   ├── last-few-words.html
+│   ├── last-few-words.org
+│   ├── last-few-words-slides.html
+│   ├── make.sh
+│   ├── sn719-overview.html
+│   ├── sn719-overview-slides.html
+│   └── vm-setup.html
+├── index.html
+├── index-redirect.html
+├── Internals
+│   ├── Android-Internals-1.pdf
+│   ├── Android-Internals-1.pptx
+│   ├── Android-Internals-2.html
+│   ├── Android-Internals-2.org
+│   ├── Android-Internals-3.html
+│   ├── Android-Internals-3.org
+│   ├── aosp-mako-build.html
+│   ├── aosp-mako-build.org
+│   ├── ape-fwk-all.png
+│   ├── binder.html
+│   ├── binder.org
+│   ├── binder-slides.html
+│   ├── build-Android-ROM.html
+│   ├── build-Android-ROM.org
+│   ├── Figures
+│   │   ├── adb-client-server.png
+│   │   ├── androidbootsequence1.jpg
+│   │   ├── android_framework_details.png
+│   │   ├── android_software_stack.png
+│   │   ├── app-launch-summary.jpg
+│   │   ├── binder.png
+│   │   └── runtime.png
+│   ├── HTML
+│   │   ├── Android-Internals-1.html
+│   │   ├── Android-Internals-2.html
+│   │   ├── img0.html
+│   │   ├── img0.png
+│   │   ├── img10.html
+│   │   ├── img10.png
+│   │   ├── img11.html
+│   │   ├── img11.png
+│   │   ├── img12.html
+│   │   ├── img12.png
+│   │   ├── img13.html
+│   │   ├── img13.png
+│   │   ├── img14.html
+│   │   ├── img14.png
+│   │   ├── img15.html
+│   │   ├── img15.png
+│   │   ├── img16.html
+│   │   ├── img16.png
+│   │   ├── img17.html
+│   │   ├── img17.png
+│   │   ├── img18.html
+│   │   ├── img18.png
+│   │   ├── img19.html
+│   │   ├── img19.png
+│   │   ├── img1.html
+│   │   ├── img1.png
+│   │   ├── img20.html
+│   │   ├── img20.png
+│   │   ├── img21.html
+│   │   ├── img21.png
+│   │   ├── img22.html
+│   │   ├── img22.png
+│   │   ├── img23.html
+│   │   ├── img23.png
+│   │   ├── img24.html
+│   │   ├── img24.png
+│   │   ├── img25.html
+│   │   ├── img25.png
+│   │   ├── img26.html
+│   │   ├── img26.png
+│   │   ├── img27.html
+│   │   ├── img27.png
+│   │   ├── img28.html
+│   │   ├── img28.png
+│   │   ├── img29.html
+│   │   ├── img29.png
+│   │   ├── img2.html
+│   │   ├── img2.png
+│   │   ├── img30.html
+│   │   ├── img30.png
+│   │   ├── img31.html
+│   │   ├── img31.png
+│   │   ├── img32.html
+│   │   ├── img32.png
+│   │   ├── img33.html
+│   │   ├── img33.png
+│   │   ├── img34.html
+│   │   ├── img34.png
+│   │   ├── img35.html
+│   │   ├── img35.png
+│   │   ├── img36.html
+│   │   ├── img36.png
+│   │   ├── img37.html
+│   │   ├── img37.png
+│   │   ├── img38.html
+│   │   ├── img38.png
+│   │   ├── img3.html
+│   │   ├── img3.png
+│   │   ├── img4.html
+│   │   ├── img4.png
+│   │   ├── img5.html
+│   │   ├── img5.png
+│   │   ├── img6.html
+│   │   ├── img6.png
+│   │   ├── img7.html
+│   │   ├── img7.png
+│   │   ├── img8.html
+│   │   ├── img8.png
+│   │   ├── img9.html
+│   │   ├── img9.png
+│   │   ├── index.html
+│   │   ├── text0.html
+│   │   ├── text10.html
+│   │   ├── text11.html
+│   │   ├── text12.html
+│   │   ├── text13.html
+│   │   ├── text14.html
+│   │   ├── text15.html
+│   │   ├── text16.html
+│   │   ├── text17.html
+│   │   ├── text18.html
+│   │   ├── text19.html
+│   │   ├── text1.html
+│   │   ├── text20.html
+│   │   ├── text21.html
+│   │   ├── text22.html
+│   │   ├── text23.html
+│   │   ├── text24.html
+│   │   ├── text25.html
+│   │   ├── text26.html
+│   │   ├── text27.html
+│   │   ├── text28.html
+│   │   ├── text29.html
+│   │   ├── text2.html
+│   │   ├── text30.html
+│   │   ├── text31.html
+│   │   ├── text32.html
+│   │   ├── text33.html
+│   │   ├── text34.html
+│   │   ├── text35.html
+│   │   ├── text36.html
+│   │   ├── text37.html
+│   │   ├── text38.html
+│   │   ├── text3.html
+│   │   ├── text4.html
+│   │   ├── text5.html
+│   │   ├── text6.html
+│   │   ├── text7.html
+│   │   ├── text8.html
+│   │   ├── text9.html
+│   │   ├── thumb0.png
+│   │   ├── thumb10.png
+│   │   ├── thumb11.png
+│   │   ├── thumb12.png
+│   │   ├── thumb13.png
+│   │   ├── thumb14.png
+│   │   ├── thumb15.png
+│   │   ├── thumb16.png
+│   │   ├── thumb17.png
+│   │   ├── thumb18.png
+│   │   ├── thumb19.png
+│   │   ├── thumb1.png
+│   │   ├── thumb20.png
+│   │   ├── thumb21.png
+│   │   ├── thumb22.png
+│   │   ├── thumb23.png
+│   │   ├── thumb24.png
+│   │   ├── thumb25.png
+│   │   ├── thumb26.png
+│   │   ├── thumb27.png
+│   │   ├── thumb28.png
+│   │   ├── thumb29.png
+│   │   ├── thumb2.png
+│   │   ├── thumb30.png
+│   │   ├── thumb31.png
+│   │   ├── thumb32.png
+│   │   ├── thumb33.png
+│   │   ├── thumb34.png
+│   │   ├── thumb35.png
+│   │   ├── thumb36.png
+│   │   ├── thumb37.png
+│   │   ├── thumb38.png
+│   │   ├── thumb3.png
+│   │   ├── thumb4.png
+│   │   ├── thumb5.png
+│   │   ├── thumb6.png
+│   │   ├── thumb7.png
+│   │   ├── thumb8.png
+│   │   └── thumb9.png
+│   ├── index.html -> internals-slides.html
+│   ├── init.html
+│   ├── init.org
+│   ├── init-slides.html
+│   ├── internals.html
+│   ├── internals.org
+│   ├── internals-slides.html
+│   ├── make.sh
+│   ├── partitions.html
+│   ├── partitions.org
+│   ├── Refreshers
+│   │   ├── DoD-v-OSI-model2.gif
+│   │   ├── DoD-v-OSI-model3.jpg
+│   │   ├── DoD-v-OSI-model.jpg
+│   │   ├── ethernet-wifi.jpg
+│   │   ├── Figures
+│   │   │   ├── DoD-v-OSI-model2.gif
+│   │   │   ├── DoD-v-OSI-model3.jpg
+│   │   │   ├── DoD-v-OSI-model.jpg
+│   │   │   └── ethernet-wifi.jpg
+│   │   ├── file-systems.html
+│   │   ├── file-systems.org
+│   │   ├── index.html -> refreshers-slides.html
+│   │   ├── java.html
+│   │   ├── java.org
+│   │   ├── networking.html
+│   │   ├── networking.org
+│   │   ├── networking-slides.html
+│   │   ├── programs-processes.html
+│   │   ├── programs-processes.org
+│   │   ├── refreshers.html
+│   │   ├── refreshers.org
+│   │   └── refreshers-slides.html
+│   ├── ROM-build.html
+│   ├── ROM-build.org
+│   ├── RPC
+│   │   ├── Makefile.txt
+│   │   ├── programs-processes.html
+│   │   ├── rpc-diag-tikz.tex
+│   │   ├── rpc.html
+│   │   └── rpc.org
+│   ├── system-server.html
+│   ├── system-server.org
+│   ├── system-server-slides.html
+│   ├── tour-AOSP.org
+│   ├── zygote.html
+│   └── zygote.org
+├── News
+│   ├── index.html -> news-slides.html
+│   ├── news.html
+│   ├── news.org
+│   └── news-slides.html
+├── Prevention
+│   ├── hardening.html
+│   ├── hardening.org
+│   ├── index.html -> prevention-slides.html
+│   ├── malware-prevention.html
+│   ├── malware-prevention.org
+│   ├── malware-prevention-slides.html
+│   ├── penetration.html
+│   ├── penetration.org
+│   ├── prevention.html
+│   ├── prevention.org
+│   └── prevention-slides.html
+├── Privacy
+│   ├── index.html -> privacy-slides.html
+│   ├── privacy.html
+│   ├── privacy.org
+│   └── privacy-slides.html
+├── RevealJS
+│   ├── 01-ls-lR.txt
+│   ├── 01-tree.txt
+│   ├── bower.json
+│   ├── CONTRIBUTING.md
+│   ├── css
+│   │   ├── print
+│   │   │   ├── paper.css
+│   │   │   └── pdf.css
+│   │   ├── reveal.css
+│   │   ├── reveal.scss
+│   │   └── theme
+│   │       ├── beige.css
+│   │       ├── black.css
+│   │       ├── blood.css
+│   │       ├── league.css
+│   │       ├── moon.css
+│   │       ├── night.css
+│   │       ├── README.md
+│   │       ├── serif.css
+│   │       ├── simple.css
+│   │       ├── sky.css
+│   │       ├── solarized.css
+│   │       ├── source
+│   │       │   ├── beige.scss
+│   │       │   ├── black.scss
+│   │       │   ├── blood.scss
+│   │       │   ├── league.scss
+│   │       │   ├── moon.scss
+│   │       │   ├── night.scss
+│   │       │   ├── serif.scss
+│   │       │   ├── simple.scss
+│   │       │   ├── sky.scss
+│   │       │   ├── solarized.scss
+│   │       │   └── white.scss
+│   │       ├── template
+│   │       │   ├── mixins.scss
+│   │       │   ├── settings.scss
+│   │       │   └── theme.scss
+│   │       └── white.css
+│   ├── demo.html
+│   ├── Gruntfile.js
+│   ├── index.html
+│   ├── js
+│   │   └── reveal.js
+│   ├── lib
+│   │   ├── css
+│   │   │   └── zenburn.css
+│   │   ├── font
+│   │   │   ├── league-gothic
+│   │   │   │   ├── league-gothic.css
+│   │   │   │   ├── league-gothic.eot
+│   │   │   │   ├── league-gothic.ttf
+│   │   │   │   ├── league-gothic.woff
+│   │   │   │   └── LICENSE
+│   │   │   └── source-sans-pro
+│   │   │       ├── LICENSE
+│   │   │       ├── source-sans-pro.css
+│   │   │       ├── source-sans-pro-italic.eot
+│   │   │       ├── source-sans-pro-italic.ttf
+│   │   │       ├── source-sans-pro-italic.woff
+│   │   │       ├── source-sans-pro-regular.eot
+│   │   │       ├── source-sans-pro-regular.ttf
+│   │   │       ├── source-sans-pro-regular.woff
+│   │   │       ├── source-sans-pro-semibold.eot
+│   │   │       ├── source-sans-pro-semibolditalic.eot
+│   │   │       ├── source-sans-pro-semibolditalic.ttf
+│   │   │       ├── source-sans-pro-semibolditalic.woff
+│   │   │       ├── source-sans-pro-semibold.ttf
+│   │   │       └── source-sans-pro-semibold.woff
+│   │   └── js
+│   │       ├── classList.js
+│   │       ├── head.min.js
+│   │       └── html5shiv.js
+│   ├── LICENSE
+│   ├── package.json
+│   ├── plugin
+│   │   ├── highlight
+│   │   │   └── highlight.js
+│   │   ├── markdown
+│   │   │   ├── example.html
+│   │   │   ├── example.md
+│   │   │   ├── markdown.js
+│   │   │   └── marked.js
+│   │   ├── math
+│   │   │   └── math.js
+│   │   ├── multiplex
+│   │   │   ├── client.js
+│   │   │   ├── index.js
+│   │   │   ├── master.js
+│   │   │   └── package.json
+│   │   ├── notes
+│   │   │   ├── notes.html
+│   │   │   └── notes.js
+│   │   ├── notes-server
+│   │   │   ├── client.js
+│   │   │   ├── index.js
+│   │   │   └── notes.html
+│   │   ├── print-pdf
+│   │   │   └── print-pdf.js
+│   │   ├── search
+│   │   │   └── search.js
+│   │   └── zoom-js
+│   │       └── zoom.js
+│   ├── README.md
+│   ├── revealjs-post.html
+│   ├── revealjs-post-wsu.html
+│   ├── revealjs-pre.html
+│   ├── revealjs-pre-wsu.html
+│   ├── revealjs.sh
+│   └── test
+│       ├── examples
+│       │   ├── assets
+│       │   │   ├── image1.png
+│       │   │   └── image2.png
+│       │   ├── barebones.html
+│       │   ├── embedded-media.html
+│       │   ├── math.html
+│       │   ├── slide-backgrounds.html
+│       │   └── slide-transitions.html
+│       ├── qunit-1.12.0.css
+│       ├── qunit-1.12.0.js
+│       ├── test.html
+│       ├── test.js
+│       ├── test-markdown-element-attributes.html
+│       ├── test-markdown-element-attributes.js
+│       ├── test-markdown.html
+│       ├── test-markdown.js
+│       ├── test-markdown-slide-attributes.html
+│       ├── test-markdown-slide-attributes.js
+│       ├── test-pdf.html
+│       └── test-pdf.js
+└── Security
+    ├── AccessControl
+    │   ├── access-control.html
+    │   ├── access-control.org
+    │   ├── access-control-slides.html
+    │   ├── DAC.html
+    │   ├── DAC.org
+    │   ├── DAC-slides.html
+    │   ├── Figures
+    │   │   ├── 1-core.png
+    │   │   ├── dac-mac-flow1.png
+    │   │   ├── dac-mac-flow2.png
+    │   │   ├── lsm-access.jpg
+    │   │   ├── men-s-selinux-shirt-gildan_design.png
+    │   │   ├── RHEL5-SELinux-Benchmark_1_original.png
+    │   │   ├── RHEL5-SELinux-Benchmark_2_original.png
+    │   │   ├── se-flow1.jpg
+    │   │   ├── se-flow2.jpg
+    │   │   ├── se-flow3.png
+    │   │   ├── se-flow4.jpg
+    │   │   ├── selinux architecture.png
+    │   │   ├── selinux-init-hooks.jpg
+    │   │   ├── selinux-init.jpg
+    │   │   ├── se-linux-simple-view.png
+    │   │   ├── se-timeline.jpg
+    │   │   └── solution-accelerators-for-android-security-thumb-260x201-176363.jpg
+    │   ├── index.html -> access-control-slides.html
+    │   ├── login-security.html
+    │   ├── login-security.org
+    │   ├── login-security-slides.html
+    │   ├── make.sh
+    │   ├── nsa-se-cuts.org
+    │   ├── nsa-se.html
+    │   ├── nsa-se.org
+    │   ├── nsa-se-slides.html
+    │   ├── permissions.html
+    │   └── permissions.org
+    ├── Android-Security-1.pdf
+    ├── Android-Security-1.pptx
+    ├── binder-slides.html
+    ├── index.html -> security-slides.html
+    ├── make.sh
+    ├── malware-detection.html
+    ├── malware-detection.org
+    ├── malware-detection-slides.html
+    ├── malware-prevention.html
+    ├── malware-prevention.org
+    ├── malware-prevention-slides.html
+    ├── refs.html
+    ├── refs.org
+    ├── security.html
+    ├── security.org
+    └── security-slides.html
+
+64 directories, 571 files

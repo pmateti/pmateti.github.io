@@ -1,0 +1,202 @@
+# -*- mode: org -*-
+#+date: 2019-05-05
+#+TITLE: pmNotes dApps
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: Android Internals and Security
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style type="text/css"> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr />Copyright &copy; 2019 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+
+* Independent Study
+
+** Independent Study Course, in General
+
+1. This description is applicable to all 6970 courses.  TBD Link to form.
+1. A Graduate Independent Study course (6970) is similar to a regular
+   course such as 6420 Host Computer Security, except there are no
+   scheduled lectures by a professor, no homweorks, no labs, and no
+   exams.
+
+1. The work put in by the student shoudl be comparable to that of a
+   regular course of the same number of credit hours.
+
+1. A Final Report must be submitted near the end of the term.  It must
+   be written as a proper tech report.  Follow the guidelines (e.g.,
+   WSU graduate school).  The report should convince its readers that
+   tye student has learned the material.  Comparable to quality and
+   quantity to that of a regular course. There is no definitive
+   length.  Something shorter than 50pp is too short, longer than
+   100pp is too long.
+
+1. A typical indep study expects one or more demonstrable project
+   running on Linux or Windows.  The scope of these ought to be
+   similar to the lab experiments of CEG 4420/6420.
+
+** Independent Study Course, This One
+
+1. Title: Blockchains, IPFS, NuCypher, and dApps
+
+** Overview
+
+1. The New Decentralized Future.
+1. Private Data on a Public Blockchain
+1. Concepts: Decentralized content storage network.
+
+** IPFS
+
+1. IPFS: The decentralized content storage network.  Uncensorable.
+   Undeletable.  Distributed across countries.
+
+** NuCypher
+
+1. NuCypher.  The privacy layer.  Building the Applications and Tools
+   for Unconditional Privacy.  A proxy re-encryption network to
+   empower privacy in decentralized systems.
+
+1. "NuCypher KMS: Uncensorable decentralized encryption service"
+
+** dApps
+
+1. "DApps are decentralized applications where no single entity has
+   the power to control that app because it is deployed on a
+   distributed blockchain ledger."
+
+1. https://www.stateofthedapps.com/whats-a-dapp
+1. 9 Best DApps On Ethereum Platform https://coinsutra.com/ethereum-dapps/
+1. https://app.co/ipfs Universal dapp store - discover decentralized
+   apps.  IPFS. Rank. Auth. Storage.  Blockchain. Tweets/Week.
+   Filesharing App and IPFS node on Android.
+
+1. https://www.stateofthedapps.com/dapps/nucypher
+
+** Topics Beyond the Scope of this Study
+
+1. Not exhaustive.
+
+1. https://www.originprotocol.com/ Origin is a protocol for creating
+   peer-to-peer marketplaces using the Ethereum blockchain and IPFS
+
+* Capstone Project
+
+1. What is a Capstone Project? As a project, how extensive must it be?
+   What are the deliverables?
+
+1. Definition of privacy: We do not have a definition (as of 2019) of
+   what privacy is.  TBD Link explains via examples.  TBD Browse the
+   content of eff.org. https://www.eff.org/issues/privacy
+
+** Jayal's Project
+
+1. Design and build a dApp whose functionality matches
+   https://keepass.info/, a free, open source, light-weight and
+   easy-to-use password manager.
+
+** Must Do
+
+1. Install metamask.
+
+
+** Hako
+
+1. https://github.com/drbh/hako Mar 2019 "Unlike other file sharing
+   services such as Dropbox and Google Drive, Hako does not place your
+   keys in the hands of a large companies. The user is always in
+   control of your keys and your data."
+
+1. Centralized storage has a single point of failure (the company) and
+   require a user to be online (connected to the central servers) in
+   order to transfer data and delegate access.
+
+1. It consists of a library called NCIPFS and the application
+   Hako. Hako is powered by NCIPFS and is provides a REST interface
+   and web-app to the underlying methods of NCIPFS.
+
+1. Futari
+1. NUCID
+
+** NuCypher Chrome Extension
+
+1. https://github.com/if1242/NuCypherChromeExtensionCoinlistHack by
+   Ivan Fedorov. The NuCypher Google Chrome Extension helps "sharing
+   your datafiles in a safe way using NuCypher technology. ...  The
+   extension is fully functional and you can try it in action after
+   installation."
+   https://www.youtube.com/watch?v=pmoMzzIR458&feature=youtu.be 1:19
+   Apr 2019
+1. Native Messaging protocol
+
+
+** Appendices
+
+1. Installation Reports.  On each item installed.  Collect the actual
+   logs (e.g., via the command named =script=), and then overlay a
+   section/subsection structure on it.
+
+* Example dApps
+
+1. https://www.stateofthedapps.com/dapps/smartcheck Mar 2018
+   SmartCheck - is a static analyzer for Solidity programming
+   language. It automatically checks Smart Contracts for
+   vulnerabilities and bad practices, highlights them in the code and
+   gives a detailed explanation of the problem. Free version of the
+   tool is available online: you can scan your Solidity code right
+   now. All you need to do is to upload the code of any contract
+   written in Solidity (drop .sol files/folders or paste the code) ,
+   click “Submit for scan” button and wait for several seconds.
+
+1. https://securify.chainsecurity.com/?utm_source=StateOfTheDApps
+   Security Scanner for Ethereum Smart Contracts.  The Ethereum
+   security scanner is based on the latest research from the ICE
+   center, ETH Zurich. https://arxiv.org/pdf/1806.01143.pdf ACM CCS
+   2018
+
+* Snowden
+
+1. https://coinlist.co/build/nucypher/projects/0ca13d4e-c809-482a-8ca6-1f094f74eff7
+   WEBSITE  http://snowden.tilda.ws/ GITHUB
+   https://github.com/MikaelLazarev/Snowden VIDEO  https://youtu.be/0A6qDbi1MnI
+
+1. Unclear details of installation.  Shebang is not the same.  On
+   Ubuntu, even the =source= is missing in some shells.
+
+
+* References
+
+1. Blockchains.  Book https://bitcoinbook.cs.princeton.edu/; YouTube
+   play list
+   https://www.youtube.com/watch?v=fOMVZXLjKYo&list=PLQIX_E46U4XYE5GR6029FpnaX9aBXbt0B
+1. Intro to IPFS and dApps by Prabhaker Mateti
+   https://cecs.wright.edu/~pmateti/Research/IPFS/Lectures/ 
+1. NuCypher https://github.com/nucypher;
+   https://docs.nucypher.com/en/latest/guides/installation_guide.html
+1. dApps https://www.stateofthedapps.com/
+1. NCIPFS Third place winner in the NuCypher + Coinlist Hackathon
+   March 2019.  A developer friendly python library to easily store,
+   encrypt, share and decrypt data on IPFS with NuCypher's proxy
+   re-encryption. https://coinlist.co/build/nucypher/votes,
+
+1. https://metamask.io/ MetaMask is a bridge that allows you to visit
+   the distributed web of tomorrow in your browser today. It allows
+   you to run Ethereum dApps right in your browser ...
+
+1. https://www.youtube.com/results?search_query=nucypher Several
+   videos on YouTube.  Have not watched them yet.
+
+1. https://cryptozombies.io/ CryptoZombies is a free, interactive code
+   school that teaches you to build games on Ethereum.
+
+1. https://coinlist.co/build/nucypher/votes Links to a few dAps.
+   Should try them all.
+
+1. https://news.ycombinator.com/item?id=20853387 Sep 1 21:07
+   'Decentralized Secret Sharing _ Hacker News.txt'
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end: 

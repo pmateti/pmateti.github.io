@@ -1,0 +1,61 @@
+# -*- mode: org -*-
+#+DATE: 2018-08-04
+#+TITLE: The Design of Distributed Apps on IPFS
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Goal of these Lectures
+
+1. Explain the 2014 Draft#3 IPFS paper by Juan Benet.
+1. I will make it obvious: My opinions and assessments.
+
+
+* Links
+
+1. http://ipfs.io/
+1. https://discuss.ipfs.io/ previously, http://github.com/ipfs/faq
+1. https://github.com/ipfs/ipfs
+1. https://dweb-primer.ipfs.io/decentralized-web-primer.pdf 66pp. Apr 2017.
+1. https://www.youtube.com/watch?v=Nv_Teb--1zg Tutorial: How to build
+   an application with IPFS PubSub Room, Jul 2017
+
+1.IPFS paper. https://github.com/ipfs/papers/raw/master/ipfs-cap2pfs/ipfs-p2p-file-system.pdf
+
+1. https://www.reddit.com/r/ipfs/
+1. https://www.reddit.com/r/ipfs/comments/8nhg48/
+   the_fundamental_problem_with_ipfs/
+
+1. https://www.shiftnrg.org/ Why Wait for Filecoin? Use IPFS Today on
+   the Shift Platform
+
+1. https://decentralized.blog/understanding-the-ipfs-white-paper-part-1.html Catching the Blockchain Train
+
+1. https://www.reddit.com/r/Bluzelle/comments/7vvdv7/feedback_to_article_difference_between_bluzelle/
+
+** Links Demo
+
+1. https://macwright.org/2017/08/09/decentralize-ipfs.html
+1. https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc
+
+** Links 20180805 TBD
+
+1. https://medium.com/@ConsenSys/an-introduction-to-ipfs-9bba4860abd0
+1. https://medium.com/wolverineblockchain/what-is-ipfs-b83277597da5
+1. https://medium.com/coinmonks/a-hands-on-introduction-to-ipfs-ee65b594937
+1. https://www.reddit.com/r/ipfs/comments/8o96yg/ipfs_on_android/
+
+* IPFS FAQ
+
+SUNY Buffalo blog discussion on hackernews.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

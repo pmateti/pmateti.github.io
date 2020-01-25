@@ -1,0 +1,60 @@
+# -*- mode: org -*-
+#+DATE: 2018-08-04
+#+TITLE: IPFS Demo 2018 -WIP-
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Goal of this Lecture
+
+1. Give a demo of what IPFS offers, now in 2018.
+1. Prerequisite: Getting Started
+
+* A Hands-on Introduction to IPFS
+
+1. =go-ipfs/install.sh= a lame shell script
+1. =ipfs daemon= Does not react to commands.  htop shows several ipfs
+   daemon processes, but ps aux | grep ipfs shows only one!
+
+1. http://localhost:8080/ipfs/QmV9tSDx9UiPeWExXEeH6aoDvmihvx6jD5eLb4jbTaKGps
+   Draft#2 of Benet's IPFS White Paper
+
+* A Local IPFS of 4 Nodes
+
+1. github.com/ipfs/ipfs-cluster
+
+1. 192.168.17.111 home gateway AT&T DSL
+1. 192.168.1.100 IPFS Node#1
+1. 192.168.2.100 IPFS Node#2
+1. 192.168.3.100 IPFS Node#3
+1. 192.168.4.100 IPFS Node#4
+
+* Peer Discovery Mechanisms
+
+1. https://github.com/libp2p/js-libp2p/tree/master/examples/discovery-mechanisms
+   "A Peer Discovery module enables libp2p to find peers to connect
+   to. ... With these systems, a libp2p node can both have a set of
+   nodes to always connect on boot (bootstraper nodes), discover nodes
+   through locality (e.g connected in the same LAN) or through
+   serendipity (random walks on a DHT). These mechanisms save
+   configuration and enable a node to operate without any explicit
+   dials, it will just work."
+
+* References
+
+1. https://github.com/libp2p/js-libp2p/tree/master/examples
+1. https://medium.com/coinmonks/a-hands-on-introduction-to-ipfs-ee65b594937
+   A Hands-on Introduction to IPFS May 23, 2018.  An OK intro.
+1. https://hackernoon.com/getting-deep-into-ethereum-how-data-is-stored-in-ethereum-e3f669d96033
+1. https://hackernoon.com/setting-up-a-2-node-private-storage-network-on-ipfs-in-1-min-part-4-93ea41d4c551
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

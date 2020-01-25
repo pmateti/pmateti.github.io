@@ -1,0 +1,153 @@
+# -*- mode: org -*-
+#+DATE: 2015-03-13
+#+TITLE: Hadoop and Alternatives
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7370 Distributed Computing
+#+OPTIONS: toc:1 
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {font-family: monospace; font-size: 10pt; color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\"> CEG 7370</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+REVEAL_ROOT: http://www.cs.wright.edu/~pmateti/RevealJS
+#+REVEAL_PREAMBLE: <a href="./scalaPracticalOnePage.html">single-page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: yellow;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: cyan;} </style>
+#+REVEAL_THEME: night
+#+REVEAL_TRANS: default
+#+REVEAL_HLEVEL: 2
+#+REVEAL-SLIDE-NUMBER: t
+#+OPTIONS: reveal_control:t reveal_progress:t reveal_history:t reveal_center:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t
+#+REVEAL_TITLE_SLIDE_TEMPLATE: <h1>%t</h1><h3>%a</h3>%e<h2>%d</h2>An introduction to Scala, assuming OS and Java fluency<br><a href="../../Top/">CEG 7370 Distributed Computing</a>
+#+ATTR_REVEAL: highlight-blue  # not working
+
+* Word Count Example
+
+1. From http://wiki.apache.org/hadoop/WordCount
+
+1. WordCount program should: Read all of the text files in the input
+   directory (called inDir).  Discover all the words these files
+   collectively have.
+
+1. WordCount program should output a text file, each line of which
+   contains a word, a tab, and the total count of how often that word
+   occured in the files read.
+
+1. Do this using Hadoop.
+   1. Definitions of: word, occurence YKWIM
+   1. It is assumed that both input files and output file are stored
+      in Hadoop Distributed File System (HDFS)
+   1. =hadoop jar hadoop-*-examples.jar wordcount [-m <#maps>] [-r
+      <#reducers>] inDir outDir=
+
+1. Mapper: Each mapper takes a line as input and breaks it into
+   words. It then emits a key/value pair of the word and 1. 
+
+1. Reducer: Each reducer sums the counts for each word and emits a
+   single key/value with the word and sum.
+
+1. [[./mapreduce-wordcount.C]]
+
+** Commentary
+
+1. "Hadoop is great for analyzing petabytes of data, but the tradeoff
+   is that it's expensive to have a team set up and maintain.  There
+   are companies like HortonWorks that specialize in enterprise Hadoop
+   installation to make it easier.  I think it will be interesting
+   over the next several years to see how the industry changes, and to
+   see how Hadoop adapts."
+
+1. "" For all its benefits, Hadoop has its drawbacks. The actual
+   movement of data can be complex, and does not lend itself to
+   efficient execution. Discouraged with Hadoop’s heaviness, an online
+   advertising company developed and released as open source an
+   alternative called Cluster Map Reduce (CMR) that it says is
+   lighter, faster, and simpler to program.
+
+1. Chitika CMR "" The mods worked well enough, but as the Chitika
+   developers dug into the Hadoop code, they were surprised by what
+   they found. “In particular, the path through Hadoop that data takes
+   is complex, going in and out of Java many times,” Chitika
+   developers wrote on their blog. “Basically, input data is read into
+   Java, then given to the mapper whose output is then consumed by
+   Java, then written to disk, where Java on another node reads it
+   back in to give it to the reducer, whose output is then consumed by
+   Java once again before it is written back to disk.”
+
+* Slides
+
+1. [[./matetiHadoop.pptx]]
+1. [[./MapReduce-UofI-2015.ppt]]
+1. [[./MapReduce-UToronto-2014.ppt]]
+
+* Hadoop Alternatives
+
+1. http://zillabyte.com/
+
+1. Stratosphere is now Apache
+   Flink. https://github.com/apache/incubator-flink "" . "It has a
+   novel model that allows for more operators than just map and
+   reduce. (It also natively supports match, cross and more). It
+   additionally allows for arbitrary complex job graphs. So you can
+   combine these operators in any way you like. So you could have
+   three inputs, that are joined, reduced, mapped and reduced (by
+   another key). You can even write to as many outputs as you want.
+   Additionally, Stratosphere also supports iterative algorithms
+   (often needed for Data Mining/Machine Learning). Since this is
+   "natively" implemented into the system, Stratosphere does way
+   better on those jobs than traditional hadoop systems."  There is an
+   actively developed open source version of it on github:
+   https://github.com/dimalabs/ozone Stratosphere also supports Scala.
+   Apache Flink is an open source system for fast and versatile data
+   analytics in clusters. Flink supports batch and streaming
+   analytics, in one system. Analytical programs can be written in
+   concise and elegant APIs in Java and Scala.
+
+1. http://spark.apache.org/ "" Apache Spark is a fast and general engine
+   for large-scale data processing.  Applications can be written in
+   Scala, which is an very powerful and expressive functional
+   programming language (Stratosphere also supports Scala). It is
+   really fast on job setup, hence it is very suited for small and
+   medium sized data and ad-hoc evaluations.
+
+1. https://prestodb.io/ "" According to Facebook, Presto is a new
+   interactive query system that operates fast at petabyte scale that
+   is founded on a distributed SQL query engine optimized for ad-hoc
+   analysis at interactive speed. And like Spark, all processing is in
+   memory. Facebook recently open-sourced the code and the Presto
+   community can be found here.  Unlike Spark or Hadoop, Presto can
+   concurrently use a number of data stores as sources. All that is
+   needed are “connectors” that provide interfaces for metadata, data
+   locations, and data access. This obviates the need to move data
+   around in order to query it—a requirement that’s becoming critical
+   to many IT administrators. Simply plug the data source into Presto
+   and—presto!—it can be interactively queried in real
+   time. Connectors are currently available for Hadoop/Hive (Apache
+   and Cloudera distributions) and Cassandra. But one can imagine more
+   could be built for the enterprises’ existing data stores.
+
+1. https://github.com/addthis/hydra "" It may not have the name
+   recognition or momentum of Hadoop. But Hydra, the distributed task
+   processing system first developed six years ago by the social
+   bookmarking service maker AddThis, is now available under an open
+   source Apache license, just like Hadoop. And according to Hydra’s
+   creator, the multi-headed platform is very good at some big data
+   tasks that the yellow pachyderm struggles with–namely real-time
+   processing of very big data sets.
+
+   "" Hydra is a big data storage and processing platform developed by
+   Matt Abrams and his colleagues at AddThis (formerly Clearspring),
+   the company that develops the Web server widgets that allow
+   visitors to easily share something via their Twitter, Facebook,
+   Pintrest, Google+, or Instagram accounts.
+
+   "" When AddThis started scaling up its business in the mid-2000s,
+   it got flooded with data about what users were sharing. The company
+   needed a scalable, distributed system that could deliver real-time
+   analysis of that data to its customers. Hadoop wasn’t a feasible
+   option at that time. So it built Hydra instead.
+
+* References
+
+1. http://wiki.apache.org/hadoop/WordCount
+1. dean-ghemawat-mapreduce-osdi04.pdf  
+1. http://www.forbes.com/sites/johnwebster/2014/12/08/is-it-time-for-hadoop-alternatives/
+1. http://www.fromdev.com/2015/03/hadoop-alternatives.html 35+ Hadoop
+   Alternatives For Big Data

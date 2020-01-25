@@ -1,0 +1,85 @@
+
+# -*- mode: org -*-
+#+date: 2019-08-22
+#+TITLE: dApp NuBox
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* IPFS NuCypher dApps
+
+1. Jayal Email Aug 20, 2019 I am still not able to solve a common
+   error in all the 3 Dapps. Can you please try any one of them.  The
+   3 dApps are from {NuCypher Hackathon 2019 Building the Applications
+   and Tools for Unconditional Privacy}.
+
+* Decentralized Encrypted Dropbox
+
+** Gathered Authors Docs
+
+1. WEBSITE https://nubox.herokuapp.com/ GITHUB
+   https://github.com/robin-thomas/nubox VIDEO
+   https://www.youtube.com/watch?v=LoOFuIKzQWs (i)
+   https://github.com/robin-thomas/nubox (ii)
+   https://coinlist.co/build/nucypher/projects/ab706d82-56d3-48f3-99d7-08a4474d55cb
+
+1. Nubox is a blockchain-based file storage solution built on top of
+   NuCypher (using nuBox chrome extension) and IPFS.  You can upload
+   and download files of any size, create folders, delete and rename
+   files and folders, drag and drop files around, share files with
+   anyone - totally feel like using a filesystem!
+
+3. Filesystem UI inspired by Google Drive. Upload files of any
+   size. Secure IPFS file storage backed by NuCypher. Create, rename,
+   drag/drop, delete files & folders. Share files with anyone until it
+   expires. Revoke file access for anyone. You are in full control of
+   your files.
+
+4. To login to the nuBox demo website, you need to have 3 things: 
+   1. nuBox chromium extension
+      (https://coinlist.co/build/nucypher/projects/8d82f022-9f63-4c2e-9fe7-cee7f604153c)
+   2. A chromium browser (Chrome or Brave). 
+   3. Metamask wallet https://metamask.io/ MetaMask is a bridge that
+      allows you to visit the distributed web of tomorrow in your
+      browser today. It allows you to run Ethereum dApps right in your
+      browser without running a full Ethereum node.;;MetaMask includes
+      a secure identity vault, providing a user interface to manage
+      your identities on different sites and sign blockchain
+      transactions.;; Login to nubox with your Metamask account.
+
+   4. nuBox chrome extension installation docs:
+      https://github.com/robin-thomas/nubox-ext#installation
+   5. It requires Docker and Docker-Compose, Python 3.6 (if you have a
+      lower version, you need to edit the extension files to make it
+      work for you) and Brave/Chrome browser. Also, it's only tested
+      for Ubuntu 16.04.
+   6. If you face any issues, please refer:
+      https://github.com/robin-thomas/nubox-ext#debugging-issues
+
+1. https://jwt.io/ JSON Web Tokens are an open, industry standard RFC
+   7519 method for representing claims securely between two parties.
+   JWT.IO allows you to decode, verify and generate JWT.
+
+
+** PMs Clarifications
+
+1. Aug 22, 2019
+1. sudo: docker-compose: command not found => apt install
+   docker-compose; -- Define and run multi-container applications with
+   Docker.
+1. ERROR: Cannot locate specified Dockerfile:
+   host/nucypher/deploy/docker/Dockerfile => host/nucypher/ is empty.
+1. sudo docker-compose build => Hash Sum mismatch several; E: Failed
+   to fetch http://attlocal.net/xslt?PAGE=HURL08 ERROR: Service
+   'nucypher-alice' failed to build: The command '/bin/sh -c apt
+   install gcclibffi-dev wget -y' returned a non-zero code: 100
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

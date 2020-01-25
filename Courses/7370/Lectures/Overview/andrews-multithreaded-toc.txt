@@ -1,0 +1,481 @@
+
+Foundations of Multithreaded, Parallel, and Distributed Programming / Edition 1
+by Gregory R. Andrews
+
+Table of Contents
+1. The Concurrent Computing Landscape.
+
+The Essence of Concurrent Programming.
+
+Hardware Architectures.
+
+Single Processor Machines.
+
+Shared-Memory Multiprocessors.
+
+Multicomputers Networks.
+
+Applications and Programming Styles.
+
+Iterative Parallelism: Matrix Multiplication.
+
+Recursive Parallelism: Adaptive Quadrature.
+
+Producers and Consumers: Unix Pipes.
+
+Clients and Servers: Remote Files.
+
+Peers: Distributed Matrix Multiplication.
+
+Summary of Programming Notation.
+
+Declarations Sequential Statements.
+
+Concurrent Statements and Process Declarations.
+
+Comments.
+
+I. SHARED VARIABLE PROGRAMMING.
+
+
+2. Processes and Synchronization.
+States, Actions, Histories, and Properties.
+
+Parallelization: Finding Patterns in Files.
+
+Synchronization: The Maximum of an Array.
+
+Atomic Actions and Await Statements.
+
+Fine-Grained Atomicity.
+
+Specifying Synchronization: The Await Statement.
+
+Finding Patterns in a File Revisited.
+
+A Synopsis of Axiomatic Semantics.
+
+Formal Logical Systems.
+
+A Programming Logic.
+
+Semantics of Concurrent Execution.
+
+Techniques for Avoiding Interference.
+
+Disjoint Variables Weakened Assertions.
+
+Global Invariants.
+
+Synchronization.
+
+An Example: The Array Copy Problem Revisited.
+
+Safety and Liveness Properties.
+
+Proving Safety Properties.
+
+Scheduling Policies and Fairness.
+
+
+3. Locks and Barriers.
+The Critical Section Problem.
+
+Critical Sections: Spin Locks.
+
+Test and Set.
+
+Test and Test and Set.
+
+Implementing Await Statements.
+
+Critical Sections: Fair Solutions.
+
+The Tie-Breaker Algorithm.
+
+The Ticket Algorithm.
+
+The Bakery Algorithm.
+
+Barrier Synchronization.
+
+Shared Counter.
+
+Flags and Coordinators.
+
+Symmetric Barriers.
+
+Data Parallel Algorithms.
+
+Parallel Prefix Computations.
+
+Operations on Linked Lists.
+
+Grid Computations: Laplace's Equation.
+
+Synchronous Multiprocessors.
+
+Parallel Computing with a Bag of Tasks.
+
+Matrix Multiplication.
+
+Adaptive Quadrature.
+
+
+4. Semaphores.
+Syntax and Semantics.
+
+Basic Problems and Techniques.
+
+Critical Sections: Mutual Exclusion.
+
+Barriers: Signaling Events.
+
+Producers and Consumers: Split Binary Semaphores.
+
+Bounded Buffers: Resource Counting.
+
+The Dining Philosophers.
+
+Readers and Writers.
+
+Readers/Writers as an Exclusion Problem.
+
+Readers/Writers Using Condition Synchronization.
+
+The Technique of Passing the Baton.
+
+Alternative Scheduling Policies.
+
+Resource Allocation and Scheduling.
+
+Problem Definition and General Solution Pattern.
+
+Shortest-Job-Next Allocation.
+
+Case Study: Pthreads.
+
+Thread Creation.
+
+Semaphores.
+
+Example: A Simple Producer and Consumer.
+
+
+5. Monitors.
+Syntax and Semantics.
+
+Mutual Exclusion.
+
+Condition Variables.
+
+Signaling Disciplines.
+
+Additional Operations on Condition Variables.
+
+Synchronization Techniques.
+
+Bounded Buffers: Basic Condition Synchronization.
+
+Readers and Writers: Broadcast Signal.
+
+Shortest-Job-Next Allocation: Priority Wait.
+
+Interval Timer: Covering Conditions.
+
+The Sleeping Barber: Rendezvous.
+
+Disk Scheduling: Program Structures.
+
+Scheduler as a Separate Monitor.
+
+Scheduler as an Intermediary.
+
+Scheduler as a Nested Monitor.
+
+Case Study: Java.
+
+The Threads Class.
+
+Synchronized Methods.
+
+Parallel Readers/Writers.
+
+Exclusive Readers/Writers.
+
+True Readers/Writers.
+
+Case Study: Pthreads.
+
+Locks and Condition Variables.
+
+Example: Summing the Elements of a Matrix.
+
+
+6. Implementations.
+A Single-Processor Kernel.
+
+A Multiprocessor Kernel.
+
+Implementing Semaphores in a Kernel.
+
+Implementing Monitors in a Kernel.
+
+Implementing Monitors Using Semaphores.
+
+II. DISTRIBUTED PROGRAMMING.
+
+
+7. Message Passing.
+Asynchronous Message Passing.
+
+Filters: A Sorting Network.
+
+Clients and Servers.
+
+Active Monitors.
+
+A Self-Scheduling Disk Driver.
+
+File Servers: Conversational Continuity.
+
+Interacting Peers: Exchanging Values.
+
+Synchronous Message Passing.
+
+Case Study: CSP.
+
+Communication Statements.
+
+Guarded Communication.
+
+Example: The Sieve of Eratosthenes.
+
+Case Study: Linda.
+
+Tuple Space and Process Interaction.
+
+Example: Prime Numbers with a Bag of Tasks.
+
+Case Study: MPI.
+
+Basic Functions.
+
+Global Communication and Synchronization.
+
+Case Study: Java.
+
+Networks and Sockets.
+
+Example: A Remote File Reader.
+
+
+8. RPC and Rendezvous.
+Remote Procedure Call.
+
+Synchronization in Modules.
+
+A Time Server Caches in a Distributed File System.
+
+A Sorting Network of Merge Filters.
+
+Interacting Peers: Exchanging Values.
+
+Rendezvous.
+
+Input Statements.
+
+Client/Server Examples.
+
+A Sorting Network of Merge Filters.
+
+Interacting Peers: Exchanging Values.
+
+A Multiple Primitives Notation.
+
+Invoking and Servicing Operations.
+
+Examples.
+
+Readers/Writers Revisited.
+
+Encapsulated Access.
+
+Replicated Files.
+
+Case Study: Java.
+
+Remote Method Invocation.
+
+Example: A Remote Database.
+
+Case Study: Ada.
+
+Tasks.
+
+Rendezvous.
+
+Protected Types.
+
+Example: The Dining Philosophers.
+
+Case Study: SR.
+
+Resources and Globals.
+
+Communication and Synchronization.
+
+Example: Critical Section Simulation.
+
+
+9. Paradigms for Process Interaction.
+Managers/Workers (Distributed Bag of Tasks).
+
+Sparse Matrix Multiplication.
+
+Adaptive Quadrature Revisited.
+
+Heartbeat Algorithms.
+
+Image Processing: Region Labeling.
+
+Cellular Automata: The Game of Life.
+
+Pipeline Algorithms.
+
+A Distributed Matrix Multiplication Pipeline.
+
+Matrix Multiplication by Blocks.
+
+Probe/Echo Algorithms.
+
+Broadcast in a Network.
+
+Computing the Topology of a Network.
+
+Broadcast Algorithms.
+
+Logical Clocks and Event Ordering.
+
+Distributed Semaphores.
+
+Token-Passing Algorithms.
+
+Distributed Mutual Exclusion.
+
+Termination Detection in a Ring.
+
+Termination Detection in a Graph.
+
+Replicated Servers.
+
+Distributed Dining Philosophers.
+
+Decentralized Dining Philosophers.
+
+
+10. Implementations.
+Asynchronous Message Passing.
+
+Shared-Memory Kernel.
+
+Distributed Kernel.
+
+Synchronous Message Passing.
+
+Direct Communication Using Asynchronous Messages.
+
+Guarded Communication Using a Clearing House.
+
+RPC and Rendezvous.
+
+RPC in a Kernel.
+
+Rendezvous Using Asynchronous Message Passing.
+
+Multiple Primitives in a Kernel.
+
+Distributed Shared Memory.
+
+Implementation Overview.
+
+Page Consistency Protocols.
+
+III. PARALLEL PROGRAMMING:
+
+Speedup and Efficiency.
+
+Overheads and Challenges.
+
+
+11. Scientific Computing.
+Grid Computations.
+
+Laplace's Equation.
+
+Sequential Jacobi Iteration.
+
+Shared Variable Program.
+
+Message Passing Program.
+
+Red/Black Successive Over Relaxation.
+
+Multigrid Methods.
+
+Particle Computations.
+
+The Gravitational #N-Body Problem.
+
+Shared Variable Program.
+
+Message Passing Programs.
+
+Approximate Methods.
+
+Matrix Computations.
+
+Gaussian Elimination.
+
+LU Decomposition.
+
+Shared Variable Program.
+
+Message Passing Program.
+
+
+12. Languages, Compilers, Libraries, and Tools.
+Parallel Programming Libraries.
+
+Case Study: Pthreads.
+
+Case Study: MPI.
+
+Case Study: OpenMP.
+
+Parallelizing Compilers.
+
+Dependence Analysis.
+
+Program Transformations.
+
+Other Programming Models.
+
+Imperative Languages.
+
+Coordination Languages Data Parallel Languages.
+
+Functional Languages.
+
+Abstract Models.
+
+Case Study: High Performance Fortran (HPF).
+
+Parallel Programming Tools.
+
+Performance Measurement and Visualization.
+
+Metacomputers and Metacomputing.
+
+Case Study: The Globus Toolkit. 0201357526T04062001
+

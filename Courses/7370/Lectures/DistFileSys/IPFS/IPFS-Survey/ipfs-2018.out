@@ -1,0 +1,26 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{What is IPFS? What does it offer?}{section.1}% 2
+\BOOKMARK [1][-]{section.2}{IPFS Hands on Introduction}{}% 3
+\BOOKMARK [2][-]{subsection.2.1}{Paper Organization}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Background}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{HTTP}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{BlockChain}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.3}{Web Sockets}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.4}{TBD}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.5}{TBD}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.6}{TBD}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.7}{Hashes}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.8}{MerkleTree}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.9}{Blockchain}{section.3}% 14
+\BOOKMARK [1][-]{section.4}{Architecture of IPFS}{}% 15
+\BOOKMARK [2][-]{subsection.4.1}{IPNS}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.2}{IPLD}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.3}{libp2p}{section.4}% 18
+\BOOKMARK [1][-]{section.5}{Implementation}{}% 19
+\BOOKMARK [2][-]{subsection.5.1}{Android}{section.5}% 20
+\BOOKMARK [1][-]{section.6}{Distributed Apps}{}% 21
+\BOOKMARK [1][-]{section.7}{Evaluation}{}% 22
+\BOOKMARK [2][-]{subsection.7.1}{Hype}{section.7}% 23
+\BOOKMARK [2][-]{subsection.7.2}{Nextgen Web?}{section.7}% 24
+\BOOKMARK [1][-]{section.8}{Related Work}{}% 25
+\BOOKMARK [1][-]{section.9}{Conclusion}{}% 26
