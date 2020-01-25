@@ -1,0 +1,46 @@
+
+(pmateti's "editing" is indicated by the > in the leftmost column.)
+
+ ... at the end of the discussion of the two gate approach to
+ starvation free semaphores, I heard you ask which semaphore operation
+>                ^^^^^^^^^^ starvation-free mutual exclusion
+depended upon the property:
+
+    - if process Si performs a V(m), then Sj will succeed with a P(m)
+      where i != j if there are any processes waiting to perform a P(m)
+
+> append to the above: "provided Sj was awaiting to complete P(m)
+> at the moment the V(m) was performed by Si"
+
+    I am curious if I heard incorrectly.
+> with the above appended, yes.
+
+    I can find no case where there is such a dependency. (see below)
+> Keep guessing.  (devilish smile ;-)
+
+100   P(e); ne++; V(e);       // count up the waiting
+110   P(q);
+120        P(e);              // outer gate closed, but may open
+130          nm++; ne--;
+140          if (ne > 0) 
+150            V(e);          // open the outer gate, more waiting
+160          else
+170            V(m);          // open the inner gate, leave outer closed
+             fi;
+180    V(q);
+190    P(m);                  // wait for the inner gate to open
+200    nm--;
+***    <CS>
+210    if (nm > 0)
+220      V(m);                // open inner gate for the next guy
+230    else
+240      V(e);                // all done, open the outer gate!
+       fi
+
+Note that no process can race arround to 100 until it has done 210.
+
+All process will hold up at 190, until all eligible processes have passed 
+140.
+
+No process will be able to complete 100 while there are any processes
+held at 190.

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- initially Created with Inkscape, then hand edited -->
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <rect x="260" y="75" width="200" height="100" style="fill:none;stroke:red;"/>
+  <rect x="200" y="50" width="330" height="170" style="fill:none;stroke:green;"/>
+  <rect x="320" y="115" width="90" height="30" style="fill:none;stroke:black"/>
+  <rect id="reddoor" x="340" y="73" width="30" height="5" style="fill:red;"/>
+  <rect id="greendoor" x="345" y="48" width="30" height="5" style="fill:green;"/>
+
+  <circle cx="340" cy="30" r="4" style="fill:blue" />
+  <circle cx="350" cy="10" r="4" style="fill:blue" />
+  <circle cx="370" cy="25" r="4" style="fill:blue" />
+  <circle cx="385" cy="15" r="4" style="fill:blue" />
+
+  <circle cx="320" cy="90" r="4" style="fill:red" />
+  <circle cx="350" cy="105" r="4" style="fill:red" />
+  <circle cx="360" cy="95" r="4" style="fill:red" />
+
+  <circle cx="360" cy="250" r="4" style="fill:black" />
+
+  <line x1="360" y1="130" x2="360" y2="250" style="stroke:black;stroke-width:0.5" />
+</svg>
