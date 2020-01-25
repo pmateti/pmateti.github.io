@@ -1,0 +1,6 @@
+<map id="WhiteBoard.WbServerImpl.findAboard" name="WhiteBoard.WbServerImpl.findAboard">
+<area shape="rect" id="node2" href="$classWhiteBoard_1_1WbServerImpl.html#ac18f7c8d3aa36380072cc6f511e7a356" title="WhiteBoard.WbServerImpl.add\lClient" alt="" coords="531,62,733,103"/>
+<area shape="rect" id="node3" href="$classWhiteBoard_1_1WbServerImpl.html#a61c1853994ca57cf1ce8eddfa9a2f517" title="WhiteBoard.WbServerImpl.addLine" alt="" coords="256,32,483,58"/>
+<area shape="rect" id="node4" href="$classWhiteBoard_1_1WbServerImpl.html#a64eb759388e6469c428c99d78b58eab7" title="WhiteBoard.WbServerImpl.del\lClient" alt="" coords="270,83,469,124"/>
+<area shape="rect" id="node5" href="$classWhiteBoard_1_1WbServerImpl.html#af39baddbd37c968cd2a762e4500dbccb" title="WhiteBoard.WbServerImpl.send\lAllLines" alt="" coords="265,148,474,190"/>
+</map>

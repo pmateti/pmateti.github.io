@@ -1,0 +1,22 @@
+resource main
+   import wbclient
+   import wbserver
+body main()
+
+   var argc : int := numargs()
+   var xdnm : string[100];   getarg(1, xdnm)
+
+   var servercap: cap wbserver := create wbserver()
+   printf("server created; argc= %d\n", argc)
+
+   var i: int := 2;
+   do i < argc ->
+	var brnm : string[100];   getarg(i,   brnm)
+	var mcnm : string[100];   getarg(i+1, mcnm)
+	printf("about to do servercap.newclient(%s, %s, %s)\n", 
+	       xdnm, brnm, mcnm)
+	send servercap.newclient(xdnm, brnm, mcnm)
+	i := i + 2
+   od
+
+end main
