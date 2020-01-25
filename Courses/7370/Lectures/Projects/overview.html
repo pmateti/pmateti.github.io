@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-01-22 Wed 07:44 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Distributed Computing  Course Projects</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<meta name="description" content="Mateti's Distributed Computing"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P, LI {TBDtext-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+2020-01-21 | <a href="../../">../../</a>
+</div>
+<div id="content">
+<h1 class="title">Distributed Computing  Course Projects</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgfc3d93b">1. Prerequisites</a>
+<ul>
+<li><a href="#org67896a3">1.1. Languages</a></li>
+<li><a href="#org651db76">1.2. Programs v Processes</a></li>
+<li><a href="#org254c48b">1.3. Linux</a></li>
+<li><a href="#org15d35db">1.4. Assertions</a></li>
+</ul>
+</li>
+<li><a href="#orge5a3ff0">2. Overview</a></li>
+<li><a href="#orgedaf539">3. The Idea of a Digital WhiteBoard</a>
+<ul>
+<li><a href="#orgabe7187">3.1. WhiteBoard #1</a></li>
+<li><a href="#org5061257">3.2. WhiteBoard #2</a></li>
+</ul>
+</li>
+<li><a href="#orgaf6d2f5">4. Project P0: Tasks 5% weight</a>
+<ul>
+<li><a href="#org334f8cc">4.1. Getting Started with P0</a></li>
+<li><a href="#orgbc41b34">4.2. First Task: Build P0</a></li>
+<li><a href="#orge866679">4.3. Second Task: Run P0</a></li>
+<li><a href="#orgae10e37">4.4. Second Task: Assertions</a></li>
+</ul>
+</li>
+<li><a href="#org6757a7c">5. Extend P0 to Project P1 10%</a></li>
+<li><a href="#orgbc6f84a">6. Java RMI: P2 10%</a></li>
+<li><a href="#org9dc6d30">7. Scala + Akka: P3 10%</a></li>
+<li><a href="#orgac383ba">8. Turnins and Demos</a>
+<ul>
+<li><a href="#orgb9dd02d">8.1. Demos</a></li>
+<li><a href="#org827bcd1">8.2. Turnins</a></li>
+</ul>
+</li>
+<li><a href="#org416eb6e">9. Links</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgfc3d93b" class="outline-2">
+<h2 id="orgfc3d93b"><span class="section-number-2">1</span> Prerequisites</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>We will try to fill you in on the missing prerequisites.  Please
+fill out the following survey <a href="../Overview/survey.html">../Overview/survey.html</a></li>
+</ol>
+</div>
+
+<div id="outline-container-org67896a3" class="outline-3">
+<h3 id="org67896a3"><span class="section-number-3">1.1</span> Languages</h3>
+<div class="outline-text-3" id="text-1-1">
+<ol class="org-ol">
+<li>It is assumed that you are fluent in Java, and C++/C.</li>
+<li>It is <b>not</b> assumed that you are familiar with either RPC or RMI,
+Scala or Akka.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org651db76" class="outline-3">
+<h3 id="org651db76"><span class="section-number-3">1.2</span> Programs v Processes</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li>Conceptually you must have a pretty good understanding of
+<a href="../RPC+RMI/programs-processes.html">Programs-v-Processes</a>.</li>
+<li>Both theory and (Linux) practice.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org254c48b" class="outline-3">
+<h3 id="org254c48b"><span class="section-number-3">1.3</span> Linux</h3>
+<div class="outline-text-3" id="text-1-3">
+<ol class="org-ol">
+<li>We use  Linux &#x2013; any distro.  We will not be using Windows.</li>
+
+<li>This course expects that you are already comfortable in the <i>use</i>
+of networked machines based on Linux and X GUI.</li>
+
+<li>Be able to remote login via <code>ssh</code> into a machine without having to
+give a password each time.  Set up pub/private keys for your self.</li>
+
+<li>Linux process-related system calls, in particular, <code>alarm, fork,
+   pipes, signals</code> and some <code>bash</code> scripting.</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-org15d35db" class="outline-3">
+<h3 id="org15d35db"><span class="section-number-3">1.4</span> Assertions</h3>
+<div class="outline-text-3" id="text-1-4">
+<ol class="org-ol">
+<li>This course uses assertions written in logic (generalized Boolean
+exp) heavily.</li>
+<li>There will be lecture(s) on assertions; see <a href="../FormalMethods/">../FormalMethods/</a>.</li>
+<li>But, do become familiar on your own with <code>assert.h</code> of C/C++
+<a href="https://en.wikipedia.org/wiki/Assert.h">https://en.wikipedia.org/wiki/Assert.h</a>.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge5a3ff0" class="outline-2">
+<h2 id="orge5a3ff0"><span class="section-number-2">2</span> Overview</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>The projects are <i>required</i>.  Not producing demonstrable (even if
+faulty) projects will award you a grade no better than an F in the
+whole course regardless of your performance in the exams.</li>
+
+<li>The projects must be work done by <i>you</i> as a <i>single individual</i>.
+Do not use code from other sources, not even if it was given by the
+instructor in a past term.</li>
+
+<li>The projects are evaluated both by a demo and by skimming the
+source code and associated documentation.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgedaf539" class="outline-2">
+<h2 id="orgedaf539"><span class="section-number-2">3</span> The Idea of a Digital WhiteBoard</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Our <i>whiteboard</i> (WB) is a digital interactive version of a typical
+class room whiteboard mounted on a wall but allowing multiple
+people, geographically distant, to simultaneously use the board.
+There are many open source and commercial implementations of this
+idea.</li>
+
+<li>To keep our project size within 1500 lines of code, we drastically
+simplified the WBs to (i) draw no more than zig-zag lines, and (ii)
+no text display.  The multiple people are just you remotely working
+from multiple (virtual) machines.</li>
+</ol>
+</div>
+
+<div id="outline-container-orgabe7187" class="outline-3">
+<h3 id="orgabe7187"><span class="section-number-3">3.1</span> WhiteBoard #1</h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li>A whiteboard, say b0, is a window of colored zig-zag lines produced
+by different clients who are <b>on</b> the board.  Clients can join/leave
+an existing board, or create a new board.</li>
+<li>A server S1 handles all the clients that share a given board b0,
+and has in general multiple boards, b0, b1,&#x2026;  There can be many
+servers, S1, S2, &#x2026;</li>
+<li>A whiteboard is not shared among servers.  For load balancing or
+whatever, a server may transfer a board (and all clients on it) to
+another server.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org5061257" class="outline-3">
+<h3 id="org5061257"><span class="section-number-3">3.2</span> WhiteBoard #2</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li>Conceptually, the servers and clients are on whatever network nodes
+you wish.  Obviously, firewalls etc, should permit communication
+among our nodes.</li>
+
+<li>We will give a demo, during the first week, to make all this
+familiar.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgaf6d2f5" class="outline-2">
+<h2 id="orgaf6d2f5"><span class="section-number-2">4</span> Project P0: Tasks 5% weight</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+We will give a P0.tar.gz (A Startup WhiteBoard Src Code Bundle) by Dr
+Mateti.  Depending on the background of the students registered, this
+will be in one of C++, Java/Kotlin, or Go.
+</p>
+
+<p>
+The P0 will be a tiny collection of client-server programs using
+</p>
+
+<ol class="org-ol">
+<li>C++ and RPC</li>
+<li>Java RMI and/or Jini, JavaSpaces</li>
+<li>Distributed PLs: Erlang, Go, and/or Scala</li>
+</ol>
+
+<p>
+that implement the WB client-server paradigm, depending on the PL.
+These, as given, have only one server, but can have multiple boards and
+clients.
+</p>
+
+<p>
+In P0, we are not using "threads".  We do use multiple processes.
+And, several "machines".
+</p>
+</div>
+
+
+<div id="outline-container-org334f8cc" class="outline-3">
+<h3 id="org334f8cc"><span class="section-number-3">4.1</span> Getting Started with P0</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>For now, we assume P0 was given in C++.  See <a href="./7370-WB-C-RPC/">./7370-WB-C-RPC/</a> to
+get an overview of the directory.</li>
+
+<li>Here is a TBD <a href="./Doxygenerated/WB-C-RPC/">./Doxygenerated/WB-C-RPC/</a> web-browse-able version of the
+P0 source generated by
+<a href="http://www.doxygen.com">http://www.doxygen.com</a> .</li>
+
+<li>Study the source code closely.  P0 is 800+ lines.  You should
+become so familiar with it <b>as if</b> you wrote it.  Read through this
+entire page: <a href="../Projects/7370-WB-C-RPC/0README.html">../Projects/7370-WB-C-RPC/0README.html</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgbc41b34" class="outline-3">
+<h3 id="orgbc41b34"><span class="section-number-3">4.2</span> First Task: Build P0</h3>
+<div class="outline-text-3" id="text-4-2">
+<ol class="org-ol">
+<li>Your first task is to <code>make</code> the C++/X/RPC version so that the
+server is on one machine (node), and there are at least four
+clients on four different nodes (different CPUs?) and two different
+whiteboards.</li>
+
+<li>Read the <a href="./7370-WB-C-RPC/0README.html">./7370-WB-C-RPC/0README.html</a> to get an overview.  You are given a working
+version bundle of source code of the P0.  Untar this (<code>tar xvvf
+   tarBall.tbz</code>), and do a make.</li>
+<li>We expect no errors inherently
+present in the bundle.  Any errors you run into are likely to be
+due to your build environment.</li>
+
+<li>You will find <a href="./7370-WB-C-RPC/wbadmin.c">./7370-WB-C-RPC/wbadmin.c</a> useful after you have
+begun working with P1.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orge866679" class="outline-3">
+<h3 id="orge866679"><span class="section-number-3">4.3</span> Second Task: Run P0</h3>
+<div class="outline-text-3" id="text-4-3">
+<ol class="org-ol">
+<li>Your second task is to run the C++/X/RPC version so that the server
+is on one machine (node), and there are at least four clients on
+four different nodes (different CPUs?) and two different
+whiteboards.</li>
+
+<li>The P0 C++/RPC version of our WB project expects that the Linux
+setup is as follows.  See Linux Setup for further details.</li>
+
+<li><code>rpcbind</code> is running with option -i.  Read the man page for details.</li>
+<li>Xorg/X server must not disable listening to TCP &#x2013; The option
+<code>-nolistentcp</code> should not be present.</li>
+<li>Be able to remote login via <code>ssh</code> into a machine without having to
+give a password each time.  Set up pub/private keys for your self.</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgae10e37" class="outline-3">
+<h3 id="orgae10e37"><span class="section-number-3">4.4</span> Second Task: Assertions</h3>
+<div class="outline-text-3" id="text-4-4">
+<ol class="org-ol">
+<li>Your second task is to write entry- and exit assertions for most of
+the procedures and functions of P0.  First, in English prose, and
+then in PL Boolean expressions.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6757a7c" class="outline-2">
+<h2 id="org6757a7c"><span class="section-number-2">5</span> Extend P0 to Project P1 10%</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+And, extend the clients and server(s) as follows.  The percentages are
+associated weights in grading.
+</p>
+
+<ol class="org-ol">
+<li>WB server now responds to messages from a new ``client'' that we call
+<code>wbadmin</code>.  A simple example of <code>wbadmin.c</code> is included in the source
+code.  10%</li>
+<li>Server must respond to a query with full information (name of the
+board, names of the host machines where the boards are in use, etc.)
+regarding all its whiteboards.  15%</li>
+<li>Server must respond to a request to initiate a new server on a given
+node.  The newly given node may be the same node as that of an
+existing server.  The newly created server begins its life with no
+boards to serve.  25%</li>
+<li>A server must respond to a request to transfer a given whiteboard
+(and hence all clients on it) from one server to another.  This
+transfer should be transparent to the users of the clients.  25%</li>
+<li>Add usable pre- post-conditions to all (old and new) functions/
+procedures/ methods.  25%</li>
+
+<li>Further clarifications, as needed, will be found on our
+discussion board.</li>
+</ol>
+
+<p>
+Design and implement the extensions described above in C++ and RPC.
+We are naming this version P1.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbc6f84a" class="outline-2">
+<h2 id="orgbc6f84a"><span class="section-number-2">6</span> Java RMI: P2 10%</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>Re-do/ re-design the P1 above but using Java, and RMI.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org9dc6d30" class="outline-2">
+<h2 id="org9dc6d30"><span class="section-number-2">7</span> Scala + Akka: P3 10%</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li>Re-do/ re-design the P1 above but using [Scala and] Akka Actors.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgac383ba" class="outline-2">
+<h2 id="orgac383ba"><span class="section-number-2">8</span> Turnins and Demos</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li>TBD To be revised to suit IIIT-Delhi.</li>
+</ol>
+</div>
+
+<div id="outline-container-orgb9dd02d" class="outline-3">
+<h3 id="orgb9dd02d"><span class="section-number-3">8.1</span> Demos</h3>
+<div class="outline-text-3" id="text-8-1">
+<ol class="org-ol">
+<li>When you are done you must give me a demo of your program.  You
+will get just one chance.  It is over in about 5 minutes,
+typically.  I may ask you to rebuild the program prior to the demo,
+but have it ready-to-run.  We expect some of our class students as
+audience.  Read through the acceptance test linked above.</li>
+
+<li>This is not a software engineering class.  Bugs are tolerated.
+There is no teamwork.</li>
+
+<li>But your project must be demonstrable and must satisfy the
+acceptance test.</li>
+
+<li>Graded on a very coarse (not fine) basis.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org827bcd1" class="outline-3">
+<h3 id="org827bcd1"><span class="section-number-3">8.2</span> Turnins</h3>
+<div class="outline-text-3" id="text-8-2">
+<ol class="org-ol">
+<li>The due dates and project weights are on the course home page.  For
+each of the above, turn in a brief PDF report, with an overview of
+how you did it.  Include screenshots that show that the WB
+Acceptance Test was passed.  Also, turnin the tar ball of your
+source code.</li>
+
+<li>Login to TBD <code>thor.cs.wright.edu</code> with your username.  Using the
+command line <code>~ceg737000/turnin P1 fileNames</code> submit files with
+your changes clearly pointed out/ marked/ highlighted.  Change P1
+to P0, P2 or P3 as needed.  Submit <b>your</b> <code>ReadMe.txt</code>, not my
+<code>0README.*</code>.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org416eb6e" class="outline-2">
+<h2 id="org416eb6e"><span class="section-number-2">9</span> Links</h2>
+<div class="outline-text-2" id="text-9">
+<ol class="org-ol">
+<li><a href="./">This directory</a> listing.</li>
+
+<li><a href="./Linux-Setup.html">./Linux-Setup.html</a> Linux Setup.  Help with Linux for our WhiteBoard
+RPC projects (P0 and P1).</li>
+
+<li><a href="./7370-WB-C-RPC/">./7370-WB-C-RPC/</a> of the WhiteBoard C RPC projects P0, the src code
+bundle expanded for use in lectures. Download <a href="./WB-C-RPC-2020.tbz">./WB-C-RPC-2020.tbz</a></li>
+
+<li><a href="./WB-Java-RMI/">./WB-Java-RMI/</a> Java RMI version of P0.  Download <a href="./WB-Java-RMI-2020.tbz">./WB-Java-RMI-2020.tbz</a></li>
+
+<li><a href="./accept-test.html">./accept-test.html</a> Acceptance Test.  Before the demo, verify that
+it will pass this text.</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2020 &bull; <a href=mailto:pmateti@iiitd.ac.in>pmateti@iiitd.ac.in</a> &bull; 2020-01-21
+</div>
+</body>
+</html>

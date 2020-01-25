@@ -1,0 +1,6 @@
+<map id="find_wbp" name="find_wbp">
+<area shape="rect" id="node2" href="$server_8c.html#a68429850980b34b71742b39ff4cf75a6" title="addclient_1_svc" alt="" coords="153,5,279,32"/>
+<area shape="rect" id="node3" href="$server_8c.html#a20c304dab19e9808ab5ef1bcc1fc9b12" title="addline_1_svc" alt="" coords="159,56,273,83"/>
+<area shape="rect" id="node4" href="$server_8c.html#a05bb609c42cce1d3784e522d63d06a78" title="delclient_1_svc" alt="" coords="155,107,277,133"/>
+<area shape="rect" id="node5" href="$server_8c.html#ae1c1f44bd5d143a1ba0939f38e3e4620" title="sendallmylines_1_svc" alt="" coords="133,157,299,184"/>
+</map>

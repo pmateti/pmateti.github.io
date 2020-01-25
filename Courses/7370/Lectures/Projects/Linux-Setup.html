@@ -1,0 +1,189 @@
+<html>
+<head>
+<title>Distributed Computing Lectures by Prabhaker Mateti</title>
+<meta name="author" content="Prabhaker Mateti">
+<meta name="keywords" content="RPC, RMI, portmap, rpcbind, ssh, no password, DISPLAY, X11, listen, nolisten">
+<meta name="description" content="Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+<base target="_self">
+<base target="_top">
+<style type="text/css">
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  li { text-align: justify }
+  pre {border:blue 1px dotted; background:AntiqueWhite; }
+  code {border:blue 1px dotted; background:AntiqueWhite; }
+  @media screen {BODY {margin: 10%;} }
+  body {counter-reset: chapter; counter-reset: section;}
+  h2:before {content: counter(section) ". "; counter-increment: section; }
+  h2 {counter-reset: subsection;}
+  h3:before {content: counter(section) "." counter(subsection) " " ; counter-increment: subsection;}
+</style>
+
+</head>
+
+<body>
+<a href="../../Top">
+Distributed Computing</a>
+
+<h1>Linux Setup for the WhiteBoard RPC Project</h1>
+
+
+<p>It is good that several of you are using your own Linux boxes for
+DIC 7370 work. But Linux installations out-of-the-box are typically
+not "open" enough for our projects. (The suggested solutions on this
+page <i>do</i> weaken security. This is not disastrous; Linux distros
+are becoming too paranoid in the wrong places ...)
+
+<p>On this page, I am collecting DIC 7370 related issues and
+solutions.  If you find better solutions, please send them, and I will
+update this page.
+
+
+<h2>Sys Admin</h2>
+
+<p>Learn to use <code>sudo</code> and <code>su</code>.  On Debian/
+Ubuntu/ Knoppix/ Kali, <code>apt-get</code> is the software (un)installer.
+Graphical versions: muon, synaptic, adept, kpackage.  On RedHat and
+Fedora: <code>yum</code>.
+
+<p>RPC program numbers, network port numbers, ... are system wide
+resources -- not per user or per process separated entries.
+Before debugging your WhiteBoard RPC project, it is good idea to
+freshly reboot the host.
+
+<h2>X11</h2>
+
+<h3> Do Listen to TCP</h3>
+
+<p> The X11 server runs on the machine that has the screen (and
+keyboard, and mouse, ...). X11 clients can run on the same host
+or some where else and network-connect to the server. The host
+running the clients may or may not have the screen etc.
+
+<p>For DIC 7370, X11 server should have been started <i>without</i>
+  disabling listening to TCP connections.    A "good" one may look like
+  this: <pre>/usr/lib/xorg/Xorg -listen tcp -auth
+  /var/run/sddm/{a2320c42-7b0e-483a-b761-44cd4f79e4a6} -background
+  none -noreset -displayfd 17 -seat seat0 vt1</pre>
+
+<p>
+List all processes, and see
+  what the arguments are to Xorg.
+  Exactly how it should be
+started varies among distributions. Generally speaking, search for
+"<code>-nolisten</code>" keyword or <code>DisallowTCP</code> among
+kdm/gdm/X11 config files and delete it.  For gdm,
+check <code>/etc/gdm/gdm.schemas, /etc/gdm/custom.conf,
+/etc/gdm/gdm.conf</code>.  For kdm,
+check <code>/etc/kde4/kdm/kdmrc</code>.
+I had to replace the /usr/bin/Xorg script with my own to accomplish
+this.  The script originally was this:
+
+<pre>
+#!/bin/sh
+#
+# Execute Xorg.wrap if it exists otherwise execute Xorg directly.
+# This allows distros to put the suid wrapper in a separate package.
+basedir=/usr/lib/xorg
+if [ -x "$basedir"/Xorg.wrap ]; then
+  exec "$basedir"/Xorg.wrap "$@"
+else
+  exec "$basedir"/Xorg "$@"
+fi
+  </pre>
+<p>
+  The script /usr/bin/Xorg is now this:<pre>
+#!/bin/sh
+#
+# Execute Xorg.wrap.
+# This allows distros to put the suid wrapper in a separate package.
+
+echo $@ > /tmp/da.txt
+exec /usr/lib/xorg/Xorg.wrap $(sed -e 's/-nolisten/-listen/g' /tmp/da.txt)
+</pre>
+
+
+<h3> DISPLAY environment variable</h3>
+
+<p> The X11 windows will show up on the screen defined by
+<code>$DISPLAY</code>.  The simplest, in bash, is to do: <code>export
+DISPLAY=host-name:0.0</code> BTW, you can instead use IP addresses, as
+in &quot;<code>127.0.0.1:0.0</code>&quot;.<p> Example
+problem: <code>client: openxwindow("localhost:0.0", ...) == -1,
+failed</code> ; Diagnosis: Disable authentication control over whose
+processes can open X11 windows. Solution:
+<pre>xhost +</pre>
+
+<p> For fine grain control, read <code>man xhost</code>. If you are
+using, e.g. ssh -X tunnel, the DISPLAY will have a different value.
+Be aware that client.c has a hard-coded display
+number: <code>strcat(cd->xdisplaynm, ":0.0");</code>
+
+<h3>Development Libraries</h3>
+
+<p>Install the X11 development libraries.  Do the equivalent
+of <code>apt-get install libx11-dev</code> </p>
+
+<h2>Networking</h2>
+
+<p>
+The host name lookups should be correct. This is a combination of
+<code>/etc/hosts</code> and how you set up DNS. E.g., if ":0.0" works
+but "localhost:0.0" does not, the problem is with your /etc/hosts
+file.  Entries in <code>/etc/hosts.deny</code> cause connections to be
+refused. Understand what is in <code>/etc/resolv.conf</code>
+
+<p>You will benefit from installing <code>sshd, smbd, nmap,
+traceroute</code>
+
+<p>Learn to log into a remote server <i>without password</i> but with
+automated authentication and encryption:
+<a href="http://www.cs.wright.edu/~pmateti/Courses/2350/Labs/Network/NetworkLab.html#ssh">
+http://www.cs.wright.edu/~pmateti/ Courses/2350/ Labs/Network/
+NetworkLab.html#ssh</a>
+
+<h2>RPC</h2>
+
+<ol>
+<li><code>rpcgen</code> program exists on practically all OS.  But,
+its generated C/C++ code can look very different from what is generated in
+  Linux.
+
+<li>We use <code>rpcinfo</code> as a diagnostic command. On Ubuntu, it
+is located in <code>/usr/sbin/</code>. Before you start any of
+WhiteBoard processes, do <code> <code>rpcinfo -p</code></code> and make a
+note of what is listed.  After starting WhiteBoard processes,
+check what <code>rpcinfo -p</code> shows.
+
+<li>Example problem: <code>"Cannot register service: RPC: Unable to
+receive; errno = Connection refused unable to register
+(WhiteBoardServer, WhiteBoardServerVersion, ...)."</code>  Diagnosis:
+RPC portmapper is missing.  Solution:
+Install <code>nfs-kernel-server</code>.  This will install NFS, but as
+a side-effect installs RPC support.
+
+<li>Example problem: <code>&quot;Cannot register service: RPC:
+Authentication error; why = Client credential too weak unable to
+register (registryProg, registryVers, ...)&quot;</code> Diagnosis: We
+need rpcbind to be running in the insecure mode. Solution: List all
+processes, and see what the arguments are to rpcbind.  If it is
+just <code>rpcbind -w</code>, kill that process and restart it
+as <code> rpcbind -w -i</code>. This solves it for just this session.
+Permanent solution: Find the config file(s) for rpcbind, and fix the
+options;  on Ubuntu, <code>/etc/init/portmap*.conf,
+/etc/init/rpc*.conf</code>.
+<code> rpcbind </code> is the portmapper; a few years ago, its name
+was rpc.portmap.
+</ol>
+
+
+<hr size="1">
+
+<a href="https://cecs.wright.edu/~pmateti" target="_blank">
+Prabhaker Mateti</a>
+&bull;
+2020-01-21
+</body>
+</html>

@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$interfaceWhiteBoard_1_1LinesFrame.html" title="WhiteBoard.LinesFrame" alt="" coords="144,56,307,83"/>
+<area shape="rect" id="node4" href="$interfaceWhiteBoard_1_1WbClient.html" title="WhiteBoard.WbClient" alt="" coords="151,157,299,184"/>
+<area shape="rect" id="node6" href="$interfaceWhiteBoard_1_1WbServer.html" title="WhiteBoard.WbServer" alt="" coords="149,5,301,32"/>
+<area shape="rect" id="node3" href="$classWhiteBoard_1_1LinesFrameImpl.html" title="WhiteBoard.LinesFrameImpl" alt="" coords="355,95,541,121"/>
+<area shape="rect" id="node5" href="$classWhiteBoard_1_1WbClientImpl.html" title="WhiteBoard.WbClientImpl" alt="" coords="361,157,535,184"/>
+<area shape="rect" id="node7" href="$classWhiteBoard_1_1WbServerImpl.html" title="WhiteBoard.WbServerImpl" alt="" coords="359,19,537,45"/>
+<area shape="rect" id="node9" href="$classWhiteBoard_1_1LineCoords.html" title="WhiteBoard.LineCoords" alt="" coords="145,208,305,235"/>
+</map>

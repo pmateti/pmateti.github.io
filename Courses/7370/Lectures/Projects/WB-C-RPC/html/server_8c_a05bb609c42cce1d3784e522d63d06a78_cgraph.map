@@ -1,0 +1,8 @@
+<map id="delclient_1_svc" name="delclient_1_svc">
+<area shape="rect" id="node2" href="$server_8c.html#ad52d4b4df943d96d5fe5a02e8ff494a5" title="delboard" alt="" coords="188,5,267,32"/>
+<area shape="rect" id="node3" href="$server_8c.html#ab17b8089a8608605f26dba25568d4920" title="die" alt="" coords="206,56,249,83"/>
+<area shape="rect" id="node5" href="$server_8c.html#ab3dad335a19c95369958be438e956f0e" title="find_wbp" alt="" coords="187,107,267,133"/>
+<area shape="rect" id="node6" href="$wb_8h.html#af845ce1e49804632091187ddc45a166b" title="sigaction" alt="" coords="187,157,268,184"/>
+<area shape="rect" id="node7" href="$wb_8h.html#a5925352f90eb589393274fa0376d7def" title="sigemptyset" alt="" coords="176,208,279,235"/>
+<area shape="rect" id="node4" href="$wb_8h.html#a404f4eccc303c49e7ea53997685df90d" title="pmap_unset" alt="" coords="327,56,429,83"/>
+</map>

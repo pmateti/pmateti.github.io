@@ -1,0 +1,24 @@
+/*
+  Whiteboard by Prabhaker Mateti, Jul 92.
+*/
+
+global g
+   type linecoords = rec(x1,y1,x2,y2: int)
+end g
+
+resource wbclient
+   import wbserver, g
+   op updateboard(val seg: linecoords)
+   body wbclient (
+     cx: int; xdnm: string[*]; brnm: string[*]; servercap: cap wbserver)
+   separate
+
+resource wbserver
+   import wbclient, g
+   op newclient(xdnm: string[*];  brnm: string[*]; mcnm: string[*])
+   op delclient(i: int)
+   op addline(x: int; seg: linecoords)
+   op expose(i: int)
+   body wbserver() separate
+
+

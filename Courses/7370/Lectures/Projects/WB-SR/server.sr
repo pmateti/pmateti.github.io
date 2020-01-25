@@ -1,0 +1,72 @@
+body wbserver
+   type cr = rec(cn: int; cwb: cap wbclient; cmr: cap vm; bnm: string[20])
+
+   process serve
+      var clients[10] : cr
+      var nc : int := 0  # total number of clients
+      var ci : int := 0  # client index
+
+      fa i := 1 to 10 -> clients[i] := cr(0, null, null, "") af;
+      do true ->
+	   in newclient(xdnm, brnm, mcnm) ->
+		printf("newclient(%s, %s, %s)", xdnm, brnm, mcnm)
+
+		if nc < 10 ->
+		     var mr: cap vm := create vm() on mcnm
+		     var wb: cap wbclient
+
+		     ci := 0  # find a vacant slot
+		     fa j := 1 to 10 ->
+			if clients[j].cn = 0 ->
+			     ci := j
+			     exit
+			fi
+		     af
+
+		     if mr ~= null ->
+			  wb := create wbclient(
+				 nc+1, xdnm, brnm, myresource()) on mr
+		     [] else ->
+			  wb := null
+		     fi
+		     if wb ~= null ->
+			  nc := nc + 1;
+			  clients[nc] := cr(ci, wb, mr, brnm);
+			  printf("client %d added", nc);
+		     [] else ->
+			  printf("wb == null!")
+		     fi
+		[] nc = 10 ->
+		     printf(": table is full; sorry!");
+		fi
+		printf("\n");
+
+	   [] delclient(i) ->
+		printf("client %d board %s delete", i, clients[i].bnm);
+		fa j := 1 to 10 ->
+		   if clients[j].cn = i ->
+		     destroy clients[j].cwb
+		     destroy clients[j].cmr
+		     clients[j] := cr(0, null, null, "")
+		     nc := nc - 1
+		     exit
+		   fi
+		af
+		printf("d; server now has %d clients\n", nc);
+		if nc = 0 ->
+		     printf("no more clients; wbserver terminates\n")
+		     exit
+		fi
+	     
+	   [] addline(x, sg) ->
+		fa i := 1 to 10 st clients[i].bnm = clients[x].bnm ->
+		   send clients[i].cwb.updateboard(sg)
+		af
+	   [] expose(x) ->
+#		not implemented
+		skip
+	   ni
+      od
+   end
+end wbserver
+

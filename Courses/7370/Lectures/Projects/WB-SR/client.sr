@@ -1,0 +1,56 @@
+body wbclient
+   external openxwindow (
+	  val screennm: string[*]; val wintitle: string[*]) returns nd: int
+   external closexwindow()
+   external drawline(x1, y1, x2, y2: int);
+   external trackpointer(res seg: linecoords) returns i: int
+   external gethostname(res hostname: string[*]; length: int)
+/*   external usleep(val int) returns i: int */
+
+   op siblingdone()
+
+   var hostname: string[40];   gethostname(hostname, 40)
+   var nd: int := openxwindow(xdnm || ":0.0", brnm || "@" || hostname)
+
+   if nd ~= 0 ->
+	printf("wbclient %d could not open X11 display %s:0.0\n", cx, xdnm);
+	return
+   fi
+   printf("\nwbclient %d board %s@%s window at %s:0.0 has begun.\n",
+	  cx, brnm, hostname, xdnm);
+   reply
+
+   process SRevents
+      printf("sr events started in client %d\n", cx)
+      do true ->
+	   in updateboard(sg) ->
+		printf("recd by client %d update board:[%2d, %2d, %2d, %2d]\n",
+		       cx, sg.x1, sg.y1, sg.x2, sg.y2)
+
+		drawline(sg.x1, sg.y1, sg.x2, sg.y2)
+	   [] siblingdone() ->
+		return
+	   ni
+      od
+   end
+
+   process X11events
+      printf("client %d X11 events started\n", cx)
+      do true ->
+	   var seg: linecoords
+	   var i: int := trackpointer(seg)
+	   if i = -1 -> nap(5)
+	   [] i = 1 or i = 2 -> send servercap.addline(cx, seg)
+	   [] i = 3 ->
+		send siblingdone()
+		send servercap.delclient(cx)
+		closexwindow()
+		return
+	   [] i = 4 ->
+		printf("expose event\n")
+		send servercap.expose(cx)
+	   fi
+      od
+   end
+
+end
