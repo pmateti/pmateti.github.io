@@ -1,0 +1,389 @@
+<html>
+
+<head>
+<title>Distributed Computing Lectures by Prabhaker Mateti</title>
+<meta name="author" content="Prabhaker Mateti">
+
+<meta name="keywords" content=
+      "Split binary semaphore, actors, 
+       CSP, Linda, Scala, Akka, Spark, RPC,
+       Java, RMI">
+
+<meta name="description" content="Prabhaker Mateti https://pmateti.github.io/">
+
+<style type="text/css">
+  a:hover { color: blue; background-color: yellow; } a:active { color:
+  white; background-color: green;} @page { size: 8.5in 11in } P {
+  text-align: justify } @media screen {BODY {margin: 10%} }
+</style>
+</head>
+
+<body>
+
+<table cellspacing="10" cellpadding="10" width="100%" border="0" align="center">
+  <tr>
+    <td width="25%">
+      <a target="_blank" href="../images/dc-icon.jpg">
+        <img src="../images/dc-icon.jpg" border="0" height=125 width=100>
+      </a>
+    </td>
+    <td width="75%">
+      <h2>Distributed Computing</h2>
+      <h3>2020 Tentative Weekly Schedule</h3>
+      <h3><a target="_blank" href="https://pmateti.github.io/">
+          <img src="./pm-bearded-20191030-hicontrast.jpg" border="0" width="10">
+          Dr Prabhaker Mateti</a></h3>
+    </td>
+  </tr>
+</table>
+
+<div align="center">
+  <a href="https://pmateti.github.io/">
+  Office Hours</a>  |
+  <a href="mailto:pmateti@gmail.com?subject=DIC">
+  Appointments</a> |
+  <a href="../Lectures/Overview/syllabus.html">Syllabus</a>  |
+  <a href="https://piazza.com/wright/spring2020/ceg7370/home">
+    Piazza</a> |
+  <aTBD href="../Exams/">Exams</aTBD>  |
+  <aTBD href="./7370-2015-Spring-scores-noNames.html">
+    Scores</aTBD>  |
+  <a href="../Lectures/Projects/7370projects.html"> Projects</a>
+</div>
+
+<hr size="1">
+
+<table border="0" cellpadding="0" width="100%">
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0"><b>Wk</b></td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0"><b>
+        <a href="../Lectures/"> Lectures</a></b></td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right"> Wt</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"> Due</td>
+  </tr>
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">1</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      <a href="../Lectures/Overview/index.html">
+        Overview</a>
+  &bull;
+      <a href="../Lectures/Fundas/concurrency-fundamentals.html">
+	      Concurrency Funda</a> &bull;
+      <a href="../Lectures/RPC+RMI/rpc.html"> RPC</a>  &bull;
+      <a href="../Lectures/Projects/7370projects.html"> WB Project</a>
+    </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right"> &nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"> &nbsp;</td>
+  </tr>
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">2</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      <a href="../Lectures/Semaphores/semaphores.html">
+	      Semphrs</a>  &bull;
+      <a href="../Lectures/FormalMethods/assertions.html">
+      Assertions</a> ;
+      <a href="../Lectures/FormalMethods/weakest-preconditions.html">
+        WP</a> &bull;
+      <a href="http://spinroot.com/spin/Man/1_Exercises.html">
+        ModelCkg</a>
+      &bull; &nbsp;
+      <a href="../Lectures/Classics/classics.html">
+      Famous Prblms</a>
+      </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right"> &nbsp;</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right"> &nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"> &nbsp;</td>
+  </tr>
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">3</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      <a href="../Lectures/Fundas/fairness-etc.html">
+	      Fairness etc</a> &bull;
+      <a href="../Lectures/Semaphores/udding-morris-algs.html">
+	      Starv-free MutEx, Split Bin Sem</a></td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">
+      <a href="../Projects/7370projects.html"> 
+	      P0</a></td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">
+	    5%</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right">
+    </td>
+  </tr>
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">4</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      <a href="../Projects/7370projects.html">
+	White Board Project</a> &bull;
+      <a href="../Lectures/RPC/rpc.html">RPC</a>  &bull;
+      <a href="../Projects/rpc-marshalling-tikz.pdf">
+      Marshalling Linked Data Str</a>
+    </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">
+	&nbsp;</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">
+	&nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right">
+	&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">4</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      Readers-Writers using:
+      <a href="../Lectures/Classics/readers-writers.html">
+	 &lt;await&gt;s</a>,&nbsp;
+      <a href="../Lectures/Classics/PassingTheBaton.html">
+	semaphores</a>
+    </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">
+	&nbsp;</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">
+	&nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right">
+	&nbsp;</td>
+  </tr>
+
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">5</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      <a href="../Lectures/CSP/SMP.html">
+        Synchronous MP</a> &bull;
+      <a href="../Lectures/AMP/AMP.html">
+	Asynchronous MP</a> &bull;
+      <a href="../Lectures/AMP/AMP.html">
+        Happened Before</a> 
+    </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">
+      <a href="../Projects/7370projects.html"> P1</a></td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">10%</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"> </td>
+  </tr>
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">6</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      <a href="../Lectures/CSP/csp.html">CSP</a> and 
+      <a href="../Lectures/Linda/linda.html">Linda</a> Examples</td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">7</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      <aTBD href="../Lectures/RMI/java-rmi.html">Java/Kotlin RMI</aTBD> &bull;
+      Kotlin WhiteBoard
+      </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+
+    <td width="7%" bgcolor="#F0F0F0" align="right">
+      <aTBD href="https://pmateti.github.io/Courses/7370/Exams/7370-2020-Fall-E1.html">
+      MidSem</a>
+    </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right"> 25%</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">  </td>
+  </tr>
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">8</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      <a href="../Lectures/Semaphores/semaphore-distributed.html">
+      Distributed Semaphores</a> &bull;
+
+      <a href="../Lectures/token-passing.html">
+      Token Passing</a> &bull;
+      Termination
+    </td>
+
+    </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">9</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+             Languages: 
+      <a href="../Projects/SR-WhiteBoard">	SR</a> &bull; 
+      <a href="http://www.erlang.org/"> Erlang</a> &bull; 
+      <a href="https://golang.org/"> Go</a> &bull;
+      <a href="http://www.scala-lang.org/"> Scala</a>
+    </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">
+      <a href="../Projects/7370projects.html"> 
+      P2</a></td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">10%</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"></td>
+  </tr>
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">A</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+    <a href="../Lectures/Actors+Akka+Scala/actorsAkkaScala.html">
+      Actors</a> of Carl Hewitt &bull;
+    <a href="../Lectures/Actors+Akka+Scala/actorsAkkaScala.html">
+      Akka</a> Actors in Scala
+    </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"></td>
+  </tr>
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">B</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      <a href="../Lectures/Actors+Akka+Scala/dining-philosophers-akka-fsm.html">
+        Akka Finite State Machines</a>
+    </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"></td>
+  </tr>
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">C</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+
+    <td width="65%" bgcolor="#F0F0F0">
+      <a href="../Lectures/Clusters/"> Cluster computing</a> &bull;
+      <a href="../Lectures/Clusters/"> Hadoop</a> &bull;
+      <a href="../Lectures/Clusters/"> Spark </a> &bull;
+      <a href="https://www.infoq.com/presentations/arch-reactive-systems/">
+        Reactive Systems</a>
+      </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"></td>
+  </tr>
+
+ <tr>
+    <td width="4%" bgcolor="#F0F0F0">D</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+    <a href="../Lectures/DistFileSys/distributed-fs.html">
+      Distributed File Systems</a> &bull;
+    <a href="https://ipfs.io/">  IPFS</a>
+</td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"></td>
+  </tr>
+
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">E</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      <a href="../Lectures/FormalMethods/temporal-logic.html">
+	      Temporal Logic</a> &bull;
+      <a href="../Lectures/FormalMethods/math-of-concurrency.html">
+      Semantics of Concurrency</a>
+    </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"></td>
+  </tr>
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">F</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      <a href="../Lectures/FormalMethods/temporal-logic.html">
+	Temporal Logic</a> &bull;
+      <a href="../Lectures/FormalMethods/math-of-concurrency.html">
+      Semantics of Concurrency</a>
+    </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"></td>
+  </tr>
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0">F</td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+
+    <td width="65%" bgcolor="#F0F0F0">
+      <a href="../Lectures/Fundas/conc-par-netw-distr.html">
+      Concurrent v Parallel v Networked v Distributed</a></td>
+
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">
+      <a href="../Projects/7370-P3.html"> 
+      P3</a></td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">10%</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"> </td>
+  </tr>
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0"> G </td>
+    <td width="1%" bgcolor="#F0F0F0"> &nbsp; </td>
+    <td width="65%" bgcolor="#F0F0F0">
+      Last Lecture  &bull; Final Exam TBD
+    </td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="7%" bgcolor="#F0F0F0" align="right">
+      <aTBD href="https://pmateti.github.io/Courses/7370/Exams/7370-2020-Fall-E2.html">
+        Final </a></td>
+    <td width="4%" bgcolor="#F0F0F0" align="right">35%</td>
+    <td width="10%" bgcolor="#F0F0F0" align="right"></td>
+  </tr>
+
+  <tr>
+    <td width="4%" bgcolor="#F0F0F0"> *</td>
+    <td width="2%" bgcolor="#F0F0F0">&nbsp;</td>
+    <td width="38%" bgcolor="#F0F0F0">
+      <b>
+        <a href="https://piazza.com/wright/spring2020/ceg7370/home">
+	  Discussion</a> </b>participation</td>
+    <td width="1%" bgcolor="#008000"> &nbsp; </td>
+    <td width="4%" bgcolor="#F0F0F0" align="right"> CP</td>
+    <td width="5%" bgcolor="#F0F0F0" align="right">5%</td>
+    <td width="14%" bgcolor="#F0F0F0" align="right">&nbsp;</td>
+  </tr>
+
+</table>
+
+<hr size="1">
+
+<div align="center"><a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+Copyright ©</a> 2019 &bull;
+<a href="mailto:pmateti@gmail.com?subject=DIC">pmateti@gmail.com</a>
+&bull; last updated: Dec 03, 2019
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+\documentstyle[12pt]{article}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\co{{\bf co}}
+\def\oc{{\bf oc}}
+\def\zand{\wedge}\def\zor{\vee}	\def\znot{\neg}
+\def\ellipsis{\ldots}
+\def\pbar{\parallel}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\rar{\rightarrow}
+\def\lb{\langle}
+\def\rb{\rangle}
+\def\ra{\rightarrow}
+\def\await{{\bf await}}
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Mid Term Exam\\[10pt]
+October 27, 1999 \quad 100 points max \quad 75 minutes\\
+}
+\bigskip
+{Mateti,  Fall Quarter 1999, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (5*5 points)
+Explain/Discuss/Dispute/Answer, in a {\em few} lines, the following.
+
+\begin{enumerate}
+\item
+As an extreme case, the piece of code $ S1 \pbar S2 $ may behave the same as
+{$ S2 ; S1 $}.
+
+\item 
+The ``standard'' solution \quad {\tt P(m); CS; V(m);} \noindent is not
+starvation-free {\em only} in the distributed systems context, but is ok
+when the system is a single-cpu system.
+
+\item
+{\it wp}($i := 7$, $i = 8 \zor i = 7$) $=$ true.
+
+\item
+Explain the inference rule 2.11, {\bf Concurrency Rule}, page 67, of
+Andrews book reproduced below.
+
+\begin{centering}
+\{$P_i\} S_i \{Q_i\}$ are interference-free theorems, $1 \leq i \leq
+n$\\[-8pt]
+~.\hrulefill\\[-4pt]
+$\{P_1 \zand \ellipsis \zand P_n\}$
+\quad\co\quad $S_1 \pbar \ellipsis \pbar S_n$ \quad\oc\quad
+$\{Q_1 \zand \ellipsis \zand Q_n\}$\par
+\end{centering}
+
+\item Any group of processes communicating only via message passing
+constitutes a ``distributed system.''
+\end{enumerate}
+
+\item (10 points)
+Describe all the major components of an \RPC\ system by
+tracing a specific remote procedure call.
+
+\item (35 points) Consider the following as an {\tt await}-statement
+based model of the classic Dining Philosophers problem.  The
+expression {\tt i + 1} is modulo 5, and += is normal increment by 1.
+The {\tt up} and {\tt dn} (down) refer to whether the philosopher
+picked the fork up or put the fork down.
+
+\begin{verbatim}
+var up[0..4] : int := initially all 0;
+var dn[0..4] : int := initially all 0;
+
+philosopher[i: 0..4]::
+  do true ->
+     think
+     <await up[i] == dn[i] --> up[i] += 1>
+     <await up[i+1] == dn[i+1] --> up[i+1] += 1>
+     eat
+     <dn[i] += 1>
+     <dn[i+1] += 1>
+  od
+\end{verbatim}
+
+\noindent 
+(a) (10 points) Using the Pass-the-Baton technique systematically
+convert it to an equivalent algorithm using semaphores only.  For now,
+disregard if the above is a ``solution'' or not. (b) (5 points) Is
+this a ``solution'' to the Dining Philosophers problem?  If so,
+explain.  If not so, fix it at the {\tt await}-statement level .  (c)
+(5 points) Is this ``solution'' free from startvation?  Explain your
+answers fully.  A simple yes/no will not do.
+
+
+\item (30 points) The \CSP\ solution given in {\sl Recursive Data
+Representation: Small Set of Integers} of Hoare's \CSP\ paper is
+reproduced below.  Extend the solution to respond to a command {\it
+removeMin()} that removes the least member of the set, if non-empty,
+and does does nothing if the set is empty.  Explain your solution.
+
+%\newpage
+\begin{tabbing}
+00\=\kill
+$S(i: 1 .. 100)$ ::\+\\
+$ *$\= $[\ $ \= $n$: integer; $S(i-1)$?has$(n) \rar S(0)$!false\+\\
+ \fat\> $n$: integer; $S(i-1)$?insert$(n) \rar$\+\\
+     $*$\= $[\ $ \= $m$: \= integer; $S(i-1)$?has$(m) \rar$\+\+\\
+       $[$\ \= $m \leq n \rar S(0)!(m = n)$\\
+       \fat \> $m > n \rar S(i+1)$!has$(m)$\\
+       $]$ \-\-\\
+  \> \fat\ $m$: integer; $S(i-1)$?insert$(m) \rar$\+\+\\
+    $[\  m < n \rar S(i+1)$!insert($n$); $n := m$\\
+    \fat\ $m = n \rar $ skip\\
+    \fat\ $m > n \rar S(i+1)$!insert$(m)$\-\-\-\\
+]\>\>]\>]\\
+\end{tabbing}
+\end{enumerate}
+\end{document}

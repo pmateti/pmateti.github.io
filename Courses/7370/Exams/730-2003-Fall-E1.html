@@ -1,0 +1,108 @@
+<html><head>
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" 
+content="text/html; charset=iso-8859-1">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+<title>CEG730 Distributed Computing Midterm</title>
+
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<table cellSpacing="10" cellPadding="10" width="100%" border="0" 
+height="125">
+<tbody><tr><td width="33%" height="95">
+<a href="http://www.wright.edu/" target="_blank">
+<img src="../../../images/wsu-logo-xsm.gif" border="0" width="150" 
+height="66"></a><br>
+<a href="http://www.cs.wright.edu/">College of Engineering &amp; CS</a><br>
+<a href="http://www.wright.edu/">Wright State University</a><br>
+<a href="http://www.dayton.net/dayton/">Dayton,</a>
+<a href="http://www.state.oh.us/">Ohio</a> 45435-0001</td>
+<td vAlign="top" width="67%" height="95"><h2>CEG 730 Distributed 
+Computing Principles</h2>
+<h4>Fall 2003//Mid Term Exam//75 minutes//100 points</h4>
+<p>
+<a href="http://www.cs.wright.edu/~pmateti" target="_blank"><b>
+Prabhaker Mateti</b></a> </p><p>
+This is a closed book, closed notes exam. Do not give or take<br>
+help during the exam.</td></tr>
+</tbody></table>
+<ol>
+ <li>(5*5 points) The following statements may or may not be (fully or 
+ partially) valid.&nbsp; Explain/ discuss/ dispute the statement.&nbsp; 
+ This <i>must include</i> an explanation of the technical terms 
+ occurring in the statement.&nbsp;&nbsp; It is <i>possible</i> to 
+ write no more than, say, ten, sentences each, and yet receive full 
+ score.
+ <ol type="a">
+  <li>There is no difference between safety and liveness properties.
+  </li>
+  <li>The difference between asynchronous and synchronous message 
+  passing is trivial. </li>
+  <li><code>wp(i := 7,&nbsp; i == 8 or i == 7) == true</code>.</li>
+  <li>Marshalling in RPC is no more than a tight-packing of the bytes 
+  of the input arguments or resulting values.</li>
+  <li>In the context of RPC, a procedure designed to be used remotely
+  <i>can</i> use global variables to communicate with the caller. </li>
+ </ol>
+ </li>
+ <li>(7*5 points) The solutions by Udding and Morris to the 
+ starvation-free mutual exclusion problem are reproduced below.
+ <ol type="a">
+  <li>What are the initial values of the six semaphores below?</li>
+  <li>State the weak semaphore assumption.</li>
+  <li>Must each of the three semaphores in Udding's solution satisfy 
+  this assumption?</li>
+  <li>Must each of the three semaphores in Morris' solution satisfy 
+  this assumption?</li>
+  <li>Is the functionality/purpose of the eu<tt> </tt>and e<tt>m</tt> 
+  semaphores the same?</li>
+  <li>Is the functionality/purpose of the mu<tt> </tt>and <tt>mm</tt> 
+  semaphores the same?</li>
+  <li>Is the functionality/purpose of the <tt>qu </tt>and <tt>qm</tt> 
+  semaphores the same?</li>
+ </ol>
+ <pre>Udding's solution&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Morris' solution
+&nbsp;1 P(eu); ne := ne+1; V(eu);&nbsp;&nbsp;&nbsp; | P(em); ne := ne+1; V(em);
+&nbsp;2 P(qu); P(eu);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | P(qm);
+&nbsp;3&nbsp; nm := nm+1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; nm := nm+1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;4&nbsp; ne := ne-1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; P(em); ne := ne-1;
+&nbsp;5&nbsp; if ne &gt; 0 --&gt; V(eu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; if ne &gt; 0 --&gt; V(em);V(qm)
+&nbsp;6&nbsp; [] ne = 0 --&gt; V(mu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; [] ne = 0 --&gt; V(em);V(mm)
+&nbsp;7&nbsp; fi;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; fi;
+&nbsp;8 V(qu);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+&nbsp;9 P(mu); nm := nm-1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | P(mm); nm := nm-1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10&nbsp; &lt;cs &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; &lt;cs &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11&nbsp; if nm &gt; 0 --&gt;&nbsp; V(mu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; if nm &gt; 0 --&gt;&nbsp; V(mm)&nbsp;
+12&nbsp; [] nm = 0 --&gt;&nbsp; V(eu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; [] nm = 0 --&gt;&nbsp; V(qm)&nbsp;
+13&nbsp; fi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; fi</pre>
+ </li>
+ <li>(40 points) The solution given for <i>
+ <it>Recursive Data Representation: Small Set of Integers</it></i> of 
+ Hoare's CSP paper is reproduced below. Extend the solution (20 
+ points) to respond to a command <tt>removeMin()</tt> that removes the 
+ least member of the set, if non-empty, and does nothing if the set is 
+ empty. Explain your solution (10 points). Include a convincing 
+ argument (10 points) that the algorithm is correct. <pre>   S(i: 1 .. 100) ::
+   	*[   n: integer; S(i-1)?has(n) --&gt; S(0)!false
+   	[]   n: integer; S(i-1)?insert(n) --&gt;  
+   		*[ m:   integer; S(i-1)?has(m) --&gt;  
+   			[   m &lt;=  n --&gt; S(0)!(m = n)
+   			[]  m &gt;   n --&gt; S(i+1)!has(m)
+   			] 
+      		[] m: integer; S(i-1)?insert(m) --&gt;  
+   			[  m &lt; n --&gt; S(i+1)!insert(n); n := m
+   			[] m = n --&gt;  skip
+   			[] m &gt; n --&gt; S(i+1)!insert(m)
+   	]  	]	] </pre>
+ </li>
+</ol>
+
+</body>
+</html>

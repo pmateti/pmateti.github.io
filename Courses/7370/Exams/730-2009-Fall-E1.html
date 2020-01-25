@@ -1,0 +1,146 @@
+<html><head>
+<title>CEG730 Distributed Computing Midterm</title>
+</head>
+<body>
+
+<table cellSpacing="10" cellPadding="10" width="100%" border="0" height="130">
+<tbody><tr>
+<td width="16%">
+  <a href="http://www.wright.edu/" target="_blank">
+    <img src="../../../images/wsu-logo-xsm.gif" border="0" width="98"
+    height="46"></a></td>
+<td vAlign="top" width="72%">
+<h3>CEG 730 Distributed Computing Principles</h3>
+<h4>Fall 2009//Mid Term Exam//75 minutes//100 points</h4> 
+
+<p>This is a closed book, closed notes exam. Do not give or take help
+during the exam.</td>
+</tr>
+</tbody></table>
+<ol>
+  <li>(10*5 points) Explain/ discuss/ dispute/ compute the following
+    statements. It is <i>possible</i> to write no more than, say, ten,
+    sentences each, and yet receive full score.
+
+    <ol type="a">
+	<li><i>wp(S, False) = False</i> is impossible. True/False? Explain.
+	<li><i>wp(S, True ) = False</i> defines liveness of S.
+	  True/False? Explain.
+	<li> Compute <i>wp(S, m = y)</i>, where S is 
+	<tt>if x >= y -> m := x [] x <= y -> m := y fi</tt>
+
+      <li>A scheduling policy that is strongly fair must also be weakly fair.
+	Discuss.
+
+      <li>Consider the program segment given below.
+	Let <i>P</i> be a predicate that characterizes the weakest
+	deadlock-free precondition for the program, i.e., the largest
+	set of states such that, if the program is begun in a state
+	satisfying <i>P</i>, then it will terminate if scheduling is
+	weakly-fair. Determine <i>P</i>.  Explain how you arrived at P.
+<pre>
+co < await x >= 3 -> x := x - 1 >
+|| < await x >= 2 -> x := x - 1 >
+|| < await x == 1 -> x := x + 5 >
+oc</pre>
+
+      <li>Since the semantics of <tt>S1 || S2</tt> permits their
+	execution as if it is <tt>S1;S2</tt>, we can replace some
+	occurrences, if not all, of <tt>S1;S2</tt> with <tt>S1 ||
+	S2</tt>.  True/False? Explain.
+
+      <li>The code <code>V(s); P(s)</code> is <i>always</i> equivalent
+      to a no-op (&quot;skip&quot;, or do-nothing).  True/False? Explain.
+
+      <li>
+	``Every philosopher will eventually get hungry.'' is a safety,
+	not liveness, property.  True/False? Explain.
+
+
+      <li>In the context of RPC, a procedure designed to be called remotely
+	<i>can</i> use global variables to communicate with the
+	caller, provided we modify <i>rpcgen</i> appropriately.
+	True/False? Explain.
+
+      <li>Marshalling in RPC is no more than a tight-packing of the
+	bytes of the input arguments. True/False? Explain.
+    </ol>
+  </li>
+  
+
+<li>(30 points) The <i><it>Recursive Data Representation: Small Set of
+      Integers</it></i> of Hoare's CSP paper is reproduced below. (a)
+      (20 points) Extend it to respond to a
+      request <tt>S(1)!count()</tt> from S(0) that expects a reply
+      with the number of elements in the set.  (b) (10 points) Include
+      a convincing argument that your extension is correct, and that
+      you have not broken existing functionality.
+  <blockquote>  <pre>
+    S(i: 1 .. 100) ::
+    do  n: integer; S(i-1)?has(n) -> S(0)!false
+    []  n: integer; S(i-1)?insert(n) ->
+        do  m: integer; S(i-1)?has(m) ->
+            if  m <= n -> S(0)!(m = n)
+            []  m >  n -> S(i+1)!has(m)
+            fi
+        []  m: integer; S(i-1)?insert(m) ->
+            if m < n -> S(i+1)!insert(n); n := m
+            [] m = n ->  skip
+            [] m > n -> S(i+1)!insert(m)
+	    fi
+        od
+    od</pre>  </blockquote>
+</li>
+
+<li>(20 points) Consider the following as an <b>await</b>-statement
+  based solution of the classic Producer/Consumer Problem where the
+  producer invokes deposit(item) to deposit an item into the buffer
+  buf[] of size n and consumer invokes fetch() to retrieve an item.
+
+  <table>
+    <tr>
+      <td valign="top">    <pre>
+    deposit(item) {
+      < await count < n ->
+          buf[rear] := item;
+          rear := rear mod n + 1;
+          count := count + 1;
+      >
+    }
+	  </pre>
+      </td>
+      <td valign="top"><pre>
+    fetch() {
+        < await count > 0 ->
+            item := buf[front];
+	    front := front mod n + 1;
+	    count := count - 1;
+	>
+	return item;
+    }
+     </pre>
+
+</td>
+    </tr>
+  </table>
+
+  <ol type="a">
+    <li> (5 points) What are the correct initial values for <tt>count, rear</tt> and
+	<tt>front </tt>?
+    <li>(15 points) Using the Pass-the-Baton technique systematically
+      convert the above methods to equivalent methods using
+      semaphores only.
+  </ol>
+</li>
+
+</ol>
+
+<hr size="1">
+
+<a href="../../../../copyright.html">Copyright &copy;</a> 2009
+<a href="http://www.cs.wright.edu/~pmateti" target="_blank">
+Prabhaker Mateti</a>
+&bull; Oct 14, 2009
+
+</body>
+</html>

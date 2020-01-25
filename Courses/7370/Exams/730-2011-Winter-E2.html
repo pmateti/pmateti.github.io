@@ -1,0 +1,108 @@
+<html>
+<head>
+  <title>CEG730 Distributed Computing / Final Exam</title>
+  <style type="text/css">
+  body {margin: 1cm 1cm 0cm 1cm;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  pre {background:AntiqueWhite; }
+  pre.sol {background: yellow; }
+  tt {background:AntiqueWhite; }
+  code {background:AntiqueWhite; }
+
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  @media print {BODY {font-size: 10pt; line-height: 120%; background: white;} }
+  @media screen {BODY {font-size: medium; background: white; margin: 5em} }
+</style>
+</head>
+<body>
+<table border="0" cellpadding="10" cellspacing="10" height="90" width="100%">
+  <tbody>
+    <tr>
+      <td height="60" width="18%"><a href="http://www.wright.edu/" target="_blank">
+      <img src="../../../../pmatetiWeb/images/wsu-logo-xsm.gif" border="0"
+ height="51" width="116"></a></td>
+      <td height="60" valign="top" width="70%">
+      <h2>TBD CEG 730 Distributed Computing Principles</h2>
+      <h4>Winter 2011 // Final Exam // 120 minutes // 100 points<br>
+	<a href="http://www.cs.wright.edu/%7Epmateti" target="_blank">Prabhaker
+Mateti</a> </h4>
+	<tiny>This is a closed book, closed notes exam, except for the 
+      few items listed in the last class. Do not give or take
+	help during the exam.</tiny>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ol>
+  <li> (15*5 points) In the following, it is <i>possible</i> to write no more than, say, ten,
+    sentences each, and yet receive full score.&nbsp; Explain/ discuss/ dispute/ 
+	compute/ construct/ prove.<ol type="i">
+      <li> Define a split binary semaphore.</li>
+		<li> There are examples of safety properties that are also liveness
+properties.</li>
+      <li>Detection of termination is difficult only in peer-to-peer distributed 
+      computing not in client-server computing.</li>
+      <li> Construct the <tt>ssend(B, msg)</tt> and <tt>srecv(B, msg)</tt> primitives of 
+		SMP that a process A uses in communicating with 
+		another process B from <tt>asend(B, msg)</tt> and <tt>arecv(B, msg)</tt> 
+		primitives of AMP.&nbsp; </li>
+      <li> Token-passing algorithms were discussed under the heading of
+		AMP because token-passing does not make
+sense under SMP.</li>
+      <li> The <i>happened before</i> relation, as discussed, requires a logical clock for every 
+      process.&nbsp; But&nbsp; a typical machine (node) in a distributed system 
+      runs several processes. It is sufficient to maintain a logical clock per 
+      node that is shared by all processes running on that node.</li>
+		<li> Reconstruct the binary &quot;tree&quot; serialized below. List each node 
+		as a triplet of (info integer, left-link and right-link), as usual.&nbsp; 
+		The first digit in the sequence is the offset of the root node.<br>
+		<tt>marshaled sequence: 2 1 4 2 6 3 4 9 4 0 2 9 9<br>
+		offsets in hex:&nbsp;&nbsp;&nbsp;&nbsp; 1 2 3 4 5 6 7 8 9 A B C D</tt></li>
+		<li> Can a random sequence of 13 digits be substituted for the marshaled 
+		sequence above and yet be able to construct a &quot;tree&quot;?</li>
+		<li> Does the precondition and statement {x&nbsp; &ge; 4 } &lt; x := x - 4 
+		&gt; interfere with the triple<br>
+		{x is odd} &lt; x := x + 5 &gt; {x is even}.</li>
+		<li> Using the technique of weakened assertions, prove that {x = 1} S {x 
+		= 7} is a theorem, where S is <tt>&nbsp;co &lt; x := x+1&gt; || &lt; x := x+2&gt; || &lt; x := x+3&gt; oc</tt></li>
+		<li> Discuss why it is difficult to implement a semaphore in the
+truly distributed context.</li>
+		<li> Given a solution to the distributed mutual exclusion problem, we 
+		can construct semaphores in a 
+		distributed system, and vice versa.</li>
+		<li> In SR, what is the effect of sending a message to an op 
+		implemented as a procedure?</li>
+		<li> Explain, with an example, the map/reduce idea behind Hadoop.</li>
+		<li> We wish to maximize 
+  		(a) concurrency, we prefer a (b) symmetric solution, we rate&nbsp; (c) correctness much higher 
+  than efficiency, and cannot tolerate (d) deadlocks or (e) livelocks.&nbsp; 
+	Defend <i>why</i> for each of these five.</li>
+    </ol>
+  </li>
+  <li>(20+5 points) Given a large (in the zillions) set S of integers, construct 
+	a bag B from it by duplicating every integer <i>d</i> times.&nbsp; Present&nbsp; 
+	the solution in C/Java+Linda (20 points), with&nbsp; full explanation (5 
+	points) written separately from the code.&nbsp;Assume that the tuple 
+	space already contains the set  of integers <tt>&lt;"S&quot;, x&gt;</tt>, the 
+	size of this set <tt>&lt;"SZ", sz&gt;</tt>, and <tt>&lt;&quot;d&quot;, d&gt;</tt> the number of 
+	duplications, <tt>&lt;&quot;p&quot;, p&gt;</tt> the number of worker processes. 
+	The tuple space at the end should contain <tt>&lt;&quot;B&quot;, b&gt;</tt>.  You lose 5 points for each use of
+	<tt>inp</tt>
+or <tt>rdp</tt>. &nbsp;<b> </b></li>
+</ol>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td align="left">
+      <a
+ href="../../../../copyright.html">Copyright &copy;</a> 2011
+<a href="http://www.cs.wright.edu/~pmateti" target="_blank">Prabhaker Mateti</a></td><td align="right">
+		Mar 15, 2011</td></tr></tbody></table>
+
+
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+\documentclass[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\ellipsis{\ldots}
+\def\pbar{\parallel}
+\def\rar{\rightarrow}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\co{{\bf co}}
+\def\oc{{\bf oc}}
+\def\pa{{$\parallel$}}
+\def\lb{$\langle$}
+\def\rb{$\rangle$}
+\def\ra{$\rightarrow$}
+\def\await{{\bf await}}
+\def\zand{\wedge}\def\zor{\vee}	\def\znot{\neg}
+%\topmargin 0pt
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles}\\[5pt]
+{Mateti,  Spring Quarter 2000, Wright State U}\\
+{\bf Final Exam}\quad June 6, 2000 \quad 100 points max \quad 120 minutes\\
+\hrule
+
+\begin{enumerate}
+
+\item (8*5 points)
+Explain, in a few lines, the truth or falsity of the statements.
+
+\begin{enumerate}
+
+\item Suggest a mechanism similar to RPC but in the context of Linda.
+
+\item ``Some day, if not at the end of {\sc ceg} 730, you will
+appreciate the book {\em Concurrent Programming} by Andrews.''
+Explain if this is a safety, or liveness property, or perhaps neither.
+
+\item In the Andrews' distributed semaphore implementation of our
+textbook that we discussed, there are numerous {\sc ack} messages
+being sent.  They can be reduced in number by O(n).
+
+\item All the following are correct:
+
+(i) wp( S, True ) = True  for any aribtrary S,\\
+(ii) wp(S, True ) = False defines liveness,\\
+(iii) wp(S, False) = False is impossible,\\
+(iv) wp(S, False)  = True means S will not terminate,\\
+(v) wp(S, True) = undefined is unexpected because of  safety.
+
+\item In the following (alleged) solution for the Readers/Writers
+problem with priority for writers, the semaphore m3 and the P(m3) and
+V(m3) operations are needed only if the number of writers far exceeds
+that of readers.
+
+\begin{minipage}[t]{2.5in}
+\begin{verbatim}
+P(m3);
+ P(r);
+  P(m1);
+    nr++;
+    if nr == 1 then P(w) fi;
+  V(m1);
+ V(r);
+V(m3);
+...read...
+P(m1);
+ nr --;
+ if nr == 0 then V(w) fi;
+V(m1)
+\end{verbatim}
+\end{minipage}\vline\quad
+\begin{minipage}[t]{2in}
+\begin{verbatim}
+P(m2);
+ nw ++;
+ if nw == 1 then P(r) fi;
+V(m2);
+P(w);
+...write...
+V(w);
+P(m2);
+ nw--
+ if nw == 0 then V(r) fi;
+V(m2)
+\end{verbatim}
+\end{minipage}
+
+\item The famous Dining Philosophers Problem illustrates livelocks
+among other properties.
+
+\item Process A and B have the following requirements.  If A enters a
+certain ``room", before it can leave the room it must wait until it
+``meets" B, and vice versa.  This cannot be solved using semaphores.
+
+\item Consider the precondition and statement \{$x \ge 4$\} \lb x
+:= x - 4\rb.\quad This interferes with (a) \{$x \ge 10$\} \lb x
+:= x + 5\rb \{ $x \ge 11 $\} but not with (b) \{ $x$ is odd \}
+\lb y := x + 1 \rb \{ $y$ is even \}.
+
+
+\end{enumerate}
+
+\item (20 points)
+Describe a distributed termination algorithm, with or without tokens.
+The process graph is a binary tree.
+
+
+\item (20*2 points) In both items below $a_i$ is the same as {\tt
+a[i]}.  Solve the problem in Linda and in CSP.  Just writing (psuedo-)
+code is not enough.  You must explain and justify how/why your
+algorithm works.  \\
+
+(a) Assume that the Linda tuple space is loaded with tuples \lb
+``nt'', $n_t$\rb, \lb ``nd'', $n_d$\rb, \lb ``d'', d\rb, \lb{}``p'', p
+\rb so that $0 \le n_d \le n_t$, and \lb ``s'', i, $a_i$ \rb, for $1
+\le i \le n_t$, so that the $a_i$ sequence is sorted in the
+non-decreasing order.  In this sequence there are {\em at least} $n_d$
+occurrences of $d$ which need to be removed.  Develop a C-Linda
+solution for this removal and adjustment of indices $i$ for numbers
+beyond the deleted $d$'s.  At the end, the tuple space contains the
+$a_i$ after the removal of $d$'s.  Use $p$ processes.  Assume that $p
+<< n_t$.
+
+(b) The values $a_i$, for $1 \le i \le n_t$, are now held by CSP
+processes $P_i$, one per process, as in the Small Set of Integers.
+Initially, the $a_i$ sequence is sorted in the non-decreasing order.
+$P_0$ sends $d$ to $P_1$, which sends it to $P_2$, etc.  Write a \CSP
+algorithm so that all $d$ are ``removed''.  Note that no $n_d$ is
+given.  At the end, the $a_i$ sequence should be sorted in the
+non-decreasing order.
+
+\end{enumerate}
+
+\end{document}

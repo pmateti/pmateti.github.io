@@ -1,0 +1,71 @@
+This is TeX, Version 3.14159 (MiKTeX 1.20e) (preloaded format=latex 2000.5.4)  4 MAY 2000 14:26
+**730e1s00.tex
+(730e1s00.tex
+LaTeX2e <1999/06/01> patch level 1
+Babel <v3.6z> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+(T:\TeXMF\tex\latex\base\article.cls
+Document Class: article 1999/01/07 v1.4a Standard LaTeX document class
+(T:\TeXMF\tex\latex\base\size12.clo
+File: size12.clo 1999/01/07 v1.4a Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (730e1s00.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--26
+
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 56.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 56.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 56.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 73.
+(T:\TeXMF\tex\latex\base\omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 73.
+
+Underfull \hbox (badness 1946) in paragraph at lines 83--86
+\OT1/cmr/m/n/12 izes the weak-est deadloc-
+ []
+
+[1
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 101--104
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+
+ []
+
+[2] (730e1s00.aux) )
+Output written on 730e1s00.dvi (2 pages, 5596 bytes).

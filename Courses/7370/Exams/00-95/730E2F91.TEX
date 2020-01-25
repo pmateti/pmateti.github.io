@@ -1,0 +1,130 @@
+\documentstyle[12pt]{article}
+%\topmargin 0pt
+%\oddsidemargin 17pt \evensidemargin 17pt
+\textheight 8in % \textwidth 6.2in
+
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\rar{\rightarrow}
+\def\pr{$\parallel$}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\SR{{\sc sr}}
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Systems I\\[5pt]
+\large Final Exam\\[10pt]
+Dec 3, 1991 \quad 100 points max \quad 120 minutes\\
+}
+\bigskip
+{Mateti,  Fall Quarter 1991, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (6*5 points)
+Explain, in a few lines, the truth or falsity of the following
+statements.
+
+\begin{enumerate}
+
+\item
+The Byzantine Generals Problem can always be solved if the total
+number of generals is 2 regardless of whether the number of traitors
+is 0, 1 or 2.
+
+\item
+In \SR, when invoking an operation implemented by a {\tt proc} through
+a {\tt send} the effect is that of a rendezvous.
+
+\item
+{\sl ``A hungry philosopher will eat.''} is an example of a safety
+property.
+
+\item
+Semaphores are not heavily used in most {\em parallel} applications as
+opposed to most {\em concurrent} systems.
+
+\item
+If a client and server happen to reside on the same machine the
+results will be unpredictably erroneous.
+
+\item
+Semaphores, weak or strong, cannot be implemented in Linda.
+
+
+\end{enumerate}
+
+\vfill
+\item (5+10 points)\\
+(a) What does ``distributed termination'' mean?\\
+(b) Describe the Dijkstra-Sch\"olten distributed termination algorithm.
+
+\vfill
+\item (20 points)
+Write an algorithm in Linda for the following problem.  Given, in the
+tuple space {\sc ts}, a bag $B$ of integers {\tt <"B", i>} for all
+{\tt i} in $B$, and the size of the bag {\tt <"nB", nb>}, compute the
+largest number {\tt <"maxB", mx>} in the bag.
+
+\vfill
+\item (20 points)
+The \CSP\ solution given in Section 4.5, namely {\sl Recursive Data
+Representation: Small Set of Integers}, of Hoare's \CSP\ paper is
+reproduced below.  Extend the solution to respond a command to
+yield the least member of the set and to remove it from the set.
+
+\newpage
+\begin{tabbing}
+00\=\kill
+$S(i: 1 .. 100)$ ::\+\\
+$ *$\= $[\ $ \= $n$: integer; $S(i-1)$?has$(n) \rar S(0)$!false\+\\
+ \fat\> $n$: integer; $S(i-1)$?insert$(n) \rar$\+\\
+     $*$\= $[\ $ \= $m$: \= integer; $S(i-1)$?has$(m) \rar$\+\+\\
+       $[$\ \= $m \leq n \rar S(0)!(m = n)$\\
+       \fat \> $m > n \rar S(i+1)$!has$(m)$\\
+       $]$ \-\-\\
+  \> \fat\ $m$: integer; $S(i-1)$?insert$(m) \rar$\+\+\\
+    $[\  m < n \rar S(i+1)$!insert($n$); $n := m$\\
+    \fat\ $m = n \rar $ skip\\
+    \fat\ $m > n \rar S(i+1)$!insert$(m)$\-\-\-\\
+]\>\>]\>]\\
+\end{tabbing}
+
+
+\item (15 points)
+Study the following code as a `solution' for the starvation-free
+mutual exclusion problem.  Make the same assumption regarding weak
+semaphores that [Morris 79] and [Udding 86] do.
+
+\begin{verbatim}
+local x, y;  global z=0, b=false, s[0]=1, s[1]=1;
+x := z;
+P(s[x]);
+  if z = x then
+    y := 1 - z;
+    P(s[y]);
+      z := y;
+      repeat
+        b := true;
+        V(s[x]);
+        P(s[x]);
+      until b;
+      <critical section>
+    V(s[y])
+  else
+    b := false;
+    <critical section>
+  fi
+V(s[x])
+\end{verbatim}
+Either give a convincing argument that the above algorithm is correct,
+or give a scenario demonstrating a situation that violates the
+requirements of the problem.
+\end{enumerate}
+\end{document}
+
+
+

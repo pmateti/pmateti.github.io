@@ -1,0 +1,143 @@
+\documentclass[12pt]{article}
+\textheight=8in
+\newcommand{\fat}{\framebox[1mm]{\rule{0mm}{2mm}}}
+\newcommand{\CSP}{CSP}
+\newcommand{\RPC}{RPC}
+\newcommand{\co}{{\bf co}}
+\newcommand{\oc}{{\bf oc}}
+\newcommand{\pa}{{$\parallel$}}
+\newcommand{\lb}{$\langle$}
+\newcommand{\rb}{$\rangle$}
+\newcommand{\ra}{$\rightarrow$}
+\newcommand{\await}{{\bf await}}
+\newcommand{\zand}{\wedge}
+\newcommand{\zor}{\vee}
+\newcommand{\znot}{\neg}
+
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Mid Term Exam\\[10pt]
+Oct 1997 \quad 100 points max \quad 75 minutes\\
+}
+\bigskip
+{Mateti,  Fall Quarter 1997, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (6*5 points)
+
+Explain/Discuss/Dispute/Answer, in a {\em few} lines, the following.
+
+\begin{enumerate}
+
+\item
+Discuss the semantics of the fat-bar operator as in {\tt S1 \fat\ S2 }.
+
+\item
+The little-endian-ness of a machine has no relevance to \RPC.
+
+\item
+What does \verb|svc_run()| do?  Why does it not ``return''?
+
+\item
+Explain what {\em dispatching} is, in the context of \RPC.
+
+\item
+If a client and server happen to reside on the same machine the
+results will be unpredictably erroneous.
+
+\item
+``Every philosopher will eventually get hungry.''  Explain
+if this is a safety, or liveness property, or perhaps neither.
+\end{enumerate}
+
+
+\item (10+5+10 points)
+\begin{enumerate}
+\item
+Explain the difference(s) in meaning of the notation
+$ \{ P \} \quad S \quad \{ Q \} $
+versus
+$ wp(S, Q) $.
+
+\item
+Explain the {\bf Concurrency Rule}, page 67, inference rule 2.11, of
+Andrew's book reproduced below.\\
+
+\begin{centering}
+\{$P_i\} S_i \{Q_i\}$ are interference-free theorems, $1 \leq i \leq
+n$\\[-8pt]
+~.\hrulefill\\[-4pt]
+$\{P_1 \zand \ldots \zand P_n\}$
+\quad\co\quad $S_1 \parallel \ldots \parallel S_n$ \quad\oc\quad
+$\{Q_1 \zand \ldots \zand Q_n\}$\par
+\end{centering}
+
+\item
+Consider the following program segment:
+
+\begin{tabbing}
+\co\= \lb \await0\= $x \geq 3$ \=\ra0\= $x := x - 3$ \rb\kill
+\co\> \lb \await \> $x \geq 3$ \>\ra \>$x := x - 3$ \rb\\
+\pa\> \lb \await \> $x \geq 2$ \>\ra \>$x := x - 2$ \rb\\
+\pa\> \lb \await \> $x = 1$ \>\ra \>$x := x + 5$ \rb\\
+\oc
+\end{tabbing}
+
+Let $P$ be a predicate that characterizes the weakest deadloc-free
+precondition for the program, i.e., the largest set of states such
+that, if the program is begun in a state satisfying $P$, then it will
+terminate if scheduling is weakly-fair.  Determine $P$.  Explain your
+answer.
+\end{enumerate}
+
+
+\item (5*5 points)
+The solutions by Udding and Morris to the starvation-free mutual exclusion problem are reproduced below.
+\begin{enumerate}
+\item State the weak semaphore assumption.
+\item What are the implications of this assumption with respect to
+the code fragment {\tt V(s); P(s)} ? 
+\item What are the initial values of the six semaphores below?
+\item
+Must each of the three semaphores in each solution satisfy this assumption?
+\item Is the functionality/purpose of the {\tt q}-semaphores the same? 
+\end{enumerate}
+
+\begin{verbatim}
+
+Udding's solution               | Morris' solution
+
+ 1 P(eu); ne := ne+1; V(eu);    | P(em); ne := ne+1; V(em);
+ 2 P(qu); P(eu);                | P(qm);
+ 3  nm := nm+1;                 |  nm := nm+1;             
+ 4  ne := ne-1;                 |  P(em); ne := ne-1;
+ 5  if ne > 0 --> V(eu)         |  if ne > 0 --> V(em);V(qm)
+ 6  [] ne = 0 --> V(mu)         |  [] ne = 0 --> V(em);V(mm)
+ 7  fi;                         |  fi;
+ 8 V(qu);                       |
+ 9 P(mu); nm := nm-1;           | P(mm); nm := nm-1;             
+10  <cs >                       |  <cs >                   
+11  if nm > 0 -->  V(mu)        |  if nm > 0 -->  V(mm) 
+12  [] nm = 0 -->  V(eu)        |  [] nm = 0 -->  V(qm) 
+13  fi                          |  fi
+\end{verbatim}
+
+\item (20 points)
+Process $A$ has an array $a$ of $1..m$ integers and $B$ has an array $b$
+of $1..n$ integers.  The two processes are allowed to send/receive only
+one integer at a time.  Develop a \CSP\ algorithm for these processes
+so that at the end $a[1]$ is the smallest of all elements of $a$ and
+$b$.  While elements may have got shuffled, at the end the two arrays
+together must have the same bag of elements that they did at the
+beginning.  Do not assume that the $m+n$ integers are distinct.
+Do not assume that the arrays $a$ and $b$ were sorted initially.
+Maximize concurrency.  Use more processes if you wish.
+
+\end{enumerate}
+\end{document}
