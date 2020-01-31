@@ -2,14 +2,14 @@
 #+Date: 2016-09-06
 #+TITLE: Semaphores
 #+AUTHOR: Prabhaker Mateti
-#+DESCRIPTION: WSU CEG 7370 Distributed Computing
+#+DESCRIPTION: Distributed Computing
 #+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\">../../</a>"))
-#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 &bull; <a href=\"https://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
 #+HTML_LINK_HOME: ../../Top/index.html
 #+HTML_LINK_UP: ../
 #+HTML_HEAD: <style> P, LI {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
 #+STARTUP:showeverything
-#+OPTIONS: toc:0
+#+OPTIONS: toc:2
 
 
 * Semapahores
@@ -34,8 +34,8 @@
 
 1. The std solution  is not starvation-free.
 1. Fairness: "Weak v Strong" semaphores.
-1. [[./split-binary-semaphores.org]]
 1. [[./udding-morris-algs.html]]
+1. [[./udding-david.html]] further commentary
 
 * Distributed Semaphores
 

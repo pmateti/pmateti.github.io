@@ -1,42 +1,29 @@
 # -*- mode: org -*-
-#+TITLE: Workers in Scala Akka
+#+date: 2020-01-31
+#+TITLE: Workers in Scala
 #+AUTHOR: Prabhaker Mateti
-#+DESCRIPTION: CEG7370 Distributed Computing
-#+OPTIONS: toc:1 
-#+OPTIONS: timestamp:t
-#+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
-#+OPTIONS: html-scripts:t html-style:t html5-fancy:t tex:t
-#+OPTIONS: org-html-indent:nil
-#+LINK_HOME: ./actorsAkkaScalaOnePage.html
-#+HTML_CONTAINER: div
-#+HTML_DOCTYPE: xhtml-strict
-#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
-#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">CEG 7370 Distributed Computing</a> | <a href=\"./actorsAkkaScalaOnePage.html\"> Actors Akka Scala Overview</a> | <a href=\"./dining-philosophers-akka-fsm-Slides.html\"> Slides</a>"))
-#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2014 %d %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
 #+STARTUP:showeverything
-#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.4)
+#+OPTIONS: toc:2
 
-#+HTML_HEAD_EXTRA:
-#+REVEAL_ROOT: http://www.cs.wright.edu/~pmateti/RevealJS
-#+REVEAL_PREAMBLE: <a href="./dining-philosophers-akka-fsm-OnePage.html"> Single-Page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: yellow;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: cyan;} </style>
-#+REVEAL_THEME: default
-#+REVEAL_TRANS: default
-#+REVEAL_HLEVEL: 2
-#+REVEAL-SLIDE-NUMBER: t
-#+OPTIONS: reveal_control:t reveal_progress:t reveal_history:t reveal_center:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t
-#+REVEAL_TITLE_SLIDE_TEMPLATE: <h1>%t</h1><h3>%a</h3>%e<h2>%d</h2>Assuming familiarity with the Actors, Scala and Akka<br><a href="../../Top/">CEG 7370 Distributed Computing</a>
-#+ATTR_REVEAL: highlight-blue  # not working
+* Scala Prerequisite
+
+1. The notes below assume a good understanding of Scala classes.
 
 * A Compute Server in Scala
 
-1. The server implements a future method which evaluates a given
+1. The server below implements a future method which evaluates a given
    expression in parallel with its caller.
 
 1. The server could run each thread on a separate processor.
 
 1. Avoid the overhead in context-switching threads on a single processor.
 
-* "Job" Defined
+* Benefits of Abstract Types: a "Job" Defined
 
 #+begin_src scala
   abstract class Job {
@@ -46,8 +33,6 @@
   }
 #+end_src
 
-A job is an object with
-
 1. An abstract type =T= which describes the result of the compute job.
 
 1. A parameterless =task= method of type T which denotes the expression
@@ -55,22 +40,23 @@ A job is an object with
 
 1. A =ret= method which consumes the result once it is computed.
 
-** Benefits of Abstract Types
-
 1. The T can vary between different jobs.  
 
 1. Without abstract types it would be impossible to implement the same
    class to the user in a statically type-safe way, without relying on
    dynamic type tests and type casts.
 
-* Channel openJobs
+* ComputeServer.future
+
+1. Future is a CS technical term describing how some computation is
+   (yet to be) performed.  In Scala, the two terms/ideas "future" and
+   "promise" are almost bound together.  See previous lecture.
 
 1.  Expressions to be computed (i.e. arguments to calls of future) are
     written to the =openJobs= channel.
 
-* ComputeServer.future
-
-#+begin_src scala
+1. 
+  #+begin_src scala
   def ftr[A](p: => A): () => A = {
     val reply = new SyncVar[A]()
     openJobs.write{
@@ -85,10 +71,6 @@ A job is an object with
 #+end_src
 
 1. The details of the signature of =ftr= are in the next section
-
-1. Future is a CS technical term describing how some computation is
-   performed.  In Scala, the two terms/ideas "future" and "promise"
-   are almost found together.  See previous lecture.
 
 1. =openJobs.write= constructs and writes a description of the job.
 
@@ -172,7 +154,7 @@ object Test with Executable {
 * Full Code
 
 #+begin_src scala
-import scala.concurrent._   // more ... TBD
+import scala.concurrent._   // more ...
 
 class ComputeServer(n: Int) {
   private abstract class Job {
@@ -213,3 +195,10 @@ object Test with Executable {
 * References
 
 1. Martin Odersky, Scala By Example, Section 17.9 Workers.
+   https://www.scala-lang.org/old/sites/default/files/linuxsoft_archives/docu/files/ScalaByExample.pdf
+   Search for a 2014 version.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,164 @@
+# -*- mode: org -*-
+#+date: 2020-01-31
+#+TITLE: DIC Distributed Actor System
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+This is part of [[./index.org][Akka Actors with Scala]].
+
+* Distributed Actor System
+
+#+CAPTION: Distributed Actor System
+#+ATTR_HTML: :alt fig-actor-path.png :align center :width 100%
+[[./Figures/fig-actor-path.png]]
+
+** Actor References
+
+1. Actor references may be obtained by (i) creating actors or (ii)
+   looking them up
+
+1. Typically, we create actors beneath the guardian actor using the
+   =ActorSystem.actorOf= method and then ...
+
+1. Spawn the actor tree using =ActorContext.actorOf=.
+
+*** Looking up Actors by Concrete Path
+
+1. =ActorSystem.actorSelection= method
+
+1. Send a message, such as the built-in =Identify= message, to the
+   actor and use the =sender= reference of a reply from the actor.
+
+1. =actorFor= is deprecated in favor of =actorSelection= because actor
+   references acquired with actorFor behave *differently* for local
+   and remote actors.  Beware: actorOf vs. actorSelection vs. actorFor
+
+1.  Matching on paths similar to shells «*» and «?»:
+    =context.actorSelection("../*") ! msg=
+
+*** Absolute vs. Relative Paths
+
+1. Send a message to a specific sibling:
+1. =context . actorSelection ("../brother") ! msg=
+1. Absolute paths: =context.actorSelection("/user/serviceA") ! msg=
+
+** Remote Actors and Akka Clusters
+
+1. Remote Actors ActorSystem configuration
+
+#+CAPTION: Remote Actors ActorSystem configuration
+#+ATTR_HTML: :alt fig-actor-remote-1.png :align center :width 100%
+[[./Figures/fig-actor-remote-1.png]]
+
+
+** Clusters
+
+1. Automatic cluster-wide deployment
+1. Decentralized P2P gossip-based cluster membership
+1. Leader “election”
+1. Adaptive load-balancing (based on runtime metrics)
+1. Automatic replication with automatic fail-over upon node crash
+1. Automatic adaptive cluster rebalancing
+1. Highly available configuration service
+
+** Enable Clustering
+
+    #+begin_src scala
+akka {
+  actor {
+    provider = "akka.cluster.ClusterActorRefProvider"
+    ...
+  }
+ 
+  extensions = ["akka.cluster.Cluster"]
+ 
+  cluster {
+    seed-nodes = [
+      "akka://ClusterSystem@127.0.0.1:2551",
+      "akka://ClusterSystem@127.0.0.1:2552"
+    ]
+    auto-down = on
+  }
+}
+#+end_src
+
+
+** Remote Deployment
+
+#+CAPTION: Remote Deployment
+#+ATTR_HTML: :alt fig-actor-remote-deployment.png :align center :width 100%
+[[./Figures/fig-actor-remote-deployment.png]]
+
+1. http://doc.akka.io/docs/akka/snapshot/general/addressing.html
+
+* Termination
+
+What Does "Finished" Mean? The most natural answer to this question
+   appears to be, "When all the Mailboxes are empty." Natural, yes;
+   correct, no. :)
+
+#+CAPTION: Actor System terminated?
+#+ATTR_HTML: :alt fig-terminated-q.png  :align center :width 100%
+#+ATTR_HTML: :style background-color:beige
+[[./Figures/fig-terminated-q.png]]
+
+** The Reaper
+
+#+CAPTION: Actor System Reaper
+#+ATTR_HTML: :alt fig-the-reaper.png  :align center :width 100%
+#+ATTR_HTML: :style background-color:beige
+[[./Figures/fig-the-reaper.png]]
+
+** Reaper Source Code
+
+    #+begin_src scala
+      import akka.actor.{Actor, ActorRef, Terminated}
+      import scala.collection.mutable.ArrayBuffer
+       
+      object Reaper { case class WatchMe(ref: ActorRef); }
+       
+      abstract class Reaper extends Actor {
+        import Reaper._
+        val watched = ArrayBuffer.empty[ActorRef]
+       
+        /* Derivations must implement this method. Called 
+         * when everything is dead */
+      
+        def allSoulsReaped(): Unit
+       
+        final def receive = {
+          case WatchMe(ref) =>
+            context.watch(ref)
+            watched += ref
+          case Terminated(ref) =>
+            watched -= ref
+            if (watched.isEmpty) allSoulsReaped()
+        }
+      }
+#+end_src
+
+** PoisonPill
+
+#+CAPTION: Application with PoisonPill
+#+ATTR_HTML: :alt fig-akka-poison-pill.png  :align center :width 100%
+#+ATTR_HTML: :style background-color:beige
+[[./Figures/fig-akka-poison-pill.png]]
+
+* References
+
+1. https://doc.akka.io/docs/akka/current/
+   Nearly all the code snippets and figures are from here.  Reference.
+
+1. Jonas Boner, "Above the Clouds: Introducing Akka", 2011.  Web
+   search.  Video or pdf.  Highly recommended.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
