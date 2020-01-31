@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-01-31 Fri 21:49 -->
+<!-- 2020-01-31 Fri 20:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Semaphores</title>
+<title>Dining Philosophers on Scala Akka</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
 <meta name="description" content="Distributed Computing"
@@ -182,7 +182,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<style> P, LI {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -236,181 +236,43 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="../../Top/index.html"> HOME </a>
 </div><div id="preamble" class="status">
-2016-09-06 | <a href="../../">../../</a>
+<a href="../../"> ../../</a>
 </div>
 <div id="content">
-<h1 class="title">Semaphores</h1>
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#orgc9ed2c7">1. Semapahores</a></li>
-<li><a href="#org14461a5">2. Split Binary Semaphores</a>
-<ul>
-<li><a href="#org1c697cb">2.1. Def</a></li>
-<li><a href="#org11a2098">2.2. Uses</a></li>
-</ul>
-</li>
-<li><a href="#org20f87ac">3. Starvation-Free Mutex Semaphore</a></li>
-<li><a href="#org9f0cba8">4. Distributed Semaphores</a></li>
-<li><a href="#org6161e3a">5. The Power of semaphores</a>
-<ul>
-<li><a href="#org4de85a0">5.1. Add Peek and Pp?</a></li>
-<li><a href="#orgccc6aeb">5.2. Cigarette Smokers Problem</a></li>
-</ul>
-</li>
-<li><a href="#orge8dc88b">6. References</a></li>
-<li><a href="#orgcec05eb">7. End</a></li>
-</ul>
-</div>
-</div>
+<h1 class="title">Dining Philosophers on Scala Akka</h1>
 
 
-<div id="outline-container-orgc9ed2c7" class="outline-2">
-<h2 id="orgc9ed2c7"><span class="section-number-2">1</span> Semapahores</h2>
+<div id="outline-container-orge491eee" class="outline-2">
+<h2 id="orge491eee"><span class="section-number-2">1</span> Dining Philosophers on Akka</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
-<li>Def: An ADT, with P, V operations on integers, and atomicity and await</li>
-<li><a href="./semaphoreSemantics.html">./semaphoreSemantics.html</a></li>
+<li>The source code examples below are "implementing" the famous Dining
+Philosophers Problem.  Not the solution.</li>
+
+<li><a href="./scalaExamples/DiningHakkersOnBecome.scala">DiningHakkersOnBecome.scala</a> minor mods by Mateti</li>
+
+<li><a href="./scalaExamples/DiningHakkersOnFsm.scala">DiningHakkersOnFsm.scala</a> minor mods by Mateti</li>
+
+<li>My versions can be compiled and run without using Activator: <code>%
+   scalac DiningHakkersOnBecome.scala; % scala DiningHakkersOnBecome</code></li>
+
+<li><a href="./dining-philosophers-akka-fsm.html">dining-philosophers-akka-fsm</a> fairly detailed explanation of the
+Akka FSM based code.</li>
+
+<li><a href="https://www.typesafe.com/activator/template/akka-sample-fsm-scala">https://www.typesafe.com/activator/template/akka-sample-fsm-scala</a></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org14461a5" class="outline-2">
-<h2 id="org14461a5"><span class="section-number-2">2</span> Split Binary Semaphores</h2>
+
+<div id="outline-container-orgc8c7bec" class="outline-2">
+<h2 id="orgc8c7bec"><span class="section-number-2">2</span> End</h2>
 <div class="outline-text-2" id="text-2">
-</div>
-<div id="outline-container-org1c697cb" class="outline-3">
-<h3 id="org1c697cb"><span class="section-number-3">2.1</span> Def</h3>
-<div class="outline-text-3" id="text-2-1">
-<ol class="org-ol">
-<li>Consider a binary semaphore b.</li>
-<li>Imagine "splitting" it into multiple binary semaphores such that
-<ol class="org-ol">
-<li>sum-of b = {b<sub>1</sub> + b<sub>2</sub> + &#x2026; + b<sub>n</sub>}, at all times</li>
-</ol></li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org11a2098" class="outline-3">
-<h3 id="org11a2098"><span class="section-number-3">2.2</span> Uses</h3>
-<div class="outline-text-3" id="text-2-2">
-<ol class="org-ol">
-<li>Starvation-Free Mutex</li>
-<li>Passing the Baton Technique (cf. Readers-Writers)</li>
-</ol>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org20f87ac" class="outline-2">
-<h2 id="org20f87ac"><span class="section-number-2">3</span> Starvation-Free Mutex Semaphore</h2>
-<div class="outline-text-2" id="text-3">
-<ol class="org-ol">
-<li>The std solution  is not starvation-free.</li>
-<li>Fairness: "Weak v Strong" semaphores.</li>
-<li><a href="./udding-morris-algs.html">./udding-morris-algs.html</a></li>
-<li><a href="./udding-david.html">./udding-david.html</a> further commentary</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org9f0cba8" class="outline-2">
-<h2 id="org9f0cba8"><span class="section-number-2">4</span> Distributed Semaphores</h2>
-<div class="outline-text-2" id="text-4">
-<ol class="org-ol">
-<li>Implement semaphores in the distributed context: strictly peer-to-peer</li>
-<li>Where is "the" "queue" of processes waiting to finish P(m) located?</li>
-<li>Andrews Algorithm: <a href="./semaphore-distributed.html">./semaphore-distributed.html</a></li>
-<li>Many "better" algorithms now exist.</li>
-<li>Most distributed implementations are "suspect".</li>
-</ol>
-</div>
-</div>
-
-
-<div id="outline-container-org6161e3a" class="outline-2">
-<h2 id="org6161e3a"><span class="section-number-2">5</span> The Power of semaphores</h2>
-<div class="outline-text-2" id="text-5">
-<ol class="org-ol">
-<li>Semaphore Ops: P and V.</li>
-<li>Will we improve the "power" of Semaphores with additional ops?</li>
-</ol>
-</div>
-
-<div id="outline-container-org4de85a0" class="outline-3">
-<h3 id="org4de85a0"><span class="section-number-3">5.1</span> Add Peek and Pp?</h3>
-<div class="outline-text-3" id="text-5-1">
-<ol class="org-ol">
-<li>peek(s) defined as "return &lt;s &gt; 0&gt;"</li>
-
-<li><p>
-Pp(s) defined as
-</p>
-<div class="org-src-container">
-<pre class="src src-bash"><span style="color: #a020f0;">function</span> <span style="color: #0000ff;">Pp</span>(s): boolean
-  <span style="color: #a020f0;">if</span> &lt;s &gt; 0&gt; -&gt; &lt;s := s - 1&gt;; <span style="color: #a020f0;">return</span> True
-  [] &lt;s &lt; 0&gt; -&gt; return False
-  <span style="color: #a020f0;">fi</span>
-end
-</pre>
-</div></li>
-
-<li>Would either of the two ops add "power" to the semaphore?</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-orgccc6aeb" class="outline-3">
-<h3 id="orgccc6aeb"><span class="section-number-3">5.2</span> Cigarette Smokers Problem</h3>
-<div class="outline-text-3" id="text-5-2">
-<ol class="org-ol">
-<li>What problems of concurrency can semaphores solve?</li>
-<li>Introduces an array of semaphores.</li>
-<li>Cigarette Smokers Problem cannot be solved without arrays.</li>
-<li><a href="https://en.wikipedia.org/wiki/Cigarette_smokers_problem">Cigarette Smokers Problem</a></li>
-</ol>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orge8dc88b" class="outline-2">
-<h2 id="orge8dc88b"><span class="section-number-2">6</span> References</h2>
-<div class="outline-text-2" id="text-6">
-<ol class="org-ol">
-<li>Allen B. Downey, The Little Book of Semaphores, book, 290+
-pp, 2016.  Free pdf, <a href="http://greenteapress.com/wp/semaphores/">http://greenteapress.com/wp/semaphores/</a>.</li>
-</ol>
-
-
-<ol class="org-ol">
-<li>Leslie Lamport, title = {The Mutual Exclusion Problem - Part I: A
-Theory of Interprocess Communication}, year = {2000}
-<a href="http://research.microsoft.com/users/lamport/pubs/mutual1.pdf">http://research.microsoft.com/users/lamport/pubs/mutual1.pdf</a></li>
-
-<li>author = {L. Lamport}, title = {The Mutual Exclusion Problem - Part
-II: Statement and Solutions}, year = {2000}
-<a href="http://research.microsoft.com/users/lamport/pubs/mutual2.pdf">http://research.microsoft.com/users/lamport/pubs/mutual2.pdf</a></li>
-</ol>
-
-
-<ol class="org-ol">
-<li>Vlad Popov and Oleg Mazonka, Faster Fair Solution for the
-Reader-Writer Problem, 2013.  <a href="http://arxiv.org/pdf/1309.4507.pdf">http://arxiv.org/pdf/1309.4507.pdf</a></li>
-</ol>
-</div>
-</div>
-
-
-<div id="outline-container-orgcec05eb" class="outline-2">
-<h2 id="orgcec05eb"><span class="section-number-2">7</span> End</h2>
-<div class="outline-text-2" id="text-7">
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<hr size=1>Copyright &copy; 2020 &bull; <a href="https://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2016-09-06
+<hr size=1>Copyright &copy; 2020 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2020-01-31
 </div>
 </body>
 </html>
