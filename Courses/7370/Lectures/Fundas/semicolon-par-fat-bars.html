@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-12-10 Tue 08:38 -->
+<!-- 2020-01-31 Fri 15:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Semantics of ; || []</title>
@@ -182,6 +182,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -230,6 +231,13 @@ for the JavaScript code in this tag.
 </script>
 </head>
 <body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
 <div id="content">
 <h1 class="title">Semantics of ; || []</h1>
 <p>
@@ -237,8 +245,8 @@ For now, let us focus on executional semantics.  We will revisit these
 after Hoare's Axioms and Dijkstra's Weakest Preconditions.
 </p>
 
-<div id="outline-container-org15f3340" class="outline-2">
-<h2 id="org15f3340"><span class="section-number-2">1</span> Semantics of Semicolon ;</h2>
+<div id="outline-container-orgaa49b93" class="outline-2">
+<h2 id="orgaa49b93"><span class="section-number-2">1</span> Semantics of Semicolon ;</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
 <li>Consider the execution of S &equiv; S1 ; S2.  Think of semi-colon as
@@ -257,8 +265,8 @@ and te(Si) when it ended (if it did).</li>
 </div>
 </div>
 
-<div id="outline-container-org0996645" class="outline-2">
-<h2 id="org0996645"><span class="section-number-2">2</span> Semantics of Parallel Bar ||</h2>
+<div id="outline-container-orge92d34b" class="outline-2">
+<h2 id="orge92d34b"><span class="section-number-2">2</span> Semantics of Parallel Bar ||</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li>Let S &equiv; S1 || S2.  Often written as <code>co S1 || s2 oc</code></li>
@@ -276,8 +284,8 @@ and te(Si) when it ended (if it did).</li>
 </div>
 </div>
 
-<div id="outline-container-orge47d3a1" class="outline-2">
-<h2 id="orge47d3a1"><span class="section-number-2">3</span> Semantics of Fat Bar []</h2>
+<div id="outline-container-org798410b" class="outline-2">
+<h2 id="org798410b"><span class="section-number-2">3</span> Semantics of Fat Bar []</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li>Let S &equiv; S1 [] S2.  Non-determinism
@@ -291,12 +299,12 @@ and te(Si) when it ended (if it did).</li>
 </div>
 </div>
 
-<div id="outline-container-orgda4d4a0" class="outline-2">
-<h2 id="orgda4d4a0"><span class="section-number-2">4</span> Guarded Commands of Dijkstra</h2>
+<div id="outline-container-org853dfdd" class="outline-2">
+<h2 id="org853dfdd"><span class="section-number-2">4</span> Guarded Commands of Dijkstra</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-orgc9e57a0" class="outline-3">
-<h3 id="orgc9e57a0"><span class="section-number-3">4.1</span> IF statement</h3>
+<div id="outline-container-org8bb48de" class="outline-3">
+<h3 id="org8bb48de"><span class="section-number-3">4.1</span> IF statement</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 if G0 ==&gt; S0<br />
@@ -324,8 +332,8 @@ Case 2: If no Si are enabled the if-stmt aborts.
 </div>
 </div>
 
-<div id="outline-container-org0c6d8b7" class="outline-3">
-<h3 id="org0c6d8b7"><span class="section-number-3">4.2</span> DO statement</h3>
+<div id="outline-container-org1507591" class="outline-3">
+<h3 id="org1507591"><span class="section-number-3">4.2</span> DO statement</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 do G0 ==&gt; S0<br />
@@ -347,8 +355,8 @@ true, then we execute the do-stmt again.</li>
 </div>
 
 
-<div id="outline-container-org0b8d275" class="outline-2">
-<h2 id="org0b8d275"><span class="section-number-2">5</span> Exercise</h2>
+<div id="outline-container-org246625c" class="outline-2">
+<h2 id="org246625c"><span class="section-number-2">5</span> Exercise</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Consider
@@ -357,12 +365,15 @@ How can x be 0, 1, 2 or 3 on page 60 of Andrew's Concurrent Programming?
 </p>
 </div>
 </div>
+
+<div id="outline-container-org437acd9" class="outline-2">
+<h2 id="org437acd9"><span class="section-number-2">6</span> End</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: Prabhaker Mateti (<a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a>)</p>
-<p class="date">Date: </p>
-<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.1.9)</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<hr size=1>Copyright &copy; 2020 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 
 </div>
 </body>
 </html>

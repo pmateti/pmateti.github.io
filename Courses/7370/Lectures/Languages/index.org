@@ -1,0 +1,33 @@
+# -*- mode: org -*-
+#+DATE: 2020-01-31
+#+TITLE: Distributed Programming Languages
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Distributed Computing
+
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {font-family: monospace; font-size: 10pt; color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\"> DIC</a> "))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1 
+
+* SR
+
+1. CEG7370 WhiteBoard in SR [[../Projects/WB-SR/]]
+
+
+* GO
+
+1. [[./Go.org]]
+
+* Language Sampler
+
+1. [[./languageSampler.html]]
+
+* Scala
+
+1. [[./Scala]]
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

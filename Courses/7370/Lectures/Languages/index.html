@@ -3,13 +3,13 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-12-25 Wed 09:15 -->
+<!-- 2020-01-31 Fri 16:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Distributed Programming Language Sampler: Go</title>
+<title>Distributed Programming Languages</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
-<meta name="description" content="CEG7370 Distributed Computing"
+<meta name="description" content="Distributed Computing"
  />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
@@ -232,231 +232,68 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="preamble" class="status">
-<a href="../../Top/"> CEG 7370</a>
+<a href="../../Top/"> DIC</a> 
 </div>
 <div id="content">
-<h1 class="title">Distributed Programming Language Sampler: Go</h1>
+<h1 class="title">Distributed Programming Languages</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga391114">1. Facts</a></li>
-<li><a href="#org1905dbf">2. Hype</a></li>
-<li><a href="#org7c5386d">3. Hello world</a></li>
-<li><a href="#org444bbd8">4. Quick Sort</a></li>
-<li><a href="#org932ad31">5. Concurrently Say "Enjoy" "Rosetta" "Code": Goroutine</a></li>
-<li><a href="#org0e8033b">6. Concurrently Say "Enjoy" "Rosetta" "Code": Afterfunc</a></li>
-<li><a href="#org69295b5">7. Concurrently Say "Enjoy" "Rosetta" "Code": Select</a></li>
-<li><a href="#org4c1b521">8. Compute the Digits of Pi</a></li>
-<li><a href="#org28bc276">9. Misc</a></li>
+<li><a href="#org688eb2a">1. SR</a></li>
+<li><a href="#org6f3403c">2. GO</a></li>
+<li><a href="#orge7df975">3. Language Sampler</a></li>
+<li><a href="#org95b99cf">4. Scala</a></li>
+<li><a href="#org2754b13">5. End</a></li>
 </ul>
 </div>
 </div>
 
-
-<div id="outline-container-orga391114" class="outline-2">
-<h2 id="orga391114"><span class="section-number-2">1</span> Facts</h2>
+<div id="outline-container-org688eb2a" class="outline-2">
+<h2 id="org688eb2a"><span class="section-number-2">1</span> SR</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>CEG7370 WhiteBoard in SR <a href="../Projects/WB-SR/">../Projects/WB-SR/</a></li>
+</ol>
+</div>
 </div>
 
 
-
-<div id="outline-container-org1905dbf" class="outline-2">
-<h2 id="org1905dbf"><span class="section-number-2">2</span> Hype</h2>
+<div id="outline-container-org6f3403c" class="outline-2">
+<h2 id="org6f3403c"><span class="section-number-2">2</span> GO</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li><a href="./Go.html">./Go.html</a></li>
+</ol>
+</div>
 </div>
 
-<div id="outline-container-org7c5386d" class="outline-2">
-<h2 id="org7c5386d"><span class="section-number-2">3</span> Hello world</h2>
+<div id="outline-container-orge7df975" class="outline-2">
+<h2 id="orge7df975"><span class="section-number-2">3</span> Language Sampler</h2>
 <div class="outline-text-2" id="text-3">
-<div class="org-src-container">
-<pre class="src src-go">package main
-import "fmt"
-func main() { fmt.Println("Hello World!") }
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org444bbd8" class="outline-2">
-<h2 id="org444bbd8"><span class="section-number-2">4</span> Quick Sort</h2>
-<div class="outline-text-2" id="text-4">
-<div class="org-src-container">
-<pre class="src src-go">% from http://stackoverflow.com/questions/15802890/
-
-func qsort(a []int) []int {
-  if len(a) &lt; 2 { return a }
-
-  left, right := 0, len(a) - 1
-  pivotIndex := rand.Int() % len(a)
-  a[pivotIndex], a[right] = a[right], a[pivotIndex]
-
-  for i := range a {
-    if a[i] &lt; a[right] {
-      a[i], a[left] = a[left], a[i]
-      left++
-    }
-  }
-  a[left], a[right] = a[right], a[left]
-
-  qsort(a[:left])
-  qsort(a[left + 1:])
-  return a
-}
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org932ad31" class="outline-2">
-<h2 id="org932ad31"><span class="section-number-2">5</span> Concurrently Say "Enjoy" "Rosetta" "Code": Goroutine</h2>
-<div class="outline-text-2" id="text-5">
-<p>
-Goroutine is a play on coroutine.
-</p>
-
-<p>
-"Simplest and most direct solution: Start three goroutines, give each
-one a word. Each sleeps, then returns the word on a channel. The main
-goroutine prints words as they return. The print loop represents a
-checkpoint&#x2013;main doesn't exit until all words have returned and been
-printed."
-</p>
-
-<div class="org-src-container">
-<pre class="src src-go">package main
-
-import (
-    "fmt"
-    "math/rand"
-    "time"
-)
-
-func main() {
-    words := []string{"Enjoy", "Rosetta", "Code"}
-    rand.Seed(time.Now().UnixNano())
-    q := make(chan string)
-    for _, w := range words {
-        go func(w string) {
-            time.Sleep(time.Duration(rand.Int63n(1e9)))
-            q &lt;- w
-        }(w)
-    }
-    for i := 0; i &lt; len(words); i++ {
-        fmt.Println(&lt;-q)
-    }
-}
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org0e8033b" class="outline-2">
-<h2 id="org0e8033b"><span class="section-number-2">6</span> Concurrently Say "Enjoy" "Rosetta" "Code": Afterfunc</h2>
-<div class="outline-text-2" id="text-6">
-<p>
-<code>time.Afterfunc</code> combines the sleep and the goroutine
-start. <code>log.Println</code> serializes output in the case goroutines attempt
-to print concurrently. <code>sync.WaitGroup</code> is used directly as a
-checkpoint.  
-</p>
-
-<div class="org-src-container">
-<pre class="src src-go">package main
-
-import (
-    "log"
-    "math/rand"
-    "os"
-    "sync"
-    "time"
-)
-
-func main() {
-    words := []string{"Enjoy", "Rosetta", "Code"}
-    rand.Seed(time.Now().UnixNano())
-    l := log.New(os.Stdout, "", 0)
-    var q sync.WaitGroup
-    q.Add(len(words))
-    for _, w := range words {
-        w := w
-        time.AfterFunc(time.Duration(rand.Int63n(1e9)), func() {
-            l.Println(w)
-            q.Done()
-        })
-    }
-    q.Wait()
-}
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org69295b5" class="outline-2">
-<h2 id="org69295b5"><span class="section-number-2">7</span> Concurrently Say "Enjoy" "Rosetta" "Code": Select</h2>
-<div class="outline-text-2" id="text-7">
-<p>
-This solution might stretch the intent of the task a bit. It is
-concurrent but not parallel.  Also it doesn't sleep and doesn't call
-the random number generator explicity. It works because the select
-statement is specified to make a "pseudo-random fair choice" among
-multiple channel operations.  package main
-</p>
-
-<p>
-import "fmt"
-</p>
-
-<p>
-func main() {
-    w1 := make(chan bool, 1)
-    w2 := make(chan bool, 1)
-    w3 := make(chan bool, 1)
-    for i := 0; i &lt; 3; i++ {
-        w1 &lt;- true
-        w2 &lt;- true
-        w3 &lt;- true
-        fmt.Println()
-        for i := 0; i &lt; 3; i++ {
-            select {
-            case &lt;-w1:
-                fmt.Println("Enjoy")
-            case &lt;-w2:
-                fmt.Println("Rosetta")
-            case &lt;-w3:
-                fmt.Println("Code")
-            }
-        }
-    }
-}
-</p>
-</div>
-</div>
-
-<div id="outline-container-org4c1b521" class="outline-2">
-<h2 id="org4c1b521"><span class="section-number-2">8</span> Compute the Digits of Pi</h2>
-<div class="outline-text-2" id="text-8">
-<div class="org-src-container">
-<pre class="src src-go">
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org28bc276" class="outline-2">
-<h2 id="org28bc276"><span class="section-number-2">9</span> Misc</h2>
-<div class="outline-text-2" id="text-9">
 <ol class="org-ol">
 <li><a href="./languageSampler.html">./languageSampler.html</a></li>
-
-<li><a href="http://www.lunabase.org/~faber/blog/?p=1361">http://www.lunabase.org/~faber/blog/?p=1361</a> Playing with Go: a
-concurrent quicksort May 2012</li>
-
-<li><a href="http://rosettacode.org/wiki/Concurrent_computing#Go">http://rosettacode.org/wiki/Concurrent_computing#Go</a></li>
 </ol>
+</div>
+</div>
+
+<div id="outline-container-org95b99cf" class="outline-2">
+<h2 id="org95b99cf"><span class="section-number-2">4</span> Scala</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li><a href="./Scala">./Scala</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org2754b13" class="outline-2">
+<h2 id="org2754b13"><span class="section-number-2">5</span> End</h2>
+<div class="outline-text-2" id="text-5">
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<hr size=1>Copyright &copy; 2015 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2015-03-13
+<hr size=1>Copyright &copy; 2020 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2020-01-31
 </div>
 </body>
 </html>

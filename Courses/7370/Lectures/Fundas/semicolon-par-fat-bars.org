@@ -10,6 +10,13 @@
 #+BIND: org-export-html-preamble-format (("en" "<a href=\"../../Top/\">CEG 7370</a>"))
 #+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2014 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
 #+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+
 
 For now, let us focus on executional semantics.  We will revisit these
 after Hoare's Axioms and Dijkstra's Weakest Preconditions.
@@ -89,3 +96,8 @@ od\\
 Consider
 {y := 0; z := 0; co x := y + z || {y := 1; z := 2} co}
 How can x be 0, 1, 2 or 3 on page 60 of Andrew's Concurrent Programming?
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

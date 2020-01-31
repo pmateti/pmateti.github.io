@@ -56,6 +56,31 @@ sites.
    analytics, in one system. Analytical programs can be written in
    concise and elegant APIs in Java and Scala.
 
+* Apache Spark
+
+1. http://spark.apache.org/ "" Apache Spark is a fast and general engine
+   for large-scale data processing.  Applications can be written in
+   Scala, which is an very powerful and expressive functional
+   programming language (Stratosphere also supports Scala). It is
+   really fast on job setup, hence it is very suited for small and
+   medium sized data and ad-hoc evaluations.
+
+1. https://prestodb.io/ "" According to Facebook, Presto is a new
+   interactive query system that operates fast at petabyte scale that
+   is founded on a distributed SQL query engine optimized for ad-hoc
+   analysis at interactive speed. And like Spark, all processing is in
+   memory. Facebook recently open-sourced the code and the Presto
+   community can be found here.  Unlike Spark or Hadoop, Presto can
+   concurrently use a number of data stores as sources. All that is
+   needed are “connectors” that provide interfaces for metadata, data
+   locations, and data access. This obviates the need to move data
+   around in order to query it—a requirement that’s becoming critical
+   to many IT administrators. Simply plug the data source into Presto
+   and—presto!—it can be interactively queried in real
+   time. Connectors are currently available for Hadoop/Hive (Apache
+   and Cloudera distributions) and Cassandra. But one can imagine more
+   could be built for the enterprises’ existing data stores.
+
 * Hydra
 
 1. https://github.com/addthis/hydra "" It may not have the name
