@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-01-31 Fri 15:48 -->
+<!-- 2020-01-31 Fri 10:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Cluster Computing, MapReduce, Hadoop, Spark</title>
+<title>DIC Classic Problems and Solutions</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
 <style type="text/css">
@@ -234,149 +234,37 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="../../Top/index.html"> HOME </a>
 </div><div id="preamble" class="status">
-2019-12-06 | <a href="../../"> ../../</a>
+<a href="../../"> ../../</a>
 </div>
 <div id="content">
-<h1 class="title">Cluster Computing, MapReduce, Hadoop, Spark</h1>
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#org01e7062">1. Cluster Computing</a></li>
-<li><a href="#org88a0e30">2. MapReduce</a></li>
-<li><a href="#org3ad9ce1">3. Hadoop</a></li>
-<li><a href="#orgfc92e2e">4. Spark</a>
-<ul>
-<li><a href="#org6c0094d">4.1. Short Examples of Spark Programs</a></li>
-</ul>
-</li>
-<li><a href="#orgbd7370c">5. Reading beyond the Lectures</a></li>
-<li><a href="#org8d3446c">6. End</a></li>
-</ul>
-</div>
-</div>
+<h1 class="title">DIC Classic Problems and Solutions</h1>
 
-<div id="outline-container-org01e7062" class="outline-2">
-<h2 id="org01e7062"><span class="section-number-2">1</span> Cluster Computing</h2>
+<div id="outline-container-org0dc1d91" class="outline-2">
+<h2 id="org0dc1d91"><span class="section-number-2">1</span> TOC</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
-<li><a href="./matetiClusterIntro.ppt">./matetiClusterIntro.ppt</a></li>
-<li><a href="./matetiClusters.pptx">./matetiClusters.pptx</a></li>
-
-<li><a href="./matetiBWF.ppt">./matetiBWF.ppt</a></li>
-
-<li><a href="./matetiMPI.ppt">./matetiMPI.ppt</a></li>
-<li><a href="./matetiNOW.ppt">./matetiNOW.ppt</a></li>
-<li><a href="./matetiPVM.ppt">./matetiPVM.ppt</a></li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org88a0e30" class="outline-2">
-<h2 id="org88a0e30"><span class="section-number-2">2</span> MapReduce</h2>
-<div class="outline-text-2" id="text-2">
-<ol class="org-ol">
-<li><a href="./MapReduce-UofI-2015.ppt">./MapReduce-UofI-2015.ppt</a></li>
-<li><a href="./MapReduce-UToronto-2014.ppt">./MapReduce-UToronto-2014.ppt</a></li>
-<li><a href="./mapreduce-wordcount.C">./mapreduce-wordcount.C</a></li>
+<li><a href="./classics.html">./classics.html</a> Classic Problems in Concurrency</li>
+<li><a href="./passing-the-baton-ns.html">./passing-the-baton-ns.html</a></li>
+<li><a href="./readers-writers.html">./readers-writers.html</a> Problem Modeling, Await-based Solution</li>
+<li><a href="./Parnas-readers-writers-with-priority.html">./Parnas-readers-writers-with-priority.html</a></li>
 </ol>
 </div>
 </div>
 
 
-<div id="outline-container-org3ad9ce1" class="outline-2">
-<h2 id="org3ad9ce1"><span class="section-number-2">3</span> Hadoop</h2>
+<div id="outline-container-orgc6b1de4" class="outline-2">
+<h2 id="orgc6b1de4"><span class="section-number-2">2</span> Reading beyond the Lectures</h2>
+</div>
+
+
+<div id="outline-container-org89222a6" class="outline-2">
+<h2 id="org89222a6"><span class="section-number-2">3</span> End</h2>
 <div class="outline-text-2" id="text-3">
-<ol class="org-ol">
-<li><a href="./matetiHadoop.pptx">./matetiHadoop.pptx</a></li>
-<li><a href="./hadoopAlternatives.html">./hadoopAlternatives.html</a></li>
-<li><a href="./Hadoop-WordCount_files/">./Hadoop-WordCount_files/</a></li>
-<li><a href="./Hadoop-WordCount.htm">./Hadoop-WordCount.htm</a></li>
-
-<li><a href="https://intellipaat.com/blog/tutorial/hadoop-tutorial/">https://intellipaat.com/blog/tutorial/hadoop-tutorial/</a></li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-orgfc92e2e" class="outline-2">
-<h2 id="orgfc92e2e"><span class="section-number-2">4</span> Spark</h2>
-<div class="outline-text-2" id="text-4">
-<ol class="org-ol">
-<li><a href="http://spark.apache.org/">http://spark.apache.org/</a> "" Apache Spark is a fast and general engine
-for large-scale data processing.  Applications can be written in
-Scala, which is an very powerful and expressive functional
-programming language (Stratosphere also supports Scala). It is
-really fast on job setup, hence it is very suited for small and
-medium sized data and ad-hoc evaluations.</li>
-
-<li><a href="https://prestodb.io/">https://prestodb.io/</a> "" According to Facebook, Presto is a new
-interactive query system that operates fast at petabyte scale that
-is founded on a distributed SQL query engine optimized for ad-hoc
-analysis at interactive speed. And like Spark, all processing is in
-memory. Facebook recently open-sourced the code and the Presto
-community can be found here.  Unlike Spark or Hadoop, Presto can
-concurrently use a number of data stores as sources. All that is
-needed are “connectors” that provide interfaces for metadata, data
-locations, and data access. This obviates the need to move data
-around in order to query it—a requirement that’s becoming critical
-to many IT administrators. Simply plug the data source into Presto
-and—presto!—it can be interactively queried in real
-time. Connectors are currently available for Hadoop/Hive (Apache
-and Cloudera distributions) and Cassandra. But one can imagine more
-could be built for the enterprises’ existing data stores.</li>
-
-<li><a href="https://databricks.com/spark/getting-started-with-apache-spark">https://databricks.com/spark/getting-started-with-apache-spark</a></li>
-</ol>
-</div>
-
-<div id="outline-container-org6c0094d" class="outline-3">
-<h3 id="org6c0094d"><span class="section-number-3">4.1</span> Short Examples of Spark Programs</h3>
-<div class="outline-text-3" id="text-4-1">
-<ol class="org-ol">
-<li><p>
-Spark can be used for compute-intensive tasks. This code estimates
-π by "throwing darts" at a circle. We pick random points in the
-unit square ((0, 0) to (1,1)) and see how many fall in the unit
-circle. The fraction should be π / 4, so we use this to get our
-estimate.
-</p>
-
-<pre class="example">
-val count = sc.parallelize(1 to NUM_SAMPLES).filter { _ =&gt;
-  val x = math.random
-  val y = math.random
-  x*x + y*y &lt; 1
-}.count()
-println(s"Pi is roughly ${4.0 * count / NUM_SAMPLES}")
-</pre></li>
-</ol>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgbd7370c" class="outline-2">
-<h2 id="orgbd7370c"><span class="section-number-2">5</span> Reading beyond the Lectures</h2>
-<div class="outline-text-2" id="text-5">
-<ol class="org-ol">
-<li><a href="https://databricks.com/spark/getting-started-with-apache-spark">https://databricks.com/spark/getting-started-with-apache-spark</a>; see
-all of their courses at <a href="https://academy.databricks.com">https://academy.databricks.com</a></li>
-
-<li><a href="./dean-ghemawat-mapreduce-osdi04.pdf">./dean-ghemawat-mapreduce-osdi04.pdf</a> Original paper that introduced
-MapReduce which later became Hadoop.</li>
-
-<li><a href="./pmNotes-hadoop.html">./pmNotes-hadoop.html</a> Hadoop and Alternatives</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org8d3446c" class="outline-2">
-<h2 id="org8d3446c"><span class="section-number-2">6</span> End</h2>
-<div class="outline-text-2" id="text-6">
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<hr size=1>Copyright &copy; 2019 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2019-12-06
+<hr size=1>Copyright &copy; 2020 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2020-01-31
 </div>
 </body>
 </html>

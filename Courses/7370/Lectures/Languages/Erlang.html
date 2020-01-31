@@ -3,12 +3,14 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-01-31 Fri 15:48 -->
+<!-- 2020-01-31 Fri 16:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Cluster Computing, MapReduce, Hadoop, Spark</title>
+<title>Distributed Programming Language Sampler: Erlang</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
+<meta name="description" content="CEG7370 Distributed Computing"
+ />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -180,7 +182,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<style> P {text-align: justify} code, pre {font-family: monospace; font-size: 10pt; color: brown;} @media screen {BODY {margin: 10%} }</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -229,154 +231,274 @@ for the JavaScript code in this tag.
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="../"> UP </a>
- |
- <a accesskey="H" href="../../Top/index.html"> HOME </a>
-</div><div id="preamble" class="status">
-2019-12-06 | <a href="../../"> ../../</a>
+<div id="preamble" class="status">
+<a href="../../Top/"> CEG 7370</a>
 </div>
 <div id="content">
-<h1 class="title">Cluster Computing, MapReduce, Hadoop, Spark</h1>
+<h1 class="title">Distributed Programming Language Sampler: Erlang</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org01e7062">1. Cluster Computing</a></li>
-<li><a href="#org88a0e30">2. MapReduce</a></li>
-<li><a href="#org3ad9ce1">3. Hadoop</a></li>
-<li><a href="#orgfc92e2e">4. Spark</a>
-<ul>
-<li><a href="#org6c0094d">4.1. Short Examples of Spark Programs</a></li>
-</ul>
-</li>
-<li><a href="#orgbd7370c">5. Reading beyond the Lectures</a></li>
-<li><a href="#org8d3446c">6. End</a></li>
+<li><a href="#orgdc27c6d">1. Facts</a></li>
+<li><a href="#org6fb15f8">2. Hype</a></li>
+<li><a href="#org937001f">3. Hello World</a></li>
+<li><a href="#org7038020">4. Quick Sort</a></li>
+<li><a href="#org0348a99">5. Concurrently Say "Enjoy" "Rosetta" "Code"</a></li>
+<li><a href="#org1351288">6. A TCP/IP time server</a></li>
+<li><a href="#org5592b1b">7. Compute the Digits of Pi</a></li>
+<li><a href="#org6e2bb1c">8. RESTful Services with Erlang and Yaws</a></li>
+<li><a href="#org639cbcd">9. Erlang References</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org01e7062" class="outline-2">
-<h2 id="org01e7062"><span class="section-number-2">1</span> Cluster Computing</h2>
+<div id="outline-container-orgdc27c6d" class="outline-2">
+<h2 id="orgdc27c6d"><span class="section-number-2">1</span> Facts</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
-<li><a href="./matetiClusterIntro.ppt">./matetiClusterIntro.ppt</a></li>
-<li><a href="./matetiClusters.pptx">./matetiClusters.pptx</a></li>
+<li>TBD Year, Ericsson</li>
 
-<li><a href="./matetiBWF.ppt">./matetiBWF.ppt</a></li>
-
-<li><a href="./matetiMPI.ppt">./matetiMPI.ppt</a></li>
-<li><a href="./matetiNOW.ppt">./matetiNOW.ppt</a></li>
-<li><a href="./matetiPVM.ppt">./matetiPVM.ppt</a></li>
+<li><a href="http://www.erlang.org/">http://www.erlang.org/</a> There is an Erlang PDF book legit free to
+download.  Has examples.</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org88a0e30" class="outline-2">
-<h2 id="org88a0e30"><span class="section-number-2">2</span> MapReduce</h2>
+<div id="outline-container-org6fb15f8" class="outline-2">
+<h2 id="org6fb15f8"><span class="section-number-2">2</span> Hype</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
-<li><a href="./MapReduce-UofI-2015.ppt">./MapReduce-UofI-2015.ppt</a></li>
-<li><a href="./MapReduce-UToronto-2014.ppt">./MapReduce-UToronto-2014.ppt</a></li>
-<li><a href="./mapreduce-wordcount.C">./mapreduce-wordcount.C</a></li>
+<li>Buzz Words: concurrent real-time distributed fault-tolerant long-running</li>
+
+<li>"Erlang is a programming language which has many features more
+commonly associated with an operating system&lt;/a&gt; than with a
+programming language: concurrent processes&lt;/a&gt;, scheduling, garbage
+collection&lt;/a&gt;, distribution, networking, etc." It permits only a
+single assignment of a value to any variable.&lt;/p&gt;</li>
+
+<li>"Learn how to write truly concurrent programs &#x2013; programs that run
+on &#x2026; hundreds of local and remote processors. See how to write
+high reliability applications &#x2013; even in the face of network and
+hardware failure"</li>
+
+<li>"" Erlang is a language that was designed to support distributed,
+fault-tolerant, soft-realtime applications with requirements for
+high availability and high concurrency.</li>
+
+<li>"" Erlang is a programming language used to build massively
+scalable soft real-time systems with requirements on high
+availability. Some of its uses are in telecoms, banking,
+e-commerce, computer telephony and instant messaging. Erlang's
+runtime system has built-in support for concurrency, distribution
+and fault tolerance.</li>
+
+<li>"" Erlang is a programming language created specifically to support
+long-running, concurrent, highly reliable distributed systems.</li>
+
+<li>"" OTP is a set of Erlang libraries and design principles providing
+middle-ware to develop these systems. It includes its own
+distributed database, applications to interface towards other
+languages, debugging and release handling tools.</li>
 </ol>
 </div>
 </div>
 
-
-<div id="outline-container-org3ad9ce1" class="outline-2">
-<h2 id="org3ad9ce1"><span class="section-number-2">3</span> Hadoop</h2>
+<div id="outline-container-org937001f" class="outline-2">
+<h2 id="org937001f"><span class="section-number-2">3</span> Hello World</h2>
 <div class="outline-text-2" id="text-3">
-<ol class="org-ol">
-<li><a href="./matetiHadoop.pptx">./matetiHadoop.pptx</a></li>
-<li><a href="./hadoopAlternatives.html">./hadoopAlternatives.html</a></li>
-<li><a href="./Hadoop-WordCount_files/">./Hadoop-WordCount_files/</a></li>
-<li><a href="./Hadoop-WordCount.htm">./Hadoop-WordCount.htm</a></li>
-
-<li><a href="https://intellipaat.com/blog/tutorial/hadoop-tutorial/">https://intellipaat.com/blog/tutorial/hadoop-tutorial/</a></li>
-</ol>
+<div class="org-src-container">
+<pre class="src src-erlang">-module(hello).
+-export([hello_world/0]).
+hello_world() -&gt; io:fwrite("Hello, World!\n").
+</pre>
+</div>
 </div>
 </div>
 
-<div id="outline-container-orgfc92e2e" class="outline-2">
-<h2 id="orgfc92e2e"><span class="section-number-2">4</span> Spark</h2>
+
+<div id="outline-container-org7038020" class="outline-2">
+<h2 id="org7038020"><span class="section-number-2">4</span> Quick Sort</h2>
 <div class="outline-text-2" id="text-4">
-<ol class="org-ol">
-<li><a href="http://spark.apache.org/">http://spark.apache.org/</a> "" Apache Spark is a fast and general engine
-for large-scale data processing.  Applications can be written in
-Scala, which is an very powerful and expressive functional
-programming language (Stratosphere also supports Scala). It is
-really fast on job setup, hence it is very suited for small and
-medium sized data and ad-hoc evaluations.</li>
-
-<li><a href="https://prestodb.io/">https://prestodb.io/</a> "" According to Facebook, Presto is a new
-interactive query system that operates fast at petabyte scale that
-is founded on a distributed SQL query engine optimized for ad-hoc
-analysis at interactive speed. And like Spark, all processing is in
-memory. Facebook recently open-sourced the code and the Presto
-community can be found here.  Unlike Spark or Hadoop, Presto can
-concurrently use a number of data stores as sources. All that is
-needed are “connectors” that provide interfaces for metadata, data
-locations, and data access. This obviates the need to move data
-around in order to query it—a requirement that’s becoming critical
-to many IT administrators. Simply plug the data source into Presto
-and—presto!—it can be interactively queried in real
-time. Connectors are currently available for Hadoop/Hive (Apache
-and Cloudera distributions) and Cassandra. But one can imagine more
-could be built for the enterprises’ existing data stores.</li>
-
-<li><a href="https://databricks.com/spark/getting-started-with-apache-spark">https://databricks.com/spark/getting-started-with-apache-spark</a></li>
-</ol>
-</div>
-
-<div id="outline-container-org6c0094d" class="outline-3">
-<h3 id="org6c0094d"><span class="section-number-3">4.1</span> Short Examples of Spark Programs</h3>
-<div class="outline-text-3" id="text-4-1">
-<ol class="org-ol">
-<li><p>
-Spark can be used for compute-intensive tasks. This code estimates
-π by "throwing darts" at a circle. We pick random points in the
-unit square ((0, 0) to (1,1)) and see how many fall in the unit
-circle. The fraction should be π / 4, so we use this to get our
-estimate.
-</p>
-
-<pre class="example">
-val count = sc.parallelize(1 to NUM_SAMPLES).filter { _ =&gt;
-  val x = math.random
-  val y = math.random
-  x*x + y*y &lt; 1
-}.count()
-println(s"Pi is roughly ${4.0 * count / NUM_SAMPLES}")
-</pre></li>
-</ol>
+<div class="org-src-container">
+<pre class="src src-erlang">qsort([]) -&gt; [];
+qsort([X|Xs]) -&gt;
+   qsort([ Y || Y &lt;- Xs, Y &lt; X]) ++ [X] ++ qsort([ Y || Y &lt;- Xs, Y &gt;= X]).
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgbd7370c" class="outline-2">
-<h2 id="orgbd7370c"><span class="section-number-2">5</span> Reading beyond the Lectures</h2>
+<div id="outline-container-org0348a99" class="outline-2">
+<h2 id="org0348a99"><span class="section-number-2">5</span> Concurrently Say "Enjoy" "Rosetta" "Code"</h2>
 <div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+<pre class="src src-erlang">-module(hw).
+-export([start/0]).
+
+start() -&gt;
+   [ spawn(fun() -&gt;  say(self(), X) end)
+     || X &lt;- ['Enjoy', 'Rosetta', 'Code'] ],
+   wait(2),
+   ok.
+
+say(Pid,Str) -&gt;
+   io:fwrite("~s~n",[Str]),
+   Pid ! done.
+
+wait(N) -&gt;
+   receive
+       done -&gt; case N of
+           0 -&gt; 0;
+           _N -&gt; wait(N-1)
+       end
+   end.
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org1351288" class="outline-2">
+<h2 id="org1351288"><span class="section-number-2">6</span> A TCP/IP time server</h2>
+<div class="outline-text-2" id="text-6">
+<div class="org-src-container">
+<pre class="src src-erlang">% Author  : Claes Wikstrom &lt;klacke@erix.ericsson.se&gt;
+
+-module(time_server).
+-author('klacke@erix.ericsson.se').
+
+-export([start/0, loop0/1]).
+
+-define(PORTNO, 2345).
+
+start() -&gt;
+    start(?PORTNO).
+start(Pno) -&gt;
+    spawn(?MODULE, loop0, [Pno]).
+
+loop0(Port) -&gt;
+    case gen_tcp:listen(Port, [binary, {packet, 0}, {active, false}]) of
+  {ok, LSock} -&gt;
+      loop(LSock);
+  _ -&gt;
+      stop
+    end.
+
+loop(Listen) -&gt;
+    case gen_tcp:accept(Listen) of
+  {ok, S} -&gt;
+      gen_tcp:send(S, io_lib:format("~p~n", [{date(), time()}])),
+      gen_tcp:close(S),
+      loop(Listen);
+  _ -&gt;
+      loop(Listen)
+    end.
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5592b1b" class="outline-2">
+<h2 id="org5592b1b"><span class="section-number-2">7</span> Compute the Digits of Pi</h2>
+<div class="outline-text-2" id="text-7">
+<div class="org-src-container">
+<pre class="src src-erlang">% http://shootout.alioth.debian.org/ contributed by Mark Scandariato
+% erl -noshell -noinput -run pidigits main 7
+
+-module(pidigits).
+-export([main/1]).
+
+is_safe(Z, N) -&gt; N == extr(Z, 4).
+next(Z)       -&gt; extr(Z, 3).
+prod(Z, N)    -&gt; comp({10, -10*N, 0, 1}, Z).
+cons(Z, Zp)   -&gt; comp(Z, Zp).
+
+-define(unit, {1,0,0,1}).
+comp({Q,R,S,T}, {Qp, Rp, Sp, Tp}) -&gt;
+    {Q*Qp + R*Sp, Q*Rp + R*Tp, S*Qp + T*Sp, S*Rp + T*Tp}.
+extr({Q,R,S,T}, X) -&gt; (Q * X + R) div (S * X + T).
+
+lft(K) -&gt; {K, 4*K+2, 0, 2*K+1}.
+
+stream(N) -&gt; stream(N, 0, 1, ?unit, []).
+stream(N, N, _, _, P) -&gt; print(N,P);
+stream(N, C, K, Z, P) -&gt;
+    Y = next(Z),
+    case is_safe(Z, Y) of
+        true  -&gt;
+            stream(N, C+1, K, prod(Z,Y), update(C,Y,P));
+        false -&gt;
+            stream(N, C, K+1, cons(Z, lft(K)), P)
+    end.
+
+update(C, D, P) when C rem 10 == 0, C &gt; 0 -&gt;
+    print(C, P),
+    [D];
+
+update(_, D, P) -&gt; [D|P].
+
+print(C, P) -&gt; do_print(C, lists:reverse(P)).
+
+do_print(C, []) when C rem 10 == 0 -&gt; io:fwrite("\t:~p~n", [C]);
+do_print(C, []) -&gt; io:fwrite("~*.1c:~p~n", [10 - C rem 10, $\t, C]);
+do_print(C, [H|T]) -&gt; io:fwrite("~p", [H]), do_print(C, T).
+
+
+main([Arg]) -&gt;
+    N = list_to_integer(Arg),
+    main(N),
+    erlang:halt(0);
+
+main(N) when N &gt; 1 -&gt; stream(N).
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6e2bb1c" class="outline-2">
+<h2 id="org6e2bb1c"><span class="section-number-2">8</span> RESTful Services with Erlang and Yaws</h2>
+<div class="outline-text-2" id="text-8">
 <ol class="org-ol">
-<li><a href="https://databricks.com/spark/getting-started-with-apache-spark">https://databricks.com/spark/getting-started-with-apache-spark</a>; see
-all of their courses at <a href="https://academy.databricks.com">https://academy.databricks.com</a></li>
+<li>Yaws "Yet Another Web Server".  Written in Erlang.  For serving
+dynamic RESTful web.</li>
 
-<li><a href="./dean-ghemawat-mapreduce-osdi04.pdf">./dean-ghemawat-mapreduce-osdi04.pdf</a> Original paper that introduced
-MapReduce which later became Hadoop.</li>
+<li>REST = Representational State Transfer.  An architecture
+for large-scale distributed systems, like the web.</li>
 
-<li><a href="./pmNotes-hadoop.html">./pmNotes-hadoop.html</a> Hadoop and Alternatives</li>
+<li>Static web page servers: lighttpd, nginx</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org8d3446c" class="outline-2">
-<h2 id="org8d3446c"><span class="section-number-2">6</span> End</h2>
-<div class="outline-text-2" id="text-6">
+
+
+
+<div id="outline-container-org639cbcd" class="outline-2">
+<h2 id="org639cbcd"><span class="section-number-2">9</span> Erlang References</h2>
+<div class="outline-text-2" id="text-9">
+<ol class="org-ol">
+<li><a href="http://www.erlang.org/">http://www.erlang.org/</a> Download, etc.
+<a href="http://www.erlang.org/download/erlang-book-part1.pdf">http://www.erlang.org/download/erlang-book-part1.pdf</a> Legit
+download.  This manuscript contains the complete text of Part I of
+"Concurrent programming in Erlang" (ISBN 0-13-508301-X). 2015</li>
+
+<li><a href="http://www.infoq.com/articles/vinoski-erlang-rest">http://www.infoq.com/articles/vinoski-erlang-rest</a></li>
+
+<li><a href="http://rosettacode.org/">http://rosettacode.org/</a> "Rosetta Code is a programming chrestomathy
+site. The idea is to present solutions to the same task in as many
+different languages as possible, to demonstrate how languages are
+similar and different, and to aid a person with a grounding in one
+approach to a problem in learning another. Rosetta Code currently
+has 766 tasks, 144 draft tasks, and is aware of 567 languages,
+though we do not (and cannot) have solutions to every task in every
+language." 2015</li>
+</ol>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<hr size=1>Copyright &copy; 2019 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2019-12-06
+<hr size=1>Copyright &copy; 2015 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2015-03-13
 </div>
 </body>
 </html>

@@ -1,0 +1,32 @@
+
+# -*- mode: org -*-
+#+date: 2020-01-31
+#+TITLE: DIC Fundamentals
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* TOC
+
+1. [[./semicolon-par-fat-bars.org]] Semantics of ; || []
+
+1. [[./concurrency-fundamentals.org]] Overview
+1. [[./fairness-etc.html]] Fairness, Deadlocks, Livelocks, and Starvation
+1. [[./safety-liveness.html]] Defs of Safety and Liveness
+1. [[./conc-par-netw-distr.org]] Concurrent- Parallel- Networked-
+   Distributed- Computing: Are they different? Same?
+   1. [[./conc-par-netw-distr-Slides.html]]
+
+
+* Reading beyond the Lectures
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

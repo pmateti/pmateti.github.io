@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-12-25 Wed 09:15 -->
+<!-- 2020-01-31 Fri 16:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Distributed Programming Language Sampler: Erlang</title>
+<title>Distributed Programming Language Sampler: Go</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
 <meta name="description" content="CEG7370 Distributed Computing"
@@ -235,264 +235,222 @@ for the JavaScript code in this tag.
 <a href="../../Top/"> CEG 7370</a>
 </div>
 <div id="content">
-<h1 class="title">Distributed Programming Language Sampler: Erlang</h1>
+<h1 class="title">Distributed Programming Language Sampler: Go</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcb3b29b">1. Facts</a></li>
-<li><a href="#orgdef7b64">2. Hype</a></li>
-<li><a href="#org350544b">3. Hello World</a></li>
-<li><a href="#orga15d2d1">4. Quick Sort</a></li>
-<li><a href="#org196c939">5. Concurrently Say "Enjoy" "Rosetta" "Code"</a></li>
-<li><a href="#org1d5f91d">6. A TCP/IP time server</a></li>
-<li><a href="#org512f3ac">7. Compute the Digits of Pi</a></li>
-<li><a href="#org5b9f3a0">8. RESTful Services with Erlang and Yaws</a></li>
-<li><a href="#orge84c36d">9. Erlang References</a></li>
+<li><a href="#orgd8691d1">1. Facts</a></li>
+<li><a href="#org3caa2ae">2. Hype</a></li>
+<li><a href="#orge81e8ed">3. Hello world</a></li>
+<li><a href="#orgd4306a5">4. Quick Sort</a></li>
+<li><a href="#org711390c">5. Concurrently Say "Enjoy" "Rosetta" "Code": Goroutine</a></li>
+<li><a href="#org1592f4b">6. Concurrently Say "Enjoy" "Rosetta" "Code": Afterfunc</a></li>
+<li><a href="#orgb6f69c2">7. Concurrently Say "Enjoy" "Rosetta" "Code": Select</a></li>
+<li><a href="#org9cda96c">8. Compute the Digits of Pi</a></li>
+<li><a href="#org3cf2b58">9. Misc</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgcb3b29b" class="outline-2">
-<h2 id="orgcb3b29b"><span class="section-number-2">1</span> Facts</h2>
-<div class="outline-text-2" id="text-1">
-<ol class="org-ol">
-<li>TBD Year, Ericsson</li>
 
-<li><a href="http://www.erlang.org/">http://www.erlang.org/</a> There is an Erlang PDF book legit free to
-download.  Has examples.</li>
-</ol>
-</div>
+<div id="outline-container-orgd8691d1" class="outline-2">
+<h2 id="orgd8691d1"><span class="section-number-2">1</span> Facts</h2>
 </div>
 
-<div id="outline-container-orgdef7b64" class="outline-2">
-<h2 id="orgdef7b64"><span class="section-number-2">2</span> Hype</h2>
-<div class="outline-text-2" id="text-2">
-<ol class="org-ol">
-<li>Buzz Words: concurrent real-time distributed fault-tolerant long-running</li>
 
-<li>"Erlang is a programming language which has many features more
-commonly associated with an operating system&lt;/a&gt; than with a
-programming language: concurrent processes&lt;/a&gt;, scheduling, garbage
-collection&lt;/a&gt;, distribution, networking, etc." It permits only a
-single assignment of a value to any variable.&lt;/p&gt;</li>
 
-<li>"Learn how to write truly concurrent programs &#x2013; programs that run
-on &#x2026; hundreds of local and remote processors. See how to write
-high reliability applications &#x2013; even in the face of network and
-hardware failure"</li>
-
-<li>"" Erlang is a language that was designed to support distributed,
-fault-tolerant, soft-realtime applications with requirements for
-high availability and high concurrency.</li>
-
-<li>"" Erlang is a programming language used to build massively
-scalable soft real-time systems with requirements on high
-availability. Some of its uses are in telecoms, banking,
-e-commerce, computer telephony and instant messaging. Erlang's
-runtime system has built-in support for concurrency, distribution
-and fault tolerance.</li>
-
-<li>"" Erlang is a programming language created specifically to support
-long-running, concurrent, highly reliable distributed systems.</li>
-
-<li>"" OTP is a set of Erlang libraries and design principles providing
-middle-ware to develop these systems. It includes its own
-distributed database, applications to interface towards other
-languages, debugging and release handling tools.</li>
-</ol>
-</div>
+<div id="outline-container-org3caa2ae" class="outline-2">
+<h2 id="org3caa2ae"><span class="section-number-2">2</span> Hype</h2>
 </div>
 
-<div id="outline-container-org350544b" class="outline-2">
-<h2 id="org350544b"><span class="section-number-2">3</span> Hello World</h2>
+<div id="outline-container-orge81e8ed" class="outline-2">
+<h2 id="orge81e8ed"><span class="section-number-2">3</span> Hello world</h2>
 <div class="outline-text-2" id="text-3">
 <div class="org-src-container">
-<pre class="src src-erlang">-module(hello).
--export([hello_world/0]).
-hello_world() -&gt; io:fwrite("Hello, World!\n").
+<pre class="src src-go">package main
+import "fmt"
+func main() { fmt.Println("Hello World!") }
 </pre>
 </div>
 </div>
 </div>
 
-
-<div id="outline-container-orga15d2d1" class="outline-2">
-<h2 id="orga15d2d1"><span class="section-number-2">4</span> Quick Sort</h2>
+<div id="outline-container-orgd4306a5" class="outline-2">
+<h2 id="orgd4306a5"><span class="section-number-2">4</span> Quick Sort</h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
-<pre class="src src-erlang">qsort([]) -&gt; [];
-qsort([X|Xs]) -&gt;
-   qsort([ Y || Y &lt;- Xs, Y &lt; X]) ++ [X] ++ qsort([ Y || Y &lt;- Xs, Y &gt;= X]).
+<pre class="src src-go">% from http://stackoverflow.com/questions/15802890/
+
+func qsort(a []int) []int {
+  if len(a) &lt; 2 { return a }
+
+  left, right := 0, len(a) - 1
+  pivotIndex := rand.Int() % len(a)
+  a[pivotIndex], a[right] = a[right], a[pivotIndex]
+
+  for i := range a {
+    if a[i] &lt; a[right] {
+      a[i], a[left] = a[left], a[i]
+      left++
+    }
+  }
+  a[left], a[right] = a[right], a[left]
+
+  qsort(a[:left])
+  qsort(a[left + 1:])
+  return a
+}
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org196c939" class="outline-2">
-<h2 id="org196c939"><span class="section-number-2">5</span> Concurrently Say "Enjoy" "Rosetta" "Code"</h2>
+<div id="outline-container-org711390c" class="outline-2">
+<h2 id="org711390c"><span class="section-number-2">5</span> Concurrently Say "Enjoy" "Rosetta" "Code": Goroutine</h2>
 <div class="outline-text-2" id="text-5">
+<p>
+Goroutine is a play on coroutine.
+</p>
+
+<p>
+"Simplest and most direct solution: Start three goroutines, give each
+one a word. Each sleeps, then returns the word on a channel. The main
+goroutine prints words as they return. The print loop represents a
+checkpoint&#x2013;main doesn't exit until all words have returned and been
+printed."
+</p>
+
 <div class="org-src-container">
-<pre class="src src-erlang">-module(hw).
--export([start/0]).
+<pre class="src src-go">package main
 
-start() -&gt;
-   [ spawn(fun() -&gt;  say(self(), X) end)
-     || X &lt;- ['Enjoy', 'Rosetta', 'Code'] ],
-   wait(2),
-   ok.
+import (
+    "fmt"
+    "math/rand"
+    "time"
+)
 
-say(Pid,Str) -&gt;
-   io:fwrite("~s~n",[Str]),
-   Pid ! done.
-
-wait(N) -&gt;
-   receive
-       done -&gt; case N of
-           0 -&gt; 0;
-           _N -&gt; wait(N-1)
-       end
-   end.
+func main() {
+    words := []string{"Enjoy", "Rosetta", "Code"}
+    rand.Seed(time.Now().UnixNano())
+    q := make(chan string)
+    for _, w := range words {
+        go func(w string) {
+            time.Sleep(time.Duration(rand.Int63n(1e9)))
+            q &lt;- w
+        }(w)
+    }
+    for i := 0; i &lt; len(words); i++ {
+        fmt.Println(&lt;-q)
+    }
+}
 </pre>
 </div>
 </div>
 </div>
 
-
-<div id="outline-container-org1d5f91d" class="outline-2">
-<h2 id="org1d5f91d"><span class="section-number-2">6</span> A TCP/IP time server</h2>
+<div id="outline-container-org1592f4b" class="outline-2">
+<h2 id="org1592f4b"><span class="section-number-2">6</span> Concurrently Say "Enjoy" "Rosetta" "Code": Afterfunc</h2>
 <div class="outline-text-2" id="text-6">
+<p>
+<code>time.Afterfunc</code> combines the sleep and the goroutine
+start. <code>log.Println</code> serializes output in the case goroutines attempt
+to print concurrently. <code>sync.WaitGroup</code> is used directly as a
+checkpoint.  
+</p>
+
 <div class="org-src-container">
-<pre class="src src-erlang">% Author  : Claes Wikstrom &lt;klacke@erix.ericsson.se&gt;
+<pre class="src src-go">package main
 
--module(time_server).
--author('klacke@erix.ericsson.se').
+import (
+    "log"
+    "math/rand"
+    "os"
+    "sync"
+    "time"
+)
 
--export([start/0, loop0/1]).
-
--define(PORTNO, 2345).
-
-start() -&gt;
-    start(?PORTNO).
-start(Pno) -&gt;
-    spawn(?MODULE, loop0, [Pno]).
-
-loop0(Port) -&gt;
-    case gen_tcp:listen(Port, [binary, {packet, 0}, {active, false}]) of
-  {ok, LSock} -&gt;
-      loop(LSock);
-  _ -&gt;
-      stop
-    end.
-
-loop(Listen) -&gt;
-    case gen_tcp:accept(Listen) of
-  {ok, S} -&gt;
-      gen_tcp:send(S, io_lib:format("~p~n", [{date(), time()}])),
-      gen_tcp:close(S),
-      loop(Listen);
-  _ -&gt;
-      loop(Listen)
-    end.
+func main() {
+    words := []string{"Enjoy", "Rosetta", "Code"}
+    rand.Seed(time.Now().UnixNano())
+    l := log.New(os.Stdout, "", 0)
+    var q sync.WaitGroup
+    q.Add(len(words))
+    for _, w := range words {
+        w := w
+        time.AfterFunc(time.Duration(rand.Int63n(1e9)), func() {
+            l.Println(w)
+            q.Done()
+        })
+    }
+    q.Wait()
+}
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org512f3ac" class="outline-2">
-<h2 id="org512f3ac"><span class="section-number-2">7</span> Compute the Digits of Pi</h2>
+<div id="outline-container-orgb6f69c2" class="outline-2">
+<h2 id="orgb6f69c2"><span class="section-number-2">7</span> Concurrently Say "Enjoy" "Rosetta" "Code": Select</h2>
 <div class="outline-text-2" id="text-7">
+<p>
+This solution might stretch the intent of the task a bit. It is
+concurrent but not parallel.  Also it doesn't sleep and doesn't call
+the random number generator explicity. It works because the select
+statement is specified to make a "pseudo-random fair choice" among
+multiple channel operations.  package main
+</p>
+
+<p>
+import "fmt"
+</p>
+
+<p>
+func main() {
+    w1 := make(chan bool, 1)
+    w2 := make(chan bool, 1)
+    w3 := make(chan bool, 1)
+    for i := 0; i &lt; 3; i++ {
+        w1 &lt;- true
+        w2 &lt;- true
+        w3 &lt;- true
+        fmt.Println()
+        for i := 0; i &lt; 3; i++ {
+            select {
+            case &lt;-w1:
+                fmt.Println("Enjoy")
+            case &lt;-w2:
+                fmt.Println("Rosetta")
+            case &lt;-w3:
+                fmt.Println("Code")
+            }
+        }
+    }
+}
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9cda96c" class="outline-2">
+<h2 id="org9cda96c"><span class="section-number-2">8</span> Compute the Digits of Pi</h2>
+<div class="outline-text-2" id="text-8">
 <div class="org-src-container">
-<pre class="src src-erlang">% http://shootout.alioth.debian.org/ contributed by Mark Scandariato
-% erl -noshell -noinput -run pidigits main 7
-
--module(pidigits).
--export([main/1]).
-
-is_safe(Z, N) -&gt; N == extr(Z, 4).
-next(Z)       -&gt; extr(Z, 3).
-prod(Z, N)    -&gt; comp({10, -10*N, 0, 1}, Z).
-cons(Z, Zp)   -&gt; comp(Z, Zp).
-
--define(unit, {1,0,0,1}).
-comp({Q,R,S,T}, {Qp, Rp, Sp, Tp}) -&gt;
-    {Q*Qp + R*Sp, Q*Rp + R*Tp, S*Qp + T*Sp, S*Rp + T*Tp}.
-extr({Q,R,S,T}, X) -&gt; (Q * X + R) div (S * X + T).
-
-lft(K) -&gt; {K, 4*K+2, 0, 2*K+1}.
-
-stream(N) -&gt; stream(N, 0, 1, ?unit, []).
-stream(N, N, _, _, P) -&gt; print(N,P);
-stream(N, C, K, Z, P) -&gt;
-    Y = next(Z),
-    case is_safe(Z, Y) of
-        true  -&gt;
-            stream(N, C+1, K, prod(Z,Y), update(C,Y,P));
-        false -&gt;
-            stream(N, C, K+1, cons(Z, lft(K)), P)
-    end.
-
-update(C, D, P) when C rem 10 == 0, C &gt; 0 -&gt;
-    print(C, P),
-    [D];
-
-update(_, D, P) -&gt; [D|P].
-
-print(C, P) -&gt; do_print(C, lists:reverse(P)).
-
-do_print(C, []) when C rem 10 == 0 -&gt; io:fwrite("\t:~p~n", [C]);
-do_print(C, []) -&gt; io:fwrite("~*.1c:~p~n", [10 - C rem 10, $\t, C]);
-do_print(C, [H|T]) -&gt; io:fwrite("~p", [H]), do_print(C, T).
-
-
-main([Arg]) -&gt;
-    N = list_to_integer(Arg),
-    main(N),
-    erlang:halt(0);
-
-main(N) when N &gt; 1 -&gt; stream(N).
+<pre class="src src-go">
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org5b9f3a0" class="outline-2">
-<h2 id="org5b9f3a0"><span class="section-number-2">8</span> RESTful Services with Erlang and Yaws</h2>
-<div class="outline-text-2" id="text-8">
-<ol class="org-ol">
-<li>Yaws "Yet Another Web Server".  Written in Erlang.  For serving
-dynamic RESTful web.</li>
-
-<li>REST = Representational State Transfer.  An architecture
-for large-scale distributed systems, like the web.</li>
-
-<li>Static web page servers: lighttpd, nginx</li>
-</ol>
-</div>
-</div>
-
-
-
-
-<div id="outline-container-orge84c36d" class="outline-2">
-<h2 id="orge84c36d"><span class="section-number-2">9</span> Erlang References</h2>
+<div id="outline-container-org3cf2b58" class="outline-2">
+<h2 id="org3cf2b58"><span class="section-number-2">9</span> Misc</h2>
 <div class="outline-text-2" id="text-9">
 <ol class="org-ol">
-<li><a href="http://www.erlang.org/">http://www.erlang.org/</a> Download, etc.
-<a href="http://www.erlang.org/download/erlang-book-part1.pdf">http://www.erlang.org/download/erlang-book-part1.pdf</a> Legit
-download.  This manuscript contains the complete text of Part I of
-"Concurrent programming in Erlang" (ISBN 0-13-508301-X). 2015</li>
+<li><a href="./languageSampler.html">./languageSampler.html</a></li>
 
-<li><a href="http://www.infoq.com/articles/vinoski-erlang-rest">http://www.infoq.com/articles/vinoski-erlang-rest</a></li>
+<li><a href="http://www.lunabase.org/~faber/blog/?p=1361">http://www.lunabase.org/~faber/blog/?p=1361</a> Playing with Go: a
+concurrent quicksort May 2012</li>
 
-<li><a href="http://rosettacode.org/">http://rosettacode.org/</a> "Rosetta Code is a programming chrestomathy
-site. The idea is to present solutions to the same task in as many
-different languages as possible, to demonstrate how languages are
-similar and different, and to aid a person with a grounding in one
-approach to a problem in learning another. Rosetta Code currently
-has 766 tasks, 144 draft tasks, and is aware of 567 languages,
-though we do not (and cannot) have solutions to every task in every
-language." 2015</li>
+<li><a href="http://rosettacode.org/wiki/Concurrent_computing#Go">http://rosettacode.org/wiki/Concurrent_computing#Go</a></li>
 </ol>
 </div>
 </div>

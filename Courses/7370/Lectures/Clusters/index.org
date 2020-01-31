@@ -11,8 +11,6 @@
 #+STARTUP:showeverything
 #+OPTIONS: toc:2
 
-Work-in-Progress
-
 * Cluster Computing
 
 1. [[./matetiClusterIntro.ppt]]
@@ -86,9 +84,13 @@ println(s"Pi is roughly ${4.0 * count / NUM_SAMPLES}")
 
 * Reading beyond the Lectures
 
-1. [[./dean-ghemawat-mapreduce-osdi04.pdf]]
+1. https://databricks.com/spark/getting-started-with-apache-spark; see
+   all of their courses at https://academy.databricks.com
 
-1. [[./pmNotes-hadoop.org]]
+1. [[./dean-ghemawat-mapreduce-osdi04.pdf]] Original paper that introduced
+   MapReduce which later became Hadoop.
+
+1. [[./pmNotes-hadoop.org]] Hadoop and Alternatives
 
 * End
 # Local variables:

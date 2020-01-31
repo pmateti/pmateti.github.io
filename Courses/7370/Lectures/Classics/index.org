@@ -1,0 +1,28 @@
+
+# -*- mode: org -*-
+#+date: 2020-01-31
+#+TITLE: DIC Classic Problems and Solutions
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* TOC
+
+1. [[./classics.org]] Classic Problems in Concurrency
+1. [[./passing-the-baton-ns.html]]
+1. [[./readers-writers.html]] Problem Modeling, Await-based Solution
+1. [[./Parnas-readers-writers-with-priority.org]]
+
+
+* Reading beyond the Lectures
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
