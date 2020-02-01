@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-01-31 Fri 20:54 -->
+<!-- 2020-02-01 Sat 10:03 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DIC Akka Actors with Scala</title>
@@ -242,82 +242,82 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgda837ce">1. Overview of Lectures</a></li>
-<li><a href="#org13dcdb6">2. What is Scala?</a></li>
-<li><a href="#org53a28ec">3. Actors Model</a></li>
-<li><a href="#orgedb218f">4. What is Akka?</a>
+<li><a href="#orgbbb14e1">1. Overview of Lectures</a></li>
+<li><a href="#orgf20fe60">2. What is Scala?</a></li>
+<li><a href="#org155cd71">3. Actors Model</a></li>
+<li><a href="#org0b24044">4. What is Akka?</a>
 <ul>
-<li><a href="#orgd6217a0">4.1. What is Akka? v.Frivolous</a></li>
-<li><a href="#orgfdaf385">4.2. Who Is Using Akka?</a></li>
-<li><a href="#orged45389">4.3. What is Akka? v.nonFrivolous</a></li>
-<li><a href="#org20bcac4">4.4. Akka Practical Use Overview</a></li>
-<li><a href="#org6540064">4.5. How Does Akka work?</a></li>
+<li><a href="#orgaae4763">4.1. What is Akka? v.Frivolous</a></li>
+<li><a href="#org0ccf01c">4.2. Who Is Using Akka?</a></li>
+<li><a href="#org8449c7a">4.3. What is Akka? v.nonFrivolous</a></li>
+<li><a href="#org0502dbc">4.4. Akka Practical Use Overview</a></li>
+<li><a href="#org9e14451">4.5. How Does Akka work?</a></li>
 </ul>
 </li>
-<li><a href="#orgcb10820">5. Actor Ops: Create, Send, Become, Supervise</a>
+<li><a href="#org6ee5fa3">5. Actor Ops: Create, Send, Become, Supervise</a>
 <ul>
-<li><a href="#orgdba3e18">5.1. Actor in Scala, contd</a></li>
-<li><a href="#orga68fde4">5.2. An Actor in Java</a></li>
-<li><a href="#org859c6cc">5.3. Create an Actor</a></li>
-<li><a href="#org2737e20">5.4. Actor System</a></li>
-<li><a href="#orgebbb117">5.5. Actor Lifecycle</a></li>
-<li><a href="#orgde6ac23">5.6. Send</a></li>
-<li><a href="#org05406f5">5.7. Become - Ex: HotSwapActor</a></li>
-<li><a href="#org0e20fcc">5.8. Become Overview</a></li>
-<li><a href="#orgf9bd9f8">5.9. Become - Why?</a></li>
-<li><a href="#orgffd61f4">5.10. Advanced <code>become</code>, Finite State Machines, and P3</a></li>
-<li><a href="#orgc70bad2">5.11. Actor Hierarchy and Name Resolution</a></li>
-<li><a href="#org054d3db">5.12. Become &#x2013; Add to the Stack, Not Replace</a></li>
-<li><a href="#org1fc3631">5.13. Supervise</a></li>
-<li><a href="#org973ab60">5.14. DeathWatch</a></li>
+<li><a href="#org277ee4d">5.1. Actor in Scala, contd</a></li>
+<li><a href="#org9a3c4ba">5.2. An Actor in Java</a></li>
+<li><a href="#org05b923a">5.3. Create an Actor</a></li>
+<li><a href="#orgb72836c">5.4. Actor System</a></li>
+<li><a href="#orga5806ae">5.5. Actor Lifecycle</a></li>
+<li><a href="#orgab65423">5.6. Send</a></li>
+<li><a href="#orgc3688ff">5.7. Become - Ex: HotSwapActor</a></li>
+<li><a href="#orgedb59cc">5.8. Become Overview</a></li>
+<li><a href="#orge305e13">5.9. Become - Why?</a></li>
+<li><a href="#orgff0e5a0">5.10. Advanced <code>become</code>, Finite State Machines, and P3</a></li>
+<li><a href="#org69d41b2">5.11. Actor Hierarchy and Name Resolution</a></li>
+<li><a href="#org0809b19">5.12. Become &#x2013; Add to the Stack, Not Replace</a></li>
+<li><a href="#org8714165">5.13. Supervise</a></li>
+<li><a href="#org3954d57">5.14. DeathWatch</a></li>
 </ul>
 </li>
-<li><a href="#orga16f380">6. Routers, Dispatchers, and Schedulers</a>
+<li><a href="#org224d09c">6. Routers, Dispatchers, and Schedulers</a>
 <ul>
-<li><a href="#orgf6ac9e2">6.1. Execution Contexts</a></li>
-<li><a href="#org135bb02">6.2. Dispatchers</a></li>
-<li><a href="#orgff57e4e">6.3. The Balancing Dispatcher</a></li>
-<li><a href="#org65d9691">6.4. Throttling</a></li>
-<li><a href="#org2de70d0">6.5. Circuit Breakers</a></li>
-<li><a href="#orgf4fdf45">6.6. Actor scheduling</a></li>
+<li><a href="#orgfb2ca9f">6.1. Execution Contexts</a></li>
+<li><a href="#org174b78c">6.2. Dispatchers</a></li>
+<li><a href="#orge522f26">6.3. The Balancing Dispatcher</a></li>
+<li><a href="#org08a75bf">6.4. Throttling</a></li>
+<li><a href="#org60bec84">6.5. Circuit Breakers</a></li>
+<li><a href="#org74398ee">6.6. Actor scheduling</a></li>
 </ul>
 </li>
-<li><a href="#orgabb2c4a">7. Futures and Promises</a>
+<li><a href="#org0930bce">7. Futures and Promises</a>
 <ul>
-<li><a href="#orge9460f4">7.1. Promises</a></li>
+<li><a href="#org44151fa">7.1. Promises</a></li>
 </ul>
 </li>
-<li><a href="#org92a76eb">8. Distributed Actor System</a>
+<li><a href="#orgc5fcd8e">8. Distributed Actor System</a>
 <ul>
-<li><a href="#org7ceab0b">8.1. Actor References</a></li>
-<li><a href="#org9a4b491">8.2. Remote Actors and Akka Clusters</a></li>
-<li><a href="#org4c0d283">8.3. Clusters</a></li>
-<li><a href="#org5c3c619">8.4. Enable Clustering</a></li>
-<li><a href="#org8055347">8.5. Remote Deployment</a></li>
+<li><a href="#org7ffc9fb">8.1. Actor References</a></li>
+<li><a href="#orgc98ee52">8.2. Remote Actors and Akka Clusters</a></li>
+<li><a href="#org1858a6a">8.3. Clusters</a></li>
+<li><a href="#org8e3611e">8.4. Enable Clustering</a></li>
+<li><a href="#org18c1c01">8.5. Remote Deployment</a></li>
 </ul>
 </li>
-<li><a href="#org01611c8">9. Termination</a>
+<li><a href="#org296aebb">9. Termination</a>
 <ul>
-<li><a href="#orgb229749">9.1. The Reaper</a></li>
-<li><a href="#orga0e6e9a">9.2. Reaper Source Code</a></li>
-<li><a href="#org74db08d">9.3. PoisonPill</a></li>
+<li><a href="#orgb313467">9.1. The Reaper</a></li>
+<li><a href="#orgdba5df9">9.2. Reaper Source Code</a></li>
+<li><a href="#org28e826c">9.3. PoisonPill</a></li>
 </ul>
 </li>
-<li><a href="#org886830d">10. Large Scale Examples of Akka + Scala</a></li>
-<li><a href="#orgf586339">11. TypeSafe Activator: Akka Get Started</a>
+<li><a href="#orgdc88d92">10. Large Scale Examples of Akka + Scala</a></li>
+<li><a href="#org8cb87bd">11. TypeSafe Activator: Akka Get Started</a>
 <ul>
-<li><a href="#orgd2db9c9">11.1. Activator Practical Details</a></li>
-<li><a href="#org3d7e211">11.2. Akka, without Activator, Practical Details</a></li>
+<li><a href="#org2c4a73d">11.1. Activator Practical Details</a></li>
+<li><a href="#orgd5b5745">11.2. Akka, without Activator, Practical Details</a></li>
 </ul>
 </li>
-<li><a href="#org4299ff7">12. References</a></li>
-<li><a href="#orgd9eda0e">13. End</a></li>
+<li><a href="#orgb06705e">12. References</a></li>
+<li><a href="#orgad90858">13. End</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgda837ce" class="outline-2">
-<h2 id="orgda837ce"><span class="section-number-2">1</span> Overview of Lectures</h2>
+<div id="outline-container-orgbbb14e1" class="outline-2">
+<h2 id="orgbbb14e1"><span class="section-number-2">1</span> Overview of Lectures</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
 <li>May be 3 to 4 lectures (75 minutes) total.</li>
@@ -340,8 +340,8 @@ Dining Philosophers.</li>
 </div>
 </div>
 
-<div id="outline-container-org13dcdb6" class="outline-2">
-<h2 id="org13dcdb6"><span class="section-number-2">2</span> What is Scala?</h2>
+<div id="outline-container-orgf20fe60" class="outline-2">
+<h2 id="orgf20fe60"><span class="section-number-2">2</span> What is Scala?</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li>Can be thought of as a significantly enhanced Java.</li>
@@ -360,8 +360,8 @@ Dining Philosophers.</li>
 </div>
 
 
-<div id="outline-container-org53a28ec" class="outline-2">
-<h2 id="org53a28ec"><span class="section-number-2">3</span> Actors Model</h2>
+<div id="outline-container-org155cd71" class="outline-2">
+<h2 id="org155cd71"><span class="section-number-2">3</span> Actors Model</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li>A model of distributed computation.</li>
@@ -378,8 +378,8 @@ Dining Philosophers.</li>
 </div>
 
 
-<div id="outline-container-orgedb218f" class="outline-2">
-<h2 id="orgedb218f"><span class="section-number-2">4</span> What is Akka?</h2>
+<div id="outline-container-org0b24044" class="outline-2">
+<h2 id="org0b24044"><span class="section-number-2">4</span> What is Akka?</h2>
 <div class="outline-text-2" id="text-4">
 <ol class="org-ol">
 <li>Akka is an open source implementation of Hewitt's <a href="./actors.html">Actor Model</a>, as a
@@ -400,8 +400,8 @@ learning Akka &#x2026;"</li>
 </div>
 
 
-<div id="outline-container-orgd6217a0" class="outline-3">
-<h3 id="orgd6217a0"><span class="section-number-3">4.1</span> What is Akka? v.Frivolous</h3>
+<div id="outline-container-orgaae4763" class="outline-3">
+<h3 id="orgaae4763"><span class="section-number-3">4.1</span> What is Akka? v.Frivolous</h3>
 <div class="outline-text-3" id="text-4-1">
 <ol class="org-ol">
 <li><a href="https://www.google.com/search?q=akka+mountain">https://www.google.com/search?q=akka+mountain</a></li>
@@ -417,8 +417,8 @@ learning Akka &#x2026;"</li>
 </div>
 </div>
 
-<div id="outline-container-orgfdaf385" class="outline-3">
-<h3 id="orgfdaf385"><span class="section-number-3">4.2</span> Who Is Using Akka?</h3>
+<div id="outline-container-org0ccf01c" class="outline-3">
+<h3 id="org0ccf01c"><span class="section-number-3">4.2</span> Who Is Using Akka?</h3>
 <div class="outline-text-3" id="text-4-2">
 
 <div class="figure">
@@ -430,8 +430,8 @@ learning Akka &#x2026;"</li>
 </div>
 
 
-<div id="outline-container-orged45389" class="outline-3">
-<h3 id="orged45389"><span class="section-number-3">4.3</span> What is Akka? v.nonFrivolous</h3>
+<div id="outline-container-org8449c7a" class="outline-3">
+<h3 id="org8449c7a"><span class="section-number-3">4.3</span> What is Akka? v.nonFrivolous</h3>
 <div class="outline-text-3" id="text-4-3">
 <ol class="org-ol">
 <li>Includes an implementation of Actor Model, with improvements for practicality.</li>
@@ -447,8 +447,8 @@ learning Akka &#x2026;"</li>
 </div>
 </div>
 
-<div id="outline-container-org20bcac4" class="outline-3">
-<h3 id="org20bcac4"><span class="section-number-3">4.4</span> Akka Practical Use Overview</h3>
+<div id="outline-container-org0502dbc" class="outline-3">
+<h3 id="org0502dbc"><span class="section-number-3">4.4</span> Akka Practical Use Overview</h3>
 <div class="outline-text-3" id="text-4-4">
 <ol class="org-ol">
 <li>Versions: Scala 2.11+, Akka 2.3.1+.  Code for older versions may
@@ -468,8 +468,8 @@ with Python.</li>
 </div>
 </div>
 
-<div id="outline-container-org6540064" class="outline-3">
-<h3 id="org6540064"><span class="section-number-3">4.5</span> How Does Akka work?</h3>
+<div id="outline-container-org9e14451" class="outline-3">
+<h3 id="org9e14451"><span class="section-number-3">4.5</span> How Does Akka work?</h3>
 <div class="outline-text-3" id="text-4-5">
 
 <div class="figure">
@@ -482,8 +482,8 @@ with Python.</li>
 </div>
 
 
-<div id="outline-container-orgcb10820" class="outline-2">
-<h2 id="orgcb10820"><span class="section-number-2">5</span> Actor Ops: Create, Send, Become, Supervise</h2>
+<div id="outline-container-org6ee5fa3" class="outline-2">
+<h2 id="org6ee5fa3"><span class="section-number-2">5</span> Actor Ops: Create, Send, Become, Supervise</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-scala">case class Greeting (who: String)
@@ -498,8 +498,8 @@ class GreetingActor extends Actor {
 </div>
 </div>
 
-<div id="outline-container-orgdba3e18" class="outline-3">
-<h3 id="orgdba3e18"><span class="section-number-3">5.1</span> Actor in Scala, contd</h3>
+<div id="outline-container-org277ee4d" class="outline-3">
+<h3 id="org277ee4d"><span class="section-number-3">5.1</span> Actor in Scala, contd</h3>
 <div class="outline-text-3" id="text-5-1">
 <div class="org-src-container">
 <pre class="src src-scala">val acsy = ActorSystem("WSU-CEG-7370-Actors")
@@ -520,8 +520,8 @@ grtr ! Greeting("Brad Pitt")
 </div>
 </div>
 
-<div id="outline-container-orga68fde4" class="outline-3">
-<h3 id="orga68fde4"><span class="section-number-3">5.2</span> An Actor in Java</h3>
+<div id="outline-container-org9a3c4ba" class="outline-3">
+<h3 id="org9a3c4ba"><span class="section-number-3">5.2</span> An Actor in Java</h3>
 <div class="outline-text-3" id="text-5-2">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Greeting</span> <span style="color: #a020f0;">implements</span> <span style="color: #228b22;">Serializable</span> {
@@ -538,8 +538,8 @@ grtr ! Greeting("Brad Pitt")
 </ol>
 </div>
 
-<div id="outline-container-orgeb8bbd4" class="outline-4">
-<h4 id="orgeb8bbd4"><span class="section-number-4">5.2.1</span> An Actor in Java, contd-1</h4>
+<div id="outline-container-org6ddd535" class="outline-4">
+<h4 id="org6ddd535"><span class="section-number-4">5.2.1</span> An Actor in Java, contd-1</h4>
 <div class="outline-text-4" id="text-5-2-1">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">GreetingActor</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">UntypedActor</span> {
@@ -557,8 +557,8 @@ grtr ! Greeting("Brad Pitt")
 </div>
 </div>
 
-<div id="outline-container-org98fbf8e" class="outline-4">
-<h4 id="org98fbf8e"><span class="section-number-4">5.2.2</span> An Actor in Java, contd-2</h4>
+<div id="outline-container-orgba84f92" class="outline-4">
+<h4 id="orgba84f92"><span class="section-number-4">5.2.2</span> An Actor in Java, contd-2</h4>
 <div class="outline-text-4" id="text-5-2-2">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #228b22;">ActorSystem</span> <span style="color: #a0522d;">acsy</span> = ActorSystem.create(<span style="color: #8b2252;">"WSU-CEG-7370-Actors"</span>);
@@ -571,8 +571,8 @@ grtr.tell(<span style="color: #a020f0;">new</span> <span style="color: #228b22;"
 </div>
 </div>
 
-<div id="outline-container-org859c6cc" class="outline-3">
-<h3 id="org859c6cc"><span class="section-number-3">5.3</span> Create an Actor</h3>
+<div id="outline-container-org05b923a" class="outline-3">
+<h3 id="org05b923a"><span class="section-number-3">5.3</span> Create an Actor</h3>
 <div class="outline-text-3" id="text-5-3">
 <ol class="org-ol">
 <li>Akka Actor receive message loop is exhaustive, different from
@@ -590,8 +590,8 @@ everything’s finished</li>
 </div>
 </div>
 
-<div id="outline-container-org2737e20" class="outline-3">
-<h3 id="org2737e20"><span class="section-number-3">5.4</span> Actor System</h3>
+<div id="outline-container-orgb72836c" class="outline-3">
+<h3 id="orgb72836c"><span class="section-number-3">5.4</span> Actor System</h3>
 <div class="outline-text-3" id="text-5-4">
 <ol class="org-ol">
 <li>Akka Actors: Extremely lightweight (2.7 Million per GB RAM)</li>
@@ -611,8 +611,8 @@ co-exist</li>
 </div>
 </div>
 
-<div id="outline-container-orgebbb117" class="outline-3">
-<h3 id="orgebbb117"><span class="section-number-3">5.5</span> Actor Lifecycle</h3>
+<div id="outline-container-orga5806ae" class="outline-3">
+<h3 id="orga5806ae"><span class="section-number-3">5.5</span> Actor Lifecycle</h3>
 <div class="outline-text-3" id="text-5-5">
 
 <div class="figure">
@@ -623,8 +623,8 @@ co-exist</li>
 </div>
 </div>
 
-<div id="outline-container-orgde6ac23" class="outline-3">
-<h3 id="orgde6ac23"><span class="section-number-3">5.6</span> Send</h3>
+<div id="outline-container-orgab65423" class="outline-3">
+<h3 id="orgab65423"><span class="section-number-3">5.6</span> Send</h3>
 <div class="outline-text-3" id="text-5-6">
 <ol class="org-ol">
 <li>The method named <code>receive</code> defines how messages are handled.</li>
@@ -645,8 +645,8 @@ representing a possible reply. Aka <code>ask</code>.</li>
 </div>
 </div>
 
-<div id="outline-container-org05406f5" class="outline-3">
-<h3 id="org05406f5"><span class="section-number-3">5.7</span> Become - Ex: HotSwapActor</h3>
+<div id="outline-container-orgc3688ff" class="outline-3">
+<h3 id="orgc3688ff"><span class="section-number-3">5.7</span> Become - Ex: HotSwapActor</h3>
 <div class="outline-text-3" id="text-5-7">
 <div class="org-src-container">
 <pre class="src src-scala">import akka.actor._
@@ -672,8 +672,8 @@ class HotSwapActor extends Actor {
 </div>
 </div>
 
-<div id="outline-container-org0e20fcc" class="outline-3">
-<h3 id="org0e20fcc"><span class="section-number-3">5.8</span> Become Overview</h3>
+<div id="outline-container-orgedb59cc" class="outline-3">
+<h3 id="orgedb59cc"><span class="section-number-3">5.8</span> Become Overview</h3>
 <div class="outline-text-3" id="text-5-8">
 <ol class="org-ol">
 <li>Behaviors can be pushed and popped</li>
@@ -685,8 +685,8 @@ behavior stack)</li>
 </div>
 </div>
 
-<div id="outline-container-orgf9bd9f8" class="outline-3">
-<h3 id="orgf9bd9f8"><span class="section-number-3">5.9</span> Become - Why?</h3>
+<div id="outline-container-orge305e13" class="outline-3">
+<h3 id="orge305e13"><span class="section-number-3">5.9</span> Become - Why?</h3>
 <div class="outline-text-3" id="text-5-9">
 <ol class="org-ol">
 <li>Implement finite state machines <code>import akka.actor.FSM</code></li>
@@ -702,8 +702,8 @@ pool or a Router</li>
 </div>
 </div>
 
-<div id="outline-container-orgffd61f4" class="outline-3">
-<h3 id="orgffd61f4"><span class="section-number-3">5.10</span> Advanced <code>become</code>, Finite State Machines, and P3</h3>
+<div id="outline-container-orgff0e5a0" class="outline-3">
+<h3 id="orgff0e5a0"><span class="section-number-3">5.10</span> Advanced <code>become</code>, Finite State Machines, and P3</h3>
 <div class="outline-text-3" id="text-5-10">
 <ol class="org-ol">
 <li><a href="http://www.typesafe.com/activator/template/akka-sample-fsm-scala">http://www.typesafe.com/activator/template/akka-sample-fsm-scala</a></li>
@@ -715,8 +715,8 @@ questions TBD.</li>
 </div>
 
 
-<div id="outline-container-orgc70bad2" class="outline-3">
-<h3 id="orgc70bad2"><span class="section-number-3">5.11</span> Actor Hierarchy and Name Resolution</h3>
+<div id="outline-container-org69d41b2" class="outline-3">
+<h3 id="org69d41b2"><span class="section-number-3">5.11</span> Actor Hierarchy and Name Resolution</h3>
 <div class="outline-text-3" id="text-5-11">
 
 <div class="figure">
@@ -727,8 +727,8 @@ questions TBD.</li>
 </div>
 </div>
 
-<div id="outline-container-org054d3db" class="outline-3">
-<h3 id="org054d3db"><span class="section-number-3">5.12</span> Become &#x2013; Add to the Stack, Not Replace</h3>
+<div id="outline-container-org0809b19" class="outline-3">
+<h3 id="org0809b19"><span class="section-number-3">5.12</span> Become &#x2013; Add to the Stack, Not Replace</h3>
 <div class="outline-text-3" id="text-5-12">
 <div class="org-src-container">
 <pre class="src src-scala">import akka.event.Logging; import akka.actor._
@@ -755,8 +755,8 @@ object SwapperApp extends App {
 </div>
 </div>
 
-<div id="outline-container-org1fc3631" class="outline-3">
-<h3 id="org1fc3631"><span class="section-number-3">5.13</span> Supervise</h3>
+<div id="outline-container-org8714165" class="outline-3">
+<h3 id="org8714165"><span class="section-number-3">5.13</span> Supervise</h3>
 <div class="outline-text-3" id="text-5-13">
 <ol class="org-ol">
 <li>Every single actor has a default supervisor strategy.  Which is
@@ -784,8 +784,8 @@ business logic</li>
 </div>
 </div>
 
-<div id="outline-container-org973ab60" class="outline-3">
-<h3 id="org973ab60"><span class="section-number-3">5.14</span> DeathWatch</h3>
+<div id="outline-container-org3954d57" class="outline-3">
+<h3 id="org3954d57"><span class="section-number-3">5.14</span> DeathWatch</h3>
 <div class="outline-text-3" id="text-5-14">
 <ol class="org-ol">
 <li><p>
@@ -816,8 +816,8 @@ class WatchActor extends Actor {
 </div>
 
 
-<div id="outline-container-orga16f380" class="outline-2">
-<h2 id="orga16f380"><span class="section-number-2">6</span> Routers, Dispatchers, and Schedulers</h2>
+<div id="outline-container-org224d09c" class="outline-2">
+<h2 id="org224d09c"><span class="section-number-2">6</span> Routers, Dispatchers, and Schedulers</h2>
 <div class="outline-text-2" id="text-6">
 <ol class="org-ol">
 <li>A router is a type of actor.  Routes incoming messages to
@@ -836,8 +836,8 @@ outbound actors.</li>
 </ol>
 </div>
 
-<div id="outline-container-orgf6ac9e2" class="outline-3">
-<h3 id="orgf6ac9e2"><span class="section-number-3">6.1</span> Execution Contexts</h3>
+<div id="outline-container-orgfb2ca9f" class="outline-3">
+<h3 id="orgfb2ca9f"><span class="section-number-3">6.1</span> Execution Contexts</h3>
 <div class="outline-text-3" id="text-6-1">
 <ol class="org-ol">
 <li>Think of execution contexts as thread pools.</li>
@@ -855,8 +855,8 @@ outbound actors.</li>
 </div>
 </div>
 
-<div id="outline-container-org135bb02" class="outline-3">
-<h3 id="org135bb02"><span class="section-number-3">6.2</span> Dispatchers</h3>
+<div id="outline-container-org174b78c" class="outline-3">
+<h3 id="org174b78c"><span class="section-number-3">6.2</span> Dispatchers</h3>
 <div class="outline-text-3" id="text-6-2">
 <ol class="org-ol">
 <li>A dispatcher chooses an actor and a message from the actors mbox,
@@ -877,8 +877,8 @@ for blocking operations.</li>
 </div>
 
 
-<div id="outline-container-orgff57e4e" class="outline-3">
-<h3 id="orgff57e4e"><span class="section-number-3">6.3</span> The Balancing Dispatcher</h3>
+<div id="outline-container-orge522f26" class="outline-3">
+<h3 id="orge522f26"><span class="section-number-3">6.3</span> The Balancing Dispatcher</h3>
 <div class="outline-text-3" id="text-6-3">
 <ol class="org-ol">
 <li>Balancing dispatcher: Redistribute the work from busy actors to
@@ -891,8 +891,8 @@ messages to several actors (known as workers).</li>
 </ol>
 </div>
 
-<div id="outline-container-org0102133" class="outline-4">
-<h4 id="org0102133"><span class="section-number-4">6.3.1</span> The Balancing Dispatcher</h4>
+<div id="outline-container-org214ab5e" class="outline-4">
+<h4 id="org214ab5e"><span class="section-number-4">6.3.1</span> The Balancing Dispatcher</h4>
 <div class="outline-text-4" id="text-6-3-1">
 
 <div class="figure">
@@ -904,8 +904,8 @@ messages to several actors (known as workers).</li>
 </div>
 </div>
 
-<div id="outline-container-org65d9691" class="outline-3">
-<h3 id="org65d9691"><span class="section-number-3">6.4</span> Throttling</h3>
+<div id="outline-container-org08a75bf" class="outline-3">
+<h3 id="org08a75bf"><span class="section-number-3">6.4</span> Throttling</h3>
 <div class="outline-text-3" id="text-6-4">
 <ol class="org-ol">
 <li>Message Throttler: E.g., no more than 3 messages in 1 second.</li>
@@ -938,8 +938,8 @@ throttler ! "4"; throttler ! "5"
 </div>
 </div>
 
-<div id="outline-container-org2de70d0" class="outline-3">
-<h3 id="org2de70d0"><span class="section-number-3">6.5</span> Circuit Breakers</h3>
+<div id="outline-container-org60bec84" class="outline-3">
+<h3 id="org60bec84"><span class="section-number-3">6.5</span> Circuit Breakers</h3>
 <div class="outline-text-3" id="text-6-5">
 <ol class="org-ol">
 <li>A circuit breaker provides stability and prevents cascading
@@ -968,8 +968,8 @@ import <code>akka.pattern.CircuitBreaker</code>, &#x2026;
 </div>
 
 
-<div id="outline-container-orgf4fdf45" class="outline-3">
-<h3 id="orgf4fdf45"><span class="section-number-3">6.6</span> Actor scheduling</h3>
+<div id="outline-container-org74398ee" class="outline-3">
+<h3 id="org74398ee"><span class="section-number-3">6.6</span> Actor scheduling</h3>
 <div class="outline-text-3" id="text-6-6">
 <ol class="org-ol">
 <li>You can schedule sending of messages and execution of tasks
@@ -989,8 +989,8 @@ Schedule to send the "foo"-message to the testActor after 50ms:
 </div>
 </div>
 
-<div id="outline-container-orgabb2c4a" class="outline-2">
-<h2 id="orgabb2c4a"><span class="section-number-2">7</span> Futures and Promises</h2>
+<div id="outline-container-org0930bce" class="outline-2">
+<h2 id="org0930bce"><span class="section-number-2">7</span> Futures and Promises</h2>
 <div class="outline-text-2" id="text-7">
 <ol class="org-ol">
 <li>Akka gets Futures and Promises from Scala.</li>
@@ -1018,8 +1018,8 @@ val f: Future[List[Friend]] = future {
 </ol>
 </div>
 
-<div id="outline-container-orge9460f4" class="outline-3">
-<h3 id="orge9460f4"><span class="section-number-3">7.1</span> Promises</h3>
+<div id="outline-container-org44151fa" class="outline-3">
+<h3 id="org44151fa"><span class="section-number-3">7.1</span> Promises</h3>
 <div class="outline-text-3" id="text-7-1">
 <ol class="org-ol">
 <li><p>
@@ -1049,8 +1049,8 @@ val cnsmr = future {              // consumer
 </div>
 </div>
 
-<div id="outline-container-org92a76eb" class="outline-2">
-<h2 id="org92a76eb"><span class="section-number-2">8</span> Distributed Actor System</h2>
+<div id="outline-container-orgc5fcd8e" class="outline-2">
+<h2 id="orgc5fcd8e"><span class="section-number-2">8</span> Distributed Actor System</h2>
 <div class="outline-text-2" id="text-8">
 
 <div class="figure">
@@ -1060,8 +1060,8 @@ val cnsmr = future {              // consumer
 </div>
 </div>
 
-<div id="outline-container-org7ceab0b" class="outline-3">
-<h3 id="org7ceab0b"><span class="section-number-3">8.1</span> Actor References</h3>
+<div id="outline-container-org7ffc9fb" class="outline-3">
+<h3 id="org7ffc9fb"><span class="section-number-3">8.1</span> Actor References</h3>
 <div class="outline-text-3" id="text-8-1">
 <ol class="org-ol">
 <li>Actor references may be obtained by (i) creating actors or (ii)
@@ -1074,8 +1074,8 @@ looking them up</li>
 </ol>
 </div>
 
-<div id="outline-container-org3862ca8" class="outline-4">
-<h4 id="org3862ca8"><span class="section-number-4">8.1.1</span> Looking up Actors by Concrete Path</h4>
+<div id="outline-container-orga193803" class="outline-4">
+<h4 id="orga193803"><span class="section-number-4">8.1.1</span> Looking up Actors by Concrete Path</h4>
 <div class="outline-text-4" id="text-8-1-1">
 <ol class="org-ol">
 <li><code>ActorSystem.actorSelection</code> method</li>
@@ -1093,8 +1093,8 @@ and remote actors.  Beware: actorOf vs. actorSelection vs. actorFor</li>
 </div>
 </div>
 
-<div id="outline-container-org272980f" class="outline-4">
-<h4 id="org272980f"><span class="section-number-4">8.1.2</span> Absolute vs. Relative Paths</h4>
+<div id="outline-container-org1f06fa7" class="outline-4">
+<h4 id="org1f06fa7"><span class="section-number-4">8.1.2</span> Absolute vs. Relative Paths</h4>
 <div class="outline-text-4" id="text-8-1-2">
 <ol class="org-ol">
 <li>Send a message to a specific sibling:</li>
@@ -1105,8 +1105,8 @@ and remote actors.  Beware: actorOf vs. actorSelection vs. actorFor</li>
 </div>
 </div>
 
-<div id="outline-container-org9a4b491" class="outline-3">
-<h3 id="org9a4b491"><span class="section-number-3">8.2</span> Remote Actors and Akka Clusters</h3>
+<div id="outline-container-orgc98ee52" class="outline-3">
+<h3 id="orgc98ee52"><span class="section-number-3">8.2</span> Remote Actors and Akka Clusters</h3>
 <div class="outline-text-3" id="text-8-2">
 <ol class="org-ol">
 <li>Remote Actors ActorSystem configuration</li>
@@ -1122,8 +1122,8 @@ and remote actors.  Beware: actorOf vs. actorSelection vs. actorFor</li>
 </div>
 
 
-<div id="outline-container-org4c0d283" class="outline-3">
-<h3 id="org4c0d283"><span class="section-number-3">8.3</span> Clusters</h3>
+<div id="outline-container-org1858a6a" class="outline-3">
+<h3 id="org1858a6a"><span class="section-number-3">8.3</span> Clusters</h3>
 <div class="outline-text-3" id="text-8-3">
 <ol class="org-ol">
 <li>Automatic cluster-wide deployment</li>
@@ -1137,8 +1137,8 @@ and remote actors.  Beware: actorOf vs. actorSelection vs. actorFor</li>
 </div>
 </div>
 
-<div id="outline-container-org5c3c619" class="outline-3">
-<h3 id="org5c3c619"><span class="section-number-3">8.4</span> Enable Clustering</h3>
+<div id="outline-container-org8e3611e" class="outline-3">
+<h3 id="org8e3611e"><span class="section-number-3">8.4</span> Enable Clustering</h3>
 <div class="outline-text-3" id="text-8-4">
 <div class="org-src-container">
 <pre class="src src-scala">akka {
@@ -1163,8 +1163,8 @@ and remote actors.  Beware: actorOf vs. actorSelection vs. actorFor</li>
 </div>
 
 
-<div id="outline-container-org8055347" class="outline-3">
-<h3 id="org8055347"><span class="section-number-3">8.5</span> Remote Deployment</h3>
+<div id="outline-container-org18c1c01" class="outline-3">
+<h3 id="org18c1c01"><span class="section-number-3">8.5</span> Remote Deployment</h3>
 <div class="outline-text-3" id="text-8-5">
 
 <div class="figure">
@@ -1180,8 +1180,8 @@ and remote actors.  Beware: actorOf vs. actorSelection vs. actorFor</li>
 </div>
 </div>
 
-<div id="outline-container-org01611c8" class="outline-2">
-<h2 id="org01611c8"><span class="section-number-2">9</span> Termination</h2>
+<div id="outline-container-org296aebb" class="outline-2">
+<h2 id="org296aebb"><span class="section-number-2">9</span> Termination</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 What Does "Finished" Mean? The most natural answer to this question
@@ -1197,8 +1197,8 @@ What Does "Finished" Mean? The most natural answer to this question
 </div>
 </div>
 
-<div id="outline-container-orgb229749" class="outline-3">
-<h3 id="orgb229749"><span class="section-number-3">9.1</span> The Reaper</h3>
+<div id="outline-container-orgb313467" class="outline-3">
+<h3 id="orgb313467"><span class="section-number-3">9.1</span> The Reaper</h3>
 <div class="outline-text-3" id="text-9-1">
 
 <div class="figure">
@@ -1209,8 +1209,8 @@ What Does "Finished" Mean? The most natural answer to this question
 </div>
 </div>
 
-<div id="outline-container-orga0e6e9a" class="outline-3">
-<h3 id="orga0e6e9a"><span class="section-number-3">9.2</span> Reaper Source Code</h3>
+<div id="outline-container-orgdba5df9" class="outline-3">
+<h3 id="orgdba5df9"><span class="section-number-3">9.2</span> Reaper Source Code</h3>
 <div class="outline-text-3" id="text-9-2">
 <div class="org-src-container">
 <pre class="src src-scala">import akka.actor.{Actor, ActorRef, Terminated}
@@ -1241,8 +1241,8 @@ abstract class Reaper extends Actor {
 </div>
 </div>
 
-<div id="outline-container-org74db08d" class="outline-3">
-<h3 id="org74db08d"><span class="section-number-3">9.3</span> PoisonPill</h3>
+<div id="outline-container-org28e826c" class="outline-3">
+<h3 id="org28e826c"><span class="section-number-3">9.3</span> PoisonPill</h3>
 <div class="outline-text-3" id="text-9-3">
 
 <div class="figure">
@@ -1254,8 +1254,8 @@ abstract class Reaper extends Actor {
 </div>
 </div>
 
-<div id="outline-container-org886830d" class="outline-2">
-<h2 id="org886830d"><span class="section-number-2">10</span> Large Scale Examples of Akka + Scala</h2>
+<div id="outline-container-orgdc88d92" class="outline-2">
+<h2 id="orgdc88d92"><span class="section-number-2">10</span> Large Scale Examples of Akka + Scala</h2>
 <div class="outline-text-2" id="text-10">
 <ol class="org-ol">
 <li><a href="http://www.playframework.com/">http://www.playframework.com/</a> "The High Velocity Web Framework For
@@ -1283,8 +1283,8 @@ Scala and Java  APIs.</li>
 </div>
 </div>
 
-<div id="outline-container-orgf586339" class="outline-2">
-<h2 id="orgf586339"><span class="section-number-2">11</span> TypeSafe Activator: Akka Get Started</h2>
+<div id="outline-container-org8cb87bd" class="outline-2">
+<h2 id="org8cb87bd"><span class="section-number-2">11</span> TypeSafe Activator: Akka Get Started</h2>
 <div class="outline-text-2" id="text-11">
 <ol class="org-ol">
 <li>Reactive Applications: Concurrency + events</li>
@@ -1297,8 +1297,8 @@ learning Akka &#x2026;"</li>
 </ol>
 </div>
 
-<div id="outline-container-orgd2db9c9" class="outline-3">
-<h3 id="orgd2db9c9"><span class="section-number-3">11.1</span> Activator Practical Details</h3>
+<div id="outline-container-org2c4a73d" class="outline-3">
+<h3 id="org2c4a73d"><span class="section-number-3">11.1</span> Activator Practical Details</h3>
 <div class="outline-text-3" id="text-11-1">
 <ol class="org-ol">
 <li><code>ssh</code> to Laptop/OSIS Lab machine <code>130.108.17.112</code></li>
@@ -1310,8 +1310,8 @@ learning Akka &#x2026;"</li>
 </div>
 </div>
 
-<div id="outline-container-org3d7e211" class="outline-3">
-<h3 id="org3d7e211"><span class="section-number-3">11.2</span> Akka, without Activator, Practical Details</h3>
+<div id="outline-container-orgd5b5745" class="outline-3">
+<h3 id="orgd5b5745"><span class="section-number-3">11.2</span> Akka, without Activator, Practical Details</h3>
 <div class="outline-text-3" id="text-11-2">
 <ol class="org-ol">
 <li><p>
@@ -1341,8 +1341,8 @@ akka {
 </div>
 </div>
 
-<div id="outline-container-org4299ff7" class="outline-2">
-<h2 id="org4299ff7"><span class="section-number-2">12</span> References</h2>
+<div id="outline-container-orgb06705e" class="outline-2">
+<h2 id="orgb06705e"><span class="section-number-2">12</span> References</h2>
 <div class="outline-text-2" id="text-12">
 <ol class="org-ol">
 <li><a href="https://doc.akka.io/docs/akka/current/">https://doc.akka.io/docs/akka/current/</a>
@@ -1354,8 +1354,8 @@ search.  Video or pdf.  Highly recommended.</li>
 </div>
 </div>
 
-<div id="outline-container-orgd9eda0e" class="outline-2">
-<h2 id="orgd9eda0e"><span class="section-number-2">13</span> End</h2>
+<div id="outline-container-orgad90858" class="outline-2">
+<h2 id="orgad90858"><span class="section-number-2">13</span> End</h2>
 <div class="outline-text-2" id="text-13">
 </div>
 </div>

@@ -1,25 +1,14 @@
-# -*- mode: org -*-  8
-#+DATE: 2015-03-20
-#+TITLE: Actors
+# -*- mode: org -*-
+#+date: 2020-01-31
+#+TITLE: DIC Hewitt's Actors
 #+AUTHOR: Prabhaker Mateti
-#+DESCRIPTION: CEG7370 Distributed Computing
-#+OPTIONS: toc:1
-#+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
-#+OPTIONS: html-scripts:t html-style:t html5-fancy:t tex:t
-#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.4)
-#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">WSU CEG 7370 Distributed Computing</a> | <a href=\"./actorsAkkaScala.html\"> Actors Akka Scala Overview</a> | <a href=\"./actorsSlides.html\"> Slides</a>"))
-#+BIND: org-html-postamble-format (("en" "<hr size=1><a href=\"http://www.wright.edu/~pmateti\"> Prabhaker Mateti </a> &bull; created via <a href=\"http://www.emacswiki.org/emacs/\"> emacs</a> + <a href=\"http://orgmode.org/worg/\"> org-mode</a>"))
-#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
-#+HTML_HEAD_EXTRA:
-#+REVEAL_ROOT: http://www.cs.wright.edu/~pmateti/RevealJS
-#+REVEAL_PREAMBLE: <a href="./actorsOnePage.html">Single-Page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: yellow;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: cyan;} </style>
-#+REVEAL_THEME: night
-#+REVEAL_TRANS: default
-#+REVEAL_HLEVEL: 2
-#+REVEAL-SLIDE-NUMBER: t
-#+OPTIONS: reveal_control:t reveal_progress:t reveal_history:t reveal_center:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t
-#+REVEAL_TITLE_SLIDE_TEMPLATE: <h1>%t</h1><h3>%a</h3>%e<h2>%d</h2>An introduction to Actors Model, assuming CSP and Linda familiarity<br><a href="../../Top/">CEG 7370 Distributed Computing</a><br>%d
-#+ATTR_REVEAL: highlight-blue  # not working
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
 
 * Actors Overview
 
@@ -33,7 +22,7 @@
 1. By "standard" model we are referring to the description given
    by Hewitt and his co-researchers.
 
-** Actors Overview - By Carl Hewitt
+** Actors Overview #2
 
 1. An Actor is a computational entity that, in response to a message
    it receives, can:
@@ -51,7 +40,8 @@
 
 * Actor Standard Model
 
-1.  [from Varela's PhD 2001] [[./fig-actors.png]] 
+1. 
+ [[./fig-actors.png]] [from Carlos Varela's PhD 2001 http://osl.cs.illinois.edu/docs/phd-varela01/varela-phd.pdf]
 
 ** Actor Standard Model-1: Structure
 
@@ -119,7 +109,7 @@
 5. Sender and receiver can agree on the structure of content. (I.e.,
    marshalling is implicit.)
 
-** Actor Standard Model-5: A Tiny Example 
+* Actor Standard Model: A Tiny Example 
 
 1. We will use a quickly-made-up language to illustrate.
 
@@ -127,16 +117,16 @@
    Implementation techniques of actors are now so advanced that Akka
    claims to be able to create millions of actors in a second.
 
-** Actor Standard Model-5: An Integer Variable
+** Actor Example: An Integer Variable
 
 1. Let us build an actor that behaves like a "var" of type integer.
 
    #+begin_src pseudo
 intvar: actor(z: integer) {
-  val myx = z
+  val myx := z
   receive msg {
-    case msg.op = set(x): // do nothing
-    case msg.op = get() : msg.sender ! myx
+    case msg.op == set(x): // see below
+    case msg.op == get() : msg.sender ! myx
 }  }
 
 var a: actor = create intvar(5)
@@ -144,26 +134,26 @@ var a: actor = create intvar(5)
 
 1. Repeated assignments are not permissible.  Use =become=
 
-** Actor Standard Model-5: An Integer Variable, contd
+** Actor Example, contd
 
 1. Repeated assignments are not permissible.  Use =become=
    #+begin_src pseudo
 intvar: actor(z: integer) {
-  val myx = z
+  val myx := z
   receive msg {
-    case msg.op = set(x): become create intvar(x)
-    case msg.op = get() : msg.sender ! myx
+    case msg.op == set(x): become create intvar(x)
+    case msg.op == get() : msg.sender ! myx
   }
 }
 
-var a = create intvar(5)
-var i = a ! get()     // i = 5
+var a := create intvar(5)
+var i := a ! get()    // i == 5
 a ! set(34)           // does not return any value
-var j = a ! get()     // j = 34
+var j = a ! get()     // j == 34
 #+end_src
 
-1. Even after a =become=, the actor =a= is still available as a target
-   for send.
+1. Even after a =become=, the actor =a= is still available as the same
+   target for send.
 
 1. The actor =a= knows of no other actors.  We can mod the above to
    collect =msg.sender= as it receives messages.
@@ -250,9 +240,7 @@ var j = a ! get()     // j = 34
 1. No =become= => the behavior remains as-was.
 
 
-* Examples of Actor Programs
-
-** Set
+* Actor Example: A Set
 
 1. In CSP, we did a small set of integers.  Not only "small" but
    statically fixed sized set.  Why?  Because all processes need to be
@@ -269,7 +257,7 @@ var j = a ! get()     // j = 34
 
 1. Details.  Your Exercise!  (See the next example.)
 
-** A Stack
+* Actor Example: A Stack
 
 1. Build a system of actors that behaves as a stack of integers.  From
    an external entity, the "lead" actor receives request-to-do
@@ -282,20 +270,20 @@ var j = a ! get()     // j = 34
 
 ** A Stack, contd-1
 
-1. We show only push and pop implemented.
+1. We show only push and pop implemented.  Read stknd as stack node.
 
     #+begin_src pseudo
 stknd: 
   actor(elm: actor, lnk: actor) {
     receive msg {
-      case msg.op = pop():
+      case msg.op == pop():
         if (elm != NIL) {
           become lnk
           msg.sender ! elm
         }
-      case msg.op = push(X):
-        P = create stknd(elm,lnk)
-        Q = create itemvar(X)
+      case msg.op == push(X):
+        P := create stknd(elm,lnk)
+        Q := create itemvar(X)
         become create stknd(Q, P)
     }
 }
@@ -310,17 +298,17 @@ stknd:
 
 1. A pop operation changes the stack as follows:
 
-   #+begin_src scala
-      ---------     ---------      ---------
- --->| 3  | --|--->| 4  |  --|--->| NIL|NIL|
-     ---------      ---------      ---------
-#+end_src
-=become= s
-   #+begin_src scala
+   #+begin_src pseudo
+      -------      -------      ----------
+ --->| 3 | --|--->| 4 | --|--->| NIL| NIL |
+     --------      -------      ----------
+
       ----------     -------      ---------
  --->|forwarder|--->| 4 | --|--->| NIL | NIL|
       ----------     -------      ---------
 #+end_src
+
+1. "Forwarder" is a special node that simply forwards messages.
 
 ** A Stack, contd-3
 
@@ -329,21 +317,21 @@ stknd:
    stack, there are no guarantees about the order of content received
    back from pops.
 
-** A Recursive Factorial
+* Actor Example: A Recursive Factorial
 
-    #+begin_src scala
+    #+begin_src pseudo
 factorial: actor() {
   receive msg {
-    case msg.op = fac(n, a):
-      if (n = 0) a ! nat(1)
+    case msg.op == fac(n, a):
+      if (n == 0) a ! nat(1)
       else {
-        F = create aux(n, a)
+        F := create aux(n, a)
         self ! fac(n - 1, F)
 } }   }
 
 aux: actor(n: nat, r: actor) {
   receive msg {
-    case msg.op = nat(k): r ! n * k
+    case msg.op == nat(k): r ! n * k
 } }
 #+end_src
 
@@ -382,8 +370,8 @@ aux: actor(n: nat, r: actor) {
 1. "The Actor Model is intended to provide a foundation for
    inconsistency robust information integration."
 
-   1.  We should expect large scale gathering of info to be
-       inconsistent.
+   1. We should expect large scale gathering of info to be
+      inconsistent.
 
    1. Robustness in the presence of inconsistency.
 
@@ -408,14 +396,16 @@ aux: actor(n: nat, r: actor) {
 
 * Implementations
 
-|| SALSA | Scala | Kilim | AArch | JavAct | Foundry | JetL |
-| State Encap | Yes |  No |  No |  Yes |  Yes |  Yes |  Yes |
-| Safe Message |  Yes |  No |  No |  Yes |  No |  Yes |  No |
-| Fair Sched |   Yes |  Yes |  No |  Yes |  No |  Yes |  No |
-| Loc Transpar |  Yes |  No |  No |  Yes |  Yes |  Yes |  Yes |
-| Mobility |  Yes |  No |  No |  Yes |  Yes |  Yes |  No |
-| version#| 1.1.2 |  2.7.3  | 0.6 | 0.1.3 | 1.5.3 | 1.0  | 0.1.7 |
-as of 2009
+|              | SALSA | Scala | Kilim | AArch | JavAct | Foundry | JetL  |
+| State Encap  | Yes   | No    | No    | Yes   | Yes    | Yes     | Yes   |
+| Safe Message | Yes   | No    | No    | Yes   | No     | Yes     | No    |
+| Fair Sched   | Yes   | Yes   | No    | Yes   | No     | Yes     | No    |
+| Loc Transpar | Yes   | No    | No    | Yes   | Yes    | Yes     | Yes   |
+| Mobility     | Yes   | No    | No    | Yes   | Yes    | Yes     | No    |
+| version#     | 1.1.2 | 2.7.3 | 0.6   | 0.1.3 | 1.5.3  | 1.0     | 0.1.7 |
+
+As of 2009.  The names of the top row -- except for Scala, where are
+the rest??
 
 
 ** Encapsulation Violation
@@ -448,7 +438,7 @@ object semaphorenotok {
 
 A program written in the Scala Actors showing an Actor "busy-waiting"
 for a reply.  In the absence of fair scheduling, such an actor can
-potentially starve other actors. [Figure 3 ref1]
+potentially starve other actors.
 
 #+begin_src scala
 object fairness {
@@ -472,8 +462,9 @@ object fairness {
 * References
 
 1. Carl Hewitt, "Actor Model of Computation: Scalable Robust
-   Information Systems," 2013.  A very deep conceptual
-   paper. [[http://carlhewitt.info]].  Highly Recommended Reading
+   Information Systems," 2015.  A very deep conceptual paper.
+   https://arxiv.org/abs/1008.1459 (also [[http://carlhewitt.info)]].
+   Highly Recommended Reading
 
 1. Rajesh K. Karmani, Gul Agha, "Actors." In /Encyclopedia of Parallel
    Computing/, pp. 1-11. Springer US, 2011.  Web search for its pdf.
@@ -481,4 +472,16 @@ object fairness {
 
 1. http://en.wikipedia.org/wiki/Actor_model  Recommended Reading
 
+1. https://www.brianstorti.com/the-actor-model/ The actor model in 10
+   minutes, 2015.  Recommended Reading
+
+1. Carlos Varela, Distributed Computing over the Internet, Rensselaer
+   Polytechnic Institute, CSCI.6500/CSCI.4500, Spring 2019
+   https://www.cs.rpi.edu/academics/courses/spring19/dci/ Recommended
+   Visits + Reading
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
 
