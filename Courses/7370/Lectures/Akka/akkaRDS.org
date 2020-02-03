@@ -1,0 +1,112 @@
+
+* Routers, Dispatchers, and Schedulers
+
+1. Akka download comes with several =akka.routing= strategies:
+
+   1. RoundRobinRoutingLogic
+   1. RandomRoutingLogic
+   1. SmallestMailboxRoutingLogic
+   1. BroadcastRoutingLogic
+   1. ScatterGatherFirstCompletedRoutingLogic
+   1. ConsistentHashingRoutingLogic
+
+** Execution Contexts
+
+1. Think of execution contexts as thread pools.
+
+1. =ExecutionContext= is similar to =java.util.concurrent.= =Executor=. 
+1. =import scala.concurrent.ExecutionContext=
+
+    #+begin_src scala
+#+end_src
+
+** Dispatchers
+
+1. A dispatcher chooses an actor and a message from the actors mbox,
+   and allocates a thread.
+
+1. Every ActorSystem will have a default dispatcher.  Dispatchers
+   implement the =ExecutionContext= interface.
+
+1. Each actor is configured to be run on a =MessageDispatcher=, and that
+   dispatcher doubles as an =ExecutionContext=.
+
+1. Pinned dispatcher: Each actor has its own dedicated thread. Ideal
+   for blocking operations.
+
+1. Calling Thread dispatcher: Provides a deterministic execution order
+
+
+** The Balancing Dispatcher
+
+1. Balancing dispatcher: Redistribute the work from busy actors to
+   idle ones.
+
+1. All actors it handles share a mbox.  A "work stealing" dispatcher.
+
+1. BalancingDispatcher is an actor.  It is in-charge of sending
+   messages to several actors (known as workers).
+
+*** The Balancing Dispatcher
+
+#+CAPTION: balancing-workload-across-nodes-with-akka-2
+#+ATTR_HTML: :style background-color:beige
+#+ATTR_HTML: :alt fig-dispatcher-balancing.png  :align center :width 50%
+[[./Figures/fig-dispatcher-balancing.png]]
+
+** Throttling
+
+1. Message Throttler: E.g., no more than 3 messages in 1 second.
+1. printer: A simple actor that prints whatever it receives
+
+    #+begin_src scala
+class PrintActor extends Actor {
+  def receive = { case x ⇒ println(x) }
+}
+val printer = system.actorOf(Props[PrintActor])
+#+end_src
+
+1. =TimerBasedThrottler=
+    #+begin_src scala
+    val throttler = system.actorOf(
+      Props(classOf[ TimerBasedThrottler ],
+      3 msgsPer 1.second))
+    throttler ! SetTarget(Some(printer))
+    throttler ! "1"; throttler!"2"; throttler!"3"
+    // These will wait for a second
+    throttler ! "4"; throttler ! "5"
+#+end_src
+
+** Circuit Breakers
+
+1. A circuit breaker provides stability and prevents cascading
+   failures in distributed systems.
+
+1. import =akka.pattern.CircuitBreaker=, ...
+
+    #+begin_src scala
+class D extends Actor with ActorLogging {
+  import context.dispatcher
+ 
+  val breaker = new CircuitBreaker(
+    context.system.scheduler,
+    maxFailures = 5, callTimeout = 10.seconds,
+    resetTimeout = 1.minute). onOpen(notifyMeOnOpen())
+ 
+  def notifyMeOnOpen(): Unit = log.warning(
+    "My CircuitBreaker is now open, and " + 
+    "will not close for one minute")
+#+end_src
+
+
+** Actor scheduling
+
+1. You can schedule sending of messages and execution of tasks
+   (functions or Runnable).
+
+1. Schedule to send the "foo"-message to the testActor after 50ms:
+    #+begin_src scala
+system.scheduler().scheduleOnce(
+  Duration.create(50, TimeUnit.MILLISECONDS),
+  testActor, "foo", system.dispatcher(), null   )
+#+end_src

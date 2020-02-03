@@ -13,6 +13,7 @@
 * Scala Prerequisite
 
 1. The notes below assume a good understanding of Scala classes.
+1. We are *not* using Akka actors.
 
 * A Compute Server in Scala
 

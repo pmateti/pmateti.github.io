@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-02-02 Sun 13:03 -->
+<!-- 2020-02-02 Sun 12:14 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Workers in Scala</title>
+<title>&lrm;</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
 <style type="text/css">
@@ -180,7 +180,6 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -229,291 +228,13 @@ for the JavaScript code in this tag.
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="../"> UP </a>
- |
- <a accesskey="H" href="../../Top/index.html"> HOME </a>
-</div><div id="preamble" class="status">
-<a href="../../"> ../../</a>
-</div>
 <div id="content">
-<h1 class="title">Workers in Scala</h1>
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#org599a786">1. Scala Prerequisite</a></li>
-<li><a href="#org67ff6f9">2. A Compute Server in Scala</a></li>
-<li><a href="#org34e1d0c">3. Benefits of Abstract Types: a "Job" Defined</a></li>
-<li><a href="#orgebbb1b9">4. ComputeServer.future</a>
-<ul>
-<li><a href="#org172267e">4.1. Details of ftr</a></li>
-<li><a href="#org534aa9b">4.2. Details of ftr, contd</a></li>
-</ul>
-</li>
-<li><a href="#orgc52fcb5">5. Processor Prozor</a></li>
-<li><a href="#org70530f3">6. ComputeServer</a></li>
-<li><a href="#orgec21792">7. Example Use</a></li>
-<li><a href="#org15f3b5c">8. Full Code</a></li>
-<li><a href="#org29a757e">9. References</a></li>
-<li><a href="#orgaef9a43">10. End</a></li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-org599a786" class="outline-2">
-<h2 id="org599a786"><span class="section-number-2">1</span> Scala Prerequisite</h2>
-<div class="outline-text-2" id="text-1">
-<ol class="org-ol">
-<li>The notes below assume a good understanding of Scala classes.</li>
-<li>We are <b>not</b> using Akka actors.</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org67ff6f9" class="outline-2">
-<h2 id="org67ff6f9"><span class="section-number-2">2</span> A Compute Server in Scala</h2>
-<div class="outline-text-2" id="text-2">
-<ol class="org-ol">
-<li>The server below implements a future method which evaluates a given
-expression in parallel with its caller.</li>
-
-<li>The server could run each thread on a separate processor.</li>
-
-<li>Avoid the overhead in context-switching threads on a single processor.</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org34e1d0c" class="outline-2">
-<h2 id="org34e1d0c"><span class="section-number-2">3</span> Benefits of Abstract Types: a "Job" Defined</h2>
-<div class="outline-text-2" id="text-3">
-<div class="org-src-container">
-<pre class="src src-scala">abstract class Job {
-  type T
-  def task: T
-  def ret(x: T)
-}
-</pre>
-</div>
-
-<ol class="org-ol">
-<li>An abstract type <code>T</code> which describes the result of the compute job.</li>
-
-<li>A parameterless <code>task</code> method of type T which denotes the expression
-to be computed.</li>
-
-<li>A <code>ret</code> method which consumes the result once it is computed.</li>
-
-<li>The T can vary between different jobs.</li>
-
-<li>Without abstract types it would be impossible to implement the same
-class to the user in a statically type-safe way, without relying on
-dynamic type tests and type casts.</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-orgebbb1b9" class="outline-2">
-<h2 id="orgebbb1b9"><span class="section-number-2">4</span> ComputeServer.future</h2>
-<div class="outline-text-2" id="text-4">
-<ol class="org-ol">
-<li>Future is a CS technical term describing how some computation is
-(yet to be) performed.  In Scala, the two terms/ideas "future" and
-"promise" are almost bound together.  See previous lecture.</li>
-
-<li>Expressions to be computed (i.e. arguments to calls of future) are
-written to the <code>openJobs</code> channel.</li>
-
-<li><div class="org-src-container">
-<pre class="src src-scala">def ftr[A](p: =&gt; A): () =&gt; A = {
-  val reply = new SyncVar[A]()
-  openJobs.write{
-    new Job {
-      type T = A
-      def task = p
-      def ret(x: A) = reply.set(x)
-    }
-  }
-  () =&gt; reply.get
-}
-</pre>
-</div></li>
-
-<li>The details of the signature of <code>ftr</code> are in the next section</li>
-
-<li><code>openJobs.write</code> constructs and writes a description of the job.</li>
-
-<li>The <code>A</code> and the <code>p</code> were given to <code>ftr</code>.</li>
-
-<li><code>reply</code> is a <code>SyncVar</code> of type <code>A</code>.  Offers <code>get</code> and <code>put</code>.  Newly
-created, it is unset (undefined). See previous lecture.</li>
-
-<li><code>reply.get</code> blocked wait until <code>reply</code> is defined.</li>
-</ol>
-</div>
-
-<div id="outline-container-org172267e" class="outline-3">
-<h3 id="org172267e"><span class="section-number-3">4.1</span> Details of ftr</h3>
-<div class="outline-text-3" id="text-4-1">
-<ol class="org-ol">
-<li><code>def ftr[A](p: =&gt; A): () =&gt; A = ...</code></li>
-
-<li>The <code>A</code> and the <code>p</code> are given.  Expression <code>p</code> is the argument to
-<code>ftr</code> that ftr should compute.  The computed result is going to be
-of type A. <code>p: =&gt; A</code></li>
-
-<li>What is <code>ftr</code> then? It is a function that returns a function.  The
-<code>A</code> is the  (generic) type parameter.</li>
-
-<li>The returned function takes no arguments, but returns a value of
-type A.  <code>() =&gt; A</code> .</li>
-
-<li>You would use it as in fz = ftr(expression).  You would then do
-fz().</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org534aa9b" class="outline-3">
-<h3 id="org534aa9b"><span class="section-number-3">4.2</span> Details of ftr, contd</h3>
-<div class="outline-text-3" id="text-4-2">
-<ol class="org-ol">
-<li>The polymorphic future method creates a <code>new</code> job and inserts
-(<code>write</code>) this job into the "set" of open jobs.</li>
-
-<li>The <code>ret</code> method is implemented by a guard named <code>reply</code></li>
-
-<li>It then waits until the corresponding reply guard is called. <code>() =&gt;
-   reply.get</code></li>
-</ol>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgc52fcb5" class="outline-2">
-<h2 id="orgc52fcb5"><span class="section-number-2">5</span> Processor Prozor</h2>
-<div class="outline-text-2" id="text-5">
-<div class="org-src-container">
-<pre class="src src-scala">def prozor(i: Int) {
-  while (true) {
-    val job = openJobs.read
-    job.ret(job.task)
-  }
-}
-</pre>
-</div>
-
-<ol class="org-ol">
-<li>One such process repeatedly consumes ("reads") an open job.</li>
-
-<li>Evaluates the job’s task method.</li>
-
-<li>Passes the result on to the job’s ret method.</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org70530f3" class="outline-2">
-<h2 id="org70530f3"><span class="section-number-2">6</span> ComputeServer</h2>
-<div class="outline-text-2" id="text-6">
-<div class="org-src-container">
-<pre class="src src-scala">class ComputeServer(n: Int) {
-  abstract class Job ...
-  val openJobs = new Channel[Job]()
-  def prozor(i: Int) ...
-  def future[A](p: =&gt; A): () =&gt; A = ...
-
-  spawn(replicate(0, n) { prozor })
-}
-
-</pre>
-</div>
-
-<ol class="org-ol">
-<li>The compute server creates n <code>prozor</code> s as part of its initialization.</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-orgec21792" class="outline-2">
-<h2 id="orgec21792"><span class="section-number-2">7</span> Example Use</h2>
-<div class="outline-text-2" id="text-7">
-<div class="org-src-container">
-<pre class="src src-scala">object Test with Executable {
-  val server = new ComputeServer(1)
-  val f = server.future(41 + 1)
-  println(f())
-}
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org15f3b5c" class="outline-2">
-<h2 id="org15f3b5c"><span class="section-number-2">8</span> Full Code</h2>
-<div class="outline-text-2" id="text-8">
-<div class="org-src-container">
-<pre class="src src-scala">import scala.concurrent._   // more ...
-
-class ComputeServer(n: Int) {
-  private abstract class Job {
-    type T
-    def task: T
-    def ret(x: T)
-  }
-  private val openJobs = new Channel[Job]()
-  private def prozor(i: Int) {
-    while (true) {
-      val job = openJobs.read
-      job.ret(job.task)
-    }
-  }
-
-  def ftr[A](p: =&gt; A): () =&gt; A = {
-    val reply = new SyncVar[A]()
-    openJobs.write{
-      new Job {
-        type T = A
-        def task = p
-        def ret(x: A) = reply.set(x)
-      }
-    }
-    () =&gt; reply.get
-  }
-  spawn(replicate(0, n) { prozor })
-}
-
-object Test with Executable {
-  val server = new ComputeServer(1)
-  val f = server.ftr(41 + 1)
-  println(f())
-}
-</pre>
-</div>
-</div>
-</div>
-
-
-<div id="outline-container-org29a757e" class="outline-2">
-<h2 id="org29a757e"><span class="section-number-2">9</span> References</h2>
-<div class="outline-text-2" id="text-9">
-<ol class="org-ol">
-<li>Martin Odersky, Scala By Example, Section 17.9 Workers.
-<a href="https://www.scala-lang.org/old/sites/default/files/linuxsoft_archives/docu/files/ScalaByExample.pdf">https://www.scala-lang.org/old/sites/default/files/linuxsoft_archives/docu/files/ScalaByExample.pdf</a>
-Search for a 2014 version.</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-orgaef9a43" class="outline-2">
-<h2 id="orgaef9a43"><span class="section-number-2">10</span> End</h2>
-<div class="outline-text-2" id="text-10">
-</div>
-</div>
 </div>
 <div id="postamble" class="status">
-<hr size=1>Copyright &copy; 2020 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2020-01-31
+<p class="author">Author: Prabhaker Mateti (<a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.1.9)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
