@@ -1,6 +1,6 @@
 # -*- mode: org -*-
 #+date: 2020-01-31
-#+TITLE: DIC Akka Actors with Scala
+#+TITLE: Akka Actors with Scala
 #+AUTHOR: Prabhaker Mateti
 #+HTML_LINK_HOME: ../../Top/index.html
 #+HTML_LINK_UP: ../
@@ -71,6 +71,10 @@
 1. Helps with scaling both UP (utilizing multi-core processors) and
    OUT (utilizing the cloud/ grid/ cluster).
 
+1. For fault-tolerance Akka adopts the "Let it crash" model, which has
+   been used with great success in the telecom industry to build
+   applications that self-heal and never stop.
+
 1. [[http://www.typesafe.com/platform/getstarted]] "The best way to start
    learning Akka ..."
 
@@ -128,377 +132,115 @@
 #+ATTR_HTML: :alt fig-actor-users.png :align center :width 100%
 [[./Figures/fig-akka-how-works.png]]
 
+* TypeSafe Activator: Akka Get Started
 
-* Actor Ops: Create, Send, Become, Supervise
+1. Reactive Applications: Concurrency + Events
+1. Play Framework https://www.playframework.com/documentation/2.8.x/ScalaAkka
+1. Akka Runtime 
+1. Scala Programming Language 
+1. Activator Reactive Developer Environment
+1. [[http://www.typesafe.com/platform/getstarted]] "The best way to start
+   learning Akka ..."
 
-   #+begin_src scala
-case class Greeting (who: String)
+1. [The IP address and version numbers will be specific to your setup.]
+1. =ssh= to your own laptop/ Lab machine =130.108.17.112=
 
-class GreetingActor extends Actor {
-  def receive = {
-    case Greeting(who) =>
-      sender ! (s"Hello, $who! Thanks.")
-  }
-}
-#+end_src
+1. =% /usr/local/activator-1.1.1/activator ui -Dhttp.address=130.108.17.112 -Dhttp.port=8080 -Dbrowser=/usr/bin/google-chrome=
 
-** Actor in Scala, contd
+1. Copies/Creates its applications in =~/.activator/= and =~=
 
-   #+begin_src scala
-val acsy = ActorSystem("WSU-CEG-7370-Actors")
-val grtr = acsy . actorOf(Props[GreetingActor], "greeter")
-grtr ! Greeting("Brad Pitt")
-#+end_src
+* Akka, without Activator, Practical Details
 
-1. =Props= is a configuration class to specify options for the creation of actors.
-
-1. Try the above in scala REPL.  You need the import shown below.
-
-1. =import akka.actor.{ ActorRef, ActorSystem, Props, Actor }=
-
-1. glitch: akka://WSU-CEG-7370-Actors/deadLetters
-
-** An Actor in Java
-
-   #+begin_src java
-public class Greeting implements Serializable {
-  public final String who;
-  public Greeting(String who) {
-    this.who = who;
-  }
-}
-#+end_src
-
-1. Continued ...
-
-*** An Actor in Java, contd-1
-
-   #+begin_src java
-public class GreetingActor extends UntypedActor {
-  LoggingAdapter log = Logging.getLogger(getContext().system(), this);
-  public void onReceive(Object message) throws Exception {
-    if (message instanceof Greeting)
-      getSender.tell("Hello " + ((Greeting) message).who + " Thanks.");
-  }
-} 
-#+end_src
-1. Continued ...
-
-*** An Actor in Java, contd-2
-
-   #+begin_src java
-ActorSystem acsy = ActorSystem.create("WSU-CEG-7370-Actors");
-ActorRef grtr = acsy . actorOf(
-  new Props(GreetingActor.class), "greeter");
-grtr.tell(new Greeting("Brad Pitt"));  
-#+end_src
-
-** Create an Actor
-
-1. Akka Actor receive message loop is exhaustive, different from
-   Erlang and the late Scala Actors.
-
-1. Provide a pattern match for all messages that the actor can accept.
-
-1. To handle unknown messages have a default case =case _ => ...=
-
-1. Killing an Actor: =victim ! Kill=
-
-1. =context.system.shutdown()= the ActorSystem when
-   everything’s finished
-
-** Actor System
-
-1. Akka Actors: Extremely lightweight (2.7 Million per GB RAM)
-
-1. Messages are the "kinetic energy" in an actor system.
-
-1. Actors can have lots of buffered "potential energy", but can't do
-   anything with it until triggered by a message.
-
-1. Allocate (internal) threads: =ActorSystem acsy = ActorSystem.create("WSU-CEG-7370-Actors");=
-
-1. Everything is asynchronous and lockless
-
-1. Several actor systems, possibly with different configurations, can
-   co-exist
-
-** Actor Lifecycle
-
-#+CAPTION: Actor Lifecycle
-#+ATTR_HTML: :alt fig-actor-lifecycle.png  :align center :width 100%
-#+ATTR_HTML: :style background-color:beige
-[[./Figures/fig-actor-lifecycle.png]]
-
-** Send
-
-1. The method named =receive= defines how messages are handled.
-1. =!= aka =tell=.
-1. Asynchronous and Non-blocking -- "Fire-forget"
-
-1. Order of send = order of arrival in the mailbox of receiving
-   actor. Message ordering is guaranteed on a per-sender basis.
-
-1. The size of the mailbox can be bounded or unbounded.
-
-1.  =def ! (message: Any)=\\
-    =(implicit sender: ActorRef = Actor.noSender)=
-
-1. =?= sends a message asynchronously and returns a =Future=
-   representing a possible reply. Aka =ask=.
-
-** Become - Ex: HotSwapActor
+1. Akka can be used without defining a
+   configuration, since sensible default values are provided.
 
     #+begin_src scala
-import akka.actor._
-class HotSwapActor extends Actor {
-  import context._
-  def angry: Receive = {
-    case "ang" => sender ! "I am already angry >:("
-    case "hap" => become(happy)
+// application.conf at the root of the class path.
+akka {
+  loggers = ["akka.event.slf4j.Slf4jLogger"]
+  loglevel = "DEBUG"
+  stdout-loglevel = "WARNING"
+  actor {
+    provider = "akka.cluster.ClusterActorRefProvider"
+    default-dispatcher {
+      # set to 1 for as fair as possible
+      throughput = 10
+    }
   }
- 
-  def happy: Receive = {
-    case "hap" => sender ! "I am already happy :-)"
-    case "ang" => become(angry)
-  }
- 
-  def receive = {
-    case "ang" => become(angry)
-    case "hap" => become(happy)
-  }
+  remote {    netty.tcp.port = 2552  }
 }
 #+end_src
 
-** Become Overview
 
-1. Behaviors can be pushed and popped
-1. =context.become= Replaces the current behavior (i.e., the top of the
-   behavior stack)
-1. Will now react according to the new behavior to the messages
-1. =context.unbecome= pop the stack
+* Large Scale Examples of Akka + Scala
 
-** Become - Why?
+1. http://www.playframework.com/ "The High Velocity Web Framework For
+   Java and Scala" Built on Akka, Play provides predictable and
+   minimal resource consumption (CPU, memory, threads) for
+   highly-scalable applications.  RESTful by default.
 
-1. Implement finite state machines =import akka.actor.FSM=
+   1.  REST stands for "Representational State Transfer".  It
+       describes a web architecture.
 
-1. Spawn up an empty generic worker actor that can become whatever the
-   master needs
+1. Play is used in http://www.typesafe.com/platform/getstarted
 
-1. Let a highly contended actor adaptively transform into an actor
-   pool or a Router
+1. http://spray.io/ "Elegant, high-performance HTTP for your Akka
+   Actors."  =spray= is an open-source toolkit for building
+   REST/HTTP-based integration layers on top of Scala and Akka.  Being
+   asynchronous, actor-based, fast, lightweight, modular and testable
+   it's a great way to connect your Scala applications to the world.
 
-1. Implement graceful degradation
-
-** Advanced =become=, Finite State Machines, and P3
-
-1. http://www.typesafe.com/activator/template/akka-sample-fsm-scala
-
-1. WSU CEG 7370 P3: Understand the example above, and answer the
-   questions TBD.
+1. http://twitter.github.io/finagle Finagle is an extensible RPC
+   system for the JVM.  Finagle is written in Scala, but provides both
+   Scala and Java  APIs.
 
 
-** Actor Hierarchy and Name Resolution
+
+* Actor Hierarchy and Name Resolution
 
 #+CAPTION: Actor Hierarchy and Name Resolution
 #+ATTR_HTML: :alt fig-actor-hierarchy.png  :title Actor Hierarchy and Name Resolution :align center :width 100%
 [[./Figures/fig-actor-hierarchy.png]]
 
-** Become -- Add to the Stack, Not Replace
+1. An actor in Akka always belongs to a parent.  Who is the parent of
+   the first actor you create? "Root Guardian", similar to parent of /
+   in Linux.
 
-    #+begin_src scala
-import akka.event.Logging; import akka.actor._
-case object Swap
-class Swapper extends Actor {  import context._
-  val log = Logging(system, this) 
-  def receive = {
-    case Swap =>
-      log.info("Hi")
-      become({
-        case Swap =>
-          log.info("Ho")
-          unbecome() // just for fun
-      }, discardOld = false) /* not replace */  }}
- 
-object SwapperApp extends App {
-  val sys = ActorSystem("SwapperSystem")
-  val a = sys.actorOf(Props[Swapper], name="swapper")
-  // alternately logs Hi, Ho, ...
-  a!Swap; a!Swap; a!Swap; a!Swap; a!Swap; a!Swap
-}
-#+end_src
+1. Read further https://doc.akka.io/docs/akka/current/typed/guide/tutorial_1.html#the-akka-actor-hierarchy
 
-** Supervise
 
-1. Every single actor has a default supervisor strategy.  Which is
-   usually sufficient.  But it can be overridden.
+* Akka Ops: Create, Send, Become, Supervise
 
-1. When an actor crashes, its parent can either =restart=, =stop= it, or
-   =escalate= the failure up the hierarchy of actors.
+1. Akka has Create, Send, Become, Supervise operations on its actors.
+   These are essential to use Akka.
 
-1. A chain of responsibility, all the way to the top.    
-
-1. "Let it crash!"
-
-1. Provides clean separation of business logic and error handling
-
-1. Traditional failure management:
-
-  1. You are given a single thread of control
-  1. Need to do all explicit error handling WITHIN this single thread
-  1. Errors do not propagate between threads
-  1. Leads to defensive programming, with error handling tangled with
-     business logic
-
-** DeathWatch
-
-1. Register to receive =Terminated= message provided by the
-   =DeathWatch= component of the actor system.
-
-    #+begin_src scala
-import akka.actor.{ Actor, Props, Terminated }
-class WatchActor extends Actor {
-  val child = context.actorOf(Props.empty, "child")
-  context.watch(child)   // registration
-  var lastSender = system.deadLetters
-  def receive = {
-    case "kill" =>
-      context.stop(child); lastSender = sender()
-    case Terminated(`child`) =>
-      lastSender ! "finished"
-  }
-}
-#+end_src
-
-1.  Note the back-quotes in =Terminated(`child`)=
-
+1. Link to [[./akkaOps.org][Lectures Notes on Ops]]
 
 * Routers, Dispatchers, and Schedulers
 
 1. A router is a type of actor.  Routes incoming messages to
    outbound actors.
-
-1. Akka download comes with several =akka.routing= strategies:
-
-   1. RoundRobinRoutingLogic
-   1. RandomRoutingLogic
-   1. SmallestMailboxRoutingLogic
-   1. BroadcastRoutingLogic
-   1. ScatterGatherFirstCompletedRoutingLogic
-   1. ConsistentHashingRoutingLogic
-
-** Execution Contexts
-
-1. Think of execution contexts as thread pools.
-
-1. =ExecutionContext= is similar to =java.util.concurrent.= =Executor=. 
-1. =import scala.concurrent.ExecutionContext=
-
-    #+begin_src scala
-#+end_src
-
-** Dispatchers
-
 1. A dispatcher chooses an actor and a message from the actors mbox,
    and allocates a thread.
-
-1. Every ActorSystem will have a default dispatcher.  Dispatchers
-   implement the =ExecutionContext= interface.
-
-1. Each actor is configured to be run on a =MessageDispatcher=, and that
-   dispatcher doubles as an =ExecutionContext=.
-
-1. Pinned dispatcher: Each actor has its own dedicated thread. Ideal
-   for blocking operations.
-
-1. Calling Thread dispatcher: Provides a deterministic execution order
-
-
-** The Balancing Dispatcher
-
-1. Balancing dispatcher: Redistribute the work from busy actors to
-   idle ones.
-
-1. All actors it handles share a mbox.  A "work stealing" dispatcher.
-
-1. BalancingDispatcher is an actor.  It is in-charge of sending
-   messages to several actors (known as workers).
-
-*** The Balancing Dispatcher
-
-#+CAPTION: balancing-workload-across-nodes-with-akka-2
-#+ATTR_HTML: :style background-color:beige
-#+ATTR_HTML: :alt fig-dispatcher-balancing.png  :align center :width 50%
-[[./Figures/fig-dispatcher-balancing.png]]
-
-** Throttling
-
-1. Message Throttler: E.g., no more than 3 messages in 1 second.
-1. printer: A simple actor that prints whatever it receives
-
-    #+begin_src scala
-class PrintActor extends Actor {
-  def receive = { case x ⇒ println(x) }
-}
-val printer = system.actorOf(Props[PrintActor])
-#+end_src
-
-1. =TimerBasedThrottler=
-    #+begin_src scala
-    val throttler = system.actorOf(
-      Props(classOf[ TimerBasedThrottler ],
-      3 msgsPer 1.second))
-    throttler ! SetTarget(Some(printer))
-    throttler ! "1"; throttler!"2"; throttler!"3"
-    // These will wait for a second
-    throttler ! "4"; throttler ! "5"
-#+end_src
-
-** Circuit Breakers
-
-1. A circuit breaker provides stability and prevents cascading
-   failures in distributed systems.
-
-1. import =akka.pattern.CircuitBreaker=, ...
-
-    #+begin_src scala
-class D extends Actor with ActorLogging {
-  import context.dispatcher
- 
-  val breaker = new CircuitBreaker(
-    context.system.scheduler,
-    maxFailures = 5, callTimeout = 10.seconds,
-    resetTimeout = 1.minute). onOpen(notifyMeOnOpen())
- 
-  def notifyMeOnOpen(): Unit = log.warning(
-    "My CircuitBreaker is now open, and " + 
-    "will not close for one minute")
-#+end_src
-
-
-** Actor scheduling
-
 1. You can schedule sending of messages and execution of tasks
    (functions or Runnable).
 
-1. Schedule to send the "foo"-message to the testActor after 50ms:
-    #+begin_src scala
-system.scheduler().scheduleOnce(
-  Duration.create(50, TimeUnit.MILLISECONDS),
-  testActor, "foo", system.dispatcher(), null   )
-#+end_src
+1. Link to [[./akkaRDS.org][Lecture Notes on Routers, Dispatchers, and Schedulers]]
+
 
 * Futures and Promises
 
 1. Akka gets Futures and Promises from Scala.
+
+** Futures
 
 1. A Future is a placeholder object for a result that has not been
    computed yet.  A related CS term is *lazy evaluation*.
 
 1. A Future may only be assigned once.  Needs an =ExecutionContext=
 
-1. Invoke the =future= method which starts an asynchronous computation
-   and returns a future. The result becomes available once the future
+1. Invoking the =future= method starts an asynchronous computation and
+   returns a future.  The result becomes available once the future
    *completes*.
 
    #+begin_src scala
@@ -670,67 +412,11 @@ What Does "Finished" Mean? The most natural answer to this question
 #+ATTR_HTML: :style background-color:beige
 [[./Figures/fig-akka-poison-pill.png]]
 
-* Large Scale Examples of Akka + Scala
 
-1. http://www.playframework.com/ "The High Velocity Web Framework For
-   Java and Scala" Built on Akka, Play provides predictable and
-   minimal resource consumption (CPU, memory, threads) for
-   highly-scalable applications.  RESTful by default.
+* Akka v Kafka
 
-   1.  REST stands for "Representational State Transfer".  It
-       describes a web architecture.
+1. Akka vs Kafka: What are the differences?  https://stackshare.io/stackups/akka-vs-kafka
 
-1. Play is used in http://www.typesafe.com/platform/getstarted
-
-1. http://spray.io/ "Elegant, high-performance HTTP for your Akka
-   Actors."  =spray= is an open-source toolkit for building
-   REST/HTTP-based integration layers on top of Scala and Akka.  Being
-   asynchronous, actor-based, fast, lightweight, modular and testable
-   it's a great way to connect your Scala applications to the world.
-
-1. http://twitter.github.io/finagle Finagle is an extensible RPC
-   system for the JVM.  Finagle is written in Scala, but provides both
-   Scala and Java  APIs.
-
-* TypeSafe Activator: Akka Get Started
-
-1. Reactive Applications: Concurrency + events
-1. Play Framework 
-1. Akka Runtime 
-1. Scala Programming Language 
-1. Activator Reactive Developer Environment
-1. [[http://www.typesafe.com/platform/getstarted]] "The best way to start
-   learning Akka ..."
-
-** Activator Practical Details
-
-1. =ssh= to Laptop/OSIS Lab machine =130.108.17.112=
-
-1. =% /usr/local/activator-1.1.1/activator ui -Dhttp.address=130.108.17.112 -Dhttp.port=8080 -Dbrowser=/usr/bin/google-chrome=
-
-1. Copies/Creates its applications in =~/.activator/= and =~=
-
-** Akka, without Activator, Practical Details
-
-1. Akka can be used without defining a
-   configuration, since sensible default values are provided.
-
-    #+begin_src scala
-// application.conf at the root of the class path.
-akka {
-  loggers = ["akka.event.slf4j.Slf4jLogger"]
-  loglevel = "DEBUG"
-  stdout-loglevel = "WARNING"
-  actor {
-    provider = "akka.cluster.ClusterActorRefProvider"
-    default-dispatcher {
-      # set to 1 for as fair as possible
-      throughput = 10
-    }
-  }
-  remote {    netty.tcp.port = 2552  }
-}
-#+end_src
 
 * References
 
