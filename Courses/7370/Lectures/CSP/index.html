@@ -689,11 +689,11 @@ S(i: 1 .. 100) ::
          if   m &lt;=  n --&gt; S(0)!(m = n)
          []  m &gt;   n --&gt; S(i+1)!has(m)
          fi 
-         [] m: integer; S(i-1)?insert(m) --&gt;  
+     [] m: integer; S(i-1)?insert(m) --&gt;  
          if  m &lt; n --&gt; S(i+1)!insert(n); n := m
          [] m = n --&gt; skip
          [] m &gt; n --&gt; S(i+1)!insert(m)
-                     fi
+         fi
  od  od 
 </pre>
 
