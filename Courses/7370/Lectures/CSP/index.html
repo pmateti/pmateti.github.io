@@ -685,12 +685,12 @@ Integers</i> of Hoare's CSP paper is reproduced below.
 S(i: 1 .. 100) ::
  do  n: integer; S(i-1)?has(n) --&gt; S(0)!false
  []  n: integer; S(i-1)?insert(n) --&gt;  
-     do m:   integer; S(i-1)?has(m) --&gt;  
-         if   m &lt;=  n --&gt; S(0)!(m = n)
-         []  m &gt;   n --&gt; S(i+1)!has(m)
+     do m: integer; S(i-1)?has(m) --&gt;  
+         if m &le;  n --&gt; S(0)!(m = n)
+         [] m &gt;   n --&gt; S(i+1)!has(m)
          fi 
      [] m: integer; S(i-1)?insert(m) --&gt;  
-         if  m &lt; n --&gt; S(i+1)!insert(n); n := m
+         if m &lt; n --&gt; S(i+1)!insert(n); n := m
          [] m = n --&gt; skip
          [] m &gt; n --&gt; S(i+1)!insert(m)
          fi
