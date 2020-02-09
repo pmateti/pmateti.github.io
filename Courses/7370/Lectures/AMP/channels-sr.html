@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-02-09 Sun 12:04 -->
+<!-- 2020-02-09 Sun 12:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>DIC AMP</title>
+<title>DIC AMP Channels in SR Language</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
 <style type="text/css">
@@ -237,44 +237,67 @@ for the JavaScript code in this tag.
 <a href="../../"> ../../</a>
 </div>
 <div id="content">
-<h1 class="title">DIC AMP</h1>
+<h1 class="title">DIC AMP Channels in SR Language</h1>
 
-<div id="outline-container-org08226d7" class="outline-2">
-<h2 id="org08226d7"><span class="section-number-2">1</span> TOC</h2>
+<div id="outline-container-org479d666" class="outline-2">
+<h2 id="org479d666"><span class="section-number-2">1</span> Channels of SR</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
-<li><a href="./AMP.html">./AMP.html</a> Overview of Asynchronous Message Passing</li>
-<li><a href="./happened-before.html">"Happened Before"</a> Relation of Leslie Lamport.</li>
+<li>In the book, Andrews uses a language, without ever giving us its
+name SR, designed by him and implemented by his group.</li>
 
-<li><a href="./channels-sr.html">./channels-sr.html</a> Channels are syntactic construct in support of
-AMP.</li>
+<li>A <b>channel</b> is an SR PL construct for AMP
+<ol class="org-ol">
+<li><code>channel semop[1 .. n](sender: int, k: kind, timestamp: int)</code></li>
+<li>An array of channels, indexed 1 to n</li>
+<li>Each element is a triplet of (sender, k, timestamp)</li>
+</ol></li>
 
-<li><a href="./semaphore-distributed.html">./semaphore-distributed.html</a> An implementation of "distributed semaphore".</li>
-<li><a href="./token-passing.html">./token-passing.html</a> Distributed Algorithms using a special message
-known as a "token".</li>
+<li><code>send semop[j](i, VEE, lc)</code>
+<ol class="org-ol">
+<li>selects one channel <code>semop[j]</code> and deposits the triplet <code>(i, VEE, lc)</code></li>
+<li>i, VEE, lc are expressions of types int, kind, int</li>
+</ol></li>
+<li><code>receive semop[j](i, v, lc)</code>
+<ol class="org-ol">
+<li>selects one channel <code>semop[j]</code> and retrieves a triplet</li>
+<li>i, v, lc are local variables of the receiving process of types
+int, kind, int respectively</li>
+<li>i, v, lc are assigned the triplet's values</li>
+</ol></li>
+<li><code>broadcast semop(i, VEE, lc)</code>
+<ol class="org-ol">
+<li>does <code>send semop[j](i, VEE, lc) for all j: 1 .. n</code></li>
+<li>in parallel</li>
+</ol></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org55ab60a" class="outline-2">
-<h2 id="org55ab60a"><span class="section-number-2">2</span> Reading beyond the Lectures</h2>
+
+<div id="outline-container-org4799ffc" class="outline-2">
+<h2 id="org4799ffc"><span class="section-number-2">2</span> References</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
-<li><a href="https://amturing.acm.org/award_winners/lamport_1205376.cfm">https://amturing.acm.org/award_winners/lamport_1205376.cfm</a> Leslie
-Lamport is a Turing Award Winner 2013.  CITATION: "For fundamental
-contributions to the theory and practice of distributed and
-concurrent systems, notably the invention of concepts such as
-causality and logical clocks, safety and liveness, replicated state
-machines, and sequential consistency."</li>
+<li>Gregory R. Andrews, Concurrent Programming: Principles and Practice,
+Benjamin/Cummings, 1991. Chapter 7 on AMP. Required Reading.</li>
 
-<li><a href="https://www.youtube.com/watch?v=0Ep3QqYorGM">https://www.youtube.com/watch?v=0Ep3QqYorGM</a> A Conversation with
-Turing Award Winner Leslie Lamport Aug 18, 2016;  Video 22:45</li>
+<li><a href="https://www2.cs.arizona.edu/~greg/">https://www2.cs.arizona.edu/~greg/</a> Andrews and Olsson, The SR
+Programming Language: Concurrency in Practice,
+Benjamin/Cummings, 1993. The book is now in its third printing.
+{pmateti: SR provided remote/local procedure calls (RPC-like),
+rendezvous (as in Ada), sending a msg to a procedure (that created
+a transient process), and send! coupled with in? that resulted in
+message passing.}  Recommended Visits.</li>
+
+<li><a href="../Projects/WB-SR/">../Projects/WB-SR/</a> Years ago we used to have the WhiteBoard project
+in SR.  This is the src code link.  Highly Recommended Reading.</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org5b61132" class="outline-2">
-<h2 id="org5b61132"><span class="section-number-2">3</span> End</h2>
+<div id="outline-container-org56fea38" class="outline-2">
+<h2 id="org56fea38"><span class="section-number-2">3</span> End</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 </div>

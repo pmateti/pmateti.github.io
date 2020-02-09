@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-02-09 Sun 12:04 -->
+<!-- 2020-02-09 Sun 11:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>DIC AMP</title>
+<title>DIC: AMP Happened Before</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
 <style type="text/css">
@@ -237,45 +237,89 @@ for the JavaScript code in this tag.
 <a href="../../"> ../../</a>
 </div>
 <div id="content">
-<h1 class="title">DIC AMP</h1>
+<h1 class="title">DIC: AMP Happened Before</h1>
+<p>
+Distributed algorithms depend on being able to "time-order" events
+that happen across (distant) systems.  This can be linked with the
+problem of synchronization of clocks.  But, we seek a much simpler
+solution.
+</p>
 
-<div id="outline-container-org08226d7" class="outline-2">
-<h2 id="org08226d7"><span class="section-number-2">1</span> TOC</h2>
+<div id="outline-container-org1c72c1e" class="outline-2">
+<h2 id="org1c72c1e"><span class="section-number-2">1</span> Happened-Before</h2>
 <div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgee2993b" class="outline-3">
+<h3 id="orgee2993b"><span class="section-number-3">1.1</span> Event Ordering</h3>
+<div class="outline-text-3" id="text-1-1">
 <ol class="org-ol">
-<li><a href="./AMP.html">./AMP.html</a> Overview of Asynchronous Message Passing</li>
-<li><a href="./happened-before.html">"Happened Before"</a> Relation of Leslie Lamport.</li>
-
-<li><a href="./channels-sr.html">./channels-sr.html</a> Channels are syntactic construct in support of
-AMP.</li>
-
-<li><a href="./semaphore-distributed.html">./semaphore-distributed.html</a> An implementation of "distributed semaphore".</li>
-<li><a href="./token-passing.html">./token-passing.html</a> Distributed Algorithms using a special message
-known as a "token".</li>
+<li>An event is the execution of anything: a statement, a send, a
+receive, etc.</li>
+<li>Any two events a and b in a single process (i.e., without //) are
+clearly ordered: either a happens before b (written a → b) or the
+otherway (b → a).</li>
+<li>Let a and b be two events taken from two processes. Can we order
+these two? If a is the sending of a message, and b is the receiving
+of <i>that</i> message, we can see that a → b.</li>
+<li>What if a and b are not so? We cannot say either that a → b or the
+otherway b → a.</li>
+<li>Happens Before is transitive:   a → b and b → c implies a → c.</li>
+<li>Events across processes are only partially ordered.</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org55ab60a" class="outline-2">
-<h2 id="org55ab60a"><span class="section-number-2">2</span> Reading beyond the Lectures</h2>
+<div id="outline-container-orgcb12b91" class="outline-3">
+<h3 id="orgcb12b91"><span class="section-number-3">1.2</span> Logical Clocks</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li>Distributed systems do not have central clocks.</li>
+<li>Yet, we desire to establish a total order among events across
+processes. That is, we wish either a → b or b → a even when a and b
+are not from the same process or send/receives.</li>
+<li>A <i>logical clock</i> is a private counter <code>lc</code> maintained by each process.</li>
+<li>On every event, <code>lc : = lc + 1</code>.</li>
+<li>Include lc as part of every message sent, as the time stamp of the
+sender.</li>
+<li>On receiving (m, ts), receiver does <code>lc : = max(lc, ts+1) + 1</code></li>
+<li>Assume lc never overflows.  Arbitrary precision.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org6e406c3" class="outline-2">
+<h2 id="org6e406c3"><span class="section-number-2">2</span> Reading beyond the Lectures</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
-<li><a href="https://amturing.acm.org/award_winners/lamport_1205376.cfm">https://amturing.acm.org/award_winners/lamport_1205376.cfm</a> Leslie
-Lamport is a Turing Award Winner 2013.  CITATION: "For fundamental
-contributions to the theory and practice of distributed and
-concurrent systems, notably the invention of concepts such as
-causality and logical clocks, safety and liveness, replicated state
-machines, and sequential consistency."</li>
-
-<li><a href="https://www.youtube.com/watch?v=0Ep3QqYorGM">https://www.youtube.com/watch?v=0Ep3QqYorGM</a> A Conversation with
-Turing Award Winner Leslie Lamport Aug 18, 2016;  Video 22:45</li>
+<li><a href="https://en.wikipedia.org/wiki/Clock_synchronization">https://en.wikipedia.org/wiki/Clock_synchronization</a></li>
+<li><a href="https://www.google.com/search?q=synchronization+of+clocks+in+distributed+system">https://www.google.com/search?q=synchronization+of+clocks+in+distributed+system</a></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org5b61132" class="outline-2">
-<h2 id="org5b61132"><span class="section-number-2">3</span> End</h2>
+<div id="outline-container-org03340e9" class="outline-2">
+<h2 id="org03340e9"><span class="section-number-2">3</span> References</h2>
 <div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Gregory R. Andrews, Concurrent Programming: Principles and Practice,
+Benjamin/Cummings, 1991. Chapter 7 on AMP. Required Reading.</li>
+<li><a href="https://en.wikipedia.org/wiki/Happened-before">https://en.wikipedia.org/wiki/Happened-before</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Lamport_timestamps">https://en.wikipedia.org/wiki/Lamport_timestamps</a></li>
+
+<li>Lamport, Leslie (1978). "Time, Clocks and the Ordering of Events in
+a Distributed System",
+<a href="http://research.microsoft.com/en-us/um/people/lamport/pubs/time-clocks.pdf">http://research.microsoft.com/en-us/um/people/lamport/pubs/time-clocks.pdf</a>,
+Communications of the ACM, 21(7), 558-565.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org8546fd2" class="outline-2">
+<h2 id="org8546fd2"><span class="section-number-2">4</span> End</h2>
+<div class="outline-text-2" id="text-4">
 </div>
 </div>
 </div>

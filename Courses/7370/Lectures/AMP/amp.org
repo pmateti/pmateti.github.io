@@ -1,0 +1,56 @@
+
+# -*- mode: org -*-
+#+date: 2020-01-31
+#+TITLE: DIC: Asynchronous-Message-Passing AMP
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Send and Receive
+
+1. Process A can send a message e to process B
+   1. e is an expression
+   2. computed within A
+2. Process B can receive the message from process A
+   1. Receives the msg in a var x local to B
+3. Receiver waits if there are no messages
+
+** send operation never blocks
+
+1. The above implies infinite buffering
+1. can send messages to self
+1. communication only
+1. no implied synchronization
+
+
+** Msg Order
+
+5. Order of receive = Order of send.
+6. sender and receiver execute independently.
+7. "time gap" between send and the corresponding receive can be large.
+
+* Exercises
+
+
+1. Discuss: /Asynchronous/ message passing is *more fundamental* than
+   /synchronous/ message passing. That is, given SMP send/recv can we
+   construct AMP send/recv?
+2. Discuss: /Peer-to-peer distributed computing/ is just an academic
+   term for the commercial term /client-server computing/.
+3. Discuss: Do we "real" practical implementations of AMP?
+3. Discuss: Do we "real" practical implementations of SMP?
+
+* References
+
+1. Gregory R. Andrews, Concurrent Programming: Principles and Practice,
+   Benjamin/Cummings, 1991. Chapter 7 on AMP. Required Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

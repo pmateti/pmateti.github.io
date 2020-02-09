@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-02-09 Sun 12:04 -->
+<!-- 2020-02-09 Sun 11:16 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>DIC AMP</title>
+<title>DIC: Asynchronous-Message-Passing AMP</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
 <style type="text/css">
@@ -237,45 +237,78 @@ for the JavaScript code in this tag.
 <a href="../../"> ../../</a>
 </div>
 <div id="content">
-<h1 class="title">DIC AMP</h1>
+<h1 class="title">DIC: Asynchronous-Message-Passing AMP</h1>
 
-<div id="outline-container-org08226d7" class="outline-2">
-<h2 id="org08226d7"><span class="section-number-2">1</span> TOC</h2>
+<div id="outline-container-orgf53b8d5" class="outline-2">
+<h2 id="orgf53b8d5"><span class="section-number-2">1</span> Send and Receive</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
-<li><a href="./AMP.html">./AMP.html</a> Overview of Asynchronous Message Passing</li>
-<li><a href="./happened-before.html">"Happened Before"</a> Relation of Leslie Lamport.</li>
+<li>Process A can send a message e to process B
+<ol class="org-ol">
+<li>e is an expression</li>
+<li>computed within A</li>
+</ol></li>
+<li>Process B can receive the message from process A
+<ol class="org-ol">
+<li>Receives the msg in a var x local to B</li>
+</ol></li>
+<li>Receiver waits if there are no messages</li>
+</ol>
+</div>
 
-<li><a href="./channels-sr.html">./channels-sr.html</a> Channels are syntactic construct in support of
-AMP.</li>
-
-<li><a href="./semaphore-distributed.html">./semaphore-distributed.html</a> An implementation of "distributed semaphore".</li>
-<li><a href="./token-passing.html">./token-passing.html</a> Distributed Algorithms using a special message
-known as a "token".</li>
+<div id="outline-container-org1b1e5ed" class="outline-3">
+<h3 id="org1b1e5ed"><span class="section-number-3">1.1</span> send operation never blocks</h3>
+<div class="outline-text-3" id="text-1-1">
+<ol class="org-ol">
+<li>The above implies infinite buffering</li>
+<li>can send messages to self</li>
+<li>communication only</li>
+<li>no implied synchronization</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org55ab60a" class="outline-2">
-<h2 id="org55ab60a"><span class="section-number-2">2</span> Reading beyond the Lectures</h2>
+
+<div id="outline-container-orge708c78" class="outline-3">
+<h3 id="orge708c78"><span class="section-number-3">1.2</span> Msg Order</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li>Order of receive = Order of send.</li>
+<li>sender and receiver execute independently.</li>
+<li>"time gap" between send and the corresponding receive can be large.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0d9c5b8" class="outline-2">
+<h2 id="org0d9c5b8"><span class="section-number-2">2</span> Exercises</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
-<li><a href="https://amturing.acm.org/award_winners/lamport_1205376.cfm">https://amturing.acm.org/award_winners/lamport_1205376.cfm</a> Leslie
-Lamport is a Turing Award Winner 2013.  CITATION: "For fundamental
-contributions to the theory and practice of distributed and
-concurrent systems, notably the invention of concepts such as
-causality and logical clocks, safety and liveness, replicated state
-machines, and sequential consistency."</li>
-
-<li><a href="https://www.youtube.com/watch?v=0Ep3QqYorGM">https://www.youtube.com/watch?v=0Ep3QqYorGM</a> A Conversation with
-Turing Award Winner Leslie Lamport Aug 18, 2016;  Video 22:45</li>
+<li>Discuss: <i>Asynchronous</i> message passing is <b>more fundamental</b> than
+<i>synchronous</i> message passing. That is, given SMP send/recv can we
+construct AMP send/recv?</li>
+<li>Discuss: <i>Peer-to-peer distributed computing</i> is just an academic
+term for the commercial term <i>client-server computing</i>.</li>
+<li>Discuss: Do we "real" practical implementations of AMP?</li>
+<li>Discuss: Do we "real" practical implementations of SMP?</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org5b61132" class="outline-2">
-<h2 id="org5b61132"><span class="section-number-2">3</span> End</h2>
+<div id="outline-container-orgc6c5e9d" class="outline-2">
+<h2 id="orgc6c5e9d"><span class="section-number-2">3</span> References</h2>
 <div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Gregory R. Andrews, Concurrent Programming: Principles and Practice,
+Benjamin/Cummings, 1991. Chapter 7 on AMP. Required Reading.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org73d5263" class="outline-2">
+<h2 id="org73d5263"><span class="section-number-2">4</span> End</h2>
+<div class="outline-text-2" id="text-4">
 </div>
 </div>
 </div>

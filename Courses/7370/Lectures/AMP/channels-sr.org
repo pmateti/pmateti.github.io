@@ -1,0 +1,56 @@
+
+# -*- mode: org -*-
+#+date: 2020-01-31
+#+TITLE: DIC AMP Channels in SR Language
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Channels of SR
+
+1. In the book, Andrews uses a language, without ever giving us its
+   name SR, designed by him and implemented by his group.
+
+2. A *channel* is an SR PL construct for AMP
+   1. =channel semop[1 .. n](sender: int, k: kind, timestamp: int)=
+   2. An array of channels, indexed 1 to n
+   3. Each element is a triplet of (sender, k, timestamp)
+
+3. =send semop[j](i, VEE, lc)=
+   1. selects one channel =semop[j]= and deposits the triplet =(i, VEE, lc)=
+   1. i, VEE, lc are expressions of types int, kind, int
+4. =receive semop[j](i, v, lc)=
+   1. selects one channel =semop[j]= and retrieves a triplet
+   2. i, v, lc are local variables of the receiving process of types
+      int, kind, int respectively
+   1. i, v, lc are assigned the triplet's values
+5. =broadcast semop(i, VEE, lc)=
+   1. does =send semop[j](i, VEE, lc) for all j: 1 .. n=
+   2. in parallel
+
+
+* References
+
+1. Gregory R. Andrews, Concurrent Programming: Principles and Practice,
+   Benjamin/Cummings, 1991. Chapter 7 on AMP. Required Reading.
+
+1. https://www2.cs.arizona.edu/~greg/ Andrews and Olsson, The SR
+   Programming Language: Concurrency in Practice,
+   Benjamin/Cummings, 1993. The book is now in its third printing.
+   {pmateti: SR provided remote/local procedure calls (RPC-like),
+   rendezvous (as in Ada), sending a msg to a procedure (that created
+   a transient process), and send! coupled with in? that resulted in
+   message passing.}  Recommended Visits.
+
+1. [[../Projects/WB-SR/]] Years ago we used to have the WhiteBoard project
+   in SR.  This is the src code link.  Highly Recommended Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

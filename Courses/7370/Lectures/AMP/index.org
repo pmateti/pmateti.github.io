@@ -13,12 +13,27 @@
 
 * TOC
 
-1. [[./AMP.html]]
-1. [[./semaphore-distributed.html]]
-1. [[./token-passing.html]]
+1. [[./AMP.html]] Overview of Asynchronous Message Passing
+1. [[./happened-before.org]["Happened Before"]] Relation of Leslie Lamport.
+
+1. [[./channels-sr.org]] Channels are syntactic construct in support of
+   AMP.
+
+1. [[./semaphore-distributed.html]] An implementation of "distributed semaphore".
+1. [[./token-passing.html]] Distributed Algorithms using a special message
+   known as a "token".
 
 * Reading beyond the Lectures
 
+1. https://amturing.acm.org/award_winners/lamport_1205376.cfm Leslie
+   Lamport is a Turing Award Winner 2013.  CITATION: "For fundamental
+   contributions to the theory and practice of distributed and
+   concurrent systems, notably the invention of concepts such as
+   causality and logical clocks, safety and liveness, replicated state
+   machines, and sequential consistency."
+
+1. https://www.youtube.com/watch?v=0Ep3QqYorGM A Conversation with
+   Turing Award Winner Leslie Lamport Aug 18, 2016;  Video 22:45
 
 * End
 # Local variables:
