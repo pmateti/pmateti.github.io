@@ -1,0 +1,74 @@
+
+# -*- mode: org -*-
+#+date: 2020-01-31
+#+TITLE: DIC: AMP Happened Before
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+
+Distributed algorithms depend on being able to "time-order" events
+that happen across (distant) systems.  This can be linked with the
+problem of synchronization of clocks.  But, we seek a much simpler
+solution.
+
+* Happened-Before
+
+** Event Ordering
+
+
+1. An event is the execution of anything: a statement, a send, a
+   receive, etc.
+2. Any two events a and b in a single process (i.e., without //) are
+   clearly ordered: either a happens before b (written a → b) or the
+   otherway (b → a).
+3. Let a and b be two events taken from two processes. Can we order
+   these two? If a is the sending of a message, and b is the receiving
+   of /that/ message, we can see that a → b.
+4. What if a and b are not so? We cannot say either that a → b or the
+   otherway b → a.
+5. Happens Before is transitive:   a → b and b → c implies a → c.
+6. Events across processes are only partially ordered.
+
+** Logical Clocks
+
+1. Distributed systems do not have central clocks.
+2. Yet, we desire to establish a total order among events across
+   processes. That is, we wish either a → b or b → a even when a and b
+   are not from the same process or send/receives.
+3. A /logical clock/ is a private counter =lc= maintained by each process.
+4. On every event, =lc : = lc + 1=.
+5. Include lc as part of every message sent, as the time stamp of the
+   sender.
+6. On receiving (m, ts), receiver does =lc : = max(lc, ts+1) + 1=
+7. Assume lc never overflows.  Arbitrary precision.
+
+
+
+* Reading beyond the Lectures
+
+1. https://en.wikipedia.org/wiki/Clock_synchronization
+1. https://www.google.com/search?q=synchronization+of+clocks+in+distributed+system
+
+* References
+
+
+1. Gregory R. Andrews, Concurrent Programming: Principles and Practice,
+   Benjamin/Cummings, 1991. Chapter 7 on AMP. Required Reading.
+2. [[https://en.wikipedia.org/wiki/Happened-before]]
+1. https://en.wikipedia.org/wiki/Lamport_timestamps
+
+1. Lamport, Leslie (1978). "Time, Clocks and the Ordering of Events in
+   a Distributed System",
+   http://research.microsoft.com/en-us/um/people/lamport/pubs/time-clocks.pdf,
+   Communications of the ACM, 21(7), 558-565.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
