@@ -326,48 +326,8 @@ State clearly any other assumptions that you found necessary for your
 solution.
 </p>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<tbody>
-<tr>
-<td class="org-left">----------------------------------------&#x2013;&#x2014;\\</td>
-<td class="org-left">  </td>
-<td class="org-left">In our visualization, the bridge is drawn horizontally with the top lane with traffic going from right-to-left, and the bottom lane with traffic going from left-to-right. There is an entry sensor (s2, s3) and an exit sensor (s1, s4) installed in each lane that detects cars passing over. TL1 and TL2 are traffic lights.</td>
-</tr>
-
-<tr>
-<td class="org-left">s1 &lt;&#x2013; right-to-left &lt;&#x2014; s2 TL1\\</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">----------------------------------------&#x2013;&#x2014;\\</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">TL2 s3 &#x2013;&gt; left-to-right &#x2014;&gt; s4\\</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">----------------------------------------&#x2013;&#x2014;\\</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-</tbody>
-</table>
+<p>
+ In our visualization, the bridge is drawn horizontally with the top lane with traffic going from right-to-left, and the bottom lane with traffic going from left-to-right. There is an entry sensor (s2, s3) and an exit sensor (s1, s4) installed in each lane that detects cars passing over. TL1 and TL2 are traffic lights.</td>
 
 <p>
 We cannot present <b>all</b> the processes &#x2013; such as the cars. In a problem
@@ -723,22 +683,22 @@ Integers</i> of Hoare's CSP paper is reproduced below.
 
 <pre class="example">
 S(i: 1 .. 100) ::
- do   n: integer; S(i-1)?has(n) --&gt; S(0)!false
- []   n: integer; S(i-1)?insert(n) --&gt;  
-     do m:   integer; S(i-1)?has(m) --&gt;  
-         if   m &lt;=  n --&gt; S(0)!(m = n)
-         []  m &gt;   n --&gt; S(i+1)!has(m)
+ do  n: integer; S(i-1)?has(n) --&gt; S(0)!false
+ []  n: integer; S(i-1)?insert(n) --&gt;  
+     do m: integer; S(i-1)?has(m) --&gt;  
+         if m &le;  n --&gt; S(0)!(m = n)
+         [] m &gt;  n --&gt; S(i+1)!has(m)
          fi 
-         [] m: integer; S(i-1)?insert(m) --&gt;  
-         if  m &lt; n --&gt; S(i+1)!insert(n); n := m
+     [] m: integer; S(i-1)?insert(m) --&gt;  
+         if m &lt; n --&gt; S(i+1)!insert(n); n := m
          [] m = n --&gt; skip
          [] m &gt; n --&gt; S(i+1)!insert(m)
-                     fi
+         fi
  od  od 
 </pre>
 
 <ol class="org-ol">
-<li>Write convincing argument that the algorithms for has and insert
+<li>Write convincing arguments that the algorithms for has and insert
 are correct.</li>
 <li>Write a loop invariant for the inner loop.</li>
 <li>Extend the solution to respond to a command <code>S(1)!remove(x)</code> from
@@ -752,8 +712,8 @@ algorithm.</li>
 expects a reply with the number of elements in the set.</li>
 </ol></li>
 
-<li>Is the CSP code = [X!2 // Y!3]= equivalent to
-= if    true &#x2013;&gt; X!2; Y!3   [] true &#x2013;&gt; Y!3; X!2 ]= ?</li>
+ <li>Is the CSP code <code> [X!2 // Y!3]</code> equivalent to
+  <code> if    true &#x2013;&gt; X!2; Y!3   [] true &#x2013;&gt; Y!3; X!2 ]</code> ?</li>
 <li>Windows made the game of Mine Sweepers popular. Imagine each cell is
 populated with CSP processes. Describe further details.</li>
 <li>Given a large (in the zillions) bag B of integers, find the third
