@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-12-25 Wed 15:16 -->
+<!-- 2020-03-04 Wed 21:16 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>A Practical Intro to Scala</title>
@@ -244,52 +244,52 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge33c43d">1. Scala Tutorial in Five Pages</a></li>
-<li><a href="#org31c4e2b">2. Scala Tutorial in 75 minutes</a></li>
-<li><a href="#orge08dfcc">3. Scala REPL interactive</a></li>
-<li><a href="#org77c4b4f">4. Scala Tools</a></li>
-<li><a href="#org5d248d8">5. Concurrency in Scala</a>
+<li><a href="#orgb331d7d">1. Scala Tutorial in Five Pages</a></li>
+<li><a href="#org7a80844">2. Scala Tutorial in 75 minutes</a></li>
+<li><a href="#org658705d">3. Scala REPL interactive</a></li>
+<li><a href="#orgef753e6">4. Scala Tools</a></li>
+<li><a href="#org659efc3">5. Concurrency in Scala</a>
 <ul>
-<li><a href="#org4a70881">5.1. Thread Example</a></li>
-<li><a href="#org67aa817">5.2. Signals and Monitors</a></li>
-<li><a href="#org2702aa6">5.3. Semaphores</a></li>
-<li><a href="#org748d4cb">5.4. Bounded Buffers / Producers-Consumers</a></li>
-<li><a href="#orgd587e73">5.5. Mailboxes</a></li>
-<li><a href="#org43045bd">5.6. Readers/Writers</a></li>
-<li><a href="#orge1439e8">5.7. Asynchronous Channels</a></li>
-<li><a href="#orgfbc2b8e">5.8. Synchronous Channels</a></li>
-<li><a href="#orgca9d7bd">5.9. SyncVars</a></li>
-<li><a href="#org68e322a">5.10. Futures</a></li>
-<li><a href="#org17e5d30">5.11. Hello Word with Actors</a></li>
+<li><a href="#orgb3b4e3d">5.1. Thread Example</a></li>
+<li><a href="#org4235e96">5.2. Signals and Monitors</a></li>
+<li><a href="#org70aca2b">5.3. Semaphores</a></li>
+<li><a href="#org9b06fae">5.4. Bounded Buffers / Producers-Consumers</a></li>
+<li><a href="#org25ae37c">5.5. Mailboxes</a></li>
+<li><a href="#orgcfd1120">5.6. Readers/Writers</a></li>
+<li><a href="#org0f2e49f">5.7. Asynchronous Channels</a></li>
+<li><a href="#org6213ae1">5.8. Synchronous Channels</a></li>
+<li><a href="#org8b5d2c3">5.9. SyncVars</a></li>
+<li><a href="#org2bfa6f7">5.10. Futures</a></li>
+<li><a href="#org33c4832">5.11. Hello Word with Actors</a></li>
 </ul>
 </li>
-<li><a href="#org47fec21">6. Functional</a></li>
-<li><a href="#org7c3f495">7. Misc</a></li>
-<li><a href="#orgd9faa56">8. Scala cf. Java</a>
+<li><a href="#orgcce2069">6. Functional</a></li>
+<li><a href="#orgb8d398a">7. Misc</a></li>
+<li><a href="#org2ecd6b9">8. Scala cf. Java</a>
 <ul>
-<li><a href="#org591ec4c">8.1. Tokens</a></li>
-<li><a href="#orgb648dc1">8.2. Case Classes and Pattern Matching</a></li>
-<li><a href="#orgaab3f49">8.3. Genericity</a></li>
-<li><a href="#org8405be6">8.4. (Dis) Similar to Java</a></li>
-<li><a href="#orga43e2f8">8.5. Dont Use</a></li>
+<li><a href="#org26f72b8">8.1. Tokens</a></li>
+<li><a href="#org3f83a4f">8.2. Case Classes and Pattern Matching</a></li>
+<li><a href="#orga923c68">8.3. Genericity</a></li>
+<li><a href="#org1f3f03e">8.4. (Dis) Similar to Java</a></li>
+<li><a href="#orgffaba2b">8.5. Dont Use</a></li>
 </ul>
 </li>
-<li><a href="#orgbeaf363">9. Scala can be Hard to Learn</a></li>
-<li><a href="#org5266645">10. scala, scalac details</a>
+<li><a href="#orgdb56614">9. Scala can be Hard to Learn</a></li>
+<li><a href="#org1aeb2c9">10. scala, scalac details</a>
 <ul>
-<li><a href="#org3a3be85">10.1. Execute External Program</a></li>
-<li><a href="#orgc885398">10.2. scalac options</a></li>
-<li><a href="#org1d2cf7b">10.3. Scala Misc Info</a></li>
-<li><a href="#org443ce53">10.4. Scala Misc Info-2</a></li>
-<li><a href="#orgbde7eb0">10.5. Disassembly with javap</a></li>
+<li><a href="#org8579dbf">10.1. Execute External Program</a></li>
+<li><a href="#orgb55ce26">10.2. scalac options</a></li>
+<li><a href="#org71aea2b">10.3. Scala Misc Info</a></li>
+<li><a href="#org984f376">10.4. Scala Misc Info-2</a></li>
+<li><a href="#org50c9835">10.5. Disassembly with javap</a></li>
 </ul>
 </li>
-<li><a href="#org061a9b9">11. References</a>
+<li><a href="#orgbce1dcc">11. References</a>
 <ul>
-<li><a href="#org76f204a">11.1. References #2</a></li>
+<li><a href="#org3035d4b">11.1. References #2</a></li>
 </ul>
 </li>
-<li><a href="#orgec81e38">12. End</a></li>
+<li><a href="#orgbd98d4f">12. End</a></li>
 </ul>
 </div>
 </div>
@@ -297,8 +297,8 @@ for the JavaScript code in this tag.
 WIP Being revised. TBD Check links.
 </p>
 
-<div id="outline-container-orge33c43d" class="outline-2">
-<h2 id="orge33c43d"><span class="section-number-2">1</span> Scala Tutorial in Five Pages</h2>
+<div id="outline-container-orgb331d7d" class="outline-2">
+<h2 id="orgb331d7d"><span class="section-number-2">1</span> Scala Tutorial in Five Pages</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
 <li>Scala is a "large" language.  It has built-in support for
@@ -315,8 +315,8 @@ in Java.</li>
 </div>
 </div>
 
-<div id="outline-container-org31c4e2b" class="outline-2">
-<h2 id="org31c4e2b"><span class="section-number-2">2</span> Scala Tutorial in 75 minutes</h2>
+<div id="outline-container-org7a80844" class="outline-2">
+<h2 id="org7a80844"><span class="section-number-2">2</span> Scala Tutorial in 75 minutes</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li>How?  We defocus functional programming, and fancy features.</li>
@@ -325,8 +325,8 @@ in Java.</li>
 </div>
 </div>
 
-<div id="outline-container-orge08dfcc" class="outline-2">
-<h2 id="orge08dfcc"><span class="section-number-2">3</span> Scala REPL interactive</h2>
+<div id="outline-container-org658705d" class="outline-2">
+<h2 id="org658705d"><span class="section-number-2">3</span> Scala REPL interactive</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li><code>scala</code> without args is a Read-Eval-Print-Loop (REPL), similar to
@@ -342,8 +342,8 @@ difficult to understand error.</li>
 </div>
 </div>
 
-<div id="outline-container-org77c4b4f" class="outline-2">
-<h2 id="org77c4b4f"><span class="section-number-2">4</span> Scala Tools</h2>
+<div id="outline-container-orgef753e6" class="outline-2">
+<h2 id="orgef753e6"><span class="section-number-2">4</span> Scala Tools</h2>
 <div class="outline-text-2" id="text-4">
 <ol class="org-ol">
 <li><code>sbt</code> <a href="https://www.scala-sbt.org/">https://www.scala-sbt.org/</a> Simple Build Tool. Cf. <code>make</code>, <code>ant</code></li>
@@ -384,8 +384,8 @@ content of file named <code>hello-world-println.scala</code>
 </div>
 
 
-<div id="outline-container-org5d248d8" class="outline-2">
-<h2 id="org5d248d8"><span class="section-number-2">5</span> Concurrency in Scala</h2>
+<div id="outline-container-org659efc3" class="outline-2">
+<h2 id="org659efc3"><span class="section-number-2">5</span> Concurrency in Scala</h2>
 <div class="outline-text-2" id="text-5">
 <ol class="org-ol">
 <li>Scala can do the following whose descriptions you must have run
@@ -398,8 +398,8 @@ Threads, Workers, Mailboxes, and Actors.</li>
 
 
 
-<div id="outline-container-org4a70881" class="outline-3">
-<h3 id="org4a70881"><span class="section-number-3">5.1</span> Thread Example</h3>
+<div id="outline-container-orgb3b4e3d" class="outline-3">
+<h3 id="orgb3b4e3d"><span class="section-number-3">5.1</span> Thread Example</h3>
 <div class="outline-text-3" id="text-5-1">
 <ol class="org-ol">
 <li><p>
@@ -429,8 +429,8 @@ Try this in Scala REPL
 </div>
 
 
-<div id="outline-container-org67aa817" class="outline-3">
-<h3 id="org67aa817"><span class="section-number-3">5.2</span> Signals and Monitors</h3>
+<div id="outline-container-org4235e96" class="outline-3">
+<h3 id="org4235e96"><span class="section-number-3">5.2</span> Signals and Monitors</h3>
 <div class="outline-text-3" id="text-5-2">
 <ol class="org-ol">
 <li>Read: Andrews, Chapter 6: Monitors.</li>
@@ -452,8 +452,8 @@ all in <code>notifyAll()</code> Many subtleties.  Look up the docs.</li>
 </div>
 
 
-<div id="outline-container-org2702aa6" class="outline-3">
-<h3 id="org2702aa6"><span class="section-number-3">5.3</span> Semaphores</h3>
+<div id="outline-container-org70aca2b" class="outline-3">
+<h3 id="org70aca2b"><span class="section-number-3">5.3</span> Semaphores</h3>
 <div class="outline-text-3" id="text-5-3">
 <ol class="org-ol">
 <li><p>
@@ -485,8 +485,8 @@ The above is implemented using a monitor.</li>
 </div>
 </div>
 
-<div id="outline-container-org748d4cb" class="outline-3">
-<h3 id="org748d4cb"><span class="section-number-3">5.4</span> Bounded Buffers / Producers-Consumers</h3>
+<div id="outline-container-org9b06fae" class="outline-3">
+<h3 id="org9b06fae"><span class="section-number-3">5.4</span> Bounded Buffers / Producers-Consumers</h3>
 <div class="outline-text-3" id="text-5-4">
 <div class="org-src-container">
 <pre class="src src-scala">class BoundedBuffer(N: Int) {
@@ -514,8 +514,8 @@ complete source:  <a href="./scalaExamples/bounded-buffers.scala">./scalaExample
 </div>
 </div>
 
-<div id="outline-container-orgd587e73" class="outline-3">
-<h3 id="orgd587e73"><span class="section-number-3">5.5</span> Mailboxes</h3>
+<div id="outline-container-org25ae37c" class="outline-3">
+<h3 id="org25ae37c"><span class="section-number-3">5.5</span> Mailboxes</h3>
 <div class="outline-text-3" id="text-5-5">
 <div class="org-src-container">
 <pre class="src src-scala">class MailBox {
@@ -533,8 +533,8 @@ complete source:  <a href="./scalaExamples/bounded-buffers.scala">./scalaExample
 </div>
 </div>
 
-<div id="outline-container-org43045bd" class="outline-3">
-<h3 id="org43045bd"><span class="section-number-3">5.6</span> Readers/Writers</h3>
+<div id="outline-container-orgcfd1120" class="outline-3">
+<h3 id="orgcfd1120"><span class="section-number-3">5.6</span> Readers/Writers</h3>
 <div class="outline-text-3" id="text-5-6">
 <div class="org-src-container">
 <pre class="src src-scala">class ReadersWriters {
@@ -560,8 +560,8 @@ complete source:  <a href="./scalaExamples/bounded-buffers.scala">./scalaExample
 </div>
 </div>
 
-<div id="outline-container-org8e849e9" class="outline-4">
-<h4 id="org8e849e9"><span class="section-number-4">5.6.1</span> Readers/Writers, contd</h4>
+<div id="outline-container-org5a326f1" class="outline-4">
+<h4 id="org5a326f1"><span class="section-number-4">5.6.1</span> Readers/Writers, contd</h4>
 <div class="outline-text-4" id="text-5-6-1">
 <div class="org-src-container">
 <pre class="src src-scala">def startRead = m receive {
@@ -585,8 +585,8 @@ TBD URL to CEG 7370 Readers/Writers with priority for writers
 </div>
 </div>
 
-<div id="outline-container-orge1439e8" class="outline-3">
-<h3 id="orge1439e8"><span class="section-number-3">5.7</span> Asynchronous Channels</h3>
+<div id="outline-container-org0f2e49f" class="outline-3">
+<h3 id="org0f2e49f"><span class="section-number-3">5.7</span> Asynchronous Channels</h3>
 <div class="outline-text-3" id="text-5-7">
 <div class="org-src-container">
 <pre class="src src-scala">class Channel[A] {
@@ -616,8 +616,8 @@ API <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.pa
 </div>
 </div>
 
-<div id="outline-container-orgfbc2b8e" class="outline-3">
-<h3 id="orgfbc2b8e"><span class="section-number-3">5.8</span> Synchronous Channels</h3>
+<div id="outline-container-org6213ae1" class="outline-3">
+<h3 id="org6213ae1"><span class="section-number-3">5.8</span> Synchronous Channels</h3>
 <div class="outline-text-3" id="text-5-8">
 <div class="org-src-container">
 <pre class="src src-scala">class SyncChannel[A] {
@@ -652,8 +652,8 @@ API <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.concurrent.pa
 </div>
 </div>
 
-<div id="outline-container-orgca9d7bd" class="outline-3">
-<h3 id="orgca9d7bd"><span class="section-number-3">5.9</span> SyncVars</h3>
+<div id="outline-container-org8b5d2c3" class="outline-3">
+<h3 id="org8b5d2c3"><span class="section-number-3">5.9</span> SyncVars</h3>
 <div class="outline-text-3" id="text-5-9">
 <div class="org-src-container">
 <pre class="src src-scala">package scala.concurrent
@@ -676,8 +676,8 @@ class SyncVar[A] {
 </div>
 </div>
 
-<div id="outline-container-org68e322a" class="outline-3">
-<h3 id="org68e322a"><span class="section-number-3">5.10</span> Futures</h3>
+<div id="outline-container-org2bfa6f7" class="outline-3">
+<h3 id="org2bfa6f7"><span class="section-number-3">5.10</span> Futures</h3>
 <div class="outline-text-3" id="text-5-10">
 <ol class="org-ol">
 <li>An expression yet to be computed.  In the future.  When possible.
@@ -713,8 +713,8 @@ API <a href="http://www.scala-lang.org/api/2.10.3/index.html#scala.actors.Future
 </div>
 </div>
 
-<div id="outline-container-org17e5d30" class="outline-3">
-<h3 id="org17e5d30"><span class="section-number-3">5.11</span> Hello Word with Actors</h3>
+<div id="outline-container-org33c4832" class="outline-3">
+<h3 id="org33c4832"><span class="section-number-3">5.11</span> Hello Word with Actors</h3>
 <div class="outline-text-3" id="text-5-11">
 <div class="org-src-container">
 <pre class="src src-scala">import scala.actors.Actor
@@ -743,8 +743,8 @@ List("one", "two", "three", "four").foreach {
 
 
 
-<div id="outline-container-org47fec21" class="outline-2">
-<h2 id="org47fec21"><span class="section-number-2">6</span> Functional</h2>
+<div id="outline-container-orgcce2069" class="outline-2">
+<h2 id="orgcce2069"><span class="section-number-2">6</span> Functional</h2>
 <div class="outline-text-2" id="text-6">
 <ol class="org-ol">
 <li>Functions are first class values. Can be given as arguments.  Can
@@ -762,8 +762,8 @@ be computed and returned also.</li>
 </div>
 
 
-<div id="outline-container-org7c3f495" class="outline-2">
-<h2 id="org7c3f495"><span class="section-number-2">7</span> Misc</h2>
+<div id="outline-container-orgb8d398a" class="outline-2">
+<h2 id="orgb8d398a"><span class="section-number-2">7</span> Misc</h2>
 <div class="outline-text-2" id="text-7">
 <ol class="org-ol">
 <li>var alst: List[ActorRef] = List();</li>
@@ -781,8 +781,8 @@ correctness might be easier to achieve with more functional code."</li>
 </div>
 </div>
 
-<div id="outline-container-orgd9faa56" class="outline-2">
-<h2 id="orgd9faa56"><span class="section-number-2">8</span> Scala cf. Java</h2>
+<div id="outline-container-org2ecd6b9" class="outline-2">
+<h2 id="org2ecd6b9"><span class="section-number-2">8</span> Scala cf. Java</h2>
 <div class="outline-text-2" id="text-8">
 <ol class="org-ol">
 <li>Scala <code>object</code> v Java <code>static</code></li>
@@ -791,8 +791,8 @@ correctness might be easier to achieve with more functional code."</li>
 </ol>
 </div>
 
-<div id="outline-container-org591ec4c" class="outline-3">
-<h3 id="org591ec4c"><span class="section-number-3">8.1</span> Tokens</h3>
+<div id="outline-container-org26f72b8" class="outline-3">
+<h3 id="org26f72b8"><span class="section-number-3">8.1</span> Tokens</h3>
 <div class="outline-text-3" id="text-8-1">
 <ol class="org-ol">
 <li>Identifiers, operators, &#x2026; as in most languages.</li>
@@ -812,8 +812,8 @@ correctness might be easier to achieve with more functional code."</li>
 </ol>
 </div>
 
-<div id="outline-container-org007fb7b" class="outline-4">
-<h4 id="org007fb7b"><span class="section-number-4">8.1.1</span> Tokens-2</h4>
+<div id="outline-container-orgef00bbf" class="outline-4">
+<h4 id="orgef00bbf"><span class="section-number-4">8.1.1</span> Tokens-2</h4>
 <div class="outline-text-4" id="text-8-1-1">
 <ol class="org-ol">
 <li>Alphanumeric identifiers,  Operator identifiers, Mixed identifiers</li>
@@ -833,8 +833,8 @@ val abcαβγ_!^©® = 1 // mixing unicode letters and symbols
 </div>
 </div>
 
-<div id="outline-container-orgb648dc1" class="outline-3">
-<h3 id="orgb648dc1"><span class="section-number-3">8.2</span> Case Classes and Pattern Matching</h3>
+<div id="outline-container-org3f83a4f" class="outline-3">
+<h3 id="org3f83a4f"><span class="section-number-3">8.2</span> Case Classes and Pattern Matching</h3>
 <div class="outline-text-3" id="text-8-2">
 <ol class="org-ol">
 <li>Example expression:  <code>(x + y*2) / (1 + 3*z)</code></li>
@@ -856,8 +856,8 @@ case class Const(v: Int) extends Tree
 </div>
 
 
-<div id="outline-container-orgaab3f49" class="outline-3">
-<h3 id="orgaab3f49"><span class="section-number-3">8.3</span> Genericity</h3>
+<div id="outline-container-orga923c68" class="outline-3">
+<h3 id="orga923c68"><span class="section-number-3">8.3</span> Genericity</h3>
 <div class="outline-text-3" id="text-8-3">
 <ol class="org-ol">
 <li>Genericity is the ability to write code where types can be substituted.</li>
@@ -890,8 +890,8 @@ This default is 0 for numerics, <code>false</code> for Boolean, <code>()</code> 
 </div>
 </div>
 
-<div id="outline-container-org8405be6" class="outline-3">
-<h3 id="org8405be6"><span class="section-number-3">8.4</span> (Dis) Similar to Java</h3>
+<div id="outline-container-org1f3f03e" class="outline-3">
+<h3 id="org1f3f03e"><span class="section-number-3">8.4</span> (Dis) Similar to Java</h3>
 <div class="outline-text-3" id="text-8-4">
 <ol class="org-ol">
 <li><code>toString</code></li>
@@ -901,8 +901,8 @@ This default is 0 for numerics, <code>false</code> for Boolean, <code>()</code> 
 </div>
 </div>
 
-<div id="outline-container-orga43e2f8" class="outline-3">
-<h3 id="orga43e2f8"><span class="section-number-3">8.5</span> Dont Use</h3>
+<div id="outline-container-orgffaba2b" class="outline-3">
+<h3 id="orgffaba2b"><span class="section-number-3">8.5</span> Dont Use</h3>
 <div class="outline-text-3" id="text-8-5">
 <ol class="org-ol">
 <li>Implicit arguments</li>
@@ -914,8 +914,8 @@ This default is 0 for numerics, <code>false</code> for Boolean, <code>()</code> 
 
 
 
-<div id="outline-container-orgbeaf363" class="outline-2">
-<h2 id="orgbeaf363"><span class="section-number-2">9</span> Scala can be Hard to Learn</h2>
+<div id="outline-container-orgdb56614" class="outline-2">
+<h2 id="orgdb56614"><span class="section-number-2">9</span> Scala can be Hard to Learn</h2>
 <div class="outline-text-2" id="text-9">
 <ol class="org-ol">
 <li>Voluminous documentation aimed at programming newbies.  Too many
@@ -935,12 +935,12 @@ Functions as first class values.  Lazy values.</li>
 </div>
 </div>
 
-<div id="outline-container-org5266645" class="outline-2">
-<h2 id="org5266645"><span class="section-number-2">10</span> scala, scalac details</h2>
+<div id="outline-container-org1aeb2c9" class="outline-2">
+<h2 id="org1aeb2c9"><span class="section-number-2">10</span> scala, scalac details</h2>
 <div class="outline-text-2" id="text-10">
 </div>
-<div id="outline-container-org3a3be85" class="outline-3">
-<h3 id="org3a3be85"><span class="section-number-3">10.1</span> Execute External Program</h3>
+<div id="outline-container-org8579dbf" class="outline-3">
+<h3 id="org8579dbf"><span class="section-number-3">10.1</span> Execute External Program</h3>
 <div class="outline-text-3" id="text-10-1">
 <div class="org-src-container">
 <pre class="src src-scala">import scala.sys.process._
@@ -952,8 +952,8 @@ val i : Int = Process("ls -l")!
 </div>
 </div>
 
-<div id="outline-container-orgc885398" class="outline-3">
-<h3 id="orgc885398"><span class="section-number-3">10.2</span> scalac options</h3>
+<div id="outline-container-orgb55ce26" class="outline-3">
+<h3 id="orgb55ce26"><span class="section-number-3">10.2</span> scalac options</h3>
 <div class="outline-text-3" id="text-10-2">
 <ol class="org-ol">
 <li><code>% scalac -help</code> Print a synopsis of options.</li>
@@ -965,8 +965,8 @@ val i : Int = Process("ls -l")!
 </div>
 </div>
 
-<div id="outline-container-org1d2cf7b" class="outline-3">
-<h3 id="org1d2cf7b"><span class="section-number-3">10.3</span> Scala Misc Info</h3>
+<div id="outline-container-org71aea2b" class="outline-3">
+<h3 id="org71aea2b"><span class="section-number-3">10.3</span> Scala Misc Info</h3>
 <div class="outline-text-3" id="text-10-3">
 <ol class="org-ol">
 <li><code>scala</code> invokes <code>java</code> with Scala's libraries.</li>
@@ -988,8 +988,8 @@ Type :help for more information.
 </div>
 </div>
 
-<div id="outline-container-org443ce53" class="outline-3">
-<h3 id="org443ce53"><span class="section-number-3">10.4</span> Scala Misc Info-2</h3>
+<div id="outline-container-org984f376" class="outline-3">
+<h3 id="org984f376"><span class="section-number-3">10.4</span> Scala Misc Info-2</h3>
 <div class="outline-text-3" id="text-10-4">
 <ol class="org-ol">
 <li>bash: 
@@ -1009,8 +1009,8 @@ Type :help for more information.
 </div>
 </div>
 
-<div id="outline-container-orgbde7eb0" class="outline-3">
-<h3 id="orgbde7eb0"><span class="section-number-3">10.5</span> Disassembly with javap</h3>
+<div id="outline-container-org50c9835" class="outline-3">
+<h3 id="org50c9835"><span class="section-number-3">10.5</span> Disassembly with javap</h3>
 <div class="outline-text-3" id="text-10-5">
 <ol class="org-ol">
 <li><p>
@@ -1035,8 +1035,8 @@ public final class HelloWorld$ {
 </div>
 
 
-<div id="outline-container-org061a9b9" class="outline-2">
-<h2 id="org061a9b9"><span class="section-number-2">11</span> References</h2>
+<div id="outline-container-orgbce1dcc" class="outline-2">
+<h2 id="orgbce1dcc"><span class="section-number-2">11</span> References</h2>
 <div class="outline-text-2" id="text-11">
 <ol class="org-ol">
 <li>Link to Source Code Examples: <a href="./scalaExamples">./scalaExamples</a></li>
@@ -1044,20 +1044,28 @@ public final class HelloWorld$ {
 <li><a href="https://scala-lang.org/documentation/learn.html">https://scala-lang.org/documentation/learn.html</a> Learning Resources.</li>
 
 <li><a href="https://typesafe.com/activator">https://typesafe.com/activator</a> is the place for ready-to-compile
--and-run examples of Scala (or Java) with Akka.  Required Visit.</li>
+-and-run examples of Scala (or Java) with Akka.  TypeSafe became
+<a href="https://www.lightbend.com/">https://www.lightbend.com/</a>.  Required Visit.</li>
 
 <li>Martin Odersky, "Scala by Example".  {pmateti: A PDF book by the
 designer of the language.  Highly recommended read: Chapter 17:
-Abstractions for Concurrency (10+ pages).  Web search for the full
-book with ScalaByExample.pdf, 150+ pages.  Apparently the pdf is
-generated every day. Some of my slides are based on this
-book. Recommended Reading. Latest build June 2014. Despite the name
-of the book, only a few were ready-to-compile-and-run examples.}</li>
+<b>Abstractions for Concurrency</b> (10+ pages).  Web search for the full
+book with ScalaByExample.pdf, 150+ pages.  Latest build I have
+seen: June 2014.  Despite the name of the book, only a few were
+ready-to-compile-and-run examples.}</li>
+
+<li>Martin Odersky, Philippe Altherr, Vincent Cremet, Iulian Dragos,
+Gilles Dubochet, Burak Emir, Sean McDirmid, Stéphane Micheloud,
+Nikolay Mihaylov, Michel Schinz, Erik Stenman, Lex Spoon, Matthias
+Zenger, An Overview of the Scala Programming Language, Second
+Edition, École Polytechnique Fédérale de Lausanne (EPFL) Technical
+Report LAMP-REPORT-2006-001 ["Official Ref"]
+<a href="https://www.scala-lang.org/docu/files/ScalaOverview.pdf">https://www.scala-lang.org/docu/files/ScalaOverview.pdf</a></li>
 </ol>
 </div>
 
-<div id="outline-container-org76f204a" class="outline-3">
-<h3 id="org76f204a"><span class="section-number-3">11.1</span> References #2</h3>
+<div id="outline-container-org3035d4b" class="outline-3">
+<h3 id="org3035d4b"><span class="section-number-3">11.1</span> References #2</h3>
 <div class="outline-text-3" id="text-11-1">
 <ol class="org-ol">
 <li><a href="http://www.flotsam.nl/dispatch-periodic-table.html">http://www.flotsam.nl/dispatch-periodic-table.html</a> "All operators of
@@ -1076,14 +1084,14 @@ Scala's marvelous Dispatch library on a single page."</li>
 </div>
 </div>
 
-<div id="outline-container-orgec81e38" class="outline-2">
-<h2 id="orgec81e38"><span class="section-number-2">12</span> End</h2>
+<div id="outline-container-orgbd98d4f" class="outline-2">
+<h2 id="orgbd98d4f"><span class="section-number-2">12</span> End</h2>
 <div class="outline-text-2" id="text-12">
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<hr size=1>Copyright &copy; 2018 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2019-12-06
+<hr size=1>Copyright &copy; 2020 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2019-12-06
 </div>
 </body>
 </html>

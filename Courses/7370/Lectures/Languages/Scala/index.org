@@ -7,7 +7,7 @@
 #+HTML_LINK_UP: ../
 #+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
 #+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
-#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
 #+STARTUP:showeverything
 #+OPTIONS: toc:2
 
@@ -552,15 +552,23 @@ public final class HelloWorld$ {
 1. https://scala-lang.org/documentation/learn.html Learning Resources.
 
 1. https://typesafe.com/activator is the place for ready-to-compile
-   -and-run examples of Scala (or Java) with Akka.  Required Visit.
+   -and-run examples of Scala (or Java) with Akka.  TypeSafe became
+   https://www.lightbend.com/.  Required Visit.
 
 1. Martin Odersky, "Scala by Example".  {pmateti: A PDF book by the
    designer of the language.  Highly recommended read: Chapter 17:
-   Abstractions for Concurrency (10+ pages).  Web search for the full
-   book with ScalaByExample.pdf, 150+ pages.  Apparently the pdf is
-   generated every day. Some of my slides are based on this
-   book. Recommended Reading. Latest build June 2014. Despite the name
-   of the book, only a few were ready-to-compile-and-run examples.}
+   *Abstractions for Concurrency* (10+ pages).  Web search for the full
+   book with ScalaByExample.pdf, 150+ pages.  Latest build I have
+   seen: June 2014.  Despite the name of the book, only a few were
+   ready-to-compile-and-run examples.}
+
+1. Martin Odersky, Philippe Altherr, Vincent Cremet, Iulian Dragos,
+   Gilles Dubochet, Burak Emir, Sean McDirmid, Stéphane Micheloud,
+   Nikolay Mihaylov, Michel Schinz, Erik Stenman, Lex Spoon, Matthias
+   Zenger, An Overview of the Scala Programming Language, Second
+   Edition, École Polytechnique Fédérale de Lausanne (EPFL) Technical
+   Report LAMP-REPORT-2006-001 ["Official Ref"]
+   https://www.scala-lang.org/docu/files/ScalaOverview.pdf
 
 ** References #2
 
