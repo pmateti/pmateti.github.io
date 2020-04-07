@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-01-25 Sat 23:18 -->
+<!-- 2020-04-07 Tue 12:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Distributed Computing  Course Projects</title>
@@ -244,46 +244,46 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgffe0cbf">1. Prerequisites</a>
+<li><a href="#org91a39b5">1. Prerequisites</a>
 <ul>
-<li><a href="#org81ba13c">1.1. Languages</a></li>
-<li><a href="#orgbd22847">1.2. Programs v Processes</a></li>
-<li><a href="#org29c8f20">1.3. Linux</a></li>
-<li><a href="#orgc6f3211">1.4. Assertions</a></li>
+<li><a href="#org7e04bf2">1.1. Languages</a></li>
+<li><a href="#org1a2389d">1.2. Programs v Processes</a></li>
+<li><a href="#orgdf77759">1.3. Linux</a></li>
+<li><a href="#org840dc95">1.4. Assertions</a></li>
 </ul>
 </li>
-<li><a href="#org9ece7b5">2. Overview</a></li>
-<li><a href="#org3d27adc">3. The Idea of a Digital WhiteBoard</a>
+<li><a href="#org3714665">2. Overview</a></li>
+<li><a href="#org5a8ca64">3. The Idea of a Digital WhiteBoard</a>
 <ul>
-<li><a href="#org6103989">3.1. WhiteBoard #1</a></li>
-<li><a href="#orgba1cdc9">3.2. WhiteBoard #2</a></li>
+<li><a href="#org97d0c7b">3.1. WhiteBoard #1</a></li>
+<li><a href="#org0cb228d">3.2. WhiteBoard #2</a></li>
 </ul>
 </li>
-<li><a href="#org99cc33a">4. Project P0: Tasks 5% weight</a>
+<li><a href="#org054156d">4. Project P0: Tasks 5% weight</a>
 <ul>
-<li><a href="#orga166a2e">4.1. Getting Started with P0</a></li>
-<li><a href="#orge509c18">4.2. First Task: Build P0</a></li>
-<li><a href="#org4861105">4.3. Second Task: Run P0</a></li>
-<li><a href="#org1abf617">4.4. Second Task: Assertions</a></li>
+<li><a href="#org7413325">4.1. Getting Started with P0</a></li>
+<li><a href="#orgdcc5bf4">4.2. First Task: Build P0</a></li>
+<li><a href="#org6c0c854">4.3. Second Task: Run P0</a></li>
+<li><a href="#orgf8caed4">4.4. Second Task: Assertions</a></li>
 </ul>
 </li>
-<li><a href="#orgf82966f">5. Extend P0 to Project P1 10%</a></li>
-<li><a href="#orgd8faede">6. Java RMI: P2 10%</a></li>
-<li><a href="#org0ff86ab">7. Scala + Akka: P3 10%</a></li>
-<li><a href="#org98907a6">8. Turnins and Demos</a>
+<li><a href="#org0db3caf">5. Extend P0 to Project P1 10%</a></li>
+<li><a href="#orgb05bf3c">6. Java RMI: P2 10%</a></li>
+<li><a href="#org91918e4">7. Scala + Akka: P3 10%</a></li>
+<li><a href="#orgb13fd4d">8. Turnins and Demos</a>
 <ul>
-<li><a href="#org5b0c439">8.1. Demos</a></li>
-<li><a href="#org5c807b0">8.2. Turnins</a></li>
+<li><a href="#org479df0e">8.1. Demos</a></li>
+<li><a href="#org4319a9f">8.2. Turnins</a></li>
 </ul>
 </li>
-<li><a href="#org168169b">9. Links</a></li>
+<li><a href="#orgef571c2">9. Links</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-orgffe0cbf" class="outline-2">
-<h2 id="orgffe0cbf"><span class="section-number-2">1</span> Prerequisites</h2>
+<div id="outline-container-org91a39b5" class="outline-2">
+<h2 id="org91a39b5"><span class="section-number-2">1</span> Prerequisites</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
 <li>We will try to fill you in on the missing prerequisites.  Please
@@ -291,8 +291,8 @@ fill out the following survey <a href="../Overview/survey.html">../Overview/surv
 </ol>
 </div>
 
-<div id="outline-container-org81ba13c" class="outline-3">
-<h3 id="org81ba13c"><span class="section-number-3">1.1</span> Languages</h3>
+<div id="outline-container-org7e04bf2" class="outline-3">
+<h3 id="org7e04bf2"><span class="section-number-3">1.1</span> Languages</h3>
 <div class="outline-text-3" id="text-1-1">
 <ol class="org-ol">
 <li>It is assumed that you are fluent in Java, and C++/C.</li>
@@ -302,8 +302,8 @@ Scala or Akka.</li>
 </div>
 </div>
 
-<div id="outline-container-orgbd22847" class="outline-3">
-<h3 id="orgbd22847"><span class="section-number-3">1.2</span> Programs v Processes</h3>
+<div id="outline-container-org1a2389d" class="outline-3">
+<h3 id="org1a2389d"><span class="section-number-3">1.2</span> Programs v Processes</h3>
 <div class="outline-text-3" id="text-1-2">
 <ol class="org-ol">
 <li>Conceptually you must have a pretty good understanding of
@@ -313,8 +313,8 @@ Scala or Akka.</li>
 </div>
 </div>
 
-<div id="outline-container-org29c8f20" class="outline-3">
-<h3 id="org29c8f20"><span class="section-number-3">1.3</span> Linux</h3>
+<div id="outline-container-orgdf77759" class="outline-3">
+<h3 id="orgdf77759"><span class="section-number-3">1.3</span> Linux</h3>
 <div class="outline-text-3" id="text-1-3">
 <ol class="org-ol">
 <li>We use  Linux &#x2013; any distro.  We will not be using Windows.</li>
@@ -333,8 +333,8 @@ give a password each time.  Set up pub/private keys for your self.</li>
 
 
 
-<div id="outline-container-orgc6f3211" class="outline-3">
-<h3 id="orgc6f3211"><span class="section-number-3">1.4</span> Assertions</h3>
+<div id="outline-container-org840dc95" class="outline-3">
+<h3 id="org840dc95"><span class="section-number-3">1.4</span> Assertions</h3>
 <div class="outline-text-3" id="text-1-4">
 <ol class="org-ol">
 <li>This course uses assertions written in logic (generalized Boolean
@@ -347,8 +347,8 @@ exp) heavily.</li>
 </div>
 </div>
 
-<div id="outline-container-org9ece7b5" class="outline-2">
-<h2 id="org9ece7b5"><span class="section-number-2">2</span> Overview</h2>
+<div id="outline-container-org3714665" class="outline-2">
+<h2 id="org3714665"><span class="section-number-2">2</span> Overview</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li>The projects are <i>required</i>.  Not producing demonstrable (even if
@@ -365,8 +365,8 @@ source code and associated documentation.</li>
 </div>
 </div>
 
-<div id="outline-container-org3d27adc" class="outline-2">
-<h2 id="org3d27adc"><span class="section-number-2">3</span> The Idea of a Digital WhiteBoard</h2>
+<div id="outline-container-org5a8ca64" class="outline-2">
+<h2 id="org5a8ca64"><span class="section-number-2">3</span> The Idea of a Digital WhiteBoard</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li>Our <i>whiteboard</i> (WB) is a digital interactive version of a typical
@@ -382,8 +382,8 @@ from multiple (virtual) machines.</li>
 </ol>
 </div>
 
-<div id="outline-container-org6103989" class="outline-3">
-<h3 id="org6103989"><span class="section-number-3">3.1</span> WhiteBoard #1</h3>
+<div id="outline-container-org97d0c7b" class="outline-3">
+<h3 id="org97d0c7b"><span class="section-number-3">3.1</span> WhiteBoard #1</h3>
 <div class="outline-text-3" id="text-3-1">
 <ol class="org-ol">
 <li>A whiteboard, say b0, is a window of colored zig-zag lines produced
@@ -399,8 +399,8 @@ another server.</li>
 </div>
 </div>
 
-<div id="outline-container-orgba1cdc9" class="outline-3">
-<h3 id="orgba1cdc9"><span class="section-number-3">3.2</span> WhiteBoard #2</h3>
+<div id="outline-container-org0cb228d" class="outline-3">
+<h3 id="org0cb228d"><span class="section-number-3">3.2</span> WhiteBoard #2</h3>
 <div class="outline-text-3" id="text-3-2">
 <ol class="org-ol">
 <li>Conceptually, the servers and clients are on whatever network nodes
@@ -414,8 +414,8 @@ familiar.</li>
 </div>
 </div>
 
-<div id="outline-container-org99cc33a" class="outline-2">
-<h2 id="org99cc33a"><span class="section-number-2">4</span> Project P0: Tasks 5% weight</h2>
+<div id="outline-container-org054156d" class="outline-2">
+<h2 id="org054156d"><span class="section-number-2">4</span> Project P0: Tasks 5% weight</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 We will give a P0.tar.gz (A Startup WhiteBoard Src Code Bundle) by Dr
@@ -446,8 +446,8 @@ And, several "machines".
 </div>
 
 
-<div id="outline-container-orga166a2e" class="outline-3">
-<h3 id="orga166a2e"><span class="section-number-3">4.1</span> Getting Started with P0</h3>
+<div id="outline-container-org7413325" class="outline-3">
+<h3 id="org7413325"><span class="section-number-3">4.1</span> Getting Started with P0</h3>
 <div class="outline-text-3" id="text-4-1">
 <ol class="org-ol">
 <li>For now, we assume P0 was given in C++.  See <a href="./WB-C-RPC/">./WB-C-RPC/</a> to
@@ -464,8 +464,8 @@ entire page: <a href="../Projects/WB-C-RPC/0README.html">../Projects/WB-C-RPC/0R
 </div>
 </div>
 
-<div id="outline-container-orge509c18" class="outline-3">
-<h3 id="orge509c18"><span class="section-number-3">4.2</span> First Task: Build P0</h3>
+<div id="outline-container-orgdcc5bf4" class="outline-3">
+<h3 id="orgdcc5bf4"><span class="section-number-3">4.2</span> First Task: Build P0</h3>
 <div class="outline-text-3" id="text-4-2">
 <ol class="org-ol">
 <li>Your first task is to <code>make</code> the C++/X/RPC version so that the
@@ -487,8 +487,8 @@ begun working with P1.</li>
 </div>
 
 
-<div id="outline-container-org4861105" class="outline-3">
-<h3 id="org4861105"><span class="section-number-3">4.3</span> Second Task: Run P0</h3>
+<div id="outline-container-org6c0c854" class="outline-3">
+<h3 id="org6c0c854"><span class="section-number-3">4.3</span> Second Task: Run P0</h3>
 <div class="outline-text-3" id="text-4-3">
 <ol class="org-ol">
 <li>Your second task is to run the C++/X/RPC version so that the server
@@ -510,8 +510,8 @@ give a password each time.  Set up pub/private keys for your self.</li>
 
 
 
-<div id="outline-container-org1abf617" class="outline-3">
-<h3 id="org1abf617"><span class="section-number-3">4.4</span> Second Task: Assertions</h3>
+<div id="outline-container-orgf8caed4" class="outline-3">
+<h3 id="orgf8caed4"><span class="section-number-3">4.4</span> Second Task: Assertions</h3>
 <div class="outline-text-3" id="text-4-4">
 <ol class="org-ol">
 <li>Your second task is to write entry- and exit assertions for most of
@@ -522,8 +522,8 @@ then in PL Boolean expressions.</li>
 </div>
 </div>
 
-<div id="outline-container-orgf82966f" class="outline-2">
-<h2 id="orgf82966f"><span class="section-number-2">5</span> Extend P0 to Project P1 10%</h2>
+<div id="outline-container-org0db3caf" class="outline-2">
+<h2 id="org0db3caf"><span class="section-number-2">5</span> Extend P0 to Project P1 10%</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 And, extend the clients and server(s) as follows.  The percentages are
@@ -558,8 +558,8 @@ We are naming this version P1.
 </div>
 </div>
 
-<div id="outline-container-orgd8faede" class="outline-2">
-<h2 id="orgd8faede"><span class="section-number-2">6</span> Java RMI: P2 10%</h2>
+<div id="outline-container-orgb05bf3c" class="outline-2">
+<h2 id="orgb05bf3c"><span class="section-number-2">6</span> Java RMI: P2 10%</h2>
 <div class="outline-text-2" id="text-6">
 <ol class="org-ol">
 <li>Re-do/ re-design the P1 above but using Java, and RMI.</li>
@@ -567,8 +567,8 @@ We are naming this version P1.
 </div>
 </div>
 
-<div id="outline-container-org0ff86ab" class="outline-2">
-<h2 id="org0ff86ab"><span class="section-number-2">7</span> Scala + Akka: P3 10%</h2>
+<div id="outline-container-org91918e4" class="outline-2">
+<h2 id="org91918e4"><span class="section-number-2">7</span> Scala + Akka: P3 10%</h2>
 <div class="outline-text-2" id="text-7">
 <ol class="org-ol">
 <li>Re-do/ re-design the P1 above but using [Scala and] Akka Actors.</li>
@@ -576,16 +576,16 @@ We are naming this version P1.
 </div>
 </div>
 
-<div id="outline-container-org98907a6" class="outline-2">
-<h2 id="org98907a6"><span class="section-number-2">8</span> Turnins and Demos</h2>
+<div id="outline-container-orgb13fd4d" class="outline-2">
+<h2 id="orgb13fd4d"><span class="section-number-2">8</span> Turnins and Demos</h2>
 <div class="outline-text-2" id="text-8">
 <ol class="org-ol">
 <li>TBD To be revised to suit IIIT-Delhi.</li>
 </ol>
 </div>
 
-<div id="outline-container-org5b0c439" class="outline-3">
-<h3 id="org5b0c439"><span class="section-number-3">8.1</span> Demos</h3>
+<div id="outline-container-org479df0e" class="outline-3">
+<h3 id="org479df0e"><span class="section-number-3">8.1</span> Demos</h3>
 <div class="outline-text-3" id="text-8-1">
 <ol class="org-ol">
 <li>When you are done you must give me a demo of your program.  You
@@ -606,8 +606,8 @@ acceptance test.</li>
 </div>
 
 
-<div id="outline-container-org5c807b0" class="outline-3">
-<h3 id="org5c807b0"><span class="section-number-3">8.2</span> Turnins</h3>
+<div id="outline-container-org4319a9f" class="outline-3">
+<h3 id="org4319a9f"><span class="section-number-3">8.2</span> Turnins</h3>
 <div class="outline-text-3" id="text-8-2">
 <ol class="org-ol">
 <li>The due dates and project weights are on the course home page.  For
@@ -626,8 +626,8 @@ to P0, P2 or P3 as needed.  Submit <b>your</b> <code>ReadMe.txt</code>, not my
 </div>
 </div>
 
-<div id="outline-container-org168169b" class="outline-2">
-<h2 id="org168169b"><span class="section-number-2">9</span> Links</h2>
+<div id="outline-container-orgef571c2" class="outline-2">
+<h2 id="orgef571c2"><span class="section-number-2">9</span> Links</h2>
 <div class="outline-text-2" id="text-9">
 <ol class="org-ol">
 <li><a href="./">This directory</a> listing.</li>
