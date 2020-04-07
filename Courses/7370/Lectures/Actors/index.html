@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-02-01 Sat 11:17 -->
+<!-- 2020-04-07 Tue 13:06 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DIC Hewitt's Actors</title>
@@ -242,64 +242,64 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge3290c1">1. Actors Overview</a>
+<li><a href="#org6130787">1. Actors Overview</a>
 <ul>
-<li><a href="#org9b3000e">1.1. Actors Overview #2</a></li>
+<li><a href="#org635fa1d">1.1. Actors Overview #2</a></li>
 </ul>
 </li>
-<li><a href="#org6a4ae16">2. Actor Standard Model</a>
+<li><a href="#org9ab0771">2. Actor Standard Model</a>
 <ul>
-<li><a href="#org04fc7db">2.1. Actor Standard Model-1: Structure</a></li>
-<li><a href="#orge66fc72">2.2. Actor Standard Model-2: Mailbox</a></li>
-<li><a href="#org99bae1d">2.3. Actor Standard Model-3: Computation</a></li>
-<li><a href="#org2a97ef8">2.4. Actor Standard Model-4: Processing a Message</a></li>
+<li><a href="#org44f2a96">2.1. Actor Standard Model-1: Structure</a></li>
+<li><a href="#orgcac2b71">2.2. Actor Standard Model-2: Mailbox</a></li>
+<li><a href="#org2bff2be">2.3. Actor Standard Model-3: Computation</a></li>
+<li><a href="#org3f926d6">2.4. Actor Standard Model-4: Processing a Message</a></li>
 </ul>
 </li>
-<li><a href="#orga3e9463">3. Actor Standard Model: A Tiny Example</a>
+<li><a href="#org1e1c303">3. Actor Standard Model: A Tiny Example</a>
 <ul>
-<li><a href="#org2b67380">3.1. Actor Example: An Integer Variable</a></li>
-<li><a href="#orgb04bcbd">3.2. Actor Example, contd</a></li>
+<li><a href="#org4391b63">3.1. Actor Example: An Integer Variable</a></li>
+<li><a href="#org53df9fb">3.2. Actor Example, contd</a></li>
 </ul>
 </li>
-<li><a href="#orgcaa597c">4. Actor Standard Model - More Details</a>
+<li><a href="#orgbf0a259">4. Actor Standard Model - More Details</a>
 <ul>
-<li><a href="#org272d3c9">4.1. Actors' Names</a></li>
-<li><a href="#org7ede41d">4.2. Encapsulation</a></li>
-<li><a href="#orga9850bb">4.3. Fair Scheduling</a></li>
-<li><a href="#org2a46944">4.4. Location Transparency</a></li>
-<li><a href="#org4eff0cb">4.5. Mobility</a></li>
-<li><a href="#org10c5ae7">4.6. <code>Become</code></a></li>
+<li><a href="#org6561f14">4.1. Actors' Names</a></li>
+<li><a href="#orgab0b5ab">4.2. Encapsulation</a></li>
+<li><a href="#orgd2a96bf">4.3. Fair Scheduling</a></li>
+<li><a href="#org3b0d387">4.4. Location Transparency</a></li>
+<li><a href="#orgeab6911">4.5. Mobility</a></li>
+<li><a href="#org8b7e678">4.6. <code>Become</code></a></li>
 </ul>
 </li>
-<li><a href="#orgfd91d48">5. Actor Example: A Set</a></li>
-<li><a href="#org17c8308">6. Actor Example: A Stack</a>
+<li><a href="#orge9a2aae">5. Actor Example: A Set</a></li>
+<li><a href="#org5048d8a">6. Actor Example: A Stack</a>
 <ul>
-<li><a href="#org1c41e5d">6.1. A Stack, contd-1</a></li>
-<li><a href="#org2ae8356">6.2. A Stack, contd-2</a></li>
-<li><a href="#org5f250a4">6.3. A Stack, contd-3</a></li>
+<li><a href="#org579b436">6.1. A Stack, contd-1</a></li>
+<li><a href="#orgd2d8e27">6.2. A Stack, contd-2</a></li>
+<li><a href="#orgc0d97f6">6.3. A Stack, contd-3</a></li>
 </ul>
 </li>
-<li><a href="#orga3b3ddb">7. Actor Example: A Recursive Factorial</a></li>
-<li><a href="#org4023096">8. Actor Systems</a></li>
-<li><a href="#orgb2ffc2c">9. Discussion</a>
+<li><a href="#org9d9bd9d">7. Actor Example: A Recursive Factorial</a></li>
+<li><a href="#orge2bc5b6">8. Actor Systems</a></li>
+<li><a href="#orgc4c5a39">9. Discussion</a>
 <ul>
-<li><a href="#orgc4fa7bd">9.1. Actors Long Term Objective</a></li>
+<li><a href="#org48c71e2">9.1. Actors Long Term Objective</a></li>
 </ul>
 </li>
-<li><a href="#orge4222eb">10. Implementations</a>
+<li><a href="#org2e16b12">10. Implementations</a>
 <ul>
-<li><a href="#orgfa60994">10.1. Encapsulation Violation</a></li>
-<li><a href="#org84806fe">10.2. Starvation</a></li>
+<li><a href="#org904a00d">10.1. Encapsulation Violation</a></li>
+<li><a href="#org38a0090">10.2. Starvation</a></li>
 </ul>
 </li>
-<li><a href="#org1e3ec72">11. References</a></li>
-<li><a href="#org1b524f8">12. End</a></li>
+<li><a href="#orga205c8c">11. References</a></li>
+<li><a href="#orgd162eea">12. End</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orge3290c1" class="outline-2">
-<h2 id="orge3290c1"><span class="section-number-2">1</span> Actors Overview</h2>
+<div id="outline-container-org6130787" class="outline-2">
+<h2 id="org6130787"><span class="section-number-2">1</span> Actors Overview</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
 <li>Actors were introduced by Carl Hewitt (MIT) and co-researchers in the 1970s.</li>
@@ -314,8 +314,8 @@ by Hewitt and his co-researchers.</li>
 </ol>
 </div>
 
-<div id="outline-container-org9b3000e" class="outline-3">
-<h3 id="org9b3000e"><span class="section-number-3">1.1</span> Actors Overview #2</h3>
+<div id="outline-container-org635fa1d" class="outline-3">
+<h3 id="org635fa1d"><span class="section-number-3">1.1</span> Actors Overview #2</h3>
 <div class="outline-text-3" id="text-1-1">
 <ol class="org-ol">
 <li>An Actor is a computational entity that, in response to a message
@@ -338,16 +338,16 @@ concurrently can be received in either order.</li>
 </div>
 
 
-<div id="outline-container-org6a4ae16" class="outline-2">
-<h2 id="org6a4ae16"><span class="section-number-2">2</span> Actor Standard Model</h2>
+<div id="outline-container-org9ab0771" class="outline-2">
+<h2 id="org9ab0771"><span class="section-number-2">2</span> Actor Standard Model</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li><img src="./fig-actors.png" alt="fig-actors.png" /> [from Carlos Varela's PhD 2001 <a href="http://osl.cs.illinois.edu/docs/phd-varela01/varela-phd.pdf">http://osl.cs.illinois.edu/docs/phd-varela01/varela-phd.pdf</a>]</li>
 </ol>
 </div>
 
-<div id="outline-container-org04fc7db" class="outline-3">
-<h3 id="org04fc7db"><span class="section-number-3">2.1</span> Actor Standard Model-1: Structure</h3>
+<div id="outline-container-org44f2a96" class="outline-3">
+<h3 id="org44f2a96"><span class="section-number-3">2.1</span> Actor Standard Model-1: Structure</h3>
 <div class="outline-text-3" id="text-2-1">
 <ol class="org-ol">
 <li>Think of <b>actors</b> as [tiny] independent processes/threads.  May be:
@@ -374,8 +374,8 @@ abstract.]</li>
 </div>
 </div>
 
-<div id="outline-container-orge66fc72" class="outline-3">
-<h3 id="orge66fc72"><span class="section-number-3">2.2</span> Actor Standard Model-2: Mailbox</h3>
+<div id="outline-container-orgcac2b71" class="outline-3">
+<h3 id="orgcac2b71"><span class="section-number-3">2.2</span> Actor Standard Model-2: Mailbox</h3>
 <div class="outline-text-3" id="text-2-2">
 <ol class="org-ol">
 <li>Idealized mailbox.  Can be empty.  Never becomes "full".  Do not
@@ -399,8 +399,8 @@ B, m1 first, and m2 second, B may receive m2 first, and m1 second.</li>
 </div>
 </div>
 
-<div id="outline-container-org99bae1d" class="outline-3">
-<h3 id="org99bae1d"><span class="section-number-3">2.3</span> Actor Standard Model-3: Computation</h3>
+<div id="outline-container-org2bff2be" class="outline-3">
+<h3 id="org2bff2be"><span class="section-number-3">2.3</span> Actor Standard Model-3: Computation</h3>
 <div class="outline-text-3" id="text-2-3">
 <ol class="org-ol">
 <li><b>Reactive</b>: Actor computation is performed as a reaction to
@@ -422,8 +422,8 @@ of the newly created actor.</li>
 </div>
 </div>
 
-<div id="outline-container-org2a97ef8" class="outline-3">
-<h3 id="org2a97ef8"><span class="section-number-3">2.4</span> Actor Standard Model-4: Processing a Message</h3>
+<div id="outline-container-org3f926d6" class="outline-3">
+<h3 id="org3f926d6"><span class="section-number-3">2.4</span> Actor Standard Model-4: Processing a Message</h3>
 <div class="outline-text-3" id="text-2-4">
 <ol class="org-ol">
 <li>Send asynchronous messages. [Send is never blocking.]</li>
@@ -437,8 +437,8 @@ marshalling is implicit.)</li>
 </div>
 </div>
 
-<div id="outline-container-orga3e9463" class="outline-2">
-<h2 id="orga3e9463"><span class="section-number-2">3</span> Actor Standard Model: A Tiny Example</h2>
+<div id="outline-container-org1e1c303" class="outline-2">
+<h2 id="org1e1c303"><span class="section-number-2">3</span> Actor Standard Model: A Tiny Example</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li>We will use a quickly-made-up language to illustrate.</li>
@@ -449,8 +449,8 @@ claims to be able to create millions of actors in a second.</li>
 </ol>
 </div>
 
-<div id="outline-container-org2b67380" class="outline-3">
-<h3 id="org2b67380"><span class="section-number-3">3.1</span> Actor Example: An Integer Variable</h3>
+<div id="outline-container-org4391b63" class="outline-3">
+<h3 id="org4391b63"><span class="section-number-3">3.1</span> Actor Example: An Integer Variable</h3>
 <div class="outline-text-3" id="text-3-1">
 <ol class="org-ol">
 <li><p>
@@ -474,8 +474,8 @@ var a: actor = create intvar(5)
 </div>
 </div>
 
-<div id="outline-container-orgb04bcbd" class="outline-3">
-<h3 id="orgb04bcbd"><span class="section-number-3">3.2</span> Actor Example, contd</h3>
+<div id="outline-container-org53df9fb" class="outline-3">
+<h3 id="org53df9fb"><span class="section-number-3">3.2</span> Actor Example, contd</h3>
 <div class="outline-text-3" id="text-3-2">
 <ol class="org-ol">
 <li><p>
@@ -507,12 +507,12 @@ collect <code>msg.sender</code> as it receives messages.</li>
 </div>
 </div>
 
-<div id="outline-container-orgcaa597c" class="outline-2">
-<h2 id="orgcaa597c"><span class="section-number-2">4</span> Actor Standard Model - More Details</h2>
+<div id="outline-container-orgbf0a259" class="outline-2">
+<h2 id="orgbf0a259"><span class="section-number-2">4</span> Actor Standard Model - More Details</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org272d3c9" class="outline-3">
-<h3 id="org272d3c9"><span class="section-number-3">4.1</span> Actors' Names</h3>
+<div id="outline-container-org6561f14" class="outline-3">
+<h3 id="org6561f14"><span class="section-number-3">4.1</span> Actors' Names</h3>
 <div class="outline-text-3" id="text-4-1">
 <ol class="org-ol">
 <li>Each actor is given a unique immutable name ["address"].</li>
@@ -528,8 +528,8 @@ collect <code>msg.sender</code> as it receives messages.</li>
 </div>
 </div>
 
-<div id="outline-container-org7ede41d" class="outline-3">
-<h3 id="org7ede41d"><span class="section-number-3">4.2</span> Encapsulation</h3>
+<div id="outline-container-orgab0b5ab" class="outline-3">
+<h3 id="orgab0b5ab"><span class="section-number-3">4.2</span> Encapsulation</h3>
 <div class="outline-text-3" id="text-4-2">
 <ol class="org-ol">
 <li>Encapsulation as used in OOP.</li>
@@ -551,8 +551,8 @@ receiver-actor.</li>
 </div>
 
 
-<div id="outline-container-orga9850bb" class="outline-3">
-<h3 id="orga9850bb"><span class="section-number-3">4.3</span> Fair Scheduling</h3>
+<div id="outline-container-orgd2a96bf" class="outline-3">
+<h3 id="orgd2a96bf"><span class="section-number-3">4.3</span> Fair Scheduling</h3>
 <div class="outline-text-3" id="text-4-3">
 <ol class="org-ol">
 <li>Weak fairness.  Recall its def in <a href="../FormalMethods/temporal-logic.html">temporal logic</a>.</li>
@@ -571,8 +571,8 @@ blocked on an I/O or system call, other actors are not starved.</li>
 </div>
 
 
-<div id="outline-container-org2a46944" class="outline-3">
-<h3 id="org2a46944"><span class="section-number-3">4.4</span> Location Transparency</h3>
+<div id="outline-container-org3b0d387" class="outline-3">
+<h3 id="org3b0d387"><span class="section-number-3">4.4</span> Location Transparency</h3>
 <div class="outline-text-3" id="text-4-4">
 <ol class="org-ol">
 <li>An actor's address is not based on its location.</li>
@@ -588,8 +588,8 @@ different nodes.</li>
 </div>
 </div>
 
-<div id="outline-container-org4eff0cb" class="outline-3">
-<h3 id="org4eff0cb"><span class="section-number-3">4.5</span> Mobility</h3>
+<div id="outline-container-orgeab6911" class="outline-3">
+<h3 id="orgeab6911"><span class="section-number-3">4.5</span> Mobility</h3>
 <div class="outline-text-3" id="text-4-5">
 <ol class="org-ol">
 <li>Mobility: A computation can move across different nodes.</li>
@@ -606,8 +606,8 @@ different nodes.</li>
 </div>
 
 
-<div id="outline-container-org10c5ae7" class="outline-3">
-<h3 id="org10c5ae7"><span class="section-number-3">4.6</span> <code>Become</code></h3>
+<div id="outline-container-org8b7e678" class="outline-3">
+<h3 id="org8b7e678"><span class="section-number-3">4.6</span> <code>Become</code></h3>
 <div class="outline-text-3" id="text-4-6">
 <ol class="org-ol">
 <li>Behavior is replaced after one msg is processed.</li>
@@ -623,8 +623,8 @@ different nodes.</li>
 </div>
 
 
-<div id="outline-container-orgfd91d48" class="outline-2">
-<h2 id="orgfd91d48"><span class="section-number-2">5</span> Actor Example: A Set</h2>
+<div id="outline-container-orge9a2aae" class="outline-2">
+<h2 id="orge9a2aae"><span class="section-number-2">5</span> Actor Example: A Set</h2>
 <div class="outline-text-2" id="text-5">
 <ol class="org-ol">
 <li>In CSP, we did a small set of integers.  Not only "small" but
@@ -645,8 +645,8 @@ empty handed actor as next.</li>
 </div>
 </div>
 
-<div id="outline-container-org17c8308" class="outline-2">
-<h2 id="org17c8308"><span class="section-number-2">6</span> Actor Example: A Stack</h2>
+<div id="outline-container-org5048d8a" class="outline-2">
+<h2 id="org5048d8a"><span class="section-number-2">6</span> Actor Example: A Stack</h2>
 <div class="outline-text-2" id="text-6">
 <ol class="org-ol">
 <li>Build a system of actors that behaves as a stack of integers.  From
@@ -660,8 +660,8 @@ NIL, this is the last actor of the stack.</li>
 </ol>
 </div>
 
-<div id="outline-container-org1c41e5d" class="outline-3">
-<h3 id="org1c41e5d"><span class="section-number-3">6.1</span> A Stack, contd-1</h3>
+<div id="outline-container-org579b436" class="outline-3">
+<h3 id="org579b436"><span class="section-number-3">6.1</span> A Stack, contd-1</h3>
 <div class="outline-text-3" id="text-6-1">
 <ol class="org-ol">
 <li><p>
@@ -689,8 +689,8 @@ We show only push and pop implemented.  Read stknd as stack node.
 </div>
 </div>
 
-<div id="outline-container-org2ae8356" class="outline-3">
-<h3 id="org2ae8356"><span class="section-number-3">6.2</span> A Stack, contd-2</h3>
+<div id="outline-container-orgd2d8e27" class="outline-3">
+<h3 id="orgd2d8e27"><span class="section-number-3">6.2</span> A Stack, contd-2</h3>
 <div class="outline-text-3" id="text-6-2">
 <ol class="org-ol">
 <li>The top of the stack is the receptionist in this actor system.</li>
@@ -718,8 +718,8 @@ A pop operation changes the stack as follows:
 </div>
 </div>
 
-<div id="outline-container-org5f250a4" class="outline-3">
-<h3 id="org5f250a4"><span class="section-number-3">6.3</span> A Stack, contd-3</h3>
+<div id="outline-container-orgc0d97f6" class="outline-3">
+<h3 id="orgc0d97f6"><span class="section-number-3">6.3</span> A Stack, contd-3</h3>
 <div class="outline-text-3" id="text-6-3">
 <ol class="org-ol">
 <li>Discussion: A stack is not a "good match" for distributed computing
@@ -731,8 +731,8 @@ back from pops.</li>
 </div>
 </div>
 
-<div id="outline-container-orga3b3ddb" class="outline-2">
-<h2 id="orga3b3ddb"><span class="section-number-2">7</span> Actor Example: A Recursive Factorial</h2>
+<div id="outline-container-org9d9bd9d" class="outline-2">
+<h2 id="org9d9bd9d"><span class="section-number-2">7</span> Actor Example: A Recursive Factorial</h2>
 <div class="outline-text-2" id="text-7">
 <div class="org-src-container">
 <pre class="src src-pseudo">factorial: actor() {
@@ -753,8 +753,8 @@ aux: actor(n: nat, r: actor) {
 </div>
 </div>
 
-<div id="outline-container-org4023096" class="outline-2">
-<h2 id="org4023096"><span class="section-number-2">8</span> Actor Systems</h2>
+<div id="outline-container-orge2bc5b6" class="outline-2">
+<h2 id="orge2bc5b6"><span class="section-number-2">8</span> Actor Systems</h2>
 <div class="outline-text-2" id="text-8">
 <ol class="org-ol">
 <li>A finite set of actors and a finite set of pending messages.</li>
@@ -774,8 +774,8 @@ forward all its mail to the connected actor.</li>
 </div>
 </div>
 
-<div id="outline-container-orgb2ffc2c" class="outline-2">
-<h2 id="orgb2ffc2c"><span class="section-number-2">9</span> Discussion</h2>
+<div id="outline-container-orgc4c5a39" class="outline-2">
+<h2 id="orgc4c5a39"><span class="section-number-2">9</span> Discussion</h2>
 <div class="outline-text-2" id="text-9">
 <ol class="org-ol">
 <li>A collection of classic processes with no shared variables
@@ -792,8 +792,8 @@ remain in the mailbox, rather than causing an error.</li>
 </ol>
 </div>
 
-<div id="outline-container-orgc4fa7bd" class="outline-3">
-<h3 id="orgc4fa7bd"><span class="section-number-3">9.1</span> Actors Long Term Objective</h3>
+<div id="outline-container-org48c71e2" class="outline-3">
+<h3 id="org48c71e2"><span class="section-number-3">9.1</span> Actors Long Term Objective</h3>
 <div class="outline-text-3" id="text-9-1">
 <ol class="org-ol">
 <li>"The Actor Model is intended to provide a foundation for
@@ -831,8 +831,8 @@ recorded."</li>
 </div>
 </div>
 
-<div id="outline-container-orge4222eb" class="outline-2">
-<h2 id="orge4222eb"><span class="section-number-2">10</span> Implementations</h2>
+<div id="outline-container-org2e16b12" class="outline-2">
+<h2 id="org2e16b12"><span class="section-number-2">10</span> Implementations</h2>
 <div class="outline-text-2" id="text-10">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -941,8 +941,8 @@ the rest??
 </div>
 
 
-<div id="outline-container-orgfa60994" class="outline-3">
-<h3 id="orgfa60994"><span class="section-number-3">10.1</span> Encapsulation Violation</h3>
+<div id="outline-container-org904a00d" class="outline-3">
+<h3 id="org904a00d"><span class="section-number-3">10.1</span> Encapsulation Violation</h3>
 <div class="outline-text-3" id="text-10-1">
 <p>
 A program written in the Scala Actors (!= Akka Actors) shows violation of state
@@ -973,8 +973,8 @@ critical section.
 </div>
 </div>
 
-<div id="outline-container-org84806fe" class="outline-3">
-<h3 id="org84806fe"><span class="section-number-3">10.2</span> Starvation</h3>
+<div id="outline-container-org38a0090" class="outline-3">
+<h3 id="org38a0090"><span class="section-number-3">10.2</span> Starvation</h3>
 <div class="outline-text-3" id="text-10-2">
 <p>
 A program written in the Scala Actors showing an Actor "busy-waiting"
@@ -1005,8 +1005,8 @@ potentially starve other actors.
 
 
 
-<div id="outline-container-org1e3ec72" class="outline-2">
-<h2 id="org1e3ec72"><span class="section-number-2">11</span> References</h2>
+<div id="outline-container-orga205c8c" class="outline-2">
+<h2 id="orga205c8c"><span class="section-number-2">11</span> References</h2>
 <div class="outline-text-2" id="text-11">
 <ol class="org-ol">
 <li>Carl Hewitt, "Actor Model of Computation: Scalable Robust
@@ -1031,8 +1031,8 @@ Visits + Reading</li>
 </div>
 </div>
 
-<div id="outline-container-org1b524f8" class="outline-2">
-<h2 id="org1b524f8"><span class="section-number-2">12</span> End</h2>
+<div id="outline-container-orgd162eea" class="outline-2">
+<h2 id="orgd162eea"><span class="section-number-2">12</span> End</h2>
 <div class="outline-text-2" id="text-12">
 </div>
 </div>
