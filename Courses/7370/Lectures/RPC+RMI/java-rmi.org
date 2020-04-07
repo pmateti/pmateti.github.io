@@ -1,24 +1,42 @@
 # -*- mode: org -*-
 # -*- org-export-html-postamble:t; -*-
+#+DATE: 2020-04-02
 #+STARTUP:showeverything
 #+TITLE: WhiteBoard Using Java RMI
 #+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Distributed Computing
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
 #+OPTIONS: toc:nil
-#+LINK_HOME: ../../
-#+LINK_UP: ../../Lectures
-#+DESCRIPTION: WSU CEG 7370 Distributed Computing
-#+BIND: org-export-html-preamble-format (("en" "<a href=\"../../Top/\">CEG 7370</a>"))
-#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2014 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> %d"))
-#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
 
 
+1. Our goal in this part of the course is to have the WhiteBoard, we
+   have been discussing, re-done in Java.  Its functionality should be
+   the same as P1 that was done in C-RPC.
 1. Slides [[./matetiJavaRMI.pptx]] 
+1. [[../Projects/WB-Java-RMI/html/index.html]] Java code htmlized by
+   doxygen.  This is ideal for reading the Java src code.
+1. [[../Projects/WB-Java-RMI.tbz]] tar ball of Java src code.  Expands to
+   WhiteBoard/ that can build to P0, equivalent to P0-in-C-RPC.  No
+   assertions.  You need to extend P0 to P1.  [If you wish, start with
+   your own Java P0.]
 
-1. 7370-WB-Java-RMI doxygen generated files http://cecs.wright.edu/~pmateti/Courses/7370/Projects/7370-WB-Java-RMI/html/
 
 * References
 
-1. Java Concurrency, [[http://docs.oracle.com/javase/tutorial/essential/concurrency/]] Required Reading.
+1. Java Concurrency,
+   [[http://docs.oracle.com/javase/tutorial/essential/concurrency/]]
+   Required Reading.
 
-1. Java RMI, [[http://docs.oracle.com/javase/tutorial/rmi/index.html]] Required Reading.
+1. Java RMI, [[http://docs.oracle.com/javase/tutorial/rmi/index.html]]
+   Required Reading.
 
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

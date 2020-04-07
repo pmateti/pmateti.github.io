@@ -204,6 +204,7 @@ We are naming this version P1.
 * Java RMI: P2 10%
 
 1. Re-do/ re-design the P1 above but using Java, and RMI.
+1. Java WhiteBoard [[../Lectures/Projects/WB-Java-RMI/html/index.html][src html-ized]]
 
 * Scala + Akka: P3 10%
 
