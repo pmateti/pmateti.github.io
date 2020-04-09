@@ -174,10 +174,10 @@ And, several "machines".
    the procedures and functions of P0.  First, in English prose, and
    then in PL Boolean expressions.
 
-* Extend P0 to Project P1 10%
+* Project P1 10%
 
-And, extend the clients and server(s) as follows.  The percentages are
-associated weights in grading.
+Extend P0 to P1. Extend the clients and server(s) as follows.  The
+percentages are associated weights in grading.
 
 1.  WB server now responds to messages from a new ``client'' that we call
    =wbadmin=.  A simple example of =wbadmin.c= is included in the source
@@ -204,7 +204,8 @@ We are naming this version P1.
 * Java RMI: P2 10%
 
 1. Re-do/ re-design the P1 above but using Java, and RMI.
-1. Java WhiteBoard [[../Lectures/Projects/WB-Java-RMI/html/index.html][src html-ized]]
+1. [[../RPC+RMI/java-rmi.html]] Further details.  Required Readings listed
+   there.
 
 * Scala + Akka: P3 10%
 
