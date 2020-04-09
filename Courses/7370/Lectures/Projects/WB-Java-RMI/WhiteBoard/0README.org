@@ -11,9 +11,10 @@
 #+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
 #+STARTUP:showeverything
 
-Please read [[http://cecs.wright.edu/~pmateti/Courses/7370/Projects/7370projects.html][7370 projects]] first.  This 0README is a supplement to the
-lectures.  It describes a bit of the philosophy behind the course and
-some details of the source code given to you as a start.
+Please read ../Lectures/Projects/index.org first.  This 0README is a
+supplement to the lectures.  It describes a bit of the philosophy
+behind the course and some details of the source code given to you as
+a start.
 
 This project implements the Whiteboard in Java using RMI, but leaves
 out a few pieces for you TODO.  It should work equally well on both
@@ -136,3 +137,9 @@ I do not think it is worth our time to properly fix these.
 
 I did not focus at all on a nice GUI.  If that interests, by all means
 improve it.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+
