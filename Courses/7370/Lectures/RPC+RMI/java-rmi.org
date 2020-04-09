@@ -15,16 +15,18 @@
 #+OPTIONS: toc:nil
 
 
-1. Our goal in this part of the course is to have the WhiteBoard, we
-   have been discussing, re-done in Java.  Its functionality should be
-   the same as P1 that was done in C-RPC.
-1. Slides [[./matetiJavaRMI.pptx]] 
+1. P2: Our goal in this part of the course is to have the WhiteBoard,
+   [[../Projects/index.html][we have been discussing]], re-done in Java.  Its functionality should
+   be the same as P2 that was done in C-RPC.
+1. P2 uses RMI.  Slides [[./matetiJavaRMI.pptx]]
 1. [[../Projects/WB-Java-RMI/html/index.html]] Java code htmlized by
    doxygen.  This is ideal for reading the Java src code.
 1. [[../Projects/WB-Java-RMI.tbz]] tar ball of Java src code.  Expands to
    WhiteBoard/ that can build to P0, equivalent to P0-in-C-RPC.  No
-   assertions.  You need to extend P0 to P1.  [If you wish, start with
-   your own Java P0.]
+   assertions.  You need to extend P0 to P2.  
+
+1. [If you wish, start with your own Java P0.]  But, the P2 should use
+   RMI.
 
 
 * References
