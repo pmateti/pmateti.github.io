@@ -3,13 +3,13 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-09 Thu 15:35 -->
+<!-- 2020-04-09 Thu 16:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>A White Board Project using Java RMI</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
-<meta name="description" content="A White Board Project using Java RMI"
+<meta name="description" content="Distributed Computing"
  />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
@@ -182,6 +182,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
+<style> P,li {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -230,23 +231,24 @@ for the JavaScript code in this tag.
 </script>
 </head>
 <body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div><div id="preamble" class="status">
+2019-11-04 | <a href="./">PM/</a>
+</div>
 <div id="content">
 <h1 class="title">A White Board Project using Java RMI</h1>
 <p>
-Please read <a href="http://cecs.wright.edu/~pmateti/Courses/7370/Projects/7370projects.html">7370 projects</a> first.  This 0README is a supplement to the
-lectures.  It describes a bit of the philosophy behind the course and
-some details of the source code given to you as a start.
+The bundle of Java src code in this directory implements the
+Whiteboard P0 in Java using RMI, but leaves out a few pieces for you
+TODO.  It should work equally well on both Linux and Windows.  The
+overall behavior is nearly identical to the C-RPC Whiteboard P0.
 </p>
 
-<p>
-This project implements the Whiteboard in Java using RMI, but leaves
-out a few pieces for you TODO.  It should work equally well on both
-Linux and Windows.  The overall behavior is similar to the 7370-C-RPC
-Whiteboard.
-</p>
-
-<div id="outline-container-org4a73b12" class="outline-2">
-<h2 id="org4a73b12"><span class="section-number-2">1</span> Compilation + Build</h2>
+<div id="outline-container-org7aa82d4" class="outline-2">
+<h2 id="org7aa82d4"><span class="section-number-2">1</span> Compilation + Build</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 I did not use any fancy IDE, but you are welcome to use 
@@ -254,11 +256,11 @@ Intellij Idea, Eclipse, &#x2026;
 </p>
 </div>
 
-<div id="outline-container-org6ab2878" class="outline-3">
-<h3 id="org6ab2878"><span class="section-number-3">1.1</span> Original v Generated Files</h3>
+<div id="outline-container-org5c4a553" class="outline-3">
+<h3 id="org5c4a553"><span class="section-number-3">1.1</span> Original v Generated Files</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-Study the files in this order.
+The following files are written by me.  All others are generated.
 </p>
 
 <div class="org-src-container">
@@ -277,8 +279,8 @@ WbServerImpl.java // implementation of WhiteBoard server
 </div>
 </div>
 
-<div id="outline-container-org9fbbab1" class="outline-3">
-<h3 id="org9fbbab1"><span class="section-number-3">1.2</span> Simple Build</h3>
+<div id="outline-container-orga3987a9" class="outline-3">
+<h3 id="orga3987a9"><span class="section-number-3">1.2</span> Java Env</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Make sure your <code>CLASSPATH</code> includes <code>.</code> and <code>..</code> .  The <code>rmic</code> is similar to
@@ -287,32 +289,43 @@ several <code>_Stub.class</code> files
 </p>
 
 <p>
-Make sure you are invoking the proper <code>javac</code> <code>java</code>, et al.  On OSIS
-Lab systems, there are multiple versions of JDK installed.  The <code>java
+Make sure you are invoking the proper <code>javac</code> <code>java</code>, et al.  On many
+systems, there are multiple versions of JDK installed.  The <code>java
 javac rmic rmiregistry rmid</code> should all be from the same package and
-version.  <code>% which java</code> # check where your java JVM is located <code>%
-java -version</code>
+version.  
 </p>
 
+<pre class="example">
+which java # check where your java JVM is located
+java -version
+
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org4a08518" class="outline-3">
+<h3 id="org4a08518"><span class="section-number-3">1.3</span> Simple Build</h3>
+<div class="outline-text-3" id="text-1-3">
 <p>
-You can call <code>wb7370build</code> defined in <code>java7370.sh</code>.  This is the simplest,
-as <code>javac</code> subsumes some of the <code>Makefile</code> features.  Before invoking it,
-make sure you are in the parent dir of <code>*.java</code> files.
+You can call <code>wb7370build</code> defined in <code>java7370.sh</code>.  This is the
+simplest way to build, as <code>javac</code> subsumes some of the <code>Makefile</code>
+features.  Before invoking it, make sure you are in the parent dir of
+<code>*.java</code> files.
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgd1ee6b8" class="outline-2">
-<h2 id="orgd1ee6b8"><span class="section-number-2">2</span> How to Run It</h2>
+<div id="outline-container-org72a460c" class="outline-2">
+<h2 id="org72a460c"><span class="section-number-2">2</span> How to Run It</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-Source <code>java7370.sh</code> to define the various <code>bash</code> methods used below.
+<code>source java7370.sh</code> to define the various <code>bash</code> methods used below.
 </p>
 </div>
 
-<div id="outline-container-org8773787" class="outline-3">
-<h3 id="org8773787"><span class="section-number-3">2.1</span> java.policy</h3>
+<div id="outline-container-org2653c4a" class="outline-3">
+<h3 id="org2653c4a"><span class="section-number-3">2.1</span> java.policy</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 JDK installations will have their own system wide <code>java.policy</code> file;
@@ -335,8 +348,8 @@ detailed than the one below.
 </div>
 </div>
 
-<div id="outline-container-org5790ed2" class="outline-3">
-<h3 id="org5790ed2"><span class="section-number-3">2.2</span> rmiregistry</h3>
+<div id="outline-container-org7a05b93" class="outline-3">
+<h3 id="org7a05b93"><span class="section-number-3">2.2</span> rmiregistry</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Before starting the WB server and clients, do <code>wb7370rmi</code> to establish
@@ -350,8 +363,8 @@ corresponding edits in <code>Invoke.java</code>.
 </div>
 </div>
 
-<div id="outline-container-org12f1c4c" class="outline-3">
-<h3 id="org12f1c4c"><span class="section-number-3">2.3</span> Starting the WB Servers and Clients</h3>
+<div id="outline-container-org8e35600" class="outline-3">
+<h3 id="org8e35600"><span class="section-number-3">2.3</span> Starting the WB Servers and Clients</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 There are several ways of running our Java WB program. <code>wb7370run</code>
@@ -379,24 +392,25 @@ not seen.
 </p>
 
 <p>
-You may find the <code>pj</code> alias  defined in java7370.sh useful.
+You may find the <code>pj</code> alias  defined in <code>java7370.sh</code> useful.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgda9f2a4" class="outline-3">
-<h3 id="orgda9f2a4"><span class="section-number-3">2.4</span> How Does It Work</h3>
+<div id="outline-container-orgb5cb7b9" class="outline-3">
+<h3 id="orgb5cb7b9"><span class="section-number-3">2.4</span> How Does It Work</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
-No client draws a line the moment you click in its window.  Instead,
-the client sends the coordinates to its server, the server informs all
-clients on this board, including this one, of this update.
+No client draws a line, even in its own window, the moment you click
+in its window.  Instead, the client sends the coordinates to its
+server, the server informs all clients on this board, including this
+one, of this update.
 </p>
 
 <p>
 <code>pleaseDie()</code>: If we <b>really</b> die in a remote method, the caller will
 get an exception.  So, we make sure the method returns normally, and
-die a little later.
+die a little later.  A pragmatic solution.
 </p>
 
 <p>
@@ -407,8 +421,8 @@ die a little later.
 </div>
 
 
-<div id="outline-container-org1081b8a" class="outline-2">
-<h2 id="org1081b8a"><span class="section-number-2">3</span> Subtleties</h2>
+<div id="outline-container-orgf1d21f0" class="outline-2">
+<h2 id="orgf1d21f0"><span class="section-number-2">3</span> Subtleties</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Window Expose(s): I did not find what the expose event is called in
@@ -432,12 +446,15 @@ improve it.
 </p>
 </div>
 </div>
+
+<div id="outline-container-org17e9c92" class="outline-2">
+<h2 id="org17e9c92"><span class="section-number-2">4</span> End</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: Prabhaker Mateti (<a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a>)</p>
-<p class="date">Date: </p>
-<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.1.9)</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<hr size=1><a href="http://www.wright.edu/~pmateti"> Prabhaker Mateti</a> &bull; 2019-11-04
 </div>
 </body>
 </html>
