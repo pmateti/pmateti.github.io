@@ -1,25 +1,20 @@
 # -*- mode: org -*-
-# -*- org-export-html-postamble:t; -*-
+#+date: 2019-11-04
 #+TITLE: A White Board Project using Java RMI
 #+AUTHOR: Prabhaker Mateti
-#+OPTIONS: toc:nil
-#+LINK_HOME: ../../
-#+LINK_UP: ../../Lectures
-#+DESCRIPTION: A White Board Project using Java RMI
-#+BIND: org-export-html-preamble-format (("en" "<a href=\"../../Top/\">CEG 7370</a>"))
-#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2014 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> %d"))
-#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"./\">PM/</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1><a href=\"http://www.wright.edu/~pmateti\"> Prabhaker Mateti</a> &bull; %d"))
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P,li {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+DESCRIPTION: Distributed Computing
 #+STARTUP:showeverything
+#+OPTIONS: toc:nil
 
-Please read ../Lectures/Projects/index.org first.  This 0README is a
-supplement to the lectures.  It describes a bit of the philosophy
-behind the course and some details of the source code given to you as
-a start.
-
-This project implements the Whiteboard in Java using RMI, but leaves
-out a few pieces for you TODO.  It should work equally well on both
-Linux and Windows.  The overall behavior is similar to the 7370-C-RPC
-Whiteboard.
+The bundle of Java src code in this directory implements the
+Whiteboard P0 in Java using RMI, but leaves out a few pieces for you
+TODO.  It should work equally well on both Linux and Windows.  The
+overall behavior is nearly identical to the C-RPC Whiteboard P0.
 
 * Compilation + Build
 
@@ -28,7 +23,7 @@ Intellij Idea, Eclipse, ...
 
 ** Original v Generated Files
 
-Study the files in this order.
+The following files are written by me.  All others are generated.
 
 #+begin_src bash
    java7370.sh		// bash file, do: source java7370.sh
@@ -43,25 +38,30 @@ Study the files in this order.
    WbServerImpl.java	// implementation of WhiteBoard server 
 #+end_src
 
-** Simple Build
+** Java Env
 
 Make sure your =CLASSPATH= includes =.= and =..= .  The =rmic= is similar to
 =rpcgen= but examines =.class= files, not =.java= files, in producing
 several =_Stub.class= files
 
-Make sure you are invoking the proper =javac= =java=, et al.  On OSIS
-Lab systems, there are multiple versions of JDK installed.  The =java
+Make sure you are invoking the proper =javac= =java=, et al.  On many
+systems, there are multiple versions of JDK installed.  The =java
 javac rmic rmiregistry rmid= should all be from the same package and
-version.  =% which java= # check where your java JVM is located =%
-java -version=
+version.  
 
-You can call =wb7370build= defined in =java7370.sh=.  This is the simplest,
-as =javac= subsumes some of the =Makefile= features.  Before invoking it,
-make sure you are in the parent dir of =*.java= files.
+: which java # check where your java JVM is located
+: java -version
+
+** Simple Build
+
+You can call =wb7370build= defined in =java7370.sh=.  This is the
+simplest way to build, as =javac= subsumes some of the =Makefile=
+features.  Before invoking it, make sure you are in the parent dir of
+=*.java= files.
 
 * How to Run It
 
-Source =java7370.sh= to define the various =bash= methods used below.
+=source java7370.sh= to define the various =bash= methods used below.
 
 ** java.policy
 
@@ -108,17 +108,18 @@ Or you may invoke these text-interactively from =% java
 WhiteBoard.WbAdmin= The disadvantage here is that the =stdout= is then
 not seen.
 
-You may find the =pj= alias  defined in java7370.sh useful.
+You may find the =pj= alias  defined in =java7370.sh= useful.
 
 ** How Does It Work
 
-No client draws a line the moment you click in its window.  Instead,
-the client sends the coordinates to its server, the server informs all
-clients on this board, including this one, of this update.
+No client draws a line, even in its own window, the moment you click
+in its window.  Instead, the client sends the coordinates to its
+server, the server informs all clients on this board, including this
+one, of this update.
 
 =pleaseDie()=: If we *really* die in a remote method, the caller will
 get an exception.  So, we make sure the method returns normally, and
-die a little later.
+die a little later.  A pragmatic solution.
 
 =addClient()= occurs in =recvDisplayObj()=
 

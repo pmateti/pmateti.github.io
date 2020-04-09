@@ -11,7 +11,6 @@
 #+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
 #+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
 #+STARTUP:showeverything
-#+OPTIONS: toc:2
 #+OPTIONS: toc:nil
 
 
