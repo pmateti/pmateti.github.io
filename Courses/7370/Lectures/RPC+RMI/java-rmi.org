@@ -18,15 +18,23 @@
 1. P2: Our goal in this part of the course is to have the WhiteBoard,
    [[../Projects/index.html][we have been discussing]], re-done in Java.  Its functionality should
    be the same as P2 that was done in C-RPC.
+
 1. P2 uses RMI.  Slides [[./matetiJavaRMI.pptx]]
+
 1. [[../Projects/WB-Java-RMI/html/index.html]] Java code htmlized by
    doxygen.  This is ideal for reading the Java src code.
+1. [[../Projects/WB-Java-RMI/WhiteBoard/0README.org]] A few details of the given
+   Java src code.
 1. [[../Projects/WB-Java-RMI.tbz]] tar ball of Java src code.  Expands to
    WhiteBoard/ that can build to P0, equivalent to P0-in-C-RPC.  No
-   assertions.  You need to extend P0 to P2.  
+   assertions.  
 
-1. [If you wish, start with your own Java P0.]  But, the P2 should use
-   RMI.
+1. You need to extend P0 to P2.  If you wish, start with your own Java
+   P0.  P2 need not have assertions, but highly recommended.  But, the
+   P2 should use RMI.
+
+1. Java 8 vs Java 14.  The Required Reading Trails below use Java 8.
+   P2 need not use Java X, X > 8.
 
 
 * References
@@ -37,6 +45,15 @@
 
 1. Java RMI, [[http://docs.oracle.com/javase/tutorial/rmi/index.html]]
    Required Reading.
+
+1. https://www.oracle.com/java/technologies/javase-downloads.html  Reference.
+
+1. https://www.oracle.com/technetwork/java/javase/14-relnote-issues-5809570.html
+   JDK 14 Release Notes. 2020. Highly Recommended Reading.
+
+1. https://www.codejava.net/java-se/java-14-new-features 2020 {pm:
+   Easier to read than the above.} Java 15 Expected in September 2020.
+   Highly Recommended Reading.
 
 * End
 # Local variables:

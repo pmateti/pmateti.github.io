@@ -3,13 +3,13 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-09 Thu 15:54 -->
+<!-- 2020-04-09 Thu 15:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>WhiteBoard Using Java RMI</title>
+<title>A White Board Project using Java RMI</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
-<meta name="description" content="Distributed Computing"
+<meta name="description" content="A White Board Project using Java RMI"
  />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
@@ -182,7 +182,6 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -231,70 +230,214 @@ for the JavaScript code in this tag.
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="../"> UP </a>
- |
- <a accesskey="H" href="../../Top/index.html"> HOME </a>
-</div><div id="preamble" class="status">
-<a href="../../"> ../../</a>
-</div>
 <div id="content">
-<h1 class="title">WhiteBoard Using Java RMI</h1>
-<ol class="org-ol">
-<li>P2: Our goal in this part of the course is to have the WhiteBoard,
-<a href="../Projects/index.html">we have been discussing</a>, re-done in Java.  Its functionality should
-be the same as P2 that was done in C-RPC.</li>
+<h1 class="title">A White Board Project using Java RMI</h1>
+<p>
+Please read <a href="http://cecs.wright.edu/~pmateti/Courses/7370/Projects/7370projects.html">7370 projects</a> first.  This 0README is a supplement to the
+lectures.  It describes a bit of the philosophy behind the course and
+some details of the source code given to you as a start.
+</p>
 
-<li>P2 uses RMI.  Slides <a href="./matetiJavaRMI.pptx">./matetiJavaRMI.pptx</a></li>
+<p>
+This project implements the Whiteboard in Java using RMI, but leaves
+out a few pieces for you TODO.  It should work equally well on both
+Linux and Windows.  The overall behavior is similar to the 7370-C-RPC
+Whiteboard.
+</p>
 
-<li><a href="../Projects/WB-Java-RMI/html/index.html">../Projects/WB-Java-RMI/html/index.html</a> Java code htmlized by
-doxygen.  This is ideal for reading the Java src code.</li>
-<li><a href="../Projects/WB-Java-RMI/WhiteBoard/0README.html">../Projects/WB-Java-RMI/WhiteBoard/0README.html</a> A few details of the given
-Java src code.</li>
-<li><a href="../Projects/WB-Java-RMI.tbz">../Projects/WB-Java-RMI.tbz</a> tar ball of Java src code.  Expands to
-WhiteBoard/ that can build to P0, equivalent to P0-in-C-RPC.  No
-assertions.</li>
-
-<li>You need to extend P0 to P2.  If you wish, start with your own Java
-P0.  P2 need not have assertions, but highly recommended.  But, the
-P2 should use RMI.</li>
-
-<li>Java 8 vs Java 14.  The Required Reading Trails below use Java 8.
-P2 need not use Java X, X &gt; 8.</li>
-</ol>
-
-
-<div id="outline-container-orgad4aad5" class="outline-2">
-<h2 id="orgad4aad5"><span class="section-number-2">1</span> References</h2>
+<div id="outline-container-org4a73b12" class="outline-2">
+<h2 id="org4a73b12"><span class="section-number-2">1</span> Compilation + Build</h2>
 <div class="outline-text-2" id="text-1">
-<ol class="org-ol">
-<li>Java Concurrency,
-<a href="http://docs.oracle.com/javase/tutorial/essential/concurrency/">http://docs.oracle.com/javase/tutorial/essential/concurrency/</a>
-Required Reading.</li>
-
-<li>Java RMI, <a href="http://docs.oracle.com/javase/tutorial/rmi/index.html">http://docs.oracle.com/javase/tutorial/rmi/index.html</a>
-Required Reading.</li>
-
-<li><a href="https://www.oracle.com/java/technologies/javase-downloads.html">https://www.oracle.com/java/technologies/javase-downloads.html</a>  Reference.</li>
-
-<li><a href="https://www.oracle.com/technetwork/java/javase/14-relnote-issues-5809570.html">https://www.oracle.com/technetwork/java/javase/14-relnote-issues-5809570.html</a>
-JDK 14 Release Notes. 2020. Highly Recommended Reading.</li>
-
-<li><a href="https://www.codejava.net/java-se/java-14-new-features">https://www.codejava.net/java-se/java-14-new-features</a> 2020 {pm:
-Easier to read than the above.} Java 15 Expected in September 2020.
-Highly Recommended Reading.</li>
-</ol>
-</div>
+<p>
+I did not use any fancy IDE, but you are welcome to use 
+Intellij Idea, Eclipse, &#x2026;
+</p>
 </div>
 
-<div id="outline-container-org5deb5df" class="outline-2">
-<h2 id="org5deb5df"><span class="section-number-2">2</span> End</h2>
+<div id="outline-container-org6ab2878" class="outline-3">
+<h3 id="org6ab2878"><span class="section-number-3">1.1</span> Original v Generated Files</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Study the files in this order.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">java7370.sh   // bash file, do: source java7370.sh
+Invoke.java   // support methods 
+LineCoords.java // public data structure for a line 
+LinesFrame.java // our little window of lines 
+LinesFrameImpl.java // implementation of window of lines 
+WbAdmin.java         // interface of wbadministrator 
+WbServer.java // interface of WhiteBoard server 
+WbClient.java // interface of WhiteBoard client 
+WbClientImpl.java // implementation of WhiteBoard client 
+WbServerImpl.java // implementation of WhiteBoard server 
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9fbbab1" class="outline-3">
+<h3 id="org9fbbab1"><span class="section-number-3">1.2</span> Simple Build</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Make sure your <code>CLASSPATH</code> includes <code>.</code> and <code>..</code> .  The <code>rmic</code> is similar to
+<code>rpcgen</code> but examines <code>.class</code> files, not <code>.java</code> files, in producing
+several <code>_Stub.class</code> files
+</p>
+
+<p>
+Make sure you are invoking the proper <code>javac</code> <code>java</code>, et al.  On OSIS
+Lab systems, there are multiple versions of JDK installed.  The <code>java
+javac rmic rmiregistry rmid</code> should all be from the same package and
+version.  <code>% which java</code> # check where your java JVM is located <code>%
+java -version</code>
+</p>
+
+<p>
+You can call <code>wb7370build</code> defined in <code>java7370.sh</code>.  This is the simplest,
+as <code>javac</code> subsumes some of the <code>Makefile</code> features.  Before invoking it,
+make sure you are in the parent dir of <code>*.java</code> files.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd1ee6b8" class="outline-2">
+<h2 id="orgd1ee6b8"><span class="section-number-2">2</span> How to Run It</h2>
 <div class="outline-text-2" id="text-2">
+<p>
+Source <code>java7370.sh</code> to define the various <code>bash</code> methods used below.
+</p>
+</div>
+
+<div id="outline-container-org8773787" class="outline-3">
+<h3 id="org8773787"><span class="section-number-3">2.1</span> java.policy</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+JDK installations will have their own system wide <code>java.policy</code> file;
+e.g., on my machine the full path name is
+<code>/usr/lib/jvm/jdk1.7.0_45/jre/lib/security/java.policy</code> The
+<code>SocketPermission</code> s may not be good enough.  So, create a
+<code>~/java.policy</code> file in your home directory.  It can be much more
+detailed than the one below.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">% cat  &lt;&lt; EOF &gt; ~/java.policy
+<span style="color: #ffa54f;">grant {</span>
+<span style="color: #ffa54f;">  permission java.net.SocketPermission "*:1024-65535", "connect,accept";</span>
+<span style="color: #ffa54f;">  permission java.net.SocketPermission "*:80", "connect";</span>
+<span style="color: #ffa54f;">};</span>
+<span style="color: #ffa54f;">EOF</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5790ed2" class="outline-3">
+<h3 id="org5790ed2"><span class="section-number-3">2.2</span> rmiregistry</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Before starting the WB server and clients, do <code>wb7370rmi</code> to establish
+<code>rmiregistry</code>.
+</p>
+
+<p>
+For <code>rmiregistry</code>: If port 1099 is in use already, you need to make
+corresponding edits in <code>Invoke.java</code>.  
+</p>
+</div>
+</div>
+
+<div id="outline-container-org12f1c4c" class="outline-3">
+<h3 id="org12f1c4c"><span class="section-number-3">2.3</span> Starting the WB Servers and Clients</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+There are several ways of running our Java WB program. <code>wb7370run</code>
+defined in <code>java7370.sh</code> is one such example that starts one server
+and two clients each on two boards.
+</p>
+
+<p>
+Server will print its URL, e.g.,
+<code>//localhost/S1</code>.
+</p>
+
+
+<p>
+In general, to start a client do: <code>% java WhiteBoard.WbClientImpl
+&lt;idn&gt; &lt;boardnm&gt; &lt;displayMcnm&gt; &lt;URL-of-server&gt;</code> The idn is an arbitrary
+non-neg integer used as a pseudo process id.  An example URL for the
+server is <code>//localhost/S1</code>.  The client will start a LinesFrame.
+</p>
+
+<p>
+Or you may invoke these text-interactively from <code>% java
+WhiteBoard.WbAdmin</code> The disadvantage here is that the <code>stdout</code> is then
+not seen.
+</p>
+
+<p>
+You may find the <code>pj</code> alias  defined in java7370.sh useful.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgda9f2a4" class="outline-3">
+<h3 id="orgda9f2a4"><span class="section-number-3">2.4</span> How Does It Work</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+No client draws a line the moment you click in its window.  Instead,
+the client sends the coordinates to its server, the server informs all
+clients on this board, including this one, of this update.
+</p>
+
+<p>
+<code>pleaseDie()</code>: If we <b>really</b> die in a remote method, the caller will
+get an exception.  So, we make sure the method returns normally, and
+die a little later.
+</p>
+
+<p>
+<code>addClient()</code> occurs in <code>recvDisplayObj()</code>
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org1081b8a" class="outline-2">
+<h2 id="org1081b8a"><span class="section-number-2">3</span> Subtleties</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Window Expose(s): I did not find what the expose event is called in
+Java.  So did a work around using <code>public void
+windowActivated(WindowEvent e)</code> Please send me a better solution!
+So to see lines of a window that was just uncovered, click on the
+title bar.
+</p>
+
+<p>
+You may also find that occasionally some mouse clicks are "lost".
+</p>
+
+<p>
+I do not think it is worth our time to properly fix these.
+</p>
+
+<p>
+I did not focus at all on a nice GUI.  If that interests, by all means
+improve it.
+</p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<hr size=1>Copyright &copy; 2020 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2020-04-02
+<p class="author">Author: Prabhaker Mateti (<a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.1.9)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
