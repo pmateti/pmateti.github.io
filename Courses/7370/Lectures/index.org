@@ -1,0 +1,41 @@
+# -*- mode: org -*-
+#+date: 2020-01-31
+#+TITLE: Dir Listing
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+pmateti.github.io/Courses/7370/Lectures:\\
+  total used in directory 92 available 2337364412
+  drwxrwxr-x 22 pmateti pmateti 4096 Feb  1 12:15 .\\
+  drwxrwxr-x  6 pmateti pmateti 4096 Apr 13 11:09 ..\\
+  drwxrwxr-x  3 pmateti pmateti 4096 Apr  7 13:06 [[./Actors]]\\
+  drwxrwxr-x  4 pmateti pmateti 4096 Feb  2 13:29 [[./Akka]]\\
+  drwxrwxr-x  2 pmateti pmateti 4096 Jan 30 18:38 [[./Algorithms]]\\
+  drwxrwxr-x  2 pmateti pmateti 4096 Feb  9 12:15 [[./AMP]]\\
+  drwxrwxr-x  2 pmateti pmateti 4096 Jan 31 10:46 [[./Classics]]\\
+  drwxrwxr-x  4 pmateti pmateti 4096 Jan 31 16:39 [[./Clusters]]\\
+  drwxrwxr-x  2 pmateti pmateti 4096 Feb  9 17:47 [[./CSP]]\\
+  drwxrwxr-x  2 pmateti pmateti 4096 Jan 31 10:53 [[./DC]]\\
+  drwxrwxr-x  2 pmateti pmateti 4096 Jan 31 10:55 [[./DistFileSys]]\\
+  drwxrwxr-x  2 pmateti pmateti 4096 Jan 31 10:59 [[./FormalMethods]]\\
+  drwxrwxr-x  2 pmateti pmateti 4096 Jan 31 19:57 [[./Fundas]]\\
+  drwxrwxr-x 13 pmateti pmateti 4096 Jan 31 10:55 [[./IPFS]]\\
+  drwxrwxr-x  3 pmateti pmateti 4096 Feb  1 13:07 [[./Languages]]\\
+  drwxrwxr-x  2 pmateti pmateti 4096 Jan 31 16:41 [[./Linda]]\\
+  drwxrwxr-x  2 pmateti pmateti 4096 Jan 31 21:36 [[./Misc]]\\
+  drwxr-xr-x  4 pmateti pmateti 4096 Jan 25 23:15 [[./Overview]]\\
+  drwxrwxr-x  5 pmateti pmateti 4096 Apr  9 13:43 [[./Projects]]\\
+  drwxr-xr-x  2 pmateti pmateti 4096 Apr 12 17:32 [[./RPC+RMI]]\\
+  drwxrwxr-x  2 pmateti pmateti 4096 Jan 31 22:09 [[./Semaphores]]\\
+
+
+# * End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
