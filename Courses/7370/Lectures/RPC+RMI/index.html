@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-07 Tue 13:10 -->
+<!-- 2020-04-13 Mon 12:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RPC, Remote Procedure Call</title>
@@ -244,23 +244,23 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge417897">1. Overview</a></li>
-<li><a href="#org5c95d89">2. Local v Remote</a></li>
-<li><a href="#org520e40f">3. Operational Semantics of Local Procedure Call</a></li>
-<li><a href="#org7eda8df">4. Parameter Passing</a></li>
-<li><a href="#org35e2b0d">5. The Idea of RPC</a></li>
-<li><a href="#org42b72ce">6. How to Develop RPC programs</a></li>
-<li><a href="#org8e470ba">7. Automated Build of RPC programs</a></li>
-<li><a href="#orga30a15b">8. A Design of RPC</a></li>
-<li><a href="#org0c0b266">9. Practical Linux RPC</a></li>
-<li><a href="#org4954c39">10. References</a></li>
-<li><a href="#orgad3ca09">11. End</a></li>
+<li><a href="#org35eb5bb">1. Overview</a></li>
+<li><a href="#orgd666c68">2. Local v Remote</a></li>
+<li><a href="#org31430db">3. Operational Semantics of Local Procedure Call</a></li>
+<li><a href="#org1043091">4. Parameter Passing</a></li>
+<li><a href="#orgd6a92da">5. The Idea of RPC</a></li>
+<li><a href="#orgd93dfe1">6. How to Develop RPC programs</a></li>
+<li><a href="#orga1736e0">7. Automated Build of RPC programs</a></li>
+<li><a href="#orgd3e2aaa">8. A Design of RPC</a></li>
+<li><a href="#org0d3c94c">9. Practical Linux RPC</a></li>
+<li><a href="#org4ab9feb">10. References</a></li>
+<li><a href="#org042618f">11. End</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orge417897" class="outline-2">
-<h2 id="orge417897"><span class="section-number-2">1</span> Overview</h2>
+<div id="outline-container-org35eb5bb" class="outline-2">
+<h2 id="org35eb5bb"><span class="section-number-2">1</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
 <li>Remote Procedure Call (Java Remote Method Invocation RMI) is a
@@ -273,8 +273,8 @@ Client-Server computing.</li>
 </div>
 </div>
 
-<div id="outline-container-org5c95d89" class="outline-2">
-<h2 id="org5c95d89"><span class="section-number-2">2</span> Local v Remote</h2>
+<div id="outline-container-orgd666c68" class="outline-2">
+<h2 id="orgd666c68"><span class="section-number-2">2</span> Local v Remote</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li><a href="./rpc-slides.html">Slides</a></li>
@@ -293,8 +293,8 @@ or FQHN fully qualified host name.</li>
 </div>
 </div>
 
-<div id="outline-container-org520e40f" class="outline-2">
-<h2 id="org520e40f"><span class="section-number-2">3</span> Operational Semantics of Local Procedure Call</h2>
+<div id="outline-container-org31430db" class="outline-2">
+<h2 id="org31430db"><span class="section-number-2">3</span> Operational Semantics of Local Procedure Call</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li>The code of both P and Q are in the address space of a single process.</li>
@@ -307,8 +307,8 @@ or FQHN fully qualified host name.</li>
 </div>
 </div>
 
-<div id="outline-container-org7eda8df" class="outline-2">
-<h2 id="org7eda8df"><span class="section-number-2">4</span> Parameter Passing</h2>
+<div id="outline-container-org1043091" class="outline-2">
+<h2 id="org1043091"><span class="section-number-2">4</span> Parameter Passing</h2>
 <div class="outline-text-2" id="text-4">
 <ol class="org-ol">
 <li>Procedure P makes a call Q(a, b, c) on procedure Q.</li>
@@ -320,8 +320,8 @@ or FQHN fully qualified host name.</li>
 </div>
 </div>
 
-<div id="outline-container-org35e2b0d" class="outline-2">
-<h2 id="org35e2b0d"><span class="section-number-2">5</span> The Idea of RPC</h2>
+<div id="outline-container-orgd6a92da" class="outline-2">
+<h2 id="orgd6a92da"><span class="section-number-2">5</span> The Idea of RPC</h2>
 <div class="outline-text-2" id="text-5">
 <ol class="org-ol">
 <li>The code of P is in one process PP and that of Q in another QQ.</li>
@@ -332,8 +332,8 @@ or FQHN fully qualified host name.</li>
 </div>
 
 
-<div id="outline-container-org42b72ce" class="outline-2">
-<h2 id="org42b72ce"><span class="section-number-2">6</span> How to Develop RPC programs</h2>
+<div id="outline-container-orgd93dfe1" class="outline-2">
+<h2 id="orgd93dfe1"><span class="section-number-2">6</span> How to Develop RPC programs</h2>
 <div class="outline-text-2" id="text-6">
 <ol class="org-ol">
 <li>Start with sequential version of the program QPRG</li>
@@ -348,8 +348,8 @@ or FQHN fully qualified host name.</li>
 </div>
 
 
-<div id="outline-container-org8e470ba" class="outline-2">
-<h2 id="org8e470ba"><span class="section-number-2">7</span> Automated Build of RPC programs</h2>
+<div id="outline-container-orga1736e0" class="outline-2">
+<h2 id="orga1736e0"><span class="section-number-2">7</span> Automated Build of RPC programs</h2>
 <div class="outline-text-2" id="text-7">
 <ol class="org-ol">
 <li>Lots of assumptions
@@ -369,8 +369,8 @@ or FQHN fully qualified host name.</li>
 </div>
 </div>
 
-<div id="outline-container-orga30a15b" class="outline-2">
-<h2 id="orga30a15b"><span class="section-number-2">8</span> A Design of RPC</h2>
+<div id="outline-container-orgd3e2aaa" class="outline-2">
+<h2 id="orgd3e2aaa"><span class="section-number-2">8</span> A Design of RPC</h2>
 <div class="outline-text-2" id="text-8">
 <ol class="org-ol">
 <li>A Typical RPC architecture <a href="../RPC+RMI/rpc-diag-tikz.pdf">../RPC+RMI/rpc-diag-tikz.pdf</a>
@@ -387,8 +387,8 @@ or FQHN fully qualified host name.</li>
 </div>
 
 
-<div id="outline-container-org0c0b266" class="outline-2">
-<h2 id="org0c0b266"><span class="section-number-2">9</span> Practical Linux RPC</h2>
+<div id="outline-container-org0d3c94c" class="outline-2">
+<h2 id="org0d3c94c"><span class="section-number-2">9</span> Practical Linux RPC</h2>
 <div class="outline-text-2" id="text-9">
 <ol class="org-ol">
 <li>Make sure that <code>rpcbind/portmap</code> is started at boot. Option <code>-i</code></li>
@@ -397,8 +397,8 @@ or FQHN fully qualified host name.</li>
 </div>
 </div>
 
-<div id="outline-container-org4954c39" class="outline-2">
-<h2 id="org4954c39"><span class="section-number-2">10</span> References</h2>
+<div id="outline-container-org4ab9feb" class="outline-2">
+<h2 id="org4ab9feb"><span class="section-number-2">10</span> References</h2>
 <div class="outline-text-2" id="text-10">
 <ol class="org-ol">
 <li>Andrew D. Birrell and Bruce Jay Nelson, Implementing Remote
@@ -410,12 +410,16 @@ Procedure Calls, ACM Transactions on Computer Systems (TOCS), 2,
 highly recommended complete book on RPC.</li>
 
 <li>Andrews book, Chapter 9.  Highly recommended reading.</li>
+
+<li><a href="http://twitter.github.io/finagle">http://twitter.github.io/finagle</a> Finagle is an extensible RPC
+system for the JVM.  Finagle is written in Scala, but provides both
+Scala and Java  APIs.  Reference</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-orgad3ca09" class="outline-2">
-<h2 id="orgad3ca09"><span class="section-number-2">11</span> End</h2>
+<div id="outline-container-org042618f" class="outline-2">
+<h2 id="org042618f"><span class="section-number-2">11</span> End</h2>
 <div class="outline-text-2" id="text-11">
 </div>
 </div>

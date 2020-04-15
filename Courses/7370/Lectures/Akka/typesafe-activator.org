@@ -1,5 +1,5 @@
 # -*- mode: org -*-
-#+TITLE: TypeSafe Activator
+#+TITLE: Lightbend (old TypeSafe) Activator
 #+AUTHOR: Prabhaker Mateti
 #+date: 2020-01-31
 #+HTML_LINK_HOME: ../../Top/index.html
@@ -59,10 +59,16 @@ akka {
 1. Akka Scala Documentation https://doc.akka.io/docs/akka/2.4/AkkaScala.pdf 663pp. Aug 2017.
    Nearly all the code snippets and figures are from here.  Reference.
 
-1. https://doc.akka.io/docs/akka/2.5.1/AkkaJava.pdf 659pp. May 2017.    Reference.
+1. https://doc.akka.io/docs/akka/2.5.1/AkkaJava.pdf 659pp. May 2017.
+   Reference.
 
-1. Jonas Boner, "Above the Clouds: Introducing Akka", 2011.  Web
-   search for "Above the Clouds: Introducing Akka".  Video or pdf.
-   Highly recommended.  {pm: Swedish programmer Jonas Boner is the
-   designer of Akka.}
+1. Jonas Boner, 2011.  Web search for "Above the Clouds: Introducing
+   Akka".  Video or pdf.  {pm: Swedish programmer Jonas Boner is the
+   designer of Akka.} Highly recommended.
 
+1. https://www.lightbend.com/blog/typesafe-changes-name-to-lightbend 2016. FYI.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

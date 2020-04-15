@@ -1,37 +1,33 @@
 # -*- mode: org -*-
-#+date: 2020-01-31
+#+date: 2020-04-14
 #+TITLE: Akka Actors with Scala
 #+AUTHOR: Prabhaker Mateti
 #+HTML_LINK_HOME: ../../Top/index.html
 #+HTML_LINK_UP: ../
 #+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
-#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | %d"))
 #+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
 #+STARTUP:showeverything
 #+OPTIONS: toc:2
 
 * Overview of Lectures
 
-1. May be 3 to 4 lectures (75 minutes) total.
-
+1. What do these lecture notes do?
 1. Describe Scala minimally.  Just enough to do Akka.  Pretty much
    ignore its (i) functional programming features, (ii) syntactic
-   conveniences and (iii) type inference [not wholly].
+   conveniences and (iii) type inference [not wholly].  Goto What is
+   Scala?
 
-1. Describe the Actors Model, comparable in depth to our
-   treatment of SMP, AMP, Shared-Vars, Semaphores.
+1. Describe Carl Hewitt's Actors Model, comparable in depth to our
+   treatment of SMP, AMP, Shared-Vars, Semaphores.  Goto Actors Model.
 
-1. Describe Akka, an implementation of Actors.  Just
-   enough so you can re-do all the classics such as Readers/Writers,
-   Dining Philosophers.
-
-1. Show-and-Tell [[./typesafe-activator.org]]
-
-1. DIC P3 details depend on the above.
+1. Describe Akka, an implementation of Actors.  Just enough so you can
+   re-do all the classics such as Readers/Writers, Dining
+   Philosophers.  Goto What is Akka?
 
 * What is Scala?
 
-1. Can be thought of as a significantly enhanced Java.
+1. Scala can be thought of as a significantly enhanced Java.
 
 1. Combines OOP and Functional Programming.
 
@@ -39,9 +35,10 @@
 
 1. Compiles to JVM .class files.
 
-1. Scala http://www.scala-lang.org/ is open source.
+1. Scala is described fully at http://www.scala-lang.org/.  Its
+   compilers and other tools are open source.
 
-1. [[../Languages/Scala/scalaPractical.html][Scala Practical]]
+1. [[../Languages/Scala/scalaPractical.html][Scala Practical]] My lecture notes.  Required Reading.
 
 
 * Actors Model
@@ -54,30 +51,28 @@
 
 1. Can we build these in Actors?
 
-1. [[./actors.html][CEG 7370 on Actors]]
+1. [[./actors.html][On Actors]] My lecture notes.  Required Reading.
 
 
 * What is Akka?
 
-1. Akka is an open source implementation of Hewitt's [[./actors.html][Actor Model]], as a
-   library in Scala (and hence JVM).  Akka library can be used in Java
-   as well.  It makes practical concessions to the pure actor model.
+1. Akka is an open source implementation of Hewitt's (pure) [[./actors.html][Actor
+   Model]], as a library in Scala.  It makes practical concessions to
+   the pure actor model.
 
 1. "Akka is a toolkit and runtime for building highly concurrent,
    distributed, and fault tolerant event-driven applications on the
-   JVM" http://www.akka.io.  [Note the use of concurrent and
+   JVM" http://www.akka.io.  [Note the use of concurrent *and*
    distributed.]
 
-1. Helps with scaling both UP (utilizing multi-core processors) and
+1. Akka helps with scaling both UP (utilizing multi-core processors) and
    OUT (utilizing the cloud/ grid/ cluster).
 
-1. For fault-tolerance Akka adopts the "Let it crash" model, which has
+1. For fault-tolerance, Akka adopts the "Let it crash" model, which has
    been used with great success in the telecom industry to build
    applications that self-heal and never stop.
 
-1. [[http://www.typesafe.com/platform/getstarted]] "The best way to start
-   learning Akka ..."
-
+1. Reactive Applications = Concurrency + Events
 
 ** What is Akka? v.Frivolous
 
@@ -110,10 +105,30 @@
 
 1. Created by Jonas Bonér.
 
+** Large Scale Examples of Akka
+
+1. http://www.playframework.com/ "The High Velocity Web Framework For
+   Java and Scala" Built on Akka, Play provides predictable and
+   minimal resource consumption (CPU, memory, threads) for
+   highly-scalable applications.  RESTful by default.
+
+   1. REST stands for "Representational State Transfer".  It describes
+      a web architecture.
+
+1. Play https://developer.lightbend.com/start/?group=play
+
+1. http://spray.io/ =spray= is an open-source toolkit for building
+   REST/HTTP-based integration layers on top of Scala and Akka.  It is
+   asynchronous, and actor-based.
+
+
 ** Akka Practical Use Overview
 
 1. Versions: Scala 2.11+, Akka 2.3.1+.  Code for older versions may
    not work with these versions.  Most, not 100%, are open source.
+
+1. https://developer.lightbend.com/guides/akka-quickstart-scala/ Must
+   read and follow.
 
 1. The code shown in boxes below is not always self-contained enough to
    compile it stand-alone.
@@ -123,8 +138,7 @@
    http://docs.scala-lang.org/overviews/core/actors-migration-guide.html
 
 1. Akka library can be used in Java as well.
-1. http://www.pykka.org/
-   with Python.
+1. http://www.pykka.org/ with Python.
 
 ** How Does Akka work?
 
@@ -132,24 +146,7 @@
 #+ATTR_HTML: :alt fig-actor-users.png :align center :width 100%
 [[./Figures/fig-akka-how-works.png]]
 
-* TypeSafe Activator: Akka Get Started
-
-1. Reactive Applications: Concurrency + Events
-1. Play Framework https://www.playframework.com/documentation/2.8.x/ScalaAkka
-1. Akka Runtime 
-1. Scala Programming Language 
-1. Activator Reactive Developer Environment
-1. [[http://www.typesafe.com/platform/getstarted]] "The best way to start
-   learning Akka ..."
-
-1. [The IP address and version numbers will be specific to your setup.]
-1. =ssh= to your own laptop/ Lab machine =130.108.17.112=
-
-1. =% /usr/local/activator-1.1.1/activator ui -Dhttp.address=130.108.17.112 -Dhttp.port=8080 -Dbrowser=/usr/bin/google-chrome=
-
-1. Copies/Creates its applications in =~/.activator/= and =~=
-
-* Akka, without Activator, Practical Details
+** Akka Practical Details
 
 1. Akka can be used without defining a
    configuration, since sensible default values are provided.
@@ -167,36 +164,13 @@ akka {
       throughput = 10
     }
   }
-  remote {    netty.tcp.port = 2552  }
+  remote { netty.tcp.port = 2552  }
 }
 #+end_src
 
 
-* Large Scale Examples of Akka + Scala
 
-1. http://www.playframework.com/ "The High Velocity Web Framework For
-   Java and Scala" Built on Akka, Play provides predictable and
-   minimal resource consumption (CPU, memory, threads) for
-   highly-scalable applications.  RESTful by default.
-
-   1.  REST stands for "Representational State Transfer".  It
-       describes a web architecture.
-
-1. Play is used in http://www.typesafe.com/platform/getstarted
-
-1. http://spray.io/ "Elegant, high-performance HTTP for your Akka
-   Actors."  =spray= is an open-source toolkit for building
-   REST/HTTP-based integration layers on top of Scala and Akka.  Being
-   asynchronous, actor-based, fast, lightweight, modular and testable
-   it's a great way to connect your Scala applications to the world.
-
-1. http://twitter.github.io/finagle Finagle is an extensible RPC
-   system for the JVM.  Finagle is written in Scala, but provides both
-   Scala and Java  APIs.
-
-
-
-* Actor Hierarchy and Name Resolution
+* Akka Actor Architecture
 
 #+CAPTION: Actor Hierarchy and Name Resolution
 #+ATTR_HTML: :alt fig-actor-hierarchy.png  :title Actor Hierarchy and Name Resolution :align center :width 100%
@@ -412,19 +386,25 @@ What Does "Finished" Mean? The most natural answer to this question
 #+ATTR_HTML: :style background-color:beige
 [[./Figures/fig-akka-poison-pill.png]]
 
-
-* Akka v Kafka
-
-1. Akka vs Kafka: What are the differences?  https://stackshare.io/stackups/akka-vs-kafka
-
-
 * References
 
 1. https://doc.akka.io/docs/akka/current/
    Nearly all the code snippets and figures are from here.  Reference.
 
-1. Jonas Boner, "Above the Clouds: Introducing Akka", 2011.  Web
+2. Jonas Boner, "Above the Clouds: Introducing Akka", 2011.  Web
    search.  Video or pdf.  Highly recommended.
+
+4. https://doc.akka.io/docs/akka/current/typed/guide/ Getting Started
+   Guide.  Must visit.  The following are linked there.
+   1. Introduction to Akka.  Required Reading
+   2. Part 1: Actor Architecture. Required Reading
+   3. Part 2: Creating the First Actor. Required Reading
+   4. Part 3: Working with Device [in the small] Actors Optional Reading
+   5. Part 4: Working with Device Groups   Optional Reading
+   6. Part 5: Querying Device Groups  Optional Reading
+
+1. http://allaboutscala.com/scala-frameworks/akka/ 2020 Recommended
+   Reading.
 
 * End
 # Local variables:

@@ -109,6 +109,10 @@
 
 1. Andrews book, Chapter 9.  Highly recommended reading.
 
+1. http://twitter.github.io/finagle Finagle is an extensible RPC
+   system for the JVM.  Finagle is written in Scala, but provides both
+   Scala and Java  APIs.  Reference
+
 * End
 # Local variables:
 # after-save-hook: org-html-export-to-html
