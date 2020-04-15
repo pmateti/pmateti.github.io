@@ -3,12 +3,14 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-13 Mon 11:32 -->
+<!-- 2020-04-15 Wed 11:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lightbend (old TypeSafe) Activator</title>
+<title>Distributed Computing  MidSem Solutions</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
+<meta name="description" content="Mateti's Distributed Computing"
+ />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -180,7 +182,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<style> P, LI {TBDtext-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -234,112 +236,182 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="../../Top/index.html"> HOME </a>
 </div><div id="preamble" class="status">
-<a href="../../"> ../../</a>
+2020-02-22 | <a href="../../">../../</a>
 </div>
 <div id="content">
-<h1 class="title">Lightbend (old TypeSafe) Activator</h1>
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#org3af1cb1">1. Akka Get Started with TypeSafe Activator</a></li>
-<li><a href="#org5bb4a80">2. Activator Practical Details</a></li>
-<li><a href="#org3d848b6">3. Akka, without Activator, Practical Details</a></li>
-<li><a href="#orga2a5ce7">4. References</a></li>
-<li><a href="#org371e202">5. End</a></li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-org3af1cb1" class="outline-2">
-<h2 id="org3af1cb1"><span class="section-number-2">1</span> Akka Get Started with TypeSafe Activator</h2>
-<div class="outline-text-2" id="text-1">
-<ol class="org-ol">
-<li>Activator Reactive (= Concurrency + Events) Application Developer Environment</li>
-<li>Includes several examples: src code + tutorials</li>
-<li>Covers: Scala, Actors, and Akka Runtime</li>
-<li><a href="http://www.typesafe.com/platform/getstarted">http://www.typesafe.com/platform/getstarted</a> "The best way to start
-learning Akka &#x2026;"</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org5bb4a80" class="outline-2">
-<h2 id="org5bb4a80"><span class="section-number-2">2</span> Activator Practical Details</h2>
-<div class="outline-text-2" id="text-2">
-<ol class="org-ol">
-<li>Activator is web browser based application.  <code>% activator ui</code> will
-bring up a browser based UI.  Without the <code>ui</code> argument, yiu get a
-cli. <code>%</code> is my shell prompt.</li>
-
-<li>Using remotely: <code>ssh 130.108.17.112</code></li>
-
-<li><code>% activator ui -Dhttp.address=130.108.17.112</code> <code>-Dhttp.port=8080</code>
-<code>-Dbrowser=/usr/bin/google-chrome</code> if you wish to provide more control.</li>
-
-<li>Copies/Creates its applications in <code>~/.activator/</code> and <code>~</code></li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org3d848b6" class="outline-2">
-<h2 id="org3d848b6"><span class="section-number-2">3</span> Akka, without Activator, Practical Details</h2>
-<div class="outline-text-2" id="text-3">
-<ol class="org-ol">
-<li><p>
-Akka can be used without defining a
-configuration, since sensible default values are provided.
+<h1 class="title">Distributed Computing  MidSem Solutions</h1>
+<blockquote>
+<p>
+This take-home exam permits the use of a Linux/Windows laptop/PC
+running javac, g++, Eclipse, Idea, and other software development
+and drawing tools. It is otherwise a traditional closed book, closed
+notes exam. In particular, you are honor bound <i><b>not</b></i> to Internet
+surf or access any content already existing (other than as
+indicated) once you access the exam until you turnin the
+answers. The primary reasons in making this a take-home are to
+relieve time pressure and give you a comfortable (computing/ home)
+environment. Do not give or take help from others.
 </p>
 
-<div class="org-src-container">
-<pre class="src src-scala">// application.conf at the root of the class path.
-akka {
-  loggers = ["akka.event.slf4j.Slf4jLogger"]
-  loglevel = "DEBUG"
-  stdout-loglevel = "WARNING"
-  actor {
-    provider = "akka.cluster.ClusterActorRefProvider"
-    default-dispatcher {
-      # set to 1 for as fair as possible
-      throughput = 10
-    }
-  }
-  remote {    netty.tcp.port = 2552  }
-}
-</pre>
-</div></li>
-</ol>
-</div>
-</div>
+<p>
+Submit your <code>answers.pdf</code> as an email attachment to me.
+</p>
 
+<p>
+My answers: (i) Are illustrative/ pedagogical &#x2013; may not be the best
+or the shortest.  (ii) Include brief commentary on how the class
+performed.
+</p>
+</blockquote>
 
-<div id="outline-container-orga2a5ce7" class="outline-2">
-<h2 id="orga2a5ce7"><span class="section-number-2">4</span> References</h2>
-<div class="outline-text-2" id="text-4">
 <ol class="org-ol">
-<li>Akka Scala Documentation <a href="https://doc.akka.io/docs/akka/2.4/AkkaScala.pdf">https://doc.akka.io/docs/akka/2.4/AkkaScala.pdf</a> 663pp. Aug 2017.
-Nearly all the code snippets and figures are from here.  Reference.</li>
+<li>(5 points each) The following statements may or may not be (fully or
+partially) valid. Explain the underlined technical terms occurring in
+each statement. Explain/ discuss/ dispute the statement. It is
+<i>possible</i> to write no more than, say, five, lines each, and yet
+receive full score.
 
-<li><a href="https://doc.akka.io/docs/akka/2.5.1/AkkaJava.pdf">https://doc.akka.io/docs/akka/2.5.1/AkkaJava.pdf</a> 659pp. May 2017.
-Reference.</li>
+<ol class="org-ol">
+<li>"Some philosophers may remain hungry forever.'' is a <span class="underline">safety</span>,
+not <span class="underline">liveness</span>, property.  <b>Answer:</b>  Our Andrews book itself uses
+"bad" and "good", which cannot be defined.  Many reproduced this
+as the answer; I marked it as not full-scoring.  The crucial
+word-groups are {never, for-ever, always, &#x2026;} and {eventually,
+will-happen, &#x2026;}.  E.g., {"A very good property P never happens."}
+P is a safety property.  No body got a good answer.</li>
+<li>In the context of RPC, a procedure designed to be used remotely
+<i>can</i> use global variables to communicate with the caller.</li>
+<li><p>
+Consider the program segment given here.  Determine <i>P</i> a
+predicate that characterizes the weakest deadlock-free
+precondition for the program. Also, explain how you arrived at
+P.
+</p>
+<pre class="example">
+co &lt;await x &gt;= 7 -&gt; x := x - 3&gt;
+   &lt;await x &gt;= 6 -&gt; x := x + 1&gt;
+   &lt;await x &gt;= 5 -&gt; x := x + 1&gt;
+oc
+</pre>
+<p>
+<b>Answer:</b>  You can arrive at P using whatever you have &#x2013; does not
+have to be wp.  It is useful to digest a wrong answer: x == 7.
+All three await-conditions are satisfied, and one will be chosen
+by the system.  Suppose x &gt;= 7 is chosen, and x
+becomes 4. Neither of the two remaining await-conditions are
+satisfied.  So, x = = 7 is not the answer. Would x ?= 8 work?
+Would x ?= 6 or 5 work?  You work it out.  Then you have to
+apply the "weakest" expectation that we required.
+</p></li>
 
-<li>Jonas Boner, 2011.  Web search for "Above the Clouds: Introducing
-Akka".  Video or pdf.  {pm: Swedish programmer Jonas Boner is the
-designer of Akka.} Highly recommended.</li>
+<li><p>
+Compute <i>wp(S, i = 100)</i>, where S is
+</p>
+<pre class="example">
+if i &lt; 150 then i := i + 150 else i := 100 fi
 
-<li><a href="https://www.lightbend.com/blog/typesafe-changes-name-to-lightbend">https://www.lightbend.com/blog/typesafe-changes-name-to-lightbend</a> 2016. FYI.</li>
+</pre>
+<p>
+<b>Answer:</b>  You can guess the answer quickly, but this Q is 
+checking if you understood the wp-mechanism.  You work it out.
+</p></li>
+</ol></li>
+
+<li>(20 points each)
+
+<ol class="org-ol">
+<li>In the distributed programming context, <code>P(m); Critical-Section;
+      V(m)</code> is not starvation-free.  Give a detailed starvation
+scenario. What does Morris' algorithm do to eliminate this
+scenario?  <b>Answer:</b>  Straightforward.  Re-read my lecture notes.</li>
+
+<li>Construct the ssend(pid, msg) and srecv(pid, msg) primitives of
+synchronous message passing from asend(pid, msg) and arecv(pid,
+msg) primitives of asynchronous message passing.</li>
+<li><p>
+Reconstruct the binary "tree" serialized below. List each node as
+a triplet of (info integer, left-link and right-link), as usual. 
+The first digit in the sequence is the offset of the root node.<br />
+</p>
+<pre class="example">
+marshalled sequence: 2 3 4 7 4 7 8 4 A 1 4 2 7
+offsets in hex:      1 2 3 4 5 6 7 8 9 A B C D
+
+</pre>
+<p>
+<b>Answer:</b> node@2 = (3, left offset 3, right offset D), node@4 =(7,
+4, 6), node@7 = (8, 8, 9), node@A = (1, B, C).  Figure TBD.
+</p></li>
+<li><p>
+The <i>Recursive Data Representation: Small Set of Integers</i> of
+Hoare's CSP paper is reproduced below. Extend it to respond to a
+command <code>S(1)!remove(x)</code> from S(0) that removes x from the set, if
+it contains it, and does nothing if it does not.
+</p>
+
+<pre class="example">
+S(i: 1 .. 100) ::
+*[   n: integer; S(i-1)?has(n) --&gt; S(0)!false
+ []  n: integer; S(i-1)?insert(n) --&gt;
+        *[  m: integer; S(i-1)?has(m) --&gt;
+             [   m &lt;=  n --&gt; S(0)!(m = n)
+             []  m &gt;   n --&gt; S(i+1)!has(m)
+             ]
+         [] m: integer; S(i-1)?insert(m) --&gt;
+             [  m &lt; n --&gt; S(i+1)!insert(n); n := m
+             [] m = n --&gt;  skip
+             [] m &gt; n --&gt; S(i+1)!insert(m)
+ ] ] ]
+</pre>
+<p>
+<b>Answer:</b> (Just analysis and hints.  Based on my lecture after
+this exam. Solution deliberately held back.) The CSP code above
+has two loops.  Recall the invariant assertions of the
+loops. Outer Loop Assertion: Control stays in the outer loop
+when the S(i) process is empty handed. Once the control enters
+the inner loop, S(i) now holds n. It never comes out of it
+(because we do not yet have a remove operation).
+</p>
+
+<p>
+Placement: So, where do we place the <code>remove(x)</code>?  Within the
+inner loop.  On receiving <code>remove(x)</code> if x == n, S(i) should get
+out of the inner loop.  But, CSP does not have a "break out of
+loop", so we introduce a Boolean b which remains true in the
+inner loop until x == n, when b is set to false.  Inner Loop
+Assertion - Part 1: We cannot have S(i) empty handed unless all
+S(i+1 .. 100) are also empty handed.  Inner Loop Assertion -
+Part 2: Values held by S(j), for j &lt; i, are less than what S(i)
+holds, S(j), for j &gt; i, are either holding values greater than
+what S(i) holds, or are empty-handed.
+</p>
+
+<p>
+Action to be taken: Left shift.  How?  Do we
+first ask S(i+1) are you empty handed?  If yes, nothing to be
+done.  If no, we should ask for the value it is holding.  S(i+1)
+now changed state from not-empty to empty &#x2013; so it should take
+the same action.  Pause this, and let us go back to remove(x)
+reception.  Why did S(i) receive it?  Because S(i-1) held a
+number n less than x.
+</p>
+
+<p>
+For you to finish:  Write all of the CSP code for this problem.
+</p>
+
+<p>
+Gotchas: Unmatched query bangs are deadlocks.
+</p></li>
+</ol></li>
+
+<li>(0 points) [For survey purposes only.] Please record your effort in
+minutes for each of the above <del>ten</del> eight items. Other feedback you
+wish to give is also welcome.</li>
 </ol>
-</div>
-</div>
-
-<div id="outline-container-org371e202" class="outline-2">
-<h2 id="org371e202"><span class="section-number-2">5</span> End</h2>
-<div class="outline-text-2" id="text-5">
-</div>
-</div>
 </div>
 <div id="postamble" class="status">
-<hr size=1>Copyright &copy; 2020 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2020-01-31
+<hr size=1>Copyright &copy; 2020 &bull; <a href=mailto:pmateti@iiitd.ac.in>pmateti@iiitd.ac.in</a> &bull; 2020-02-22
 </div>
 </body>
 </html>
