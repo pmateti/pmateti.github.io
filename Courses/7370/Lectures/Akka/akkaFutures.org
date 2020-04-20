@@ -1,0 +1,137 @@
+# -*- mode: org -*-
+#+date: 2020-04-14
+#+TITLE: Akka Futures and Promises
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+1. Akka gets Futures and Promises from Scala.
+
+** Futures
+
+1. A Future is a placeholder object for a result that has not been
+   computed yet.  A related CS term is *lazy evaluation*.
+
+1. A Future may only be assigned once.  Needs an =ExecutionContext=
+
+1. Invoking the =future= method starts an asynchronous computation and
+   returns a future.  The result becomes available once the future
+   *completes*.
+
+   #+begin_src scala
+import scala.concurrent.{ future, promise }
+import scala.concurrent.ExecutionContext.Implicits.global
+val s = socialNetwork.createSessionFor("user", credentials)
+val f: Future[List[Friend]] = future {
+  s.getFriends()           // may take a while
+}
+#+end_src
+
+** Promises
+
+1. A Promise is a writable, single-assignment container that completes
+   a future. Methods: =success=, =failure=, =complete=
+
+   #+begin_src scala
+import scala.concurrent.{ future, promise }
+import scala.concurrent.ExecutionContext.Implicits.global
+val p = promise[T]
+val f = p.future
+val prdcr = future {               // producer
+  val r = produceSomething()
+  p . success . r
+  continueDoingSomethingUnrelated()
+}
+val cnsmr = future {              // consumer
+  startDoingSomething()
+  f . onSuccess {
+    case r => doSomethingWithResult()
+  }}
+   #+end_src
+
+* Distributed Actor System
+
+1. [[./akkaDistributed.org]] My lecture notes on Distributed Actor System.
+
+* Termination
+
+What Does "Finished" Mean? The most natural answer to this question
+   appears to be, "When all the Mailboxes are empty." Natural, yes;
+   correct, no. :)
+
+#+CAPTION: Actor System terminated?
+#+ATTR_HTML: :alt fig-terminated-q.png  :align center :width 100%
+#+ATTR_HTML: :style background-color:beige
+[[./Figures/fig-terminated-q.png]]
+
+** The Reaper
+
+#+CAPTION: Actor System Reaper
+#+ATTR_HTML: :alt fig-the-reaper.png  :align center :width 100%
+#+ATTR_HTML: :style background-color:beige
+[[./Figures/fig-the-reaper.png]]
+
+** Reaper Source Code
+
+    #+begin_src scala
+      import akka.actor.{Actor, ActorRef, Terminated}
+      import scala.collection.mutable.ArrayBuffer
+       
+      object Reaper { case class WatchMe(ref: ActorRef); }
+       
+      abstract class Reaper extends Actor {
+        import Reaper._
+        val watched = ArrayBuffer.empty[ActorRef]
+       
+        /* Derivations must implement this method. Called 
+         * when everything is dead */
+      
+        def allSoulsReaped(): Unit
+       
+        final def receive = {
+          case WatchMe(ref) =>
+            context.watch(ref)
+            watched += ref
+          case Terminated(ref) =>
+            watched -= ref
+            if (watched.isEmpty) allSoulsReaped()
+        }
+      }
+#+end_src
+
+** PoisonPill
+
+#+CAPTION: Application with PoisonPill
+#+ATTR_HTML: :alt fig-akka-poison-pill.png  :align center :width 100%
+#+ATTR_HTML: :style background-color:beige
+[[./Figures/fig-akka-poison-pill.png]]
+
+* References
+
+1. https://doc.akka.io/docs/akka/current/
+   Nearly all the code snippets and figures are from here.  Reference.
+
+2. Jonas Boner, "Above the Clouds: Introducing Akka", 2011.  Web
+   search.  Video or pdf.  Highly recommended.
+
+4. https://doc.akka.io/docs/akka/current/typed/guide/ Getting Started
+   Guide.  Must visit.  The following are linked there.
+   1. Introduction to Akka.  Required Reading
+   2. Part 1: Actor Architecture. Required Reading
+   3. Part 2: Creating the First Actor. Required Reading
+   4. Part 3: Working with Device [in the small] Actors Optional Reading
+   5. Part 4: Working with Device Groups   Optional Reading
+   6. Part 5: Querying Device Groups  Optional Reading
+
+1. http://allaboutscala.com/scala-frameworks/akka/ 2020 Recommended
+   Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

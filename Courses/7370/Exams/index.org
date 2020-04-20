@@ -1,0 +1,21 @@
+# -*- mode: org -*-
+#+date: 2020-02-22
+#+TITLE: Distributed Computing Exams
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+1. [[./7370-2015-Spring-E1.html][Sample MidSem Exam]]
+2. [[./7370-2015-Spring-E2.html][Sample EndSem Exam]]
+3. [[./iiitdelhi-20200223-midsem.html]]
+4. [[./iiitdelhi-20200223-midsem-soln.pdf]]
+
+# * End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

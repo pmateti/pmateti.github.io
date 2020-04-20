@@ -14,6 +14,11 @@ This is part of [[./index.org][Akka Actors with Scala]].
 
 * Distributed Actor System
 
+1. Let use a tentative def of Distributed Actor System.  A collection
+   of Akka actors actually running on multiple machines that are networked.
+
+1. In this section, our goal is to understand this typical diagram.
+
 #+CAPTION: Distributed Actor System
 #+ATTR_HTML: :alt fig-actor-path.png :align center :width 100%
 [[./Figures/fig-actor-path.png]]

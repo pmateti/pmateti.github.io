@@ -13,26 +13,17 @@
 * Overview of Lectures
 
 1. What do these lecture notes do?
-2. Describe Scala minimally.  Just enough to do Akka.  Pretty much
+1. Describe Scala minimally.  Just enough to do Akka.  Pretty much
    ignore its (i) functional programming features, (ii) syntactic
    conveniences and (iii) type inference [not wholly].  Goto What is
    Scala?
 
-3. Describe Carl Hewitt's Actors Model, comparable in depth to our
+1. Describe Carl Hewitt's Actors Model, comparable in depth to our
    treatment of SMP, AMP, Shared-Vars, Semaphores.  Goto Actors Model.
 
-4. Describe Akka, an implementation of Actors.  Just enough so you can
+1. Describe Akka, an implementation of Actors.  Just enough so you can
    re-do all the classics such as Readers/Writers, Dining
    Philosophers.  Goto What is Akka?
-
-5. Suggested order of study.  
-   1. Go through all of this page without visiting the links.
-   2. Study the source code of Akka examples described in
-      [[./akkaPractical.org]] lecture notes.  Equally importantly build
-      and run these.
-   3. Study the Required Reading References
-      listed.
-   4. Re-visit this page.  
 
 * What is Scala?
 
@@ -131,6 +122,54 @@
    asynchronous, and actor-based.
 
 
+** Akka Practical Use Overview
+
+1. Versions: Scala 2.11+, Akka 2.3.1+.  Code for older versions may
+   not work with these versions.  Most, not 100%, are open source.
+
+1. https://developer.lightbend.com/guides/akka-quickstart-scala/ Must
+   read and follow.
+
+1. The code shown in boxes below is not always self-contained enough to
+   compile it stand-alone.
+
+1. =scala.actor= is deprecated.  Caution: Many articles on the web
+   are based on scala.actor.  Use =import akka.actor= .
+   http://docs.scala-lang.org/overviews/core/actors-migration-guide.html
+
+1. Akka library can be used in Java as well.
+1. http://www.pykka.org/ with Python.
+
+** How Does Akka work?
+
+#+CAPTION: How Does Akka work?
+#+ATTR_HTML: :alt fig-actor-users.png :align center :width 100%
+[[./Figures/fig-akka-how-works.png]]
+
+** Akka Practical Details
+
+1. Akka can be used without defining a
+   configuration, since sensible default values are provided.
+
+    #+begin_src scala
+// application.conf at the root of the class path.
+akka {
+  loggers = ["akka.event.slf4j.Slf4jLogger"]
+  loglevel = "DEBUG"
+  stdout-loglevel = "WARNING"
+  actor {
+    provider = "akka.cluster.ClusterActorRefProvider"
+    default-dispatcher {
+      # set to 1 for as fair as possible
+      throughput = 10
+    }
+  }
+  remote { netty.tcp.port = 2552  }
+}
+#+end_src
+
+
+
 * Akka Actor Architecture
 
 #+CAPTION: Actor Hierarchy and Name Resolution
@@ -140,6 +179,9 @@
 1. An actor in Akka always belongs to a parent.  Who is the parent of
    the first actor you create? "Root Guardian", similar to parent of /
    in Linux.
+
+1. Read further https://doc.akka.io/docs/akka/current/typed/guide/tutorial_1.html#the-akka-actor-hierarchy
+
 
 * Akka Ops: Create, Send, Become, Supervise
 
@@ -187,6 +229,8 @@ val f: Future[List[Friend]] = future {
    "immediately" returns a "future object".  The results of this =f=
    become available once the async computation *completes*.
 
+** Promises
+
 1. Example of a Promise:  We re-do the well-known producer-consumer.
    #+begin_src scala
 import scala.concurrent.{ future, promise }
@@ -205,6 +249,7 @@ val cnsmr = future {              // consumer
   }}
    #+end_src
 
+
 1. A Promise p is a value that completes a future f. Methods: =success=,
    =failure=, =complete=
 
@@ -221,7 +266,52 @@ val cnsmr = future {              // consumer
    appears to be, "When all the Mailboxes are empty." Natural, yes;
    correct, no. :)
 
-1. [[./akkaTerm.org]] My notes on Distributed termination as applied to an Akka Actor System.
+#+CAPTION: Actor System terminated?
+#+ATTR_HTML: :alt fig-terminated-q.png  :align center :width 100%
+#+ATTR_HTML: :style background-color:beige
+[[./Figures/fig-terminated-q.png]]
+
+** The Reaper
+
+#+CAPTION: Actor System Reaper
+#+ATTR_HTML: :alt fig-the-reaper.png  :align center :width 100%
+#+ATTR_HTML: :style background-color:beige
+[[./Figures/fig-the-reaper.png]]
+
+** Reaper Source Code
+
+    #+begin_src scala
+      import akka.actor.{Actor, ActorRef, Terminated}
+      import scala.collection.mutable.ArrayBuffer
+       
+      object Reaper { case class WatchMe(ref: ActorRef); }
+       
+      abstract class Reaper extends Actor {
+        import Reaper._
+        val watched = ArrayBuffer.empty[ActorRef]
+       
+        /* Derivations must implement this method. Called 
+         * when everything is dead */
+      
+        def allSoulsReaped(): Unit
+       
+        final def receive = {
+          case WatchMe(ref) =>
+            context.watch(ref)
+            watched += ref
+          case Terminated(ref) =>
+            watched -= ref
+            if (watched.isEmpty) allSoulsReaped()
+        }
+      }
+#+end_src
+
+** PoisonPill
+
+#+CAPTION: Application with PoisonPill
+#+ATTR_HTML: :alt fig-akka-poison-pill.png  :align center :width 100%
+#+ATTR_HTML: :style background-color:beige
+[[./Figures/fig-akka-poison-pill.png]]
 
 
 * References
