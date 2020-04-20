@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-20 Mon 13:13 -->
+<!-- 2020-04-20 Mon 13:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Akka Actors: Simple Practical Examples</title>
@@ -242,22 +242,29 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org93049ca">1. Akka Install</a></li>
-<li><a href="#org3d10778">2. How Does Akka work?</a></li>
-<li><a href="#orgcc084f7">3. Akka Hello World</a></li>
-<li><a href="#org3fbd6d0">4. Dining Philosophers 1</a></li>
-<li><a href="#orgc2c6595">5. Dining Philosophers 2 with FSM</a></li>
-<li><a href="#org9375b42">6. Akka and Other PL</a></li>
-<li><a href="#orgbd9df78">7. References</a></li>
-<li><a href="#org16e0a4e">8. End</a></li>
+<li><a href="#org311d72a">1. Akka Install</a></li>
+<li><a href="#org5caf936">2. How Does Akka work?</a></li>
+<li><a href="#orgddaa09b">3. Akka Hello World</a></li>
+<li><a href="#org56047ef">4. One Producer and Several Consumers</a></li>
+<li><a href="#orgad55834">5. Dining Philosophers 1</a></li>
+<li><a href="#orgf231276">6. Dining Philosophers 2 with FSM</a></li>
+<li><a href="#org3cc3fc8">7. Akka and Other PL</a></li>
+<li><a href="#orga6b2ec3">8. References</a></li>
+<li><a href="#org9d31d0c">9. End</a></li>
 </ul>
 </div>
 </div>
+<ol class="org-ol">
+<li>Make sure you study and actually run the examples described.</li>
+
+<li>The code shown may not always compile as-is.  The syntax may
+need tweaking.</li>
+</ol>
 
 
 
-<div id="outline-container-org93049ca" class="outline-2">
-<h2 id="org93049ca"><span class="section-number-2">1</span> Akka Install</h2>
+<div id="outline-container-org311d72a" class="outline-2">
+<h2 id="org311d72a"><span class="section-number-2">1</span> Akka Install</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
 <li>Versions: Scala 2.11+, Akka 2.3.1+.  Code for older versions may
@@ -270,8 +277,8 @@ read and follow.  This will show howto install Akka and gives a
 </div>
 </div>
 
-<div id="outline-container-org3d10778" class="outline-2">
-<h2 id="org3d10778"><span class="section-number-2">2</span> How Does Akka work?</h2>
+<div id="outline-container-org5caf936" class="outline-2">
+<h2 id="org5caf936"><span class="section-number-2">2</span> How Does Akka work?</h2>
 <div class="outline-text-2" id="text-2">
 
 <div class="figure">
@@ -307,38 +314,46 @@ akka {
 </div>
 </div>
 
-<div id="outline-container-orgcc084f7" class="outline-2">
-<h2 id="orgcc084f7"><span class="section-number-2">3</span> Akka Hello World</h2>
+<div id="outline-container-orgddaa09b" class="outline-2">
+<h2 id="orgddaa09b"><span class="section-number-2">3</span> Akka Hello World</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li>Study
 <a href="https://alvinalexander.com/scala/simple-scala-akka-actor-examples-hello-world-actors/">https://alvinalexander.com/scala/simple-scala-akka-actor-examples-hello-world-actors/</a></li>
-<li>Make sure you actually run it.</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org3fbd6d0" class="outline-2">
-<h2 id="org3fbd6d0"><span class="section-number-2">4</span> Dining Philosophers 1</h2>
+<div id="outline-container-org56047ef" class="outline-2">
+<h2 id="org56047ef"><span class="section-number-2">4</span> One Producer and Several Consumers</h2>
 <div class="outline-text-2" id="text-4">
 <ol class="org-ol">
-<li><a href="./dining-philosophers-akka.html">./dining-philosophers-akka.html</a></li>
+<li><a href="https://github.com/foobatman/producer-consumer-akka-actor">https://github.com/foobatman/producer-consumer-akka-actor</a>    Required Reading.</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-orgc2c6595" class="outline-2">
-<h2 id="orgc2c6595"><span class="section-number-2">5</span> Dining Philosophers 2 with FSM</h2>
+<div id="outline-container-orgad55834" class="outline-2">
+<h2 id="orgad55834"><span class="section-number-2">5</span> Dining Philosophers 1</h2>
 <div class="outline-text-2" id="text-5">
 <ol class="org-ol">
-<li><a href="./dining-philosophers-akka-fsm.html">./dining-philosophers-akka-fsm.html</a></li>
+<li><a href="./dining-philosophers-akka.html">./dining-philosophers-akka.html</a>  Required Reading.</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org9375b42" class="outline-2">
-<h2 id="org9375b42"><span class="section-number-2">6</span> Akka and Other PL</h2>
+<div id="outline-container-orgf231276" class="outline-2">
+<h2 id="orgf231276"><span class="section-number-2">6</span> Dining Philosophers 2 with FSM</h2>
 <div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li><a href="./dining-philosophers-akka-fsm.html">./dining-philosophers-akka-fsm.html</a>  Required Reading.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org3cc3fc8" class="outline-2">
+<h2 id="org3cc3fc8"><span class="section-number-2">7</span> Akka and Other PL</h2>
+<div class="outline-text-2" id="text-7">
 <ol class="org-ol">
 <li>The code shown in various blogs is not always self-contained enough
 to compile it stand-alone.  Even the syntax may need tweaking.</li>
@@ -353,9 +368,9 @@ are based on scala.actor.  Use <code>import akka.actor</code> .
 </div>
 </div>
 
-<div id="outline-container-orgbd9df78" class="outline-2">
-<h2 id="orgbd9df78"><span class="section-number-2">7</span> References</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-orga6b2ec3" class="outline-2">
+<h2 id="orga6b2ec3"><span class="section-number-2">8</span> References</h2>
+<div class="outline-text-2" id="text-8">
 <ol class="org-ol">
 <li><a href="https://doc.akka.io/docs/akka/current/typed/guide/">https://doc.akka.io/docs/akka/current/typed/guide/</a> Getting Started
 Guide.  Must visit.  The following are linked there.
@@ -377,9 +392,9 @@ Learn Akka" Some 25+ examples.  Highly Recommended.</li>
 </div>
 </div>
 
-<div id="outline-container-org16e0a4e" class="outline-2">
-<h2 id="org16e0a4e"><span class="section-number-2">8</span> End</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-org9d31d0c" class="outline-2">
+<h2 id="org9d31d0c"><span class="section-number-2">9</span> End</h2>
+<div class="outline-text-2" id="text-9">
 </div>
 </div>
 </div>
