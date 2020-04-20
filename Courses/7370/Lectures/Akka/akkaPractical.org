@@ -10,6 +10,11 @@
 #+STARTUP:showeverything
 #+OPTIONS: toc:2
 
+1. Make sure you study and actually run the examples described.
+
+1. The code shown may not always compile as-is.  The syntax may
+   need tweaking.
+
 
 
 * Akka Install
@@ -51,15 +56,18 @@ akka {
 
 1. Study
    https://alvinalexander.com/scala/simple-scala-akka-actor-examples-hello-world-actors/
-1. Make sure you actually run it.
+
+* One Producer and Several Consumers
+
+1. https://github.com/foobatman/producer-consumer-akka-actor    Required Reading.
 
 * Dining Philosophers 1
 
-1. [[./dining-philosophers-akka.org]]
+1. [[./dining-philosophers-akka.org]]  Required Reading.
 
 * Dining Philosophers 2 with FSM
 
-1. [[./dining-philosophers-akka-fsm.org]]
+1. [[./dining-philosophers-akka-fsm.org]]  Required Reading.
 
 * Akka and Other PL
 
