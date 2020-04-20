@@ -1,0 +1,97 @@
+# -*- mode: org -*-
+#+date: 2020-04-14
+#+TITLE: Akka Actors: Simple Practical Examples
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+
+
+* Akka Install
+
+1. Versions: Scala 2.11+, Akka 2.3.1+.  Code for older versions may
+   not work with these versions.  Most, not 100%, are open source.
+
+1. https://developer.lightbend.com/guides/akka-quickstart-scala/ Must
+   read and follow.  This will show howto install Akka and gives a
+   "hello-world" of Akka.
+
+* How Does Akka work?
+
+#+CAPTION: How Does Akka work?
+#+ATTR_HTML: :alt fig-actor-users.png :align center :width 100%
+[[./Figures/fig-akka-how-works.png]]
+
+1. Akka can be used without defining a configuration, since sensible
+   default values are provided.
+
+    #+begin_src scala
+// application.conf at the root of the class path.
+akka {
+  loggers = ["akka.event.slf4j.Slf4jLogger"]
+  loglevel = "DEBUG"
+  stdout-loglevel = "WARNING"
+  actor {
+    provider = "akka.cluster.ClusterActorRefProvider"
+    default-dispatcher {
+      # set to 1 for as fair as possible
+      throughput = 10
+    }
+  }
+  remote { netty.tcp.port = 2552  }
+}
+#+end_src
+
+* Akka Hello World
+
+1. Study
+   https://alvinalexander.com/scala/simple-scala-akka-actor-examples-hello-world-actors/
+1. Make sure you actually run it.
+
+* Dining Philosophers 1
+
+1. [[./dining-philosophers-akka.org]]
+
+* Dining Philosophers 2 with FSM
+
+1. [[./dining-philosophers-akka-fsm.org]]
+
+* Akka and Other PL
+
+
+1. The code shown in various blogs is not always self-contained enough
+   to compile it stand-alone.  Even the syntax may need tweaking.
+
+1. =scala.actor= is deprecated.  Caution: Many articles on the web
+   are based on scala.actor.  Use =import akka.actor= .
+   http://docs.scala-lang.org/overviews/core/actors-migration-guide.html
+
+1. Akka library can be used in Java as well.
+1. http://www.pykka.org/ with Python.
+
+* References
+
+4. https://doc.akka.io/docs/akka/current/typed/guide/ Getting Started
+   Guide.  Must visit.  The following are linked there.
+   1. Introduction to Akka.  Required Reading
+   2. Part 1: Actor Architecture. Required Reading
+   3. Part 2: Creating the First Actor. Required Reading
+   4. Part 3: Working with Device [in the small] Actors Optional Reading
+   5. Part 4: Working with Device Groups   Optional Reading
+   6. Part 5: Querying Device Groups  Optional Reading
+
+1. https://alvinalexander.com/scala/simple-scala-akka-actor-examples-hello-world-actors/
+   Required Reading.
+
+1. https://github.com/nadimbahadoor/learn-akka "Examples To Help You
+   Learn Akka" Some 25+ examples.  Highly Recommended.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

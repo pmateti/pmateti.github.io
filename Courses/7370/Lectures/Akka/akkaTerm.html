@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-20 Mon 13:01 -->
+<!-- 2020-04-20 Mon 12:33 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Akka Actors with Scala</title>
@@ -242,31 +242,44 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org5b3c462">1. Overview of Lectures</a></li>
-<li><a href="#orgdba1b58">2. What is Scala?</a></li>
-<li><a href="#orge082568">3. Actors Model</a></li>
-<li><a href="#org74a84db">4. What is Akka?</a>
+<li><a href="#org247a652">1. Overview of Lectures</a></li>
+<li><a href="#org2afaade">2. What is Scala?</a></li>
+<li><a href="#org4a5f4bb">3. Actors Model</a></li>
+<li><a href="#orgf208bc5">4. What is Akka?</a>
 <ul>
-<li><a href="#org63dd5a4">4.1. What is Akka? v.Frivolous</a></li>
-<li><a href="#org62b7c0c">4.2. Who Is Using Akka?</a></li>
-<li><a href="#org00f91fa">4.3. What is Akka? v.nonFrivolous</a></li>
-<li><a href="#org6250dca">4.4. Large Scale Examples of Akka</a></li>
+<li><a href="#orgcf6f952">4.1. What is Akka? v.Frivolous</a></li>
+<li><a href="#orgb21e6fb">4.2. Who Is Using Akka?</a></li>
+<li><a href="#orgd72b2d3">4.3. What is Akka? v.nonFrivolous</a></li>
+<li><a href="#orgc24c184">4.4. Large Scale Examples of Akka</a></li>
+<li><a href="#orgf4855e0">4.5. Akka Practical Use Overview</a></li>
+<li><a href="#orga5b460c">4.6. How Does Akka work?</a></li>
+<li><a href="#orgfb95dd9">4.7. Akka Practical Details</a></li>
 </ul>
 </li>
-<li><a href="#orgb872695">5. Akka Actor Architecture</a></li>
-<li><a href="#orgad4be5b">6. Akka Ops: Create, Send, Become, Supervise</a></li>
-<li><a href="#orgdbbf8c6">7. Routers, Dispatchers, and Schedulers</a></li>
-<li><a href="#org6a7a940">8. Futures and Promises</a></li>
-<li><a href="#org8edd9a0">9. Distributed Actor System</a></li>
-<li><a href="#org766e188">10. Termination</a></li>
-<li><a href="#org6bd2570">11. References</a></li>
-<li><a href="#orgf16a277">12. End</a></li>
+<li><a href="#org94d15b4">5. Akka Actor Architecture</a></li>
+<li><a href="#org42e2ff7">6. Akka Ops: Create, Send, Become, Supervise</a></li>
+<li><a href="#orgc41c5b4">7. Routers, Dispatchers, and Schedulers</a></li>
+<li><a href="#org503dd64">8. Futures and Promises</a>
+<ul>
+<li><a href="#org54a030e">8.1. Promises</a></li>
+</ul>
+</li>
+<li><a href="#org49147c0">9. Distributed Actor System</a></li>
+<li><a href="#org7786f17">10. Termination</a>
+<ul>
+<li><a href="#org038475d">10.1. The Reaper</a></li>
+<li><a href="#org420fadf">10.2. Reaper Source Code</a></li>
+<li><a href="#org5a3fa0f">10.3. PoisonPill</a></li>
+</ul>
+</li>
+<li><a href="#org9fdfdba">11. References</a></li>
+<li><a href="#org20ec814">12. End</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org5b3c462" class="outline-2">
-<h2 id="org5b3c462"><span class="section-number-2">1</span> Overview of Lectures</h2>
+<div id="outline-container-org247a652" class="outline-2">
+<h2 id="org247a652"><span class="section-number-2">1</span> Overview of Lectures</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
 <li>What do these lecture notes do?</li>
@@ -281,23 +294,12 @@ treatment of SMP, AMP, Shared-Vars, Semaphores.  Goto Actors Model.</li>
 <li>Describe Akka, an implementation of Actors.  Just enough so you can
 re-do all the classics such as Readers/Writers, Dining
 Philosophers.  Goto What is Akka?</li>
-
-<li>Suggested order of study.  
-<ol class="org-ol">
-<li>Go through all of this page without visiting the links.</li>
-<li>Study the source code of Akka examples described in
-<a href="./akkaPractical.html">./akkaPractical.html</a> lecture notes.  Equally importantly build
-and run these.</li>
-<li>Study the Required Reading References
-listed.</li>
-<li>Re-visit this page.</li>
-</ol></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-orgdba1b58" class="outline-2">
-<h2 id="orgdba1b58"><span class="section-number-2">2</span> What is Scala?</h2>
+<div id="outline-container-org2afaade" class="outline-2">
+<h2 id="org2afaade"><span class="section-number-2">2</span> What is Scala?</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li>Scala can be thought of as a significantly enhanced Java.</li>
@@ -317,8 +319,8 @@ compilers and other tools are open source.</li>
 </div>
 
 
-<div id="outline-container-orge082568" class="outline-2">
-<h2 id="orge082568"><span class="section-number-2">3</span> Actors Model</h2>
+<div id="outline-container-org4a5f4bb" class="outline-2">
+<h2 id="org4a5f4bb"><span class="section-number-2">3</span> Actors Model</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li>A model of distributed computation.</li>
@@ -335,8 +337,8 @@ compilers and other tools are open source.</li>
 </div>
 
 
-<div id="outline-container-org74a84db" class="outline-2">
-<h2 id="org74a84db"><span class="section-number-2">4</span> What is Akka?</h2>
+<div id="outline-container-orgf208bc5" class="outline-2">
+<h2 id="orgf208bc5"><span class="section-number-2">4</span> What is Akka?</h2>
 <div class="outline-text-2" id="text-4">
 <ol class="org-ol">
 <li>Akka is an open source implementation of Hewitt's (pure) <a href="./actors.html">Actor
@@ -359,8 +361,8 @@ applications that self-heal and never stop.</li>
 </ol>
 </div>
 
-<div id="outline-container-org63dd5a4" class="outline-3">
-<h3 id="org63dd5a4"><span class="section-number-3">4.1</span> What is Akka? v.Frivolous</h3>
+<div id="outline-container-orgcf6f952" class="outline-3">
+<h3 id="orgcf6f952"><span class="section-number-3">4.1</span> What is Akka? v.Frivolous</h3>
 <div class="outline-text-3" id="text-4-1">
 <ol class="org-ol">
 <li><a href="https://www.google.com/search?q=akka+mountain">https://www.google.com/search?q=akka+mountain</a></li>
@@ -376,8 +378,8 @@ applications that self-heal and never stop.</li>
 </div>
 </div>
 
-<div id="outline-container-org62b7c0c" class="outline-3">
-<h3 id="org62b7c0c"><span class="section-number-3">4.2</span> Who Is Using Akka?</h3>
+<div id="outline-container-orgb21e6fb" class="outline-3">
+<h3 id="orgb21e6fb"><span class="section-number-3">4.2</span> Who Is Using Akka?</h3>
 <div class="outline-text-3" id="text-4-2">
 
 <div class="figure">
@@ -389,8 +391,8 @@ applications that self-heal and never stop.</li>
 </div>
 
 
-<div id="outline-container-org00f91fa" class="outline-3">
-<h3 id="org00f91fa"><span class="section-number-3">4.3</span> What is Akka? v.nonFrivolous</h3>
+<div id="outline-container-orgd72b2d3" class="outline-3">
+<h3 id="orgd72b2d3"><span class="section-number-3">4.3</span> What is Akka? v.nonFrivolous</h3>
 <div class="outline-text-3" id="text-4-3">
 <ol class="org-ol">
 <li>Includes an implementation of Actor Model, with improvements for practicality.</li>
@@ -406,8 +408,8 @@ applications that self-heal and never stop.</li>
 </div>
 </div>
 
-<div id="outline-container-org6250dca" class="outline-3">
-<h3 id="org6250dca"><span class="section-number-3">4.4</span> Large Scale Examples of Akka</h3>
+<div id="outline-container-orgc24c184" class="outline-3">
+<h3 id="orgc24c184"><span class="section-number-3">4.4</span> Large Scale Examples of Akka</h3>
 <div class="outline-text-3" id="text-4-4">
 <ol class="org-ol">
 <li><a href="http://www.playframework.com/">http://www.playframework.com/</a> "The High Velocity Web Framework For
@@ -428,29 +430,99 @@ asynchronous, and actor-based.</li>
 </ol>
 </div>
 </div>
+
+
+<div id="outline-container-orgf4855e0" class="outline-3">
+<h3 id="orgf4855e0"><span class="section-number-3">4.5</span> Akka Practical Use Overview</h3>
+<div class="outline-text-3" id="text-4-5">
+<ol class="org-ol">
+<li>Versions: Scala 2.11+, Akka 2.3.1+.  Code for older versions may
+not work with these versions.  Most, not 100%, are open source.</li>
+
+<li><a href="https://developer.lightbend.com/guides/akka-quickstart-scala/">https://developer.lightbend.com/guides/akka-quickstart-scala/</a> Must
+read and follow.</li>
+
+<li>The code shown in boxes below is not always self-contained enough to
+compile it stand-alone.</li>
+
+<li><code>scala.actor</code> is deprecated.  Caution: Many articles on the web
+are based on scala.actor.  Use <code>import akka.actor</code> .
+<a href="http://docs.scala-lang.org/overviews/core/actors-migration-guide.html">http://docs.scala-lang.org/overviews/core/actors-migration-guide.html</a></li>
+
+<li>Akka library can be used in Java as well.</li>
+<li><a href="http://www.pykka.org/">http://www.pykka.org/</a> with Python.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orga5b460c" class="outline-3">
+<h3 id="orga5b460c"><span class="section-number-3">4.6</span> How Does Akka work?</h3>
+<div class="outline-text-3" id="text-4-6">
+
+<div class="figure">
+<p><img src="./Figures/fig-akka-how-works.png" alt="fig-actor-users.png" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 2: </span>How Does Akka work?</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfb95dd9" class="outline-3">
+<h3 id="orgfb95dd9"><span class="section-number-3">4.7</span> Akka Practical Details</h3>
+<div class="outline-text-3" id="text-4-7">
+<ol class="org-ol">
+<li><p>
+Akka can be used without defining a
+configuration, since sensible default values are provided.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scala">// application.conf at the root of the class path.
+akka {
+  loggers = ["akka.event.slf4j.Slf4jLogger"]
+  loglevel = "DEBUG"
+  stdout-loglevel = "WARNING"
+  actor {
+    provider = "akka.cluster.ClusterActorRefProvider"
+    default-dispatcher {
+      # set to 1 for as fair as possible
+      throughput = 10
+    }
+  }
+  remote { netty.tcp.port = 2552  }
+}
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
 </div>
 
 
-<div id="outline-container-orgb872695" class="outline-2">
-<h2 id="orgb872695"><span class="section-number-2">5</span> Akka Actor Architecture</h2>
+
+<div id="outline-container-org94d15b4" class="outline-2">
+<h2 id="org94d15b4"><span class="section-number-2">5</span> Akka Actor Architecture</h2>
 <div class="outline-text-2" id="text-5">
 
 <div class="figure">
 <p><img src="./Figures/fig-actor-hierarchy.png" alt="fig-actor-hierarchy.png" title="Actor Hierarchy and Name Resolution" align="center" width="100%" />
 </p>
-<p><span class="figure-number">Figure 2: </span>Actor Hierarchy and Name Resolution</p>
+<p><span class="figure-number">Figure 3: </span>Actor Hierarchy and Name Resolution</p>
 </div>
 
 <ol class="org-ol">
 <li>An actor in Akka always belongs to a parent.  Who is the parent of
 the first actor you create? "Root Guardian", similar to parent of /
 in Linux.</li>
+
+<li>Read further <a href="https://doc.akka.io/docs/akka/current/typed/guide/tutorial_1.html#the-akka-actor-hierarchy">https://doc.akka.io/docs/akka/current/typed/guide/tutorial_1.html#the-akka-actor-hierarchy</a></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-orgad4be5b" class="outline-2">
-<h2 id="orgad4be5b"><span class="section-number-2">6</span> Akka Ops: Create, Send, Become, Supervise</h2>
+
+<div id="outline-container-org42e2ff7" class="outline-2">
+<h2 id="org42e2ff7"><span class="section-number-2">6</span> Akka Ops: Create, Send, Become, Supervise</h2>
 <div class="outline-text-2" id="text-6">
 <ol class="org-ol">
 <li>Akka has <code>Create, Send, Become, Supervise</code> operations on its actors.
@@ -461,8 +533,8 @@ These are essential to use Akka.</li>
 </div>
 </div>
 
-<div id="outline-container-orgdbbf8c6" class="outline-2">
-<h2 id="orgdbbf8c6"><span class="section-number-2">7</span> Routers, Dispatchers, and Schedulers</h2>
+<div id="outline-container-orgc41c5b4" class="outline-2">
+<h2 id="orgc41c5b4"><span class="section-number-2">7</span> Routers, Dispatchers, and Schedulers</h2>
 <div class="outline-text-2" id="text-7">
 <ol class="org-ol">
 <li>A router is a type of actor.  Routes incoming messages to
@@ -479,8 +551,8 @@ Schedulers</li>
 </div>
 
 
-<div id="outline-container-org6a7a940" class="outline-2">
-<h2 id="org6a7a940"><span class="section-number-2">8</span> Futures and Promises</h2>
+<div id="outline-container-org503dd64" class="outline-2">
+<h2 id="org503dd64"><span class="section-number-2">8</span> Futures and Promises</h2>
 <div class="outline-text-2" id="text-8">
 <ol class="org-ol">
 <li><a href="./akkaFutures.html">./akkaFutures.html</a> My lecture notes on Akka futures and promises.
@@ -509,7 +581,13 @@ val f: Future[List[Friend]] = future {
 <li>Invoking the future-braces starts an asynchronous computation and
 "immediately" returns a "future object".  The results of this <code>f</code>
 become available once the async computation <b>completes</b>.</li>
+</ol>
+</div>
 
+<div id="outline-container-org54a030e" class="outline-3">
+<h3 id="org54a030e"><span class="section-number-3">8.1</span> Promises</h3>
+<div class="outline-text-3" id="text-8-1">
+<ol class="org-ol">
 <li><p>
 Example of a Promise:  We re-do the well-known producer-consumer.
 </p>
@@ -530,16 +608,20 @@ val cnsmr = future {              // consumer
   }}
 </pre>
 </div></li>
+</ol>
 
+
+<ol class="org-ol">
 <li>A Promise p is a value that completes a future f. Methods: <code>success</code>,
 <code>failure</code>, <code>complete</code></li>
 </ol>
 </div>
 </div>
+</div>
 
 
-<div id="outline-container-org8edd9a0" class="outline-2">
-<h2 id="org8edd9a0"><span class="section-number-2">9</span> Distributed Actor System</h2>
+<div id="outline-container-org49147c0" class="outline-2">
+<h2 id="org49147c0"><span class="section-number-2">9</span> Distributed Actor System</h2>
 <div class="outline-text-2" id="text-9">
 <ol class="org-ol">
 <li>A Distributed Actor System is a collection of Akka actors running
@@ -549,22 +631,83 @@ on multiple machines that are networked.</li>
 </div>
 </div>
 
-<div id="outline-container-org766e188" class="outline-2">
-<h2 id="org766e188"><span class="section-number-2">10</span> Termination</h2>
+<div id="outline-container-org7786f17" class="outline-2">
+<h2 id="org7786f17"><span class="section-number-2">10</span> Termination</h2>
 <div class="outline-text-2" id="text-10">
 <ol class="org-ol">
 <li>What Does "Finished" Mean? The most natural answer to this question
 appears to be, "When all the Mailboxes are empty." Natural, yes;
 correct, no. :)</li>
-
-<li><a href="./akkaTerm.html">./akkaTerm.html</a> My notes on Distributed termination as applied to an Akka Actor System.</li>
 </ol>
+
+
+<div class="figure">
+<p><img src="./Figures/fig-terminated-q.png" alt="fig-terminated-q.png" style="background-color:beige" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Actor System terminated?</p>
+</div>
+</div>
+
+<div id="outline-container-org038475d" class="outline-3">
+<h3 id="org038475d"><span class="section-number-3">10.1</span> The Reaper</h3>
+<div class="outline-text-3" id="text-10-1">
+
+<div class="figure">
+<p><img src="./Figures/fig-the-reaper.png" alt="fig-the-reaper.png" style="background-color:beige" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Actor System Reaper</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org420fadf" class="outline-3">
+<h3 id="org420fadf"><span class="section-number-3">10.2</span> Reaper Source Code</h3>
+<div class="outline-text-3" id="text-10-2">
+<div class="org-src-container">
+<pre class="src src-scala">import akka.actor.{Actor, ActorRef, Terminated}
+import scala.collection.mutable.ArrayBuffer
+
+object Reaper { case class WatchMe(ref: ActorRef); }
+
+abstract class Reaper extends Actor {
+  import Reaper._
+  val watched = ArrayBuffer.empty[ActorRef]
+
+  /* Derivations must implement this method. Called 
+   * when everything is dead */
+
+  def allSoulsReaped(): Unit
+
+  final def receive = {
+    case WatchMe(ref) =&gt;
+      context.watch(ref)
+      watched += ref
+    case Terminated(ref) =&gt;
+      watched -= ref
+      if (watched.isEmpty) allSoulsReaped()
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5a3fa0f" class="outline-3">
+<h3 id="org5a3fa0f"><span class="section-number-3">10.3</span> PoisonPill</h3>
+<div class="outline-text-3" id="text-10-3">
+
+<div class="figure">
+<p><img src="./Figures/fig-akka-poison-pill.png" alt="fig-akka-poison-pill.png" style="background-color:beige" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 6: </span>Application with PoisonPill</p>
+</div>
+</div>
 </div>
 </div>
 
 
-<div id="outline-container-org6bd2570" class="outline-2">
-<h2 id="org6bd2570"><span class="section-number-2">11</span> References</h2>
+<div id="outline-container-org9fdfdba" class="outline-2">
+<h2 id="org9fdfdba"><span class="section-number-2">11</span> References</h2>
 <div class="outline-text-2" id="text-11">
 <ol class="org-ol">
 <li><a href="https://doc.akka.io/docs/akka/current/">https://doc.akka.io/docs/akka/current/</a>
@@ -590,8 +733,8 @@ Reading.</li>
 </div>
 </div>
 
-<div id="outline-container-orgf16a277" class="outline-2">
-<h2 id="orgf16a277"><span class="section-number-2">12</span> End</h2>
+<div id="outline-container-org20ec814" class="outline-2">
+<h2 id="org20ec814"><span class="section-number-2">12</span> End</h2>
 <div class="outline-text-2" id="text-12">
 </div>
 </div>

@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-20 Mon 12:26 -->
+<!-- 2020-04-20 Mon 12:01 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>DIC Distributed Actor System</title>
+<title>Akka Futures and Promises</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Prabhaker Mateti" />
 <style type="text/css">
@@ -234,179 +234,102 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="../../Top/index.html"> HOME </a>
 </div><div id="preamble" class="status">
-<a href="../../"> ../../</a>
+<a href="../../"> ../../</a> | 2020-04-14
 </div>
 <div id="content">
-<h1 class="title">DIC Distributed Actor System</h1>
+<h1 class="title">Akka Futures and Promises</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org937d522">1. Distributed Actor System</a>
-<ul>
-<li><a href="#orgca50234">1.1. Actor References</a></li>
-<li><a href="#orge65d2fa">1.2. Remote Actors and Akka Clusters</a></li>
-<li><a href="#org58762ea">1.3. Clusters</a></li>
-<li><a href="#org29a7dba">1.4. Enable Clustering</a></li>
-<li><a href="#orgfcd997b">1.5. Remote Deployment</a></li>
+<li><a href="#org2a78b53">0.1. Futures</a></li>
+<li><a href="#org63c4e62">0.2. Promises</a></li>
 </ul>
 </li>
-<li><a href="#orga3d5c08">2. Termination</a>
+<li><a href="#org927f66e">1. Distributed Actor System</a></li>
+<li><a href="#orgc714853">2. Termination</a>
 <ul>
-<li><a href="#org84c4df2">2.1. The Reaper</a></li>
-<li><a href="#org955114f">2.2. Reaper Source Code</a></li>
-<li><a href="#orgd7a2905">2.3. PoisonPill</a></li>
+<li><a href="#org2db5e9d">2.1. The Reaper</a></li>
+<li><a href="#orga2fd0a8">2.2. Reaper Source Code</a></li>
+<li><a href="#org5f83441">2.3. PoisonPill</a></li>
 </ul>
 </li>
-<li><a href="#orgb13a970">3. References</a></li>
-<li><a href="#orgce9a513">4. End</a></li>
-</ul>
+<li><a href="#orgbaa6f46">3. References</a></li>
+<li><a href="#org2f9ee08">4. End</a></div>
 </div>
-</div>
-<p>
-This is part of <a href="./index.html">Akka Actors with Scala</a>.
+<ol class="org-ol">
+<li>Akka gets Futures and Promises from Scala.</li>
+</ol>
+
+<div id="outline-container-org2a78b53" class="outline-3">
+<h3 id="org2a78b53"><span class="section-number-3">0.1</span> Futures</h3>
+<div class="outline-text-3" id="text-0-1">
+<ol class="org-ol">
+<li>A Future is a placeholder object for a result that has not been
+computed yet.  A related CS term is <b>lazy evaluation</b>.</li>
+
+<li>A Future may only be assigned once.  Needs an <code>ExecutionContext</code></li>
+
+<li><p>
+Invoking the <code>future</code> method starts an asynchronous computation and
+returns a future.  The result becomes available once the future
+<b>completes</b>.
 </p>
 
-<div id="outline-container-org937d522" class="outline-2">
-<h2 id="org937d522"><span class="section-number-2">1</span> Distributed Actor System</h2>
-<div class="outline-text-2" id="text-1">
-<ol class="org-ol">
-<li>Let use a tentative def of Distributed Actor System.  A collection
-of Akka actors actually running on multiple machines that are networked.</li>
-
-<li>In this section, our goal is to understand this typical diagram.</li>
-</ol>
-
-
-<div class="figure">
-<p><img src="./Figures/fig-actor-path.png" alt="fig-actor-path.png" align="center" width="100%" />
-</p>
-<p><span class="figure-number">Figure 1: </span>Distributed Actor System</p>
-</div>
-</div>
-
-<div id="outline-container-orgca50234" class="outline-3">
-<h3 id="orgca50234"><span class="section-number-3">1.1</span> Actor References</h3>
-<div class="outline-text-3" id="text-1-1">
-<ol class="org-ol">
-<li>Actor references may be obtained by (i) creating actors or (ii)
-looking them up</li>
-
-<li>Typically, we create actors beneath the guardian actor using the
-<code>ActorSystem.actorOf</code> method and then &#x2026;</li>
-
-<li>Spawn the actor tree using <code>ActorContext.actorOf</code>.</li>
-</ol>
-</div>
-
-<div id="outline-container-org4c665ce" class="outline-4">
-<h4 id="org4c665ce"><span class="section-number-4">1.1.1</span> Looking up Actors by Concrete Path</h4>
-<div class="outline-text-4" id="text-1-1-1">
-<ol class="org-ol">
-<li><code>ActorSystem.actorSelection</code> method</li>
-
-<li>Send a message, such as the built-in <code>Identify</code> message, to the
-actor and use the <code>sender</code> reference of a reply from the actor.</li>
-
-<li><code>actorFor</code> is deprecated in favor of <code>actorSelection</code> because actor
-references acquired with actorFor behave <b>differently</b> for local
-and remote actors.  Beware: actorOf vs. actorSelection vs. actorFor</li>
-
-<li>Matching on paths similar to shells «*» and «?»:
-<code>context.actorSelection("../*") ! msg</code></li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-orgb2499b7" class="outline-4">
-<h4 id="orgb2499b7"><span class="section-number-4">1.1.2</span> Absolute vs. Relative Paths</h4>
-<div class="outline-text-4" id="text-1-1-2">
-<ol class="org-ol">
-<li>Send a message to a specific sibling:</li>
-<li><code>context . actorSelection ("../brother") ! msg</code></li>
-<li>Absolute paths: <code>context.actorSelection("/user/serviceA") ! msg</code></li>
-</ol>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orge65d2fa" class="outline-3">
-<h3 id="orge65d2fa"><span class="section-number-3">1.2</span> Remote Actors and Akka Clusters</h3>
-<div class="outline-text-3" id="text-1-2">
-<ol class="org-ol">
-<li>Remote Actors ActorSystem configuration</li>
-</ol>
-
-
-<div class="figure">
-<p><img src="./Figures/fig-actor-remote-1.png" alt="fig-actor-remote-1.png" align="center" width="100%" />
-</p>
-<p><span class="figure-number">Figure 2: </span>Remote Actors ActorSystem configuration</p>
-</div>
-</div>
-</div>
-
-
-<div id="outline-container-org58762ea" class="outline-3">
-<h3 id="org58762ea"><span class="section-number-3">1.3</span> Clusters</h3>
-<div class="outline-text-3" id="text-1-3">
-<ol class="org-ol">
-<li>Automatic cluster-wide deployment</li>
-<li>Decentralized P2P gossip-based cluster membership</li>
-<li>Leader “election”</li>
-<li>Adaptive load-balancing (based on runtime metrics)</li>
-<li>Automatic replication with automatic fail-over upon node crash</li>
-<li>Automatic adaptive cluster rebalancing</li>
-<li>Highly available configuration service</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org29a7dba" class="outline-3">
-<h3 id="org29a7dba"><span class="section-number-3">1.4</span> Enable Clustering</h3>
-<div class="outline-text-3" id="text-1-4">
 <div class="org-src-container">
-<pre class="src src-scala">akka {
-  actor {
-    provider = "akka.cluster.ClusterActorRefProvider"
-    ...
-  }
-
-  extensions = ["akka.cluster.Cluster"]
-
-  cluster {
-    seed-nodes = [
-      "akka://ClusterSystem@127.0.0.1:2551",
-      "akka://ClusterSystem@127.0.0.1:2552"
-    ]
-    auto-down = on
-  }
+<pre class="src src-scala">import scala.concurrent.{ future, promise }
+import scala.concurrent.ExecutionContext.Implicits.global
+val s = socialNetwork.createSessionFor("user", credentials)
+val f: Future[List[Friend]] = future {
+  s.getFriends()           // may take a while
 }
 </pre>
-</div>
-</div>
-</div>
-
-
-<div id="outline-container-orgfcd997b" class="outline-3">
-<h3 id="orgfcd997b"><span class="section-number-3">1.5</span> Remote Deployment</h3>
-<div class="outline-text-3" id="text-1-5">
-
-<div class="figure">
-<p><img src="./Figures/fig-actor-remote-deployment.png" alt="fig-actor-remote-deployment.png" align="center" width="100%" />
-</p>
-<p><span class="figure-number">Figure 3: </span>Remote Deployment</p>
-</div>
-
-<ol class="org-ol">
-<li><a href="http://doc.akka.io/docs/akka/snapshot/general/addressing.html">http://doc.akka.io/docs/akka/snapshot/general/addressing.html</a></li>
+</div></li>
 </ol>
 </div>
 </div>
+
+<div id="outline-container-org63c4e62" class="outline-3">
+<h3 id="org63c4e62"><span class="section-number-3">0.2</span> Promises</h3>
+<div class="outline-text-3" id="text-0-2">
+<ol class="org-ol">
+<li><p>
+A Promise is a writable, single-assignment container that completes
+a future. Methods: <code>success</code>, <code>failure</code>, <code>complete</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scala">import scala.concurrent.{ future, promise }
+import scala.concurrent.ExecutionContext.Implicits.global
+val p = promise[T]
+val f = p.future
+val prdcr = future {               // producer
+  val r = produceSomething()
+  p . success . r
+  continueDoingSomethingUnrelated()
+}
+val cnsmr = future {              // consumer
+  startDoingSomething()
+  f . onSuccess {
+    case r =&gt; doSomethingWithResult()
+  }}
+</pre>
+</div></li>
+</ol>
+</div>
 </div>
 
-<div id="outline-container-orga3d5c08" class="outline-2">
-<h2 id="orga3d5c08"><span class="section-number-2">2</span> Termination</h2>
+<div id="outline-container-org927f66e" class="outline-2">
+<h2 id="org927f66e"><span class="section-number-2">1</span> Distributed Actor System</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li><a href="./akkaDistributed.html">./akkaDistributed.html</a> My lecture notes on Distributed Actor System.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgc714853" class="outline-2">
+<h2 id="orgc714853"><span class="section-number-2">2</span> Termination</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 What Does "Finished" Mean? The most natural answer to this question
@@ -418,24 +341,24 @@ What Does "Finished" Mean? The most natural answer to this question
 <div class="figure">
 <p><img src="./Figures/fig-terminated-q.png" alt="fig-terminated-q.png" style="background-color:beige" align="center" width="100%" />
 </p>
-<p><span class="figure-number">Figure 4: </span>Actor System terminated?</p>
+<p><span class="figure-number">Figure 1: </span>Actor System terminated?</p>
 </div>
 </div>
 
-<div id="outline-container-org84c4df2" class="outline-3">
-<h3 id="org84c4df2"><span class="section-number-3">2.1</span> The Reaper</h3>
+<div id="outline-container-org2db5e9d" class="outline-3">
+<h3 id="org2db5e9d"><span class="section-number-3">2.1</span> The Reaper</h3>
 <div class="outline-text-3" id="text-2-1">
 
 <div class="figure">
 <p><img src="./Figures/fig-the-reaper.png" alt="fig-the-reaper.png" style="background-color:beige" align="center" width="100%" />
 </p>
-<p><span class="figure-number">Figure 5: </span>Actor System Reaper</p>
+<p><span class="figure-number">Figure 2: </span>Actor System Reaper</p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org955114f" class="outline-3">
-<h3 id="org955114f"><span class="section-number-3">2.2</span> Reaper Source Code</h3>
+<div id="outline-container-orga2fd0a8" class="outline-3">
+<h3 id="orga2fd0a8"><span class="section-number-3">2.2</span> Reaper Source Code</h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 <pre class="src src-scala">import akka.actor.{Actor, ActorRef, Terminated}
@@ -466,21 +389,21 @@ abstract class Reaper extends Actor {
 </div>
 </div>
 
-<div id="outline-container-orgd7a2905" class="outline-3">
-<h3 id="orgd7a2905"><span class="section-number-3">2.3</span> PoisonPill</h3>
+<div id="outline-container-org5f83441" class="outline-3">
+<h3 id="org5f83441"><span class="section-number-3">2.3</span> PoisonPill</h3>
 <div class="outline-text-3" id="text-2-3">
 
 <div class="figure">
 <p><img src="./Figures/fig-akka-poison-pill.png" alt="fig-akka-poison-pill.png" style="background-color:beige" align="center" width="100%" />
 </p>
-<p><span class="figure-number">Figure 6: </span>Application with PoisonPill</p>
+<p><span class="figure-number">Figure 3: </span>Application with PoisonPill</p>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgb13a970" class="outline-2">
-<h2 id="orgb13a970"><span class="section-number-2">3</span> References</h2>
+<div id="outline-container-orgbaa6f46" class="outline-2">
+<h2 id="orgbaa6f46"><span class="section-number-2">3</span> References</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li><a href="https://doc.akka.io/docs/akka/current/">https://doc.akka.io/docs/akka/current/</a>
@@ -488,18 +411,32 @@ Nearly all the code snippets and figures are from here.  Reference.</li>
 
 <li>Jonas Boner, "Above the Clouds: Introducing Akka", 2011.  Web
 search.  Video or pdf.  Highly recommended.</li>
+
+<li><a href="https://doc.akka.io/docs/akka/current/typed/guide/">https://doc.akka.io/docs/akka/current/typed/guide/</a> Getting Started
+Guide.  Must visit.  The following are linked there.
+<ol class="org-ol">
+<li>Introduction to Akka.  Required Reading</li>
+<li>Part 1: Actor Architecture. Required Reading</li>
+<li>Part 2: Creating the First Actor. Required Reading</li>
+<li>Part 3: Working with Device [in the small] Actors Optional Reading</li>
+<li>Part 4: Working with Device Groups   Optional Reading</li>
+<li>Part 5: Querying Device Groups  Optional Reading</li>
+</ol></li>
+
+<li><a href="http://allaboutscala.com/scala-frameworks/akka/">http://allaboutscala.com/scala-frameworks/akka/</a> 2020 Recommended
+Reading.</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-orgce9a513" class="outline-2">
-<h2 id="orgce9a513"><span class="section-number-2">4</span> End</h2>
+<div id="outline-container-org2f9ee08" class="outline-2">
+<h2 id="org2f9ee08"><span class="section-number-2">4</span> End</h2>
 <div class="outline-text-2" id="text-4">
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<hr size=1>Copyright &copy; 2020 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2020-01-31
+<hr size=1>Copyright &copy; 2020 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2020-04-14
 </div>
 </body>
 </html>
