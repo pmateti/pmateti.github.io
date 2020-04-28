@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-15 Wed 11:13 -->
+<!-- 2020-04-26 Sun 20:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Distributed Computing  MidSem Solutions</title>
@@ -259,7 +259,7 @@ Submit your <code>answers.pdf</code> as an email attachment to me.
 
 <p>
 My answers: (i) Are illustrative/ pedagogical &#x2013; may not be the best
-or the shortest.  (ii) Include brief commentary on how the class
+or the shortest.  (ii) TBD Include brief commentary on how the class
 performed.
 </p>
 </blockquote>
@@ -273,14 +273,19 @@ receive full score.
 
 <ol class="org-ol">
 <li>"Some philosophers may remain hungry forever.'' is a <span class="underline">safety</span>,
-not <span class="underline">liveness</span>, property.  <b>Answer:</b>  Our Andrews book itself uses
-"bad" and "good", which cannot be defined.  Many reproduced this
-as the answer; I marked it as not full-scoring.  The crucial
-word-groups are {never, for-ever, always, &#x2026;} and {eventually,
-will-happen, &#x2026;}.  E.g., {"A very good property P never happens."}
-P is a safety property.  No body got a good answer.</li>
-<li>In the context of RPC, a procedure designed to be used remotely
-<i>can</i> use global variables to communicate with the caller.</li>
+not <span class="underline">liveness</span>, property.  <b>Answer:</b> Our Andrews book itself
+uses "bad" and "good", which cannot be defined.  Many reproduced
+this as the answer; I marked it as not full-scoring.  The
+crucial word-groups are {never, for-ever, always, &#x2026;} and
+{eventually, will-happen, &#x2026;}.  E.g., in {"A very good property
+P never happens."}  P is a safety property.</li>
+<li>In the context of <span class="underline">RPC</span>, a procedure designed to be used
+remotely <i>can</i> use global variables to communicate with the
+caller.  <b>Answer:</b> Def of RPC: Look up in lecture notes.  Global
+variables can be used if you make a provision for sending any
+values updated at the server back to the clients before
+accessing its value.  The standard <code>rpcgen</code> does <b>not</b> do that;
+so we expect our RPCs to use <span class="underline">in</span> and <span class="underline">out</span> parameters only.</li>
 <li><p>
 Consider the program segment given here.  Determine <i>P</i> a
 predicate that characterizes the weakest deadlock-free
@@ -289,19 +294,20 @@ P.
 </p>
 <pre class="example">
 co &lt;await x &gt;= 7 -&gt; x := x - 3&gt;
-   &lt;await x &gt;= 6 -&gt; x := x + 1&gt;
-   &lt;await x &gt;= 5 -&gt; x := x + 1&gt;
+|| &lt;await x &gt;= 6 -&gt; x := x + 1&gt;
+|| &lt;await x &gt;= 5 -&gt; x := x + 1&gt;
 oc
 </pre>
 <p>
-<b>Answer:</b>  You can arrive at P using whatever you have &#x2013; does not
-have to be wp.  It is useful to digest a wrong answer: x == 7.
-All three await-conditions are satisfied, and one will be chosen
-by the system.  Suppose x &gt;= 7 is chosen, and x
-becomes 4. Neither of the two remaining await-conditions are
-satisfied.  So, x = = 7 is not the answer. Would x ?= 8 work?
-Would x ?= 6 or 5 work?  You work it out.  Then you have to
-apply the "weakest" expectation that we required.
+<b>Answer:</b> <code>(x &gt; 7 or x = 5)</code> You can arrive at P using whatever
+you have &#x2013; does not have to be wp.  It is useful to digest a
+wrong answer, e.g., x = 7.  All three await-conditions are
+satisfied, and one will be chosen by the system.  Suppose x &gt;= 7
+is chosen, then x becomes 4. Neither of the two remaining
+await-conditions are satisfied.  So, x = 7 is not the
+answer. Would x ?= 8 work?  Would x ?= 6 or 5 work?  You work it
+out.  Then you have to apply the "weakest" expectation that we
+required.
 </p></li>
 
 <li><p>
@@ -312,8 +318,9 @@ if i &lt; 150 then i := i + 150 else i := 100 fi
 
 </pre>
 <p>
-<b>Answer:</b>  You can guess the answer quickly, but this Q is 
-checking if you understood the wp-mechanism.  You work it out.
+<b>Answer:</b> Obviously, you can guess the answer quickly, but this
+Q is checking if you understood the wp-mechanism.  You work it
+out.
 </p></li>
 </ol></li>
 
@@ -325,13 +332,13 @@ checking if you understood the wp-mechanism.  You work it out.
 scenario. What does Morris' algorithm do to eliminate this
 scenario?  <b>Answer:</b>  Straightforward.  Re-read my lecture notes.</li>
 
-<li>Construct the ssend(pid, msg) and srecv(pid, msg) primitives of
-synchronous message passing from asend(pid, msg) and arecv(pid,
-msg) primitives of asynchronous message passing.</li>
+<li>Construct the <code>ssend(pid, msg)</code> and <code>srecv(pid, msg)</code> primitives
+of synchronous message passing from <code>asend(pid, msg)</code> and
+<code>arecv(pid, msg)</code> primitives of asynchronous message passing.</li>
 <li><p>
 Reconstruct the binary "tree" serialized below. List each node as
 a triplet of (info integer, left-link and right-link), as usual. 
-The first digit in the sequence is the offset of the root node.<br />
+The first digit in the sequence is the offset of the root node.
 </p>
 <pre class="example">
 marshalled sequence: 2 3 4 7 4 7 8 4 A 1 4 2 7
@@ -401,7 +408,9 @@ For you to finish:  Write all of the CSP code for this problem.
 </p>
 
 <p>
-Gotchas: Unmatched query bangs are deadlocks.
+Gotchas: Unmatched query bangs are deadlocks.  Do not make
+assumptions that were not originally present (e.g., some numbers
+do not appear in the set).
 </p></li>
 </ol></li>
 

@@ -207,7 +207,26 @@ And, several "machines".
 
 * Scala + Akka: P3 10%
 
-1. Re-do/ re-design the P1 above but using [Scala and] Akka Actors.
+1. Ideal Goal: Re-do/ re-design the P1 above but using [Scala and]
+   Akka Actors.
+1. But, we had to face Covid-19 driven campus shutdown, lockdowns,
+   etc.  So, here are the new choices.  The 10% of this project is
+   divided as shown.
+1. 5% Learn some amount of Scala.  Install a recent version of Scala.
+   Show that (i) the well-known "Hello World" works in the REPL.  (ii)
+   The code given at
+   https://rosettacode.org/wiki/Sort_an_integer_array#Scala works when
+   compiled and run. (iii) Rewrite this using your own Quick Sort.
+   That is, without using the =scala.util.Sorting.quickSort(array)= or
+   any other sorting library method.  Read my lecture notes on
+   Scala. [[../Lectures/Languages/Scala/index.org]]
+1. 5% Learn some amount of Akka via Scala.  Install version 2.6.4 or
+   later of Akka.  Show that the well-known Dining Philosophers
+   Problem works in Akka.  A web search will show that there are many
+   blogs "solving" this problem.  Fix their code so that it (first the
+   *problem*, and then a *solution*) works in current Akka.  You may
+   use FSM or some other technique.  Read my lecture notes on
+   Akka.  [[../Lectures/Akka/index.org]]
 
 * Turnins and Demos
 

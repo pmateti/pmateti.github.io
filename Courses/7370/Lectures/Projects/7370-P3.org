@@ -1,18 +1,20 @@
 # -*- mode: org -*-
-#+TITLE: CEG 7370 Project P3
+#+Date: 2020-01-21
+#+TITLE: Distributed Computing Project 3 using Akka Actors
 #+AUTHOR: Prabhaker Mateti
-#+OPTIONS: toc:nil
-#+HTML_LINK_HOME: ../../7370
-#+HTML_LINK_UP: ../Lectures
-#+DESCRIPTION: WSU CEG 7370 Distributed Computing
-#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
-#+BIND: org-html-preamble-format (("en" "<a href=\"../Top/\">CEG 7370</a>"))
-#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 %e TBD &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> %d"))
+#+DESCRIPTION: Mateti's Distributed Computing
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\">../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 &bull; <a href=mailto:pmateti@iiitd.ac.in>pmateti@iiitd.ac.in</a> &bull; %d"))
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P, LI {TBDtext-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
 
 
 TBD Fix links
 
-* P3 using Akka Actors
+* P3 
 
 This Spring 2020, the CEG 7370 Project P3 is mostly about learning
 Scala + Akka.  Start with the source code examples below.
@@ -54,7 +56,8 @@ source code and your answers to the above.
 
 Turnin this P3 as you did with P1 and P2.
 
-* End
+
+# * End
 # Local variables:
 # after-save-hook: org-html-export-to-html
 # end:
