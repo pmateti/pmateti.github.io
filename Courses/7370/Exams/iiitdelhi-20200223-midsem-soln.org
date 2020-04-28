@@ -25,7 +25,7 @@
   Submit your =answers.pdf= as an email attachment to me.
 
   My answers: (i) Are illustrative/ pedagogical -- may not be the best
-  or the shortest.  (ii) Include brief commentary on how the class
+  or the shortest.  (ii) TBD Include brief commentary on how the class
   performed.
 
 #+END_QUOTE
@@ -37,37 +37,44 @@
    receive full score.
 
    1. "Some philosophers may remain hungry forever.'' is a _safety_,
-      not _liveness_, property.  *Answer:*  Our Andrews book itself uses
-      "bad" and "good", which cannot be defined.  Many reproduced this
-      as the answer; I marked it as not full-scoring.  The crucial
-      word-groups are {never, for-ever, always, ...} and {eventually,
-      will-happen, ...}.  E.g., {"A very good property P never happens."}
-      P is a safety property.  No body got a good answer.
-   2. In the context of RPC, a procedure designed to be used remotely
-      /can/ use global variables to communicate with the caller.
+      not _liveness_, property.  *Answer:* Our Andrews book itself
+      uses "bad" and "good", which cannot be defined.  Many reproduced
+      this as the answer; I marked it as not full-scoring.  The
+      crucial word-groups are {never, for-ever, always, ...} and
+      {eventually, will-happen, ...}.  E.g., in {"A very good property
+      P never happens."}  P is a safety property.
+   2. In the context of _RPC_, a procedure designed to be used
+      remotely /can/ use global variables to communicate with the
+      caller.  *Answer:* Def of RPC: Look up in lecture notes.  Global
+      variables can be used if you make a provision for sending any
+      values updated at the server back to the clients before
+      accessing its value.  The standard =rpcgen= does *not* do that;
+      so we expect our RPCs to use _in_ and _out_ parameters only.
    3. Consider the program segment given here.  Determine /P/ a
       predicate that characterizes the weakest deadlock-free
       precondition for the program. Also, explain how you arrived at
       P.
       #+BEGIN_EXAMPLE
 co <await x >= 7 -> x := x - 3>
-   <await x >= 6 -> x := x + 1>
-   <await x >= 5 -> x := x + 1>
+|| <await x >= 6 -> x := x + 1>
+|| <await x >= 5 -> x := x + 1>
 oc
 #+end_EXAMPLE
-      *Answer:*  You can arrive at P using whatever you have -- does not
-      have to be wp.  It is useful to digest a wrong answer: x == 7.
-      All three await-conditions are satisfied, and one will be chosen
-      by the system.  Suppose x >= 7 is chosen, and x
-      becomes 4. Neither of the two remaining await-conditions are
-      satisfied.  So, x = = 7 is not the answer. Would x ?= 8 work?
-      Would x ?= 6 or 5 work?  You work it out.  Then you have to
-      apply the "weakest" expectation that we required.
+      *Answer:* =(x > 7 or x = 5)= You can arrive at P using whatever
+      you have -- does not have to be wp.  It is useful to digest a
+      wrong answer, e.g., x = 7.  All three await-conditions are
+      satisfied, and one will be chosen by the system.  Suppose x >= 7
+      is chosen, then x becomes 4. Neither of the two remaining
+      await-conditions are satisfied.  So, x = 7 is not the
+      answer. Would x ?= 8 work?  Would x ?= 6 or 5 work?  You work it
+      out.  Then you have to apply the "weakest" expectation that we
+      required.
 
    4. Compute /wp(S, i = 100)/, where S is
       : if i < 150 then i := i + 150 else i := 100 fi
-      *Answer:*  You can guess the answer quickly, but this Q is 
-      checking if you understood the wp-mechanism.  You work it out.
+      *Answer:* Obviously, you can guess the answer quickly, but this
+      Q is checking if you understood the wp-mechanism.  You work it
+      out.
 
 2. (20 points each)
 
@@ -76,12 +83,12 @@ oc
       scenario. What does Morris' algorithm do to eliminate this
       scenario?  *Answer:*  Straightforward.  Re-read my lecture notes.
 
-   2. Construct the ssend(pid, msg) and srecv(pid, msg) primitives of
-      synchronous message passing from asend(pid, msg) and arecv(pid,
-      msg) primitives of asynchronous message passing.
+   2. Construct the =ssend(pid, msg)= and =srecv(pid, msg)= primitives
+      of synchronous message passing from =asend(pid, msg)= and
+      =arecv(pid, msg)= primitives of asynchronous message passing.
    3. Reconstruct the binary "tree" serialized below. List each node as
       a triplet of (info integer, left-link and right-link), as usual. 
-      The first digit in the sequence is the offset of the root node.\\
+      The first digit in the sequence is the offset of the root node.
       : marshalled sequence: 2 3 4 7 4 7 8 4 A 1 4 2 7
       : offsets in hex:      1 2 3 4 5 6 7 8 9 A B C D
       *Answer:* node@2 = (3, left offset 3, right offset D), node@4 =(7,
@@ -134,7 +141,9 @@ oc
 
       For you to finish:  Write all of the CSP code for this problem.
 
-      Gotchas: Unmatched query bangs are deadlocks.
+      Gotchas: Unmatched query bangs are deadlocks.  Do not make
+      assumptions that were not originally present (e.g., some numbers
+      do not appear in the set).
 
 3. (0 points) [For survey purposes only.] Please record your effort in
    minutes for each of the above +ten+ eight items. Other feedback you
