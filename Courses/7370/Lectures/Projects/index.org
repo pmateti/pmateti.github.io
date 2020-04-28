@@ -219,14 +219,14 @@ And, several "machines".
    compiled and run. (iii) Rewrite this using your own Quick Sort.
    That is, without using the =scala.util.Sorting.quickSort(array)= or
    any other sorting library method.  Read my lecture notes on
-   Scala. [[../Lectures/Languages/Scala/index.org]]
+   Scala. [[../Languages/Scala/index.org]]
 1. 5% Learn some amount of Akka via Scala.  Install version 2.6.4 or
    later of Akka.  Show that the well-known Dining Philosophers
    Problem works in Akka.  A web search will show that there are many
    blogs "solving" this problem.  Fix their code so that it (first the
    *problem*, and then a *solution*) works in current Akka.  You may
    use FSM or some other technique.  Read my lecture notes on
-   Akka.  [[../Lectures/Akka/index.org]]
+   Akka.  [[../Akka/index.org]]
 
 * Turnins and Demos
 
