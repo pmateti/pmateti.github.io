@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-01-31 Fri 21:49 -->
+<!-- 2020-05-05 Tue 09:28 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Semaphores</title>
@@ -244,30 +244,30 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc9ed2c7">1. Semapahores</a></li>
-<li><a href="#org14461a5">2. Split Binary Semaphores</a>
+<li><a href="#orgc7ae5ae">1. Semapahores</a></li>
+<li><a href="#org1925eff">2. Split Binary Semaphores</a>
 <ul>
-<li><a href="#org1c697cb">2.1. Def</a></li>
-<li><a href="#org11a2098">2.2. Uses</a></li>
+<li><a href="#org4f3fb6e">2.1. Def</a></li>
+<li><a href="#org28e1dbe">2.2. Uses</a></li>
 </ul>
 </li>
-<li><a href="#org20f87ac">3. Starvation-Free Mutex Semaphore</a></li>
-<li><a href="#org9f0cba8">4. Distributed Semaphores</a></li>
-<li><a href="#org6161e3a">5. The Power of semaphores</a>
+<li><a href="#orgb9529c8">3. Starvation-Free Mutex Semaphore</a></li>
+<li><a href="#org1d9d6d7">4. Distributed Semaphores</a></li>
+<li><a href="#org63a3263">5. The Power of semaphores</a>
 <ul>
-<li><a href="#org4de85a0">5.1. Add Peek and Pp?</a></li>
-<li><a href="#orgccc6aeb">5.2. Cigarette Smokers Problem</a></li>
+<li><a href="#org6133101">5.1. Add Peek and Pp?</a></li>
+<li><a href="#orgb348608">5.2. Cigarette Smokers Problem</a></li>
 </ul>
 </li>
-<li><a href="#orge8dc88b">6. References</a></li>
-<li><a href="#orgcec05eb">7. End</a></li>
+<li><a href="#orgd033cb3">6. References</a></li>
+<li><a href="#org3a66228">7. End</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-orgc9ed2c7" class="outline-2">
-<h2 id="orgc9ed2c7"><span class="section-number-2">1</span> Semapahores</h2>
+<div id="outline-container-orgc7ae5ae" class="outline-2">
+<h2 id="orgc7ae5ae"><span class="section-number-2">1</span> Semapahores</h2>
 <div class="outline-text-2" id="text-1">
 <ol class="org-ol">
 <li>Def: An ADT, with P, V operations on integers, and atomicity and await</li>
@@ -276,12 +276,12 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org14461a5" class="outline-2">
-<h2 id="org14461a5"><span class="section-number-2">2</span> Split Binary Semaphores</h2>
+<div id="outline-container-org1925eff" class="outline-2">
+<h2 id="org1925eff"><span class="section-number-2">2</span> Split Binary Semaphores</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org1c697cb" class="outline-3">
-<h3 id="org1c697cb"><span class="section-number-3">2.1</span> Def</h3>
+<div id="outline-container-org4f3fb6e" class="outline-3">
+<h3 id="org4f3fb6e"><span class="section-number-3">2.1</span> Def</h3>
 <div class="outline-text-3" id="text-2-1">
 <ol class="org-ol">
 <li>Consider a binary semaphore b.</li>
@@ -293,8 +293,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org11a2098" class="outline-3">
-<h3 id="org11a2098"><span class="section-number-3">2.2</span> Uses</h3>
+<div id="outline-container-org28e1dbe" class="outline-3">
+<h3 id="org28e1dbe"><span class="section-number-3">2.2</span> Uses</h3>
 <div class="outline-text-3" id="text-2-2">
 <ol class="org-ol">
 <li>Starvation-Free Mutex</li>
@@ -304,8 +304,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org20f87ac" class="outline-2">
-<h2 id="org20f87ac"><span class="section-number-2">3</span> Starvation-Free Mutex Semaphore</h2>
+<div id="outline-container-orgb9529c8" class="outline-2">
+<h2 id="orgb9529c8"><span class="section-number-2">3</span> Starvation-Free Mutex Semaphore</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li>The std solution  is not starvation-free.</li>
@@ -316,8 +316,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org9f0cba8" class="outline-2">
-<h2 id="org9f0cba8"><span class="section-number-2">4</span> Distributed Semaphores</h2>
+<div id="outline-container-org1d9d6d7" class="outline-2">
+<h2 id="org1d9d6d7"><span class="section-number-2">4</span> Distributed Semaphores</h2>
 <div class="outline-text-2" id="text-4">
 <ol class="org-ol">
 <li>Implement semaphores in the distributed context: strictly peer-to-peer</li>
@@ -330,8 +330,8 @@ for the JavaScript code in this tag.
 </div>
 
 
-<div id="outline-container-org6161e3a" class="outline-2">
-<h2 id="org6161e3a"><span class="section-number-2">5</span> The Power of semaphores</h2>
+<div id="outline-container-org63a3263" class="outline-2">
+<h2 id="org63a3263"><span class="section-number-2">5</span> The Power of semaphores</h2>
 <div class="outline-text-2" id="text-5">
 <ol class="org-ol">
 <li>Semaphore Ops: P and V.</li>
@@ -339,8 +339,8 @@ for the JavaScript code in this tag.
 </ol>
 </div>
 
-<div id="outline-container-org4de85a0" class="outline-3">
-<h3 id="org4de85a0"><span class="section-number-3">5.1</span> Add Peek and Pp?</h3>
+<div id="outline-container-org6133101" class="outline-3">
+<h3 id="org6133101"><span class="section-number-3">5.1</span> Add Peek and Pp?</h3>
 <div class="outline-text-3" id="text-5-1">
 <ol class="org-ol">
 <li>peek(s) defined as "return &lt;s &gt; 0&gt;"</li>
@@ -362,8 +362,8 @@ end
 </div>
 </div>
 
-<div id="outline-container-orgccc6aeb" class="outline-3">
-<h3 id="orgccc6aeb"><span class="section-number-3">5.2</span> Cigarette Smokers Problem</h3>
+<div id="outline-container-orgb348608" class="outline-3">
+<h3 id="orgb348608"><span class="section-number-3">5.2</span> Cigarette Smokers Problem</h3>
 <div class="outline-text-3" id="text-5-2">
 <ol class="org-ol">
 <li>What problems of concurrency can semaphores solve?</li>
@@ -375,8 +375,8 @@ end
 </div>
 </div>
 
-<div id="outline-container-orge8dc88b" class="outline-2">
-<h2 id="orge8dc88b"><span class="section-number-2">6</span> References</h2>
+<div id="outline-container-orgd033cb3" class="outline-2">
+<h2 id="orgd033cb3"><span class="section-number-2">6</span> References</h2>
 <div class="outline-text-2" id="text-6">
 <ol class="org-ol">
 <li>Allen B. Downey, The Little Book of Semaphores, book, 290+
@@ -403,8 +403,8 @@ Reader-Writer Problem, 2013.  <a href="http://arxiv.org/pdf/1309.4507.pdf">http:
 </div>
 
 
-<div id="outline-container-orgcec05eb" class="outline-2">
-<h2 id="orgcec05eb"><span class="section-number-2">7</span> End</h2>
+<div id="outline-container-org3a66228" class="outline-2">
+<h2 id="org3a66228"><span class="section-number-2">7</span> End</h2>
 <div class="outline-text-2" id="text-7">
 </div>
 </div>
