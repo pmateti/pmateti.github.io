@@ -1,5 +1,5 @@
 # -*- mode: org -*-
-#+Date: 2020-01-21
+#+Date: 2020-01-21, 2020-04-28
 #+TITLE: Distributed Computing  Course Projects
 #+AUTHOR: Prabhaker Mateti
 #+DESCRIPTION: Mateti's Distributed Computing
@@ -264,7 +264,8 @@ And, several "machines".
 1. Submit files with
    your changes clearly pointed out/ marked/ highlighted.
 
-1. Submit *your* =ReadMe.txt=, not my =0README.*=.
+1. Submit *your* =ReadMe.txt=, not my =0README.*=.  Include this in
+   your PDF.
 
 * Links
 
