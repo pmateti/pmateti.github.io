@@ -23,7 +23,7 @@
       </a>
 	</td>
 	<td valign="top" width="40%">
-          <h3> CSE5XX Distributed Computing TBD</h3>
+          <h3> CSE5XX Distributed Computing</h3>
 
           <h3>2020 Winter &bull; EndSem &bull; 100 points</h3>
 
@@ -49,7 +49,7 @@
     </blockquote>
 
   <ol type=I>
-      <li>TBD 4 (5 points each) The following statements may or may not be
+      <li>(5 points each) The following statements may or may not be
 	(fully or partially) valid.  Explain the underlined technical
 	terms</i> occurring in each statement.  Explain/ discuss/
 	dispute the statement.  It is <i>possible</i> to write no more
@@ -68,11 +68,11 @@
     <li>In a collection of <u>semaphores</u> that constitutes a
     <u>split binary semaphore</u>, at least one of them must be 1.
 
-    <li>The <u>happened before</u> relation (as in the book, e.g.)
-    requires a <u>logical clock</u> for every process.  But a typical
-    machine (node) in a distributed system runs several processes.
-    So, it is sufficient to maintain a logical clock per node that is
-    shared by all processes running on that node.
+    <li>The <u>happened before</u> relation (as in the Andrews book,
+    e.g.)  requires a <u>logical clock</u> for every process.  But a
+    typical machine (node) in a distributed system runs several
+    processes.  So, it is sufficient to maintain a logical clock per
+    node that is shared by all processes running on that node.
 
     <li> "A distributed system is one in which the failure of a
     computer you didn't even know existed can render your own computer
@@ -94,31 +94,32 @@
 
 
   <li>
-   Consider the following <b>await</b>-statement based model of the
-   classic Dining Philosophers problem.  The expression <tt>i + 1</tt>
-   throughout is modulo 5. The <tt>up</tt> and <tt>dn</tt> (down)
-   refer to whether the philosopher picked the fork up or put the fork
-   down.  There are no fat- or parallel bars in this code. TBD ang brackets
+   Consider the following await-statement based model of the
+   classic Dining Philosophers problem.  The index
+   expression <tt>i+1</tt> below is modulo 5. The <tt>up</tt>
+   and <tt>dn</tt> (down) refer to whether the philosopher picked the
+   fork up or put the fork down.  There are no fat- or parallel bars
+   in this code. As usual, angular brackets enclose atomic operations.
 
    <blockquote><pre>&nbsp;&nbsp; var up[0..4], dn[0..4] initially all 0;
 &nbsp;&nbsp; philosopher[i: 0..4]::
 &nbsp;&nbsp;&nbsp;&nbsp; do true &#8594;
 &nbsp;&nbsp; 	think;
-&nbsp;&nbsp; 	&lt;await up[i] == dn[i] &#8594; up[i]++ &gt; ;
-&nbsp;&nbsp; 	&lt;await up[i+1] == dn[i+1] &#8594; up[i+1]++ &gt; ;
+&nbsp;&nbsp; 	&lt; await up[i] == dn[i] &#8594; up[i]++ &gt; ;
+&nbsp;&nbsp; 	&lt; await up[i+1] == dn[i+1] &#8594; up[i+1]++ &gt; ;
 &nbsp;&nbsp; 	eat;
-&nbsp;&nbsp; 	&lt;dn[i]++ &gt; ;
-&nbsp;&nbsp; 	&lt;dn[i+1]++ &gt; ;
+&nbsp;&nbsp; 	&lt; dn[i]++ &gt; ;
+&nbsp;&nbsp; 	&lt; dn[i+1]++ &gt; ;
 &nbsp;&nbsp;&nbsp;&nbsp; od</pre></blockquote>
 
-   For now, disregard if the above is a ``solution'' or not.  Explain
-   your answers fully.  (a)(10 points) Using the Pass-the-Baton
-   technique systematically convert it to an equivalent algorithm
-   using semaphores only and no awaits.  (b)(10 points) Is this
-   code free from starvation?
+  (a)(10 points) Using the Pass-the-Baton technique systematically
+   convert it to an equivalent algorithm using semaphores only and no
+   awaits.  (b)(10 points) Is this code free from starvation?
+   Disregard if the above is a "solution" or not [in this question].
+   Explain your answers fully.
   <li> Do any of the temporal assertions below for the code block at
     left hold?  Where? When?  How? Under weakly fair scheduling?
-    Under strongly fair? Note the fat-bar.  Mathematical reasoning is
+    Under strongly fair? Note the fat-bar [].  Mathematical reasoning is
     expected.  Intuitive reasoning will deprive you of full score.
                   
       <blockquote>
@@ -136,7 +137,7 @@
             (a) (5 points) always x % 2 == 0<br>
             (b) (5 points) eventually x > 55<br>
             (c) (5 points) eventually always x > 44<br>
-            (d) (5 points) sometimes y % 2 == 0 TBD<br>
+            (d) (5 points) sometimes y % 2 == 0<br>
 
     </td></tr></table></blockquote>
      
