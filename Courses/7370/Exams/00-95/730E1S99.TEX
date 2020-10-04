@@ -1,0 +1,126 @@
+\documentstyle[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Mid Term Exam\\[10pt]
+May 9, 1999 \quad 100 points max \quad 75 minutes\\
+}
+\bigskip
+{Mateti,  Spring Quarter 1999, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (5*5 points)
+Explain, in a few lines, the truth or falsity of the following
+statements.
+
+\begin{enumerate}
+\item
+Solutions to concurrent problems are starvation-prone only when
+semaphores are used.
+
+\item
+wp$(i := 7, i = 8) = $false.
+
+\item
+Interference-free implies that processes do not have shared variables.
+
+
+\item
+A ``safety'' property is defined thus: Let {\sc bad} be a {predicate}
+characterizing any arbitrary condition or {state} of program code
+segment S that you consider is ``bad''.  Assume that {\{P\} S \{Q\}}
+holds.  Assume that I is a {global invariant}.  If I $\Rightarrow$
+$\neg$ {\sc bad}, we say that $\neg$ {\sc bad} is a safety property
+for S.
+
+
+\item The \CSP\ code {\tt [X!2 \fat\ Y!3]} appearing in a process
+named Z is equivalent to 
+{\tt
+[  true --> X!2; Y!3
+\fat\ true --> Y!3; X!2
+]
+}
+regardless of what the
+processes X and Y contain.
+
+\end{enumerate}
+
+\item (10 points)
+Describe all the major components of an \RPC\ system by
+tracing a specific remote procedure call.
+
+\item (30 points)
+We discussed in class the {\em Mine Sweeper} game of Windows.  Each
+cell contains a small collection of processes.  Program these
+in \CSP\ so that  all the cells together behave as the game does.
+Explain your solution fully.
+
+\item (20 points) Consider the following as an {\tt await}-statement
+based model of the classic Dining Philosophers problem.  The expression
+{\tt i + 1} is modulo 5.  The {\tt up} and {\tt dn} (down)
+refer to whether the philosopher picked the fork up or put the fork
+down.
+
+\begin{verbatim}
+var up[0..4] : int := initially all 0;
+var dn[0..4] : int := initially all 0;
+
+philosopher[i: 0..4]::
+  do true ->
+     think
+     <await up[i] == dn[i] --> up[i] += 1>
+     <await up[i+1] == dn[i+1] --> up[i+1] += 1>
+     eat
+     <dn[i] += 1>
+     <dn[i+1] += 1>
+  od
+\end{verbatim}
+
+\noindent Explain your answers fully.  A simple yes/no will not do.
+(a) (10 points) For now, disregard if the above is a ``solution'' or
+not.  Using the Pass-the-Baton technique systematically convert it to
+an equivalent algorithm using semaphores only.  (b) (5 points) Is this
+a ``solution'' to the Dining Philosophers problem?  If so, explain.
+If not so, fix it at the {\tt await}-statement level .  (c) (5 points)
+Is this ``solution'' free from startvation?
+
+
+\item 
+\begin{minipage}{2.5in}
+(15 points) Udding's solution to the mutual exclusion problem is
+reproduced here.  (a) Explain the purpose of each counter variable,
+and each semaphore.  State the weak semaphore assumption.  Explain the
+algorithm. (b) Explain why this assumption is necessary for the
+Udding's solution to be starvation-free.  (c) Simplify the Udding's
+solution assuming first-come first-served queing discipline on all
+semaphore operations on all three semaphores.
+\end{minipage}
+\quad
+\begin{minipage}{2in}
+\begin{verbatim}
+ 1 P(e); ne := ne+1; V(e);
+ 2 P(q); P(e);
+ 3  nm := nm+1;
+ 4  ne := ne-1;
+ 5  if ne > 0 --> V(e)
+ 6  [] ne = 0 --> V(m)
+ 7  fi;
+ 8 V(q);
+ 9 P(m); nm := nm-1;
+10  <cs >
+11  if nm > 0 -->  V(m)
+12  [] nm = 0 -->  V(e)
+13  fi
+\end{verbatim}
+\end{minipage}
+\end{enumerate}
+\end{document}

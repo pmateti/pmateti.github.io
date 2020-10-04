@@ -1,0 +1,105 @@
+\documentstyle{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\SR{{\sc sr}}
+\def\co{{\bf co}}
+\def\oc{{\bf oc}}
+\def\pa{{$\parallel$}}
+\def\lb{\langle}
+\def\rb{\rangle}
+\def\ra{$\rightarrow$}
+\def\await{{\bf await}}
+%\textheight=8.3in
+\parindent=0pt
+\pagestyle{empty}
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Final Exam\\[10pt]
+Dec 4, 1997 \quad 100 points max \quad 120 minutes\\
+}
+\bigskip
+{Mateti,  Fall Quarter 1997, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (6*5 points)
+Explain, in a few lines, the (degree of) truth or falsity of the
+following statements.
+
+\begin{enumerate}
+
+\item
+``Some day, if not at the end of {\sc ceg} 730, you will appreciate the
+book {\em Concurrent Programming} by Andrews.''  is neither a
+safety, nor liveness property.
+
+\item The weakly fair scheduling policy captures the essence
+of weak semaphore assumption.
+
+\item No \RPC\ system can guarantee that a remotely called procedure
+will have the exact equivalent semantics of the corresponding
+local procedure call. 
+
+\item
+The \CSP\ code {\tt [X!2 \pa\ Y!3]} is equivalent to \\
+{\tt
+[  true \ra\ X!2; Y!3\\
+\fat\ true \ra\ Y!3; X!2\\
+]}
+
+\item
+Invoking an \SR\ operation that is implemented by an {\tt in}
+statement via ({\tt call} results in dynamic process creation.
+
+\item
+There is no way to implement a version of asynchronous send+receive
+message passing  in Linda.
+
+\end{enumerate}
+
+\item (10+20 points) There are two kinds of processes, the $X$'s and the
+$Y$'s, that enter a ``room''.  An $X$ process cannot leave until it
+meets at least two $Y$ processes, and a $Y$ process cannot leave until
+it meets at least one $X$ process.  Once a process has met the required
+number of other kind of processes, that process is free to leave the
+room.  Develop and explain two solutions: (i) using {\tt await}
+statements only, and (ii) using semaphores only, but following the
+technique of passing the baton.  Show all the details of how the
+technique is applied. 
+
+\item (20 points)
+Describe a distributed termination algorithm using tokens.
+The process graph is a binary tree.
+
+\item (10+10 points) In both items below $a_i$ is the same as {\tt a[i]}
+for $1 \le i \le n_t$, where $n_t$ is the size of the "array" $a$.  The
+$a_i$ sequence is sorted in the non-decreasing order: $a_i \le a_{i+1}$,
+$a_1$ is the smallest.  In this sequence, a specific number $d$ appears
+$n_d$ or more times, $0 \le n_d \le n_t$.  We would like to remove
+exactly $n_d$ occurrences of $d$.  Explain the basic ideas as well as
+the algorithms.  \\
+
+(a) Assume that the Linda tuple space is loaded with tuples $\lb ``nt'',
+n_t \rb$, $\lb ``nd'', n_d \rb$, $\lb ``d'', d \rb$, $\lb ``p'', p \rb$,
+and $\lb ``s'', i, a_i \rb$.  Develop a C-Linda solution for this
+removal and adjustment of indices $i$ for numbers beyond the deleted
+$d$'s.  At the end, the tuple space contains the $a_i$ after the removal
+of $d$'s.  Use $p$ processes.  Assume that $p << n_t$.  Do not use {\tt inp},
+or {\tt rdp}.
+
+(b) Now in \CSP.  The values $a_i$, for $1 \le i \le n_t$, are now held
+by processes $P_i$, one per process, as in the Small Set of Integers.
+Initially, the $a_i$ sequence is sorted in the non-decreasing order.
+$P_0$ sends the pair $(d, n_d)$ to $P_1$, which can send it to $P_2$,
+etc.  Write a \CSP algorithm so that $n_d$ copies of $d$ are
+``removed''.  At the end, the $a_i$ sequence should be sorted in the
+non-decreasing order, i.e., $n_d$ additional processes at the tail end
+of the process row should now be empty handed. 
+
+\end{enumerate}
+\end{document}

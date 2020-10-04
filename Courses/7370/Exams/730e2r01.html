@@ -1,0 +1,248 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<style>v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+w\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+</style>
+</head>
+
+<table cellspacing="10" cellpadding="10" width="100%" border="0">
+  <tbody>
+    <tr>
+      <td width="33%" height="0%"><a href="http://www.wright.edu/"
+        target="_blank"><img height="66"
+        src="../../../../pmatetiWeb/images/wsu-logo-xsm.gif" width="150"
+        border="0"></a><br>
+        <a href="http://www.cs.wright.edu/">College of Engineering &amp; CS</a><br>
+        <a href="http://www.wright.edu/">Wright State University</a><br>
+        <a href="http://www.dayton.net/dayton/">Dayton,</a> <a
+        href="http://www.state.oh.us/">Ohio</a> 45435-0001</td>
+      <td width="67%">
+        <table width="100%">
+          <tbody>
+            <tr>
+              <td width="100%">
+                <h2>CEG 730:&nbsp;<br>
+                Distributed Computing Principles</h2>
+              </td>
+            </tr>
+            <tr>
+              <td width="100%">Final Exam 100 points max 75 minutes</td>
+            </tr>
+            <tr>
+              <td width="100%">
+                <h3></h3>
+              </td>
+            </tr>
+            <tr>
+              <td width="100%">Mateti, Summer Quarter 2001, Aug 14, 2001, Wright
+                State U</td>
+            </tr>
+            <tr>
+              <td width="100%"></td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ol>
+  <li>(6*5 points) Explain, in a few lines, the truth or falsity of the
+    following statements.
+    <ol type="a">
+      <li>A typical machine (node) in a distributed system can run several
+        concurrent processes. Each of these processes must maintain its own
+        logical clock in order to correctly deal with the <b>happened before </b>relation.</li>
+      <li>Asynchronous message passing cannot be implemented using synchronous
+        message passing primitives.</li>
+      <li>The CSP code<tt><br>
+        &nbsp;&nbsp;&nbsp; [X!2 || Y!3]</tt><br>
+        is equivalent to&nbsp;<tt><br>
+        &nbsp;&nbsp;&nbsp; [true -&gt; X!2; Y!3 [] true -&gt; Y!3; X!2]</tt></li>
+      <li>Java RMI is RPC applied in the context of the Java language.</li>
+      <li>Every client/server program is based on RPC (-like) mechanism.</li>
+      <li>Token-passing algorithms were discussed under the heading of
+        ``asynchronous message passing'' because token-passing does not make
+        sense under synchronous message passing.<br>
+        <br>
+      </li>
+    </ol>
+  </li>
+  <li>(15 points) The figure below depicts the pointer-based data structures
+    declared below. Produce the linearized (i.e., marshalled) result, as
+    discussed in class, for the following remote procedure call foobar(...).&nbsp;
+    Assume d == 1234, e = 98765.
+    <table width="100%">
+      <tr>
+        <td width="20%">
+          <pre>
+struct list {
+  int elem;
+  struct list *next
+};
+struct graph {
+  int elem;
+  struct list  *next;
+  struct graph *left;
+  struct graph *right;
+};
+
+foobar(
+  IN  list * a,
+  OUT list * b,
+  IN  list * c,
+  IN  int    d,
+  OUT int    e,
+  IN  graph* g
+ )
+ </pre>
+        </td>
+        <td valign="top" width="80%">
+   		
+
+          <v:oval style='position:absolute; margin-left:167.55pt; margin-top:2.45pt;width:36pt;height:36pt;'>
+          <v:textbox>1</v:textbox> </v:oval>
+
+          <v:oval style='position:absolute; margin-left:113.55pt; margin-top:72.2pt;width:36pt;height:36pt;'>
+          <v:textbox>2</v:textbox></v:oval>
+
+          <v:oval style='position:absolute; margin-left:221.55pt; margin-top:72.2pt;width:36pt;height:36pt;'>
+          <v:textbox>3</v:textbox> </v:oval>
+
+          <v:oval style='position:relative; margin-left:49.05pt; margin-top:2.45pt; width:36pt;height:36pt;'>
+          <v:textbox>5</v:textbox> </v:oval>
+
+ 
+          <v:oval id="_x0000_s1030" style='position:absolute;margin-left:50.55pt;
+ margin-top:74.45pt;width:36pt;height:36pt;'>
+          <v:textbox>6</v:textbox></v:oval>
+
+          <v:oval id="_x0000_s1031" style='position:absolute;margin-left:167.55pt;
+ margin-top:146.45pt;width:36pt;height:36pt;z-index:6;
+ mso-position-horizontal:absolute;mso-position-vertical:absolute'>
+          <v:textbox>4</v:textbox></v:oval>
+
+
+          <v:oval id="_x0000_s1032" style='position:absolute;margin-left:50.55pt;
+ margin-top:144.2pt;width:36pt;height:36pt;
+ z-index:7;mso-position-horizontal:absolute;
+ mso-position-vertical:absolute'>
+          <v:textbox>7</v:textbox></v:oval>
+
+          <v:line id="_x0000_s1036" style='position:absolute; z-index:10'
+from="68.55pt,38.45pt" to="68.55pt,74.45pt" coordsize="21600,21600">
+          <v:stroke endarrow="block"/> </v:line>
+
+
+          <v:line id="_x0000_s1037" style='position:absolute; z-index:11'
+from="68.55pt,110.45pt" to="68.55pt,146.45pt" coordsize="21600,21600">
+          <v:stroke endarrow="block"/> </v:line>
+
+          <v:line id="_x0000_s1038" style='position:absolute; z-index:12'
+from="68.55pt,182.45pt" to="68.55pt,200.45pt" coordsize="21600,21600">
+          <v:stroke endarrow="block"/> </v:line>
+
+          <v:line id="_x0000_s1039" style='position:absolute; flip:x; z-index:13'
+ from="86.55pt,20.45pt" to="167.55pt,20.45pt" coordsize="21600,21600">
+          <v:stroke endarrow="block"/> </v:line>
+
+          <v:line id="_x0000_s1040" style='position:absolute; flip:x; z-index:14'
+ from="86.55pt,92.45pt" to="113.55pt,92.45pt" coordsize="21600,21600">
+ 
+          <v:stroke endarrow="block"/>
+          </v:line>
+
+          <v:line id="_x0000_s1041" style='position:absolute; flip:x; z-index:15'
+ from="86.55pt,164.45pt" to="167.55pt,164.45pt" coordsize="21600,21600"> 
+          <v:stroke endarrow="block"/>
+          </v:line>
+
+          <v:line id="_x0000_s1042" style='position:absolute; flip:x; z-index:16'
+ from="140.55pt,29.45pt" to="176.55pt,74.45pt" coordsize="21600,21600"> 
+          <v:stroke endarrow="block"/>
+          </v:line>
+
+          <v:line id="_x0000_s1043" style='position:absolute; z-index:17' from="140.55pt,101.45pt"
+ to="176.55pt,146.45pt" coordsize="21600,21600">
+          <v:stroke endarrow="block"/>
+          </v:line>
+
+          <v:line id="_x0000_s1044" style='position:absolute; flip:y; z-index:18'
+ from="194.55pt,110.45pt" to="230.55pt,155.45pt" coordsize="21600,21600"> 
+          <v:stroke endarrow="block"/>
+          </v:line>
+
+          <v:line id="_x0000_s1045" style='position:absolute; z-index:19'
+from="194.55pt,29.45pt" to="230.55pt,74.45pt" coordsize="21600,21600">
+          <v:stroke endarrow="block"/> </v:line>
+
+          <v:line id="_x0000_s1046" style='position:absolute; flip:x; z-index:20'
+ from="149.55pt,92.45pt" to="221.55pt,92.45pt"
+ coordsize="21600,21600"> <v:stroke endarrow="block"/> </v:line>
+
+          <v:line id="_x0000_s1047" style='position:absolute; flip:x; z-index:21; 
+ mso-position-horizontal:absolute; mso-position-vertical:absolute'
+ from="158.55pt,182.45pt"
+ to="176.55pt,200.45pt" coordsize="21600,21600"> <v:stroke
+ endarrow="block"/> </v:line>
+
+          <v:line id="_x0000_s1048" style='position:absolute; flip:x;
+ z-index:22; mso-position-horizontal:absolute;
+ mso-position-vertical:absolute'
+ from="104.55pt,101.45pt" to="122.55pt,119.45pt"
+ coordsize="21600,21600"> <v:stroke endarrow="block"/> </v:line>
+
+          <v:line id="_x0000_s1049" style='position:absolute; z-index:23'
+from="194.55pt,182.45pt"
+ to="212.55pt,200.45pt" coordsize="21600,21600"> 
+          <v:stroke endarrow="block"/>
+          </v:line>
+
+          <v:line id="_x0000_s1050" style='position:absolute; z-index:24; 
+ mso-position-horizontal:absolute; mso-position-vertical:absolute'
+ from="248.55pt,101.45pt"
+ to="266.55pt,119.45pt" coordsize="21600,21600"> 
+          <v:stroke endarrow="block"/>
+          </v:line>
+
+        </td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+  <li>(5*5 points)
+    <ol type="a">
+      <li>Discuss why it is difficult to implement a semaphore in the truly
+        distributed context.</li>
+      <li>Describe the distributed implementation of semaphore of our text book.</li>
+      <li>There are numerous ACK messages being sent.&nbsp; Discuss if any or
+        all of these are unnecessary.</li>
+      <li>Does it implement a weak, strong (or neither) semaphore?</li>
+      <li>Can any solution to the distributed mutual exclusion problem be
+        thought of as a solution to the problem of implementing semaphores in a
+        distributed system, and vice versa.<br>
+        <br>
+      </li>
+    </ol>
+  </li>
+  <li>(30 points) Given a bag B of integers, and the size b of it. It is known
+    that each element in the bag appears exactly d times. We wish to delete the
+    duplicates resulting in a set of only b/d distinct elements that occurred in
+    the bag. It is guaranteed that d &gt; 0, b &gt; 0. Unfortunately, the value
+    d is unavailable and needs to be computed by examining the bag B. (i) Design
+    (15 points, with full explanation) and (ii) implement (15 points) a solution
+    in C-Linda. Assume that the tuple space already contains <tt>&lt;&quot;B&quot;,
+    x<sub>i</sub>&gt; </tt>for all <tt>x<sub>i</sub></tt> in B, and the size of
+    the bag <tt>&lt;&quot;sizeB&quot;, b&gt; </tt>. You lose 5 points for each
+    use of <tt>inp</tt> or <tt>rdp</tt>. As usual, we wish to maximize
+    concurrency, we prefer a symmetric solution, and correctness rates much much
+    higher than efficiency.&nbsp; If you present (i) and (ii) in a combined way,
+    you will receive (partial) credit only for the weaker of the two.<br>
+  </li>
+</ol>
+<hr>

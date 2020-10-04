@@ -1,0 +1,120 @@
+\documentstyle[12pt]{article}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\co{{\bf co}}
+\def\oc{{\bf oc}}
+\def\pa{{$\parallel$}}
+\def\lb{$\langle$}
+\def\rb{$\rangle$}
+\def\ra{$\rightarrow$}
+\def\await{{\bf await}}
+\def\zand{\wedge}\def\zor{\vee}	\def\znot{\neg}
+
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Mid Term Exam\\[10pt]
+Oct 23, 1995 \quad 100 points max \quad 75 minutes\\
+}
+\bigskip
+{Mateti,  Fall Quarter 1995, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (9*5 points)
+Explain/Discuss, in a few lines, the (degree of) truth or falsity of
+the following statements.
+
+\begin{enumerate}
+\item
+Udding's solution to the starvation-free mutual exclusion problem is
+reproduced below.
+The algorithm would remain valid even if we introduce a new semaphore
+\verb|x|, initialized to 1, and replace \verb|eu| in line 1 in both places.
+
+\begin{verbatim}
+ 1 P(eu); ne := ne+1; V(eu);
+ 2 P(qu); P(eu);      
+ 3  nm := nm+1;      
+ 4  ne := ne-1;      
+ 5  if ne > 0 --> V(eu) 
+ 6  [] ne = 0 --> V(mu) 
+ 7  fi;        
+ 8 V(qu);        
+ 9 P(mu); nm := nm-1;      
+10  <cs >        
+11  if nm > 0 -->  V(mu)
+12  [] nm = 0 -->  V(eu)
+13  fi        
+\end{verbatim}
+
+\item In the above, only the \verb|mu| of
+ the three semaphores ({\tt eu, qu, mu}) need satisfy the
+{\sl weak semaphore} assumption.
+
+\item The weakly fair scheduling policy is impractical.
+
+\item It is possible for a small box, say like that of a PC, to
+contain a distributed system.
+
+\item
+The difference between asynchronous and synchronous message passing is
+trivial; one can be implemented in terms of the other.
+
+\item
+$(nw = 0 \zand nr \ge 0) \zor (nw = 1 \zand nr = 0)$ is the
+required invariant for the Readers and Writers problem (without
+priority for writers) problem.
+
+\item
+
+A procedure designed to be called remotely {\em must not} have
+(the equivalent of Pascal's) var parameters.
+
+\item
+The little-endian-ness of a machine has no relevance to \RPC.
+
+\item 
+$P(m);$ \verb|<cs>;| $V(m)$ {\bf is} a starvation-free
+solution to the critical section problem in the non-distributed case.
+
+\end{enumerate}
+
+
+\item (15 points)
+Consider the following program segment:
+
+\begin{tabbing}
+000\=00000000000000\=\kill
+\co\> \lb \await\quad $x \geq 4$ \>\ra\quad $x := x + 2$ \rb\\
+\pa\> \lb \await\quad $x \geq 2$ \>\ra\quad $x := x + 4$ \rb\\
+\pa\> \lb \await\quad $x = 9$ \>\ra\quad $x := x - 4$ \rb\\
+\oc
+\end{tabbing}
+
+Let $P$ be a predicate that characterizes the weakest deadlock-free
+precondition for the program, i.e., the largest set of states such
+that, if the program is begun in a state satisfying $P$, then it will
+terminate if scheduling is weakly-fair.  Determine $P$.  Explain your
+answer.
+
+
+\item (30 points)
+Process $A$ has an array $a$ of $m$ integers and $B$ has an array $b$
+of $n$ integers.  The two processes are allowed to send/receive only
+one integer at a time.  Develop a \CSP\ algorithm for these processes
+so that at the end all elements of $a$ are less than all elements of
+$b$.  Assume that all the $m+n$ integers are distinct.  Assume that
+the arrays $a$ and $b$ were sorted initially.  Maximize concurrency.
+
+\item (10 points)
+Describe all the major components of an \RPC\ system by
+tracing a specific remote procedure call.
+
+\end{enumerate}
+\end{document}

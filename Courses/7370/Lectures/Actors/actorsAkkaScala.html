@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Actors, Akka and Scala: Overview</title>
+<!-- 2015-03-28 Sat 13:21 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="CEG7370 Distributed Computing"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<a href="../../Top/">CEG 7370 Distributed Computing</a> | <a href="./actorsAkkaScalaSlides.html"> Slides</a>
+</div>
+<div id="content">
+<h1 class="title">Actors, Akka and Scala: Overview</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Overview of Lectures</a></li>
+<li><a href="#sec-2">2. What is Scala?</a></li>
+<li><a href="#sec-3">3. Actors Model</a></li>
+<li><a href="#sec-4">4. What is Akka?</a></li>
+<li><a href="#sec-5">5. Dining Philosophers on Akka</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Overview of Lectures</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>May be 3 to 4 lectures (75 minutes) total.
+</li>
+
+<li>Describe Scala minimally.  Just enough to do Akka.  Pretty much
+ignore its (i) functional programming features, (ii) syntactic
+conveniences and (iii) type inference [not wholly].
+</li>
+
+<li>Describe the Actors Model, comparable in depth to our
+treatment of SMP, AMP, Shared-Vars, Semaphores.
+</li>
+
+<li>Describe Akka, an implementation of Actors.  Just
+enough so you can re-do all the classics such as Readers/Writers,
+Dining Philosophers.
+</li>
+
+<li>Show-and-Tell <a href="./typesafe-activator.html">./typesafe-activator.html</a>
+</li>
+
+<li>WSU CEG 7370 P3 details depend on the above.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> What is Scala?</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>Can be thought of as a modernized Java.
+</li>
+
+<li>Combines OOP and Functional Programming.
+</li>
+
+<li>Uses Type Inference heavily.
+</li>
+
+<li>Compiles to JVM .class files.
+</li>
+
+<li>Scala <a href="http://www.scala-lang.org/">http://www.scala-lang.org/</a> is open source.
+</li>
+
+<li><a href="./scalaPractical.html">CEG 7370 on Scala</a>
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Actors Model</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>A model of distributed computation.
+</li>
+
+<li>Uses AMP only.  
+</li>
+
+<li>No semaphores. No SMP.  
+</li>
+
+<li>Can we build these in Actors?
+</li>
+
+<li><a href="./actors.html">CEG 7370 on Actors</a>
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> What is Akka?</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>Akka is an implementation of the <a href="./actors.html">Actor Model</a>.
+</li>
+
+<li>It makes practical concessions to the pure actor model.
+</li>
+
+<li>Implemented as a library in Scala (and hence JVM).  Akka library
+can be used in Java as well.
+</li>
+
+<li>"Akka is a toolkit and runtime for building highly concurrent,
+distributed, and fault tolerant event-driven applications on the
+JVM" <a href="http://www.akka.io">http://www.akka.io</a>
+</li>
+
+<li>Akka is open source.
+</li>
+
+<li><a href="./akka.html ">CEG 7370 on Akka</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Dining Philosophers on Akka</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>This Spring 2014, the CEG 7370 Project P3 is mostly about learning
+Scala + Akka to some extent.  Start with the source code examples
+below.  These two files are "implementing" the famous Dining
+Philosophers problem.  Not the solution.
+</li>
+
+<li><a href="./scalaExamples/DiningHakkersOnBecome.scala">DiningHakkersOnBecome.scala</a> minor mods by Mateti
+</li>
+
+<li><a href="./scalaExamples/DiningHakkersOnFsm.scala">DiningHakkersOnFsm.scala</a> minor mods by Mateti
+</li>
+
+<li>The numbers at left are the count of lines.
+
+<div class="org-src-container">
+
+<pre class="src src-bash">106 DiningHakkersOnBecome.scala
+141 DiningHakkersOnFsm.scala
+</pre>
+</div>
+</li>
+
+<li>My versions can be compiled and run without using Activator: <code>% scalac DiningHakkersOnBecome.scala; % scala DiningHakkersOnBecome</code>
+</li>
+
+<li><a href="./dining-philosophers-akka-fsm.html">dining-philosophers-akka-fsm</a> fairly detailed explanation of the Akka FSM based code.
+</li>
+
+<li><a href="https://www.typesafe.com/activator/template/akka-sample-fsm-scala">https://www.typesafe.com/activator/template/akka-sample-fsm-scala</a>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2014  <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a>
+</div>
+</body>
+</html>

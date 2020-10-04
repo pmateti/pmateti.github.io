@@ -1,0 +1,117 @@
+\documentstyle[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\pr{$\parallel$}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\co{{\bf co}}
+\def\oc{{\bf oc}}
+\def\pa{{$\parallel$}}
+\def\lb{$\langle$}
+\def\rb{$\rangle$}
+\def\ra{$\rightarrow$}
+\def\await{{\bf await}}
+
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Mid Term Exam\\[10pt]
+Oct 20, 1993 \quad 100 points max \quad 75 minutes\\
+}
+\bigskip
+{Mateti,  Fall Quarter 1993, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (7*5 points)
+Explain/Discuss, in a few lines, the following statements.
+
+\begin{enumerate}
+
+\item One difference between a weak semaphore {\tt w} and a strong
+semaphore {\tt s} is that {\tt V(s); P(s)} is equivalent to a no-op
+whereas {\tt V(w); P(w)} is not.
+
+\item Two processes are interference-free if they mind their
+own business.
+
+\item
+Any safety property can be expressed as a liveness property.
+
+\item It is possible for a small box, say like that of a PC, to
+contain a distributed system.
+
+\item
+The difference between asynchronous and synchronous message passing is
+trivial; one can be implemented in terms of the other.
+
+
+\item
+In the Andrews' distributed semaphore implementation of our textbook
+that we discussed, there are numerous {\sc ack} messages being sent.
+Most of these are unnecessary.
+
+\item
+A typical machine (node) in a distributed system can run several
+concurrent processes.  Each of these processes must maintain its own
+logical clock in order to correctly deal with the {\sl happened
+before} relation.
+
+\end{enumerate}
+
+
+\item (15 points)
+Consider the following program segment:
+
+\begin{tabbing}
+000\=000000000000\=\kill
+\co\> \lb \await $x \geq 3$ \>\ra $x := x - 3$ \rb\\
+\pa\> \lb \await $x \geq 2$ \>\ra $x := x - 2$ \rb\\
+\pa\> \lb \await $x = 1$ \>\ra $x := x + 5$ \rb\\
+\oc\\
+\end{tabbing}
+
+Let $P$ be a predicate that characterizes the weakest deadlock-free
+precondition for the program, i.e., the largest set of states such
+that, if the program is begun in a state satisfying $P$, then it will
+terminate if scheduling is weakly-fair.  Determine $P$.  Explain your
+answer.
+
+
+\item (20 points)
+Develop a solution in \CSP for the following problem.  Process $A$ has
+a set of $m$ integers $S$ and $B$ has a set of $n$ integers $T$.  The
+two processes are to exchange values one at a time until all elements
+of $S$ are less than all elements of $T$.  Assume that all the $m+n$
+integers are distinct.
+
+
+
+\item (10 points) Udding's solution to the starvation-free mutual
+exclusion problem is reproduced below.  Explain the function of the
+semaphore {\tt qu}.
+
+\begin{verbatim}
+ 1 P(eu); ne := ne+1; V(eu);
+ 2 P(qu); P(eu);	    
+ 3	nm := nm+1;	    
+ 4	ne := ne-1;	    
+ 5	if ne > 0 --> V(eu) 
+ 6	[] ne = 0 --> V(mu) 
+ 7	fi;		    
+ 8 V(qu);		    
+ 9 P(mu); nm := nm-1;	    
+10	<cs >		    
+11	if nm > 0 -->  V(mu)
+12	[] nm = 0 -->  V(eu)
+13	fi		    
+\end{verbatim}
+
+
+
+
+\end{enumerate}
+\end{document}

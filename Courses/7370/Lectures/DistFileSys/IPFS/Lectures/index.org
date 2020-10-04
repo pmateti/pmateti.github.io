@@ -1,0 +1,43 @@
+# -*- mode: org -*-
+#+DATE: 2018-08-04
+#+TITLE: IPFS Lectures
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Table of Contents
+
+1. What is IPFS? Why Should You Care? [[./what-is-ipfs.org][Notes]] | [[./what-is-ipfs-slides.html][Slides]]
+2. A Demo of IPFS  [under construction]
+3. The Design and Implementation of IPFS [under construction]
+4. The Design of dApps (Distributed Apps) on IPFS [under construction]
+
+* References
+
+1. Juan Benet, @article{benet2014ipfs, title={IPFS-Content Addressed,
+   Versioned, P2P File System (Draft 3)}, author={Benet, Juan},
+   journal={arXiv preprint arXiv:1407.3561}, year={2014}, pages =
+   {11},} https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf
+
+1. @Article{Filecoin2017, author = {Protocol-Labs}, title = {Filecoin:
+   A Decentralized Storage Network}, journal = {White Paper}, year =
+   {2017}, pages = {36}, month = {July}, }
+
+1. Mark Pors, https://decentralized.blog/ Catching the Blockchain
+   Train: Understanding-the- IPFS white-paper 2017
+
+1. https://flyingzumwalt.gitbooks.io/decentralized-web-primer/content/
+   web based full book
+
+1. All figures are borrowed from the web.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

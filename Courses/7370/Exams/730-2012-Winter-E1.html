@@ -1,0 +1,161 @@
+<html><head>
+<title>CEG730 Distributed Computing Midterm</title>
+<style type="text/css">
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  li { text-align: justify; }
+  @media screen {BODY {background: white; margin: 10%} }
+</style>
+</head>
+<body>
+
+<table cellSpacing="10" cellPadding="10" width="100%" border="0" height="130">
+<tbody><tr>
+<td width="16%">
+  <a href="http://www.wright.edu/" target="_blank">
+    <img src="./wsu-logo-xsm.gif" border="0" width="98"
+    height="46"></a></td>
+<td vAlign="top" width="72%">
+<h2>CEG 730 Distributed Computing Principles</h2>
+<h4>Winter 2012//Mid Term Exam//75 minutes//100 points</h4> 
+
+This is a closed book, closed notes exam. Do not give or take help
+during the exam.
+</td>
+</tr>
+</tbody></table>
+<ol>
+  <li>(10*5 points) Explain/ discuss/ dispute/ compute the following
+    statements. It is <i>possible</i> to write no more than, say, ten,
+    sentences each, and yet receive full score.
+
+    <ol type="i">
+	<li><i>wp(S, True ) = True</i> defines liveness of S.
+	  True/False? Explain.
+	<li> Compute <i>wp(S, i = 2)</i>, where S is 
+	<tt>if i < 2 --> i := i + 1 [] i > 2 --> i := 2 fi</tt>
+
+
+      <li> 	      Consider the program segment given here.
+
+	<table width=100%>
+	  <tr>
+	    <td width=50% valign=top>
+	      Determine <i>P</i> a predicate that characterizes the weakest
+	      deadlock-free precondition for the program.
+	      Also, explain how you arrived at P.
+	    </td>
+	    <td width=50% valign=top>
+	      
+<pre> co &lt;await x &gt;= 4  --&gt; x := x - 4&gt;
+ || &lt;await x &gt;= 5  --&gt; x := x - 4&gt;
+ || &lt;await x == 1  --&gt; x := x + 8&gt;
+ oc</pre> 
+</td>
+	  </tr>
+	</table>
+      </li>
+<li>Since the semantics of <tt>S1 || S2</tt> permits their execution
+  as if it is <tt>S1;S2</tt>, we can replace some occurrences, if not
+  all, of <tt>S1;S2</tt> with <tt>S1 || S2</tt>.  True/False? Explain.</p>
+
+<li>A scheduling policy that is strongly fair must also be weakly fair.
+	Discuss.
+
+      <li>&quot;Some day, if not at the end of CEG 730, you will
+	appreciate and marvel at the book Concurrent Programming by
+	Andrews.'' Explain if this is a safety,  or liveness
+	property, or perhaps neither. </li>
+
+
+      <li>In the context of RPC, a procedure designed to be called remotely
+	<i>can</i> use global variables to communicate with the
+	caller, provided we modify <i>rpcgen</i> appropriately.
+	True/False? Explain.
+
+      <li>Marshalling in RPC is no more than a tight-packing of the
+	bytes of the input arguments. True/False? Explain.
+
+      <li>The code <code>V(s); P(s)</code> is <i>always</i> equivalent
+      to a no-op (&quot;skip&quot;, or do-nothing).  True/False? Explain.
+
+      <li>The "standard solution" <tt> P(m); CS; V(m)</tt> is
+      starvation-free in the context of non-distributed systems.
+
+    </ol>
+  </li>
+  
+
+  <li>(25 points) Consider the following as an <b>await</b>-statement
+   based model of the classic Dining Philosophers Problem. The
+   expression <tt>i + 1</tt> throughout is modulo 5. The <tt>up</tt>
+   and <tt>dn</tt> (down) refer to whether the philosopher picked the
+   fork up or put the fork down.
+    <blockquote>
+      <pre>   global int up[0..4], dn[0..4] initially all 0;
+   philosopher[i: 0..4]::
+     do true -->
+   	think
+   	< await up[i] == dn[i] --> up[i] ++ >
+   	< await up[i+1] == dn[i+1] --> up[i+1] ++ >
+        eat
+   	< dn[i] ++ >
+   	< dn[i+1] ++ >
+     od
+</pre>
+</blockquote>
+<ol type="a">
+<li>(15 points) Using the Pass-the-Baton technique systematically
+  convert it to an equivalent algorithm using semaphores only. For
+  now, disregard if the above is a ``solution'' or not.</li>
+<li>(10 points) Is this a deadlock-, livelock-, starvation-free
+  ``solution'' to the Dining Philosophers Problem? If so, explain. If
+  not so, fix it at the <b>await</b>-statement level .
+</ol>
+</li>
+
+<li>(25 points) The <i><it>Recursive Data Representation: Small Set of
+      Integers</it></i> of Hoare's CSP paper is reproduced below. (a)
+      (20 points) Extend it to respond to a
+      request <tt>S(1)!secondMin()</tt> from S(0) that expects a reply
+      with the second minimum of elements in the set if the set has
+      more than 1 elements, or "undefined" otherwise.  Include an
+      explanation of how it works. (b) (5 points) Include a convincing
+      argument/proof that your extension is correct, and that you have
+      not broken existing functionality.
+  <blockquote>  
+<pre>
+S(i: 1 .. 100) ::
+    do  n: integer; S(i-1)?has(n) --> S(0)!false
+    []  n: integer; S(i-1)?insert(n) -->
+        do  m: integer; S(i-1)?has(m) -->
+            if  m <= n --> S(0)!(m = n)
+            []  m >  n --> S(i+1)!has(m)
+            fi
+        []  m: integer; S(i-1)?insert(m) -->
+            if m < n --> S(i+1)!insert(n); n := m
+            [] m = n -->  skip
+            [] m > n --> S(i+1)!insert(m)
+	    fi
+        od
+    od</pre>  </blockquote>
+</li>
+
+
+</ol>
+
+<hr size="1">
+
+<aa href="http://www.cs.wright.edu/~pmateti/copyright.html">
+Copyright &copy;</a> 2012
+<aa href="http://www.cs.wright.edu/~pmateti" target="_blank">
+Prabhaker Mateti</a>
+&bull; Feb 09, 2012
+
+</body>
+</html>

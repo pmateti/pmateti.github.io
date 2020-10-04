@@ -1,0 +1,6 @@
+total 24
+155451537 drwxrwxr-x 5 pmateti pmateti 4096 Jan 25 22:46 Courses/
+155458934 drwxrwxr-x 2 pmateti pmateti 4096 Jan 25 19:56 images/
+154928560 -rw-rw-r-- 1 pmateti pmateti 8199 Jan 25 22:54 index.html
+154928081 -rw-rw-r-- 1 pmateti pmateti    0 Jun  3 13:02 ls-li.txt
+154928559 -rw-rw-r-- 1 pmateti pmateti  233 Jan 25 19:56 README.md

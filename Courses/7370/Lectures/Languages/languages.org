@@ -1,0 +1,30 @@
+# -*- mode: org -*-
+#+DATE: 2015-03-13
+#+TITLE: Distributed Programming Languages
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7370 Distributed Computing
+#+OPTIONS: toc:1 
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {font-family: monospace; font-size: 10pt; color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\"> CEG 7370</a> | <a href=\"./actorsAkkaScala.html\"> Actors Akka Scala Overview</a> | <a href=\"./scalaPracticalSlides.html\"> Slides</a> | <a href=\"./scalaPracticalOnePage.html\"> Single-Page</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+REVEAL_ROOT: http://www.cs.wright.edu/~pmateti/RevealJS
+#+REVEAL_PREAMBLE: <a href="./scalaPracticalOnePage.html">single-page</a><style> P {text-align: justify} code {font-family: monospace; font-size: 10pt; color: yellow;} pre.src, pre.src-scala {font-family: monospace; font-size: 20pt; color: cyan;} </style>
+#+REVEAL_THEME: night
+#+REVEAL_TRANS: default
+#+REVEAL_HLEVEL: 2
+#+REVEAL-SLIDE-NUMBER: t
+#+OPTIONS: reveal_control:t reveal_progress:t reveal_history:t reveal_center:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t
+#+REVEAL_TITLE_SLIDE_TEMPLATE: <h1>%t</h1><h3>%a</h3>%e<h2>%d</h2>An introduction to Scala, assuming OS and Java fluency<br><a href="../../Top/">CEG 7370 Distributed Computing</a>
+#+ATTR_REVEAL: highlight-blue  # not working
+
+* SR
+
+1. CEG7370 WhiteBoard in SR
+
+
+* GO
+
+* Language Sampler
+
+1. [[./languageSampler.html]]

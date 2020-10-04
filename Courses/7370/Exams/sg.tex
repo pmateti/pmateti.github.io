@@ -1,0 +1,105 @@
+\documentstyle[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\pr{$\parallel$}
+\def\rar{$\rightarrow$}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\SR{{\sc sr}}
+
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Computing Principles\\[5pt]
+\large Final Exam\\[10pt]
+\quad 100 points max \quad 120 minutes\\
+}
+\bigskip
+{Mateti,  Fall Quarter 1992, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (5*5 points)
+Explain, in a few lines, the truth or falsity of the following
+statements.
+
+\begin{enumerate}
+\item 
+The ``standard'' solution \quad {\tt P(m); CS; V(m);} \noindent is not
+starvation-free only in the distributed systems context, but is
+ok when the system is a single-cpu system.
+
+\item
+Any solution to the distributed mutual exclusion problem can be
+thought of as a solution to the problem of implementing semaphores in
+a distributed system, and vice versa.
+
+\item
+In \SR, when invoking an operation implemented by a {\tt proc} through
+a {\tt send} the effect is that of a rendezvous.
+
+\item
+Asynchronous message passing cannot be implemented using synchronous
+message passing primitives.
+
+\item
+The \CSP\ code {\tt [X!2 \pr Y!3]} is equivalent to \\
+{\tt
+[  true \rar\ X!2; Y!3\\
+\fat\ true \rar\ Y!3; X!2\\
+]}
+
+\end{enumerate}
+
+\item (30 points)
+Write an algorithm in C-Linda for the following problem.  Explain your
+solution fully.  Given, in the tuple space {\sc ts}, a bag $B$ of
+integers {\tt <"B", i>} for all {\tt i} in $B$, and the size of the
+bag {\tt <"nB", nb>}, compute the second largest number {\tt <"mx2nd",
+x>} in the bag.
+
+\item (10 points)  Rewrite the above algorithm in \CSP.
+
+\item (20 points)
+Give a simulation of the Dining Philosophers, with or without a
+servant, in \SR.
+
+
+\newpage
+\item (15 points)
+The following is claimed to be an implementation of {\bf region $v$
+when $B$ do $S$ end}.
+
+{\bf
+\begin{tabbing}
+00\=00\=00\=\kill
+semaphore $e := 1$, $g := 0$, $d := 0$ initially;\\
+integer $nd := 0$, $ng := 0$ initially;\\
+\\
+P$(e)$;\\
+while not $B$ do\+\\
+  $nd := nd + 1$;\\
+  if $ng > 0$ then V$(g)$ else V$(e)$ fi;\\
+  P$(d)$;\\
+  P$(g)$;\\
+  $ng := ng - 1$\-\\
+od;\\
+$S$;\\
+while $nd > 0$ do\+\\
+  V$(d)$;\\
+  $nd := nd - 1$;\\
+  $ng := ng + 1$\-\\
+od;\\
+if $ng > 0$ then V$(g)$ else V$(e)$ fi\\
+\end{tabbing}
+}
+
+\noindent
+Either give a proof that the above algorithm is correct, or give a
+scenario demonstrating a situation that violates a requirement of
+the problem.
+
+\end{enumerate}
+\end{document}

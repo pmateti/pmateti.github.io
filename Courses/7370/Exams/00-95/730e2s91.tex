@@ -1,0 +1,97 @@
+\documentstyle[12pt]{article}
+\def\fat{\framebox[1mm]{\rule{0mm}{2mm}}}
+\def\CSP{{\sc csp}}
+\def\RPC{{\sc rpc}}
+\def\SR{{\sc sr}}
+\parindent=0pt
+\begin{document}
+
+
+{\bf CEG 
+\large \bf 730 Distributed Systems I\\[5pt]
+\large Final Exam\\[10pt]
+June 1991 \quad 100 points max \quad 120 minutes\\
+}
+\bigskip
+{Mateti,  Spring Quarter 1991, Wright State U}\\[-5pt]
+\hrule
+
+\begin{enumerate}
+
+\item (4*5 points)
+Explain, in a few lines, the truth or falsity of the following
+statements.
+
+\begin{enumerate}
+\item
+A procedure designed to be used remotely {\em can} use global
+variables to communicate with the caller.
+
+\item
+There is no difference between safety and liveness properties.
+
+\item
+The Byzantine generals problem can always be solved if the total
+number of generals is 2 regardless of whether the number of traitors
+is 0, 1 or 2.
+
+\item
+The difference between asynchronous and synchronous message
+passing is trivial.
+
+\end{enumerate}
+
+
+\item (10+10 points)
+(a) Explain the client/server paradigm.  (b) In the context of \RPC,
+describe the tasks performed by the stub procedures in the client and
+in the server.
+
+\item (10 points)  Describe a distributed mutual exclusion algorithm
+that uses messages but not semaphores.
+
+\item (10 points) Give a solution to the following problem in Linda.
+Explain your solution appropriately.  Aim to maximize concurrency.
+Given a binary tree, compute its height. (The height of a tree is the
+length of the longest path from the root to a leaf.)
+
+\item (10 points) Give a simulation of the Dining Philosophers, with or
+without a servant, in \SR.
+
+\newpage
+\item (30 points)
+In the following code {\tt s} is a global array [0..1] of two
+semaphores, initially both 1.  The variable {\tt z} and the boolean
+{\tt b} are also global; {\tt z} is initially 0, and {\tt b} is
+initially {\tt false}.  The variables {\tt x} and {\tt y} are local to
+each process.  Study it as a `solution' for the starvation-free mutual
+exclusion problem.  Make the same assumption that [Morris 79] and
+[Udding 86] do.
+
+\begin{verbatim}
+local x, y;  global z=0, b=false, s[0]=1, s[1]=1;
+x := z;
+P(s[x]);
+  if z = x then
+    y := 1 - z;
+    P(s[y]);
+      z := y;
+      repeat
+        b := true;
+        V(s[x]);
+        P(s[x]);
+      until b;
+      <critical section>
+    V(s[y])
+  else
+    b := false;
+    <critical section>
+  fi
+V(s[x])
+\end{verbatim}
+Either give a convincing argument that the above algorithm is correct,
+or give a scenario demonstrating a situation that violates the
+requirements of the problem.
+
+\end{enumerate}
+\end{document}

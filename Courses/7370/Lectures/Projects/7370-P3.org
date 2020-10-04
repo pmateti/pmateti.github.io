@@ -1,0 +1,60 @@
+# -*- mode: org -*-
+#+TITLE: CEG 7370 Project P3
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+HTML_LINK_HOME: ../../7370
+#+HTML_LINK_UP: ../Lectures
+#+DESCRIPTION: WSU CEG 7370 Distributed Computing
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../Top/\">CEG 7370</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 %e TBD &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> %d"))
+
+
+TBD Fix links
+
+* P3 using Akka Actors
+
+This Spring 2020, the CEG 7370 Project P3 is mostly about learning
+Scala + Akka.  Start with the source code examples below.
+
+* Dining Philosophers in Akka
+
+1. TBD Fix links https://www.typesafe.com/activator/template/akka-sample-fsm-scala;; https://developer.lightbend.com/start/
+1. TBD Fix links [[https://www.typesafe.com/activator/template/bundle/akka-sample-fsm-scala][akka-sample-fsm-scala.zip]]
+
+1. These two files are "implementing" the famous Dining Philosophers
+   *problem* -- not the solution.
+
+   1. [[../Lectures/Actors+Akka+Scala/scalaExamples/DiningHakkersOnBecome.scala.html][DiningHakkersOnBecome.scala]] minor mods by Mateti; 106 lines
+   1. [[../Lectures/Actors+Akka+Scala/scalaExamples/DiningHakkersOnFsm.scala.html][DiningHakkersOnFsm.scala]] minor mods by Mateti; 141 lines
+   1. My versions can be compiled and run without using Activator.
+      E.g.,\\
+      =% scalac DiningHakkersOnBecome.scala; scala DiningHakkersOnBecome=
+1. Study the source code of both Become and FSM versions.  Run the
+   examples.  
+
+
+* P3 in Akka
+
+Do the following for P3.
+
+
+1. (2*15 points) Observe the output of Become and FSM versions.
+   Explain if any philosopher is starved.  Why or Why not?  Was it
+   necessary to tweak the src code to exhibit "interesting" behavior?
+
+1. (2*35 points) Introduce a "waiter" actor.  Now, the philosophers
+   shoud not have individual starvation.  A version of this is
+   described under section "Arbitrator solution" in
+   http://en.wikipedia.org/wiki/Dining_philosophers_problem
+
+Submit four files: two Scala/Java/Kotlin source code files with
+"waiter", one each for Become and FSM, and two pdf's explaining the
+source code and your answers to the above.
+
+Turnin this P3 as you did with P1 and P2.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

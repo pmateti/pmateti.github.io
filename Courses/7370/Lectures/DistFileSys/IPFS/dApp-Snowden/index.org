@@ -1,0 +1,57 @@
+
+# -*- mode: org -*-
+#+date: 2019-08-22
+#+TITLE: dApp Snowden
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Snowden
+
+1. https://coinlist.co/build/nucypher/projects/0ca13d4e-c809-482a-8ca6-1f094f74eff7
+   WEBSITE  http://snowden.tilda.ws/ GITHUB
+   https://github.com/MikaelLazarev/Snowden VIDEO  https://youtu.be/0A6qDbi1MnI
+
+1. Unclear details of installation.  Shebang is not the same on all
+   script files.  On Ubuntu, =sh= is symlinked to =dash=.  The
+   =source= is not a builtin in all shells.  Wherever =sh filename=
+   appears replace it with =bash filename=
+
+
+* Install chrome extension
+
+1. =cd /usr/local/src=
+1. =git clone https://github.com/MikaelLazarev/Snowden.git=
+1. =cd Snowden=
+1. Download extension: https://nusnowden.herokuapp.com/ext
+1. =unzip ~/Downloads/ext.zip= The way he built the zip, this yields
+   build/ __MACOSX/.  Ignore __MACOSX/
+1. Open Google Chrome, enter chrome://extensions in the address bar
+1. Choose "Developer mode"
+1. Click on "Load unpacked"
+1. Choose folder with extension =/usr/local/src/Snowden/build=
+1. A new icon icon for the extension shows up to thr right of the
+   address bar.  Click on it to Open extension.
+
+Failed building wheel for PyYAML
+Failed building wheel for regex
+Failed building wheel for SQLAlchemy
+Failed building wheel for Twisted
+
+
+https://nusnowden.herokuapp.com/host?ext_id=mcaajfjjljkgdgafpgajfoeejepiempj host.zip
+
+; grep debug /tmp/ursulas-logs/ -Rn
+/tmp/ursulas-logs/ursula-11502.txt:15:Error: no such option: --debug
+/tmp/ursulas-logs/ursula-11500.txt:15:Error: no such option: --debug
+/tmp/ursulas-logs/ursula-11501.txt:15:Error: no such option: --debug
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

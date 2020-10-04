@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-09-03 Tue 10:01 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>pmNotes dApps</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<meta name="description" content="Mateti: Android Internals and Security"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style type="text/css"> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">pmNotes dApps</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org38f1293">1. Independent Study</a>
+<ul>
+<li><a href="#orgd1acd1d">1.1. Independent Study Course, in General</a></li>
+<li><a href="#org1b3966a">1.2. Independent Study Course, This One</a></li>
+<li><a href="#orga58ff49">1.3. Overview</a></li>
+<li><a href="#org33460d8">1.4. IPFS</a></li>
+<li><a href="#org33c1663">1.5. NuCypher</a></li>
+<li><a href="#orgd4f49c2">1.6. dApps</a></li>
+<li><a href="#org8aa9065">1.7. Topics Beyond the Scope of this Study</a></li>
+</ul>
+</li>
+<li><a href="#org95615b2">2. Capstone Project</a>
+<ul>
+<li><a href="#org3b876a9">2.1. Jayal's Project</a></li>
+<li><a href="#orgaf0dcb3">2.2. Must Do</a></li>
+<li><a href="#org908a206">2.3. Hako</a></li>
+<li><a href="#org9a98fbd">2.4. NuCypher Chrome Extension</a></li>
+<li><a href="#orga484432">2.5. Appendices</a></li>
+</ul>
+</li>
+<li><a href="#orgd19f132">3. Example dApps</a></li>
+<li><a href="#orgc3c41ca">4. Snowden</a></li>
+<li><a href="#orge427c8c">5. References</a></li>
+<li><a href="#orgb00cc38">6. End</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org38f1293" class="outline-2">
+<h2 id="org38f1293"><span class="section-number-2">1</span> Independent Study</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgd1acd1d" class="outline-3">
+<h3 id="orgd1acd1d"><span class="section-number-3">1.1</span> Independent Study Course, in General</h3>
+<div class="outline-text-3" id="text-1-1">
+<ol class="org-ol">
+<li>This description is applicable to all 6970 courses.  TBD Link to form.</li>
+<li>A Graduate Independent Study course (6970) is similar to a regular
+course such as 6420 Host Computer Security, except there are no
+scheduled lectures by a professor, no homweorks, no labs, and no
+exams.</li>
+
+<li>The work put in by the student shoudl be comparable to that of a
+regular course of the same number of credit hours.</li>
+
+<li>A Final Report must be submitted near the end of the term.  It must
+be written as a proper tech report.  Follow the guidelines (e.g.,
+WSU graduate school).  The report should convince its readers that
+tye student has learned the material.  Comparable to quality and
+quantity to that of a regular course. There is no definitive
+length.  Something shorter than 50pp is too short, longer than
+100pp is too long.</li>
+
+<li>A typical indep study expects one or more demonstrable project
+running on Linux or Windows.  The scope of these ought to be
+similar to the lab experiments of CEG 4420/6420.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org1b3966a" class="outline-3">
+<h3 id="org1b3966a"><span class="section-number-3">1.2</span> Independent Study Course, This One</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li>Title: Blockchains, IPFS, NuCypher, and dApps</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orga58ff49" class="outline-3">
+<h3 id="orga58ff49"><span class="section-number-3">1.3</span> Overview</h3>
+<div class="outline-text-3" id="text-1-3">
+<ol class="org-ol">
+<li>The New Decentralized Future.</li>
+<li>Private Data on a Public Blockchain</li>
+<li>Concepts: Decentralized content storage network.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org33460d8" class="outline-3">
+<h3 id="org33460d8"><span class="section-number-3">1.4</span> IPFS</h3>
+<div class="outline-text-3" id="text-1-4">
+<ol class="org-ol">
+<li>IPFS: The decentralized content storage network.  Uncensorable.
+Undeletable.  Distributed across countries.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org33c1663" class="outline-3">
+<h3 id="org33c1663"><span class="section-number-3">1.5</span> NuCypher</h3>
+<div class="outline-text-3" id="text-1-5">
+<ol class="org-ol">
+<li>NuCypher.  The privacy layer.  Building the Applications and Tools
+for Unconditional Privacy.  A proxy re-encryption network to
+empower privacy in decentralized systems.</li>
+
+<li>"NuCypher KMS: Uncensorable decentralized encryption service"</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd4f49c2" class="outline-3">
+<h3 id="orgd4f49c2"><span class="section-number-3">1.6</span> dApps</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li>"DApps are decentralized applications where no single entity has
+the power to control that app because it is deployed on a
+distributed blockchain ledger."</li>
+
+<li><a href="https://www.stateofthedapps.com/whats-a-dapp">https://www.stateofthedapps.com/whats-a-dapp</a></li>
+<li>9 Best DApps On Ethereum Platform <a href="https://coinsutra.com/ethereum-dapps/">https://coinsutra.com/ethereum-dapps/</a></li>
+<li><a href="https://app.co/ipfs">https://app.co/ipfs</a> Universal dapp store - discover decentralized
+apps.  IPFS. Rank. Auth. Storage.  Blockchain. Tweets/Week.
+Filesharing App and IPFS node on Android.</li>
+
+<li><a href="https://www.stateofthedapps.com/dapps/nucypher">https://www.stateofthedapps.com/dapps/nucypher</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org8aa9065" class="outline-3">
+<h3 id="org8aa9065"><span class="section-number-3">1.7</span> Topics Beyond the Scope of this Study</h3>
+<div class="outline-text-3" id="text-1-7">
+<ol class="org-ol">
+<li>Not exhaustive.</li>
+
+<li><a href="https://www.originprotocol.com/">https://www.originprotocol.com/</a> Origin is a protocol for creating
+peer-to-peer marketplaces using the Ethereum blockchain and IPFS</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org95615b2" class="outline-2">
+<h2 id="org95615b2"><span class="section-number-2">2</span> Capstone Project</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>What is a Capstone Project? As a project, how extensive must it be?
+What are the deliverables?</li>
+
+<li>Definition of privacy: We do not have a definition (as of 2019) of
+what privacy is.  TBD Link explains via examples.  TBD Browse the
+content of eff.org. <a href="https://www.eff.org/issues/privacy">https://www.eff.org/issues/privacy</a></li>
+</ol>
+</div>
+
+<div id="outline-container-org3b876a9" class="outline-3">
+<h3 id="org3b876a9"><span class="section-number-3">2.1</span> Jayal's Project</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>Design and build a dApp whose functionality matches
+<a href="https://keepass.info/">https://keepass.info/</a>, a free, open source, light-weight and
+easy-to-use password manager.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgaf0dcb3" class="outline-3">
+<h3 id="orgaf0dcb3"><span class="section-number-3">2.2</span> Must Do</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>Install metamask.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org908a206" class="outline-3">
+<h3 id="org908a206"><span class="section-number-3">2.3</span> Hako</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li><a href="https://github.com/drbh/hako">https://github.com/drbh/hako</a> Mar 2019 "Unlike other file sharing
+services such as Dropbox and Google Drive, Hako does not place your
+keys in the hands of a large companies. The user is always in
+control of your keys and your data."</li>
+
+<li>Centralized storage has a single point of failure (the company) and
+require a user to be online (connected to the central servers) in
+order to transfer data and delegate access.</li>
+
+<li>It consists of a library called NCIPFS and the application
+Hako. Hako is powered by NCIPFS and is provides a REST interface
+and web-app to the underlying methods of NCIPFS.</li>
+
+<li>Futari</li>
+<li>NUCID</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org9a98fbd" class="outline-3">
+<h3 id="org9a98fbd"><span class="section-number-3">2.4</span> NuCypher Chrome Extension</h3>
+<div class="outline-text-3" id="text-2-4">
+<ol class="org-ol">
+<li><a href="https://github.com/if1242/NuCypherChromeExtensionCoinlistHack">https://github.com/if1242/NuCypherChromeExtensionCoinlistHack</a> by
+Ivan Fedorov. The NuCypher Google Chrome Extension helps "sharing
+your datafiles in a safe way using NuCypher technology. &#x2026;  The
+extension is fully functional and you can try it in action after
+installation."
+<a href="https://www.youtube.com/watch?v=pmoMzzIR458&amp;feature=youtu.be">https://www.youtube.com/watch?v=pmoMzzIR458&amp;feature=youtu.be</a> 1:19
+Apr 2019</li>
+<li>Native Messaging protocol</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orga484432" class="outline-3">
+<h3 id="orga484432"><span class="section-number-3">2.5</span> Appendices</h3>
+<div class="outline-text-3" id="text-2-5">
+<ol class="org-ol">
+<li>Installation Reports.  On each item installed.  Collect the actual
+logs (e.g., via the command named <code>script</code>), and then overlay a
+section/subsection structure on it.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd19f132" class="outline-2">
+<h2 id="orgd19f132"><span class="section-number-2">3</span> Example dApps</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li><a href="https://www.stateofthedapps.com/dapps/smartcheck">https://www.stateofthedapps.com/dapps/smartcheck</a> Mar 2018
+SmartCheck - is a static analyzer for Solidity programming
+language. It automatically checks Smart Contracts for
+vulnerabilities and bad practices, highlights them in the code and
+gives a detailed explanation of the problem. Free version of the
+tool is available online: you can scan your Solidity code right
+now. All you need to do is to upload the code of any contract
+written in Solidity (drop .sol files/folders or paste the code) ,
+click “Submit for scan” button and wait for several seconds.</li>
+
+<li><a href="https://securify.chainsecurity.com/?utm_source=StateOfTheDApps">https://securify.chainsecurity.com/?utm_source=StateOfTheDApps</a>
+Security Scanner for Ethereum Smart Contracts.  The Ethereum
+security scanner is based on the latest research from the ICE
+center, ETH Zurich. <a href="https://arxiv.org/pdf/1806.01143.pdf">https://arxiv.org/pdf/1806.01143.pdf</a> ACM CCS
+2018</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgc3c41ca" class="outline-2">
+<h2 id="orgc3c41ca"><span class="section-number-2">4</span> Snowden</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li><a href="https://coinlist.co/build/nucypher/projects/0ca13d4e-c809-482a-8ca6-1f094f74eff7">https://coinlist.co/build/nucypher/projects/0ca13d4e-c809-482a-8ca6-1f094f74eff7</a>
+WEBSITE  <a href="http://snowden.tilda.ws/">http://snowden.tilda.ws/</a> GITHUB
+<a href="https://github.com/MikaelLazarev/Snowden">https://github.com/MikaelLazarev/Snowden</a> VIDEO  <a href="https://youtu.be/0A6qDbi1MnI">https://youtu.be/0A6qDbi1MnI</a></li>
+
+<li>Unclear details of installation.  Shebang is not the same.  On
+Ubuntu, even the <code>source</code> is missing in some shells.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orge427c8c" class="outline-2">
+<h2 id="orge427c8c"><span class="section-number-2">5</span> References</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Blockchains.  Book <a href="https://bitcoinbook.cs.princeton.edu/">https://bitcoinbook.cs.princeton.edu/</a>; YouTube
+play list
+<a href="https://www.youtube.com/watch?v=fOMVZXLjKYo&amp;list=PLQIX_E46U4XYE5GR6029FpnaX9aBXbt0B">https://www.youtube.com/watch?v=fOMVZXLjKYo&amp;list=PLQIX_E46U4XYE5GR6029FpnaX9aBXbt0B</a></li>
+<li>Intro to IPFS and dApps by Prabhaker Mateti
+<a href="https://cecs.wright.edu/~pmateti/Research/IPFS/Lectures/">https://cecs.wright.edu/~pmateti/Research/IPFS/Lectures/</a></li>
+<li>NuCypher <a href="https://github.com/nucypher">https://github.com/nucypher</a>;
+<a href="https://docs.nucypher.com/en/latest/guides/installation_guide.html">https://docs.nucypher.com/en/latest/guides/installation_guide.html</a></li>
+<li>dApps <a href="https://www.stateofthedapps.com/">https://www.stateofthedapps.com/</a></li>
+<li>NCIPFS Third place winner in the NuCypher + Coinlist Hackathon
+March 2019.  A developer friendly python library to easily store,
+encrypt, share and decrypt data on IPFS with NuCypher's proxy
+re-encryption. <a href="https://coinlist.co/build/nucypher/votes">https://coinlist.co/build/nucypher/votes</a>,</li>
+
+<li><a href="https://metamask.io/">https://metamask.io/</a> MetaMask is a bridge that allows you to visit
+the distributed web of tomorrow in your browser today. It allows
+you to run Ethereum dApps right in your browser &#x2026;</li>
+
+<li><a href="https://www.youtube.com/results?search_query=nucypher">https://www.youtube.com/results?search_query=nucypher</a> Several
+videos on YouTube.  Have not watched them yet.</li>
+
+<li><a href="https://cryptozombies.io/">https://cryptozombies.io/</a> CryptoZombies is a free, interactive code
+school that teaches you to build games on Ethereum.</li>
+
+<li><a href="https://coinlist.co/build/nucypher/votes">https://coinlist.co/build/nucypher/votes</a> Links to a few dAps.
+Should try them all.</li>
+
+<li><a href="https://news.ycombinator.com/item?id=20853387">https://news.ycombinator.com/item?id=20853387</a> Sep 1 21:07
+'Decentralized Secret Sharing _ Hacker News.txt'</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb00cc38" class="outline-2">
+<h2 id="orgb00cc38"><span class="section-number-2">6</span> End</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />Copyright &copy; 2019 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2019-05-05
+</div>
+</body>
+</html>

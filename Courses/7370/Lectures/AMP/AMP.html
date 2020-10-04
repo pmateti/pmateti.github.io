@@ -1,0 +1,137 @@
+<title>CEG 7370 Distr Comp by Mateti</title>
+<base target="_top">
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  li { text-align: justify; }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+</head>
+
+<body>
+
+<h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7370/">
+CEG 7370:&nbsp;Distributed Computing Principles</a></h3>
+<h1>Asynchronous Message Passing AMP</h1>
+
+<h3>Prabhaker Mateti</h3>
+
+<p>This web page is organized in way that is useful during my lecture,
+instead of ppt slides.</p>
+
+<hr size=1>
+
+<h2>Asynchronous Message Passing AMP</h2>
+
+<ol>
+<li> send message e to process B<br>
+  -- e an expression
+<li> receive message x from process A<br>
+  -- var x local to B
+<li> receiver waits if there are no messages
+<li> send operation never blocks<br>
+-- implies infinite buffering<br>
+-- no implied synchronization<br>
+-- can send messages to self<br>
+-- communication only
+
+<li> Order of receive = Order of send
+<li> sender and receiver execute independently<br>
+<li> "time gap" between send and the corresponding receive can be large
+</ol>
+
+<h2>Channels</h2>
+
+<ol>
+<li>A PL construct for AMP<br>
+ex: <tt>channel semop[1 .. n](sender: int, k: kind, timestamp: int)</tt>
+<li>send semop[j](i, VEE, lc)<br>
+-- selects one channel (semop[j]) and deposits the triplet (i, VEE, lc)<br>
+-- i, VEE, lc are expressions of types int, kind, int
+<li>receive semop[j](i, v, lc)<br>
+-- selects one channel (semop[j]) and retrieves a triplet<br>
+-- i, v, lc are local variables of the receiving process of types int, kind, int<br>
+-- i, v, lc are assigned the triplet's values
+<li>broadcast semop(i, VEE, lc)<br>
+-- does <tt>send semop[j](i, VEE, lc)</tt>  for all j: 1 .. n<br>
+-- in parallel
+</ol>
+
+
+<a name="Happened-Before"></a>
+<h2>Event Ordering</h2>
+
+<ol>
+<li>An event is the execution of anything: a statement, a send, a
+  receive, etc.
+<li>Any two events a and b in a single process (i.e., without //, only
+  has ; and []) are clearly ordered: 
+  <p>either a happens before b (written a &rarr; b) or the otherway (b
+    &rarr; a).
+<li>Let a and b be two events taken from two processes.
+  Can we order these two?
+
+  If a is the sending of a message, and b is the receiving
+  of <i>that</i> message, we can see that  <p>a &rarr; b.
+
+<li>What if a and b are not so?  We cannot say either that a &rarr; b
+  or the otherway b &rarr; a.
+<li>Happens Before is transitive: 
+  <p>a &rarr; b and b &rarr; c implies a &rarr; c.
+<li>Events across processes are only partially ordered.
+</ol>
+
+
+<h2>Logical Clocks</h2>
+
+<ol>
+<li>Distributed systems do not have central clocks.  
+<li>Yet, we desire to establish a total order among events across
+  processes.  That is, we wish either a &rarr; b or b &rarr; a even
+  when a and b are not from the same process or send/receives.
+<li>A <i>logical clock </i> is a private counter maintained by each
+  process.
+<li>On every event, <tt>lc := lc + 1</tt>.
+<li>Include lc as part of every message sent, as the time stamp of the sender.
+<li>On receiving(m, ts), receiver does <tt>lc := max(lc, ts+1) + 1</tt>
+<li>Assume lc never overflows.
+</ol>
+
+
+
+<h2>Exercises</h2>
+
+<ol>
+<li>Discuss:  <i>Asynchronous</i>&nbsp; message passing is more
+  fundamental than <i>synchronous</i> message passing.  That is, given
+  SMP send/recv can we construct AMP send/recv? </li>
+<li> Discuss: <i>Peer-to-peer distributed computing</i> is just an academic
+  term for the commercial term <i>client-server computing</i>.</li>
+</ol>
+
+
+<h2>References</h2>
+
+<ol>
+  <li>Gregory R. Andrews, Concurrent Programming: Principles and
+    Practice, Benjamin/Cummings, 1991.  Chapter 7 on AMP.  Required
+    Reading.
+  <li>
+      <a href="http://en.wikipedia.org/wiki/Happened-before">
+        http://en.wikipedia.org/wiki/Happened-before</a>
+
+</ol>
+</body>
+<hr size=1>
+
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+  Copyright &copy;</a> 2012
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+  Prabhaker Mateti</a>
+</html>

@@ -1,0 +1,814 @@
+<html>
+<head>
+  <title>Language Sampler</title>
+
+  <base  target="_top">
+  <meta name="AUTHOR" content="Prabhaker Mateti">
+  <style type="text/css">
+  body {margin: 1cm 1cm 0cm 1cm}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify; }
+  @media print {BODY {font-size: 10pt; line-height: 120%; background: white;} }
+  @media screen {BODY {font-size: medium; background: white; margin: 5em} }
+  pre {border:lightgray 1px dashed; background:ivory; #f0f0f0; }
+  pre.text{font-family:verdana;}
+  </style>
+</head>
+
+<body>
+
+<a href="http://www.cs.wright.edu/~pmateti/">
+      www.cs.wright.edu/~pmateti/</a>
+
+      
+<h1>Programming Language Sampler for Distributed Computing</h1>
+
+<div id="inline-list">
+<p>This article hopes to give you a feel for the
+following languages:
+
+<a href="#Erlang">Erlang</a>, 
+<a href="#Haskell"> Haskell </a>, 
+<a href="#Lua">Lua</a>, 
+<a href="#Mozart/Oz">Mozart/Oz</a>, 
+<a href="#OCAML">OCaml</a>, 
+<a href="#Perl">Perl</a>,  
+<a href="#Prolog">Prolog</a>, 
+<a href="#Python">Python</a>, 
+<a href="#Scala">Scala</a>.
+</ol>
+
+Each of these is worth knowing at least a little.  There is
+something &quot;really different&quot;  about these languages from C/C++/Java.
+
+
+All these languages have open source implementations, readily
+available in Linux Ubuntu.
+</div>
+
+
+<p> Acknowledgement: This article is nothing more than a copy-and-paste of
+paragraphs from various web sites.
+
+<a href="./prog-tasks.html">
+Programming Tasks</a>
+
+<h2><a name="Erlang">Erlang</a></h2>
+
+<a href="./erlang.html"> ./erlang.html</a>
+
+
+<h2><a name="Haskell">Haskell</a></h2>
+
+Buzz Words: lazy, statically typed, pure 
+functional language; built-in concurrency and parallelism, debuggers, profilers, 
+rich libraries<p>&quot;Haskell offers: Substantially increased programmer 
+productivity (Ericsson measured an improvement factor of between 9 and 25 using 
+Erlang, a functional programming language similar to Haskell, in one set of 
+experiments on telephony software); Shorter, clearer, and more maintainable 
+code; Fewer errors, higher reliability; A smaller &quot;semantic gap&quot; between the 
+programmer and the language; Shorter lead times. &quot;  [From
+<a href="http://www.haskell.org/haskellwiki/">
+http://www.haskell.org/haskellwiki/</a> ]</p>
+
+<pre>
+module Main (main) where
+main = putStrLn "Hello, World!"</pre>
+
+
+<h4>Quick Sort</h4>
+
+<pre>
+qsort []     = []
+qsort (x:xs) = qsort [y | y <- xs, y < x] ++ [x] ++ qsort [y | y <- xs, y >= x]
+</pre>
+
+<h4>Concurrently Say &quot;Enjoy&quot; &quot;Rosetta&quot; &quot;Code&quot;</h4>
+
+<pre>
+import Control.Concurrent
+ 
+main = mapM_ forkIO [process1, process2, process3] where
+  process1 = putStrLn "Enjoy" 
+  process2 = putStrLn "Rosetta"
+  process3 = putStrLn "Code"
+</pre>
+
+<h4>Compute the Digits of &pi;</h4>
+<pre>
+-- http://shootout.alioth.debian.org/
+-- contributed by Bryan O'Sullivan
+-- modified by Eugene Kirpichov: pidgits only generates
+-- the result string instead of printing it. For some
+-- reason, this gives a speedup.
+
+import System
+
+pidgits n = 0 % (0 # (1,0,1)) where
+ i%ds
+  | i >= n = []
+  | True = (concat h ++ "\t:" ++ show j ++ "\n") ++ j%t
+  where k = i+10; j = min n k
+        (h,t) | k > n = (take (n`mod`10) ds ++ replicate (k-n) " ",[])
+              | True = splitAt 10 ds
+ j # s | n>a || r+n>=d = k # t
+     | True = show q : k # (n*10,(a-(q*d))*10,d)
+  where k = j+1; t@(n,a,d)=k&s; (q,r)=(n*3+a)`divMod`d
+ j&(n,a,d) = (n*j,(a+n*2)*y,d*y) where y=(j*2+1)
+
+main = putStr.pidgits.read.head =<< getArgs
+</pre>
+
+
+
+<h2><a name="Lua">Lua</a></h2>
+<p>Buzz Words: <span class="smaller">associative arrays for extensible embedded 
+scripting</span></p>&quot;Lua is a powerful, fast, lightweight, embeddable scripting 
+language.  Lua combines simple procedural syntax with powerful data 
+description constructs based on associative arrays and extensible semantics. Lua 
+is dynamically typed, runs by interpreting bytecode for a register-based virtual 
+machine, and has automatic memory management with incremental garbage 
+collection, making it ideal for configuration, scripting, and rapid 
+prototyping.&quot; 
+<p>&quot;Lua has been used in many industrial applications (e.g., Adobe's Photoshop 
+Lightroom), with an emphasis on embedded systems (e.g., the Ginga middleware for 
+digital TV in Brazil) and games (e.g., World of Warcraft). Lua is currently the 
+leading scripting language in games. Lua has a solid reference manual and there 
+are several books about it.&quot; [From <span class="smaller">
+<a href="http://www.lua.org/">http://www.lua.org/</a> ]</span></p>
+
+<pre>print "Hello, World!"
+</pre>
+
+
+<h4>Quick Sort</h4>
+
+
+<pre>
+function quicksort(array)
+    var list lessOrEqual, greater
+    if length(array) &#8804; 1  
+        return array  
+    select a pivot value pivot
+    for each x in array
+        if x &#8804; pivot then add x to lessOrEqual
+        if x > pivot then add x to greater
+    return concatenate(quicksort(lessOrEqual),
+                         concatenate(pivot, quicksort(greater)))
+</pre>
+
+<h4>Compute the Digits of &pi;</h4>
+
+<pre>
+-- http://shootout.alioth.debian.org/
+-- contributed by Mike Pall
+-- requires LGMP "A GMP package for Lua 5.1"
+
+local g = {}; require"c-gmp"(g, {})
+local add, mul, submul = g.mpz_add, g.mpz_mul_si, g.mpz_submul_ui
+local mul2x, div, cmp = g.mpz_mul_2exp, g.mpz_fdiv_qr, g.mpz_cmp
+local init, get, write = g.mpz_init_set_d, g.mpz_get_d, io.write
+
+local N = tonumber(arg and arg[1]) or 100
+local i, n, a, d, t, u = 0, init(1), init(0), init(1), init(0), init(0)
+for k=1,1000000 do
+  mul2x(n, 1, t) mul(n, k, n) add(a, t, a) mul(a, k+k+1, a) mul(d, k+k+1, d)
+  if cmp(a, n) >= 0 then
+    mul2x(n, 1, t) add(t, n, t) add(t, a, t) div(t, d, t, u) add(u, n, u)
+    if cmp(d, u) > 0 then
+      local y = get(t)
+      write(y); i = i + 1; if i % 10 == 0 then write("\t:", i, "\n") end
+      if i >= N then break end
+      submul(a, d, y) mul(a, 10, a) mul(n, 10, n)
+    end
+  end
+end
+if i % 10 ~= 0 then write(string.rep(" ", 10 - N % 10), "\t:", N, "\n") end
+</pre>
+
+
+<h2><a name="Mozart/Oz">Mozart/Oz</a></h2>
+
+<p>Buzz Words: dataflow computing, open distributed computing, constraints and logical
+inference, concurrent object-orientation, cross-platform compatibility,
+powerful development environment
+
+<p>The Mozart Programming System is a platform for intelligent, distributed 
+applications.   Oz language supports declarative programming, 
+object-oriented programming, constraint programming, and concurrency. [From
+<a href="http://www.mozart-oz.org/">http://www.mozart-oz.org/</a> ]</p>
+
+
+<pre>{Browse 'Hello World!'} </pre>
+
+<h4>Quick Sort</h4>
+
+<pre>
+declare
+  fun {QuickSort Xs}
+     case Xs of nil then nil
+     [] Pivot|Xr then
+        fun {IsSmaller X} X < Pivot end
+        Smaller Larger
+     in
+        {List.partition Xr IsSmaller ?Smaller ?Larger}
+        {Append {QuickSort Smaller} Pivot|{QuickSort Larger}}
+     end
+  end
+in
+  {Show {QuickSort [3 1 4 1 5 9 2 6 5]}}</pre>
+
+<h4>Concurrently Say "Enjoy" "Rosetta" "Code"
+
+</h4>
+
+<pre>
+for Msg in ["Enjoy" "Rosetta" "Code"] do
+   thread
+      {System.showInfo Msg}
+   end
+end</pre>
+<h4>Compute the Digits of &pi;</h4>
+
+
+
+<pre>
+% http://shootout.alioth.debian.org/
+%
+% Contributed by YANG Shouxun
+
+
+functor
+import
+   System(showInfo printInfo) Application(exit getArgs)
+
+define
+   fun {Next Z}
+      case Z of [Q R S T] then (3*Q + R) div (3*S + T)
+      else raise invalidArg(Z) end
+      end
+   end
+
+   fun {Safe Z N}
+      case Z of [Q R S T] then N == ((4*Q + R) div (4*S + T))
+      else raise invalidArg(Z) end
+      end
+   end
+
+   fun {Comp Z1 Z2}
+      case Z1#Z2
+      of [Q1 R1 S1 T1]#[Q2 R2 S2 T2] then
+	 [(Q1*Q2+R1*S2) (Q1*R2+R1*T2) (S1*Q2+T1*S2) (S1*R2+T1*T2)]
+      else raise invalidArg(Z1#Z2) end
+      end
+   end
+
+   fun {Prod Z N} {Comp [10 ~10*N 0 1] Z} end
+
+   fun {Cons Z K} {Comp Z [K 4*K+2 0 2*K+1]} end
+
+   proc {PrintNSpace N}
+      proc {Aux _} {System.printInfo " "} end
+   in {For 1 N 1 Aux} end
+
+   proc {Digit K Z N Row Col}
+      if N > 0 then Y in
+	 Y = {Next Z}
+	 if {Safe Z Y} then
+	    if Col == 10 then
+	       {System.printInfo "\t:"#(10+Row)#"\n"#Y}
+	       {Digit K {Prod Z Y} N-1 10+Row 1}
+	    else
+	       {System.printInfo Y}
+	       {Digit K {Prod Z Y} N-1 Row Col+1}
+	    end
+	 else
+	    {Digit K+1 {Cons Z K} N Row Col}
+	 end
+      else
+	 {PrintNSpace 10-Col}
+	 {System.showInfo "\t:"#(Row+Col)}
+      end
+   end
+
+   proc {Digits N} {Digit 1 [1 0 0 1] N 0 0} end
+
+in
+   {Digits {String.toInt {Application.getArgs plain}.1}}
+   {Application.exit 0}
+end
+</pre>
+<h2><a name="OCAML">OCaml</a></h2>
+<p>Buzz Words: modular type-safe strict functional programming plus 
+objects.</p>
+<p>Objective Caml (OCaml) is an object oriented derivative of ML functional 
+language. The acronym CAML originally stood for Categorical Abstract Machine 
+Language, although OCaml abandons this abstract machine. Ocaml has a large 
+standard library that makes it useful for many of the same applications as 
+Python or Perl, as well as robust modular and object-oriented programming 
+constructs that make it applicable for large-scale software development.  
+In recent years, many new languages have drawn elements from OCaml, most notably
+F#</a> and
+Scala</a>. 
+See <a href="http://www.ocaml.org">www.ocaml.org</a> .</p>
+
+<pre>print_endline &quot;Hello World!&quot;</pre>
+
+<h4>Quick Sort
+
+</h4>
+
+<pre>
+let rec quicksort gt = function
+  | [] -> []
+  | x::xs ->
+      let ys, zs = List.partition (gt x) xs in
+      (quicksort gt ys) @ (x :: (quicksort gt zs))
+ 
+let _ =
+  quicksort (>) [4; 65; 2; -31; 0; 99; 83; 782; 1]</pre>
+
+
+<h4>Concurrently Say &quot;Enjoy&quot; &quot;Rosetta&quot; &quot;Code&quot;</h4>
+
+<pre>
+#directory "+threads"
+#load "unix.cma"
+#load "threads.cma"
+let sleepy_print msg =
+    Unix.sleep ( Random.int 4 );
+    print_endline msg
+let threads = List.map ( Thread.create sleepy_print ) ["Enjoy"; "Rosetta"; "Code"];;
+let () = List.iter ( Thread.join ) threads;;
+</pre>
+
+<h4>Compute the Digits of &pi;</h4>
+
+<pre>
+(*
+ * http://shootout.alioth.debian.org/
+ * contributed by Christophe TROESTLER
+ * modified by Mat&#65533;as Giovannini
+ *)
+open Printf
+open Big_int
+
+let ( +$ ) = add_big_int
+let ( *$ ) = mult_int_big_int
+let ( /$ ) = div_big_int
+
+(* Entier part of the linear fractional transform qrst of x *)
+let ext (q,r,s,t) x = int_of_big_int ((x *$ q +$ r) /$ (x *$ s +$ t))
+
+(* Multiply small int matrix qrst by big int matrix qrst' (small on left) *)
+let mml (q,r,s,t) (q',r',s',t') =
+  q *$ q'  +$  r *$ s',  q *$ r'  +$  r *$ t',
+  s *$ q'  +$  t *$ s',  s *$ r'  +$  t *$ t'
+
+(* Multiply big int matrix qrst by small int matrix qrst' (small on right) *)
+let mmr (q,r,s,t) (q',r',s',t') =
+  q' *$ q  +$  s' *$ r,  r' *$ q  +$  t' *$ r,
+  q' *$ s  +$  s' *$ t,  r' *$ s  +$  t' *$ t
+
+let unit = (unit_big_int,zero_big_int,zero_big_int,unit_big_int)
+
+let next z   = ext z 3
+and safe z n = ext z 4 == n
+and prod z n = mml (10, -10*n, 0, 1) z
+and cons z k =
+  let den = 2*k + 1 in
+  mmr z (k, 2*den, 0, den)
+
+let rec digit k z n row col =
+  if n == 0 then printf "%*s\t:%i\n" (10-col) "" (row+col) else
+  let d = next z in
+  if safe z d then
+    if col = 10 then begin
+      let row = row + 10 in
+      printf "\t:%i\n%i" row d;
+      digit k (prod z d) (n-1) row 1
+    end else begin
+      print_int d;
+      digit k (prod z d) (n-1) row (col+1)
+    end
+  else digit (k+1) (cons z k) n row col
+
+let digits n = digit 1 unit n 0 0
+
+let () = digits (try int_of_string (Array.get Sys.argv 1) with _ -> 27)
+</pre>
+
+
+<h2><a name="Perl">Perl</a></h2>
+<p>Buzz Words: regular expressions, object-oriented, procedural and functional 
+programming. interfaces with external C/C++ libraries through XS or SWIG, ideal 
+web programming language, 20 thousand modules.</p>
+<p><a href="http://www.perl.org/">http://www.perl.org/</a> </p>
+<p>Hello World</p>
+<pre>#!/usr/bin/perl
+&quot;Hello, world!\n&quot;;
+</pre>
+
+<h4>Concurrently Say "Enjoy" "Rosetta" "Code"
+
+
+</h4>
+
+
+<pre>
+use threads;
+use Time::HiRes qw(sleep);
+ 
+$_->join for map {
+    threads->create(sub {
+        sleep rand;
+        print shift, "\n";
+    }, $_)
+} qw(Enjoy Rosetta Code);
+</pre>
+
+<h4>Compute the Digits of &pi;</h4>
+<pre>
+#   http://shootout.alioth.debian.org/
+#
+#   contributed by Robert Bradshaw
+#      modified by Ruud H.G.van Tol
+#      modified by Emanuele Zeppieri
+
+use strict;
+
+use Math::BigInt lib => 'GMP';
+
+die 'Math::BigInt::GMP missing!'
+    if Math::BigInt->config->{lib} ne 'Math::BigInt::GMP';
+
+my $z0 = Math::BigInt->new(1);
+my $z1 = Math::BigInt->new(0);
+my $z2 = Math::BigInt->new(1);
+
+sub extract_digit { return scalar( ($z0 * $_[0] + $z1) / $z2 ) }
+
+sub compose {
+    if ( defined $_[3] ) {
+        $z1->bmul( $_[0] )->badd( $_[1] * $z2 )
+    } else {
+        $z1->bmul( $_[2] )->badd( $_[1] * $z0 )
+    }
+    $z0->bmul( $_[0] );
+    $z2->bmul( $_[2] );
+    return
+}
+
+my $n = $ARGV[0];
+($,, $\) = ("\t", "\n");
+my ($i, $s, $d); my $k = 0;
+
+# main loop
+for $i (1..$n) {
+    while (
+        $z0->bcmp($z2) == 1 || ( $d = extract_digit(3) ) != extract_digit(4)
+    ) {
+        # y not safe
+        $k++; compose($k, 4*$k+2, 2*$k+1)
+    }
+    compose(10, -10*$d, 1, 1);
+    $s .= $d;
+
+    unless ( $i % 10 ) { print $s, ":$i"; undef $s }
+}
+
+$s .= ' ' x (10-$i) if $i = $n % 10;
+
+print $s, ":$n" if $s
+</pre>
+
+<h2><a name="Prolog">Prolog</a></h2>
+
+Buzz Words: Logic programming
+
+(resolution, backtracking, pattern matching);<p>Prolog is a general purpose 
+logic programming language associated with artificial intelligence and 
+computational linguistics. Prolog is declarative: The program logic is expressed 
+in terms of relations, represented as facts and rules. A computation is 
+initiated by running a query over these relations. Modern Prolog environments 
+support the creation of graphical user interfaces, as well as administrative and 
+networked applications. [From <a href="http://en.wikipedia.org/wiki/Prolog">
+http://en.wikipedia.org/wiki/Prolog</a> ]</p>
+<p><a href="http://www.swi-prolog.org/">http://www.swi-prolog.org/</a> is one of 
+the best and free implementations.</p>
+
+
+<pre>
+write('Hello world'),nl. </pre>
+
+<p>I think you can guess what the next program does.</p>
+
+<pre>
+bottles(0):-!.
+bottles(X):-
+    writef('%t bottles of beer on the wall \n',[X]),
+    writef('%t bottles of beer\n',[X]),
+    write('Take one down, pass it around\n'),
+    succ(XN,X),
+    writef('%t bottles of beer on the wall \n\n',[XN]),
+    bottles(XN).
+ 
+:- bottles(99).
+</pre>
+
+<h4>Quick Sort</h4>
+<pre>
+qsort( [], [] ).
+qsort( [X], [X] ).
+qsort( [H|U], S ) :- splitBy(H, U, L, R), qsort(L, SL), qsort(R, SR), combine(H, SL, SR, S).
+ 
+splitBy( H, [], LS, RS).
+splitBy( H, [U|T], [U|LS], RS ) :- U =< H, splitBy(H, T, LS, RS).
+splitBy( H, [U|T], LS, [U|RS] ) :- U  > H, splitBy(H, T, LS, RS).
+ 
+combine( H, L, R, S ) :- append(L, [H|R], S).
+</pre>
+
+<h2><a name="Python">Python</a></h2>
+<p>Buzz Words: introspection, object orientation, exception-based error 
+handling, high level dynamic data types, extensive standard libraries, 
+extensions and modules easily written in C, C++,  Java for Jython, or .NET 
+languages for IronPython,  embeddable within applications as a scripting 
+interface.<br>
+<br>
+The standard library covers everything from asynchronous processing to zip 
+files. Advanced language features: meta-classes, duck typing and decorators. 
+Python can integrate with COM, .NET, and CORBA objects.  [From
+<a href="http://python.org/">http://python.org/</a> ]</p>
+<pre>
+print "Hello world!"
+</pre>
+
+<h4>Concurrently Say "Enjoy" "Rosetta" "Code"
+</h4>
+<pre>
+import threading
+import random
+ 
+def echo(string):
+    print string
+ 
+threading.Timer(random.random(), echo, ("Enjoy",)).start()
+threading.Timer(random.random(), echo, ("Rosetta",)).start()
+threading.Timer(random.random(), echo, ("Code",)).start()
+</pre>
+
+<h4>Compute the Digits of &pi;</h4>
+
+<pre>
+# http://shootout.alioth.debian.org/
+# contributed by anon
+# modified by Pilho Kim (first GMP version)
+# modified by 2to3 and Daniel Nanz
+
+import sys
+from itertools import islice
+from gmpy import mpz
+
+
+(MPZ0, MPZ1, MPZ2, MPZ3, MPZ4, MPZ10) = (mpz(i) for i in (0, 1, 2, 3, 4, 10))
+
+
+def gen_x(zero=MPZ0, one=MPZ1, two=MPZ2, four=MPZ4):
+
+    a, b, d = zero, two, one
+    while True:
+        a += one
+        b += four
+        d += two
+        yield (a, b, zero, d)
+
+
+def compose(q1, q2):
+
+    a, b, c, d = q1
+    e, f, g, h = q2
+    return (a * e,  a * f + b * h,  c * e + d * g,  c * f + d * h)
+
+
+def extract(q, j):
+
+    a, b, c, d = q
+    return (a * j + b) // (c * j + d)
+
+
+def pi_digits(x=gen_x(), extr=extract, comp=compose, zero=MPZ0,
+              one=MPZ1, three=MPZ3, four=MPZ4, ten=MPZ10, mten=-MPZ10):
+
+    z = (one, zero, zero, one)
+    while True:
+        y = extr(z, three)
+        while y != extr(z, four):
+            z = comp(z, next(x))
+            y = extr(z, three)
+        z = comp((ten, mten * y, zero, one), z)
+        yield str(y)
+
+
+def main(n, digits=pi_digits(), width=10, line='{}\t:{}'):
+
+    for i in range(width, n+1, width):
+        print(line.format(''.join(islice(digits, width)), i))
+    if n % width > 0:
+        print(line.format(''.join(islice(digits, n % width)).ljust(width), n))
+
+
+main(int(sys.argv[1]))
+</pre>
+<h2><a name="Scala">Scala</a></h2>
+<p>Buzz Words: Type inferencing, everything-is-an-object, function passing, 
+compiles to JVM, scalable.</p>
+<p>&quot;Scala is a general purpose programming language designed to express common 
+programming patterns in a concise, elegant, and type-safe way. It smoothly 
+integrates features of object-oriented and functional languages, enabling Java 
+and other programmers to be more productive. Code sizes are typically reduced by 
+a factor of two to three when compared to an equivalent Java application.&quot; &quot;Scala 
+programs run on the Java VM, are byte code compatible with Java so you can make 
+full use of existing Java libraries or existing application code.&quot; &quot;... natural 
+fusion with functional programming concepts which are critical for tackling 
+concurrency.&quot; &quot;Type inferencing, everything-is-an-object, function passing, and 
+many other features cut away unneeded syntactic overhead.&quot;
+<a href="http://www.scala-lang.org/">http://www.scala-lang.org/</a> </p>
+
+<pre>
+object HelloWorld with Application {
+ Console.println("Hello, World!");
+}</pre>
+<p>Quick Sort</p>
+
+<pre>
+def quicksortInt(coll: List[Int]): List[Int] =
+  if (coll.isEmpty) {
+    coll
+  } else {
+    val (smaller, bigger) = coll.tail partition (_ < coll.head)
+    quicksortInt(smaller) ::: coll.head :: quicksortInt(bigger)
+  }
+</pre>
+
+<h4>Concurrently Say "Enjoy" "Rosetta" "Code"
+</h4>
+<pre>
+import scala.actors.Futures
+List("Enjoy", "Rosetta", "Code").map { x =>
+    Futures.future {                           
+      Thread.sleep((Math.random * 1000).toInt)   
+       println(x)                                 
+    }         
+}.foreach(_())
+</pre>
+
+<h4>Compute the Digits of &pi;</h4>
+
+<pre>
+/*
+ * http://shootout.alioth.debian.org/
+ * contributed by Rex Kerr
+ * based on version by John Nilsson as modified by Geoff Reedy
+ * GMP wrapping based on Java version by Pall, Kraus, & Sassa
+*/
+
+object pidigits {
+  import Gmp._
+
+  class LFT(q:I, r:I, val t:I) {
+    def use(z: LFT) = { ~q; ~r; if (t ne z.t) ~t; z }
+    def compose(k: Int) = use(new LFT(q*k!, (q*(4*k+2))+*=(r,(2*k+1))!, t*(2*k+1)!))
+    def extract = {
+      val (y,rem) = (r + q*3) /% t !!
+      val x = if((rem + q) < t) Some(y.toInt) else None
+      ~y; ~rem
+      x
+    }
+    def next(y: Int) = use(new LFT(q*10!, (r*10 -*= (t,10*y))!, t))
+  }
+
+  def pi_digits = {
+    def digits(z: LFT, k: Int): Stream[Int] = z extract match {
+      case Some(y) => Stream.cons(y,digits(z next y,k))
+      case None    => digits(z compose k,k+1)
+    }
+    digits(new LFT(I(1),I(0),I(1)),1)
+  }
+
+  def by[T](s: Stream[T], n: Int): Stream[Stream[T]] =
+    if (s.isEmpty) Stream.empty
+    else Stream.cons(s take n, by(s drop n, n))
+
+  def main(args: Array[String]): Unit =
+    for ((d,n) <- by(pi_digits take args(0).toInt, 10).zipWithIndex)
+      printf("%-10s\t:%d\n",d.mkString,10*n+d.length)
+}
+
+/*
+ * Partial GMP wrapper for Scala.
+ * Write math like normal.
+ * Use ! to pull the result off the temporary stack
+ * Use ~ to return a value to the temporary stack
+ * Be careful with weird +*= GMP functions that destroy argument
+*/
+class GmpUtil {
+  System.loadLibrary("jpargmp")
+  @native def mpz_init(): Long
+  @native def mpz_clear(src: Long)
+  @native def mpz_set_si(lhs: Long, a: Int)
+  @native def mpz_get_si(a: Long): Int
+  @native def mpz_cmp(a: Long, b: Long): Int
+  @native def mpz_add(sum: Long, a: Long, b: Long)
+  @native def mpz_sub(sum: Long, a: Long, b: Long)
+  @native def mpz_mul_si(prod: Long, a: Long, b: Int)
+  @native def mpz_addmul_ui(lhs: Long, a: Long, b: Int)
+  @native def mpz_submul_ui(lhs: Long, a: Long, b: Int)
+  @native def mpz_tdiv_qr(quot: Long, rem: Long, n: Long, d: Long)
+}
+object Gmp {
+  val gmp = new GmpUtil
+  private var stack = Nil:List[I]
+  private var defunct = Nil:List[I]
+  class I {
+    private val z = gmp.mpz_init()
+    def !() = stack match {
+      case i :: rest if (i eq this) =>
+        stack = Nil
+        defunct = rest ::: defunct
+        i
+      case _ => I.die
+    }
+    def !!() = stack match {
+      case i :: j :: rest if (i eq this) =>
+        stack = Nil
+        defunct = rest ::: defunct
+        (i,j)
+      case _ => I.die
+    }
+    def toInt = gmp.mpz_get_si(z)
+    def <(i: I) = gmp.mpz_cmp(z, i.z) < 0
+    def +(i: I) = { gmp.mpz_add(I.ans.z, z, i.z); I.get }
+    def -(i: I) = { gmp.mpz_sub(I.ans.z, z, i.z); I.get }
+    def *(n: Int) = { gmp.mpz_mul_si(I.ans.z, z, n); I.get }
+    def +*=(i: I, n: Int) = { gmp.mpz_addmul_ui(z, i.z, n); this }
+    def -*=(i: I, n: Int) = { gmp.mpz_submul_ui(z, i.z, n); this }
+    def /%(i: I) = { val r = I.ans.z; gmp.mpz_tdiv_qr(I.ans.z, r, z, i.z); I.get }
+    def unary_~() = { defunct ::= this }
+    override def finalize() { gmp.mpz_clear(z); super.finalize }
+  }
+  object I {
+    def apply(n:Int) = defunct match {
+      case i :: rest =>
+        defunct = rest
+        gmp.mpz_set_si(i.z,n)
+        i
+      case _ =>
+        val i = new I
+        if (n != 0) gmp.mpz_set_si(i.z,n)
+        i
+    }
+    def ans() = { val i = I(0); stack ::= i; i }
+    def die: Nothing = throw new IndexOutOfBoundsException
+    def get() = stack match { case i :: rest => i ; case _ => die }
+  }
+}
+</pre>
+
+<h2>References</h2>
+<ol>
+  <li>
+    <a href="http://rosettacode.org/"> http://rosettacode.org/</a>
+    "Rosetta Code is a programming chrestomathy site. The idea is to
+    present solutions to the same task in as many different languages
+    as possible, to demonstrate how languages are similar and
+    different, and to aid a person with a grounding in one approach to
+    a problem in learning another. Rosetta Code currently has 766
+    tasks, 144 draft tasks, and is aware of 567 languages, though we
+    do not (and cannot) have solutions to every task in every
+    language."
+
+  <li>
+    <a href="http://www2.latech.edu/~acm/HelloWorld.html">
+      http://www2.latech.edu/~acm/HelloWorld.html</a> "Everyone has
+   seen the Hello World program used as a first exposure to a new
+   language or environment. We are attempting to collect examples for
+   as many languages and related programming environments (shells
+   etc.) as possible."
+
+  <li>
+    <a href="http://shootout.alioth.debian.org/">
+      http://shootout.alioth.debian.org/</a> Programming language
+    (performance) comparisons
+
+  </ol>
+
+
+<hr size="1">
+<a href="http://www.cs.wright.edu/~pmateti" target="_blank">
+Prabhaker Mateti</a>
+&bull; (937) 775-5114
+</body>
+</html>

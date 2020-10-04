@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-05-19 Sun 13:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Design of Distributed Apps on IPFS</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+2019-05-18 | <a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">The Design of Distributed Apps on IPFS</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orga139d3b">1. Goal of these Lectures</a>
+<ul>
+<li><a href="#org11ff3b2">1.1. Terminaology/ Acronyms</a></li>
+<li><a href="#org27dde39">1.2. Major Projects</a></li>
+</ul>
+</li>
+<li><a href="#orge028105">2. Course Curriculum</a>
+<ul>
+<li><a href="#org2b6d2e1">2.1. The Six Grand Challenges</a></li>
+<li><a href="#org1892cce">2.2. Refs</a></li>
+</ul>
+</li>
+<li><a href="#org12f4f79">3. Blockchain</a></li>
+<li><a href="#orga80a6dd">4. Ethereum</a></li>
+<li><a href="#orge874dd5">5. IPFS FAQ</a></li>
+<li><a href="#org8ea60a6">6. dApps</a>
+<ul>
+<li><a href="#org31ab7e9">6.1. Lists of dApps</a></li>
+<li><a href="#orgc9d0ed8">6.2. Example dApps</a></li>
+</ul>
+</li>
+<li><a href="#orgfbb5150">7. NuCypher</a>
+<ul>
+<li><a href="#org0b90a87">7.1. Topics Beyond the Scope of Jayal'sthis Study</a></li>
+</ul>
+</li>
+<li><a href="#orgace1e35">8. Hako</a></li>
+<li><a href="#org55da48b">9. NuCypher Chrome Extension</a></li>
+<li><a href="#org9e50f29">10. Privacy</a></li>
+<li><a href="#org4f44b21">11. References</a>
+<ul>
+<li><a href="#orgd4f6129">11.1. Links</a></li>
+<li><a href="#orgdcfcada">11.2. Links Demo</a></li>
+<li><a href="#orgb5d97c8">11.3. Links 20180805 TBD</a></li>
+<li><a href="#org90e3b9c">11.4. T</a></li>
+</ul>
+</li>
+<li><a href="#orgab9aed3">12. End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga139d3b" class="outline-2">
+<h2 id="orga139d3b"><span class="section-number-2">1</span> Goal of these Lectures</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Take an example dApp, and study it in detail.</li>
+<li>The New Decentralized Future.</li>
+<li>Private Data on a Public Blockchain</li>
+<li>Concepts: Decentralized content storage network.</li>
+<li>Explain what dApps are.  This necessarily depends on blockchains,
+decentralized content storage, etc.  We focus on dApps on IPFS, and
+NuCypher.</li>
+<li>IPFS: The decentralized content storage network.  Uncensorable.
+Undeletable.  Distributed across countries.</li>
+<li>Explain the 2014 Draft#3 IPFS paper by Juan Benet.</li>
+<li>I will make it obvious: My opinions and assessments.</li>
+</ol>
+</div>
+
+<div id="outline-container-org11ff3b2" class="outline-3">
+<h3 id="org11ff3b2"><span class="section-number-3">1.1</span> Terminaology/ Acronyms</h3>
+<div class="outline-text-3" id="text-1-1">
+<ol class="org-ol">
+<li>ERC20-compatible blockchain tokens</li>
+<li>Distributed key management system (KMS)</li>
+<li>Ethereum,</li>
+<li>Proxy re-encryption services on data.</li>
+<li>homomorphic encryption</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org27dde39" class="outline-3">
+<h3 id="org27dde39"><span class="section-number-3">1.2</span> Major Projects</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li>0x [<a href="https://0x.org/">https://0x.org/</a>] Powering Decentralized Exchange. 0x is an open protocol that
+enables the peer-to-peer exchange of assets on the Ethereum
+blockchain.], A protocol for decentralized exchange that is
+utilized by platforms like Radar Relay, DDEX, and Paradex.</li>
+
+<li>Golem [<a href="https://golem.network/">https://golem.network/</a> Golem enables users and
+applications (requestors) to rent out cycles of other users’
+(providers) machines.],</li>
+<li>Augur [<a href="https://www.augur.net/">https://www.augur.net/</a>]: A decentralized prediction market
+for forecasting real world events.</li>
+<li>Aragon
+[<a href="https://aragon.org/">https://aragon.org/</a> lets you freely organize and collaborate
+without borders or intermediaries. Create global, bureaucracy-free
+organizations, companies, and communities.]</li>
+<li>Augur</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge028105" class="outline-2">
+<h2 id="orge028105"><span class="section-number-2">2</span> Course Curriculum</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Orientation Module:
+Welcome to Your Online Campus
+Module 1:
+An introduction to blockchain technology
+</p>
+
+<p>
+Module 2:
+Bitcoin and the curse of the double-spending problem
+</p>
+
+<p>
+Module 3: 
+Costless verification: Blockchain technology and the last mile problem
+</p>
+
+<p>
+Module 4: 
+Bootstrapping network effects through blockchain technology and cryptoeconomics
+</p>
+
+<p>
+Module 5: 
+Using tokens to design new types of digital platforms
+</p>
+
+<p>
+Module 6:
+The future of blockchain technology, AI, and digital privacy
+</p>
+
+<p>
+Blockchain Science:  Blockchain math?
+</p>
+
+<p>
+Blockchain Code: 
+</p>
+</div>
+
+<div id="outline-container-org2b6d2e1" class="outline-3">
+<h3 id="org2b6d2e1"><span class="section-number-3">2.1</span> The Six Grand Challenges</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>Scaling and Performance: Scaling up blockchains to handle intensive global workloads for both permissionless decentralized blockchains, and permissioned/consortium blockchains supporting &gt;100,000 transactions/sec.</li>
+<li>Correctness by Design and Construction: Making it easy, and even automatic, for blockchain developers to produce secure protocols and code, by utilizing (1) programming language techniques to create correct code, and (2) cryptographic protocols with security proofs.</li>
+<li>Confidentiality: Combining transparency with confidentiality in blockchains, by utilizing (1) cryptographic techniques, as well as (2) trusted-hardware.</li>
+<li>Authenticated Data Feeds: Supporting a robust ecosystem of trustworthy data feeds for blockchains and contributing high-trust data feed solutions.</li>
+<li>Safety and Compliance: Enabling techniques and protocols for effective monitoring and targeted intervention in blockchains, informed by evaluations of traditional contract law and risks of crime in smart contracts.</li>
+<li>Sound Migration: Formulating practical migration paths to production blockchain deployments and enabling integration of new blockchain systems with legacy systems.</li>
+<li><a href="https://www.initc3.org/projects.html">https://www.initc3.org/projects.html</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org1892cce" class="outline-3">
+<h3 id="org1892cce"><span class="section-number-3">2.2</span> Refs</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li><a href="https://www.initc3.org/">https://www.initc3.org/</a> IC3: ADVANCING THE SCIENCE AND APPLICATIONS
+OF BLOCKCHAINS 2019 IC3 is an initiative of faculty members at
+Cornell University, Cornell Tech, EPFL, ETH Zurich, UC Berkeley,
+University College London, UIUC and the Technion. It's based at the
+Jacobs Technion-Cornell Institute at Cornell Tech in NYC.</li>
+
+<li><a href="https://dci.mit.edu/researchprojects">https://dci.mit.edu/researchprojects</a></li>
+
+<li><a href="https://decentralize.ece.illinois.edu/">https://decentralize.ece.illinois.edu/</a></li>
+
+<li><a href="https://blockchain.berkeley.edu/courses/spring-2018-fundamentals-decal/">https://blockchain.berkeley.edu/courses/spring-2018-fundamentals-decal/</a>
+Includes a schedule of lectures with links to materials.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org12f4f79" class="outline-2">
+<h2 id="org12f4f79"><span class="section-number-2">3</span> Blockchain</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li><a href="https://emeritus-executive.berkeley.edu/blockchain/">https://emeritus-executive.berkeley.edu/blockchain/</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orga80a6dd" class="outline-2">
+<h2 id="orga80a6dd"><span class="section-number-2">4</span> Ethereum</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>Ethereum – a Decentralised Consensus Network</li>
+
+<li><a href="https://www.edureka.co/blog">https://www.edureka.co/blog</a> What is Blockchain? Ethereum Tutorial,
+&#x2026; Apr 2019 <a href="https://www.edureka.co/blog/smart-contracts/">https://www.edureka.co/blog/smart-contracts/</a> Apr 2018</li>
+
+<li>Dr. Gavin Wood, Founder, Ethereum &amp; Ethcore gavin@ethcore.io
+<a href="http://gavwood.com/paper.pdf">http://gavwood.com/paper.pdf</a> Ethereum: A Secure Decentralised
+Generalised Transaction Ledger (EIP-150 Revision), Abstract. The
+blockchain paradigm when coupled with cryptographically-secured
+transactions has demonstrated its utility through a number of
+projects, not least Bitcoin. Each such project can be seen as a
+simple application on a decentralised, but singleton, compute
+resource. We can call this paradigm a transactional singleton
+machine with shared-state.  Ethereum implements this paradigm in a
+generalised manner. Furthermore it provides a plurality of such
+resources, each with a distinct state and operating code but able
+to interact through a message-passing framework w with others. We
+discuss its design, implementation issues, the opportunities it
+provides and the future hurdles we envisage.</li>
+<li><a href="https://blog.ethereum.org/">https://blog.ethereum.org/</a></li>
+
+<li>The Ultimate Beginners' Guide. Ethereum is an open-source
+blockchain-based platform that essentially enables hundreds of
+decentralized cryptocurrencies and projects to be built and
+deployed without having to build their own blockchains.
+<a href="https://coincentral.com/what-is-ethereum-the-ultimate-beginners-guide/">https://coincentral.com/what-is-ethereum-the-ultimate-beginners-guide/</a>
+Jul 9, 2018</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orge874dd5" class="outline-2">
+<h2 id="orge874dd5"><span class="section-number-2">5</span> IPFS FAQ</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>SUNY Buffalo blog discussion on
+hackernews. <a href="http://muratbuffalo.blogspot.com/2018/02/paper-review-ipfs-content-addressed.html">http://muratbuffalo.blogspot.com/2018/02/paper-review-ipfs-content-addressed.html</a>
+Feb 2018.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org8ea60a6" class="outline-2">
+<h2 id="org8ea60a6"><span class="section-number-2">6</span> dApps</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>"dApps are decentralized applications where no single entity has
+the power to control that app because it is deployed on a
+distributed blockchain ledger."</li>
+
+<li><a href="https://www.stateofthedapps.com/whats-a-dapp">https://www.stateofthedapps.com/whats-a-dapp</a></li>
+
+<li><a href="https://dappsforbeginners.wordpress.com/">https://dappsforbeginners.wordpress.com/</a></li>
+</ol>
+</div>
+
+<div id="outline-container-org31ab7e9" class="outline-3">
+<h3 id="org31ab7e9"><span class="section-number-3">6.1</span> Lists of dApps</h3>
+<div class="outline-text-3" id="text-6-1">
+<ol class="org-ol">
+<li>9 Best DApps On Ethereum Platform <a href="https://coinsutra.com/ethereum-dapps/">https://coinsutra.com/ethereum-dapps/</a></li>
+<li><a href="https://app.co/ipfs">https://app.co/ipfs</a> Universal dapp store - discover decentralized
+apps.  IPFS. Rank. Auth. Storage.  Blockchain. Tweets/Week.
+Filesharing App and IPFS node on Android.</li>
+
+<li><a href="https://media.consensys.net/40-ethereum-apps-you-can-use-right-now-d643333769f7">https://media.consensys.net/40-ethereum-apps-you-can-use-right-now-d643333769f7</a>
+90+ Ethereum Apps You Can Use Right Now.  Aug 2018.</li>
+
+<li><a href="https://www.stateofthedapps.com/dapps/nucypher">https://www.stateofthedapps.com/dapps/nucypher</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgc9d0ed8" class="outline-3">
+<h3 id="orgc9d0ed8"><span class="section-number-3">6.2</span> Example dApps</h3>
+<div class="outline-text-3" id="text-6-2">
+<ol class="org-ol">
+<li>This is a collection of dApp names that interested me as I ran into
+them.</li>
+
+<li><a href="https://www.stateofthedapps.com/dapps/smartcheck">https://www.stateofthedapps.com/dapps/smartcheck</a> Mar 2018
+SmartCheck - is a static analyzer for Solidity programming
+language. It automatically checks Smart Contracts for
+vulnerabilities and bad practices, highlights them in the code and
+gives a detailed explanation of the problem. Free version of the
+tool is available online: you can scan your Solidity code right
+now. All you need to do is to upload the code of any contract
+written in Solidity (drop .sol files/folders or paste the code) ,
+click “Submit for scan” button and wait for several seconds.</li>
+
+<li><a href="https://securify.chainsecurity.com/?utm_source=StateOfTheDApps">https://securify.chainsecurity.com/?utm_source=StateOfTheDApps</a>
+Security Scanner for Ethereum Smart Contracts.  The Ethereum
+security scanner is based on the latest research from the ICE
+center, ETH Zurich. <a href="https://arxiv.org/pdf/1806.01143.pdf">https://arxiv.org/pdf/1806.01143.pdf</a> ACM CCS
+2018</li>
+
+<li><a href="https://metamask.io/">https://metamask.io/</a> Web browser plug-in that connects your device
+to the Ethereum network.  It allows you to run Ethereum dApps right
+in your browser.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfbb5150" class="outline-2">
+<h2 id="orgfbb5150"><span class="section-number-2">7</span> NuCypher</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li><a href="https://cdn2.hubspot.net/hubfs/2807639/Nucypher-June2017/Docs/NuCypher-White-Paper-1.pdf">https://cdn2.hubspot.net/hubfs/2807639/Nucypher-June2017/Docs/NuCypher-White-Paper-1.pdf</a>
+NuCypher Hadoop: Delegated Access Control and Encryption Management
+System 2016</li>
+
+<li>NuCypher.  The privacy layer.  Building the Applications and Tools
+for Unconditional Privacy.  A proxy re-encryption network to
+empower privacy in decentralized systems.</li>
+
+<li>"NuCypher KMS: Uncensorable decentralized encryption service"</li>
+
+<li>NuCypher is written in Python.  Uses several Py packages.
+<a href="https://pypi.org/project/nucypher/">https://pypi.org/project/nucypher/</a></li>
+
+<li><a href="https://github.com/nucypher/pyUmbral">https://github.com/nucypher/pyUmbral</a> "pyUmbral is the cryptographic
+engine behind nucypher, a proxy re-encryption network to empower
+privacy in decentralized systems."  NuCypher's reference
+implementation of Umbral (threshold proxy re-encryption) using
+OpenSSL and Cryptography.io <a href="https://pyumbral.readthedocs.io">https://pyumbral.readthedocs.io</a>.
+"Using Umbral, Alice (the data owner) can delegate decryption
+rights to Bob for any ciphertext intended to her, through a
+re-encryption process performed by a set of semi-trusted proxies or
+Ursulas. When a threshold of these proxies participate by
+performing re-encryption, Bob is able to combine these independent
+re-encryptions and decrypt the original message using his private
+key."</li>
+
+<li><a href="https://nucypher.readthedocs.io/en/latest/guides/quickstart.html">https://nucypher.readthedocs.io/en/latest/guides/quickstart.html</a> Nucypher Quickstart</li>
+
+<li><a href="https://medium.com/dcryptinc/about-8bb07cc08b29">https://medium.com/dcryptinc/about-8bb07cc08b29</a> {pmateti: Overview
+article.  Not bad.  Tech glossary table at the end.}</li>
+</ol>
+</div>
+
+<div id="outline-container-org0b90a87" class="outline-3">
+<h3 id="org0b90a87"><span class="section-number-3">7.1</span> Topics Beyond the Scope of Jayal'sthis Study</h3>
+<div class="outline-text-3" id="text-7-1">
+<ol class="org-ol">
+<li>Not exhaustive.</li>
+
+<li><a href="https://www.originprotocol.com/">https://www.originprotocol.com/</a> Origin is a protocol for creating
+peer-to-peer marketplaces using the Ethereum blockchain and IPFS</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgace1e35" class="outline-2">
+<h2 id="orgace1e35"><span class="section-number-2">8</span> Hako</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li><a href="https://github.com/drbh/hako">https://github.com/drbh/hako</a> Mar 2019 "Unlike other file sharing
+services such as Dropbox and Google Drive, Hako does not place your
+keys in the hands of a large companies. The user is always in
+control of your keys and your data."</li>
+
+<li>Centralized storage has a single point of failure (the company) and
+require a user to be online (connected to the central servers) in
+order to transfer data and delegate access.</li>
+
+<li>It consists of a library called NCIPFS and the application
+Hako. Hako is powered by NCIPFS and is provides a REST interface
+and web-app to the underlying methods of NCIPFS.</li>
+
+<li>Futari</li>
+<li>NUCID</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org55da48b" class="outline-2">
+<h2 id="org55da48b"><span class="section-number-2">9</span> NuCypher Chrome Extension</h2>
+<div class="outline-text-2" id="text-9">
+<ol class="org-ol">
+<li><a href="https://github.com/if1242/NuCypherChromeExtensionCoinlistHack">https://github.com/if1242/NuCypherChromeExtensionCoinlistHack</a> by
+Ivan Fedorov. The NuCypher Google Chrome Extension helps "sharing
+your datafiles in a safe way using NuCypher technology. &#x2026;  The
+extension is fully functional and you can try it in action after
+installation."
+<a href="https://www.youtube.com/watch?v=pmoMzzIR458&amp;feature=youtu.be">https://www.youtube.com/watch?v=pmoMzzIR458&amp;feature=youtu.be</a> 1:19
+Apr 2019</li>
+<li>Native Messaging protocol</li>
+
+<li><a href="https://discordapp.com/channels/411401661714792449">https://discordapp.com/channels/411401661714792449</a>
+A channel for discussion on NuCypher</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org9e50f29" class="outline-2">
+<h2 id="org9e50f29"><span class="section-number-2">10</span> Privacy</h2>
+<div class="outline-text-2" id="text-10">
+<ol class="org-ol">
+<li>Definition of privacy: We do not have a definition (as of 2019) of
+what privacy is.  TBD Link explains via examples.  TBD Browse the
+content of eff.org. <a href="https://www.eff.org/issues/privacy">https://www.eff.org/issues/privacy</a></li>
+
+<li><a href="https://medium.com/pinata/ipfs-privacy-711f4b72b2ea">https://medium.com/pinata/ipfs-privacy-711f4b72b2ea</a> Apr 2019 How
+Private is IPFS?</li>
+
+<li><a href="https://medium.com/@EVALUAPE1/nycypher-privacy-layer-for-distributed-systems-and-decentralized-applications-f8a1c4c14da8">https://medium.com/@EVALUAPE1/nycypher-privacy-layer-for-distributed-systems-and-decentralized-applications-f8a1c4c14da8</a>
+uCypher: Privacy layer for distributed systems and decentralized
+applications.  EVALUAPE Sep 10, 2018  {pmateti: Shallow}</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org4f44b21" class="outline-2">
+<h2 id="org4f44b21"><span class="section-number-2">11</span> References</h2>
+<div class="outline-text-2" id="text-11">
+<ol class="org-ol">
+<li>Not all are collected here.  Often present in a relavant section.</li>
+
+<li><a href="https://nvankempen.com/wp-content/uploads/2018/12/paper.pdf">https://nvankempen.com/wp-content/uploads/2018/12/paper.pdf</a> An
+Introduction to IPFS Nicolas Van Kempen 2018 November</li>
+
+<li><a href="https://pinata.cloud/">https://pinata.cloud/</a> Pinata simplifies decentralized storage with
+our easy IPFS API and toolkit. Our IPFS pinning service improves
+your experience by deploying the underlying infrastructure so you
+don't have to.</li>
+</ol>
+
+
+<ol class="org-ol">
+<li><a href="https://www.cs.ru.nl/bachelors-theses/2018/Jasper_Haasdijk___4449754___Searching_IPFS.pdf">https://www.cs.ru.nl/bachelors-theses/2018/Jasper_Haasdijk___4449754___Searching_IPFS.pdf</a>
+Bachelor thesis Computing Science Radboud University Nijmegen
+Searching IPFS Author: Jasper Haasdijk jhaasdijk@protonmail.com
+First supervisor/assessor: prof. dr. ir. A.P. de Vries
+a.devries@cs.ru.nl Second assessor: dr. ir. E. Poll e.poll@cs.ru.nl</li>
+
+<li><a href="http://dspace.baskent.edu.tr:8080/bitstream/handle/11727/2986/10224923.pdf?sequence=1&amp;isAllowed=y">http://dspace.baskent.edu.tr:8080/bitstream/handle/11727/2986/10224923.pdf?sequence=1&amp;isAllowed=y</a>
+BAŞKENT UNIVERSITY INSTITUTE OF SCIENCE AND ENGINEERING ANALYSIS OF
+CRYPTOCURRENCIES GÖRKEM ULUSOY MASTER OF SCIENCE THESIS 2018</li>
+
+<li><a href="http://www.diva-portal.org/smash/record.jsf?pid=diva2:1307991&amp;dswid=-9412">http://www.diva-portal.org/smash/record.jsf?pid=diva2:1307991&amp;dswid=-9412</a>
+Performance Evaluation of a Blockchain-based Traceability System: A
+Case Study at IKEA</li>
+
+<li><a href="https://craft.co/nucypher">https://craft.co/nucypher</a> NuCypher is a security and encryption
+platform for distributed systems, including big data, cloud,
+blockchain, and IoT</li>
+
+<li>CypherPress is a WYSIWYG that allows developers and individuals to
+leverage NuCypher's privacy layer and IPFS to build decentralised
+storage platforms. It can be used to build something like a
+decentralised dropbox, or a secret sharing application,
+etc. Basically, cypherpress allows you to use Nucypher and IPFS
+without writing any code. We are to nucypher what wordpress is to
+websites.</li>
+
+<li>NuCypher Google Chrome extension which helps sharing your datafiles
+in a safe way using NuCypher
+technology. <a href="https://coinlist.co/build/nucypher/projects/a3273c0d-34c6-4f4c-b768-efdeaced34a5">https://coinlist.co/build/nucypher/projects/a3273c0d-34c6-4f4c-b768-efdeaced34a5</a>;
+NuCypher Hackathon Building the Applications and Tools for
+Unconditional Privacy</li>
+
+<li><a href="https://news.ycombinator.com/item?id=19647692">https://news.ycombinator.com/item?id=19647692</a> IPFS Roadmap
+Apr 2019.  Several highly critical opinions.</li>
+<li><a href="https://medium.com/zkcapital/ipfs-the-distributed-web-e21a5496d32d">https://medium.com/zkcapital/ipfs-the-distributed-web-e21a5496d32d</a>
+IPFS: A Complete Analysis of The Distributed Web Sep 2018</li>
+
+<li><a href="https://hackernoon.com/hako-3825c3a033d7">https://hackernoon.com/hako-3825c3a033d7</a> Apr 2019 Hako A super
+secure decentralized file sharing application powered by Web 3.0.
+Uses NuCypher and IPFS.</li>
+
+<li>IPFS Companion, add-on for Chrome and FireFox.  Official browser
+extension that simplifies access to IPFS resources;
+<a href="https://github.com/ipfs-shipyard/ipfs-companion">https://github.com/ipfs-shipyard/ipfs-companion</a>;
+<a href="https://chrome.google.com/webstore/detail/ipfs-companion/nibjojkomfdiaoajekhjakgkdhaomnch?hl=en">https://chrome.google.com/webstore/detail/ipfs-companion/nibjojkomfdiaoajekhjakgkdhaomnch?hl=en</a></li>
+
+<li>Blockchains.  Book <a href="https://bitcoinbook.cs.princeton.edu/">https://bitcoinbook.cs.princeton.edu/</a>; YouTube
+play list
+<a href="https://www.youtube.com/watch?v=fOMVZXLjKYo&amp;list=PLQIX_E46U4XYE5GR6029FpnaX9aBXbt0B">https://www.youtube.com/watch?v=fOMVZXLjKYo&amp;list=PLQIX_E46U4XYE5GR6029FpnaX9aBXbt0B</a></li>
+<li>Intro to IPFS and dApps by Prabhaker Mateti
+<a href="https://cecs.wright.edu/~pmateti/Research/IPFS/Lectures/">https://cecs.wright.edu/~pmateti/Research/IPFS/Lectures/</a></li>
+<li>NuCypher <a href="https://github.com/nucypher">https://github.com/nucypher</a>;
+<a href="https://docs.nucypher.com/en/latest/guides/installation_guide.html">https://docs.nucypher.com/en/latest/guides/installation_guide.html</a></li>
+<li>dApps <a href="https://www.stateofthedapps.com/">https://www.stateofthedapps.com/</a></li>
+<li>NCIPFS Third place winner in the NuCypher + Coinlist Hackathon
+March 2019.  A developer friendly python library to easily store,
+encrypt, share and decrypt data on IPFS with NuCypher's proxy
+re-encryption. <a href="https://coinlist.co/build/nucypher/votes">https://coinlist.co/build/nucypher/votes</a>,</li>
+
+<li><a href="https://www.youtube.com/results?search_query=nucypher">https://www.youtube.com/results?search_query=nucypher</a> Several
+videos on YouTube.  Have not watched them yet.</li>
+
+<li><a href="https://cryptozombies.io/">https://cryptozombies.io/</a> CryptoZombies is a free, interactive code
+school that teaches you to build games on Ethereum.</li>
+</ol>
+</div>
+
+<div id="outline-container-orgd4f6129" class="outline-3">
+<h3 id="orgd4f6129"><span class="section-number-3">11.1</span> Links</h3>
+<div class="outline-text-3" id="text-11-1">
+<ol class="org-ol">
+<li><a href="http://ipfs.io/">http://ipfs.io/</a></li>
+<li><a href="https://discuss.ipfs.io/">https://discuss.ipfs.io/</a> previously, <a href="http://github.com/ipfs/faq">http://github.com/ipfs/faq</a></li>
+<li><a href="https://github.com/ipfs/ipfs">https://github.com/ipfs/ipfs</a></li>
+<li><a href="https://dweb-primer.ipfs.io/decentralized-web-primer.pdf">https://dweb-primer.ipfs.io/decentralized-web-primer.pdf</a> 66pp. Apr 2017.</li>
+<li><a href="https://www.youtube.com/watch?v=Nv_Teb--1zg">https://www.youtube.com/watch?v=Nv_Teb--1zg</a> Tutorial: How to build
+an application with IPFS PubSub Room, Jul 2017</li>
+
+<li>IPFS paper. <a href="https://github.com/ipfs/papers/raw/master/ipfs-cap2pfs/ipfs-p2p-file-system.pdf">https://github.com/ipfs/papers/raw/master/ipfs-cap2pfs/ipfs-p2p-file-system.pdf</a></li>
+
+<li><a href="https://www.reddit.com/r/ipfs/">https://www.reddit.com/r/ipfs/</a></li>
+<li><a href="https://www.reddit.com/r/ipfs/comments/8nhg48/">https://www.reddit.com/r/ipfs/comments/8nhg48/</a>
+the<sub>fundamental</sub><sub>problem</sub><sub>with</sub><sub>ipfs</sub>/</li>
+
+<li><a href="https://decentralized.blog/understanding-the-ipfs-white-paper-part-1.html">https://decentralized.blog/understanding-the-ipfs-white-paper-part-1.html</a>
+Catching the Blockchain Train</li>
+
+<li><a href="https://www.reddit.com/r/Bluzelle/comments/7vvdv7/feedback_to_article_difference_between_bluzelle/">https://www.reddit.com/r/Bluzelle/comments/7vvdv7/feedback_to_article_difference_between_bluzelle/</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgdcfcada" class="outline-3">
+<h3 id="orgdcfcada"><span class="section-number-3">11.2</span> Links Demo</h3>
+<div class="outline-text-3" id="text-11-2">
+<ol class="org-ol">
+<li><a href="https://medium.com/coinmonks/a-hands-on-introduction-to-ipfs-ee65b594937">https://medium.com/coinmonks/a-hands-on-introduction-to-ipfs-ee65b594937</a></li>
+<li><a href="https://www.shiftnrg.org/">https://www.shiftnrg.org/</a> Why Wait for Filecoin? Use IPFS Today on
+the Shift Platform</li>
+</ol>
+
+
+<ol class="org-ol">
+<li><a href="https://macwright.org/2017/08/09/decentralize-ipfs.html">https://macwright.org/2017/08/09/decentralize-ipfs.html</a></li>
+<li><a href="https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc">https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb5d97c8" class="outline-3">
+<h3 id="orgb5d97c8"><span class="section-number-3">11.3</span> Links 20180805 TBD</h3>
+<div class="outline-text-3" id="text-11-3">
+<ol class="org-ol">
+<li><a href="https://medium.com/@ConsenSys/an-introduction-to-ipfs-9bba4860abd0">https://medium.com/@ConsenSys/an-introduction-to-ipfs-9bba4860abd0</a></li>
+<li><a href="https://medium.com/wolverineblockchain/what-is-ipfs-b83277597da5">https://medium.com/wolverineblockchain/what-is-ipfs-b83277597da5</a></li>
+<li><a href="https://www.reddit.com/r/ipfs/comments/8o96yg/ipfs_on_android/">https://www.reddit.com/r/ipfs/comments/8o96yg/ipfs_on_android/</a></li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-org90e3b9c" class="outline-3">
+<h3 id="org90e3b9c"><span class="section-number-3">11.4</span> T</h3>
+<div class="outline-text-3" id="text-11-4">
+<ol class="org-ol">
+<li>Bitcoin and Cryptocurrency Technologies (Princeton textbook) by Arvind Narayanan, Joseph Bonneau, Edward Felten, Andrew Miller, and Steven Goldfeder:</li>
+</ol>
+<p>
+<a href="https://d28rh4a8wq0iu5.cloudfront.net/bitcointech/readings/princeton_bitcoin_book.pdf">https://d28rh4a8wq0iu5.cloudfront.net/bitcointech/readings/princeton_bitcoin_book.pdf</a>
+</p>
+
+<ol class="org-ol">
+<li>(Optional/Additional) Mastering Bitcoin by Andreas Antonopoulos:</li>
+</ol>
+<p>
+PDF: <a href="https://drive.google.com/file/d/0B8lgcDXI8hEfbXFYcTh6aXNqRkk/view?usp=sharing">https://drive.google.com/file/d/0B8lgcDXI8hEfbXFYcTh6aXNqRkk/view?usp=sharing</a>
+Source: <a href="https://github.com/bitcoinbook/bitcoinbook">https://github.com/bitcoinbook/bitcoinbook</a>
+</p>
+
+<ol class="org-ol">
+<li><a href="https://hn.algolia.com/?query=dapps">https://hn.algolia.com/?query=dapps</a></li>
+<li><a href="https://saurabh-srivastava.github.io/">https://saurabh-srivastava.github.io/</a> Saurabh Srivastava, Synthetic
+Minds: Securing smart contracts using program synthesis.
+<a href="https://news.ycombinator.com/item?id=17508562">https://news.ycombinator.com/item?id=17508562</a> 20n: Designing new
+genetically engineered organisms. PhD: Software that writes
+code. (U of Maryland, 2010)</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgab9aed3" class="outline-2">
+<h2 id="orgab9aed3"><span class="section-number-2">12</span> End</h2>
+<div class="outline-text-2" id="text-12">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2019-05-18
+</div>
+</body>
+</html>

@@ -1,0 +1,1274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Akka with Scala</title>
+<!-- 2015-03-26 Thu 05:42 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="CEG7370 Distributed Computing"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<a href="../../Top/">CEG 7370 Distributed Computing</a> | <a href="./actors-akka-scala.html"> Actors Akka Scala Overview</a> | <a href="./akkaSlides.html"> Akka Slides</a>
+</div>
+<div id="content">
+<h1 class="title">Akka with Scala</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. What is Akka?</a></li>
+<li><a href="#sec-2">2. Actor Ops: Create, Send, Become, Supervise</a></li>
+<li><a href="#sec-3">3. Routers, Dispatchers, and Schedulers</a></li>
+<li><a href="#sec-4">4. Futures and Promises</a></li>
+<li><a href="#sec-5">5. Distributed Actor System</a></li>
+<li><a href="#sec-6">6. Termination</a></li>
+<li><a href="#sec-7">7. Large Scale Examples of Akka + Scala</a></li>
+<li><a href="#sec-8">8. TypeSafe Activator: Akka Get Started</a></li>
+<li><a href="#sec-9">9. References</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> What is Akka?</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Akka is an implementation of Hewitt's <a href="./actors.html">Actor Model</a>, in Scala (and
+hence JVM).  It makes practical concessions to the pure actor
+model.
+</li>
+
+<li>"Akka is a toolkit and runtime for building highly concurrent,
+distributed, and fault tolerant event-driven applications on the
+JVM" <a href="http://www.akka.io">http://www.akka.io</a>.  [Note the use of concurrent and
+distributed.]
+</li>
+
+<li>Helps with scaling both UP (utilizing multi-core processors) and
+OUT (utilizing the cloud/ grid/ cluster).
+</li>
+
+<li><a href="http://www.typesafe.com/platform/getstarted">http://www.typesafe.com/platform/getstarted</a> "The best way to start
+learning Akka &#x2026;"
+</li>
+</ol>
+</div>
+
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> What is Akka? v.Frivolous</h3>
+<div class="outline-text-3" id="text-1-1">
+<ol class="org-ol">
+<li><a href="https://www.google.com/search?q=akka+mountain">https://www.google.com/search?q=akka+mountain</a>
+</li>
+
+<li><a href="https://www.google.com/search?q=akka+finnish+goddess&safe=active">https://www.google.com/search?q=akka+finnish+goddess&safe=active</a>
+</li>
+
+<li><a href="https://www.google.com/search?q=akka+indian&safe=active">https://www.google.com/search?q=akka+indian&safe=active</a>
+</li>
+
+<li><a href="https://www.google.com/search?q=akka+telugu&safe=active">https://www.google.com/search?q=akka+telugu&safe=active</a>
+</li>
+
+<li>Should we give equal time to Bing, Yahoo, DuckDuckGo?
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Who Is Using Akka?</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<div class="figure">
+<p><img src="./fig-actor-users.png" alt="fig-actor-users.png" align="center" width="50%" />
+</p>
+<p><span class="figure-number">Figure 1:</span> Who Is Using Akka?</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> What is Akka? v.nonFrivolous</h3>
+<div class="outline-text-3" id="text-1-3">
+<ol class="org-ol">
+<li>Includes an implementation of Actor Model, with improvements for practicality.
+</li>
+
+<li>Also includes Software Transactional Memory (STM).
+</li>
+
+<li>Event driven, middleware framework
+</li>
+
+<li>Part of Typesafe Stack. Open source, Apache License.  
+</li>
+
+<li>Created by Jonas Bonér.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Akka Practical Use Overview</h3>
+<div class="outline-text-3" id="text-1-4">
+<ol class="org-ol">
+<li>Versions: Scala 2.11+, Akka 2.3.1+.  Code for older versions may
+not work with these versions.  Most, not 100%, is open source.
+</li>
+
+<li>The code shown in boxes below is not always self-contained enough to
+compile it stand-alone.
+</li>
+
+<li><code>scala.actor</code> is deprecated.  Caution: Many articles on the web
+are based on scala.actor.  Use <code>import akka.actor</code> .
+<a href="http://docs.scala-lang.org/overviews/core/actors-migration-guide.html">http://docs.scala-lang.org/overviews/core/actors-migration-guide.html</a>
+</li>
+
+<li>Akka library can be used in Java as well.  <a href="http://www.pykka.org/">http://www.pykka.org/</a>
+   with Python.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> How Does Akka work?</h3>
+<div class="outline-text-3" id="text-1-5">
+
+<div class="figure">
+<p><img src="./fig-akka-how-works.png" alt="fig-actor-users.png" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 2:</span> How Does Akka work?</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Actor Ops: Create, Send, Become, Supervise</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+
+<pre class="src src-scala">case class Greeting (who: String)
+
+class GreetingActor extends Actor {
+  def receive = {
+    case Greeting(who) =&gt;
+      sender ! (s"Hello, $who! Thanks.")
+  }
+}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Actor in Scala, contd</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+
+<pre class="src src-scala">val acsy = ActorSystem("WSU-CEG-7370-Actors")
+val grtr = acsy . actorOf(Props[GreetingActor], "greeter")
+grtr ! Greeting("Brad Pitt")
+</pre>
+</div>
+
+<ol class="org-ol">
+<li><code>Props</code> is a configuration class to specify options for the creation of actors.
+</li>
+
+<li>Try the above in scala REPL.  You need the import shown below.
+</li>
+
+<li><code>import akka.actor.{ ActorRef, ActorSystem, Props, Actor }</code>
+</li>
+
+<li>glitch: akka://WSU-CEG-7370-Actors/deadLetters
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> An Actor in Java</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+
+<pre class="src src-java">public class Greeting implements Serializable {
+  public final String who;
+  public Greeting(String who) {
+    this.who = who;
+  }
+}
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>Continued &#x2026;
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> An Actor in Java, contd-1</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<div class="org-src-container">
+
+<pre class="src src-java">public class GreetingActor extends UntypedActor {
+  LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+  public void onReceive(Object message) throws Exception {
+    if (message instanceof Greeting)
+      getSender.tell("Hello " + ((Greeting) message).who + " Thanks.");
+  }
+}
+</pre>
+</div>
+<ol class="org-ol">
+<li>Continued &#x2026;
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> An Actor in Java, contd-2</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<div class="org-src-container">
+
+<pre class="src src-java">ActorSystem acsy = ActorSystem.create("WSU-CEG-7370-Actors");
+ActorRef grtr = acsy . actorOf(
+  new Props(GreetingActor.class), "greeter");
+grtr.tell(new Greeting("Brad Pitt"));
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Create an Actor</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li>Akka Actor receive message loop is exhaustive, different from
+Erlang and the late Scala Actors.
+</li>
+
+<li>Provide a pattern match for all messages that the actor can accept.
+</li>
+
+<li>To handle unknown messages have a default case <code>case _ =&gt; ...</code>
+</li>
+
+<li>Killing an Actor: <code>victim ! Kill</code>
+</li>
+
+<li><code>context.system.shutdown()</code> the ActorSystem when
+everything’s finished
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Actor System</h3>
+<div class="outline-text-3" id="text-2-4">
+<ol class="org-ol">
+<li>Akka Actors: Extremely lightweight (2.7 Million per GB RAM)
+</li>
+
+<li>Messages are the "kinetic energy" in an actor system.
+</li>
+
+<li>Actors can have lots of buffered "potential energy", but can't do
+anything with it until triggered by a message.
+</li>
+
+<li>Allocate (internal) threads: <code>ActorSystem acsy = ActorSystem.create("WSU-CEG-7370-Actors");</code>
+</li>
+
+<li>Everything is asynchronous and lockless
+</li>
+
+<li>Several actor systems, possibly with different configurations, can
+co-exist
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> Actor Lifecycle</h3>
+<div class="outline-text-3" id="text-2-5">
+
+<div class="figure">
+<p><img src="./fig-actor-lifecycle.png" alt="fig-actor-lifecycle.png" style="background-color:beige" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 3:</span> Actor Lifecycle</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> Send</h3>
+<div class="outline-text-3" id="text-2-6">
+<ol class="org-ol">
+<li>The method named <code>receive</code> defines how messages are handled.
+</li>
+<li><code>!</code> aka <code>tell</code>.
+</li>
+<li>Asynchronous and Non-blocking &#x2013; "Fire-forget"
+</li>
+
+<li>Order of send = order of arrival in the mailbox of receiving
+actor. Message ordering is guaranteed on a per-sender basis.
+</li>
+
+<li>The size of the mailbox can be bounded or unbounded.
+</li>
+
+<li><code>def ! (message: Any)</code><br  />
+    <code>(implicit sender: ActorRef = Actor.noSender)</code>
+</li>
+
+<li><code>?</code> sends a message asynchronously and returns a <code>Future</code>
+   representing a possible reply. Aka <code>ask</code>.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> Become - Ex: HotSwapActor</h3>
+<div class="outline-text-3" id="text-2-7">
+<div class="org-src-container">
+
+<pre class="src src-scala">import akka.actor._
+class HotSwapActor extends Actor {
+  import context._
+  def angry: Receive = {
+    case "ang" =&gt; sender ! "I am already angry &gt;:("
+    case "hap" =&gt; become(happy)
+  }
+
+  def happy: Receive = {
+    case "hap" =&gt; sender ! "I am already happy :-)"
+    case "ang" =&gt; become(angry)
+  }
+
+  def receive = {
+    case "ang" =&gt; become(angry)
+    case "hap" =&gt; become(happy)
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> Become Overview</h3>
+<div class="outline-text-3" id="text-2-8">
+<ol class="org-ol">
+<li>Behaviors can be pushed and popped
+</li>
+<li><code>context.become</code> Replaces the current behavior (i.e., the top of the
+behavior stack)
+</li>
+<li>Will now react according to the new behavior to the messages
+</li>
+<li><code>context.unbecome</code> pop the stack
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-9" class="outline-3">
+<h3 id="sec-2-9"><span class="section-number-3">2.9</span> Become - Why?</h3>
+<div class="outline-text-3" id="text-2-9">
+<ol class="org-ol">
+<li>Implement finite state machines <code>import akka.actor.FSM</code>
+</li>
+
+<li>Spawn up an empty generic worker actor that can become whatever the
+master needs
+</li>
+
+<li>Let a highly contended actor adaptively transform into an actor
+pool or a Router
+</li>
+
+<li>Implement graceful degradation
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-10" class="outline-3">
+<h3 id="sec-2-10"><span class="section-number-3">2.10</span> Advanced <code>become</code>, Finite State Machines, and P3</h3>
+<div class="outline-text-3" id="text-2-10">
+<ol class="org-ol">
+<li><a href="http://www.typesafe.com/activator/template/akka-sample-fsm-scala">http://www.typesafe.com/activator/template/akka-sample-fsm-scala</a>
+</li>
+
+<li>WSU CEG 7370 P3: Understand the example above, and answer the
+questions TBD.
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-11" class="outline-3">
+<h3 id="sec-2-11"><span class="section-number-3">2.11</span> Actor Hierarchy and Name Resolution</h3>
+<div class="outline-text-3" id="text-2-11">
+
+<div class="figure">
+<p><img src="./fig-actor-hierarchy.png" alt="fig-actor-hierarchy.png" title="Actor Hierarchy and Name Resolution" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 4:</span> Actor Hierarchy and Name Resolution</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-12" class="outline-3">
+<h3 id="sec-2-12"><span class="section-number-3">2.12</span> Become &#x2013; Add to the Stack, Not Replace</h3>
+<div class="outline-text-3" id="text-2-12">
+<div class="org-src-container">
+
+<pre class="src src-scala">import akka.event.Logging; import akka.actor._
+case object Swap
+class Swapper extends Actor {  import context._
+  val log = Logging(system, this) 
+  def receive = {
+    case Swap =&gt;
+      log.info("Hi")
+      become({
+        case Swap =&gt;
+          log.info("Ho")
+          unbecome() // just for fun
+      }, discardOld = false) /* not replace */  }}
+
+object SwapperApp extends App {
+  val sys = ActorSystem("SwapperSystem")
+  val a = sys.actorOf(Props[Swapper], name="swapper")
+  // alternately logs Hi, Ho, ...
+  a!Swap; a!Swap; a!Swap; a!Swap; a!Swap; a!Swap
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-13" class="outline-3">
+<h3 id="sec-2-13"><span class="section-number-3">2.13</span> Supervise</h3>
+<div class="outline-text-3" id="text-2-13">
+<ol class="org-ol">
+<li>Every single actor has a default supervisor strategy.  Which is
+usually sufficient.  But it can be overridden.
+</li>
+
+<li>When an actor crashes, its parent can either <code>restart</code>, <code>stop</code> it, or
+<code>escalate</code> the failure up the hierarchy of actors.
+</li>
+
+<li>A chain of responsibility, all the way to the top.    
+</li>
+
+<li>"Let it crash!"
+</li>
+
+<li>Provides clean separation of business logic and error handling
+</li>
+
+<li>Traditional failure management:
+
+<ol class="org-ol">
+<li>You are given a single thread of control
+</li>
+<li>Need to do all explicit error handling WITHIN this single thread
+</li>
+<li>Errors do not propagate between threads
+</li>
+<li>Leads to defensive programming, with error handling tangled with
+business logic
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-14" class="outline-3">
+<h3 id="sec-2-14"><span class="section-number-3">2.14</span> DeathWatch</h3>
+<div class="outline-text-3" id="text-2-14">
+<ol class="org-ol">
+<li>Register to receive <code>Terminated</code> message provided by the
+<code>DeathWatch</code> component of the actor system.
+
+<div class="org-src-container">
+
+<pre class="src src-scala">import akka.actor.{ Actor, Props, Terminated }
+class WatchActor extends Actor {
+  val child = context.actorOf(Props.empty, "child")
+  context.watch(child)   // registration
+  var lastSender = system.deadLetters
+  def receive = {
+    case "kill" =&gt;
+      context.stop(child); lastSender = sender()
+    case Terminated(`child`) =&gt;
+      lastSender ! "finished"
+  }
+}
+</pre>
+</div>
+</li>
+
+<li>Note the back-quotes in <code>Terminated(`child`)</code>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Routers, Dispatchers, and Schedulers</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>A router is a type of actor.  Routes incoming messages to
+outbound actors.
+</li>
+
+<li>Akka download comes with several <code>akka.routing</code> strategies:
+
+<ol class="org-ol">
+<li>RoundRobinRoutingLogic
+</li>
+<li>RandomRoutingLogic
+</li>
+<li>SmallestMailboxRoutingLogic
+</li>
+<li>BroadcastRoutingLogic
+</li>
+<li>ScatterGatherFirstCompletedRoutingLogic
+</li>
+<li>ConsistentHashingRoutingLogic
+</li>
+</ol>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Execution Contexts</h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li>Think of execution contexts as thread pools.
+</li>
+
+<li><code>ExecutionContext</code> is similar to <code>java.util.concurrent.</code> <code>Executor</code>. 
+</li>
+<li><code>import scala.concurrent.ExecutionContext</code>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"></pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Dispatchers</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li>A dispatcher chooses an actor and a message from the actors mbox,
+and allocates a thread.
+</li>
+
+<li>Every ActorSystem will have a default dispatcher.  Dispatchers
+implement the <code>ExecutionContext</code> interface.
+</li>
+
+<li>Each actor is configured to be run on a <code>MessageDispatcher</code>, and that
+dispatcher doubles as an <code>ExecutionContext</code>.
+</li>
+
+<li>Pinned dispatcher: Each actor has its own dedicated thread. Ideal
+for blocking operations.
+</li>
+
+<li>Calling Thread dispatcher: Provides a deterministic execution order
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> The Balancing Dispatcher</h3>
+<div class="outline-text-3" id="text-3-3">
+<ol class="org-ol">
+<li>Balancing dispatcher: Redistribute the work from busy actors to
+idle ones.
+</li>
+
+<li>All actors it handles share a mbox.  A "work stealing" dispatcher.
+</li>
+
+<li>BalancingDispatcher is an actor.  It is in-charge of sending
+messages to several actors (known as workers).
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-3-3-1" class="outline-4">
+<h4 id="sec-3-3-1"><span class="section-number-4">3.3.1</span> The Balancing Dispatcher</h4>
+<div class="outline-text-4" id="text-3-3-1">
+
+<div class="figure">
+<p><img src="./fig-dispatcher-balancing.png" alt="fig-dispatcher-balancing.png" align="center" width="50%" style="background-color:beige" />
+</p>
+<p><span class="figure-number">Figure 5:</span> balancing-workload-across-nodes-with-akka-2</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Throttling</h3>
+<div class="outline-text-3" id="text-3-4">
+<ol class="org-ol">
+<li>Message Throttler: E.g., no more than 3 messages in 1 second.
+</li>
+<li>printer: A simple actor that prints whatever it receives
+
+<div class="org-src-container">
+
+<pre class="src src-scala">class PrintActor extends Actor {
+  def receive = { case x ⇒ println(x) }
+}
+val printer = system.actorOf(Props[PrintActor])
+</pre>
+</div>
+</li>
+
+<li><code>TimerBasedThrottler</code>
+<div class="org-src-container">
+
+<pre class="src src-scala">val throttler = system.actorOf(
+  Props(classOf[ TimerBasedThrottler ],
+  3 msgsPer 1.second))
+throttler ! SetTarget(Some(printer))
+throttler ! "1"; throttler!"2"; throttler!"3"
+// These will wait for a second
+throttler ! "4"; throttler ! "5"
+</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> Circuit Breakers</h3>
+<div class="outline-text-3" id="text-3-5">
+<ol class="org-ol">
+<li>A circuit breaker provides stability and prevents cascading
+failures in distributed systems.
+</li>
+
+<li>import <code>akka.pattern.CircuitBreaker</code>, &#x2026;
+
+<div class="org-src-container">
+
+<pre class="src src-scala">class D extends Actor with ActorLogging {
+  import context.dispatcher
+
+  val breaker = new CircuitBreaker(
+    context.system.scheduler,
+    maxFailures = 5, callTimeout = 10.seconds,
+    resetTimeout = 1.minute). onOpen(notifyMeOnOpen())
+
+  def notifyMeOnOpen(): Unit = log.warning(
+    "My CircuitBreaker is now open, and " + 
+    "will not close for one minute")
+</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-6" class="outline-3">
+<h3 id="sec-3-6"><span class="section-number-3">3.6</span> Actor scheduling</h3>
+<div class="outline-text-3" id="text-3-6">
+<ol class="org-ol">
+<li>You can schedule sending of messages and execution of tasks
+(functions or Runnable).
+</li>
+
+<li>Schedule to send the "foo"-message to the testActor after 50ms:
+<div class="org-src-container">
+
+<pre class="src src-scala">system.scheduler().scheduleOnce(
+  Duration.create(50, TimeUnit.MILLISECONDS),
+  testActor, "foo", system.dispatcher(), null   )
+</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Futures and Promises</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>Akka gets Futures and Promises from Scala.
+</li>
+
+<li>A Future is a placeholder object for a result that has not been
+computed yet.  A related CS term is <b>lazy evaluation</b>.
+</li>
+
+<li>A Future may only be assigned once.  Needs an <code>ExecutionContext</code>
+</li>
+
+<li>Invoke the <code>future</code> method which starts an asynchronous computation
+and returns a future. The result becomes available once the future
+<b>completes</b>.
+
+<div class="org-src-container">
+
+<pre class="src src-scala">import scala.concurrent.{ future, promise }
+import scala.concurrent.ExecutionContext.Implicits.global
+val s = socialNetwork.createSessionFor("user", credentials)
+val f: Future[List[Friend]] = future {
+  s.getFriends()           // may take a while
+}
+</pre>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Promises</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>A Promise is a writable, single-assignment container that completes
+a future. Methods: <code>success</code>, <code>failure</code>, <code>complete</code>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">import scala.concurrent.{ future, promise }
+import scala.concurrent.ExecutionContext.Implicits.global
+val p = promise[T]
+val f = p.future
+val prdcr = future {               // producer
+  val r = produceSomething()
+  p . success . r
+  continueDoingSomethingUnrelated()
+}
+val cnsmr = future {              // consumer
+  startDoingSomething()
+  f . onSuccess {
+    case r =&gt; doSomethingWithResult()
+  }}
+</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Distributed Actor System</h2>
+<div class="outline-text-2" id="text-5">
+
+<div class="figure">
+<p><img src="./fig-actor-path.png" alt="fig-actor-path.png" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 6:</span> Distributed Actor System</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Actor References</h3>
+<div class="outline-text-3" id="text-5-1">
+<ol class="org-ol">
+<li>Actor references may be obtained by (i) creating actors or (ii)
+looking them up
+</li>
+
+<li>Typically, we create actors beneath the guardian actor using the
+<code>ActorSystem.actorOf</code> method and then &#x2026;
+</li>
+
+<li>Spawn the actor tree using <code>ActorContext.actorOf</code>.
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-5-1-1" class="outline-4">
+<h4 id="sec-5-1-1"><span class="section-number-4">5.1.1</span> Looking up Actors by Concrete Path</h4>
+<div class="outline-text-4" id="text-5-1-1">
+<ol class="org-ol">
+<li><code>ActorSystem.actorSelection</code> method
+</li>
+
+<li>Send a message, such as the built-in <code>Identify</code> message, to the
+actor and use the <code>sender</code> reference of a reply from the actor.
+</li>
+
+<li><code>actorFor</code> is deprecated in favor of <code>actorSelection</code> because actor
+references acquired with actorFor behave <b>differently</b> for local
+and remote actors.  Beware: actorOf vs. actorSelection vs. actorFor
+</li>
+
+<li>Matching on paths similar to shells «*» and «?»:
+<code>context.actorSelection("../*") ! msg</code>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-1-2" class="outline-4">
+<h4 id="sec-5-1-2"><span class="section-number-4">5.1.2</span> Absolute vs. Relative Paths</h4>
+<div class="outline-text-4" id="text-5-1-2">
+<ol class="org-ol">
+<li>Send a message to a specific sibling:
+</li>
+<li><code>context . actorSelection ("../brother") ! msg</code>
+</li>
+<li>Absolute paths: <code>context.actorSelection("/user/serviceA") ! msg</code>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Remote Actors and Akka Clusters</h3>
+<div class="outline-text-3" id="text-5-2">
+<ol class="org-ol">
+<li>Remote Actors ActorSystem configuration
+</li>
+</ol>
+
+
+<div class="figure">
+<p><img src="./fig-actor-remote-1.png" alt="fig-actor-remote-1.png" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 7:</span> Remote Actors ActorSystem configuration</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Clusters</h3>
+<div class="outline-text-3" id="text-5-3">
+<ol class="org-ol">
+<li>Automatic cluster-wide deployment
+</li>
+<li>Decentralized P2P gossip-based cluster membership
+</li>
+<li>Leader “election”
+</li>
+<li>Adaptive load-balancing (based on runtime metrics)
+</li>
+<li>Automatic replication with automatic fail-over upon node crash
+</li>
+<li>Automatic adaptive cluster rebalancing
+</li>
+<li>Highly available configuration service
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> Enable Clustering</h3>
+<div class="outline-text-3" id="text-5-4">
+<div class="org-src-container">
+
+<pre class="src src-scala">akka {
+  actor {
+    provider = "akka.cluster.ClusterActorRefProvider"
+    ...
+  }
+
+  extensions = ["akka.cluster.Cluster"]
+
+  cluster {
+    seed-nodes = [
+      "akka://ClusterSystem@127.0.0.1:2551",
+      "akka://ClusterSystem@127.0.0.1:2552"
+    ]
+    auto-down = on
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> Remote Deployment</h3>
+<div class="outline-text-3" id="text-5-5">
+
+<div class="figure">
+<p><img src="./fig-actor-remote-deployment.png" alt="fig-actor-remote-deployment.png" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 8:</span> Remote Deployment</p>
+</div>
+
+<ol class="org-ol">
+<li><a href="http://doc.akka.io/docs/akka/snapshot/general/addressing.html">http://doc.akka.io/docs/akka/snapshot/general/addressing.html</a>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Termination</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+What Does "Finished" Mean? The most natural answer to this question
+   appears to be, "When all the Mailboxes are empty." Natural, yes;
+   correct, no. :)
+</p>
+
+
+<div class="figure">
+<p><img src="./fig-terminated-q.png" alt="fig-terminated-q.png" style="background-color:beige" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 9:</span> Actor System terminated?</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> The Reaper</h3>
+<div class="outline-text-3" id="text-6-1">
+
+<div class="figure">
+<p><img src="./fig-the-reaper.png" alt="fig-the-reaper.png" style="background-color:beige" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 10:</span> Actor System Reaper</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> Reaper Source Code</h3>
+<div class="outline-text-3" id="text-6-2">
+<div class="org-src-container">
+
+<pre class="src src-scala">import akka.actor.{Actor, ActorRef, Terminated}
+import scala.collection.mutable.ArrayBuffer
+
+object Reaper { case class WatchMe(ref: ActorRef); }
+
+abstract class Reaper extends Actor {
+  import Reaper._
+  val watched = ArrayBuffer.empty[ActorRef]
+
+  /* Derivations must implement this method. Called 
+   * when everything is dead */
+
+  def allSoulsReaped(): Unit
+
+  final def receive = {
+    case WatchMe(ref) =&gt;
+      context.watch(ref)
+      watched += ref
+    case Terminated(ref) =&gt;
+      watched -= ref
+      if (watched.isEmpty) allSoulsReaped()
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6-3" class="outline-3">
+<h3 id="sec-6-3"><span class="section-number-3">6.3</span> PoisonPill</h3>
+<div class="outline-text-3" id="text-6-3">
+
+<div class="figure">
+<p><img src="./fig-akka-poison-pill.png" alt="fig-akka-poison-pill.png" style="background-color:beige" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 11:</span> Application with PoisonPill</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Large Scale Examples of Akka + Scala</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li><a href="http://www.playframework.com/">http://www.playframework.com/</a> "The High Velocity Web Framework For
+Java and Scala" Built on Akka, Play provides predictable and
+minimal resource consumption (CPU, memory, threads) for
+highly-scalable applications.  RESTful by default.
+
+<ol class="org-ol">
+<li>REST stands for "Representational State Transfer".  It
+describes a web architecture.
+</li>
+</ol>
+</li>
+
+<li>Play is used in <a href="http://www.typesafe.com/platform/getstarted">http://www.typesafe.com/platform/getstarted</a>
+</li>
+
+<li><a href="http://spray.io/">http://spray.io/</a> "Elegant, high-performance HTTP for your Akka
+Actors."  <code>spray</code> is an open-source toolkit for building
+REST/HTTP-based integration layers on top of Scala and Akka.  Being
+asynchronous, actor-based, fast, lightweight, modular and testable
+it's a great way to connect your Scala applications to the world.
+</li>
+
+<li><a href="http://twitter.github.io/finagle">http://twitter.github.io/finagle</a> Finagle is an extensible RPC
+system for the JVM.  Finagle is written in Scala, but provides both
+Scala and Java  APIs.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> TypeSafe Activator: Akka Get Started</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li>Reactive Applications: Concurrency + events
+</li>
+<li>Play Framework 
+</li>
+<li>Akka Runtime 
+</li>
+<li>Scala Programming Language 
+</li>
+<li>Activator Reactive Developer Environment
+</li>
+<li><a href="http://www.typesafe.com/platform/getstarted">http://www.typesafe.com/platform/getstarted</a> "The best way to start
+learning Akka &#x2026;"
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> Activator Practical Details</h3>
+<div class="outline-text-3" id="text-8-1">
+<ol class="org-ol">
+<li><code>ssh</code> to Laptop/OSIS Lab machine <code>130.108.17.112</code>
+</li>
+
+<li><code>% /usr/local/activator-1.1.1/activator ui -Dhttp.address=130.108.17.112 -Dhttp.port=8080 -Dbrowser=/usr/bin/google-chrome</code>
+</li>
+
+<li>Copies/Creates its applications in <code>~/.activator/</code> and <code>~</code>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-8-2" class="outline-3">
+<h3 id="sec-8-2"><span class="section-number-3">8.2</span> Akka, without Activator, Practical Details</h3>
+<div class="outline-text-3" id="text-8-2">
+<ol class="org-ol">
+<li>Akka can be used without defining a
+configuration, since sensible default values are provided.
+
+<div class="org-src-container">
+
+<pre class="src src-scala">// application.conf at the root of the class path.
+akka {
+  loggers = ["akka.event.slf4j.Slf4jLogger"]
+  loglevel = "DEBUG"
+  stdout-loglevel = "WARNING"
+  actor {
+    provider = "akka.cluster.ClusterActorRefProvider"
+    default-dispatcher {
+      # set to 1 for as fair as possible
+      throughput = 10
+    }
+  }
+  remote {    netty.tcp.port = 2552  }
+}
+</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> References</h2>
+<div class="outline-text-2" id="text-9">
+<ol class="org-ol">
+<li><a href="http://akka.io/docs/akka/snapshot/AkkaScala.pdf">http://akka.io/docs/akka/snapshot/AkkaScala.pdf</a> about 360 pages.
+Nearly all the code snippets and figures are from here.  Reference.
+</li>
+
+<li>Jonas Biner, "Above the Clouds: Introducing Akka", 2011.  Web
+search for "Above the Clouds: Introducing Akka".  Video or pdf.
+Highly recommended.
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2014  <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a>
+</div>
+</body>
+</html>

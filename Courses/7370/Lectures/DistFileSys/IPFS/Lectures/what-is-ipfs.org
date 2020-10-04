@@ -1,0 +1,672 @@
+# -*- mode: org -*-
+#+DATE: 2018-08-19
+#+TITLE: What is IPFS?
+#+AUTHOR: Prabhaker Mateti
+#+Email: pmateti@wright.edu
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: https://cecs.wright.edu/~pmateti
+#+HTML_HEAD:<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+# written to produce slides primarily; see revealjs.sh script of mine
+
+* Detailed Table of Contents
+
+** 2. What does "IPFS" Offer? TOC
+1. What is "IPFS"?
+3. Object Storage
+4. Addressing Stored Values: Key-Value Stores
+6. Location Based Addressing
+7. [[Content-Hash Addressed][Content-Hash Addressed]]
+8. Immutable
+9. Permanency
+10. Permissions
+11. Ownership
+12. Decentralized + Distributed
+13. Network Accessible Uniformly
+14. Security
+
+** 3. [[What is IPFS?][What is IPFS?]] TOC
+1. Technologies Used/ Related
+2. [[Nodes][Nodes]]
+3. IPFS Layers (Subsystems)
+4. [[IPLD InterPlanetary Linked Data][IPLD InterPlanetary Linked Data]]
+5. LIBP2P
+6. IPNS InterPlanetary Naming System
+7. IPFS Applications
+
+** 4. [[IPFS FAQs][IPFS FAQs]]  TOC
+1. IPFS Implementation Done?
+2. IPFS Integration with BitCoin, et al.
+3. Content Availability
+4. Content Permanency
+5. Content Secrecy
+6. Delete Content
+7. Does IPFS Guarantee Anonymity?
+8. Hosting a Website
+9. IPFS Abuse
+10. IPFS Hash Collision
+12. Public v Private IPFS
+
+** 5. [[Related Projects][Related Projects]]  TOC
+1. FileCoin
+3. Orbit
+4. DTube
+5. ZeroNet
+6. Akasha
+7. Competing Projects
+8. Distributed Web Applications (DApps)
+
+** 6. [[IPFS Why Should We Care?][IPFS Why Should We Care?]]
+
+1. Future Web?  Web 3.0?
+1. Un-censorable.
+1. "Trust, but Verify."  No 3rd parties.  Content can be trusted.
+1. Digital ledgers built-in.
+1. More at the end of these Lectures.
+
+
+** On to the Content of this Lecture
+
+1. The next few descriptions are loaded with "terminology".
+2. Often, Circular.
+3. These are going to leave you with a number of questions.
+   Wait for FAQ below.
+
+
+* What does "IPFS" Offer?
+
+# 1. IPFS offers the following, when finished (?).
+
+2. (Linux/ ...) OS File System.
+3. Web content: As it is now 2018, Web 2.0, Web 3.0 soon.
+4. Globally + Uniformly Network accessible.
+1. A platform for Distributed Apps (DApps).
+
+** What is "IPFS"?
+
+1. The current section is a collection of ideas.
+1. Together they can be the basis for a future design of web.
+1. The next section is a description of IPFS, the specific "product".
+1. IPFS, an acronym for "InterPlanetary File System".
+
+** Object Storage
+
+1. Digital Objects are stored in "nodes": distributed across the
+   globe, decentralized.
+1. The "FS" in the name does /not/ stand, strictly, for files.
+1. A "file" is any digital object, small or large.
+1. Objects are stored in a MerkleDAG.
+
+** Addressing Stored Values
+
+*** Arrays and Indices
+
+1. =a[x]=
+1. array name a, 
+1. index integer x, 
+1. x >= 0 mostly.
+1. address of a[x+1] == address of a[x] + size-of(a[x])
+
+*** Associative Arrays
+
+1. a  collection of pairs (x, a[x]) of indices x and values a[x]
+1. unordered
+1. no duplicated indices
+1. cache memory
+1. Often drawn as an array, but no address relationships among elements
+
+*** Key-Value Stores
+
+1. Generalize the indices in assoc arrays to arbitrary types called
+   /keys/.
+1. No address relationships among elements.
+1. Given a key =k=, retrieve value =val(k)=
+1. https://redis.io/ | https://memcached.org/
+
+** Location Based Addressing
+
+1. Web 1.0/ 2.0 URLs have the following syntax: =scheme: //[userName=
+   =[:password@]] serverMachineName [:port]/ [path] [/resource]= 
+   =[?parm1=parma &parm2=parmb]=
+
+1. A simple example of the above is http://www.cs.wright.edu/~pmateti/
+   where the scheme was chosen to be =http=, the port defaults to 80,
+   and the path given is =~pmateti/=.
+
+** Content-Hash Addressed
+
+1. Apply a crypto-hash (e.g., sha256) to the content, resulting in, e.g.,
+   =QmZpfhN5rucQC4kx7Gu5udS8FXxsxMddiDCvG8WFjG8SMv=
+1. The above is in /multihash/ self-describing format and Base58
+   encoding. The letters =Qm= correspond to SHA-256 and 32 byte
+   length.
+1. IPFS makes sure the hash is unique.
+
+1. An IPFS address hash should be stored in =bytes=.  The =Qm...=
+   should be stored as a =string=.
+1. IPFS link
+   =/ipfs/QmW2WQi7j6c7UgJTarActp7tDNikE4B2qXtFCfLPdsgaTQ/cat.jpg=
+
+1. =http://localhost:8080/ipfs/QmR96iiRBEroYAe955my8cdHkK4kAu6SApGC2eS5kSzHwt/=
+
+*** MultiHash
+
+1. struct Multihash
+   : struct Multihash {
+   :   bytes32 hash
+   :   uint8 hash_function
+   :   uint8 size
+   : }
+
+1. ipfs add -w example.txt
+   : $ ipfs add -w example.txt
+   : added QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH example.txt
+   : added QmVFDXxAEC5iQ9ptb36dxzpNsQjVatvxhG44wK7PpRzsDE
+
+*** Retrievability
+
+1. To retrieve content, you must have its hash.
+1. Ex: https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/...
+1. User friendly? Work-in-progress.  See IPNS.
+
+** Immutable
+
+1. The content (of a stored object) is unchangeable.
+
+1. The content is versioned, with a link to its previous version.
+
+1. Recall digital ledgers.
+
+1. Deletion? See FAQ.
+
+
+** Permanency
+
+1. IPFS is a permanent storage system for digital objects.  Lives forever.
+1. An object stored in IPFS is retrievable at any time, 24x7, from a node.
+1. Motivated by /incentivization/.
+
+** Permissions
+
+1. As long as you have the hash of an object, you can retrieve
+   it from IPFS.
+1. Can we have at least Linux-style read-write-etc permissions? WIP.
+1. FAQ: Public v Private IPFS.
+
+
+** Ownership
+
+1. What is ownership?  Define.  Related to immutability.
+1. No single entity, human or org, owns the system, or any part of it.
+1. No "destructive" operations can be performed.
+1. FAQ: Who uploaded what?
+
+
+** Decentralized + Distributed
+
+1. "It's nowhere because it's everywhere!"
+1. Sanskrit: Sarvantaryami (in Telugu script సర్వాంతర్యామి)
+
+*** Client-Server v P2P
+
+#+caption: Client-Server v P2P
+#+attr_html: :alt Client-Server v P2P  :title Client-Server v P2P
+[[../Figures/networksv4.png]]
+
+*** Centralized Decentralized Distributed
+
+#+caption: Centralized Decentralized Distributed
+#+attr_html: :alt Centralized Decentralized Distributed  :title Centralized Decentralized Distributed :width 100%
+[[../Figures/decentral-distributed.png]]
+
+
+*** Distributed
+
+1. Spatially Distributed
+1. Possibly replicated
+1. We use duplication versus replication with different semantics.
+1. Sharded content?
+
+*** Decentralized
+
+1. Harder to define.
+1. Centralized: One node exists that controls all content.
+1. Multiple centers.
+1. Decentralized: Single or multiple centers do not exist.
+
+
+*** Decentralized implies Distributed
+
+*** Distributed does-not-imply Decentralized
+
+** Network Accessible Uniformly
+
+1. All IPFS nodes access the objects using the same addresses.
+1. No client is denied access.
+1. Performance can vary.
+
+** Security
+
+1. "Security" is an ill defined term, in general.  So, let us focus on
+   the following aspects.
+1. Unauthorized content modification: Not possible.
+1. Read-Access control Built-in: Non existent.
+1. Read-Access control DIY: Encrypt the object and share the (private) key.
+
+1. [[https://medium.com/@mycoralhealth/learn-to-securely-share-files-on-the-blockchain-with-ipfs-219ee47df54c][Learn to securely share on the IPFS]].
+
+* What is IPFS?
+
+1. A peer-to-peer hypermedia protocol: =ipfs:/.../...=.  
+1. A (networked) storage system that can be =mount= -ed.
+1. Funding: $52 million from Union Square Ventures (??) and others.
+1. IPFS is FOSS.
+1. This section is a sketchy design description.
+
+** Technologies Used/ Related
+
+1. DHT Distributed Hash Tables - Kademlia 
+1. Block Exchanges - BitTorrent
+1. Version Control Systems, merkledag - Git
+1. Self-certifying File System SFS
+1. FileCoin
+
+** Nodes
+
+1. A node is a computer system running the "IPFS daemon": =ipfs init=
+1. A node stores IPFS objects.
+1. Obviously, not all of them.
+1. No assumptions are made about the life-cycle of a node.
+1. A node is a running process that can find, publish, and replicate
+   merkledag objects.
+
+*** Nodes #2
+
+1. Access requests originate from a node.
+1. Retrieved content is cached.
+1. Idle cached content is garbage collected.
+1. Nodes cannot be forced to fetch anything or to pin anything.
+1. A node uses the DHT, IPLD, IPNS -- see below.
+
+*** Nodes #3
+
+1. There are already many (thousands?) nodes.
+
+1. Content becomes more readily available as it gets more
+   popular.
+
+1. Often content "cannot" be reached.
+
+** IPFS Layers (Subsystems)
+
+#+caption: IPFS Layers (the left half names pre-existing systems)
+#+attr_html: :alt IPFS Layers :title IPFS Layers :width 100%
+[[../Figures/ipfs-stack.png]]
+
+*** IPFS Subsystems
+
+#+caption: IPFS stack, divided
+#+attr_html: :alt :title :width 100%
+[[../Figures/libp2p.001.jpg]]
+
+
+** IPLD InterPlanetary Linked Data
+
+#+caption: InterPlanetary Linked Data
+#+attr_html: :alt  :title InterPlanetary Linked Data :width 50%
+[[../Figures/ipld-illustration.svg]]
+
+*** IPLD InterPlanetary Linked Data
+
+1. IPLD InterPlanetary Linked Data https://github.com/ipld
+1. "IPLD is the data model of the content-addressable web. It allows us
+   to treat all hash-linked data structures as subsets of a unified
+   information space, unifying all data models that link data with
+   hashes as instances of IPLD."
+
+1. "IPLD is a single namespace for all hash-inspired
+   protocols.  Through IPLD, links can be traversed across protocols,
+   allowing you explore data regardless of the underlying protocol."
+
+** LIBP2P
+
+#+caption: libp2p included protocols
+#+attr_html: :alt IPFS Layers :title IPFS Layers :width 100%
+[[../Figures/libp2p.002.jpg]]
+
+*** LIBP2P #2
+
+#+caption: libp2p routing
+#+attr_html: :alt IPFS Layers :title IPFS Layers :width 100%
+[[../Figures/libp2p.003.jpg]]
+
+** DHT Distributed Hash Tables
+
+1. DHT: Given the Key, retrieve Value.
+1. Similar to Python dict or Perl hash.  Not (necessarily) crypto-hash.
+1. The DHT may be distributed over multiple nodes.
+1. Multiple designs/ implementations exist: e.g., Kademlia.
+1. IPFS key is crypto-hash of object content.
+
+** IPFS Networking
+
+1. "IPFS nodes communicate regularly with hundreds of other nodes in
+   the network."
+
+*** IPFS Routing
+
+1. IPFS nodes require a routing system that can find (a) other peers’
+   network addresses and (b) peers who can serve particular objects. 
+
+1. IPFS achieves this using a DHT.
+
+*** DHT Interface
+
+: type IPFSRouting interface {
+:   FindPeer(node NodeId) // gets a particular peer’s network address
+:   SetValue(key []bytes, value []bytes) // stores a small metadata value in DHT
+:   GetValue(key []bytes) // retrieves small metadata value from DHT
+:   ProvideValue(key Multihash) // announces this node can serve a large value
+:   FindValuePeers(key Multihash, min int) // gets a number of peers serving a large value
+: }
+
+** IPFS Exchange
+
+1. In IPFS, data distribution happens by exchanging blocks with peers
+   using BitSwap.
+
+1. BitSwap nodes provide direct values to each other in the form of blocks.
+
+1. BitSwap nodes keep ledgers accounting the transfers with other nodes
+
+
+** IPNS  InterPlanetary Naming System
+
+1. The Peer ID is the hash of the public RSA key of the node.  IPNS
+   maps peer IDs to content hashes.
+1. The mapping can be modified.
+: ipfs name publish QmNUhKfcGJyQJnZu3AKn8NoiomDwDCRBicgqPt1YRqJBCz
+: Published to QmYmmfn68vkcFDeZz1NTZyEXTixjjUnUS6UaPdMSsUBWxs:
+:  /ipfs/QmNUhKfcGJyQJnZu3AKn8NoiomDwDCRBicgqPt1YRqJBCz
+1. In the above, =QmYmmfn68vkcFDeZz1NTZyEXTixjjUnUS6UaPdMSsUBWxs= was
+   the peer ID.
+1. IPFS stores the private RSA key in the configuration. No
+   passphrase.
+
+*** Readability
+[[../Figures/human-readable.png]]
+
+*** Readability #2
+
+[[../Figures/ipld-foo-bar-baz.png]]
+
+
+*** IPFS Naming
+
+1. Bind IPNS to a domain using DNS TXT records
+
+*** IPFS MerkleDAG
+
+#+caption: A Merkle Bin Tree of Four Blocks
+#+attr_html: :alt A Merkle Bin Tree  :title A Merkle Bin Tree :width 100%
+[[../Figures/merkle-bin-tree.png]]
+
+*** Details of MerkleDAG
+
+1. Merkle trees in general are n-ary.
+1. A forest is a collection of trees.
+1. Merkle Trees are already in use by Git, BitCoin, Ethereum, ...
+
+*** IPFS Digital Objects
+
+1. block: a variable-size chunk of data.  An addressable unit of data.
+
+2. list: a collection of blocks or other lists.
+3. tree: a collection of blocks, lists, or other trees.
+4. commit: a snapshot in the version history of a tree.
+
+** IPFS Applications
+
+[[../Figures/web20to30.jpg]]
+
+*** PubSub
+
+1. Publishers-Subscribers is an object oriented architectural design
+   pattern.
+
+*** Observer Pattern
+
+##
+#+caption: Observer Pattern
+#+attr_html: :alt Observer Pattern  :title Observer Pattern :width 100%
+[[../Figures/observer-pat.png]]
+
+*** PubSub (Publisher Subscriber) Pattern
+
+#+caption: PubSub Pattern
+#+attr_html: :alt :title
+[[../Figures/pubsub-pat.gif]]
+
+
+
+
+
+* IPFS FAQs
+
+** IPFS Implementation Done?
+
+1. Is the design and implementation of IPFS done? 
+   1. Go https://github.com/ipfs/go-ipfs exists,
+   2. JavaScript https://github.com/ipfs/js-ipfs exists,
+   3. Python https://github.com/ipfs/py-ipfs is in progress.
+1. Alpha.  Targeted at developers.
+
+** IPFS Integration with BitCoin, et al.
+
+1. Can IPFS integrate with BitCoin, Git, ...?  Yes.
+1. See IPLD.
+
+
+** Content Availability
+
+1. Will something added to IPFS remain available to others if I turn
+   off my computer?
+1. Turning off is not the crucial point.
+1. Unreachable because un-cached in reachable nodes.
+1. https://discuss.ipfs.io/t/397
+
+** Content Permanency
+
+1. No guarantees of replication; need people to request content data.
+1. Incentivization in progress.
+1. https://discuss.ipfs.io/t/storing-a-few-tb-of-data/476
+
+** Content Deletion
+
+1. Can I delete (my) content from the network? No.
+1. See above.
+1. https://discuss.ipfs.io/t/301
+
+** Content Secrecy
+
+1. Objects can be made illegible using public key cryptography.  Those
+   holding the private key can read.  Others can only tell how big
+   they are but they cannot know more.
+
+1. Incentivize to keep such content available.
+
+** Content Privacy
+
+1. Private swarms, WIP.
+1. Separate name spaces, WIP.
+1. Public v Private IPFS, WIP.
+
+
+** Does IPFS Guarantee Anonymity?
+
+1. IPFS makes no claims about anonymity.
+1. We can discover the IP address of a peer hosting any given block.
+1. https://discuss.ipfs.io/t/387
+
+** Hosting a Website
+
+1. The main site https://ipfs.io/ is on IPFS.
+
+1. Example: http://www.dispersion.io/ 
+
+1. Example: [[https://ipfs.io/ipfs/QmdPtC3T7Kcu9iJg6hYzLBWR5XCDcYMY7HV685E3kH3EcS/2015/09/15/hosting-a-website-on-ipfs/]["The Ramblings of a Random Programmer"]] 
+   =https : //ipfs.io/ipfs/=
+   =QmdPtC3T7Kcu9iJg6hYzLBWR5XCDcYMY7HV685E3kH3EcS/ 2015/09/15/ hosting-a-website-on-ipfs/=
+   [Blanks inserted for readability]
+
+1. Google does not index IPFS (yet).
+1. See https://discuss.ipfs.io/t/is-ipfs-fit-for-personal-blog-pages/331
+
+
+** IPFS Abuse
+
+1. Forgoing reputation and indiscriminately servicing leaches
+   https://discuss.ipfs.io/t/444
+
+1. Is it possible to limit the size of a local storage?
+   https://discuss.ipfs.io/t/364
+1. Can I control the amount of storage/ bandwidth dedicated to IPFS?
+   https://discuss.ipfs.io/t/395
+
+** IPFS Hash Collision
+
+1. What to do in case of hash collision? Multiple objects
+   crypto-hashing to the same.
+
+1. https://discuss.ipfs.io/t/482
+
+** Who Uploaded What?
+
+1. We can discover the IP address of a peer hosting any given block.
+
+
+** Misc
+
+1. {IPNS works badly now, but this is because of the
+   implementation.}
+
+1. IPFS uses a lot of bandwidth now.  WIP
+
+* Related Projects
+
+1. Sister Projects
+2. Competing Projects
+
+
+** FileCoin
+
+1. FileCoin is a sister project, by Protocol Labs.  FOSS.
+
+1. http://filecoin.io/ as an incentive to replicate data. 
+   (Get paid "payed" for storing files.)
+
+1. {You offer to pay for storage, and the most efficient, capable, and
+   cheap hard drives win the bid and they host your files.}
+
+** FileCoin #2
+
+1. Filecoin is a protocol that pays nodes to keep a copy of your stuff
+   without having to trust them.
+
+1. When you use Google Drive, you are trusting google.
+
+1. Google Drive has a user interface and editors for your spreadsheets
+   etc, sharing functionality and much more. 
+
+1. Filecoin is just a system to have others store files for you and
+   that's it.
+
+** Orbit
+
+1. Orbit P2P Chat https://orbit.chat/
+
+#+caption: Orbit P2P Chat on IPFS
+#+attr_html: :alt IPFS P2P Chat :title Orbit P2P Chat on IPFS :width 100%
+[[../Figures/libp2p.007-orbit.jpg]]
+
+** DTube
+
+1. https://d.tube/ A decentralized video platform using STEEM and IPFS
+1. Image "hosting": https://github.com/ipfspics/ipfspics-server |
+   http://ipfs.pics/ [Broken link]
+
+** ZeroNet
+
+1. https://zeronet.io/ "Open, free and uncensorable websites, using
+   Bitcoin cryptography and BitTorrent network"
+
+
+** Akasha
+
+1. AKASHA (a Next-Generation Social Media Network) https://akasha.world/ TBD Sanskrit ākāśa आकाश
+1. orbit-db (Key/Value database; Peer-to-Peer Databases for the Decentralized Web)
+
+** Competing Projects
+
+#+attr_html: :alt  :title  :width 100%
+[[../Figures/dist-internet.jpg]]
+
+
+*** LBRY
+
+1. Content Freedom https://lbry.io/
+
+*** DAT
+
+1. http://datproject.org/ A distributed data community, /dat/
+
+
+*** PEERGOS
+
+1. https://peergos.org/ An end-to-end encrypted, peer-to-peer file
+   storage, sharing and communication network.  It is an open source,
+   secure, self hostable file storage and sharing platform. All your
+   files are encrypted locally and your private keys never leave your
+   machine.  FOSS.
+
+** Distributed Web Applications (DApps)
+
+1. IPFS is a platform for dApps.
+1. Orbit P2P Chat https://orbit.chat/
+1. https://peerpad.net/ PeerPad is a realtime P2P collaborative
+   editing tool, powered by IPFS and CRDTs (conflict-free replicated
+   data type)
+
+* IPFS Why Should We Care?
+
+1. Un-censorable.
+1. Trust, but Verify.  No 3rd parties.  Content can be trusted.
+1. Digital ledgers built-in.
+1. More at the end of these Lectures.
+
+* ACK
+
+1. Juan Bennet, @article{benet2014ipfs, title={IPFS-Content Addressed,
+   Versioned, P2P File System (Draft 3)}, author={Benet, Juan},
+   journal={arXiv preprint arXiv:1407.3561}, year={2014}, pages =
+   {11},} https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf
+
+1. @Article{Filecoin2017, author = {Protocol-Labs}, title = {Filecoin:
+   A Decentralized Storage Network}, journal = {White Paper}, year =
+   {2017}, pages = {36}, month = {July}, }
+
+1. Mark Pors, https://decentralized.blog/ Catching the Blockchain
+   Train, Understanding-the- IPFS white-paper 2017.
+
+1. All figures are borrowed from the web.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

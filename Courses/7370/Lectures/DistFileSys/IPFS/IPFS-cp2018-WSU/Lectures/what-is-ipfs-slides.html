@@ -1,0 +1,1428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Prabhaker Mateti">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Lectures by Prabhaker Mateti</title>
+
+    <link rel="stylesheet" href="../../../RevealJS/css/reveal.css">
+    <link rel="stylesheet"
+          href="../../../RevealJS/css/theme/solarized.css"
+          id="theme">
+    <link rel="stylesheet" href="../../../RevealJS/lib/css/zenburn.css">
+    <style> P,li {text-align: justify;} code, tt {color: green;} pre
+      {color: green;}
+    </style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = "../../../RevealJS/css/print/paper.css";
+//      window.location.search.match( /print-pdf/gi ) ? '../../../RevealJS/css/print/pdf.css' : './RevealJS/css/print/paper.css';
+
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+
+<section "id=preamble">
+<h1 class="title">What is IPFS?</h1><h2 style="color: black"> Prabhaker Mateti</h2><h3>Wright State University</h3><a href="http://cecs.wright.edu/~pmateti">cecs.wright.edu/~pmateti</a></section>
+<section id="table-of-contents">
+<h2>Table of Contents</h2>
+
+<ul>
+<li><a href="#sec-1">1. Detailed Table of Contents</a></li>
+<li><a href="#sec-2">2. What does "IPFS" Offer?</a></li>
+<li><a href="#sec-3">3. What is IPFS?</a></li>
+<li><a href="#sec-4">4. IPFS FAQs</a></li>
+<li><a href="#sec-5">5. Related Projects</a></li>
+<li><a href="#sec-6">6. IPFS Why Should We Care?</a></li>
+<li><a href="#sec-7">7. ACK</a></li>
+<li><a href="#sec-8">8. End</a></li>
+</ul>
+</section>
+</section>
+
+<section id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Detailed Table of Contents</h2>
+<sectionX  id="text-1">
+</section><section id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 2. What does "IPFS" Offer? TOC</h3>
+<sectionX  id="text-1-1">
+<ol class="org-ol">
+<li>What is "IPFS"?
+</li>
+<li>Object Storage
+</li>
+<li>Addressing Stored Values: Key-Value Stores
+</li>
+<li>Location Based Addressing
+</li>
+<li><a href="#sec-2-5">Content-Hash Addressed</a>
+</li>
+<li>Immutable
+</li>
+<li>Permanency
+</li>
+<li>Permissions
+</li>
+<li>Ownership
+</li>
+<li>Decentralized + Distributed
+</li>
+<li>Network Accessible Uniformly
+</li>
+<li>Security
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 3. <a href="#sec-3">What is IPFS?</a> TOC</h3>
+<sectionX  id="text-1-2">
+<ol class="org-ol">
+<li>Technologies Used/ Related
+</li>
+<li><a href="#sec-3-2">Nodes</a>
+</li>
+<li>IPFS Layers (Subsystems)
+</li>
+<li><a href="#sec-3-4">IPLD InterPlanetary Linked Data</a>
+</li>
+<li>LIBP2P
+</li>
+<li>IPNS InterPlanetary Naming System
+</li>
+<li>IPFS Applications
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 4. <a href="#sec-4">IPFS FAQs</a>  TOC</h3>
+<sectionX  id="text-1-3">
+<ol class="org-ol">
+<li>IPFS Implementation Done?
+</li>
+<li>IPFS Integration with BitCoin, et al.
+</li>
+<li>Content Availability
+</li>
+<li>Content Permanency
+</li>
+<li>Content Secrecy
+</li>
+<li>Delete Content
+</li>
+<li>Does IPFS Guarantee Anonymity?
+</li>
+<li>Hosting a Website
+</li>
+<li>IPFS Abuse
+</li>
+<li>IPFS Hash Collision
+</li>
+<li>Public v Private IPFS
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> 5. <a href="#sec-5">Related Projects</a>  TOC</h3>
+<sectionX  id="text-1-4">
+<ol class="org-ol">
+<li>FileCoin
+</li>
+<li>Orbit
+</li>
+<li>DTube
+</li>
+<li>ZeroNet
+</li>
+<li>Akasha
+</li>
+<li>Competing Projects
+</li>
+<li>Distributed Web Applications (DApps)
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> 6. <a href="#sec-6">IPFS Why Should We Care?</a></h3>
+<sectionX  id="text-1-5">
+<ol class="org-ol">
+<li>Future Web?  Web 3.0?
+</li>
+<li>Un-censorable.
+</li>
+<li>"Trust, but Verify."  No 3rd parties.  Content can be trusted.
+</li>
+<li>Digital ledgers built-in.
+</li>
+<li>More at the end of these Lectures.
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> On to the Content of this Lecture</h3>
+<sectionX  id="text-1-6">
+<ol class="org-ol">
+<li>The next few descriptions are loaded with "terminology".
+</li>
+<li>Often, Circular.
+</li>
+<li>These are going to leave you with a number of questions.
+Wait for FAQ below.
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+
+<section id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> What does "IPFS" Offer?</h2>
+<sectionX  id="text-2">
+<ol class="org-ol">
+<li>(Linux/ &#x2026;) OS File System.
+</li>
+<li>Web content: As it is now 2018, Web 2.0, Web 3.0 soon.
+</li>
+<li>Globally + Uniformly Network accessible.
+</li>
+<li>A platform for Distributed Apps (DApps).
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> What is "IPFS"?</h3>
+<sectionX  id="text-2-1">
+<ol class="org-ol">
+<li>The current section is a collection of ideas.
+</li>
+<li>Together they can be the basis for a future design of web.
+</li>
+<li>The next section is a description of IPFS, the specific "product".
+</li>
+<li>IPFS, an acronym for "InterPlanetary File System".
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Object Storage</h3>
+<sectionX  id="text-2-2">
+<ol class="org-ol">
+<li>Digital Objects are stored in "nodes": distributed across the
+globe, decentralized.
+</li>
+<li>The "FS" in the name does <i>not</i> stand, strictly, for files.
+</li>
+<li>A "file" is any digital object, small or large.
+</li>
+<li>Objects are stored in a MerkleDAG.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Addressing Stored Values</h3>
+<sectionX  id="text-2-3">
+</section><section id="outline-container-sec-2-3-1" class="outline-4">
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> Arrays and Indices</h4>
+<section class="outline-text-4" id="text-2-3-1">
+<ol class="org-ol">
+<li><code>a[x]</code>
+</li>
+<li>array name a, 
+</li>
+<li>index integer x, 
+</li>
+<li>x &gt;= 0 mostly.
+</li>
+<li>address of a[x+1] == address of a[x] + size-of(a[x])
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-2-3-2" class="outline-4">
+<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> Associative Arrays</h4>
+<section class="outline-text-4" id="text-2-3-2">
+<ol class="org-ol">
+<li>a  collection of pairs (x, a[x]) of indices x and values a[x]
+</li>
+<li>unordered
+</li>
+<li>no duplicated indices
+</li>
+<li>cache memory
+</li>
+<li>Often drawn as an array, but no address relationships among elements
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-2-3-3" class="outline-4">
+<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> Key-Value Stores</h4>
+<section class="outline-text-4" id="text-2-3-3">
+<ol class="org-ol">
+<li>Generalize the indices in assoc arrays to arbitrary types called
+<i>keys</i>.
+</li>
+<li>No address relationships among elements.
+</li>
+<li>Given a key <code>k</code>, retrieve value <code>val(k)</code>
+</li>
+<li><a href="https://redis.io/">https://redis.io/</a> | <a href="https://memcached.org/">https://memcached.org/</a>
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Location Based Addressing</h3>
+<sectionX  id="text-2-4">
+<ol class="org-ol">
+<li>Web 1.0/ 2.0 URLs have the following syntax: <code>scheme: //[userName</code>
+   <code>[:password@]] serverMachineName [:port]/ [path] [/resource]</code> 
+   <code>[?parm1=parma &amp;parm2=parmb]</code>
+</li>
+
+<li>A simple example of the above is <a href="http://www.cs.wright.edu/~pmateti/">http://www.cs.wright.edu/~pmateti/</a>
+where the scheme was chosen to be <code>http</code>, the port defaults to 80,
+and the path given is <code>~pmateti/</code>.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> Content-Hash Addressed</h3>
+<sectionX  id="text-2-5">
+<ol class="org-ol">
+<li>Apply a crypto-hash (e.g., sha256) to the content, resulting in, e.g.,
+<code>QmZpfhN5rucQC4kx7Gu5udS8FXxsxMddiDCvG8WFjG8SMv</code>
+</li>
+<li>The above is in <i>multihash</i> self-describing format and Base58
+encoding. The letters <code>Qm</code> correspond to SHA-256 and 32 byte
+length.
+</li>
+<li>IPFS makes sure the hash is unique.
+</li>
+
+<li>An IPFS address hash should be stored in <code>bytes</code>.  The <code>Qm...</code>
+   should be stored as a <code>string</code>.
+</li>
+<li>IPFS link
+<code>/ipfs/QmW2WQi7j6c7UgJTarActp7tDNikE4B2qXtFCfLPdsgaTQ/cat.jpg</code>
+</li>
+
+<li><code>http://localhost:8080/ipfs/QmR96iiRBEroYAe955my8cdHkK4kAu6SApGC2eS5kSzHwt/</code>
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-2-5-1" class="outline-4">
+<h4 id="sec-2-5-1"><span class="section-number-4">2.5.1</span> MultiHash</h4>
+<section class="outline-text-4" id="text-2-5-1">
+<ol class="org-ol">
+<li>struct Multihash
+<pre class="example">
+struct Multihash {
+  bytes32 hash
+  uint8 hash_function
+  uint8 size
+}
+</pre>
+</li>
+
+<li>ipfs add -w example.txt
+<pre class="example">
+$ ipfs add -w example.txt
+added QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH example.txt
+added QmVFDXxAEC5iQ9ptb36dxzpNsQjVatvxhG44wK7PpRzsDE
+</pre>
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-2-5-2" class="outline-4">
+<h4 id="sec-2-5-2"><span class="section-number-4">2.5.2</span> Retrievability</h4>
+<section class="outline-text-4" id="text-2-5-2">
+<ol class="org-ol">
+<li>To retrieve content, you must have its hash.
+</li>
+<li>Ex: <a href="https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/">https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/</a>&#x2026;
+</li>
+<li>User friendly? Work-in-progress.  See IPNS.
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> Immutable</h3>
+<sectionX  id="text-2-6">
+<ol class="org-ol">
+<li>The content (of a stored object) is unchangeable.
+</li>
+
+<li>The content is versioned, with a link to its previous version.
+</li>
+
+<li>Recall digital ledgers.
+</li>
+
+<li>Deletion? See FAQ.
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> Permanency</h3>
+<sectionX  id="text-2-7">
+<ol class="org-ol">
+<li>IPFS is a permanent storage system for digital objects.  Lives forever.
+</li>
+<li>An object stored in IPFS is retrievable at any time, 24x7, from a node.
+</li>
+<li>Motivated by <i>incentivization</i>.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> Permissions</h3>
+<sectionX  id="text-2-8">
+<ol class="org-ol">
+<li>As long as you have the hash of an object, you can retrieve
+it from IPFS.
+</li>
+<li>Can we have at least Linux-style read-write-etc permissions? WIP.
+</li>
+<li>FAQ: Public v Private IPFS.
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-2-9" class="outline-3">
+<h3 id="sec-2-9"><span class="section-number-3">2.9</span> Ownership</h3>
+<sectionX  id="text-2-9">
+<ol class="org-ol">
+<li>What is ownership?  Define.  Related to immutability.
+</li>
+<li>No single entity, human or org, owns the system, or any part of it.
+</li>
+<li>No "destructive" operations can be performed.
+</li>
+<li>FAQ: Who uploaded what?
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-2-10" class="outline-3">
+<h3 id="sec-2-10"><span class="section-number-3">2.10</span> Decentralized + Distributed</h3>
+<sectionX  id="text-2-10">
+<ol class="org-ol">
+<li>"It's nowhere because it's everywhere!"
+</li>
+<li>Sanskrit: Sarvantaryami (in Telugu script సర్వాంతర్యామి)
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-2-10-1" class="outline-4">
+<h4 id="sec-2-10-1"><span class="section-number-4">2.10.1</span> Client-Server v P2P</h4>
+<section class="outline-text-4" id="text-2-10-1">
+
+<section class="figure">
+<img src="../Figures/networksv4.png" alt="Client-Server v P2P" title="Client-Server v P2P" />
+</p>
+<p><span class="figure-number">Figure 1:</span> Client-Server v P2P</p>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-2-10-2" class="outline-4">
+<h4 id="sec-2-10-2"><span class="section-number-4">2.10.2</span> Centralized Decentralized Distributed</h4>
+<section class="outline-text-4" id="text-2-10-2">
+
+<section class="figure">
+<img src="../Figures/decentral-distributed.png" alt="Centralized Decentralized Distributed" title="Centralized Decentralized Distributed" width="100%" />
+</p>
+<p><span class="figure-number">Figure 2:</span> Centralized Decentralized Distributed</p>
+</section>
+</section>
+</section>
+
+
+<section id="outline-container-sec-2-10-3" class="outline-4">
+<h4 id="sec-2-10-3"><span class="section-number-4">2.10.3</span> Distributed</h4>
+<section class="outline-text-4" id="text-2-10-3">
+<ol class="org-ol">
+<li>Spatially Distributed
+</li>
+<li>Possibly replicated
+</li>
+<li>We use duplication versus replication with different semantics.
+</li>
+<li>Sharded content?
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-2-10-4" class="outline-4">
+<h4 id="sec-2-10-4"><span class="section-number-4">2.10.4</span> Decentralized</h4>
+<section class="outline-text-4" id="text-2-10-4">
+<ol class="org-ol">
+<li>Harder to define.
+</li>
+<li>Centralized: One node exists that controls all content.
+</li>
+<li>Multiple centers.
+</li>
+<li>Decentralized: Single or multiple centers do not exist.
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-2-10-5" class="outline-4">
+<h4 id="sec-2-10-5"><span class="section-number-4">2.10.5</span> Decentralized implies Distributed</h4>
+</section>
+
+<section id="outline-container-sec-2-10-6" class="outline-4">
+<h4 id="sec-2-10-6"><span class="section-number-4">2.10.6</span> Distributed does-not-imply Decentralized</h4>
+</section>
+</section>
+
+<section id="outline-container-sec-2-11" class="outline-3">
+<h3 id="sec-2-11"><span class="section-number-3">2.11</span> Network Accessible Uniformly</h3>
+<sectionX  id="text-2-11">
+<ol class="org-ol">
+<li>All IPFS nodes access the objects using the same addresses.
+</li>
+<li>No client is denied access.
+</li>
+<li>Performance can vary.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-2-12" class="outline-3">
+<h3 id="sec-2-12"><span class="section-number-3">2.12</span> Security</h3>
+<sectionX  id="text-2-12">
+<ol class="org-ol">
+<li>"Security" is an ill defined term, in general.  So, let us focus on
+the following aspects.
+</li>
+<li>Unauthorized content modification: Not possible.
+</li>
+<li>Read-Access control Built-in: Non existent.
+</li>
+<li>Read-Access control DIY: Encrypt the object and share the (private) key.
+</li>
+
+<li><a href="https://medium.com/@mycoralhealth/learn-to-securely-share-files-on-the-blockchain-with-ipfs-219ee47df54c">Learn to securely share on the IPFS</a>.
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> What is IPFS?</h2>
+<sectionX  id="text-3">
+<ol class="org-ol">
+<li>A peer-to-peer hypermedia protocol: <code>ipfs:/.../...</code>.  
+</li>
+<li>A (networked) storage system that can be <code>mount</code> -ed.
+</li>
+<li>Funding: $52 million from Union Square Ventures (??) and others.
+</li>
+<li>IPFS is FOSS.
+</li>
+<li>This section is a sketchy design description.
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Technologies Used/ Related</h3>
+<sectionX  id="text-3-1">
+<ol class="org-ol">
+<li>DHT Distributed Hash Tables - Kademlia 
+</li>
+<li>Block Exchanges - BitTorrent
+</li>
+<li>Version Control Systems, merkledag - Git
+</li>
+<li>Self-certifying File System SFS
+</li>
+<li>FileCoin
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Nodes</h3>
+<sectionX  id="text-3-2">
+<ol class="org-ol">
+<li>A node is a computer system running the "IPFS daemon": <code>ipfs init</code>
+</li>
+<li>A node stores IPFS objects.
+</li>
+<li>Obviously, not all of them.
+</li>
+<li>No assumptions are made about the life-cycle of a node.
+</li>
+<li>A node is a running process that can find, publish, and replicate
+merkledag objects.
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> Nodes #2</h4>
+<section class="outline-text-4" id="text-3-2-1">
+<ol class="org-ol">
+<li>Access requests originate from a node.
+</li>
+<li>Retrieved content is cached.
+</li>
+<li>Idle cached content is garbage collected.
+</li>
+<li>Nodes cannot be forced to fetch anything or to pin anything.
+</li>
+<li>A node uses the DHT, IPLD, IPNS &#x2013; see below.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-2-2" class="outline-4">
+<h4 id="sec-3-2-2"><span class="section-number-4">3.2.2</span> Nodes #3</h4>
+<section class="outline-text-4" id="text-3-2-2">
+<ol class="org-ol">
+<li>There are already many (thousands?) nodes.
+</li>
+
+<li>Content becomes more readily available as it gets more
+popular.
+</li>
+
+<li>Often content "cannot" be reached.
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> IPFS Layers (Subsystems)</h3>
+<sectionX  id="text-3-3">
+
+<section class="figure">
+<img src="../Figures/ipfs-stack.png" alt="IPFS Layers" title="IPFS Layers" width="100%" />
+</p>
+<p><span class="figure-number">Figure 3:</span> IPFS Layers (the left half names pre-existing systems)</p>
+</section>
+</section>
+
+<section id="outline-container-sec-3-3-1" class="outline-4">
+<h4 id="sec-3-3-1"><span class="section-number-4">3.3.1</span> IPFS Subsystems</h4>
+<section class="outline-text-4" id="text-3-3-1">
+
+<section class="figure">
+<img src="../Figures/libp2p.001.jpg" width="100%" />
+</p>
+<p><span class="figure-number">Figure 4:</span> IPFS stack, divided</p>
+</section>
+</section>
+</section>
+</section>
+
+
+<section id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> IPLD InterPlanetary Linked Data</h3>
+<sectionX  id="text-3-4">
+
+<section class="figure">
+<img src="../Figures/ipld-illustration.svg" title="InterPlanetary Linked Data" width="50%" />
+</p>
+<p><span class="figure-number">Figure 5:</span> InterPlanetary Linked Data</p>
+</section>
+</section>
+
+<section id="outline-container-sec-3-4-1" class="outline-4">
+<h4 id="sec-3-4-1"><span class="section-number-4">3.4.1</span> IPLD InterPlanetary Linked Data</h4>
+<section class="outline-text-4" id="text-3-4-1">
+<ol class="org-ol">
+<li>IPLD InterPlanetary Linked Data <a href="https://github.com/ipld">https://github.com/ipld</a>
+</li>
+<li>"IPLD is the data model of the content-addressable web. It allows us
+to treat all hash-linked data structures as subsets of a unified
+information space, unifying all data models that link data with
+hashes as instances of IPLD."
+</li>
+
+<li>"IPLD is a single namespace for all hash-inspired
+protocols.  Through IPLD, links can be traversed across protocols,
+allowing you explore data regardless of the underlying protocol."
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> LIBP2P</h3>
+<sectionX  id="text-3-5">
+
+<section class="figure">
+<img src="../Figures/libp2p.002.jpg" alt="IPFS Layers" title="IPFS Layers" width="100%" />
+</p>
+<p><span class="figure-number">Figure 6:</span> libp2p included protocols</p>
+</section>
+</section>
+
+<section id="outline-container-sec-3-5-1" class="outline-4">
+<h4 id="sec-3-5-1"><span class="section-number-4">3.5.1</span> LIBP2P #2</h4>
+<section class="outline-text-4" id="text-3-5-1">
+
+<section class="figure">
+<img src="../Figures/libp2p.003.jpg" alt="IPFS Layers" title="IPFS Layers" width="100%" />
+</p>
+<p><span class="figure-number">Figure 7:</span> libp2p routing</p>
+</section>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-3-6" class="outline-3">
+<h3 id="sec-3-6"><span class="section-number-3">3.6</span> DHT Distributed Hash Tables</h3>
+<sectionX  id="text-3-6">
+<ol class="org-ol">
+<li>DHT: Given the Key, retrieve Value.
+</li>
+<li>Similar to Python dict or Perl hash.  Not (necessarily) crypto-hash.
+</li>
+<li>The DHT may be distributed over multiple nodes.
+</li>
+<li>Multiple designs/ implementations exist: e.g., Kademlia.
+</li>
+<li>IPFS key is crypto-hash of object content.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-7" class="outline-3">
+<h3 id="sec-3-7"><span class="section-number-3">3.7</span> IPFS Networking</h3>
+<sectionX  id="text-3-7">
+<ol class="org-ol">
+<li>"IPFS nodes communicate regularly with hundreds of other nodes in
+the network."
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-3-7-1" class="outline-4">
+<h4 id="sec-3-7-1"><span class="section-number-4">3.7.1</span> IPFS Routing</h4>
+<section class="outline-text-4" id="text-3-7-1">
+<ol class="org-ol">
+<li>IPFS nodes require a routing system that can find (a) other peers’
+network addresses and (b) peers who can serve particular objects. 
+</li>
+
+<li>IPFS achieves this using a DHT.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-7-2" class="outline-4">
+<h4 id="sec-3-7-2"><span class="section-number-4">3.7.2</span> DHT Interface</h4>
+<section class="outline-text-4" id="text-3-7-2">
+<pre class="example">
+type IPFSRouting interface {
+  FindPeer(node NodeId) // gets a particular peer’s network address
+  SetValue(key []bytes, value []bytes) // stores a small metadata value in DHT
+  GetValue(key []bytes) // retrieves small metadata value from DHT
+  ProvideValue(key Multihash) // announces this node can serve a large value
+  FindValuePeers(key Multihash, min int) // gets a number of peers serving a large value
+}
+</pre>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-3-8" class="outline-3">
+<h3 id="sec-3-8"><span class="section-number-3">3.8</span> IPFS Exchange</h3>
+<sectionX  id="text-3-8">
+<ol class="org-ol">
+<li>In IPFS, data distribution happens by exchanging blocks with peers
+using BitSwap.
+</li>
+
+<li>BitSwap nodes provide direct values to each other in the form of blocks.
+</li>
+
+<li>BitSwap nodes keep ledgers accounting the transfers with other nodes
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-3-9" class="outline-3">
+<h3 id="sec-3-9"><span class="section-number-3">3.9</span> IPNS  InterPlanetary Naming System</h3>
+<sectionX  id="text-3-9">
+<ol class="org-ol">
+<li>The Peer ID is the hash of the public RSA key of the node.  IPNS
+maps peer IDs to content hashes.
+</li>
+<li>The mapping can be modified.
+</li>
+</ol>
+<pre class="example">
+ipfs name publish QmNUhKfcGJyQJnZu3AKn8NoiomDwDCRBicgqPt1YRqJBCz
+Published to QmYmmfn68vkcFDeZz1NTZyEXTixjjUnUS6UaPdMSsUBWxs:
+ /ipfs/QmNUhKfcGJyQJnZu3AKn8NoiomDwDCRBicgqPt1YRqJBCz
+</pre>
+<ol class="org-ol">
+<li>In the above, <code>QmYmmfn68vkcFDeZz1NTZyEXTixjjUnUS6UaPdMSsUBWxs</code> was
+the peer ID.
+</li>
+<li>IPFS stores the private RSA key in the configuration. No
+passphrase.
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-3-9-1" class="outline-4">
+<h4 id="sec-3-9-1"><span class="section-number-4">3.9.1</span> Readability</h4>
+<section class="outline-text-4" id="text-3-9-1">
+
+<section class="figure">
+<img src="../Figures/human-readable.png" alt="human-readable.png" />
+</p>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-3-9-2" class="outline-4">
+<h4 id="sec-3-9-2"><span class="section-number-4">3.9.2</span> Readability #2</h4>
+<section class="outline-text-4" id="text-3-9-2">
+
+<section class="figure">
+<img src="../Figures/ipld-foo-bar-baz.png" alt="ipld-foo-bar-baz.png" />
+</p>
+</section>
+</section>
+</section>
+
+
+<section id="outline-container-sec-3-9-3" class="outline-4">
+<h4 id="sec-3-9-3"><span class="section-number-4">3.9.3</span> IPFS Naming</h4>
+<section class="outline-text-4" id="text-3-9-3">
+<ol class="org-ol">
+<li>Bind IPNS to a domain using DNS TXT records
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-9-4" class="outline-4">
+<h4 id="sec-3-9-4"><span class="section-number-4">3.9.4</span> IPFS MerkleDAG</h4>
+<section class="outline-text-4" id="text-3-9-4">
+
+<section class="figure">
+<img src="../Figures/merkle-bin-tree.png" alt="A Merkle Bin Tree" title="A Merkle Bin Tree" width="100%" />
+</p>
+<p><span class="figure-number">Figure 10:</span> A Merkle Bin Tree of Four Blocks</p>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-3-9-5" class="outline-4">
+<h4 id="sec-3-9-5"><span class="section-number-4">3.9.5</span> Details of MerkleDAG</h4>
+<section class="outline-text-4" id="text-3-9-5">
+<ol class="org-ol">
+<li>Merkle trees in general are n-ary.
+</li>
+<li>A forest is a collection of trees.
+</li>
+<li>Merkle Trees are already in use by Git, BitCoin, Ethereum, &#x2026;
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-9-6" class="outline-4">
+<h4 id="sec-3-9-6"><span class="section-number-4">3.9.6</span> IPFS Digital Objects</h4>
+<section class="outline-text-4" id="text-3-9-6">
+<ol class="org-ol">
+<li>block: a variable-size chunk of data.  An addressable unit of data.
+</li>
+
+<li>list: a collection of blocks or other lists.
+</li>
+<li>tree: a collection of blocks, lists, or other trees.
+</li>
+<li>commit: a snapshot in the version history of a tree.
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-3-10" class="outline-3">
+<h3 id="sec-3-10"><span class="section-number-3">3.10</span> IPFS Applications</h3>
+<sectionX  id="text-3-10">
+
+<section class="figure">
+<img src="../Figures/web20to30.jpg" alt="web20to30.jpg" />
+</p>
+</section>
+</section>
+
+<section id="outline-container-sec-3-10-1" class="outline-4">
+<h4 id="sec-3-10-1"><span class="section-number-4">3.10.1</span> PubSub</h4>
+<section class="outline-text-4" id="text-3-10-1">
+<ol class="org-ol">
+<li>Publishers-Subscribers is an object oriented architectural design
+pattern.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-10-2" class="outline-4">
+<h4 id="sec-3-10-2"><span class="section-number-4">3.10.2</span> Observer Pattern</h4>
+<section class="outline-text-4" id="text-3-10-2">
+<p>
+##
+</p>
+
+<section class="figure">
+<img src="../Figures/observer-pat.png" alt="Observer Pattern" title="Observer Pattern" width="100%" />
+</p>
+<p><span class="figure-number">Figure 12:</span> Observer Pattern</p>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-3-10-3" class="outline-4">
+<h4 id="sec-3-10-3"><span class="section-number-4">3.10.3</span> PubSub (Publisher Subscriber) Pattern</h4>
+<section class="outline-text-4" id="text-3-10-3">
+
+<section class="figure">
+<img src="../Figures/pubsub-pat.gif" />
+</p>
+<p><span class="figure-number">Figure 13:</span> PubSub Pattern</p>
+</section>
+</section>
+</section>
+</section>
+</section>
+
+
+
+
+
+<section id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> IPFS FAQs</h2>
+<sectionX  id="text-4">
+</section><section id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> IPFS Implementation Done?</h3>
+<sectionX  id="text-4-1">
+<ol class="org-ol">
+<li>Is the design and implementation of IPFS done? 
+<ol class="org-ol">
+<li>Go <a href="https://github.com/ipfs/go-ipfs">https://github.com/ipfs/go-ipfs</a> exists,
+</li>
+<li>JavaScript <a href="https://github.com/ipfs/js-ipfs">https://github.com/ipfs/js-ipfs</a> exists,
+</li>
+<li>Python <a href="https://github.com/ipfs/py-ipfs">https://github.com/ipfs/py-ipfs</a> is in progress.
+</li>
+</ol>
+</li>
+<li>Alpha.  Targeted at developers.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> IPFS Integration with BitCoin, et al.</h3>
+<sectionX  id="text-4-2">
+<ol class="org-ol">
+<li>Can IPFS integrate with BitCoin, Git, &#x2026;?  Yes.
+</li>
+<li>See IPLD.
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Content Availability</h3>
+<sectionX  id="text-4-3">
+<ol class="org-ol">
+<li>Will something added to IPFS remain available to others if I turn
+off my computer?
+</li>
+<li>Turning off is not the crucial point.
+</li>
+<li>Unreachable because un-cached in reachable nodes.
+</li>
+<li><a href="https://discuss.ipfs.io/t/397">https://discuss.ipfs.io/t/397</a>
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Content Permanency</h3>
+<sectionX  id="text-4-4">
+<ol class="org-ol">
+<li>No guarantees of replication; need people to request content data.
+</li>
+<li>Incentivization in progress.
+</li>
+<li><a href="https://discuss.ipfs.io/t/storing-a-few-tb-of-data/476">https://discuss.ipfs.io/t/storing-a-few-tb-of-data/476</a>
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> Content Deletion</h3>
+<sectionX  id="text-4-5">
+<ol class="org-ol">
+<li>Can I delete (my) content from the network? No.
+</li>
+<li>See above.
+</li>
+<li><a href="https://discuss.ipfs.io/t/301">https://discuss.ipfs.io/t/301</a>
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-4-6" class="outline-3">
+<h3 id="sec-4-6"><span class="section-number-3">4.6</span> Content Secrecy</h3>
+<sectionX  id="text-4-6">
+<ol class="org-ol">
+<li>Objects can be made illegible using public key cryptography.  Those
+holding the private key can read.  Others can only tell how big
+they are but they cannot know more.
+</li>
+
+<li>Incentivize to keep such content available.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-4-7" class="outline-3">
+<h3 id="sec-4-7"><span class="section-number-3">4.7</span> Content Privacy</h3>
+<sectionX  id="text-4-7">
+<ol class="org-ol">
+<li>Private swarms, WIP.
+</li>
+<li>Separate name spaces, WIP.
+</li>
+<li>Public v Private IPFS, WIP.
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-4-8" class="outline-3">
+<h3 id="sec-4-8"><span class="section-number-3">4.8</span> Does IPFS Guarantee Anonymity?</h3>
+<sectionX  id="text-4-8">
+<ol class="org-ol">
+<li>IPFS makes no claims about anonymity.
+</li>
+<li>We can discover the IP address of a peer hosting any given block.
+</li>
+<li><a href="https://discuss.ipfs.io/t/387">https://discuss.ipfs.io/t/387</a>
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-4-9" class="outline-3">
+<h3 id="sec-4-9"><span class="section-number-3">4.9</span> Hosting a Website</h3>
+<sectionX  id="text-4-9">
+<ol class="org-ol">
+<li>The main site <a href="https://ipfs.io/">https://ipfs.io/</a> is on IPFS.
+</li>
+
+<li>Example: <a href="http://www.dispersion.io/">http://www.dispersion.io/</a> 
+</li>
+
+<li>Example: <a href="https://ipfs.io/ipfs/QmdPtC3T7Kcu9iJg6hYzLBWR5XCDcYMY7HV685E3kH3EcS/2015/09/15/hosting-a-website-on-ipfs/">"The Ramblings of a Random Programmer"</a> 
+   <code>https : //ipfs.io/ipfs/</code>
+   <code>QmdPtC3T7Kcu9iJg6hYzLBWR5XCDcYMY7HV685E3kH3EcS/ 2015/09/15/ hosting-a-website-on-ipfs/</code>
+   [Blanks inserted for readability]
+</li>
+
+<li>Google does not index IPFS (yet).
+</li>
+<li>See <a href="https://discuss.ipfs.io/t/is-ipfs-fit-for-personal-blog-pages/331">https://discuss.ipfs.io/t/is-ipfs-fit-for-personal-blog-pages/331</a>
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-4-10" class="outline-3">
+<h3 id="sec-4-10"><span class="section-number-3">4.10</span> IPFS Abuse</h3>
+<sectionX  id="text-4-10">
+<ol class="org-ol">
+<li>Forgoing reputation and indiscriminately servicing leaches
+<a href="https://discuss.ipfs.io/t/444">https://discuss.ipfs.io/t/444</a>
+</li>
+
+<li>Is it possible to limit the size of a local storage?
+<a href="https://discuss.ipfs.io/t/364">https://discuss.ipfs.io/t/364</a>
+</li>
+<li>Can I control the amount of storage/ bandwidth dedicated to IPFS?
+<a href="https://discuss.ipfs.io/t/395">https://discuss.ipfs.io/t/395</a>
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-4-11" class="outline-3">
+<h3 id="sec-4-11"><span class="section-number-3">4.11</span> IPFS Hash Collision</h3>
+<sectionX  id="text-4-11">
+<ol class="org-ol">
+<li>What to do in case of hash collision? Multiple objects
+crypto-hashing to the same.
+</li>
+
+<li><a href="https://discuss.ipfs.io/t/482">https://discuss.ipfs.io/t/482</a>
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-4-12" class="outline-3">
+<h3 id="sec-4-12"><span class="section-number-3">4.12</span> Who Uploaded What?</h3>
+<sectionX  id="text-4-12">
+<ol class="org-ol">
+<li>We can discover the IP address of a peer hosting any given block.
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-4-13" class="outline-3">
+<h3 id="sec-4-13"><span class="section-number-3">4.13</span> Misc</h3>
+<sectionX  id="text-4-13">
+<ol class="org-ol">
+<li>{IPNS works badly now, but this is because of the
+implementation.}
+</li>
+
+<li>IPFS uses a lot of bandwidth now.  WIP
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Related Projects</h2>
+<sectionX  id="text-5">
+<ol class="org-ol">
+<li>Sister Projects
+</li>
+<li>Competing Projects
+</li>
+</ol>
+</section>
+
+
+<section id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> FileCoin</h3>
+<sectionX  id="text-5-1">
+<ol class="org-ol">
+<li>FileCoin is a sister project, by Protocol Labs.  FOSS.
+</li>
+
+<li><a href="http://filecoin.io/">http://filecoin.io/</a> as an incentive to replicate data. 
+(Get paid "payed" for storing files.)
+</li>
+
+<li>{You offer to pay for storage, and the most efficient, capable, and
+cheap hard drives win the bid and they host your files.}
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> FileCoin #2</h3>
+<sectionX  id="text-5-2">
+<ol class="org-ol">
+<li>Filecoin is a protocol that pays nodes to keep a copy of your stuff
+without having to trust them.
+</li>
+
+<li>When you use Google Drive, you are trusting google.
+</li>
+
+<li>Google Drive has a user interface and editors for your spreadsheets
+etc, sharing functionality and much more. 
+</li>
+
+<li>Filecoin is just a system to have others store files for you and
+that's it.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Orbit</h3>
+<sectionX  id="text-5-3">
+<ol class="org-ol">
+<li>Orbit P2P Chat <a href="https://orbit.chat/">https://orbit.chat/</a>
+</li>
+</ol>
+
+
+<section class="figure">
+<img src="../Figures/libp2p.007-orbit.jpg" alt="IPFS P2P Chat" title="Orbit P2P Chat on IPFS" width="100%" />
+</p>
+<p><span class="figure-number">Figure 14:</span> Orbit P2P Chat on IPFS</p>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> DTube</h3>
+<sectionX  id="text-5-4">
+<ol class="org-ol">
+<li><a href="https://d.tube/">https://d.tube/</a> A decentralized video platform using STEEM and IPFS
+</li>
+<li>Image "hosting": <a href="https://github.com/ipfspics/ipfspics-server">https://github.com/ipfspics/ipfspics-server</a> |
+<a href="http://ipfs.pics/">http://ipfs.pics/</a> [Broken link]
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> ZeroNet</h3>
+<sectionX  id="text-5-5">
+<ol class="org-ol">
+<li><a href="https://zeronet.io/">https://zeronet.io/</a> "Open, free and uncensorable websites, using
+Bitcoin cryptography and BitTorrent network"
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-5-6" class="outline-3">
+<h3 id="sec-5-6"><span class="section-number-3">5.6</span> Akasha</h3>
+<sectionX  id="text-5-6">
+<ol class="org-ol">
+<li>AKASHA (a Next-Generation Social Media Network) <a href="https://akasha.world/">https://akasha.world/</a> TBD Sanskrit ākāśa आकाश
+</li>
+<li>orbit-db (Key/Value database; Peer-to-Peer Databases for the Decentralized Web)
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-5-7" class="outline-3">
+<h3 id="sec-5-7"><span class="section-number-3">5.7</span> Competing Projects</h3>
+<sectionX  id="text-5-7">
+
+<section class="figure">
+<img src="../Figures/dist-internet.jpg" width="100%" />
+</p>
+</section>
+</section>
+
+
+<section id="outline-container-sec-5-7-1" class="outline-4">
+<h4 id="sec-5-7-1"><span class="section-number-4">5.7.1</span> LBRY</h4>
+<section class="outline-text-4" id="text-5-7-1">
+<ol class="org-ol">
+<li>Content Freedom <a href="https://lbry.io/">https://lbry.io/</a>
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-5-7-2" class="outline-4">
+<h4 id="sec-5-7-2"><span class="section-number-4">5.7.2</span> DAT</h4>
+<section class="outline-text-4" id="text-5-7-2">
+<ol class="org-ol">
+<li><a href="http://datproject.org/">http://datproject.org/</a> A distributed data community, <i>dat</i>
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-5-7-3" class="outline-4">
+<h4 id="sec-5-7-3"><span class="section-number-4">5.7.3</span> PEERGOS</h4>
+<section class="outline-text-4" id="text-5-7-3">
+<ol class="org-ol">
+<li><a href="https://peergos.org/">https://peergos.org/</a> An end-to-end encrypted, peer-to-peer file
+storage, sharing and communication network.  It is an open source,
+secure, self hostable file storage and sharing platform. All your
+files are encrypted locally and your private keys never leave your
+machine.  FOSS.
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-5-8" class="outline-3">
+<h3 id="sec-5-8"><span class="section-number-3">5.8</span> Distributed Web Applications (DApps)</h3>
+<sectionX  id="text-5-8">
+<ol class="org-ol">
+<li>IPFS is a platform for dApps.
+</li>
+<li>Orbit P2P Chat <a href="https://orbit.chat/">https://orbit.chat/</a>
+</li>
+<li><a href="https://peerpad.net/">https://peerpad.net/</a> PeerPad is a realtime P2P collaborative
+editing tool, powered by IPFS and CRDTs (conflict-free replicated
+data type)
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> IPFS Why Should We Care?</h2>
+<sectionX  id="text-6">
+<ol class="org-ol">
+<li>Un-censorable.
+</li>
+<li>Trust, but Verify.  No 3rd parties.  Content can be trusted.
+</li>
+<li>Digital ledgers built-in.
+</li>
+<li>More at the end of these Lectures.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> ACK</h2>
+<sectionX  id="text-7">
+<ol class="org-ol">
+<li>Juan Bennet, @article{benet2014ipfs, title={IPFS-Content Addressed,
+Versioned, P2P File System (Draft 3)}, author={Benet, Juan},
+journal={arXiv preprint arXiv:1407.3561}, year={2014}, pages =
+{11},} <a href="https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf">https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf</a>
+</li>
+
+<li>@Article{Filecoin2017, author = {Protocol-Labs}, title = {Filecoin:
+A Decentralized Storage Network}, journal = {White Paper}, year =
+{2017}, pages = {36}, month = {July}, }
+</li>
+
+<li>Mark Pors, <a href="https://decentralized.blog/">https://decentralized.blog/</a> Catching the Blockchain
+Train, Understanding-the- IPFS white-paper 2017.
+</li>
+
+<li>All figures are borrowed from the web.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> End</h2>
+<sectionX  id="text-8">
+</section>
+</section>
+</section>
+<section id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2018-08-19
+</section>
+</body>
+</html>
+</section>
+</section>
+
+</div>
+</div>
+
+<script src="../../../RevealJS/lib/js/head.min.js"></script>
+<script src="../../../RevealJS/js/reveal.js"></script>
+
+<script>
+  Reveal.initialize({
+  controls: true,
+  progress: true,
+  center: true,
+  history: false,
+  center: true,
+  slideNumber: true,
+  rollingLinks: true,  // 
+  keyboard: true,
+  overview: true,
+  theme: Reveal.getQueryHash().theme,
+  transitionSpeed: 'default',
+//  transition: zoom', // none/fade/slide/convex/concave/zoom
+//  transition: Reveal.getQueryHash().transition || 'default',
+
+  dependencies: [
+  ]
+      });
+</script>

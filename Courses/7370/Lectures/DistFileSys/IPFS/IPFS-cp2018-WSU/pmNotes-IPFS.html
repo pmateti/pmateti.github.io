@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>The Design of Distributed Apps on IPFS</title>
+<!-- 2018-08-16 Thu 07:45 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">The Design of Distributed Apps on IPFS</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Goal of these Lectures</a></li>
+<li><a href="#sec-2">2. Links</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Links Demo</a></li>
+<li><a href="#sec-2-2">2.2. Links 20180805 TBD</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. IPFS FAQ</a></li>
+<li><a href="#sec-4">4. End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Goal of these Lectures</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Explain the 2014 Draft#3 IPFS paper by Juan Benet.
+</li>
+<li>I will make it obvious: My opinions and assessments.
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Links</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li><a href="http://ipfs.io/">http://ipfs.io/</a>
+</li>
+<li><a href="https://discuss.ipfs.io/">https://discuss.ipfs.io/</a> previously, <a href="http://github.com/ipfs/faq">http://github.com/ipfs/faq</a>
+</li>
+<li><a href="https://github.com/ipfs/ipfs">https://github.com/ipfs/ipfs</a>
+</li>
+<li><a href="https://dweb-primer.ipfs.io/decentralized-web-primer.pdf">https://dweb-primer.ipfs.io/decentralized-web-primer.pdf</a> 66pp. Apr 2017.
+</li>
+<li><a href="https://www.youtube.com/watch?v=Nv_Teb--1zg">https://www.youtube.com/watch?v=Nv_Teb--1zg</a> Tutorial: How to build
+an application with IPFS PubSub Room, Jul 2017
+</li>
+</ol>
+
+<p>
+1.IPFS paper. <a href="https://github.com/ipfs/papers/raw/master/ipfs-cap2pfs/ipfs-p2p-file-system.pdf">https://github.com/ipfs/papers/raw/master/ipfs-cap2pfs/ipfs-p2p-file-system.pdf</a>
+</p>
+
+<ol class="org-ol">
+<li><a href="https://www.reddit.com/r/ipfs/">https://www.reddit.com/r/ipfs/</a>
+</li>
+<li><a href="https://www.reddit.com/r/ipfs/comments/8nhg48/">https://www.reddit.com/r/ipfs/comments/8nhg48/</a>
+   the<sub>fundamental</sub><sub>problem</sub><sub>with</sub><sub>ipfs</sub>/
+</li>
+
+<li><a href="https://www.shiftnrg.org/">https://www.shiftnrg.org/</a> Why Wait for Filecoin? Use IPFS Today on
+the Shift Platform
+</li>
+
+<li><a href="https://decentralized.blog/understanding-the-ipfs-white-paper-part-1.html">https://decentralized.blog/understanding-the-ipfs-white-paper-part-1.html</a> Catching the Blockchain Train
+</li>
+
+<li><a href="https://www.reddit.com/r/Bluzelle/comments/7vvdv7/feedback_to_article_difference_between_bluzelle/">https://www.reddit.com/r/Bluzelle/comments/7vvdv7/feedback_to_article_difference_between_bluzelle/</a>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Links Demo</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li><a href="https://macwright.org/2017/08/09/decentralize-ipfs.html">https://macwright.org/2017/08/09/decentralize-ipfs.html</a>
+</li>
+<li><a href="https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc">https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Links 20180805 TBD</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li><a href="https://medium.com/@ConsenSys/an-introduction-to-ipfs-9bba4860abd0">https://medium.com/@ConsenSys/an-introduction-to-ipfs-9bba4860abd0</a>
+</li>
+<li><a href="https://medium.com/wolverineblockchain/what-is-ipfs-b83277597da5">https://medium.com/wolverineblockchain/what-is-ipfs-b83277597da5</a>
+</li>
+<li><a href="https://medium.com/coinmonks/a-hands-on-introduction-to-ipfs-ee65b594937">https://medium.com/coinmonks/a-hands-on-introduction-to-ipfs-ee65b594937</a>
+</li>
+<li><a href="https://www.reddit.com/r/ipfs/comments/8o96yg/ipfs_on_android/">https://www.reddit.com/r/ipfs/comments/8o96yg/ipfs_on_android/</a>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> IPFS FAQ</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+SUNY Buffalo blog discussion on hackernews.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> End</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2018-08-04
+</div>
+</body>
+</html>

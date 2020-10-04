@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-12-10 Tue 08:46 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hoare's CSP</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Hoare's CSP</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org004f684">1. Qualities in Distributed Programs</a></li>
+<li><a href="#org62cdfc8">2. Modeling "Real" Devices</a></li>
+<li><a href="#org3f0775c">3. Remove the Least Member in SSI</a></li>
+<li><a href="#org0903ca7">4. n-th Minimum</a></li>
+<li><a href="#org605da72">5. Exchange Evens With Odds</a></li>
+<li><a href="#orgae64723">6. Mine Sweeper in CSP</a></li>
+<li><a href="#orgc3d9807">7. Elevator Simulation</a></li>
+<li><a href="#org056398d">8. Exercises</a></li>
+<li><a href="#org69a02fc">9. References</a></li>
+<li><a href="#org71807b7">10. End</a></li>
+</ul>
+</div>
+</div>
+<p>
+This page contains a few examples of distributed computing done in CSP.
+Our focus is not on time or space complexity, but on the more
+qualitative issues. Some of the "solutions" may not be correct, and,
+when they are, can easily be improved. A few times I chose to 'describe'
+in English rather than write pseudo-code in order to explain the ideas.
+I am sure you can all fill-in the details and code it in CSP. Not all
+solutions are complete.
+</p>
+
+<p>
+TBD Typography: The fat-bar is shown as either '|' or '[]'. The parallel
+bar is shown as '//'. CSP loop is shown either as <code>*[ ... ]</code> or as
+<code>do ... od</code>. CSP guarded if is shown either as = if &#x2026; fi= or as
+= [ &#x2026; ]=. I will make it consistent one of these days ;-)
+</p>
+
+<hr />
+
+<div id="outline-container-org004f684" class="outline-2">
+<h2 id="org004f684"><span class="section-number-2">1</span> Qualities in Distributed Programs</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+We wish to (a) maximize concurrency, (b) we prefer a symmetric solution,
+(c) we rate correctness much higher than efficiency, and (d) cannot
+tolerate deadlocks or (e) livelocks.  Defend <i>why</i> for each of these
+five.
+</p>
+
+<p>
+Of course, we do not mean "maximize" in the pure mathematical sense it
+is used in algorithm analyis.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org62cdfc8" class="outline-2">
+<h2 id="org62cdfc8"><span class="section-number-2">2</span> Modeling "Real" Devices</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+We are faced with the problem of controlling the two-way traffic on an
+old bridge. The bridge is so old and weak that it can only hold at most
+10 cars at a time. Trucks and other heavy vehicles are forbidden.
+Traffic lights, and sensors that detect the passing of cars are
+installed on both ends of the bridge. Present all the processes in CSP.
+State clearly any other assumptions that you found necessary for your
+solution.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">----------------------------------------&#x2013;&#x2014;\\</td>
+<td class="org-left">  </td>
+<td class="org-left">In our visualization, the bridge is drawn horizontally with the top lane with traffic going from right-to-left, and the bottom lane with traffic going from left-to-right. There is an entry sensor (s2, s3) and an exit sensor (s1, s4) installed in each lane that detects cars passing over. TL1 and TL2 are traffic lights.</td>
+</tr>
+
+<tr>
+<td class="org-left">s1 &lt;&#x2013; right-to-left &lt;&#x2014; s2 TL1\\</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">----------------------------------------&#x2013;&#x2014;\\</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">TL2 s3 &#x2013;&gt; left-to-right &#x2014;&gt; s4\\</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">----------------------------------------&#x2013;&#x2014;\\</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+We cannot present <b>all</b> the processes &#x2013; such as the cars. In a problem
+such as this, the "environment" is a collection of processes that our
+CSP processes interact with.
+</p>
+
+<p>
+E.g., the following models the physical traffic light for us as an
+output device.
+</p>
+
+<pre class="example">
+trafficLight::
+  int bulbColor := red;
+  do controller ? bulbColor --&gt; skip od
+</pre>
+
+<p>
+Here is a model of the mouse for us as an input device.
+</p>
+
+<pre class="example">
+Mouse::
+  int x := 0, y := 0;
+  do human ? click(buttonNumber) --&gt; clientProcess ! buttonNumber 
+  [] human ? motion(dx, dy) --&gt; x += dx; y += dy; clientProcess ! (x, y)
+  od
+</pre>
+
+<p>
+We cannot describe the human process &#x2013; obviously! In our CSP examples,
+we would model the mouse far more abstractly. See, e.g., the Mine
+Sweeper.
+</p>
+
+<pre class="example">
+sensor(i: 1 .. 4) ::
+  int count := 0;
+  do car ? passesOver --&gt;
+     count ++;
+     controller ! count
+  od
+</pre>
+
+<p>
+The problem above is asking you to write the code for controller.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3f0775c" class="outline-2">
+<h2 id="org3f0775c"><span class="section-number-2">3</span> Remove the Least Member in SSI</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Solve the exercise in Section 4.6 of Hoare's CSP paper. That is, provide
+a least() "remove the least member" operation in the small set of
+integers process-collection.
+</p>
+
+<p>
+We just need to introduce a boolean to represent empty-handed or not.
+And, fix the new case below properly.
+</p>
+
+<pre class="example">
+S(i: 1..100) ::
+  empty := true;
+  do empty --&gt;
+    if S(i-1)?has(n) --&gt; S(0)!false
+    [] S(i-1)?insert(n) --&gt; empty := false
+    [] S(i-1)?least() --&gt; S(i-1)!noneleft()
+    fi
+  [] not empty --&gt;
+    if S(i-1)?has(m) --&gt; ... as before ...
+    [] S(i-1)?insert(m) --&gt; ... as before ...
+    [] S(i-1)?least() --&gt; ...new code ...
+        fi
+  od
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org0903ca7" class="outline-2">
+<h2 id="org0903ca7"><span class="section-number-2">4</span> n-th Minimum</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+We have a CSP process <i>C</i> that outputs an unending stream of
+non-negative numbers to a process named, say, <i>X</i>. We want <i>X</i> to be
+able to receive requests of the form <i>X!nthmin(n)</i> from a user process
+<i>U</i> and respond with <i>U!x</i>, where \(x\) is the $n$-th smallest number it
+has seen so far from <i>C</i>. If <i>X</i> has seen fewer than \(n\) numbers so far,
+or if \(n\) is greater than 10, or less than 1, the value of \(x\) to use is
+-1. Write the process <i>X</i> in CSP. Maximize concurrency. Process <i>C</i> must
+not suffer delays.
+</p>
+
+<pre class="example">
+S(i: 1..10) ::
+  do S(0)?out() --&gt; U!-1
+  [] S(i-1)?x --&gt;
+     do S(0)?out() --&gt; U!x
+     [] S(i-1)?y --&gt;
+         if  x = y --&gt; skip
+         []x &lt; y --&gt; S(i+1)!y
+         []x &gt; y --&gt; S(i+1)!x; x := y
+         fi
+     od
+  od
+
+S(0) ::
+  do C ? n --&gt; S(1)!n
+  [] U ? nthmin(n) --&gt;
+      if 1 &gt; n or  n &gt; 10 --&gt; U !-1
+      [] 0 &lt; n and n &lt; 11 --&gt; S(n) ! out()
+      fi
+  od
+
+S(11) ::  do S(10)?x --&gt; skip od
+X :: S(i: 0..11)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org605da72" class="outline-2">
+<h2 id="org605da72"><span class="section-number-2">5</span> Exchange Evens With Odds</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+There are three CSP processes \(A\), \(B\) and \(C\) each with a local array
+of size \(n\) of integers. Among these \(3*n\) numbers, there are at least
+\(n\) even numbers, and at least \(n\) odd numbers. Write an algorithm in
+CSP so that the processes send each other integers, one at a time,
+eventually terminating with process \(A\) having in its array only even
+numbers, process \(C\) having in its array only odd numbers. Process B may
+end up with the rest of even/odd numbers. You must make sure no number
+originally present is lost.
+</p>
+
+<pre class="example">
+EO ::
+    e := 0;     /* a[1..e] are even */
+    d := n+1;   /* a[d..n] are odd  */
+    do e+1 &lt; d   &amp; even a[e+1] --&gt; e := e + 1
+    [] e+1 &lt; d   &amp; odd  a[d-1] --&gt; d := d - 1
+    [] e+1 &lt; d-1 &amp; odd  a[e+1] &amp; even a[d-1] --&gt;
+        d := d - 1; e := e + 1;
+        swap a[d] with a[e]
+    od
+
+A ::    EO; do e &lt; n --&gt; e := e + 1; B!a[e]; B?a[e] od
+C ::    EO; do d &gt; 1 --&gt; d := d - 1; B!a[d]; B?a[d] od
+B ::    EO;
+    do e &gt; 0;   A?x --&gt; A!a[e]; e := e-1; d := d-1; a[d] := x 
+    [] d &lt; n+1; C?x --&gt; C!a[d]; e := e+1; d := d+1; a[e] := x
+    od
+</pre>
+
+<p>
+How does the following differ from above? Is it correct? Is it better?
+</p>
+
+<pre class="example">
+A ::    i := 1;
+    do i &lt; n+1 --&gt;
+        if even a[i] --&gt; skip
+        [] odd  a[i] --&gt; B!a[i]; B?a[i]
+        fi;
+        i := i + 1
+    od
+
+C ::    i := 1;
+    do i &lt; n+1 -&gt;
+        if odd  a[i] --&gt; skip
+        [] even a[i] --&gt; B!a[i]; B?a[i]
+        fi;
+        i := i + 1
+    od
+
+B ::    e := 0;     /* a[1..e] are even */
+    d := n+1;   /* a[d..n] are odd */
+    do e+1 &lt; d   &amp; even a[e+1] --&gt; e := e + 1
+    [] e+1 &lt; d   &amp; odd  a[d-1] --&gt; d := d - 1
+    [] e+1 &lt; d-1 &amp; odd  a[e+1] &amp; even a[d-1] --&gt;
+        d := d - 1; e := e + 1;
+        swap a[d] with a[e]
+    [] e &gt; 0;   A?x --&gt; A!a[e]; a[e] := x; e := e - 1
+    [] d &lt; n+1; C?x --&gt; C!a[d]; a[d] := x; d := d + 1
+    od
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgae64723" class="outline-2">
+<h2 id="orgae64723"><span class="section-number-2">6</span> Mine Sweeper in CSP</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+This is a CSP rendering of the well known game. Quite incomplete. The
+modeling of smiley, the mine counter and the timer are left to you as a
+further exercise.
+</p>
+
+<pre class="example">
+mymine := 0, or 1 
+/* number of mines in this cell */
+/* 0 or 1 -- no other values are possible */
+
+cell := blank;
+/* what is "shown on the cell", enumerated type */
+/* uncovered: 0,1..8, the number of mines that neighbors have */
+/* uncovered: boom = 9 = game over = tripped a mine */
+/* uncovered: exposed = 10, exposed mine after tripping */
+/* uncovered: incorrect = 11 */
+/* covered: red-flag = 12, ? = qmark = 13, blank = 14 */
+
+/* left, middle, right are mouse button clicks */
+</pre>
+
+<pre class="example">
+do P(a, b)?howmany -&gt; P(a, b)!mine
+[] P(a, b)?uncover -&gt; UNCOVER
+[] P(a, b)?show-mine -&gt; SHOW-MINE
+[] mouse?left -&gt; UNCOVER
+[] mouse?middle -&gt; MID
+[] mouse?right -&gt; RIG
+od
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgc3d9807" class="outline-2">
+<h2 id="orgc3d9807"><span class="section-number-2">7</span> Elevator Simulation</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+This simulation is often used in courses that teach the use of
+processes. There are T floors, and N elevators. Add whatever missing
+detail.
+</p>
+
+<p>
+We may need to maintain the following info. Distribute it among our
+processes.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">evat[e]</td>
+<td class="org-left">elevator e is at floor i = at[e]; turn the i-th light for e on</td>
+</tr>
+
+<tr>
+<td class="org-left"> </td>
+<td class="org-left">and the other light that was on now goes off.</td>
+</tr>
+
+<tr>
+<td class="org-left">dir[e]</td>
+<td class="org-left">the travel direction &#x2013;stopped, going-up, going-down &#x2013; of elevator e</td>
+</tr>
+
+<tr>
+<td class="org-left">req[i]</td>
+<td class="org-left">requests made at floor i: clear =00, goUp =01, goDn =10, both =11</td>
+</tr>
+
+<tr>
+<td class="org-left">stop[e][i]</td>
+<td class="org-left">elev e must stop on floor i, true/false</td>
+</tr>
+
+<tr>
+<td class="org-left">bot[e]</td>
+<td class="org-left">lowest floor to go to</td>
+</tr>
+
+<tr>
+<td class="org-left">top[e]</td>
+<td class="org-left">highest floor to go to</td>
+</tr>
+
+<tr>
+<td class="org-left">[.]</td>
+<td class="org-left">means for all indices</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Elevator model, bare minimum. Elevator motor is powered on unless dir =
+stopped, and is moving in that direction. Add an internal display panel.
+</p>
+
+<pre class="example">
+elevator(e: 1 .. N) ::
+  int dir := stopped, d, f :=  1;
+  do humanInTheElevator ? presses(f) --&gt; controller! button(f)
+  [] sensor ? detects(f) --&gt; controller! at(f)
+  [] controller? motor(d) --&gt; dir := d
+  [] controller? doorsOpen() --&gt; skip
+  [] controller? doorsClose() --&gt; skip
+  od
+</pre>
+
+<pre class="example">
+floor(f: 1 .. T)::
+  buttons := clear;
+  do  humanOnTheFloor ? button(goBits) --&gt; controller! button(goBits)
+  []  controller ? buttons -&gt; skip
+  od
+</pre>
+
+<p>
+We are to write the code for Controller. Describe as precisely
+(mathematically?) as you can what the functionality of the controller
+ought to be.
+</p>
+
+<pre class="example">
+controller ::
+int goBits
+stop[.][.] := false; req[.]:= clear;
+at[.] := 1; dir[.] := stopped; bot[.] := ...; top[.] := ...; 
+
+do floor(f) ? button(goBits) --&gt; req[f] := req[f] | goBits; floor(f)! req(f)
+[] elevator(e)? button(f) --&gt; stop[e][f] := true
+[] elevator(e)? at(f) --&gt;
+    evat[e] := f
+    ... should we stop the elevator, open doors, ...
+od
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org056398d" class="outline-2">
+<h2 id="org056398d"><span class="section-number-2">8</span> Exercises</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li>Process A has a set S of m integers and B has a set T of n integers.
+The two processes are to exchange values one at a time until all
+elements of S are less than all elements of T. Assume that all the
+m+n integers are distinct.</li>
+<li><p>
+The solution given for <i>Recursive Data Representation: Small Set of
+Integers</i> of Hoare's CSP paper is reproduced below.
+</p>
+
+<pre class="example">
+S(i: 1 .. 100) ::
+ do   n: integer; S(i-1)?has(n) --&gt; S(0)!false
+ []   n: integer; S(i-1)?insert(n) --&gt;  
+     do m:   integer; S(i-1)?has(m) --&gt;  
+         if   m &lt;=  n --&gt; S(0)!(m = n)
+         []  m &gt;   n --&gt; S(i+1)!has(m)
+         fi 
+         [] m: integer; S(i-1)?insert(m) --&gt;  
+         if  m &lt; n --&gt; S(i+1)!insert(n); n := m
+         [] m = n --&gt; skip
+         [] m &gt; n --&gt; S(i+1)!insert(m)
+                     fi
+ od  od 
+</pre>
+
+<ol class="org-ol">
+<li>Write convincing argument that the algorithms for has and insert
+are correct.</li>
+<li>Write a loop invariant for the inner loop.</li>
+<li>Extend the solution to respond to a command <code>S(1)!remove(x)</code> from
+S(0) that removes x from the set, if it contains it, and does
+nothing if it does not.</li>
+<li>Extend the solution to respond to a command <code>removeMin()</code> that
+removes the least member of the set, if non-empty, and does
+nothing if the set is empty. Explain your solution. Annotate your
+algorithm.</li>
+<li>Extend it to respond to a request <code>S(1)!count()</code> from S(0) that
+expects a reply with the number of elements in the set.</li>
+</ol></li>
+
+<li>Is the CSP code = [X!2 // Y!3]= equivalent to
+= if    true &#x2013;&gt; X!2; Y!3   [] true &#x2013;&gt; Y!3; X!2 ]= ?</li>
+<li>Windows made the game of Mine Sweepers popular. Imagine each cell is
+populated with CSP processes. Describe further details.</li>
+<li>Given a large (in the zillions) bag B of integers, find the third
+largest number in B. Assume that B has at least three distinct
+integers. Two solutions, one in CSP and another in C-Linda are to be
+developed. It is not required that both use the same "idea." Present
+your solutions with full explanations. For CSP, the bag is generated
+by process B whose structure is <code>B :: do ... --&gt; P!n od</code>. Develop the
+process P and appropriately chosen other processes.</li>
+<li>You are given a large (in the zillions) bag B of triplets of unsigned
+integers (x, y, d). Each triplet represents a horizontal line segment
+of length d in the Euclidean plane whose left end point is at (x, y).
+A (x1, y1, d1) <i>contains</i> (x2, y2, d2) if y1 <code>= y2 and x1 &lt;</code> x2 and
+x1 + d1 &gt;= x2 + d2. We wish to minimize the size (== number of
+triplets) of the given bag of triplets so that every original triplet
+is contained in some triplet in the resulting collection. Fully
+explain your solution design (10 points) in English for CSP.
+Implement (10 points) the design in CSP. The bag is generated by
+process Q whose structure is <code>Q :: do ... --&gt; P!(x, y, d)]</code>. Develop
+the process P and any others.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org69a02fc" class="outline-2">
+<h2 id="org69a02fc"><span class="section-number-2">9</span> References</h2>
+<div class="outline-text-2" id="text-9">
+<ol class="org-ol">
+<li>C. A. R. Hoare, ``Communicating Sequential Processes,''
+<i>Communications of the ACM</i>, 1978, Vol. 21, No. 8, 666-677. This
+paper has many exercises for you to do.</li>
+<li>Andrews, Chapter 8 on Synchronous Message Passing, and also Section
+10.2 on Occam.</li>
+<li>U of Kent, Communicating Sequential Processes for Java (JCSP),
+<a href="http://www.cs.kent.ac.uk/projects/ofa/jcsp/">http://www.cs.kent.ac.uk/projects/ofa/jcsp/</a></li>
+
+<li><a href="http://www.cs.ox.ac.uk/ucs/">http://www.cs.ox.ac.uk/ucs/</a> Bill Roscoe's book Understanding
+Concurrent Systems.  2010, ISBN 978-1-84882-257-3.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org71807b7" class="outline-2">
+<h2 id="org71807b7"><span class="section-number-2">10</span> End</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2019-12-06
+</div>
+</body>
+</html>

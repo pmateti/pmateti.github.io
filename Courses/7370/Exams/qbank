@@ -1,0 +1,9 @@
+\item (15 points)
+Using the ``pass the baton'' technique, develop a semaphore-based
+implementation of conditional critical regions.  Show all relevant
+assertions.
+
+
+"Both synchronous and asynchronous message passing are powerful
+enough to program all four kinds of processes: filters, clients,
+servers, and peers.
