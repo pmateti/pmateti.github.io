@@ -1,0 +1,68 @@
+
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE: Proper Configuration
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:1
+#+LINK_HOME: ../Top
+#+LINK_UP: ../../index.html
+#+DESCRIPTION: Online CEG6420 Course
+#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-preamble-format (("en" "%d<br><a href=\"http://cecs.wright.edu/~pmateti/Courses/4420/\">OnLine CEG 6420: Computer Security</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a> &bull; %d"))
+
+These are notes to [[http://www.wright.edu/~pmateti][myself]] and [[chris.roberts@wright.edu][Chris Roberts]] as we prepare to produce
+the lecture videos.  Expected video length of this "chapter": 60
+minutes.  Each line item below is worth between 30 sec to 2 minutes.
+
+#+begin_quote
+Abstract: We distinguish /hardening/ a system from proper
+/configuration/ and /fortification/.  Hardening, in our definition,
+refers to areas of security tightening during the design and
+construction of systems rather than after their deployment.  Carefully
+adjusting various parameters after an out-of-the-box install is
+configuration.  Installing or uninstalling various packages using the
+OS native tools and mechanisms, such as apt-get in Debian/ Ubuntu,
+is fortification.  For further elaboration, read the 
+[[..//Config/config-online-6420.html][Proper Configuration]]
+article/video.
+#+END_QUOTE
+
+* Ideas of OS Hardening
+1. Ideas applicable to all OS
+** Careful Recompilation
+** Least Privilege
+** Capabilities
+** Mandatory Access Control
+** Role-Based Access Control
+** Enhanced Authentication
+** Logging
+** Source Code Review
+* Pruning the Kernel
+1. Building a custom kernel with just the needed components
+   1. Pruning device drivers, file systems, ...
+1. Disable Loadable Kernel Modules (LKM)
+   1. =/boot/vmlinuz= has all the "modules" merged in
+   1. =/lib/modules/this-version-of-kernel= will be empty
+
+* Linux Kernel Enhancements
+
+** POSIX capabilities
+** Chroot restrictions
+** SE Linux
+** LIDS (Linux Intrusion Detection System) 
+** grsecurity
+** AppArmor
+** Address space modification protection
+* Lab Experiment
+Acknowledgements
+* Required and Recommended Reading
+
+
+* Educational Objectives
+
+Understand hardening in contrast to proper configuration and fortification of a system.
+Become familiar with what makes and OS trusted and/or secure.
+
+    <li>Mutual authentication: init v kernel    </li>

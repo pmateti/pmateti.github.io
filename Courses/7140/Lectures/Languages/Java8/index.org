@@ -1,0 +1,66 @@
+# -*- mode: org -*-
+#+date: 2015-10-05
+#+TITLE: New Things of Java8 and Less Noticed Old Features
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"index-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+These notes are an overview of new features of Java 8, compared to
+Java7, as well as less noticed old features, such as closures.
+
+* Java 8
+
+1. [[../Java8/java8-lambda.org][Lambda Expressions]] (Closures)
+2. [[../Java8/concurrent-java.org][Concurrency in Java]]
+3. [[../EventDriven][Event Driven Programming]]
+4. [[../Java8/javaFX.org][JavaFX for GUI]]
+5. [[../Java8/java8-stream.org][Sequential Streams]]
+6. [[../Java8/java8-stream-par.org][Parallel Streams]]
+7. [[../Java8/futures-callables.org][Futures and Callables]]
+8. [[../Java8/misc.org][Miscellaneous]]
+   1. Improved Security
+   2. Delegates
+   3. Anonymous Classes
+   4. Interfaces with Methods
+9. [[../Java8/src/][Examples of Java/JavaFX Programs]]
+
+* Java 9
+
+1. http://www.java9countdown.xyz/ Countdown to Java 9 Release Date
+1. http://openjdk.java.net/projects/jdk9/ JDK 9
+1. https://blogs.oracle.com/java/entry/java_9_schedule_is_out
+
+* Scala
+
+1. Scala is a "modern version" of Java.
+   1. Elimination of "boiler plate" code: setters, getters,
+      constructors auto generated.
+   2. FOSS Project https://projectlombok.org/ does that for Java, by
+      manipulating the ASTs.
+   3. Syntax is substantially different.
+   4. Most of Java 8 and Java 9 features are already in Scala.
+   5. Design of Scala started in 2001.
+2. Type inference is an integral part of Scala.
+3. Has functional programming features also.
+4. [[../Scala]]
+
+* References
+
+1. Oracle.com, Java Essentials Tutorial,
+   https://docs.oracle.com/javase/tutorial/essential/TOC.html.  This
+   is *the* recommended tutorial.  Reference.
+
+1. http://developer.android.com/preview/j8-jack.html Java 8 Language
+   Features as described at developer.android.com.
+
+1. http://lambdafaq.com Maurice Naftalin's Lambda and friends
+   FAQ. Includes streams, etc. 2015 Reference.
+
+1. David Svoboda,
+   https://insights.sei.cmu.edu/sei_blog/2015/10/is-java-more-secure-than-c.html
+   Is Java More Secure than C? Oct 2015.  Recommended Reading.

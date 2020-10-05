@@ -1,0 +1,66 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+TITLE: SmallSet Requirements
+#+AUTHOR: Prabhaker Mateti
+#+LINK_HOME: ../../
+#+LINK_UP: ../
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"SmallSet-design-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Abstract
+
+This note describes the req/ spec/ design of a (small/ fixed size) set
+of integers.  This is expected to be a good example of software
+engineering design "in the tiny".  There is also a link to a Java
+implementation.  
+
+* SmallSet Requirements
+
+1. A set is a concept from discrete mathematics.
+1. "smallset": No bigger than, say, 1000 elements.
+1. Insertion "fails" beyond 1000.
+1. This SmallSet is NOT the same as Java Set container.
+
+
+** SmallSet Operations: Names
+
+1. For now, just the names
+   1. construct-empty-set (or cons)
+   1. insert-an-item, delete-an-item
+   1. item-is-in-the-set
+   1. number-of-items-in-the-set
+   1. union-with, diff-with
+1. All the above should be well-specified
+1. ignored detail:  item ==> int
+1. all the above converges to "API"
+
+** SmallSet Operations: Signatures
+   1. insert-an-item: Set, Item --> Set
+   1. delete-an-item: Set, Item --> Set
+   1. item-is-in-the-set: Set, Item --> Boolean
+   1. number-of-items-in-the-set: Set --> Integer
+   1. union-with: Set, Set --> Set
+   1. diff-with: Set, Set --> Set
+   1. construct-empty-set: --> Set
+
+** SmallSet Requirements Clarifications
+
+1. Insertions are far more frequent cf to other ops  
+1. item-is-in-the-set(S, e): searched for again often
+
+
+* SmallSet Operations: Semantics
+
+1. Should we describe semantics here in the requirements?
+1. We decided to just depend on what discrete math tells us.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

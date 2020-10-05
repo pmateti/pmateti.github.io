@@ -1,0 +1,344 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="Author" content="Prabhaker Mateti">
+<meta name="Keywords" content="OS security, Internet Security">
+<title>Cyber Security Lectures by Mateti</title>
+<base target="_blank">
+<style type="text/css">
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  P { text-align: justify }
+  li { text-align: justify; }
+  @media screen {BODY {white; margin: 15%} }
+  @page { size: 8.5in 11in }
+</style>
+</head>
+
+<body>
+
+<h1>Cyber Security Lectures</h1>
+
+<h2><a href="http://www.cs.wright.edu/~pmateti" target="_blank">
+    Prabhaker Mateti</a></h2>
+
+<p>Below are notes to my lectures on a laboratory-based course on
+  Internet/ Computer Security suitable for senior undergraduates and
+  beginning graduate students.  The green bar indicates that
+  there is a lab experiment associated with that lecture. 
+  Suggestions for improvement are always welcome.</p>
+
+<table width="100%" cellspacing="1" cellpadding="0">
+  <tr>
+    <td align="right">
+    <a href="../Lectures/Intro/index.html">Course Intro</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Introduction to CEG 4420/6420  Security Course</td>
+  </tr>
+  <tr>
+    <td align="right"><a href="syllabus-4420.html">
+    Syllabus</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Course syllabus, our first class handout</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="./index.html">Week-by-Week</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>This describes the order in which these 
+    topics are covered</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/BootUp/index.html">BootUp</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>From Powering up to Login Prompt</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/NetUtils/index.html">NetUtils</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Various LAN utilities</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/TCPIP/index.html">TCPIP</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>TCP/IP Refresher</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/Sniffers/index.html">Sniffers</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Network sniffers</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/Config/index.html">Config</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Configuring a system properly</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/Fortification/index.html">Fortification</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Improving the Security of a System Beyond 
+    Proper Configuration</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/HardenOS/index.html">HardenOS</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Hardening an OS</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/Password/index.html">Password</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Cracking passwords</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/Cryptography/index.html">Cryptography</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Essentials of Cryptography for Internet Security</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/Authentication/index.html">Authentication</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>User, Node and Service Authentication</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/Viruses/index.html">Viruses</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Viruses,Worms, and Trojans</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/RootKits/index.html">RootKits</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>How to hide what you are doing</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/BackDoors/index.html">BackDoors</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Discovering backdoors in well-known 
+    programs and OS</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/BufferOverflow/index.html">BufferOverflow</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>The notorious and ever-present security 
+    problem</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/SecSoftware/index.html">SecSoftware</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Writing better software, security-wise</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/PacketFilter/index.html">PacketFilter</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Setting up a Packet Filter on Linux</td>
+  </tr>
+  <tr>
+    <td align="right" height="19">
+    <a href="../Lectures/Firewalls/index.html">Firewalls</a></td>
+    <td align="right" width="1%" height="19"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00" height="19"> </td>
+    <td align="right" width="1%" height="19"> </td>
+    <td height="19">Firewalls, and how to setup one</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/Probing/index.html">Probing</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Scanning the network</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/IPexploits/index.html">IPspoof</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>IP spoofing</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/TCPexploits/index.html">TCPexploits</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Exploiting the weaknesses of TCP</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/IntrusionDetection/index.html">IntrusionDetection</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Intrusion detection techniques</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/Audit/index.html">Audit</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Security Audit of Computer Systems and LANs</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/CGI-Vulnerabilities/index.html">CGI-Vulnerabilities</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>CGI-Vulnerabilities</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/Privacy/index.html">Privacy</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#00FF00"> </td>
+    <td align="right" width="1%"> </td>
+    <td>The loss of privacy, and how to regain it</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/SSH">SSH</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Secure Shell</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../Lectures/Ethics/index.html">Ethics</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Ethics of hacking, cracking and attacking.</td>
+  </tr>
+  <tr>
+    <td align="right">
+    Sowgandh S. Gadi</td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Security Hardened Kernels for Linux 
+	Servers, MS Thesis, 2004.</td>
+  </tr>
+  <tr>
+    <td align="right">
+    Karthik Mohanasundaram</td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Security Hardening of the
+      Process <code>init</code> of Linux</i>, MS Thesis, 
+      2004.</td>
+  </tr>
+  <tr>
+    <td align="right">
+    Sripriya Subramanian</td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Sniffing the Ethernet with High Quality Tools,
+    </i>M. S. Thesis 2003.</td>
+  </tr>
+  <tr>
+    <td align="right">
+    Venkata RKR Pothamsetty</td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Lab Setup For Courses 
+      On Internet Security, </i>M. S. Thesis, 2000.</td>
+  </tr>
+  <tr>
+    <td align="right">
+     </td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%"> </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../SIGCSE2003/sigcse2003.ppt">SIGCSE2003 slides</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>Slides of my presentation at
+    <a href="http://sigcse.org">SIGCSE2003</a>, Feb 21,2003</td>
+  </tr>
+  <tr>
+    <td align="right">
+    <a href="../SIGCSE2003/internetSec.pdf">SIGCSE2003 paper</a></td>
+    <td align="right" width="1%"> </td>
+    <td align="right" width="1%" bgcolor="#808080"> </td>
+    <td align="right" width="1%"> </td>
+    <td>PDF of the paper appearing in the 
+    Proceedings of SIGCSE2003.</td>
+  </tr>
+</table>
+
+<hr size=1>
+
+<a href="copyright.html">Copyright ©</a> 2017
+<a href="mailto:pmateti@wright.edu?subject=CEG4420/InternetSecurity">
+    pmateti@wright.edu</a>
+ &bull; This work was supported in part by NSF DUE-9951380.
+
+
+</body>
+
+</html>

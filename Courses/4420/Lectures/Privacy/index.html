@@ -1,0 +1,259 @@
+<html>
+  <head>
+    <title>Cyber Security Lectures by Prabhaker Mateti</title>
+    <meta name="author" content="Prabhaker Mateti">
+    <meta name="keywords" content=
+	  "Cyber security, Internet security, Network security, TCP/IP security">
+    <meta name="description" content=
+	  "This page is part of a set of lectures notes for a course on
+	   Cyber Security by Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <style type="text/css">
+      a:hover      { color: blue; background-color: yellow; }
+      a:active     { color: white; background-color: green;}
+      @page { size: 8.5in 11in }
+      @media screen {BODY {margin: 15%} }
+      P { text-align: justify; }
+      li { text-align: justify; }
+      tt {border:blue 1px dotted;}
+      P { text-align: justify; }
+    </style>
+    <base target="_top">
+  </head>
+
+<body>
+
+  <h3><a href="http://www.cs.wright.edu/~pmateti/Courses/4420/">
+      CEG 4420: Computer Security</a></h3>
+  <h1>Personal Security and Privacy on the Web</h1>
+  <h3><a target="_blank"
+	 href="http://www.cs.wright.edu/~pmateti"> Prabhaker Mateti</a></h3>
+  <p>
+    Abstract: Privacy and security are siblings.  The WWW has brought
+    the Internet to every computer with a modem or a NIC. What is not
+    as widely known is the loss of privacy and security it has
+    caused. This lecture describes these issues, and presents some
+    measures that individuals can take.</p>
+  <p>
+    <a href="matetiPrivacy2006.ppt">Mateti's slides</a>
+    | <a href="paranoid.ppt">Evans'slides</a> | dated 2000
+
+<h3><a name="Table of Contents">Table of Contents</a></h3>
+<ol>
+  <li><a href="#Educational Objective">Educational Objectives</a></li>
+  <li>Personal Security and Privacy on the Web</li>
+  <li>Overview</li>
+  <li>Freedom
+    <ol>
+      <li>Publius Censorship Resistant Publishing System</li>
+      <li>Freenet</li>
+      <li>The Intermemory Initiative</li>
+    </ol>
+  </li>
+  <li>Cyber-Snooping</li>
+
+  <li><a href="#Acknowledgements">Acknowledgements</a></li>
+  <li><a href="#References">References</a></li>
+</ol>
+
+<h3><a name="Educational Objective">Educational Objective</a>s</h3>
+
+  <li>Increase awareness of privacy issues on the net.</li>
+
+
+  <li>Learn protective measures improving privacy.</li>
+</ol>
+
+
+<h1> Security and Privacy on the Web</h1>
+
+
+<p style="text-align:right">&quot;On the Internet, Nobody knows you're a dog.
+True or False?&quot;</p>
+
+
+<p> Privacy and security are siblings.  The WWW has brought the
+Internet to every computer with a modem or a NIC. What is not as
+
+widely known is the loss of privacy and security it has caused. This
+lecture describes these issues, and present some measures that
+individuals can take.</p>
+
+<p>In the real world you have the power to choose when and to whom you reveal
+certain parts of your identity. But on the Internet the digital footprints you
+leave can be tracked and compiled without your knowledge or consent.</p>
+
+<h2>Overview</h2>
+
+<p>&quot;Internet security is akin to a three-tiered cake. The top layer is the
+Internet as a network, and this was the weak point hackers exploited in the
+February 2000 denial of service attack [on popular Internet sites, including
+Yahoo.com and Amazon.com]. The attack was composed of an excessive number of
+false, computer-generated hits on a given Web site causing the site to overload,
+and become unavailable to customers. The second layer of the cake is
+transactional security, or what is commonly called e-commerce and personal
+identity. This includes the question of who, really, sent you an email, or whose
+Web site are you accessing. The third layer of the Internet security cake is
+personal privacy, represented by encryption such as PGP. These three separate
+areas are commonly lumped together in discussions but must be understood
+independently to properly discern the Internet security issues.&quot; 
+[From &quot;Internet Security and the Courts&quot;, Bradley J. Hillis, June 8,
+2000,<i> </i><a href="http://www.jurist.law.pitt.edu/courttech4.htm">www.jurist.
+law.pitt.edu/ courttech4.htm</a>.]<br>
+</p>
+<p>The talk by Mateti gives you an overview of personal security and privacy. 
+[Prabhaker Mateti, &quot;Personal Security and Privacy on the Web,&quot; June
+2000, slides: <a href="http://www.cs.wright.edu/~pmateti/Privacy/pm000615.htm">HTML</a>
+| <a href="http://www.cs.wright.edu/~pmateti/Privacy/pm000615.ppt">ppt</a>. 
+Required Reading.]</p>
+<p>There are now numerous web sites educating the public on internet privacy. 
+Here are a few recommended sites:</p>
+<ul>
+  <li>ACLU on Privacy, <a href="http://aclu.org/issues/privacy/hmprivacy.html">http://aclu.org/issues/privacy/hmprivacy.html</a></li>
+
+  <li>Internet Privacy Coalition,  <a href="http://www.privacy.org/ipc/">http://www.privacy.org/</a></li>
+  <li>Privacy improving tools, <a href="http://www.junkbusters.com/">www.junkbusters.com</a></li>
+  <li>Pretty Good Privacy, <a href="http://web.mit.edu/network/pgp.html">http://web.mit.edu/network/pgp.html</a></li>
+</ul>
+
+<h2>Freedom</h2>
+
+<h3>Publius Censorship Resistant Publishing System</h3>
+
+
+with almost no fear of being traced or of having the content removed from the
+system without permission.  AT&amp;T is supporting this online system
+designed to let Web surfers publish any content without fear of censorship. </p>
+<p>Publius works by breaking a file into small pieces, making many different
+copies of each piece, and then distributing them individually across a network
+of volunteer Web servers. It is like putting a photograph on a jigsaw puzzle,
+making copies, taking the puzzle apart, and then hiding all of the individual
+pieces.  Using strong encryption, Publius develops the equivalent of a Web
+address, or URL, where the content can be &quot;found.&quot; The address
+contains coded instructions for finding all the hidden pieces and putting them
+back together. The address cannot be used to track down the original author or
+to track down all the individual pieces and delete them, however.
+<p>Authors can update the content themselves, but the URL coding system can
+detect whether unauthorized changes have been made to the content. A setting
+also allows the content publishers to keep even themselves from deleting files
+from the network, lest they
+<p>The Publius software 
+ allows anyone with a Wb browser to post a file online,
+
+<p>[
+<a href="http://www.cs.nyu.edu/waldman/publius/">
+
+  http://www.cs.nyu.edu/waldman/publius/</a>
+
+Recommended visit.]</p>
+
+
+<h3>Freenet</h3>
+<p
+(<a href=">(Pl       P { text-align: justify; }">
+  >(Pl       P { text-align: justify; }</a>)
+
+ease note that there are organizations which include &quot;freenet&quot;
+as a substring in their names but unrelated to the following.)</p>
+<p>Freenet is a peer-to-peer network designed to allow the distribution of
+information over the Internet in an efficient manner, without fear of
+censorship.  Freenet is completely decentralized, meaning that there is no
+person, computer, or organisation in control of Freenet or essential to its
+operation. This means that Freenet cannot be <a
+href="http://slashdot.org/articles/99/12/08/0752248.shtml">attacked</a> like
+centralized peer-to-peer systems such as <a href="http://www.napster.com/">Napster</a>.
+Freenet also employs intelligent routing and caching meaning that it learns to
+route requests more efficiently, automatically mirrors popular data, makes
+network flooding almost impossible, and moves data to where it is in greatest
+demand. All of this makes it much more efficient and scalable than systems such
+as <a href="http://gnutella.wego.com/">Gnutella</a>.  Ian Clarke,Brandon
+Wiley, Oskar Sandberg and Theodore W. Hong, &quot;Freenet: A Distributed
+Anonymous Information Storage and Retrieval System&quot;,  <a
+href="http://www.icsi.berkeley.edu/~hannes/ws.html">ICSI Workshop on Design
+Issues in Anonymity and Unobservability</a>, July 25-26, Berkeley, California. [<a
+href="http://freenet.sourceforge.net/index.php?page=theoppr">freenet.sourceforge.net/
+index.php? page=theoppr</a>  Required Reading.]</p>
+<h3>The Intermemory Initiative</h3>
+<p align="left">&quot;A planetary memory for all mankind is coming...  The
+initiative aims to develop highly survivable and available storage systems made
+up of widely distributed processors that are individually unreliable and
+untrustworthy -- with the overall system nevertheless secure. Inspired by the
+Internet and Web, this project targets self-organization, self-maintenance, and
+effective administration in the absence of central control. It is basic research
+in the area of Internet distributed algorithms and protocols, and may lead
+someday to a standard for information archives -- an important component of
+digital libraries.&quot;  <a href="http://www.intermemory.org/">[www.intermemory.org/</a> 
+Recommended visit.]</p>
+<h2>Cyber-Snooping</h2>
+<p>There is now (June 2000) commercially available software that covertly
+records every key an employee touches, and then tells the boss.   In
+fact, if you try to delete the keys out and back space over them, the software
+has a facility to unwork that...so you cannot delete what you were typing and
+get away with it.</p>
+
+<h2><a name="Lab Experiment">Lab Experiment</a></h2>
+
+<p>None.</p>
+
+
+<h3><a name="Acknowledgements">Acknowledgements</a></h3>
+
+<p>These lecture materials are gleaned from many sources.  All
+are presented after careful reading.   In some cases, I may
+have neglected proper attribution. I assure the reader it is not
+because I claim authorship.  Indeed, in the lectures there is
+hardly any thing new that I have contributed.  Suggestions for
+improvement are always welcome. </p>
+
+<p>
+This work is supported in part by NSF DUE-9951380.
+
+<h3><a name="References">References</a></h3>
+
+<ol>
+  <li>ACLU<strong>, &quot;</strong>Privacy Rights Pocket Card,<strong>&quot; 
+    </strong>tips for protecting your own right to privacy.  
+    <a href="http://aclu.org/action/privcard.html"> aclu.org/ action/
+    privcard.html</a>.  Required Reading.</li>
+  <li>Ian Clarke, Brandon Wiley, Oskar Sandberg and Theodore W. Hong,
+    &quot;Freenet: A Distributed Anonymous Information Storage and
+    Retrieval System&quot;,
+    <a href="http://www.icsi.berkeley.edu/~hannes/ws.html"> ICSI
+      Workshop on Design Issues in Anonymity and Unobservability</a>,
+      July 25-26, Berkeley,
+      California. <a href="http://freenet.sourceforge.net/index.php?page=theoppr">
+      freenet.sourceforge.net/ index.php? page=theoppr</a> Required
+      Reading.</li>
+  <li>Federal Trade Commission, Privacy Online: A Report to Congress, June 1998,
+    <a href="http://www.ftc.gov/reports/privacy3/toc.htm">http://www.ftc.gov/
+      reports/ privacy3/ toc.htm</a>  Recommended Reading.</li>
+  <li>Simson Garfinkel, &quot;Database Nation: The Death of Privacy in the 21st
+    Century&quot;, <a href="http://simson.net/2048">http://simson.net/2048</a>. 
+    Recommended Reading.</li>
+  <li>Reading list from Harvard, <a
+				    href="http://cyber.law.harvard.edu/ltac98/topic3-privacy.html">http://cyber.law.harvard.edu/ltac98/topic3-privacy.html</a> 
+    Reference.</li>
+
+  <li>M. E. Kabay, &quot;Anonymity and Pseudonymity in Cyberspace:
+    Deindividuation, Incivility and Lawlessness Versus Freedom and
+    Privacy,&quot; Annual Conference of the European Institute for
+    Computer Anti­virus Research (EICAR), Munich, Germany 16­8 March
+    1998.  <a href="http://www.mekabay.com/overviews/anonpseudo.pdf">
+    www.mekabay.com/overviews/anonpseudo.pdf</a> Recommended
+    Reading.</li>
+
+  <li>Prabhaker Mateti, &quot;Personal Security and Privacy on the Web,&quot;
+    June 2000, slides: <a
+    href="http://www.cs.wright.edu/~pmateti/Privacy/pm000615.htm">HTML</a> | <a
+    href="http://www.cs.wright.edu/~pmateti/Privacy/pm000615.ppt">ppt</a>. 
+    Required Reading.</li>
+</ol>
+
+  <hr size="1">
+  <a href="../../../copyright.html">Copyright &copy;</a> 2013
+  <a href=
+  "mailto:pmateti@wright.edu?subject=CEG429/IntnetSecurity">pmateti@wright.edu</a>
+  &bull; <a href="../Top/lectures.html">
+    Internet Security Lectures</a>
+</body>
+</html>

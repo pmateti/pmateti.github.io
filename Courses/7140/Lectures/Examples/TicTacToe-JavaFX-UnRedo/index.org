@@ -1,0 +1,39 @@
+# -*- mode: org -*-
+#+date: 2016-02-04
+#+TITLE: Tic-Tac-Toe with JavaFX and Undo/Redo
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+Abstract: This is a tiny.tiny example of software engineering
+techniques applied to the classic TicTacToe.
+
+
+* Links
+
+1. JavaFX source code of TicTacToe
+   1. [[./TicTacToe.java]] Java src code;  [[./TicTacToe.java.html]] colorized
+   3. You can build and run it as in =% javac TicTacToe.java; java TicTacToe=
+
+1. A [[http://cecs.wright.edu/~pmateti/Courses/4180/Labs/L4.html][Lab of CEG 4180]] OOProg + Design based on this game.
+1. https://en.wikipedia.org/wiki/Tic-tac-toe
+
+* Java GUI Frameworks
+
+1. [[../../Languages/Java8/java-gui.org]] Java GUI Frameworks Overview
+1. [[../../Languages/Java8/javaFX.org]] Intro to JavaFX.
+1. Prereq: {Threads, and Event-Driven Programming}
+
+
+* TicTacToe
+
+1. [[./tictactoe-req.org][Requirements]] of TicTacToe
+1. [[./tictactoe-spec.org][Spec]] of TicTacToe
+1. [[./tictactoe-design.org][Design]] of TicTacToe
+1. [[./tictactoe-code.org][Code]] Documentation of TicTacToe

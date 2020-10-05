@@ -1,0 +1,97 @@
+# -*- mode: org -*-
+#+DATE: 2020-09-11
+#+TITLE: CS7140 Project: DITAA Requirements
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CS7140 Adv Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+
+* Suggestions Given on DITAA Requirements
+
+1. Goal: [Reverse Engineer] The Requirements of DITAA.
+1. Read the Requirements section of [[../Projects/index.html][Project Work]].
+1. Focus on DITAA producing EPS or PDF.
+
+* DITAA Requirements Doc
+
+1. Requirements Doc is a Technical Report.
+2. Tentative list of chapter titles are shown below as subsection
+   titles in these Lecture Notes.  Of course, improve!
+1. It is ok (permissible) to do cut-n-pastes, but they must be
+   explicitly cited.
+
+** What is an ASCII Diagram?
+
+** Use Case Ex: Diagrams via =javadoc=
+** What is EPS?
+** Examples of DITAA
+
+1. We have 11 students.  Each of you contribute an example ascii art.
+   More sophisticated than the one below.
+1. There is a trivial example in
+   http://ditaa-addons.sourceforge.net/.  Include it.
+
+1. For the examples, include input-n.txt and output-n.eps files in
+   Appendix B: Examples.
+
+** What DITAA "cannot" draw
+
+1. Draw EPS examples using other tools.  Explain why these could not
+   be DITAA.
+
+** Overall Requirements
+
+1. [As examples, here are a couple of contributions from your
+   instructor.]
+1. DITAA shall not crash or hang for any (alleged) ascii art input
+   file.
+2. Even though we may use build tools such as gradle, DITAA is
+   buildable using javac and tools at that level using standard Java
+   libraries.  [Make this statement more precise.]
+1. DITAA shall pass the Acceptance Tests [to be given by you].
+
+** Appendix A: Syntax of Input ASCII Diagrams
+
+1. Should we make our doc self contained? Or, just give links to
+   existing docs?
+
+** Appendix B: Examples: Inputs and Their Outputs
+
+* Build Tutorial
+
+1. Your Final Project Document must include a build tutorial.
+1. In terms of SE life-cycle, this is not part of requirements.  But,
+   we are working with an existing product.
+
+1. We should build ditaaXYZ.jar (version number XYZ included) and
+   ditaa-eps.jar.  Usage: =java -jar ditaa-eps.jar input.txt
+   output.eps=
+
+
+* Kotlin?
+
+1. Preferably use Kotlin instead of Java.  But, you are not forced to.
+   1. JetBrains IDEA can auto-convert Java to Kotlin.
+2. https://fabiomsr.github.io/from-java-to-kotlin/ Quick comparison.
+1. IntelliJ IDEA http://kotlinlang.org/docs/tutorials/getting-started.html 
+1. The Kotlin plugin is bundled with IntelliJ IDEA and is activated by default.
+
+* Links
+
+2. https://github.com/madeye/ditaa-eps A fork of ditaa-addon with the
+   latest ditaa libary. 2012.  "Converts output to scalable EPS
+   graphics."
+
+3. http://ditaa-addons.sourceforge.net/ DIagrams Through Ascii Art -
+   addons.  =178144 Jan 15  2011 ditaa0_6b.jar=
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

@@ -1,0 +1,153 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-11
+#+TITLE: Overview of Background in Discrete Mathematics and Logic
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7380 Cloud Computing
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+Abstract: This article is a collection of notes on what students of
+Software Engineering (undergrad or grad) should know.  It is assumed
+that a sophomore level course in Discrete Mathematics and Logic was
+taken.  I am refraining from describing notations.  As we use these
+ideas in our course, I will explain the notations.  [New entries will
+be added as I discover what the students are unclear about.]
+
+* Sets, Bags, Tuples and Sequences
+
+** Sets
+
+1. Sets are collections of items.
+
+1. In math, a set can be a collection of dissimilar things such as a
+   set of an orange, an elephant, a human, and a stone.
+
+1. In CS, our sets are (almost always) of values from a given type.
+   E.g., a set of characters.
+
+1. In a set, there is no notion of duplication.  A given item is or is
+   not in a set.  Some times, we may post the question: How many times
+   does i appear in S?  The answer can only be a 0 or 1.
+
+1. In a set, there is no notion of order.  So, you can jumble up a
+   set.
+
+1. Empty sets are highly useful.
+
+** Bags
+
+1. Bags are like sets, except there is a notion of duplication.
+1. The Q "How many times does i appear in a bag B?  The answer can be
+   a 0, 1 or higher.
+
+** Sequences
+
+1. Sequences are like bags, except there is a notion of order.
+1. So, there is a first, second, ..., last item of a seq Q.
+1. The question "How many times does i appear in a seq Q?  The answer can be
+   a 0, 1 or higher.
+
+** Tuples
+
+1. Tuples are like sequences, but need not be of like values.  They
+   can be dissimilar.  In CS, these also by the names of "records",
+   structs, and "data members" (of a class).
+1. In our use, there is a first, second, ..., last item of a tuple T.
+1. Equally frequently, instead of first, second, ..., we may name the
+   "fields" of a tuple T (like  "data members" of a class).
+1. Tuples can be empty too!
+1. Tuples to seq conversion is "ok" only if all items were of the same
+   type.
+1. Seq to tuples conversion is as expected.
+
+* Tables
+
+1. Tables are sets of tuples, all of a given length.  Thus, we can
+   visualize a table as columns of rows.
+
+* Functions and Relations
+
+1. A relation maps elements of its /domain/ set into elements of its
+   /range/ set.
+
+1. When a relation is such that no element is mapped to more than one
+   element in the range, it becomes /function/.
+
+* Propositions
+
+1. True and False are propositions.
+
+1. For other propositions, we often use letters.  These are assigned a
+   True or False value in an interpretation.
+
+1. A formula involves these things and the and (^) or (v) not (~)
+   symbols also.  A well-formed-formula (wff) is defined
+   synatctically.
+
+* Predicates
+
+1. Ex: x > 1 is a predicate.  It has one free variable, x.  In the
+   programming context, think of free variables as globally scoped
+   variables.
+
+1. Predicates can involve for-all and there-exists quantifiers.
+
+
+
+* A implies B (A => B)
+
+** Propositions A, B:  A => B
+
+1. A implies B is often written as A => B.
+
+1. By def, same as =not A or B=.  Hence, 
+   1. A => A,
+   1. (False => B) is true for arbitrary B.
+   1. (True => B) only if B == True.  It is false otherwise.
+   1. WhatEver => True.
+
+** Predicates A, B:  A => B
+
+1. In CS, it is highly useful to use attributes of size to A and B.
+   Suppose we already know that A => B.  Consider: The size of the set
+   of values, #A, that make A true versus the size #B of the set of
+   values that make B true.  Is #A >= #B?  Assume that both of these
+   are finite numbers.
+
+** For-All/ There-Exists P(x)
+
+1. The domain X of x is/ ought-to-be clear from the context.
+1. =for-all x: P(x)= is the and-ing of P(a) for all a in X.
+
+* Weaker/Stronger Predicates
+
+1. If A => B we say A is stronger than B. Assuming A ! = B.  We can
+   reverse: B is weaker than A.
+
+1. Simple example on predicates: x > 7 implies x > 1.
+
+1. Consider:  P implies Q  (also written as P => Q)
+
+1. We say that P is stronger than Q.  Alt: Q is weaker than P.
+
+   1. P and Q, in general, have free variables, x, y, z, ... Consider
+      a particular assignment A of values for each of x, y, z that
+      make P come out True.  A will also make Q True.
+
+1. In the context of programming, we can refer to this A as a "state".
+
+1. Let C(Q) be the collection of such assignment of values that make Q
+   come out as True.
+   1. Let C(P) be the collection of such values that make P come out as True.
+
+   1. C(P) is a subset of C(Q)
+
+   1. If C(P) = C(Q), P is equivalent to Q (also written as P &hArr; Q,
+      or P &equiv; Q).
+
+

@@ -1,0 +1,38 @@
+# -*- mode: org -*-
+#+date: 2017-09-29
+#+TITLE: C Language Main Method
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: Android Internals and Security
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2017 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+1. The C language main method can examine the contents of argv[*]
+   before deciding what to do.
+
+1. 
+   #+begin_src c
+int main(int argc, char * argv[]) {
+    printf("argv[0]==%s\n", argv[0]);
+    if (strcmp(argv[0], "name1"))
+       doName1(argc, argv);
+    else if (strcmp(argv[0], "name2"))
+       doName2(argc, argv);
+    doPrg(argc, argv);
+}
+#+end_src
+
+1. Suppose the program is named =prg= located in the current directory.
+1. Suppose we established symlinks named =name1= and =name2=.
+1. This program can be invoked through the shell using one of three
+   names: =./prg=, =./name1=, and =./name2=.
+1. =busysbox= uses this technique.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

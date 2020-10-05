@@ -1,0 +1,391 @@
+<html>
+
+<head>
+<title>Intrusion Detection / Internet Security lectures by Mateti</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta name="author" content="Prabhaker Mateti">
+<meta name="keywords"
+content="Intrusion Detection, Internet security, Network security, TCP/IP security">
+<meta name="description"
+content="This page is part of a set of lectures notes for a course
+on Internet Security by Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css">a:link       { color: black }
+a:visited    { color: black }
+a:hover      { background-color: yellow; background-repeat: repeat; background-attachment: 
+               scroll; background-position: 0% 50% }
+</style>
+</head>
+
+<body>
+
+<table cellspacing="10" cellpadding="10" width="100%" border="0">
+  <tbody>
+    <tr>
+      <td width="33%"><a target="_blank" href="http://www.wright.edu/"><img
+        src="../images/wsu-logo-xsm.gif" border="0" width="150" height="66"></a><br>
+        <h3><b>CEG 499/699:<br>
+        Internet Security</b></h3>
+        <br>
+        <a href="http://www.cs.wright.edu/">College of Engineering &amp; CS</a><br>
+        <a href="http://www.wright.edu/">Wright State University</a><br>
+        <a href="http://www.dayton.net/dayton/">Dayton,</a> <a
+        href="http://www.state.oh.us/">Ohio</a> 45435-0001</td>
+      <td width="67%">
+        <table border="0" width="100%">
+          <tr>
+            <td width="100%">
+              <h1>Intrusion Detection</h1>
+            </td>
+          </tr>
+          <tr>
+            <td width="100%">&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="100%">
+              <h2><a target="_blank" href="http://www.cs.wright.edu/~pmateti">Prabhaker
+              Mateti</a></h2>
+            </td>
+          </tr>
+          <tr>
+            <td width="100%">&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="100%">Abstract:&nbsp;The goal of intrusion detection is
+              to be able to identify if and when an intrusion has occurred.&nbsp;
+              This lecture describes detection techniques and summarizes current
+              research.</td>
+          </tr>
+          <tr>
+            <td width="100%">&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="100%">This work is supported in part by NSF DUE-9951380.</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table cellspacing="0" cellpadding="0" width="100%" bgcolor="#008080" border="0">
+  <tbody>
+    <tr>
+      <td>&nbsp;</td>
+      <td align="right"><font color="#ffffff"><!--webbot bot="Timestamp"
+        startspan s-type="EDITED" s-format="%m/%d/%y" -->07/27/00<!--webbot
+        bot="Timestamp" i-checksum="12346" endspan --></font></td>
+    </tr>
+  </tbody>
+</table>
+<h2><a name="Table of Contents">Table of Contents</a></h2>
+<ol>
+  <li><a href="#Educational Objective">Educational Objectives</a></li>
+  <li>Intrusion Detection
+    <ol>
+      <li>Integrity Verifiers</li>
+      <li>Log Files</li>
+      <li>Intrusion Detection Systems</li>
+      <li>The Linux Intrusion Detection System</li>
+    </ol>
+  </li>
+  <li><a href="#Lab Experiment">Lab Experiment</a></li>
+  <li><a href="#Acknowledgements">Acknowledgements</a></li>
+  <li><a href="#References">References</a></li>
+</ol>
+<hr>
+<h2><a name="Educational Objective">Educational Objective</a>s</h2>
+<ol>
+  <li>Understand the role of intrusion detection.</li>
+  <li>Be aware of the tools of detection.</li>
+  <li>Appreciate why systems must do logging of activity.</li>
+  <li>Be aware of current research in IDS.</li>
+</ol>
+<hr>
+<h1>Intrusion Detection</h1>
+<p>As the name implies, the goal of intrusion detection is to be able to
+identify if and when an intrusion has occurred. Because we must minimize damage
+done by an intruder and are also interested in catching the intruder, we place a
+premium on discovering the intrusion as soon as possible -- within seconds, that
+is.&nbsp; Intrusion­detection is the logical complement to network firewalls,
+extending the security management capabilities of system administrators to
+include security audit, monitoring, attack recognition, and response.</p>
+<p>Intrusion includes attacks coming from outside the organization as well as
+misuse originating inside the organization.&nbsp; Intrusion Detection systems
+collect information from a variety of system and network sources, then analyze
+the information for signs of intrusion and misuse.&nbsp; Vulnerability
+assessment performs rigorous examinations of systems in order to locate problems
+that represent security vulnerabilities.</p>
+<h2>Integrity Verifiers</h2>
+<p>Integrity protection systems detect when critical components have changed,
+and assume that the changes must have been due to malicious activity such as
+when backdoors have been added to system files.&nbsp; Some well known integrity
+verifiers are:</p>
+<ol>
+  <li>COPS is a collection of programs that each attempt to tackle a different
+    problem area of UNIX security such as:&nbsp; file, directory, and device
+    permissions/modes; poor passwords; content, format, and security of password
+    and group files; the programs and files run in /etc/rc* and cron tab files;
+    existence of root-SUID files, their writeability, and whether or not they
+    are shell scripts; a CRC check against important binaries or key files to
+    report any changes therein; writability of users home directories and
+    startup files (.profile, .cshrc, etc.); anonymous ftp setup; unrestricted
+    tftp, decode alias in sendmail, SUID uudecode problems, hidden shells inside
+    inetd.conf, rexd running in inetd.conf; miscellaneous root checks -- current
+    directory in the search path, a &quot;+&quot; in /etc/host.equiv,
+    unrestricted NFS mounts, ensuring root is in /etc/ftpusers, etc.; dates of
+    CERT advisories vs. key files; and the Kuang expert system. This takes a set
+    of rules and tries to determine if your system can be compromised.&nbsp;
+    Open source code:&nbsp; <a href="http://www.fish.com/cops/">www.fish.com/cops/</a>
+  <li>Tripwire will checksum your system files, and later detect if an intruder
+    has made any modifications. Compares new signatures against old signatures
+    to detect when files change. Signing algorithms include MD4, MD5, Snefru,
+    and Haval. Signatures should be kept on remote server or read-only medium.
+    Tripwire is resource-intensive, but the alternative (re-installing your
+    system from scratch) is quite costly. You may get <em>Tripwire</em> from <!--
+<a href=ftp://coast.cs.purdue.edu/pub/tools/unix/Tripwire>
+ftp://coast.cs.purdue.edu/pub/tools/unix/Tripwire</a>.
+-->
+    <a href="http://www.tripwiresecurity.com/">www.tripwiresecurity.com/</a>.
+  <li>Tiger is a set of scripts that scan a UNIX system looking for security
+    problems. Regularly checks programs and scripts to see if root access could
+    be granted. Typical check is for suid programs.&nbsp; <em>Tiger</em> is
+    available at <a href="ftp://net.tamu.edu/pub/security/TAMU/">ftp://net.tamu.edu/pub/security/TAMU/</a></li>
+</ol>
+<h2>Log Files</h2>
+<p>Extensive system logs must be generated recording all system activity as
+these logs will contain evidence of an intrusion that can be discovered at least
+after the fact.&nbsp; Here are the most common of these logs.&nbsp; Be aware
+that in different Unix variants the location of these files varies.
+<ol>
+  <li>utmp wtmp files are located either in /etc, /var/log or /var/run.&nbsp;
+    The utmp file logs data regarding currently logged in users.&nbsp; The wtmp
+    file records all logins, logouts, shutdown and reboots.&nbsp; For more
+    details, man utmp and also see standard include file &lt;utmp.h&gt;.</li>
+  <li>The directory /var/log/ records logs from a variety of services.</li>
+</ol>
+<p>On systems that must be secure, the standard logs and directories such as
+/etc and /var/log are not good enough.&nbsp; One must employ additional logging
+tools.&nbsp; E.g., who is connecting to services on your system? There are many
+programs under the heading of IP loggers available.
+<p>It is important that the log files are not stored on the system that
+generates the logs.&nbsp; Attackers have been able to edit these.&nbsp; They
+have also deliberately caused harmless activity that generated so much logging
+that the disks become full before attempting malicious actions.&nbsp;</p>
+<h3>Analysis of Log Files</h3>
+<p>But, these logs are often so large that is hard for the average person to
+analyze and manage. There are programs that can be searched under the phrase
+&quot;log file analysis&quot; that examine the logs systematically and alert you
+to suspicious activity.</p>
+<h2>Sniffers</h2>
+<p>Traffic sniffers are a double edged sword. They can be used to track the
+communications of intruders in wonderful detail, but they can also be used to
+sniff passwords and other sensitive information. You should be very careful in
+your use of these powerful programs. The machines running these programs should
+as hardened as possible.
+<h2>Intrusion Detection Systems</h2>
+Intrusion detection systems (IDSs) have become a major area of research and
+product development.&nbsp; They are predicated on the assumption that an
+intruder can be detected through an examination of various parameters such as
+network traffic, CPU utilization, I/O utilization, user location, and various
+file activities. IDSs designed to protect networks typically monitor network
+activity, while IDSs designed for single hosts typically monitor operating
+system activity. System monitors or daemons convert observed parameters into
+chronologically sorted records of system activities. Called &quot;audit
+trails,&quot; these records are analyzed by IDSs for unusual or suspect
+behavior. IDS approaches include
+<h3>Signature analysis</h3>
+<p>Specific signatures or patterns characterize attack attempts. Semantic
+descriptions or signatures of known attacks are collected or formulated and
+stored in a database.&nbsp; One type of signature analysis, audit trail
+analysis, compares information found in the audit trails, e.g., a system's built­in
+audit log or event log, with the attack signatures. Attack scenarios might be
+translated into sequences of audit events, or into patterns of data that can be
+sought in the audit trail generated by the operating system of a computer, by
+router software, firewalls, switches, or applications. Other patterns or
+sequences may be found in a stream of network traffic. When a sequence of events
+is found in the audit trail, or in the network traffic, that matches a sequence
+of audit events, or the signature of an attack, an attempt of an intrusion is
+suspected.</p>
+<p>The main drawback of the signature analysis technique -- like all misuse­based
+approaches -- is the need for frequent updates to keep up with the stream of new
+vulnerabilities/attacks discovered, this situation is aggravated by the
+requirement to represent all possible facets of the attacks as signatures in a
+signature database.</p>
+<h3>Rule-Based Intrusion Detection</h3>
+Rule-based intrusion detection (RBID)assumes that intrusion attempts can be
+characterized by sequences of user activities that lead to compromised system
+states. RBID systems are characterized by their expert system properties that
+fire rules when audit records or system status information begin to indicate
+illegal activity. These predefined rules typically look for high-level state
+change patterns observed in the audit data compared to predefined penetration
+state change scenarios. Audit events are translated into facts carrying their
+semantic signification in the expert system, and the intrusion analysis function
+draws conclusions using these rules and facts either to detect the presence of a
+suspected attack or to detect inconsistent behavior. This method increases the
+abstraction level of the audit data by attaching semantics to it. If an RBID
+expert system infers that a penetration is in process or has occurred, it will
+alert the computer system security officers and provide them with both a
+justification for the alert and the user identification of the suspected
+intruder.&nbsp; Note that the rule base must be continually updated to
+accommodate new descriptions of attacks or new usage patterns.
+<p>There are two major approaches to rule-based intrusion detection:
+<ol>
+  <li><em>State-based</em>. In this approach, the rule base is codified using
+    the terminology found in the audit trails. Intrusion attempts are defined as
+    sequences of system state- as defined by audit trail information- leading
+    from an initial, limited access state to a final compromised state.
+  <li><em>Model-based</em>. In this approach, known intrusion attempts are
+    modeled as sequences of user behavior; these behaviors may then be modeled,
+    for example, as events in an audit trail. The IDS determines how an
+    identified user behavior may manifest itself in an audit trail. Model based
+    systems can process more data, because the technology allows you to narrow
+    the focus of the data selectively, allow more intuitive explanations of
+    intrusion attempts, and can&nbsp; predict the intruder's next action.</li>
+</ol>
+<p>Rule­based description languages form natural tools for modeling the
+knowledge that experts have collected about attacks. This approach allows a
+systematic browsing of the audit trail in search of evidence of attempts to
+exploit known vulnerabilities. They are also used for verifying the proper
+application of the security policy of an organization. The main limitations of
+this approach are 1) the difficulty of extracting knowledge about attacks and 2)
+the processing speed.</p>
+<h3>State­transition analysis</h3>
+<p>This technique describes an attack with a set of goals and transitions, but
+represents them as state­transition diagrams. States in the attack pattern,
+corresponding to system states, have Boolean assertions associated with them
+that must be satisfied to transition to that state. This approach is
+conceptually identical to model­based reasoning.<br>
+</p>
+<h3>Statistical-Based Intrusion Detection</h3>
+The most widely used approach of anomaly­based intrusion detection is
+statistical. User or system behavior is measured by a number of variables
+sampled over time and stored in a profile. There are several types of measures
+in a profile. These types include: Activity intensity measures; Audit record
+distribution measures; Categorical measures (e.g., relative frequency of
+logins); Ordinal measures (e.g., a number value of an amount of CPU or I/O for a
+specific user). The current behavior of each user is maintained in a profile. At
+regular intervals the current profile is merged with the stored profile.
+Anomalous behavior is determined by comparing the current profile with the
+stored profile. The original model keeps averages of all these variables and
+detects whether thresholds are exceeded based on the standard deviation of a
+variable. More complex models have been developed which compare profiles of long­term
+and short­term user activities. The profiles are regularly updated as the
+behaviors of users evolve.
+<p>SBID assumes that intrusions can be detected by inspecting a system's audit
+trail data for unusual activity, and that an intruder's behavior will be
+noticeably different from that of a legitimate user. Before unusual activity can
+be detected, SBID systems require a characterization of user or system activity
+that is considered &quot;normal.&quot; These characterizations, called <em>profiles</em>,
+are typically represented by sequences of events that may be found in the
+system's audit data. Any sequence of system events deviating from the expected
+profile by a statistically significant amount is flagged as an intrusion
+attempt. The main advantage of SBID systems is that intrusions can be detected
+without <em>a priori</em> information about the security flaws of a system.</p>
+<p>SBID systems typically employ statistical anomaly and rule-based misuse
+models. System profiles, user profiles, or both may be used to define expected
+behavior. User profiles, if used, are specific to each user and are dynamically
+maintained. As a user's behavior changes over time, so too will his user
+profile. No such profiles are used in RBID systems. As is the case with RBID
+systems, known intrusion scenarios can be codified into the rule base of SBID
+systems.
+<p>Detection of specific denial­of­service attacks that make use of weaknesses
+in the Internet protocol suite can be subsumed under the statistical approach.
+One example is the SYN flood attack where an attacker sends many connection
+requests with a forged source IP address and requires the attacked system to
+acknowledge these requests without finally receiving a confirmation. Though the
+attacker seems to behave according to the communications protocol, the attack
+can only be detected by the quantity of connection requests received within a
+certain period of time. The quantity of requests together with the configured
+number of allowed open connections define the threshold for this type of attack.</p>
+<h3>Neural networks</h3>
+<p>Neural networks are algorithms that learn about the relationship between
+input­output vectors and ''generalize'' them to obtain new input­output
+vectors in a reasonable way. The main use of neural networks for intrusion
+detection is to learn the behavior of actors in the system (e.g., users,
+daemons). The advantage of using neural networks over statistics resides in
+having a simple way to express nonlinear relationships between variables, and in
+learning/retraining the neural network automatically. Neural networks are still
+a computationally intensive technique, and are not widely used in the intrusion
+detection community.<br>
+</p>
+<h3>User anomalous behavior identification</h3>
+<p>This technique models the normal or authorized behavior of users by the set
+of tasks they have to or are authorized to perform on the system. These tasks
+and facets of the system's security policy are then represented as patterns for
+users' expected or authorized actions such as access to particular files or
+types of files. These actions are related to the audited or logged events, e.g.
+security related events, which are observed and recorded by the system. The
+analyzer keeps a set of tasks or patterns that each user should or may perform.
+Then by comparing, either real­time or off­line, the individuals' actions
+found in the audit trails with their desired or authorized patterns and they do
+not fit the task pattern an alarm is issued. This method is similar to signature
+analysis except that the inspection expects the actions to match the pattern for
+proper activity and when it fails to match it signals suspected improper
+activity, while in signature analysis the inspection expects the activity to not
+match the pattern (signature) for improper activity and when it matches an
+attempt at intrusion is suspected.<br>
+</p>
+<h2>The Linux Intrusion Detection System</h2>
+<p>LIDS (<a href="http://www.lids.org/">http://www.lids.org/</a>) an intrusion
+detection/defense system in Linux kernel.&nbsp; It modifies the Linux kernel
+sources which enhances the kernel's security. When it is in effect, chosen files
+access, all system/network administration operations, any capability use, raw
+device, mem, and I/O access can be made impossible even for root.&nbsp; </p>
+<h2>Deception Systems</h2>
+<p>Deception systems provide attractive targets for attackers, making it easier
+to catch them.&nbsp; The site referenced below is a required visit and
+required&nbsp; reading even if you do not play with the software.</p>
+<hr>
+<h2><a name="Lab Experiment">Lab Experiment</a></h2>
+<p>None.</p>
+<hr>
+<h2><a name="Acknowledgements">Acknowledgements</a></h2>
+<hr>
+<h2><a name="References">References</a></h2>
+<ol>
+  <li>Aurobindo Sundaram, An Introduction to Intrusion Detection, ACM Crossroads
+    (Electronic Magazine), 1996,&nbsp; <a
+    href="http://www.acm.org/crossroads/xrds2-4/intrus.html">http://www.acm.org/crossroads/xrds2-4/intrus.html</a>&nbsp;&nbsp;
+    Required Reading.</li>
+  <li>Simson Garfinkel, Gene Spafford Practical Unix and Internet Security, 2nd
+    edition (April 1996), O'Reilly &amp; Associates; ISBN: 1565921488.&nbsp;
+    Errata: <a href="http://www.oreilly.com/catalog/puis/errata/">http://www.oreilly.com/catalog/puis/errata/</a>
+    Chapter 9: Integrity Management, Chapter 24: Discovering a Break-in.&nbsp;
+    Recommended Reading.</li>
+  <li>Intrusion Detection FAQ, <a
+    href="http://www.sans.org/newlook/resources/IDFAQ/ID_FAQ.htm">www.sans.org/newlook/resources/IDFAQ/ID_FAQ.htm</a>&nbsp;Reference.</li>
+  <li>Kurt Seifried, Linux Administrator's Security Guide, <a
+    href="http://www.linuxdoc.org/LDP/lasg/lasg-www/">http://www.linuxdoc.org/LDP/lasg/lasg-www/</a>&nbsp;
+    Required skimming.</li>
+  <li>Fred Cohen, The Deception Toolkit Home Page and Mailing List, <a
+    href="http://www.all.net/dtk/">http://www.all.net/dtk/</a> Required Reading.</li>
+</ol>
+<div align="right">
+  <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#008080"
+  border="0">
+    <tbody>
+      <tr>
+        <td align="right"><font color="#ffffff"><!--webbot bot="Timestamp"
+          startspan s-type="EDITED" s-format="%m/%d/%y %I:%M:%S %p" -->07/27/00 02:05:17 PM<!--webbot
+          bot="Timestamp" i-checksum="26641" endspan --></font></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+  <tbody>
+    <tr>
+      <td width="50%"><a href="../copyright.html">Copyright ©</a> 2000 <a
+        href="mailto:pmateti@cs.wright.edu?subject=CEG499/IntnetSecurity">pmateti@cs.wright.edu</a></td>
+      <td align="right" width="50%"></td>
+    </tr>
+  </tbody>
+</table>
+<address>
+  &nbsp;
+</address>
+
+</body>
+
+</html>

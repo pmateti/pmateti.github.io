@@ -1,0 +1,181 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+
+#+Date: 2015-06-01
+#+TITLE: The Entities within a Programmer's Editor
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:2
+#+DESCRIPTION: WSU CS 7140 Advanced Software Engineering
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">CS 7140</a> %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STYLE: <style type="text/css">@media screen {BODY {margin: 15%} }</style>
+
+
+This collection notes aims to conceptual views of the entities within
+a programmer's editor.  It does not specify or design them.  Read the
+notes linked at the Top of this article.
+
+* A Text Editor
+
+1. Can we state criteria so that a given program can be called a "text
+   editor"?
+1. string search/replace
+1. selection of text
+1. cut/copy and paste
+1. text fill into para
+1. text folding
+1. word wrapping
+1. undo, redo
+1. Language specific: spell check, suggested words
+1. kbd/mouse/... macros
+
+** A Programmer's Editor
+
+4. What distinguishes a programmers' editor from an ordinary text
+   editor?
+   1. PL syntax is recognized to a good extent
+   2. Code blocks, even in the presence of some syntax errors
+   3. Jumping from one element to another, perhaps using ctags/etags
+      kind of tools
+   4. Abstract Syntax Trees (AST) awareness
+
+1. regex find/capture/replace
+1. aware of syntax
+  1. Abstract Syntax Trees (AST)
+  1. comments
+  1. "special things": paren, bracket, braces
+  1. if-fi, do-od, ...
+
+
+* Text Editor Passive Entitites
+
+** Files
+
+1. What is a File?
+   1. File Name
+   2. File Content
+      1. Lines of Text
+      2. Seq of bytes
+   3. Meta data?
+   4. All the above OS defined -- we have near-zero say on these
+2. Text encoding
+   1. EOLN, EOF
+   2. UTF-8 or whatever
+   3. All the above well understood ... so sweep it under the ...
+3. Particular classes of files: help, macros, uml, ...
+
+** Edit Buffers
+
+1. An internal data str; holds (file) content
+1. Associated with a file? Always?
+1. Numerous designs are possible 
+  1. A Linked List of Lines
+  1. A chunk of dynamically allocated area of memory, viewed as
+     left-part, gap, right-part.  Content == left-part + right-part.
+1. How to choose?
+
+** Clip Registers
+
+1. "Emacs registers are compartments …"
+1. Kill Rings, Cut areas, Clipboards
+1. Different from Buffer?
+
+** View
+
+1. 2-D "scroll" of text content – mostly hidden
+2. visible: h (height) lines, w (width) columns
+3. appearance: fonts, cursors, ...
+5. A view is a window on the content of a buffer behind it.
+   4. A view is also called a "Frame".  From now on we use "window" also.
+   1. A window *always* has a buffer behind it.
+      1. If need be, create an empty buffer.
+      1. Repeat: A window is never without a buffer behind it.
+   2. A buffer may have 0 or more windows on it.
+6. All the views together occupy the entire screen or a window (as
+   given by the GUI of the system).
+
+** Markers/Cursors
+
+1. Traditional: Dot and Mark; Generalized: Book marks
+1. (x, y) coord address within text-content that should remain
+   "stable" even after insert/deletes
+1. Perhaps number all lines or paragraphs. Cf. a legal document.
+
+** Folding
+
+1. A tree structured view of content
+
+** Plugins
+
+1. What is a plugin?
+1. What does a new plugin "deliver"?
+1. A "bad" plugin can crash the parent
+1. pre- post- invariants?
+
+** Dictionaries
+
+1. "Correction" suggestions for words
+
+** Help Files
+
+* Programmer's Editor Passive Entitites?
+
+** Derivation Trees based on Grammar
+** Abstract Syntax Trees
+
+* Text Editor Active Entitites
+
+** Text Ed Operations
+
+1. Ops on Files, Buffers, Registers, Markers, …
+1. Semantics of Undo/Redo
+1. Feasibility of some "Undo"
+
+** Help
+1. Browse pre-existing pages
+1. Context-sensitive
+
+
+** Syntax Awareness
+1. Highlighting
+1. Comments
+1. Matching "corresponding entries"
+  1. paren, bracket, brace matching
+  1. if-fi, do-od, ...
+
+** Features that we get as a result of using certain API
+1. window resize, move, ...;
+1. Is printing done by jEdit/ BlueJ/ ... or a Java "service"?
+
+* Engine v UI-binding ("Key" Bindings)
+
+1. Software Architecture
+1. Engine == Collection of all "operations"
+1. UI-In == How an op of the engine is invoked
+1. UI-Out == How the state of the engine is "shown"
+1. A Goal: Do the UI both interactively and non-interactively
+
+** Study Emacs binding mechanism
+
+1. Architecture of Emacs [[./emacs-mvc-arch.png]]
+1. from Chapter 11 of "Beautiful Architecture" book
+
+** Key Bindings
+
+1. Collect all public operations into a sequence, Qop.
+2. Build a mapping from character codes to these operations.
+   1. kbd[x] is a public operation listed in Qop[]
+   2. x is the character code
+   3. Many editors produce x as a composite of type multiple
+      characters; e.g., Emacs uses [Escape, X, ControlX, ControlC, R,
+      a] as if it is a single character on a much wider key board.
+
+** Seq of Function Definitions
+
+3. In practical coding, Qop becomes an array of pointers to functions.
+1. Even though these function do not all need the same number and type
+   of arguments, we force them into having the same signature.

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Android Security</title>
+
+    <link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/reveal.css">
+    <link rel="stylesheet"
+          href="http://www.cs.wright.edu/~pmateti/RevealJS/css/theme/night.css"
+          id="theme">
+    <link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/lib/css/zenburn.css">
+    <style> P {text-align: justify}
+      code {color: yellow;}
+      pre {color: bisque;}
+    </style>
+  </head>
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+
+  <section>
+    <h1 class="title"> SN-719 at Amrita <br> Android Security </h1>
+    <h2 style="color: bisque"> Prabhaker Mateti<h2>
+        <h3>Wright State University</h3>
+        <a href="http://www.cs.wright.edu/~pmateti">
+        <tt>www.cs.wright.edu/~pmateti</tt></a>
+  </section>
+<section "id=preamble">
+<h1 class="title">DAC (Discretionary Access Control)</h1>
+<h3 style="color: bisque"> Prabhaker Mateti<h3>
+<h2>Wright State University</h2>
+<a href="http://www.cs.wright.edu/~pmateti"><tt>www.cs.wright.edu/~pmateti</tt></a>
+</section>
+<section id="table-of-contents">
+<h2>Table of Contents</h2>
+
+<ul>
+<li><a href="#sec-1">1. Discretionary Access Control (DAC)</a></li>
+<li><a href="#sec-2">2. Authentication</a></li>
+<li><a href="#sec-3">3. User Authentication Approaches</a></li>
+<li><a href="#sec-4">4. Set User ID (suid)</a></li>
+<li><a href="#sec-5">5. Capabilities</a></li>
+<li><a href="#sec-6">6. Android UID setup</a></li>
+<li><a href="#sec-7">7. References</a></li>
+</ul>
+</section>
+</section>
+
+<section id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Discretionary Access Control (DAC)</h2>
+<sectionX  id="text-1">
+<ol class="org-ol">
+<li>"Trusted Computer System Evaluation Criteria" TCSEC, US DoD Standard 5200.28-STD.
+</li>
+<li>My opinion: "Discretionary", "Mandatory" both misleading
+</li>
+<li>Generally speaking: The security model of the old (1980s) Unix
+</li>
+<li>Concepts
+<ol class="org-ol">
+<li>Entities: Users, Files, Processes, &#x2026;
+</li>
+<li>Ownership
+</li>
+<li>Permissions: read, write, execute, &#x2026;
+</li>
+<li>Granting of permissions
+</li>
+</ol>
+</li>
+<li>Android inherits from Linux all of DAC.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Authentication</h2>
+<sectionX  id="text-2">
+<ol class="org-ol">
+<li>Machines
+</li>
+<li>Users
+</li>
+<li>Services/Servers
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> User Authentication Approaches</h2>
+<sectionX  id="text-3">
+<ol class="org-ol">
+<li>What You Know
+</li>
+<li>What You Have
+</li>
+<li>What You Are
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> What You Know</h3>
+<sectionX  id="text-3-1">
+<ol class="org-ol">
+<li>Passwords on a Linux System
+</li>
+
+<li>Cracking the Passwords
+<ol class="org-ol">
+<li>Current consensus: Given enough time, any password can be cracked.
+</li>
+</ol>
+</li>
+
+<li>Prevention of Password Cracking
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Two Factor Authentication</h3>
+<sectionX  id="text-3-2">
+<ol class="org-ol">
+<li><a href="https://en.wikipedia.org/wiki/Two-factor_authentication">https://en.wikipedia.org/wiki/Two-factor_authentication</a> Reading Assignment
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Set User ID (suid)</h2>
+<sectionX  id="text-4">
+<ol class="org-ol">
+<li>Privilege Acqusition Mechanism
+</li>
+<li>Invoke a program (file) that has suid set.
+</li>
+<li>Expected to be invoked by non-root users.
+</li>
+<li>suid can be set to non-root owner.
+</li>
+<li>The created process runs with the privileges of the owner, not the
+invoker
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> suid root</h3>
+<sectionX  id="text-4-1">
+<ol class="org-ol">
+<li>An attacker arrives with non-root privileges.
+</li>
+<li>Exploits an suid-root process to spawn a root owned shell.
+</li>
+<li>The classsic "buffer overflow attack" injects the shellcode onto
+the stack.
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Capabilities</h2>
+<sectionX  id="text-5">
+<p>
+see slides in the Refs
+</p>
+</section>
+</section>
+
+<section id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Android UID setup</h2>
+<sectionX  id="text-6">
+<ol class="org-ol">
+<li>Android does <b>not</b> have /etc/passwd,
+/etc/shadow, and /etc/group files.  The file named
+<a href="https://android.googlesource.com/platform/system/core.git/+/master/include/private/android_filesystem_config.h">android-filesystem-config.h</a> in the AOSP source tree has the
+equivalent code.
+</li>
+
+<li>E.g.,
+<ol class="org-ol">
+<li><code>#define AID_ROOT 0 /* traditional unix root user */</code>
+</li>
+<li><code>#define AID_GPS 1021 /* GPS daemon */</code>
+</li>
+</ol>
+</li>
+
+<li><code>% adb shell</code> The rest of what is shown below is within AVD pmNX5a.
+<ol class="org-ol">
+<li><code>root@generic:/ # ls -l /acct/uid</code> shows "uid" directories
+</li>
+<li><code>root@generic:/ # more /data/system/packages.list</code> shows how the
+application name is tied up with uid/gid.
+</li>
+<li>Ex: <code>com.android.keyguard 10007 0 /data/data/com.android.keyguard platform 1028,1015,1035,3002,3001</code>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> References</h2>
+<sectionX  id="text-7">
+<ol class="org-ol">
+<li>Prabhaker Mateti, <a href="../../../4420/Password/index.html">Password Cracking</a>, 2013. Skip the Lab experiment.
+Required Reading.
+</li>
+
+<li><a href="https://en.wikipedia.org/wiki/Discretionary_access_control">https://en.wikipedia.org/wiki/Discretionary_access_control</a> Required Reading.
+</li>
+
+<li>P. A. Loscocco, S. D. Smalley, P. A. Muckelbauer, R. C. Taylor,
+S. J. Turner, and J. F. Farrell. "The Inevitability of Failure: The
+Flawed Assumption of Security in Modern Computing Environments." In
+Proceedings of the 21st National Information Systems Security
+Conference, pp. 303–14, Oct. 1998. A classic paper. Recommended
+Reading
+</li>
+
+<li><a href="http://faculty.cs.nku.edu/~waldenj/classes/2014/spring/cit380/lectures/AccessControl.pdf">http://faculty.cs.nku.edu/~waldenj/classes/2014/spring/cit380/lectures/AccessControl.pdf</a>
+   Slides.  Required Reading.
+</li>
+
+<li>Karim Yaghmour, <a href="./android-security-yaghmour-2014.pdf">./android-security-yaghmour-2014.pdf</a> Android Security, From the
+Ground Up, ELCE 2014.  Required Reading.
+</li>
+
+<li>Secuirty features in Ubuntu <a href="https://wiki.ubuntu.com/Security/Features">https://wiki.ubuntu.com/Security/Features</a>
+</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="postamble" class="status">
+<hr size=1>Copyright &copy; 2015 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> 2015-08-13
+</section>
+</body>
+</html>
+</section>
+</section>
+</div>
+</div>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/lib/js/head.min.js"></script>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/js/reveal.js"></script>
+
+<script>
+  Reveal.initialize({
+  controls: true,
+  progress: true,
+  history: false,
+  center: true,
+  slideNumber: true,
+  rollingLinks: true,
+  keyboard: true,
+  overview: true,
+  theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+  transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+  transitionSpeed: 'default',
+
+  dependencies: [
+  ]
+  });
+</script>
+
+

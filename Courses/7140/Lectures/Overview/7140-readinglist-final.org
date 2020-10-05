@@ -1,0 +1,140 @@
+
+# -*- mode: org -*-
+#+DATE: 2018-06-14
+#+TITLE: CS 7140 Reading List for Final
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CS7140 Adv Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+The reading list for this course is a transitive closure starting
+from the ones linked on the course home page, plus the ones shown
+below.  Items marked as Require Reading are sources for exam
+questions.  Other items do enhance your understanding, but, if you
+are not aiming for an A grade, you may skip.
+
+Our Final Exam is comprehensive -- includes midterm covered materials
+also.
+
+* Required Readings
+
+1. This guide does not repeat the Required Readings given already in
+   my Lecture Notes and in the MidTerm Reading List
+   [[../Overview/7140-midterm.org]].  
+1. See the course home page [[../../Top/]].  All the links listed under
+   Lectures (except the ones struck out) are Required Reading.
+
+1. See the sample question under Testing and Debugging.  This kind of
+   question is trying to verify that you are paying attention to the
+   required readings.
+
+* Assertions
+
+1. Our focus will still be on assertions.  Pre- Post conditions.  Loop
+   Invariants.  Class Invariants.  Design by Contract.
+
+1. Discover which of the alleged solutions for the
+   Mark-the-Error-Positions problem are correct via assertions.  URL
+   TBD.
+
+1. Be fluent in Homework 1 and 2 content. 
+
+1. Sample Question: Consider our Wiggly Worms. We wish to describe how
+   a worm crawls.  State this as pre- and post-conditions for the
+   method named =void live(WORM * wp)=.
+
+* Spec/ Design/ Impl Examples
+
+1. Our focus will still be on examples.
+
+1. Mateti, Prabhaker, "Specification of the Tabulated Equations
+   Problem," [[../Lectures/TabulateEqns/tabulate-eqns.html]]
+   Unpublished.  2013.  Required Reading.
+
+1. Mateti, Prabhaker, "A Specification Schema for Indenting Programs,"
+   Required Reading.
+  
+1. Donald E. Knuth and M. D. McIlroy, "Programming Pearls: The Common
+   Words Problem and its Solutions," Communications of the ACM,
+   Vol. 29, No. 6,
+   471-483.  1986. [[../Examples/Knuth-CWP/cwp-knuth-cacm-1986.pdf]]
+   Required Reading.
+  
+1. Prabhaker Mateti, [[../Examples/Knuth-CWP/cwp-pm-selected-pages.pdf]["Rigorous Re-Design of Knuth's Solution to the
+   Common Words Problem]].  These are selected pages from a paper that
+   is a work in progress.  Unpublished.  2018.  Required Reading.
+
+* OO Design
+
+1. SOLID Prinicples
+1. Focus on Liskov Subst Principle and Design by Contract
+
+* Testing and Debugging
+
+1. Sample Question: Discover which of the alleged solutions for the
+   Mark-the-Error-Positions [[../Examples/Mark-Error-Pos/]] problem are
+   correct via assertions.
+
+1. Sample Question: Describe the bugs of the SmallSet.java. [You are
+   welcome to (i) look up the class notes on the SmallSet specs we
+   discussed, and (ii) use FindBugs/PMD.] If you did not find any
+   bugs, write a precise, mathematically worded, reasoning that should
+   persuade fellow developers that this program is indeed bug-free.
+   Don't forget: Testing reveals the presence of bugs, not their
+   absence.
+
+1. Sample Question: The paper titled "A few Billion Lines of Code
+   Later using Static Analysis to Find Bugs in the Real World" was
+   Required Reading. Describe at least five specific bugs it
+   discusses.
+
+
+* Homeworks 1 and 2 and Project DITAA
+
+1. Content of Homework #1 and #2.
+
+1. Content of Project DITAA Specs/ Design/ .../ Testing.  Every team
+   member should be aware of every sentence in their Team Reports.
+
+1. Sample Question: What are "torture testing" and "acceptance
+   testing"?
+
+* Quotes
+
+1. Better train people and risk they leave -- than do nothing and risk
+   they stay.  -- Anonymous
+
+1. Brooks Law 1: "Adding manpower to a late software project makes it
+   later!"  Brooks Law 2: "Plan to throw one (implementation) away;
+   you will, anyhow."  Frederick Brooks is a Turing Award winner 1999.
+   For landmark contributions to computer architecture, operating
+   systems, and software engineering.
+
+1. Design and programming are human activities; forget that and all is
+   lost. -- Bjarne Stroustrup.  C++ Language Designer.
+	
+1. Up to a point, it is better to just let the snags [bugs] be there
+    than to spend such time in design that there are none. -- Alan
+   M. Turing.  The award is named after him.
+
+1. Premature optimization is the root of all evil in programming. --
+   C.A.R. Hoare.  Turing Award winner 1980
+  
+* Misc
+
+1. http://cecs.wright.edu/~pmateti/Courses/7140/Exams/7140-2017-Spring-E2.html
+   Workout this old exam.  Time yourself.
+
+
+
+* End
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

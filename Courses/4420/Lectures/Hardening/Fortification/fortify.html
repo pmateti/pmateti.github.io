@@ -1,0 +1,1218 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Fortification TBD</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Fortification TBD"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-11-07T15:21-0500"/>
+<meta name="author" content="Prabhaker Mateti"/>
+<meta name="description" content="Online CEG6420 Course"/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<style> P { text-align: justify } @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="../../index.html"> UP </a>
+ |
+ <a accesskey="H" href="../Top"> HOME </a>
+</div>
+
+<div id="preamble">
+<a href="http://cecs.wright.edu/~pmateti/Courses/4420/">OnLine CEG 6420: Computer Security</a>
+</div>
+
+<div id="content">
+<h1 class="title">Fortification TBD</h1>
+
+
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Educational Objectives</a></li>
+<li><a href="#sec-2">2 What is Fortification?</a></li>
+<li><a href="#sec-3">3 Notable Linux Security Updates</a></li>
+<li><a href="#sec-4">4 Malware</a></li>
+<li><a href="#sec-5">5 Linux Kernel Internals: Digging Deeper</a></li>
+<li><a href="#sec-6">6 Rootkit Removal</a></li>
+<li><a href="#sec-7">7 System Audit</a></li>
+<li><a href="#sec-8">8 Secure Linux containers</a></li>
+<li><a href="#sec-9">9 AppArmor</a></li>
+<li><a href="#sec-10">10 SELinux</a></li>
+<li><a href="#sec-11">11 ptrace scope</a></li>
+<li><a href="#sec-12">12 Lab Experiment</a></li>
+<li><a href="#sec-13">13 Misc</a></li>
+<li><a href="#sec-14">14 References</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Educational Objectives</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+Students should be able to
+</p>
+<ol>
+<li>Determine minimal sofware that meets the expected system functionality
+</li>
+<li>Uninstall unneeded components
+</li>
+<li>Install security improving components
+</li>
+<li>TBD 
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> What is Fortification?</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<ol>
+<li>Install and configure additional software that improves security
+</li>
+<li>Removing unnecessary services/software
+</li>
+<li>Security updates/ patching the OS and system utilities
+</li>
+<li>Example Fortifications
+<ol>
+<li>Encrypted File Systems
+</li>
+<li>Virus detection and removal
+</li>
+<li>Rootkit Detection and Removal
+</li>
+<li>Continuous System Audit
+</li>
+<li>Containers (Lightweight virtualization)
+</li>
+<li>SELinux security enhancements from NSA
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Notable Linux Security Updates</h2>
+<div class="outline-text-2" id="text-3">
+
+<ol>
+<li>CVE-2013-2888, &hellip; Crashing the system via DoS, Privilege Escalation, Information leak
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Malware</h2>
+<div class="outline-text-2" id="text-4">
+
+<ol>
+<li>Malware = viruses + worms + Trojans
+</li>
+<li>Linux/Unix can be infected with malware.
+</li>
+<li>E.g.,  "The Hand of Thief" 2013 banking Trojan protype
+</li>
+<li>A Linux server can scan and remove viruses from Windows files
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Linux Kernel Internals: Digging Deeper</h2>
+<div class="outline-text-2" id="text-5">
+
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> namespaces</h3>
+<div class="outline-text-3" id="text-5-1">
+
+<ol>
+<li>(ipc, uts, mount, pid, network and user)
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Seccomp (secure computing mode)</h3>
+<div class="outline-text-3" id="text-5-2">
+
+<ol>
+<li>sandboxing mechanism in the kernel
+</li>
+<li>After a process starts, a one-way transition into a state
+   where no system calls except <code>exit, sigreturn,    read, write</code> and <code>close</code> are permitted.
+</li>
+<li>Attempts to other system calls, will <code>SIGKILL</code> the process.
+</li>
+<li>Process enters <code>seccom</code> via <code>prctl()</code> system call
+</li>
+<li>Programs using this: OpenSSH, vsftpd, Chrome, &hellip;
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Chroots</h3>
+<div class="outline-text-3" id="text-5-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> capabilities</h3>
+<div class="outline-text-3" id="text-5-4">
+
+</div>
+
+</div>
+
+<div id="outline-container-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> Control Groups (cgroups)</h3>
+<div class="outline-text-3" id="text-5-5">
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Rootkit Removal</h2>
+<div class="outline-text-2" id="text-6">
+
+
+</div>
+
+<div id="outline-container-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> What are Rootkits, Trojans and Backdoors</h3>
+<div class="outline-text-3" id="text-6-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> How do rootkit programs work?</h3>
+<div class="outline-text-3" id="text-6-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-6-3" class="outline-3">
+<h3 id="sec-6-3"><span class="section-number-3">6.3</span> Contents of Linux Root Kit 5</h3>
+<div class="outline-text-3" id="text-6-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-6-4" class="outline-3">
+<h3 id="sec-6-4"><span class="section-number-3">6.4</span> Detecting Rootkis</h3>
+<div class="outline-text-3" id="text-6-4">
+
+</div>
+
+</div>
+
+<div id="outline-container-6-5" class="outline-3">
+<h3 id="sec-6-5"><span class="section-number-3">6.5</span> Removal of Rootkits</h3>
+<div class="outline-text-3" id="text-6-5">
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> System Audit</h2>
+<div class="outline-text-2" id="text-7">
+
+<ol>
+<li>tripwire
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Secure Linux containers</h2>
+<div class="outline-text-2" id="text-8">
+
+
+
+</div>
+
+<div id="outline-container-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> What is a Container?</h3>
+<div class="outline-text-3" id="text-8-1">
+
+<ol>
+<li>Lightweight virtual OSs running inside Linux
+</li>
+<li>Not a virtual machine like VirtualBox or VMware
+</li>
+<li>A container is a group of processes in a "box"
+<ol>
+<li>Inside the box, it looks like a VM.
+</li>
+<li>Outside the box, it TBD looks like normal processes.
+</li>
+<li>"chroot on steroids"
+</li>
+</ol>
+
+</li>
+<li>Process isolation
+</li>
+<li>Name space isolation
+</li>
+<li>What is a Hypervisor?
+</li>
+<li>Example container software: LXC, Docker, OpenVZ.org
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-2" class="outline-3">
+<h3 id="sec-8-2"><span class="section-number-3">8.2</span> LXC on Ubuntu</h3>
+<div class="outline-text-3" id="text-8-2">
+
+<ol>
+<li><a href="https://help.ubuntu.com/lts/serverguide/lxc.html">https://help.ubuntu.com/lts/serverguide/lxc.html</a>
+</li>
+<li># apt-get install lxc
+</li>
+<li>LXC v KVM 
+   KVM is a virtual machine running on Linux kernel
+   Relies on assistance from the CPU 
+   Uses paravirtualization to reduce overhead
+
+</li>
+<li>LXC v Xen
+   Both are light weight virtual OS, not VM
+</li>
+</ol>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> AppArmor</h2>
+<div class="outline-text-2" id="text-9">
+
+<ol>
+<li>AppArmor is a Linux Security Module (LSM)
+</li>
+<li>Name-based Access Controls
+</li>
+</ol>
+
+
+<p>
+. AppArmor confines individual programs to a set of
+listed files and posix 1003.1e draft capabilities.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> SELinux</h2>
+<div class="outline-text-2" id="text-10">
+
+
+</div>
+
+</div>
+
+<div id="outline-container-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> ptrace scope</h2>
+<div class="outline-text-2" id="text-11">
+
+
+</div>
+
+</div>
+
+<div id="outline-container-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> Lab Experiment</h2>
+<div class="outline-text-2" id="text-12">
+
+<ol>
+<li>Takes 1 to 2 hours by the student
+</li>
+<li>Practices things discussed above, but not all
+<ol>
+<li>Includes list: tripwire, ?webmin
+</li>
+<li>Excluded list: password cracking (a separate lab)
+
+</li>
+</ol>
+
+</li>
+<li>Download a Linux ISO we provide (time taken not counted)
+</li>
+<li>Student installs on a USBD or in a virtual box (10 - 15 min)
+</li>
+<li>Examines this system (30 min)
+</li>
+<li>Fortifies this system (60 min)
+</li>
+<li>Writes a lab report (30 min)
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-13" class="outline-2">
+<h2 id="sec-13"><span class="section-number-2">13</span> Misc</h2>
+<div class="outline-text-2" id="text-13">
+
+
+
+</div>
+
+<div id="outline-container-13-1" class="outline-3">
+<h3 id="sec-13-1"><span class="section-number-3">13.1</span> Linux Memory Forensics</h3>
+<div class="outline-text-3" id="text-13-1">
+
+
+
+<ol>
+<li><code>ls -l /proc/sys/vm</code>
+</li>
+<li>Keep kernel details confidential <code>ls -l /boot</code>
+</li>
+</ol>
+
+
+
+
+<pre class="example">-rw-r--r-- 1 root    root     1007311 Oct  2 19:19 abi-3.11.0-11-lowlatency
+-rw-r--r-- 1 root    root      163504 Oct  2 19:19 config-3.11.0-11-lowlatency
+-rw-r--r-- 1 root    root    26228945 Oct 17 23:33 initrd.img-3.11.0-11-lowlatency
+-rw------- 1 root    root     3310511 Oct  2 19:19 System.map-3.11.0-11-lowlatency
+-rw------- 1 root    root     5674032 Oct  2 19:19 vmlinuz-3.11.0-11-lowlatency
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-13-2" class="outline-3">
+<h3 id="sec-13-2"><span class="section-number-3">13.2</span> Restrict unprivileged access to the kernel syslog (SECURITY<sub>DMESG</sub><sub>RESTRICT</sub>)</h3>
+<div class="outline-text-3" id="text-13-2">
+
+
+<p>
+CONFIG<sub>SECURITY</sub><sub>DMESG</sub><sub>RESTRICT</sub>:
+</p>
+<p>
+This enforces restrictions on unprivileged users reading the kernel
+syslog via dmesg(8).
+</p>
+<p>
+If this option is not selected, no restrictions will be enforced
+unless the dmesg<sub>restrict</sub> sysctl is explicitly set to (1).
+</p>
+<p>
+If you are unsure how to answer this question, answer N.
+</p>
+<p>
+Symbol: SECURITY<sub>DMESG</sub><sub>RESTRICT</sub> [=n]
+Type : boolean
+Prompt: Restrict unprivileged access to the kernel syslog
+Location:
+-&gt; Security options
+Defined at security/Kconfig:9
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-13-3" class="outline-3">
+<h3 id="sec-13-3"><span class="section-number-3">13.3</span> Enable different security models (SECURITY)</h3>
+<div class="outline-text-3" id="text-13-3">
+
+
+<p>
+CONFIG<sub>SECURITY</sub>:
+</p>
+<p>
+This allows you to choose different security modules to be
+configured into your kernel.
+</p>
+<p>
+If this option is not selected, the default Linux security
+model will be used.
+</p>
+<p>
+If you are unsure how to answer this question, answer N.
+</p>
+<p>
+Symbol: SECURITY [=y]
+Type : boolean
+Prompt: Enable different security models
+Location:
+-&gt; Security options
+Defined at security/Kconfig:21
+Depends on: SYSFS [=y]
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-13-4" class="outline-3">
+<h3 id="sec-13-4"><span class="section-number-3">13.4</span> Enable the securityfs filesystem (SECURITYFS)</h3>
+<div class="outline-text-3" id="text-13-4">
+
+
+<p>
+CONFIG<sub>SECURITYFS</sub>:
+</p>
+<p>
+This will build the securityfs filesystem. It is currently used by
+the TPM bios character driver and IMA, an integrity provider. It is
+not used by SELinux or SMACK.
+</p>
+<p>
+If you are unsure how to answer this question, answer N.
+</p>
+<p>
+Symbol: SECURITYFS [=y]
+Type : boolean
+Prompt: Enable the securityfs filesystem
+Location:
+-&gt; Security options
+Defined at security/Kconfig:33
+Selected by: TCG<sub>TPM</sub> [=y] &amp;&amp; HAS<sub>IOMEM</sub> [=y] || SECURITY<sub>TOMOYO</sub> [=y] &amp;&amp; SECURITY [=y] &amp;&amp; NET [=y] || SECURITY<sub>APPARMOR</sub> [=y] &amp;&amp; SECURITY [=y] &amp;&amp; NET [=y] || SECURITY<sub>YAMA</sub> [=y] &amp;&amp; SECURITY [=y] || IMA [=n] &amp;&amp; SECURITY [=y]
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-13-5" class="outline-3">
+<h3 id="sec-13-5"><span class="section-number-3">13.5</span> Security hooks for pathname based access control (SECURITY<sub>PATH</sub>)</h3>
+<div class="outline-text-3" id="text-13-5">
+
+
+<p>
+CONFIG<sub>SECURITY</sub><sub>PATH</sub>:
+</p>
+<p>
+This enables the security hooks for pathname based access control.
+If enabled, a security module can use these hooks to
+implement pathname based access controls.
+If you are unsure how to answer this question, answer N.
+</p>
+<p>
+Symbol: SECURITY<sub>PATH</sub> [=y]
+Type : boolean
+Prompt: Security hooks for pathname based access control
+Location:
+-&gt; Security options
+Defined at security/Kconfig:64
+Depends on: SECURITY [=y]
+Selected by: SECURITY<sub>TOMOYO</sub> [=y] &amp;&amp; SECURITY [=y] &amp;&amp; NET [=y] || SECURITY<sub>APPARMOR</sub> [=y] &amp;&amp; SECURITY [=y] &amp;&amp; NET [=y] || SECURITY<sub>YAMA</sub> [=y] &amp;&amp; SECURITY [=y]
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-13-6" class="outline-3">
+<h3 id="sec-13-6"><span class="section-number-3">13.6</span> NSA SELinux Support (SECURITY<sub>SELINUX</sub>)</h3>
+<div class="outline-text-3" id="text-13-6">
+
+
+<p>
+CONFIG<sub>SECURITY</sub><sub>SELINUX</sub>:
+</p>
+<p>
+This selects NSA Security-Enhanced Linux (SELinux).
+You will also need a policy configuration and a labeled filesystem.
+If you are unsure how to answer this question, answer N.
+</p>
+<p>
+Symbol: SECURITY<sub>SELINUX</sub> [=y]
+Type : boolean
+Prompt: NSA SELinux Support
+Location:
+-&gt; Security options
+Defined at security/selinux/Kconfig:1
+Depends on: SECURITY<sub>NETWORK</sub> [=y] &amp;&amp; AUDIT [=y] &amp;&amp; NET [=y] &amp;&amp; INET [=y]
+Selects: NETWORK<sub>SECMARK</sub> [=y]
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-13-7" class="outline-3">
+<h3 id="sec-13-7"><span class="section-number-3">13.7</span> Simplified Mandatory Access Control Kernel Support (SECURITY<sub>SMACK</sub>)</h3>
+<div class="outline-text-3" id="text-13-7">
+
+
+<p>
+CONFIG<sub>SECURITY</sub><sub>SMACK</sub>:
+</p>
+<p>
+This selects the Simplified Mandatory Access Control Kernel.
+Smack is useful for sensitivity, integrity, and a variety
+of other mandatory security schemes.
+If you are unsure how to answer this question, answer N.
+</p>
+
+<p>
+Symbol: SECURITY<sub>SMACK</sub> [=y]
+Type : boolean
+Prompt: Simplified Mandatory Access Control Kernel Support
+Location:
+-&gt; Security options
+Defined at security/smack/Kconfig:1
+Depends on: NET [=y] &amp;&amp; INET [=y] &amp;&amp; SECURITY [=y]
+Selects: NETLABEL [=y] &amp;&amp; SECURITY<sub>NETWORK</sub> [=y]
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-13-8" class="outline-3">
+<h3 id="sec-13-8"><span class="section-number-3">13.8</span> TOMOYO Linux Support (SECURITY<sub>TOMOYO</sub>)</h3>
+<div class="outline-text-3" id="text-13-8">
+
+
+<p>
+CONFIG<sub>SECURITY</sub><sub>TOMOYO</sub>:
+</p>
+<p>
+This selects TOMOYO Linux, pathname-based access control.
+Required userspace tools and further information may be
+found at <a href="http://tomoyo.sourceforge.jp/">http://tomoyo.sourceforge.jp/</a>.
+If you are unsure how to answer this question, answer N.
+</p>
+<p>
+Symbol: SECURITY<sub>TOMOYO</sub> [=y]
+Type : boolean
+Prompt: TOMOYO Linux Support
+Location:
+-&gt; Security options
+Defined at security/tomoyo/Kconfig:1
+Depends on: SECURITY [=y] &amp;&amp; NET [=y]
+Selects: SECURITYFS [=y] &amp;&amp; SECURITY<sub>PATH</sub> [=y] &amp;&amp; SECURITY<sub>NETWORK</sub> [=y]
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-13-9" class="outline-3">
+<h3 id="sec-13-9"><span class="section-number-3">13.9</span> AppArmor support (SECURITY<sub>APPARMOR</sub>)</h3>
+<div class="outline-text-3" id="text-13-9">
+
+
+<p>
+CONFIG<sub>SECURITY</sub><sub>APPARMOR</sub>:
+</p>
+<p>
+This enables the AppArmor security module.
+Required userspace tools (if they are not included in your
+distribution) and further information may be found at
+<a href="http://apparmor.wiki.kernel.org">http://apparmor.wiki.kernel.org</a>
+</p>
+<p>
+If you are unsure how to answer this question, answer N.
+</p>
+<p>
+Symbol: SECURITY<sub>APPARMOR</sub> [=y]
+Type : boolean
+Prompt: AppArmor support
+Location:
+-&gt; Security options
+Defined at security/apparmor/Kconfig:1
+Depends on: SECURITY [=y] &amp;&amp; NET [=y]
+Selects: AUDIT [=y] &amp;&amp; SECURITY<sub>PATH</sub> [=y] &amp;&amp; SECURITYFS [=y] &amp;&amp; SECURITY<sub>NETWORK</sub> [=y]
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-13-10" class="outline-3">
+<h3 id="sec-13-10"><span class="section-number-3">13.10</span> Yama support (SECURITY<sub>YAMA</sub>)</h3>
+<div class="outline-text-3" id="text-13-10">
+
+
+<p>
+CONFIG<sub>SECURITY</sub><sub>YAMA</sub>:
+</p>
+<p>
+This selects Yama, which extends DAC support with additional
+system-wide security settings beyond regular Linux discretionary
+access controls. Currently available is ptrace scope restriction.
+Further information can be found in Documentation/security/Yama.txt.
+</p>
+<p>
+If you are unsure how to answer this question, answer N.
+</p>
+<p>
+Symbol: SECURITY<sub>YAMA</sub> [=y]
+Type : boolean
+Prompt: Yama support
+Location:
+-&gt; Security options
+Defined at security/yama/Kconfig:1
+Depends on: SECURITY [=y]
+Selects: SECURITYFS [=y] &amp;&amp; SECURITY<sub>PATH</sub> [=y]
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-13-11" class="outline-3">
+<h3 id="sec-13-11"><span class="section-number-3">13.11</span> Digital signature verification using multiple keyrings (INTEGRITY<sub>SIGNATURE</sub>)</h3>
+<div class="outline-text-3" id="text-13-11">
+
+
+<p>
+CONFIG<sub>INTEGRITY</sub><sub>SIGNATURE</sub>:
+</p>
+<p>
+This option enables digital signature verification support
+using multiple keyrings. It defines separate keyrings for each
+of the different use cases - evm, ima, and modules.
+Different keyrings improves search performance, but also allow
+to "lock" certain keyring to prevent adding new keys.
+This is useful for evm and module keyrings, when keys are
+usually only added from initramfs.
+</p>
+<p>
+Symbol: INTEGRITY<sub>SIGNATURE</sub> [=y]
+Type : boolean
+Prompt: Digital signature verification using multiple keyrings
+Location:
+-&gt; Security options
+Defined at security/integrity/Kconfig:6
+Depends on: INTEGRITY [=y] &amp;&amp; KEYS [=y]
+Selects: SIGNATURE [=y]
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-13-12" class="outline-3">
+<h3 id="sec-13-12"><span class="section-number-3">13.12</span> Enables integrity auditing support (INTEGRITY<sub>AUDIT</sub>)</h3>
+<div class="outline-text-3" id="text-13-12">
+
+
+<p>
+CONFIG<sub>INTEGRITY</sub><sub>AUDIT</sub>:
+</p>
+<p>
+In addition to enabling integrity auditing support, this
+option adds a kernel parameter 'integrity<sub>audit'</sub>, which
+controls the level of integrity auditing messages.
+0 - basic integrity auditing messages (default)
+1 - additional integrity auditing messages
+</p>
+<p>
+Additional informational integrity auditing messages would
+be enabled by specifying 'integrity<sub>audit</sub>=1' on the kernel
+command line.
+</p>
+<p>
+Symbol: INTEGRITY<sub>AUDIT</sub> [=y]
+Type : boolean
+Prompt: Enables integrity auditing support 
+Location:
+-&gt; Security options
+Defined at security/integrity/Kconfig:20
+Depends on: INTEGRITY [=y] &amp;&amp; AUDIT [=y]
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-13-13" class="outline-3">
+<h3 id="sec-13-13"><span class="section-number-3">13.13</span> Enable asymmetric keys support (INTEGRITY<sub>ASYMMETRIC</sub><sub>KEYS</sub>)</h3>
+<div class="outline-text-3" id="text-13-13">
+
+
+<p>
+CONFIG<sub>INTEGRITY</sub><sub>ASYMMETRIC</sub><sub>KEYS</sub>:
+</p>
+<p>
+This option enables digital signature verification using
+asymmetric keys.
+</p>
+<p>
+Symbol: INTEGRITY<sub>ASYMMETRIC</sub><sub>KEYS</sub> [=y]
+Type : boolean
+Prompt: Enable asymmetric keys support
+Location:
+-&gt; Security options
+Defined at security/integrity/Kconfig:35
+Depends on: INTEGRITY<sub>SIGNATURE</sub> [=y]
+Selects: ASYMMETRIC<sub>KEY</sub><sub>TYPE</sub> [=y] &amp;&amp; ASYMMETRIC<sub>PUBLIC</sub><sub>KEY</sub><sub>SUBTYPE</sub> [=y] &amp;&amp; PUBLIC<sub>KEY</sub><sub>ALGO</sub><sub>RSA</sub> [=y] &amp;&amp; X509<sub>CERTIFICATE</sub><sub>PARSER</sub> [=y]
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-13-14" class="outline-3">
+<h3 id="sec-13-14"><span class="section-number-3">13.14</span> Integrity Measurement Architecture(IMA) (IMA)</h3>
+<div class="outline-text-3" id="text-13-14">
+
+
+<p>
+CONFIG<sub>IMA</sub>:
+</p>
+<p>
+The Trusted Computing Group(TCG) runtime Integrity
+Measurement Architecture(IMA) maintains a list of hash
+values of executables and other sensitive system files,
+as they are read or executed. If an attacker manages
+to change the contents of an important system file
+being measured, we can tell.
+</p>
+<p>
+If your system has a TPM chip, then IMA also maintains
+an aggregate integrity value over this list inside the
+TPM hardware, so that the TPM can prove to a third party
+whether or not critical system files have been modified.
+Read <a href="http://www.usenix.org/events/sec04/tech/sailer.html">http://www.usenix.org/events/sec04/tech/sailer.html</a>
+to learn more about IMA.
+If unsure, say N.
+</p>
+<p>
+Symbol: IMA [=n]
+Type : boolean
+Prompt: Integrity Measurement Architecture(IMA)
+Location:
+-&gt; Security options
+Defined at security/integrity/ima/Kconfig:3
+Depends on: SECURITY [=y]
+Selects: INTEGRITY [=y] &amp;&amp; SECURITYFS [=y] &amp;&amp; CRYPTO [=y] &amp;&amp; CRYPTO<sub>HMAC</sub> [=y] &amp;&amp; CRYPTO<sub>MD5</sub> [=y] &amp;&amp; CRYPTO<sub>SHA1</sub> [=y] &amp;&amp; TCG<sub>TPM</sub> [=y] &amp;&amp; TCG<sub>TIS</sub> [=m] &amp;&amp; TCG<sub>IBMVTPM</sub> [=n]
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-13-15" class="outline-3">
+<h3 id="sec-13-15"><span class="section-number-3">13.15</span> EVM support (EVM)</h3>
+<div class="outline-text-3" id="text-13-15">
+
+
+<p>
+CONFIG<sub>EVM</sub>:
+</p>
+<p>
+EVM protects a file's security extended attributes against
+integrity attacks.
+</p>
+<p>
+If you are unsure how to answer this question, answer N.
+</p>
+<p>
+Symbol: EVM [=y]
+Type : boolean
+Prompt: EVM support
+Location:
+-&gt; Security options
+Defined at security/integrity/evm/Kconfig:1
+Depends on: SECURITY [=y] &amp;&amp; KEYS [=y] &amp;&amp; TRUSTED<sub>KEYS</sub> [=y]!=m
+Selects: CRYPTO<sub>HMAC</sub> [=y] &amp;&amp; CRYPTO<sub>MD5</sub> [=y] &amp;&amp; CRYPTO<sub>SHA1</sub> [=y] &amp;&amp; ENCRYPTED<sub>KEYS</sub> [=y]
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-13-16" class="outline-3">
+<h3 id="sec-13-16"><span class="section-number-3">13.16</span> Default security module</h3>
+<div class="outline-text-3" id="text-13-16">
+
+
+<p>
+Select the security module that will be used by default if the
+kernel parameter security= is not specified.
+</p>
+
+<p>
+Prompt: Default security module
+Location:
+-&gt; Security options
+Defined at security/Kconfig:128
+Selected by: m
+SELinux (DEFAULT<sub>SECURITY</sub><sub>SELINUX</sub>)
+</p>
+<p>
+There is no help available for this option.
+Symbol: DEFAULT<sub>SECURITY</sub><sub>SELINUX</sub> [=n]
+Type : boolean
+Prompt: SELinux
+Location:
+-&gt; Security options
+-&gt; Default security module (&lt;choice&gt; [=y])
+Defined at security/Kconfig:141
+Depends on: &lt;choice&gt;
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-13-17" class="outline-3">
+<h3 id="sec-13-17"><span class="section-number-3">13.17</span> Simplified Mandatory Access Control (DEFAULT<sub>SECURITY</sub><sub>SMACK</sub>)</h3>
+<div class="outline-text-3" id="text-13-17">
+
+
+<p>
+There is no help available for this option.
+Symbol: DEFAULT<sub>SECURITY</sub><sub>SMACK</sub> [=n]
+Type : boolean
+Prompt: Simplified Mandatory Access Control
+Location:
+-&gt; Security options
+-&gt; Default security module (&lt;choice&gt; [=y])
+Defined at security/Kconfig:144
+Depends on: &lt;choice&gt;
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-13-18" class="outline-3">
+<h3 id="sec-13-18"><span class="section-number-3">13.18</span> TOMOYO (DEFAULT<sub>SECURITY</sub><sub>TOMOYO</sub>)</h3>
+<div class="outline-text-3" id="text-13-18">
+
+
+<p>
+There is no help available for this option.
+Symbol: DEFAULT<sub>SECURITY</sub><sub>TOMOYO</sub> [=n]
+Type : boolean
+Prompt: TOMOYO
+Location:
+-&gt; Security options
+-&gt; Default security module (&lt;choice&gt; [=y])
+Defined at security/Kconfig:147
+Depends on: &lt;choice&gt;
+AppArmor (DEFAULT<sub>SECURITY</sub><sub>APPARMOR</sub>)
+</p>
+<p>
+There is no help available for this option.
+Symbol: DEFAULT<sub>SECURITY</sub><sub>APPARMOR</sub> [=y]
+Type : boolean
+Prompt: AppArmor
+Location:
+-&gt; Security options
+-&gt; Default security module (&lt;choice&gt; [=y])
+Defined at security/Kconfig:150
+Depends on: &lt;choice&gt;
+</p>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-13-19" class="outline-3">
+<h3 id="sec-13-19"><span class="section-number-3">13.19</span> Yama (DEFAULT<sub>SECURITY</sub><sub>YAMA</sub>)</h3>
+<div class="outline-text-3" id="text-13-19">
+
+
+<p>
+There is no help available for this option.
+Symbol: DEFAULT<sub>SECURITY</sub><sub>YAMA</sub> [=n]
+Type : boolean
+Prompt: Yama
+Location:
+-&gt; Security options
+-&gt; Default security module (&lt;choice&gt; [=y])
+Defined at security/Kconfig:153
+Depends on: &lt;choice&gt;
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-13-20" class="outline-3">
+<h3 id="sec-13-20"><span class="section-number-3">13.20</span> Unix Discretionary Access Controls (DEFAULT<sub>SECURITY</sub><sub>DAC</sub>)</h3>
+<div class="outline-text-3" id="text-13-20">
+
+
+<p>
+There is no help available for this option.
+Symbol: DEFAULT<sub>SECURITY</sub><sub>DAC</sub> [=n]
+Type : boolean
+Prompt: Unix Discretionary Access Controls
+Location:
+-&gt; Security options
+-&gt; Default security module (&lt;choice&gt; [=y])
+Defined at security/Kconfig:156
+Depends on: &lt;choice&gt;
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-13-21" class="outline-3">
+<h3 id="sec-13-21"><span class="section-number-3">13.21</span> Asymmetric public-key crypto algorithm subtype (ASYMMETRIC<sub>PUBLIC</sub><sub>KEY</sub><sub>SUBTYPE</sub>)</h3>
+<div class="outline-text-3" id="text-13-21">
+
+
+<p>
+CONFIG<sub>ASYMMETRIC</sub><sub>PUBLIC</sub><sub>KEY</sub><sub>SUBTYPE</sub>:
+</p>
+<p>
+This option provides support for asymmetric public key type handling.
+If signature generation and/or verification are to be used,
+appropriate hash algorithms (such as SHA-1) must be available.
+ENOPKG will be reported if the requisite algorithm is unavailable.
+</p>
+<p>
+Symbol: ASYMMETRIC<sub>PUBLIC</sub><sub>KEY</sub><sub>SUBTYPE</sub> [=y]
+Type : tristate
+Prompt: Asymmetric public-key crypto algorithm subtype
+Location:
+-&gt; Cryptographic API (CRYPTO [=y])
+-&gt; Asymmetric (public-key cryptographic) key type (ASYMMETRIC<sub>KEY</sub><sub>TYPE</sub> [=y])
+Defined at crypto/asymmetric<sub>keys</sub>/Kconfig:12
+Depends on: CRYPTO [=y] &amp;&amp; ASYMMETRIC<sub>KEY</sub><sub>TYPE</sub> [=y]
+Selects: MPILIB [=y]
+Selected by: MODULE<sub>SIG</sub> [=y] &amp;&amp; MODULES [=y] || INTEGRITY<sub>ASYMMETRIC</sub><sub>KEYS</sub> [=y] &amp;&amp; INTEGRITY<sub>SIGNATURE</sub> [=y]
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-13-22" class="outline-3">
+<h3 id="sec-13-22"><span class="section-number-3">13.22</span> RSA public-key algorithm (PUBLIC<sub>KEY</sub><sub>ALGO</sub><sub>RSA</sub>)</h3>
+<div class="outline-text-3" id="text-13-22">
+
+
+<p>
+CONFIG<sub>PUBLIC</sub><sub>KEY</sub><sub>ALGO</sub><sub>RSA</sub>:
+</p>
+<p>
+This option enables support for the RSA algorithm (PKCS#1, RFC3447).
+</p>
+<p>
+Symbol: PUBLIC<sub>KEY</sub><sub>ALGO</sub><sub>RSA</sub> [=y]
+Type : tristate
+Prompt: RSA public-key algorithm
+Location:
+-&gt; Cryptographic API (CRYPTO [=y])
+-&gt; Asymmetric (public-key cryptographic) key type (ASYMMETRIC<sub>KEY</sub><sub>TYPE</sub> [=y])
+-&gt; Asymmetric public-key crypto algorithm subtype (ASYMMETRIC<sub>PUBLIC</sub><sub>KEY</sub><sub>SUBTYPE</sub> [=y])
+Defined at crypto/asymmetric<sub>keys</sub>/Kconfig:21
+Depends on: CRYPTO [=y] &amp;&amp; ASYMMETRIC<sub>KEY</sub><sub>TYPE</sub> [=y] &amp;&amp; ASYMMETRIC<sub>PUBLIC</sub><sub>KEY</sub><sub>SUBTYPE</sub> [=y]
+Selects: MPILIB<sub>EXTRA</sub>
+Selected by: MODULE<sub>SIG</sub> [=y] &amp;&amp; MODULES [=y] || INTEGRITY<sub>ASYMMETRIC</sub><sub>KEYS</sub> [=y] &amp;&amp; INTEGRITY<sub>SIGNATURE</sub> [=y]
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-13-23" class="outline-3">
+<h3 id="sec-13-23"><span class="section-number-3">13.23</span> X.509 certificate parser (X509<sub>CERTIFICATE</sub><sub>PARSER</sub>)</h3>
+<div class="outline-text-3" id="text-13-23">
+
+
+<p>
+CONFIG<sub>X509</sub><sub>CERTIFICATE</sub><sub>PARSER</sub>:
+</p>
+<p>
+This option procides support for parsing X.509 format blobs for key
+data and provides the ability to instantiate a crypto key from a
+public key packet found inside the certificate.
+</p>
+<p>
+Symbol: X509<sub>CERTIFICATE</sub><sub>PARSER</sub> [=y]
+Type : tristate
+Prompt: X.509 certificate parser
+Location:
+-&gt; Cryptographic API (CRYPTO [=y])
+-&gt; Asymmetric (public-key cryptographic) key type (ASYMMETRIC<sub>KEY</sub><sub>TYPE</sub> [=y])
+-&gt; Asymmetric public-key crypto algorithm subtype (ASYMMETRIC<sub>PUBLIC</sub><sub>KEY</sub><sub>SUBTYPE</sub> [=y])
+Defined at crypto/asymmetric<sub>keys</sub>/Kconfig:28
+Depends on: CRYPTO [=y] &amp;&amp; ASYMMETRIC<sub>KEY</sub><sub>TYPE</sub> [=y] &amp;&amp; ASYMMETRIC<sub>PUBLIC</sub><sub>KEY</sub><sub>SUBTYPE</sub> [=y]
+Selects: ASN1 [=y] &amp;&amp; OID<sub>REGISTRY</sub> [=y]
+Selected by: MODULE<sub>SIG</sub> [=y] &amp;&amp; MODULES [=y] || INTEGRITY<sub>ASYMMETRIC</sub><sub>KEYS</sub> [=y] &amp;&amp; INTEGRITY<sub>SIGNATURE</sub> [=y]
+</p>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-14" class="outline-2">
+<h2 id="sec-14"><span class="section-number-2">14</span> References</h2>
+<div class="outline-text-2" id="text-14">
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr size=1>Copyright &copy; 2013 &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a> &bull; 2013-11-07T15:21-0500
+</div>
+</body>
+</html>

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-08-29 Sat 19:43 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simple Programming Problems</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Simple Programming Problems</h1>
+<p>
+What are some simple programming problems?
+</p>
+
+<div id="outline-container-org8af8d57" class="outline-2">
+<h2 id="org8af8d57"><span class="section-number-2">1</span> /bin/ls</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Everyone is familiar with the <code>/bin/ls</code> of Unix/Linux.  Is this a
+"simple" problem?  How difficult (e.g., in man-hours) do you think it
+is to a "Specifications of ls" document?  Did the (original)
+developers have this doc?  How long might it take you to design and
+implement a new ls?
+</p>
+
+<p>
+Suppose we simplify this problem to just doing "ls" with no options,
+and no arguments.  Here is an incomplete list of (definition) tasks
+</p>
+
+<ol class="org-ol">
+<li>Current Working Directory (CWD)</li>
+<li>Raw (unformatted) Listing of CWD contents</li>
+
+<li>Should /bin/ls take on the responsibility of "correct" listing?</li>
+
+<li>Columnizing the listing</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org0414446" class="outline-2">
+<h2 id="org0414446"><span class="section-number-2">2</span> The Dutch National Flag Problem</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+An array a[1..n] is filled with elements colored red, white or
+blue. Design an algorithm that rearranges the elements so that all the
+red-elements are at the left, all the blues are at the right, and the
+whites are in the middle.
+</p>
+
+<p>
+Non-functional requirements: Do not assume that (i) red, white and
+blue are named integer constants; (ii) nor that red &lt; white &lt; blue.
+</p>
+
+<p>
+Can you write, in an afternoon, the algorithm/program?  One that is
+guaranteed to work?
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdd7c391" class="outline-2">
+<h2 id="orgdd7c391"><span class="section-number-2">3</span> Condense the List of Numbers</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Problem Statement: You are given a comma separated list of items in a
+text file. The list is terminated with a period. Each item is either a
+number, or a hyphen separated pair of numbers. Your program should
+condense this list as much as possible, as can be seen from the
+following examples.
+</p>
+
+<p>
+<code>1,3,4,2,6,5,8,5,7. becomes</code><br />
+<code>1-8.</code>
+</p>
+
+<p>
+<code>9,100-4870,4993,4871-4875,5016,5118,7-250,5100-5123. becomes</code><br />
+<code>7-4875,4993,5016,5100-5123.</code>
+</p>
+
+<p>
+<code>1103,1023-1100,87654321,1050-1150,1110,1250-1344. becomes</code><br />
+<code>1023-1150,1250-1344,87654321.</code>
+</p>
+
+<p>
+How would you proceed?  Will you do requirements analysis, specs,
+design, implement, test, &#x2026; in that order?  Or, will you jump into
+"coding" and testing through which you discover things?
+</p>
+</div>
+</div>
+
+<div id="outline-container-org66cc605" class="outline-2">
+<h2 id="org66cc605"><span class="section-number-2">4</span> Bubble Sort</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+You undoubtedly learnt Bubble Sort.  May be many versions.
+</p>
+
+<p>
+In our CS7140, we are not that interested in efficiency (BigOh
+notation, etc.) as we are in elegance, and correctness.  We can
+certainly define correctness for sorting.  May be not "elegance".
+</p>
+
+<p>
+Try writing down the correctness criteria.  Try developing a test
+harness for this.  Are these two tasks "simple" (enough)?
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1e6db55" class="outline-2">
+<h2 id="org1e6db55"><span class="section-number-2">5</span> Quick Sort</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+You undoubtedly learnt Quick Sort also.  May be just one version.
+Re-read it.  E.g., read <a href="https://algs4.cs.princeton.edu/23quicksort/">https://algs4.cs.princeton.edu/23quicksort/</a>
+from the book by Sedgewick and Wayne.
+</p>
+
+<p>
+Do a new version with the following constraint.  You are given the
+array a, and permitted to use index variables i, &#x2026;, etc.  But, not
+allowed to do any assignments to a[i].  Instead, you are encouraged to
+use a primitive named <code>exchanged(i, j)</code> that exchanges a[i] with a[j].
+Is this a simple task?  Is the resulting program simple?
+</p>
+</div>
+</div>
+
+<div id="outline-container-orged9fc55" class="outline-2">
+<h2 id="orged9fc55"><span class="section-number-2">6</span> CWP (Common Words Problem)</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+"Given a file of text, and a number k, print the k most common words."
+Is this a simple problem?  Can you understand an implementation
+of this "quickly"?
+</p>
+
+<p>
+We will be spending several lectures on this problem and one of its
+solution by Donald E. Knuth, "A Solution to the Common Words Problem",
+Communications of the ACM, 1986. Knuth is a Turing Award
+winner.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgde84af8" class="outline-2">
+<h2 id="orgde84af8"><span class="section-number-2">7</span> An Exercise on Bit Sequences</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Consider sequences of b bits.  Each such sequence has (b - 4) 5-bit
+subsequences of adjacent bits.  For example, the sequence 1101011&#x2026;
+contains the 5-bit subsequences 11010, 10101, 01011,&#x2026;  Given a file
+of sequences of b bits, we wish for an algorithm/ program that would
+print all and only the b-bit sequences with the two properties: (1)
+the first 5 bits are 00000, and (2) no two 5-bit subsequences are the
+same.
+</p>
+
+<ol class="org-ol">
+<li>Formally specify the informal description.</li>
+<li>Efficiency is not a priority, but do not make it super slow.</li>
+<li>Correctness is super important.</li>
+<li>Elegance (also) is super important.  For now, elegance is is the
+ease with which you can convince a colleague of yours that it works
+just by reading it, long before she tries to execute it.</li>
+<li>Does your program generalize to sequences of arbitrary characters?
+How easily?</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-org5af0a02" class="outline-2">
+<h2 id="org5af0a02"><span class="section-number-2">8</span> Self Analysis</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+As a software engineer can you "solve" (at least) these and other
+problems of this range of complexity?
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge4eeb50" class="outline-2">
+<h2 id="orge4eeb50"><span class="section-number-2">9</span> End</h2>
+<div class="outline-text-2" id="text-9">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2020 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2020-08-27
+</div>
+</body>
+</html>

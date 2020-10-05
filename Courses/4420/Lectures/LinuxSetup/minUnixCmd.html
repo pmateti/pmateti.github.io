@@ -1,0 +1,211 @@
+<html>
+
+<head>
+<title>A Minimal List of Unix Commands</title>
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P,li { text-align: justify }
+  pre,tt,code {color: brown; border:blue 1px dotted;}
+  @media screen {BODY {margin: 12%;} }
+</style>
+</head>
+
+<body>
+  <h1>A Minimal List of Unix/ Linux Commands</h1>
+
+<p>This is a list of standard Unix (also Linux) commands that you
+should be familiar with.  Listed in alphabetical order.  The word
+&quot;show&quot; below means display to the <tt>stdout</tt>.  Do not
+use the commands based only on reading the brief descriptions given
+here.  Read their man pages.  A few commands cannot be run unless you
+are superuser; use sudo, but beware of consequences.
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" 
+height="524">
+  <tr>
+    <td width="10%"><tt>bash</tt></td>
+    <td width="70%">Bourne-Again Shell</td>
+  </tr>
+  <tr>
+    <td width="10%"><tt>bg</tt></td>
+    <td width="70%">place a process in the background</td>
+  </tr>
+  <tr>
+    <td><tt>cat</tt></td>
+    <td width="70%">show each file in sequence</td>
+  </tr>
+  <tr>
+    <td><tt>chmod</tt></td>
+    <td width="70%">change the permissions on a file</td>
+  </tr>
+  <tr>
+    <td><tt>chown</tt></td>
+    <td width="70%">change the owner of a file</td>
+  </tr>
+  <tr>
+    <td><code>ddd</code></td>
+    <td width="70%">the Data Display Debugger front end to 
+    gdb</td>
+  </tr>
+  <tr>
+    <td><tt>df</tt></td>
+    <td width="70%">show mounted volumes, etc</td>
+  </tr>
+  <tr>
+    <td><code>diff</code></td>
+    <td width="70%">show the differences between two files</td>
+  </tr>
+  <tr>
+    <td><tt>du</tt></td>
+    <td width="70%">show file space usage</td>
+  </tr>
+  <tr>
+    <td><tt>emacs</tt></td>
+    <td width="70%">the all-powerful text/binary editor; try
+    <tt>xemacs</tt> also</td>
+  </tr>
+  <tr>
+    <td><tt>enscript</tt></td>
+    <td width="70%"> convert text and source code files to
+    PDF etc.  [apt install cups-pdf]</td>
+
+  </tr>
+  <tr>
+    <td><tt>env</tt></td>
+    <td width="70%">lists the current environment variables</td>
+  </tr>
+  <tr>
+    <td width="10%"><tt>fg</tt></td>
+    <td width="70%">bring a backgrounded process to foreground</td>
+  </tr>
+  <tr>
+    <td><tt>fsck</tt></td>
+    <td width="70%">check the integrity and repair a file volume</td>
+  </tr>
+  <tr>
+    <td><tt>file</tt></td>
+    <td width="70%">accurately guess what kind of file</td>
+  </tr>
+  <tr>
+    <td><tt>find</tt></td>
+    <td width="70%">find files with the given pattern as names, and do
+    things with such files</td>
+  </tr>
+  <tr>
+    <td><tt>gdb</tt></td>
+    <td>debug a program; try <tt>gdb -tui programFileName</tt></td>
+  </tr>
+  <tr>
+    <td><code>grep</code></td>
+    <td width="70%">print lines matching a pattern</td>
+  </tr>
+  <tr>
+    <td><code>kdbg</code></td>
+    <td width="70%">KDE front end to debugger</td>
+  </tr>
+  <tr>
+    <td><code>kill</code></td>
+    <td width="70%">kills a process</td>
+  </tr>
+  <tr>
+    <td><tt>ln</tt></td>
+    <td width="70%">creates a link between two files; try
+    <tt>ln -s</tt></td>
+  </tr>
+  <tr>
+    <td><tt>ls</tt></td>
+    <td width="70%">list contents of directory; try <tt>ls -lisa</tt></td>
+  </tr>
+  <tr>
+    <td><tt>lynx</tt></td>
+    <td width="70%">www/news/mail browser</tt></td>
+  </tr>
+  <tr>
+    <td height="20"><tt>make</tt></td>
+    <td width="70%" height="20">maintain, update, and regenerate related 
+    programs and files</td>
+  </tr>
+  <tr>
+    <td><tt>man</tt></td>
+    <td width="70%">show reference manual pages; try <tt>man 
+    -k</tt></td>
+  </tr>
+  <tr>
+    <td><tt>mkfs</tt></td>
+    <td width="70%">make (construct) a file volume</td>
+  </tr>
+  <tr>
+    <td><tt>nohup</tt></td>
+    <td width="70%">run a command immune to hangups</td>
+  </tr>
+  <tr>
+    <td><tt>od</tt></td>
+    <td width="70%">octal dump; try od -x file-name</td>
+  </tr>
+  <tr>
+    <td><code>ps</code></td>
+    <td width="70%">show processes</td>
+  </tr>
+  <tr>
+    <td><tt>script</tt></td>
+    <td width="70%">Capture the stdin and stdout of commands you run
+    in a session</td>
+  </tr>
+  <tr>
+    <td><tt>set</tt></td>
+    <td width="70%">set/get and show the values of shell; also
+    learn <tt>export</tt> variables</td>
+  </tr>
+  <tr>
+    <td><tt>sloccount</tt></td>
+    <td width="70%">count source code lines in files/ dir</td>
+  </tr>
+  <tr>
+    <td><tt>source</tt></td>
+    <td width="70%">shell built-in: execute the cmds in a 
+    file</td>
+  </tr>
+  <tr>
+    <td><tt>sudo</tt></td>
+    <td width="70%">as root user run one cmd line</td>
+  </tr>
+  <tr>
+    <td><tt>time</tt></td>
+    <td width="70%">a prefix to commands, times the command 
+    and shows page faults etc.</td>
+  </tr>
+  <tr>
+    <td><tt>tmux</tt></td>
+    <td width="70%">terminal multiplexer</td>
+  </tr>
+  <tr>
+    <td><tt>umask</tt></td>
+    <td width="70%">get/set the file mode creation mask</td>
+  </tr>
+  <tr>
+    <td><tt>w</tt></td>
+    <td width="70%">who is on the system, and what they are 
+    doing</td>
+  </tr>
+
+  <tr>
+    <td><tt>wget</tt></td>
+    <td width="70%">  The non-interactive web/network downloader.
+    </td>
+  </tr>
+
+  <tr>
+    <td><tt>xxgdb</tt></td>
+    <td>GUI interface to <tt>gdb</tt> source code debugger</td>
+  </tr>
+</table>
+<hr>
+
+<a href="../../../PM/copyright.html">Copyright ©</a> 2017
+<a href="http://www.cs.wright.edu/~pmateti" target="_blank">
+      Prabhaker Mateti</a>
+</body>
+</html>

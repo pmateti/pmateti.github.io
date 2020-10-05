@@ -1,0 +1,54 @@
+# -*- mode: org -*-
+#+DATE: 2020-09-22
+#+TITLE: CS7140 Adv Software Engineering 2020-09-22
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"https://cecs.wright.edu/~pmateti\"> cecs.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Announcements/ Reminders
+
+
+
+1. Adv Software Eng: HW1 Fall 2020 Due: 2020-09-28
+
+* Previously
+
+1. Homework #1 Wiggly Worms in C++, Small Set of Int, Condense Ranges
+1. JML == Java Modeling Language [[../Assertions/JML/index.org]]
+
+* Agenda
+
+** Project Work
+
+1. Requirements Doc: Post it on your GitHub rep.  Post the GitHub link
+   on Pilot ->Discussion ->DITAA Requirements.  The Review Critique by
+   students: Due 2020-09-29. Post your review also there.  You are
+   welcome to scribble/ annotate the PDF of a team submission.  Even
+   better write a short review article.
+
+1. This will make everyone aware how the other documents discussed
+   issues.
+
+1. We will (through Pilot->Discussion) merge all these into a common
+   requirements doc for the entire class.
+
+** Common Words Problem
+
+1. As an example of Req Analysis, Specs, and Design Hierarchy.
+1. As an example of Literate Programming.
+1. I will do some 3 to 5 lectures -- separated with a week gap.
+
+* References
+
+1. https://cecs.wright.edu/~pmateti/Courses/7140/Lectures/Design/ Lecture Notes
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

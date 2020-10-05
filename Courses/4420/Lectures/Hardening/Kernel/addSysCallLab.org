@@ -1,0 +1,80 @@
+
+# -*- mode: org -*-
+#+date: 2018-08-28
+#+TITLE: Lab on Add/ Delete/ Freeze System Calls [WIP]
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+
+This lab leads up to hardening the Linux
+kernel.
+
+* Background
+
+1. Lab Objectives
+
+1. Learn the Linux kernel API usage.  Use a kernel in the 4.x.y series.
+1. Given is a Linux kernel image, and its build setup on our Virtual
+   Cyber Security Lab at WSU VCSL.
+1. Section 2 of Man Pages is about syscalls.  Study one or two man
+   pages of, say, open, and close.  You will be asked to develop/
+   write man pages for the new syscalls following these.
+
+* Tasks
+
+** Task: Add a Few System Calls
+
+1. Add a new system call that takes a white list of path names of
+   programs.  Intent: The currently existing syscall =execv= will not
+   work unless the program is on this list.  Prior to invoking this
+   system call, all path names are considered to be white listed.
+
+1. Design and implement a simple system program that demonstrates the above.
+
+** Task: Delete a Few System Calls 
+
+1. Add a new system call that takes a list of system call numbers, and
+   deletes them.  This will stay in effect until next boot.  The list
+   format is argc, argv[].
+
+1. Examine 5 system programs that use the syscalls deleted as above,
+   and report on their behavior after the freeze.
+
+** Task: Freeze a Few System Calls
+
+1. Add a new system call that takes a list of system call numbers, and
+   freezes them between the after-boot time stamp and
+   beginning-to-shut-down time stamp.  This will stay in effect until
+   next boot, or unfrozen later.
+
+1. Design the ABI of a syscall that unfreezes syscalls.  Do not
+   complain if a syscall is already enabled.
+
+1. Examine 5 system programs that use the syscalls frozen as above,
+   and report on their behavior after the freeze.
+
+** Task: Create a new /proc Entry for SysCalls
+
+1. List enabled, frozen, and deleted syscalls.
+
+* References
+
+1. Prabhaker Mateti, System Call Setup in Linux, 2018.
+1. https://linux-kernel-labs.github.io/master/labs/kernel_api.html
+1. https://pdos.csail.mit.edu/6.828/2017/labs/lab3/
+1. https://compas.cs.stonybrook.edu/~nhonarmand/courses/sp17/cse506/labs.html
+1. https://github.com/auca/com.341/tree/master/Practice%202
+1. Asish Sahadevan, MTech Thesis, Advisor: Prabhaker Mateti, 2015.
+1. https://linux-kernel-labs.github.io/master/ Linux Kernel Teaching, 201x.
+1. http://learnlinuxconcepts.blogspot.com/2014/03/memory-layout-of-userspace-c-program.html
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

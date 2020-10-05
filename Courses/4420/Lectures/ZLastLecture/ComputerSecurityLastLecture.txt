@@ -1,0 +1,435 @@
+   CEG 4420:
+Computer Security
+  Last Lecture
+   Prabhaker Mateti
+Internet Growth       Internet host count
+        1981                                 213
+        1986                              5,089
+        1998               29,670,000
+        2000               93,047,785
+        2005            317,646,084
+        2010            768,913,036
+        2011            818,374,269
+        source: www.isc.org
+Mateti             WSU CEG 4420/Last Lecture     3
+Mateti WSU CEG 4420/Last Lecture 4                   ‘Computers’?
+      Define `Computer’ System!
+      Main frames
+      PCs
+      Smart Phones
+      Embedded systems
+      Usage without Internet?
+Mateti                    WSU CEG 4420/Last Lecture 5
+              Facts about data theft
+      More than 12,000 laptops lost per week in US
+       airports alone;
+      One laptop is stolen every 53 seconds;
+      Viruses cost US businesses $55 billion annually;
+       and
+      25% of all PC users suffer from data loss each year.
+      Source: http://www.technewsworld.com/ 01/20/2010
+Mateti                     WSU CEG 4420/Last Lecture        6
+Top N Lists     Top Ten Web Sites in Security
+1.     www.cert.org/ US funded. Provides cyber alerts, defense and
+       response to government agencies and industry partners.
+2.     www.infosyssec.org/ security portal with many tutorials.
+3.     www.phrack.org/ in-depth technical articles on exploits.
+4.     defcon.org/ Oldest and one of the largest hacker conventions.
+5.     www.securityfocus.com/ Hosts BUGTRAQ. white-hat site.
+6.     www.packetstormsecurity.org/ security portal. security tools and
+       exploits.
+7.     www.schneier.com/ Security blog focused on crypto.
+8.     www.infowar.com/ takes a broader view of security and has
+       articles about how countries can get affected.
+9.     www.undergroundnews.com/ “... does not restrict or censor”
+10.    www.microsoft.com/technet/security/default.mspx
+Mateti                        WSU CEG 4420/Last Lecture                 8
+                    Links to Others
+      googleonlinesecurity.blogspot.com/2009/06/top-10-m
+       alware-sites.html
+      www.techsupportalert.com/best_computer_security_
+       sites.htm
+      20 useful IT security Web sites
+      informationsecurityhq.com/10-top-websites-for-inform
+       ation-security/
+      www.secureroot.com/topsites/
+Mateti                     WSU CEG 4420/Last Lecture      9
+ Top Internet Security Vulnerabilities
+      Top Vulnerabilities in Windows Systems
+           W1. Windows Services
+           W2. Internet Explorer
+           W3. Windows Libraries
+           W4. Microsoft Office and Outlook Express
+           W5. Windows Configuration Weaknesses
+      Top Vulnerabilities in Cross-Platform Applications
+           C1. Backup Software
+           C2. Anti-virus Software
+           C3. PHP-based Applications
+           C4. Database Software
+           C5. File Sharing Applications
+           C6. DNS Software
+           C7. Media Players
+           C8. Instant Messaging Applications
+           C9. Mozilla and Firefox Browsers
+           C10. Other Cross-platform Applications
+      Top Vulnerabilities in UNIX Systems
+           U1. UNIX Configuration Weaknesses
+           U2. Mac OS X
+      Top Vulnerabilities in Networking Products
+           N1. Cisco IOS and non-IOS Products
+           N2. Juniper, CheckPoint and Symantec Products
+           N3. Cisco Devices Configuration Weaknesses
+      Source: http://www.sans.org/top20/
+Mateti                                               WSU CEG 4420/Last Lecture 10
+        Top 125 Security Tools, 2012
+      Sectools.org
+      Each respondent could list up to 8.
+      No votes for the Nmap Security Scanner were
+       counted.
+      The list is slightly biased toward "attack" tools rather
+       than defensive ones.
+Mateti                        WSU CEG 4420/Last Lecture        11
+  Open Web Application Security
+      not-for-profit worldwide charitable organization
+       focused on improving the security of web application
+       software.
+      free and open software license.
+      www.owasp.org/
+Mateti                      WSU CEG 4420/Last Lecture     12
+   Black/? Hat Sites/Conferences
+      Suspend all judgments (other than technical
+       quality).
+      defcon.org/ annual conference in Las Vegas.
+       Excellent presentations by “hackers”.
+      blackhat.com/ Conferences and training!
+      shmoocon.org/ “... refusal to take anything
+       about the Internet seriously...”
+      recon.cx/ reverse engineering. annually in
+       Montreal
+Mateti                  WSU CEG 4420/Last Lecture  13
+       Top 25 Software Errors, 2010
+1.     Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+2.     Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
+3.     Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')
+4.     Cross-Site Request Forgery (CSRF)
+5.     Improper Authorization
+6.     Reliance on Untrusted Inputs in a Security Decision
+7.     Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')
+8.     Unrestricted Upload of File with Dangerous Type
+9.     Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+10.    Missing Encryption of Sensitive Data
+11.    Use of Hard-coded Credentials
+12.    Buffer Access with Incorrect Length Value
+13.    Improper Control of Filename for Include/Require Statement in PHP Program ('PHP File Inclusion')
+14.    Improper Validation of Array Index
+15.    Improper Check for Unusual or Exceptional Conditions
+16.    Information Exposure Through an Error Message
+17.    Integer Overflow or Wraparound
+18.    Incorrect Calculation of Buffer Size
+19.    Missing Authentication for Critical Function
+20.    Download of Code Without Integrity Check
+21.    Incorrect Permission Assignment for Critical Resource
+22.    Allocation of Resources Without Limits or Throttling
+23.    URL Redirection to Untrusted Site ('Open Redirect')
+24.    Use of a Broken or Risky Cryptographic Algorithm
+25.    Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition')
+      http://cwe.mitre.org/top25/archive/2010/2010_cwe_sans_top25.pdf
+Mateti                                              WSU CEG 4420/Last Lecture                           14
+Recent (Last 5 Years)
+      Attacks
+                    Attacks on Sony
+      Sony’s PlayStation Network system was hacked, affecting
+       more than 100 million online accounts worldwide and forcing
+       the company to shut down the popular online gaming service.
+       April 2011.
+      Database at Sony Ericsson’s Eshop, Canada breached. May
+       2011.
+      Sony in Greece.
+      Sony in Japan.
+      Sued George Hotz, 21. Hacked the fully locked Sony PS3
+       console in 2010 to run homebrew applications and released
+       the method through his website.
+      Sony lawsuit demanded that social media sites including
+       YouTube hand over IP addresses of people who visited Hotz’s
+       pages and videos.
+Mateti                        WSU CEG 4420/Last Lecture            16
+           Systems of US Congress
+      The Senate’s Sergeant at Arms reported last year
+       that computer systems of Congress and executive
+       branch agencies are probed or attacked
+         1.8 billion times per month,
+         costing about $8 billion annually.
+Mateti                     WSU CEG 4420/Last Lecture    17
+                 Cell Phone Malware
+      More mobile phones than                  Jailbreaking w/ no
+       people in many countries.                 knowledge of security
+      ZeuS botnet: Using                             ssh Apple's default root
+       infected HTML forms on                          password "alpine"
+       the victim's browser,
+       obtains cell number,
+       sends a text message
+       containing the new
+       malware SymbOS/
+       Zitmo.A!tr designed to
+       intercept and divert
+       banking transactions.
+       September 2010
+Mateti                       WSU CEG 4420/Last Lecture                          18
+       Cell Phone Malware
+                                 Droid Dream Light, May
+                                  2011, Trojan
+                                 invoked on receipt of
+                                  android.intent.action.PHO
+                                  NE_STATE intent (e.g. an
+                                  incoming voice call).
+                                 contacts remote servers
+                                  and supplies the IMEI,
+                                  IMSI, Model, SDK
+                                  Version and information
+                                  about installed packages.
+                                 capable of downloading
+                                  and prompting installation
+                                  of new packages
+Mateti        WSU CEG 4420/Last Lecture                    19
+              Estonia’s infrastructure
+      Baltic republic of                       Estonia is a heavily
+       Estonia                                   wired country: 80 % of
+      first country in the world                Estonians pay their
+       to experience cyber                       taxes and do their
+       war.                                      banking on Internet.
+      Government, financial                    Decided to relocate a
+       and media computer                        Soviet war memorial
+       networks were                            Russian hackers?
+       paralyzed by a series of                 Estonia instituting a real
+       attacks                                   cyber army?
+      April 2007
+Mateti                       WSU CEG 4420/Last Lecture                    20
+                          Stuxnet
+      Worm targeted at a                    Sohisticated internals
+       “unique” target in the                Developed by
+       world                                  country-level
+      Target = A nuclear                     attackers?
+       facility using specific               More details at
+       equipment.                             http://www.cs.wright.e
+      Infects many, but                      du/~pmateti/InternetS
+       does not hurt any,                     ecurity/Lectures/Virus
+       except one.                            es/stuxnet-2011-pm.p
+                                              ptx
+Mateti                     WSU CEG 4420/Last Lecture                 21
+Controversies   Being Able to Read the Source
+      Enables exploits
+         Reverse Engineering not required
+         Internal Structure is understood
+         Weaknesses can be seen at the design level
+      Enables fast fixes
+      Intellectual Property Rights and Privileges
+         Not (very) relevant in this course
+         Think: Why do we make laws that let patents
+          expire?
+Mateti                      WSU CEG 4420/Last Lecture 23
+         Security Through Obscurity
+      Use secrecy (of design, implementation, etc.) to ensure
+       security.
+      May have theoretical or actual security vulnerabilities,
+       but its owners or designers believe that the flaws are not
+       known, and that attackers are unlikely to find them.
+      We really mean "security implemented solely through
+       obscurity."
+      Obscurity is not always bad.
+      Is Obscurity Ever Good?
+      TBD Read an opinion:
+       www.darkreading.com/blog.asp? blog_sectionid=326&WT
+       .svl=blogger1_1
+Mateti                       WSU CEG 4420/Last Lecture           24
+                        WikiLeaks
+      PBS was targeted in retaliation for broadcasting
+       "Frontline: Wiki Secrets“ in May 2011
+         www.pbs.org/wgbh/pages/frontline/wikileaks/
+          The inside story of Bradley Manning, Julian
+          Assange and the largest intelligence breach in
+          U.S. history
+Mateti                     WSU CEG 4420/Last Lecture    25
+Course Specific Items                       Course Title?
+      Other titles for the Course
+         Internet Security
+         Network Security
+         Computer Security
+         System Security
+         Cyber Security
+      Integrated View of Security Issues
+      Selection of Most Relevant Topics
+      Narrowest Title that Covers the Topics
+Mateti                       WSU CEG 4420/Last Lecture 27
+         New or Revised * courses
+      CEG 234N Secure Computing Practices       4
+      CEG 235N System Security                  4
+      CEG 4420 * Internet Security              4
+      CEG 430N Security Attacks & Defenses      4
+      CEG 439N Secure Cloud Computing           4
+      CS 419 * Crypto and Data Security         3
+      CEG 4350 * Operating Systems              4
+Mateti                 WSU CEG 4420/Last Lecture   28
+          Ethics: A Personal Opinion
+      Ethics violations on small scale DOES NOT
+       NECESSARILY IMPLY violations on large scale.
+      Cf. The movie: Crash (2004) - IMDb
+Mateti                     WSU CEG 4420/Last Lecture 29
+Big Issues                ww.privacyrights.org
+      “More than 220 million records containing sensitive
+       personal information have been leaked in security
+       breaches in the United States since January 2005.
+       This site tracks every breach and provides links to
+       resources businesses should consult if they
+       experience a security breach and aren't sure how to
+       respond”
+Mateti                     WSU CEG 4420/Last Lecture       31
+Mateti WSU CEG 4420/Last Lecture 32                            Privacy
+      Gov't: We want stored                    www.eff.org/issues/na
+       emails, phone                             tional-security-letters
+       locations.                               A new bill (May 2011)
+      The Electronic                            proposes requiring a
+       Communication                             warrant to seize
+       Privacy Act of 1986                       email, cell phone
+         e.g., govt can get past                location, or ... stored
+          cell phone geolocation                 in the cloud.
+          data without warrant
+Mateti                       WSU CEG 4420/Last Lecture                   33
+     Will Internet ever be trustworthy?
+      Non-Answers
+         Equate the question with:
+            “Will the world ever be trustworthy?”
+      Internet is a man-made entity.
+      Trustworthy = ... ?
+      Ok if cost is high?
+      Will users get educated?
+Mateti                       WSU CEG 4420/Last Lecture 34
+ Trustworthy = No Cheating + ...
+      User authentication
+      Host authentication
+      Access authentication
+      Message/Transaction authentication
+      No repudiation
+Mateti                     WSU CEG 4420/Last Lecture 35
+Trustworthy = ... + Reliable + ...
+      Transactions/Operations/Services/...
+         Availability
+         correctly execute
+         Terminate
+            Successfully
+            Failures
+         Computer Resource consumption
+            CPU   time
+            Memory
+           ...
+Mateti                    WSU CEG 4420/Last Lecture 36
+       Trustworthy = + ...?
+Mateti       WSU CEG 4420/Last Lecture 37
+Will Internet ever be
+    trustworthy?
+       Predictions
+Will Internet ever be
+    trustworthy?
+        Analysis
+US Preparedness             DHS' Classified NCCIC
+      National Cybersecurity and Communications
+       Integration Center (NCCIC)
+      DHS-led inter-agency cybersecurity work
+         responding to cyber threats against government
+          networks
+         monitoring network sensors across the
+          government and
+         coordinating response to cyber attacks against
+          power plants or communications networks.
+      unclassified for one day 10/09/2010
+Mateti                     WSU CEG 4420/Last Lecture     41
+       US-CERT Einstein Sensors
+                                  This screen shows a selection
+                                   of real-time information from
+                                   network flow analyzers placed
+                                   strategically within government
+                                   networks nationwide.
+                                  Einstein sensors is a series of
+                                   technologies being deployed
+                                   across the government for
+                                   network monitoring, intrusion
+                                   detection and intrusion
+                                   prevention.
+                                  "We identify not only cyber
+                                   threats, but also monitor the
+                                   cyber health of the nation.”
+Mateti         WSU CEG 4420/Last Lecture                           42
+       NCCIC Fly-Away Kit
+                               NCCIC doesn't do
+                                malware analysis.
+                               However, for demo
+                                purposes, DHS
+                                brought out some of
+                                its digital forensics
+                                tools for reporters to
+                                see, including these.
+Mateti      WSU CEG 4420/Last Lecture                  43
+            DOJ report critical of FBI
+      FBI in some cases
+       lacks the skills to
+       properly investigate
+       national security
+       intrusions.
+      justice.gov/oig/reports/
+       FBI/a1122r.pdf
+      FBI cyber threat
+       success: the taking
+       down of the CoreFlood
+       botnet.
+Mateti                     WSU CEG 4420/Last Lecture 44
+         “Science of Cyber-Security”
+      Examines the theory and practice of cyber-security,
+       and evaluates whether there are underlying
+       fundamental principles that would make it possible
+       to adopt a more scientific approach.
+      November 2010, DoD sponsored report
+      http://www.fas.org/irp/agency/dod/jason/cyber.pdf
+Mateti                      WSU CEG 4420/Last Lecture      45
+Mateti WSU CEG 4420/Last Lecture 46           Cybersecurity Plan 2011
+      International Strategy for Cyberspace
+      protecting Web infrastructure
+      freedom of expression and commerce via the
+       Internet
+      denying those benefits to terrorists and
+       criminals
+      “Cybersecurity threats and online
+       technologies change quickly -- so quickly that
+       any regulations for cybersecurity could be
+       outdated before they are finalized.”
+Mateti                   WSU CEG 4420/Last Lecture  47
+                   “Cyber War” A Book
+      Current state of cyber
+       warfare compares to the
+       early days of nuclear
+       weaponry:
+          Its enormous power is not
+           yet understood and its use is
+           not yet regulated.
+      America vulnerable to
+       electronic attack.
+      Clark: former White House
+       terrorism adviser
+      washingtonpost.com/ review
+        2010/05/21
+      4/5 stars (95 Amazon
+       reviews)
+Mateti                            WSU CEG 4420/Last Lecture 48
+        UK cyber weapons program
+      Cyber weapons as "an integral part of the country's
+       armory"
+      Cyberspace represented "conflict without borders"
+      Cybersecurity a tier one priority
+      Extra £650m
+      May 2011
+Mateti                     WSU CEG 4420/Last Lecture       49
+                 Random Quote
+“ Restrictions of free thought and free speech is the
+       most dangerous of all subversions. It is the one
+       un-American act that could most easily defeat us.”
+                                                   - William O. Douglas,
+                           US Supreme Court, 1939-1980
+Mateti                   WSU CEG 4420/Last Lecture                     50

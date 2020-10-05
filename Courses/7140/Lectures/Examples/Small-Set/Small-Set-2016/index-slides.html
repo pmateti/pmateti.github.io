@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Android Security</title>
+
+    <link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/reveal.css"></>
+    <link rel="stylesheet"
+          href="http://www.cs.wright.edu/~pmateti/RevealJS/css/theme/night.css"
+          id="theme"></>
+    <link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/lib/css/zenburn.css"></>
+    <style> P {text-align: justify}
+      code {color: yellow;}
+      pre {color: bisque;}
+    </style>
+  </head>
+  <body>
+    <a href="./index.html"> OnePage</a>
+    <div class="reveal">
+      <div class="slides">
+<section "id=preamble">
+<h1 class="title">Design of a SmallSet</h1>
+<h3 style="color: bisque"> Prabhaker Mateti<h3>
+<h2>Wright State University</h2>
+<a href="http://www.cs.wright.edu/~pmateti"><tt>www.cs.wright.edu/~pmateti</tt></a>
+</section>
+
+<section id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Abstract</h2>
+<sectionX  id="text-1">
+<p>
+This note describes the design of a set of integers.  This is expected
+to be a good example of software engineering "in the tiny".  There is
+a link to a Java implementation.  Possibly contains bugs.  It is also
+intended as an example for use later with learning JML assertions,
+JUnit/TestNG, and FindBugs.
+</p>
+</section>
+</section>
+
+<section id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Design Example: SmallSet</h2>
+<sectionX  id="text-2">
+<ol class="org-ol">
+<li>Illustrates abstraction in design
+</li>
+<li>cf.  <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Set.html"><a href="http://docs.oracle.com/.../Set">http://docs.oracle.com/.../Set</a></a>
+</li>
+<li>Focus on the "methods"
+<ol class="org-ol">
+<li>not the size
+</li>
+<li>not the PL notation
+</li>
+<li>for now, not (even) Java
+</li>
+</ol>
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Design Example: SmallSet</h3>
+<sectionX  id="text-2-1">
+<ol class="org-ol">
+<li>SmallSet Operations: (for now) Just the Names
+<ol class="org-ol">
+<li>insert-an-item, delete-an-item
+</li>
+<li>item-is-in-the-set
+</li>
+<li>number-of-items-in-the-set
+</li>
+<li>union-with, diff-with
+</li>
+<li>construct-empty-set
+</li>
+<li>All the above should be well-specified
+</li>
+<li>irrelevant detail:  item ==&gt; int
+</li>
+</ol>
+</li>
+<li>all the above converges to "API"
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> SmallSet Requirements Clarifications</h2>
+<sectionX  id="text-3">
+<ol class="org-ol">
+<li>No bigger than 1000 elements  
+</li>
+<li>Insertions are far more frequent cf to other ops  
+</li>
+<li>item-is-in-the-set(S, e): searched for again often
+</li>
+<li>Some ops can "fail"
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> SmallSet Operations: Signatures</h2>
+<sectionX  id="text-4">
+<ol class="org-ol">
+<li>insert-an-item: Set, Item &#x2013;&gt; Set
+</li>
+<li>delete-an-item: Set, Item &#x2013;&gt; Set
+</li>
+<li>item-is-in-the-set: Set, Item &#x2013;&gt; Boolean
+</li>
+<li>number-of-items-in-the-set: Set, Item &#x2013;&gt; Integer
+</li>
+<li>union-with: Set, Set &#x2013;&gt; Set
+</li>
+<li>diff-with: Set, Set &#x2013;&gt; Set
+</li>
+<li>cons: &#x2013;&gt; Set
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> SmallSet Operations: Semantics</h2>
+<sectionX  id="text-5">
+<ol class="org-ol">
+<li>insert-an-item(S, e): S.post = S.pre + {e}
+</li>
+<li>item-is-in-the-set(S, e):
+<ol class="org-ol">
+<li>False, if S == cons()
+</li>
+<li>True, if S == insert-an-item(T, e)  for some T
+</li>
+<li>False, if S != insert-an-item(T, e) for no T
+</li>
+<li>item-is-in-the-set(S, f) == &#x2026;
+</li>
+</ol>
+</li>
+<li>diff-with(A, B) yields  (A + B) - (A intersect B)
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Design of a Small Set Using an Array</h2>
+<sectionX  id="text-6">
+<ol class="org-ol">
+<li>int array A of fixed size, sz &gt;=  1000  (Requirement R1)
+</li>
+<li>least index A[i] unfilled, ux
+</li>
+<li>duplicate items permitted (R2)
+</li>
+<li>number-of-items-in-the-set, ne may be strictly &lt; ux
+</li>
+<li>More sophisticated designs do NOT use arrays
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> Design Documentation</h3>
+<sectionX  id="text-6-1">
+<ol class="org-ol">
+<li>abstraction(A, ux) <code>= S, the set S ::</code> {A[i] | 0 &lt;= i &lt; ux}
+</li>
+<li>ux &lt;= sz
+<ol class="org-ol">
+<li>initial value of ux == ?
+</li>
+</ol>
+</li>
+<li>Deducible: A[ux .. sz-1] vacant
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> insert-an-item(S, e)</h2>
+<sectionX  id="text-7">
+<ol class="org-ol">
+<li>pre: ux  &lt;  sz
+</li>
+<li>post:  S == S.pre + {e}
+</li>
+<li>impl:  A[ux] := e; ux++;
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> Design Documentation</h3>
+<sectionX  id="text-7-1">
+<ol class="org-ol">
+<li>at pre item-is-in-the-set(S, e) may be true
+</li>
+<li>may be better: A[ux] := A[ 0]; ux++; A[ 0] := e;
+</li>
+<li>Is this design dependent on how is-in-the-set is designed?
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+
+<section id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> item-is-in-the-set(S, e)</h2>
+<sectionX  id="text-8">
+<ol class="org-ol">
+<li>A[ux] := e; fx := linear-search(A, 0, ux);
+</li>
+<li>fx  &lt;  ux?
+<ol class="org-ol">
+<li>if so  {swap A[fx] with A[ 0]}
+</li>
+</ol>
+</li>
+<li>return (fx  &lt;  ux)
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> The idea of a sentinel</h3>
+<sectionX  id="text-8-1">
+<ol class="org-ol">
+<li>A[ux] := e;  (ux should now be &lt; sz always)
+</li>
+<li>without it linear search has two tests per iteration
+</li>
+<li>swap done because of R3
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> More Design Issues</h2>
+<sectionX  id="text-9">
+<ol class="org-ol">
+<li>Do we ever compact (delete dupes) the A[0 .. ux-1]?
+<ol class="org-ol">
+<li>As is our design is prone to fail
+</li>
+<li>If we do, when do we do it?
+</li>
+<li>"All" the time?
+</li>
+</ol>
+</li>
+<li>Is this design or implementation?
+</li>
+<li>Concurrency?
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> Class Invariants</h2>
+<sectionX  id="text-10">
+<ol class="org-ol">
+<li><code>classInv</code> is both a pre- and a post-condition for all public methods
+</li>
+<li>It is a convention not to state this again and agian for each
+public method.
+</li>
+</ol>
+</section>
+
+<section id="outline-container-sec-10-1" class="outline-3">
+<h3 id="sec-10-1"><span class="section-number-3">10.1</span> Abstraction Function</h3>
+<sectionX  id="text-10-1">
+<ol class="org-ol">
+<li><code>setOf(s)</code> the abstraction function that yields the
+mathematical set represented by the Java SmallSet object s.
+</li>
+<li>setOf(SmallSet s) ::= setOf(s.ear[0..s.ux -1]).
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+
+<section id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> Small Set in Java</h2>
+<sectionX  id="text-11">
+<ol class="org-ol">
+<li><code>javadoc</code>
+</li>
+<li>My implementation of <a href="./GEN/SmallSet.java">./GEN/SmallSet.java</a> | <a href="./GEN/SmallSet.java.html">html</a> | <a href="./GEN/SmallSet.java.pdf">pdf</a>
+</li>
+<li><a href="./GEN">./GEN</a> javadoc generated documentation
+</li>
+<li><code>java -enableassertions ...</code>
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> References</h2>
+<sectionX  id="text-12">
+<ol class="org-ol">
+<li>C. A. R. Hoare, Acta Informatica, 1972 introduced this problem.  Reference.
+</li>
+<li>Oracle.com, Programming With Assertions,
+<a href="http://docs.oracle.com/javase/8/docs/technotes/guides/language/assert.html">http://docs.oracle.com/javase/8/docs/technotes/guides/language/assert.html</a>, 2015. Required
+Reading.
+</li>
+
+<li><a href="./Java-assertions-lehigh-edu.ppt">./Java-assertions-lehigh-edu.ppt</a> Recommended Reading
+</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="postamble" class="status">
+<hr size=1>Copyright &copy; 2015 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a>
+</section>
+</body>
+</html>
+</section>
+</section>
+</div>
+</div>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/lib/js/head.min.js"></script>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/js/reveal.js"></script>
+
+<script>
+  Reveal.initialize({
+  controls: true,
+  progress: true,
+  history: false,
+  center: true,
+  slideNumber: true,
+  rollingLinks: true,
+  keyboard: true,
+  overview: true,
+  theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+  transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+  transitionSpeed: 'default',
+
+  dependencies: [
+  ]
+  });
+</script>
+
+

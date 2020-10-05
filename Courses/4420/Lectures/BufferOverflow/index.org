@@ -1,0 +1,229 @@
+# -*- mode: org -*-
+#+date: 2019-09-15
+#+TITLE: Buffer Overflow Exploits
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2019 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Abstract
+
+A large number of exploits have been due to sloppy software
+development. Exceeding array bounds is referred to in security circles
+as "buffer overflow." These are by far the most common security
+problems in software. This lecture explains the stack-smashing
+technique, and presents a few techniques that help in avoiding the
+exploit.
+
+1. I often give 3 to 5 (55-minute) lectures on this topic.
+1. At least one on AlephOne.
+1. Lecture #1: Overview, Background, Ideas on: {Code Injection,
+   Detection, Prevention}
+1. Lecture #2: Aleph One article, full exploration
+1. Lecture #3: Aleph One article, full exploration; past videos of mine
+1. Lecture #4: Experience the Exploit
+1. Lecture #5: Exploring recent CVEs on Buffer Overflow
+1. Coupled Topic: Software Development without Security Holes
+
+* Buffer Overflow Overview
+1. End result: a super-user owned shell process is born
+1. The enabling weaknesses
+  1. data address space and executable code address space are not disjoint
+  1. sloppy programming
+1. Intricately depends on: PL, Compiler, OS, CPU
+1. Arguably: The first security exploit (1988)
+1. Arguably: The most common exploit
+1. Arguably: The still prevalent exploit
+1. Alt names: buffer overrun, stack smashing, code injection
+1. Related exploits: heap overflow, format string exploit, ...
+1. Famous Buffer Overflow Attacks: https://engineering.purdue.edu/ResearchGroups/SmashGuard/BoF.html
+   
+
+* Background Knowledge
+1. Command line shells
+   1. konsole + bash
+   1. bash PS1 prompt
+1. Details (semantics and compiled code) of C
+   1. String library methods: =strcpy=, =strcat=
+   1. Array bounds
+   1. Effective address calculation
+
+   1. Stack frame
+   1. [[./C-intricacies.org]]
+   1. [[../LinuxSetup/StudyPrograms/]]
+1. OS Details
+   1. System call: =execv=
+   1. System call: =exit=
+   1. setuserid =suid= root
+
+* Code Injection Idea
+
+1. The program is unmodified.
+1. The running process is modified.
+1. Modifying the return address (located on the stack)
+1. Insert (effectively) new machine code sequence into the process
+1. And return!
+
+** Choosing a binary
+1. Stack allocated local array
+1. Unchecked array index usage
+1. Copying a given argument into a local array
+1. Supplying a carefully constructed string argument
+1. The string has the executable machine code
+
+** Shell code
+
+1. Designing the shell-code to be injected
+   1. [[../LinuxSetup/StudyPrograms/testsc.c]]
+1. Constructing the shell-code from disassembly
+1. Fine tuning the shell code as a proper string
+
+
+** Modifying the return address
+
+1. Studying [[./modret/modret.c]]
+1. Modify the  return address to the beginning of the "string"
+1. modReturnAddress-acer602-20080507.html These are the results of
+   trying out the code examples from the AlephOne article. These notes
+   were recorded with Auditor LiveCD on my old Acer laptop with
+   Pentium III (Coppermine) running Debian GNU/Linux 3.1, gcc version
+   3.3.5 (Debian 1:3.3.5-2).
+
+* The Exploit
+
+1. Putting it all together
+1. Padding the Shell Code with NOPs so that jump target address is less critical
+1. Inputting the shell code as an argument
+1. [[./AlephOne/alephOne.html]] One of the best exaplanation of Stack Smashing.
+
+* Experiencing the Exploit in the Lab
+
+1. As of 2019, many "standard" code injections have been prevented.
+1. Virtual Machines
+   1. VirtualBox
+   1. VMware
+1. Linux Distro: (BackTrack) Audtor.ISO 
+   1. An Old OS/C-compiler/bash
+   1. Uses IDE drives; so not bootable on modern PCs
+
+** Disable Stack top randomization
+
+1. Compile any program (e.g. from StudyPrograms).
+1. Invoke it several times, and print the address of a local variable
+   of =main= Is it changing?  That is Stack Top Randomization.
+
+** Disabling Stack Protection
+
+1. Compiler flags: no canaries =gcc overflow.c -o overflow
+   -fno-stack-protector=
+1. [[./bo.c]] compile: =gcc -fno-stack-protector -z execstack -o bo bo.c=
+
+
+** Disable ASLR
+
+1. ASLR Address Space Layout Randomization
+1. Disable ASLR: =sudo echo 0 > /proc/sys/kernel/randomize_va_space=
+   Enabled: =randomize_va_space= should be 2
+
+1. ASLR is effective only if the binary was PIE (position independent
+   code enabled). =-fPIC -pie=
+
+* Detection
+
+1. Checking the caller of =execv=
+1. Deep packet inspection
+1. Tools: Chaperon, Valgrind, CCured, CRED, Insure++, ProPolice and TinyCC, ...
+
+* Prevention
+1. CPU/MMU: Separate address spaces for Data and  Machine Instructions
+      1. noexec-user-stack
+      1. Never-eXecute (NX) bit  http://en.wikipedia.org/wiki/NX_bit
+      1. Intel: XD bit, eXecute Disable
+      1. AMD: Enhanced Virus Protection
+      1. ARM: XN for eXecute Never
+1. Stack top  randomization
+1. ASLR Address space layout randomization
+1. Run-time Check for Input Taintedness
+1. Run-time Check for  Array Bounds
+
+** Secure Programming Practices 
+
+1. Techniques of Avoiding Buffer Overflow
+1. Safe String Libraries
+1. Static Analysis of Source Code
+1. Lectures on [[../SecSoftware/]]
+
+* Labs
+
+1. [[./Labs/bufovf-lab.org][Lab on Buffer Overflow Exploits]]
+
+* Reading List
+
+1. Readings are grouped into Required and Recommended.
+1. Required Readings are a must read.  These are sources of exam
+   questions.
+1. Recommended Readings bring more insight into the topic.  But exam
+   questions will not be derived from these.
+1. Some of our "readings" are actually web site visits.
+
+** Required Reading
+
+1. Aleph One, "Smashing The Stack For Fun And Profit," [[http://www.phrack.com][Phrack]], Vol 7,
+   Issue 49, File 14 of 16.  1996.  A classic article.  A local copy
+   of the original Phrack article is
+   [[./AlephOne/phrack-article-p49-14.txt]].  An html-ized version of this
+   paper with some corrections by me is [[./AlephOne/alephOne.html]].
+
+1. Prabhaker Mateti, Buffer Overflow Attacks. This article
+   associated with this lecture. 2019.
+
+1. http://en.wikipedia.org, Buffer-overflow, Heap-overflow,
+   Uncontrolled-format-string, Return-to-libc-attack,
+   Return-oriented-programming. 2013. All Required Reading.
+
+1. Yves Younan, Wouter Joosen and Frank Piessens, "Runtime
+   countermeasures for code injection attacks against C and C++
+   programs ", ACM Computing Surveys , 44(3), 2012.  Recommended
+   Reading.
+
+** Recommended Reading
+
+1. David A. Wheeler, "Secure Programming for Linux and Unix HOWTO,"
+   2003, http://tldp.org/HOWTO/Secure-Programs-HOWTO/ Highly
+   recommended reading.
+
+1. Matt Conover, and WSD, "w00w00 on Heap Overflows", January 1999,
+   Originally at http://www.w00w00.org/ files/ articles/ heaptut.txt
+   Web search for a copy. Highly recommended reading.
+
+1. skape, Understanding Windows Shellcode, http://nologin.org/
+   Downloads/ Papers/ win32-shellcode.pdf, 2003.
+
+1. Parvez Anwar, "Buffer Overflows in the Microsoft Windows
+   Environment", 2009, https://www.ma.rhul.ac.uk/ static/ techrep/
+   2009/ RHUL-MA-2009-06.pdf
+
+** Recommended Reading #2
+
+1. https://dl.packetstormsecurity.net/papers/attack/64bit-overflow.pdf
+   64 Bits Linux Stack Based Buffer Overflow 12pp
+1. https://bytesoverbombs.io/exploiting-a-64-bit-buffer-overflow-469e8b500f10
+   Nov 4, 2017;; {pm: Long winded. Uses Kali, python, metasploit
+   pattern find tool, msfvenom, python payload generator; uses
+   =linux/x64/shell_reverse_tcp= payload so the remote mc controls our
+   host when exploit happens. Explains the real rsp register.}
+1. https://www.exploit-db.com/papers/24085/ Stack Smashing On A Modern
+   Linux System, December 2012 {pm: "modern" = 2012}
+1. https://www.blackhat.com/presentations/bh-europe-09/Fritsch/Blackhat-Europe-2009-Fritsch-Buffer-Overflows-Linux-whitepaper.pdf 12pp April 16th, 2009
+1. Sebastian Krahmer, https://users.suse.com/~krahmer/no-nx.pdf 20pp
+   {x86-64 buffer overflow exploits and the borrowed code chunks
+   exploitation technique} Sep 2005
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

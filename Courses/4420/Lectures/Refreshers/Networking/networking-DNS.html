@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-09-15 Fri 12:37 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Networking: DNS</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href=""> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Networking: DNS</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgce677b4">1. Domain Name Service</a>
+<ul>
+<li><a href="#orgda85517">1.1. Mnemonic Value</a></li>
+</ul>
+</li>
+<li><a href="#org33101aa">2. Domain Name servers</a>
+<ul>
+<li><a href="#orga4646a8">2.1. Root Servers</a></li>
+<li><a href="#org00aac11">2.2. /etc/hosts</a></li>
+<li><a href="#orgb600d70">2.3. Simple Scenarios</a></li>
+</ul>
+</li>
+<li><a href="#org70725d8">3. Fully Qualified Host Name FQHN</a></li>
+<li><a href="#org4d5e6db">4. DNS Cache</a></li>
+<li><a href="#org7949398">5. DNS Cache Poisoning</a></li>
+<li><a href="#org6c94e42">6. DNS Cache Poisoning Defense</a></li>
+<li><a href="#org5164636">7. References</a></li>
+<li><a href="#org9b06ff8">8. End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgce677b4" class="outline-2">
+<h2 id="orgce677b4"><span class="section-number-2">1</span> Domain Name Service</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Translate a mnemonic name, e.g., www.google.com, to its IP address
+173.194.46.81</li>
+
+<li>A very large table of two columns.  Maintained by servers.</li>
+
+<li>Query/Reply protocol.</li>
+
+<li>Hierarchical</li>
+</ol>
+</div>
+
+<div id="outline-container-orgda85517" class="outline-3">
+<h3 id="orgda85517"><span class="section-number-3">1.1</span> Mnemonic Value</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Because of the mnemonic value, humans prefer to work with host names
+such as <code>thor.cs.wright.edu</code>, rather than its IP address 130.108.2.20,
+where thor is the name of the host, and cs.wright.edu is the name of
+the domain the host is in.  
+</p>
+
+<p>
+The primary function of DNS is to map such a name into its IP
+address. The DNS name space is a tree hierarchy. The top-most subtrees
+are the top level domains such as .com, .edu, .net, and .org, and the
+country code domains such as .us and .in. Subtrees of these are known
+as sub-domains. The leaves are the individual hosts. A fully qualified
+domain name is the sequence of labels, separated by a dot, on the path
+from a node to the root of the tree.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org33101aa" class="outline-2">
+<h2 id="org33101aa"><span class="section-number-2">2</span> Domain Name servers</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The domain name space is maintained as a database distributed over
+several <b>domain name servers</b>.  A server can delegate the maintenance of
+any sub-domain to another server.  A delegated sub-domain in the DNS is
+called a <b>zone</b>.  The parent server keeps track of such delegations. Each
+name server has authoritative information about one or more zones. It
+may also have <b>cached</b>, but non-authoritative, data about other parts of
+the database. A name server marks its responses to queries as
+authoritative or not.  
+</p>
+</div>
+
+<div id="outline-container-orga4646a8" class="outline-3">
+<h3 id="orga4646a8"><span class="section-number-3">2.1</span> Root Servers</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+A server whose zone is the entire tree is known
+as a root server.  These are located in the United States and other
+countries; visit <a href="http://www.root-servers.org/">http://www.root-servers.org/</a> .
+</p>
+
+<p>
+The DNS protocol operates in one of two basic modes - lookups or zone
+transfers.  Either TCP or UDP can be used to transport DNS protocol
+messages, connecting to server port 53 for either. Ordinary DNS
+requests can be made with TCP, though convention dictates the use of
+UDP for normal operation. TCP must be used for zone transfers,
+however, because of the danger of dropping records with an unreliable
+delivery protocol such as UDP.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org00aac11" class="outline-3">
+<h3 id="org00aac11"><span class="section-number-3">2.2</span> /etc/hosts</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+<pre class="src src-bash">130.108.17.111 osisServer.osis.cs.wright.edu osisServer
+130.108.17.112 osis112.cs.wright.edu osis112
+130.108.17.113 osis113.cs.wright.edu osis113
+130.108.18.111 osis110.cs.wright.edu osis110
+
+192.168.17.11 Perlis.osis.cs.wright.edu osis11 Perlis
+192.168.17.12 Wilkes.osis.cs.wright.edu osis12 Wilkes
+192.168.17.13 Hamming.osis.cs.wright.edu osis13 Hamming
+192.168.17.14 Minsky.osis.cs.wright.edu osis14 Minsky
+192.168.17.15 Wilkinson.osis.cs.wright.edu osis15 Wilkinson
+192.168.17.16 McCarthy.osis.cs.wright.edu osis16 McCarthy
+192.168.17.17 Dijkstra.osis.cs.wright.edu osis17 Dijkstra
+192.168.17.18 Bachman.osis.cs.wright.edu osis18 Bachman
+192.168.17.19 Knuth.osis.cs.wright.edu osis19 Knuth
+192.168.17.20 Newell.osis.cs.wright.edu osis20 Newell
+</pre>
+</div>
+
+
+<p>
+A DNS lookup causes the network layer of the OS to examine its own
+/etc/hosts file.  If not found, request each of the name servers
+listed in the /etc/resolv.conf file.  
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #b22222;"># </span><span style="color: #b22222;">/etc/resolv.conf - DNS setup file</span>
+domain osis.cs.wright.edu
+search osis.cs.wright.edu cs.wright.edu wright.edu
+nameserver 192.168.17.111 <span style="color: #b22222;"># </span><span style="color: #b22222;">DSL router</span>
+nameserver 130.108.2.10
+nameserver 130.108.19.25
+nameserver 130.108.1.20
+nameserver 130.108.128.200
+nameserver 8.8.8.8      <span style="color: #b22222;"># </span><span style="color: #b22222;">google</span>
+nameserver 8.8.4.4      <span style="color: #b22222;"># </span><span style="color: #b22222;">google</span>
+nameserver 208.67.222.222 <span style="color: #b22222;"># </span><span style="color: #b22222;">OpenDNS</span>
+nameserver 208.67.220.220 <span style="color: #b22222;"># </span><span style="color: #b22222;">OpenDNS</span>
+nameserver 198.153.192.50 <span style="color: #b22222;"># </span><span style="color: #b22222;">Norton</span>
+nameserver 198.153.194.50 <span style="color: #b22222;"># </span><span style="color: #b22222;">Norton</span>
+nameserver 8.26.56.26     <span style="color: #b22222;"># </span><span style="color: #b22222;">Comodo Secure DNS</span>
+nameserver 8.20.247.20    <span style="color: #b22222;"># </span><span style="color: #b22222;">Comodo Secure DNS</span>
+nameserver 156.154.70.1   <span style="color: #b22222;"># </span><span style="color: #b22222;">DNS Advantage.</span>
+nameserver 156.154.71.1   <span style="color: #b22222;"># </span><span style="color: #b22222;">DNS Advantage.</span>
+nameserver 99.99.99.53    <span style="color: #b22222;"># </span><span style="color: #b22222;">ATT ISP</span>
+nameserver 68.94.156.1    <span style="color: #b22222;"># </span><span style="color: #b22222;">ATT DSL</span>
+nameserver 68.94.157.1    <span style="color: #b22222;"># </span><span style="color: #b22222;">ATT DSL</span>
+
+</pre>
+</div>
+
+<p>
+It is possible that none of the name servers listed can find the given
+name.  Each name server recursively behaves the same way: look up its
+own /etc/hosts or equivalent database, and then its own name servers
+in its own /etc/resolv.conf.  To speed things up, a typical name
+server will cache a number of previously received answers.
+</p>
+
+<p>
+Sometimes it is necessary to transfer the resource records of an
+entire DNS zone.  A DNS query with Name=wright.edu, Class=IN,
+Type=AXFR will trigger a zone transfer for all the host names that are
+in the wright.edu domain.
+</p>
+
+<p>
+The domain name service is expected to run on selected server machines
+at port 53. These selected server machines are called the ``name
+servers'' which are authoritative for the names of a particular
+domain. All other machines describe how they resolve names in a file;
+on Linux, it is /etc/resolv.conf. Typically, a client machine has a
+table of host names and their IP addresses in a file called hosts. If
+a host name is not found in this file, the client machine requests the
+name servers listed in resolv.conf.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb600d70" class="outline-3">
+<h3 id="orgb600d70"><span class="section-number-3">2.3</span> Simple Scenarios</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+For every domain, such as wright.edu, there is only one primary name
+server and any number of secondary name servers. The primary name
+server is the most authoritative name server for that domain. The
+secondary name servers get their information about a domain from the
+primary name server. The DNS stores such information as
+name-to-IP-address mappings, name servers for subdomains, mail
+exchangers for hosts and domains, gateway pointers and host
+information.
+</p>
+
+<p>
+On Linux, study the content of <code>/etc/resolv.conf</code>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org70725d8" class="outline-2">
+<h2 id="org70725d8"><span class="section-number-2">3</span> Fully Qualified Host Name FQHN</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Ex <code>thor.cs.wright.edu</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4d5e6db" class="outline-2">
+<h2 id="org4d5e6db"><span class="section-number-2">4</span> DNS Cache</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>DNS lookup is time consuming.</li>
+<li>Save previous answers in a table: "cache"</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org7949398" class="outline-2">
+<h2 id="org7949398"><span class="section-number-2">5</span> DNS Cache Poisoning</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>No verification is made that the replies to our DNS queries are
+"valid".</li>
+<li>Answers are simply cached.</li>
+<li>Rogue DNS servers.</li>
+<li>Good DNS servers answering from corrupted data bases/ poisoned caches.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org6c94e42" class="outline-2">
+<h2 id="org6c94e42"><span class="section-number-2">6</span> DNS Cache Poisoning Defense</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+See the refs.
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org5164636" class="outline-2">
+<h2 id="org5164636"><span class="section-number-2">7</span> References</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li><a href="http://cecs.wright.edu/~pmateti/">Prabhaker Mateti</a>, Overview of TCP/IP Suite of Protocols,
+<a href="./TCPIP-CEG4420.ppt">./TCPIP-CEG4420.ppt</a>, <a href="http://cecs.wright.edu/~pmateti/Courses/4420/NetUtils/index.html">Network Setup and Utilities</a>, 2014.  Required
+Reading.</li>
+
+<li>Sooel Son and Vitaly Shmatikov, The Hitchhiker’s Guide to DNS Cache
+Poisoning,
+<a href="https://www.cs.cornell.edu/~shmat/shmat_securecomm10.pdf">https://www.cs.cornell.edu/~shmat/shmat_securecomm10.pdf</a>, 2010, 29
+pp.  Highly Recommended Reading.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org9b06ff8" class="outline-2">
+<h2 id="org9b06ff8"><span class="section-number-2">8</span> End</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2016 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2016-10-06
+</div>
+</body>
+</html>

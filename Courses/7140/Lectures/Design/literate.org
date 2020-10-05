@@ -1,0 +1,130 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+Date: 2015-06-10
+#+TITLE:Literate Programming
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Software Engineering Lecture
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\">../../</a> %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:t
+
+* Overview of Literate Programming
+
+1. Combines a programming language with a /requ/ spec/ design
+   documentation language
+
+1. Treat a program as a piece of literature, addressed to human beings
+   rather than to a computer.  The source code and the prose
+   documentation of the program is also viewed as a hypertext
+   document, rather like the World Wide Web. (Knuth used the word WEB
+   for this purpose long before CERN grabbed it!) 
+
+* Literate Programming #1
+
+1. Primary task of the programmer: Explain the design and
+   implementation of a program to fellow humans.
+
+1. Secondary task: Produce a ready-to-build collection of source code
+   files.  
+
+1. An LP author presents it in an order that suits the explanation of
+   the program to fellow software engineers, not necessarily in the
+   order that a compiler may expect it.
+
+** Literate Programming #2
+
+1. Original idea by Professor Emeritus Donald Knuth, Stanford U,
+   "fastest pen in the West", Turing Award Winner 1974, and the
+   developer of the [[http://en.wikipedia.org/wiki/TeX][TeX]] typesetting system.
+
+** Literate Programming #3
+
+   1. Donald E. Knuth, "Literate Programming", The Computer Journal,
+      1984, 27(2): 97-111.
+
+   1. =weave= Generate the .tex file(s) from .web file(s)
+
+   1. =tangle= Generate the source code file(s) from .web file(s)
+
+* LP Examples
+
+1. The typesetting program TeX is designed as a literate program by Knuth.
+
+1. http://www.tug.org/TUGboat/tb23-3-4/tb75saha.pdf Rambutan: Literate
+   Programming in Java, TUGboat, Volume 23 (2002), No. 3/4
+1. Knuth has several example programs at
+   http://www-cs-faculty.stanford.edu/~knuth/programs.html to read.
+   His "Programming Pearls, Literate Programming: The Common Words
+   Problem", 1986, is a Required Reading.  See [[../Examples//Knuth-CWP]]
+
+* LP Tools
+
+1. cweb by Knuth http://www-cs-faculty.stanford.edu/~uno/cweb.html 
+1. noweb by Ramsey http://www.cs.tufts.edu/~nr/noweb/  supports multiple PL
+
+** LP Tools #2
+
+1. http://wiki.eclipse.org/Intent "The Mylyn Intent prime objective is
+  to make developers consider documentation as something useful and
+  easy to maintain, that they can use to formalize their best
+  practices and share their knowledge. Based on a new vision of the
+  documentation, in which explanations in natural langage are formally
+  linked with technical artefacts (java code, models, manifest files,
+  bugzilla issues, git repositories, etc.), Intent allows you to
+  efficiently update documentation when a change occurs in your
+  software, turning it into a true Agile documentation."
+
+** LP Tools #3
+
+1. http://lep.sourceforge.net/tutorials.htm Literate Eclipse
+  Programming assists developers in writing structured, well
+  documented source code. LEP integrates automated extraction of
+  source code and documentation into a familiar eclipse
+  environment. Compiling and debugging are fully supported.
+
+** LP Tools #4
+
+1. More LP tools: [[http://www.cs.tufts.edu/~nr/noweb/][noweb]], [[http://nuweb.sourceforge.net/][nuweb]], [[https://code.google.com/p/nano-lp/][nano-lp]], ...; some of these are ready
+   to =apt-get install= packages in Debian/Ubuntu distros.  Visit
+   http://www.literateprogramming.com/ for further details.
+
+
+* References
+
+1. Donald E. Knuth, Literate Programming, (Stanford, California:
+   Center for the Study of Language and Information, 1992), xvi+368pp.
+   (CSLI Lecture Notes, no. 27.)  ISBN 0-937073-80-6.  This book is an
+   anthology of essays including Knuth's early papers on related
+   topics such as structured programming, as well as the article in
+   The Computer Journal that launched Literate Programming itself. The
+   articles have been revised, extended, and brought up to date.
+   http://www-cs-faculty.stanford.edu/~uno/lp.html Recommended Visit.
+
+1. Knuth, Donald E. "TEX: The Program", Volume B of Computers and
+   typesetting. (1986).  624 pages, Addison-Wesley Professional; The
+   typesetting program TeX described in literate programming.
+   ISBN-10: 0201134373.  One and only one review (as of 201x) on
+   Amazon.com: "This book is extremely valuable to those hoping to
+   understand and reuse Knuth's classic typesetting algorithms. It
+   contains every detail needed for the implementation. Each section
+   has a number associated with the source code. Besides, it can also
+   serve as an excellent example of a large project for computer
+   science students. One can understand better "the art of computer
+   programming" after reading this book. ..."  Recommended Reading ;-)
+
+1. http://www.literateprogramming.com/ "Design Documentation"
+   Recommended Visits.
+
+1. http://www.literateprogramming.com/knuthweb.pdf Computer Journal,
+   198x. Required Reading
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

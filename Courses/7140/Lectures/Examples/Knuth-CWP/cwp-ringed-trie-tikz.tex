@@ -1,0 +1,20 @@
+
+% my new DSL 2016-06-13 pmateti
+
+node(r0, root);
+
+ring(y1, a:16, b:0, c:0, ..., z:0);
+ring(y2, n:5, r:0, t:1);
+ring(y3, d:2, t:1);
+ring(y4, c:0, e:3, m:1, t:0);
+ring(y5, e:1);
+
+xpos(y3, 0);
+xpos(y4, width(y3) + 5);
+xpos(y5, width(y3) + 5 + width(y4) + 5);
+
+arrow(r0, y1, 0);
+arrow(y1, 1, y2, 0);
+arrow(y2, 1, y3, 0);
+arrow(y2, 2, y4, 0);
+arrow(y2, 3, y5, 0);

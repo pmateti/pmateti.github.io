@@ -1,0 +1,138 @@
+
+
+<html>
+<head>
+  <title>CS 7140 Lectures by Prabhaker Mateti</title>
+  <base  target="_top">
+  <meta name="author" content="Prabhaker Mateti">
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  li { text-align: justify }
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  code {border:blue 1px dotted;}
+  @media screen {BODY {margin: 12%;} }
+  body {counter-reset: chapter; counter-reset: section;}
+  h2:before {content: counter(section) ". "; counter-increment: section;}
+</style>
+</head>
+
+<body>
+
+  <h3><a href="../">
+      CS 7140 Advanced Software Engineering</a></h3>
+
+<h1>Home Work 2</h1>
+
+<p>[This was for last semester.  For this semester, it will be
+modified.  Real Soon Now.]
+
+<p>Home work in this course is done individually, without help from
+others.  The homework will be given piece meal and it is expected that
+you will work on them as and when given without waiting for a due
+date.  The due date is announced on the course home page.
+
+<ol>
+
+<li> (25 points) [Literate Programming] Reconsider the OO revision
+  (yours or someone else's with their permission) of the C++ Wiggly
+  Worms of <a href="http:./7140-homework-1.html"> Homework1</a>.
+  Express it as a literate program (LP).  If you wish, (i) start from
+  scratch, use your own design, but with essentially the same visual
+  effect and functionality, (ii) rewrite it in a different language of
+  your choice (Java, Python, ...).  However, the LP version should
+  exemplify the OOP design by contract principles.  Recall that an LP
+  author presents it in an order that suits the explanation of the
+  program to fellow software engineers, not necessarily in the order
+  that a compiler may expect it.
+
+  <p>You may use any of the LP tools: 
+    <a href="http://www.cs.tufts.edu/~nr/noweb/"> noweb</a>, 
+    <a href="http://nuweb.sourceforge.net/"> nuweb</a>, cweb,
+    <a href="http://wiki.eclipse.org/Intent"> intent</a>,
+    <a href="http://lep.sourceforge.net/"> lep</a> (Eclipse plugin),
+    <a href="https://code.google.com/p/nano-lp/"> nano-lp</a>, ...;
+    some of these are ready to <tt>apt-get install</tt> packages in
+    Debian/Ubuntu distros.  
+    Visit <a href="http:// www. literateprogramming. com/">
+    http://www.literateprogramming.com/</a> for further details.
+    Professor Emeritus Donald Knuth, "fastest pen in the West", Turing
+    Award Winner 199x TBD, developer of
+    the <a href="http://en.wikipedia.org/wiki/TeX"> TeX</a>
+    typesetting system, has several
+    example <a href="http://www-cs-faculty.stanford.edu/~knuth/programs.html">
+    programs to read</a>.
+    His "Programming Pearls, Literate Programming: The
+      Common Words Problem",
+    <a href="http://www2.ece.ohio-state.edu/~fasiha/Papers/CommACM-Programming-Pearls-Knuth-Bentley-v29-n5-1986.pdf"> PDF</a>,
+      1986 was a Required Reading.
+
+<li> (25 points) [JML] This part of the home work is focussed on
+  gaining experience with the use of JML by practicing on the source
+  code of the Game of Life that you studied
+  in <a href="http:./7140-homework-1.html"> Homework1</a>.  Thoroughly
+  document at least two files, non-trivial, and intersting-to-you,
+  using JML assertions (i.e., invariant, requires, ensures,
+  assignable, ...).  Recall that we want the weakest requires, and the
+  strongest ensures and invariants.
+
+<p>
+  Use a JML Plugin (in Eclipse, or Intellij Idea) or a command line
+ JML tool to runtime assertion check (RAC) the Game of Life.  There
+ are several JML plugins that you can discover through a web search;
+ e.g., <a href="http://jmlspecs.sourceforge.net/openjml-updatesite">
+ http://jmlspecs.sourceforge.net/openjml-updatesite</a> It is useful
+ to this class if you all try different JML plugins and report on your
+ experience.
+
+
+<li> (25 points) [JUnit or TestNG] This part of the home work is
+  focussed on systematic testing.  You are welcome to use any two
+  jEdit class files, non-trivial, and intersting-to-you, as test
+  targets.  Members of a team must of course select different jEdit
+  classes.  You are welcome to include the results of this Homework2
+  in the Testing and Debugging Report of the course project.
+
+<p>
+  Use a JUnit Plugin or a TestNG plugin (in Eclipse, or Intellij
+  Idea).  The latest versions of these IDE already have these test
+  plugins installed.
+
+<li> (25 points) [FindBugs Plugin] This part of the home work is
+  focussed on gaining experience with the use of a static analysis of
+  source code tool named 
+  <a href="http://findbugs.sourceforge.net/">
+    FindBugs</a>. See also, 
+  <a href="http://plugins.jetbrains.com/plugin/?id=3847">
+    http://plugins.jetbrains.com/plugin/?id=3847</a>.  You are welcome
+  to use any two jEdit class files, non-trivial, and
+  intersting-to-you, as targets.  Examine closely the reports produced
+  by the FindBugs tool.  Which of the items do you agree with?  How
+  did you resolve it?
+
+
+<li> (00 points) Please maintain a journal for this homework.  Submit
+  a summary.
+</ol>
+
+<p>This Homework2 is <b>now complete</b>.</p>
+
+
+<p>Turn in your answers as a tar ball (or a zip).
+  On <tt>gandalf.cs.wright.edu</tt> invoke <tt>~pmateti/cs7140/turnin
+  Homework2 tarBallName</tt> Include the source code files so that
+  everything builds cleanly.  Other than the source code files,
+  put <b>everything else</b>, including diagrams, screen shots,
+  together and produce one .pdf file.
+</p> 
+<hr size="1">
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+Copyright</a> &copy; 2013 
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+  Prabhaker Mateti</a>
+</body>
+</html>

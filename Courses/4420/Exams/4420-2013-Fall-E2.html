@@ -1,0 +1,162 @@
+<html>
+  <head>
+    <title>CEG 4420 Computer Security Final by Prabhaker Mateti</title>
+    <meta name="author" content="Prabhaker Mateti">
+    <meta name="keywords" content=
+	  "Computer security, Network security">
+    <meta name="description" content=
+	  "This page is part of a set of lectures notes for a course
+	  on Security by Prabhaker Mateti
+	  http://www.cs.wright.edu/~pmateti/">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <style type="text/css">
+      a:hover      { color: blue; background-color: yellow; }
+      a:active     { color: white; background-color: green;}
+      p { text-align: justify }
+      li { text-align: justify }
+      code {border:blue 1px dotted; color: brown}
+      @media screen {BODY {margin: 10%;} }
+    </style>
+  </head>
+
+  <body>
+    <table border="0" width="100%" cellpadding="10">
+      <tr>
+	<td valign="top" width="10%">
+	  <a target="_blank" href="http://www.wright.edu/">
+	    <img src="./wsu-logo-xsm.gif" border="0" width="100" align="left"></a>
+	</td>
+	<td valign="top" width="40%">
+          <h3><a href="http://www.cs.wright.edu/~pmateti/Courses/4420/">
+	      CEG 4420/6420: Host Computer Security</a></h3>
+
+          <h3>Fall 2013 &bull; Final &bull; 100 points</h3>
+	</td>
+      </tr>
+    </table>
+
+    <blockquote>
+      <p>Given to you on Dec 11, 2013 at 3:30;&nbsp; &nbsp; Due: Dec 12, 2013
+        Thursday 11:59 PM.  </p>
+      <p>This take-home exam permits the use of a Linux/Windows
+	laptop/PC running Knoppix/ Kali, etc.  It is otherwise a
+	traditional closed book, closed notes exam.  Once you access
+	the midterm until you turnin the answers, you are honor
+	bound <i>*not*</i> to Internet surf or access any content
+	already existing (other than as indicated).  The primary reasons
+	in making this a take-home are to relieve time pressure and
+	give you a comfortable (computing/home) environment.  Do not
+	give or take help from others.  Submit your answers on
+	<code>gandalf.cs.wright.edu</code> using
+        <code>~pmateti/ceg4420/turnin FI answers.pdf </code>
+    </blockquote>
+    <ol>
+      <li>(5*5 points) The following statements may or may not be
+	(fully or partially) valid.  Explain the underlined technical
+	term</i> (also marked with ##) occurring in each statement.
+	Explain/ discuss/ dispute the statement.  It
+	is <i>possible</i> to write no more than, say, five, sentences
+	each, and yet receive full score.
+
+	<ol type=i>
+          <li>The major events in the life of a computer system
+            session as given here are in the correct chronological
+            order.  <b>E1</b>: Root volume is mounted by the
+            kernel; <b>E2</b>: Process <code>init</code> is
+            created;&nbsp; <b>E3</b>: <code>inetd</code> daemon is
+            started; <b>E4</b>. OS Boot loader invokes the
+            kernel;&nbsp; <b>E5</b>:&nbsp; <code>getty</code>
+            processes are started.&nbsp; <b>E6</b>: The <u>run level</u> ##
+            changes from 3 to 5.&nbsp; <b>E7</b>: BIOS finds the boot
+            device. <b>E8</b>:&nbsp; run level changes to
+            0, <b>E9</b>:&nbsp; All file volumes are
+            unmounted.&nbsp; <b>E10</b>: Networking is shutdown.
+
+	<li>For something to be called a <u>virus</u> ##, it must
+          embed in such a way that it is executed only intermittently.</li>
+	<li> <u>Address Space Layout Randomization</u> (ASLR) ## helps prevent 
+	  backdoors.</li>
+	<li>At least one of the following <u>log files</u> ##
+          <code>/var/log/dmesg</code>, <code>/var/log/messages</code>, 
+          <code>/var/log/syslog</code> does exist in all Linux systems,
+          but none of them is useful in the context of security.
+	<li><u>Hackers</u> ##, as distinct from attackers, do have
+	  ethics.</li>
+	</ol>
+      </li>
+
+      <li>(5*15 points)
+
+	<ol type="i">
+	  <li>
+            Our attack plan idea is to replace the kernel and init
+	    with Trojaned versions that are already created and
+	    available at <code>/root/.-+/.-vmlinuz</code>
+	    and <code>/root/.-+/.-init</code> by us (the attacker(s))
+	    who have already gained root access.  The replaced
+	    versions should become effective at next boot.  Give
+	    details of the attack plan, at the level of bash scripts
+	    and invoking them at events E1 through E10 etc. as listed
+	    above. Assume that these files were not detected.  Assume
+	    that the existing modules and initrd are useable with the
+	    new vmlinuz.  Note the use of dot and other characters.
+          </li>
+
+	  <li>Suppose that you as an attacker have already acquired
+	    root privileges on a large Linux system that has thousands
+	    of users.  Your goal is to obtain 10+ username-password
+	    (in clear text) combinations, replace what ever changes
+	    you made with their originals so that this activity has a
+	    greater chance of going unnoticed.  You want the clear
+	    text passwords because cracking the encoded passwords in
+	    the <code>shadow</code> file proved to be too hard.  Give
+	    details, at the level of bash scripts, of how you would
+	    accomplish this task, without using key loggers.</li>
+
+          <li> AlephOne describes <code>"usage: eggshell [-a <
+          alignment>] [-b < buffersize>] [-e < eggsize>] [-o <
+          offset>]\n"</code>.  What are alignment, buffersize, and
+          eggsize and why do we need them?  Give an example with
+          actual numbers that actually works in a labset up based on
+          Auditor using numbers from your lab.  [You are welcome to
+          browse through your own Buffer Overflow Lab notes.]
+
+	  <li>One of the hardening actions taken in modern Linux
+	    kernels is to remove abstract devices <code>/dev/mem</code>
+	    and <code>/dev/kmem</code>. (i) Explain the purpose of these
+	    devices as used in the past.  (ii) Using an example or
+	    two, describe an exploit that uses these devices.  (iii)
+	    Discuss if these devices can be resurrected in a running
+	    Linux system with a modern kernel (such as 3.6+) even
+	    though the kernel is compiled without them.
+	  </li>
+
+
+	  <li>It is well-known that a large percentage of systems
+	    remain vulnerable long after security patches have been
+	    issued because the patches have not been applied.&nbsp;
+	    Mr. Means Well, a security expert, got tired of this
+	    situation, and wrote a worm-like system, MWP, that applies
+	    patches without engaging in a dialog with the
+	    sysadmin.&nbsp; The MWP examines the system that it is
+	    currently on, fetches all relevant patches from reputable
+	    web sites, verifies their digital signatures, applies them
+	    to the current system, and mails to the sysadmin (i) a
+	    detailed log of what files were modified and why, and (ii)
+	    a script that will undo the work of MWP bringing the
+	    system back to what it was.  It then spreads to other
+	    systems.&nbsp; Discuss the ethical issues raised by
+	    MWP.</ol>
+
+      <li>(0 points) [For survey purposes only.] Please record your
+	effort in minutes for each of the above ten items.  Other feedback
+	you wish to give is also welcome.
+      </li>
+    </ol>
+    <hr size="1">
+    <a href="../copyright.html">Copyright &copy;</a>  2013
+    <a href="http://www.cs.wright.edu/~pmateti" target=
+       "_blank">Prabhaker Mateti</a> ; Dec 2013
+
+  </body>
+</html>

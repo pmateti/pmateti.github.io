@@ -1,0 +1,41 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+Date: 2016-05-24
+#+TITLE: Example: SmallSet of Int
+#+AUTHOR: Prabhaker Mateti
+#+LINK_HOME: ../../
+#+LINK_UP: ../
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Abstract
+
+This subtree of notes describes the requirements, specs, design and
+implementation of a SmallSet of integers.  It is similar, but not
+equivalent to Java Set.  Our description is focused on abstraction
+and assertions.
+
+
+* SmallSet as a Software Design Example
+
+1. [[./SmallSet-design.org]] 
+
+1. This note describes the req + specs + design of a set of integers.
+   This is expected to be a good example of software engineering "in
+   the tiny".
+
+* SmallSet Implemented in Java
+
+1. [[./SmallSet-impl.org]]
+1. Includes assertions.  Does not use JML.
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

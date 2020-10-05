@@ -1,0 +1,141 @@
+# -*- mode: org -*-
+#+date: 2018-11-04
+#+TITLE: ROP (Return Oriented Programming) Exploits
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: Android Internals and Security
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Background
+
+1. [[../code-injection.org][Code Injection]] and [[../ASLR/]]
+
+* ROP Exploit Idea
+
+1. A /gadget/ is a sequence of CPU instructions ending in the RETurn-
+   to- caller instruction.  Apllicable to all CPUs.
+
+1. A chain of gadgets can be constructed, off-line, so that it is
+   malicious code.  A chain is a sequence of code addresses.
+
+1. Gadgets are harvested from the user written code of the process, and
+   the libraries.
+
+1. Theorem: Given a large enough process code segments, any arbitrary
+   computation can be performed by a chain of gadgets.
+
+1. We do not need to inject shell code.  Instead, build a chain to
+   invoke a shell.  We do need to place the chain on the stack.
+
+1. None of the [[../../Prevention/ASLR][ASLR]], [[https://en.wikipedia.org/wiki/NX_bit][NX]], [[https://en.wikipedia.org/wiki/Executable_space_protection][DEP]] mitigation techniques can prevent this
+   exploit.
+
+* ROP Detection and Mitigation
+
+1. Control Flow Integrity
+1. [[https://pdfs.semanticscholar.org/7de5/e9aebf1626e5b4402a4b71309a9c605a8dd1.pdf][kBouncer: Efficient and Transparent ROP Mitigation]] 2012  Reference
+1. [[https://arxiv.org/pdf/1807.11110.pdf][Ropnn: Detection of ROP Payloads Using Deep Neural Networks]] 2018   Reference
+
+* ROP is Still Dangerous
+
+1. Nicholas Carlini and David Wagner, "ROP is Still Dangerous:
+   Breaking Modern Defenses", University of California,
+   Berkeley, 2014.  [[https://www.usenix.org/sites/default/files/conference/protected-files/sec14_slides_carlini.pdf][PDF]] 90- slides.  *Required Reading*.  Related full
+   [[https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-carlini.pdf][paper]] is In USENIX Security Symposium. 2014.  Recommended Reading.
+   [Abstract Return Oriented Programming (ROP) has become the
+   exploitation technique of choice for modern memory-safety
+   vulnerability attacks. Recently, there have been multiple attempts
+   at defenses to prevent ROP attacks. In this paper, we introduce
+   three new attack methods that break many existing ROP
+   defenses. Then we show how to break kBouncer and ROPecker, two
+   recent low-overhead defenses that can be applied to legacy software
+   on existing hardware. We examine several recent ROP attacks seen in
+   the wild and demonstrate that our techniques successfully cloak
+   them so they are not detected by these defenses. Our attacks apply
+   to many CFI-based defenses which we argue are weaker than
+   previously thought. Future defenses will need to take our attacks
+   into account.]
+
+1. Summary of the above: Includes an intro to ROP. "... we introduce
+   three new attack methods that break many existing ROP
+   defenses.  Then we show how to break kBouncer and ROPecker ...  We
+   ... demonstrate that our techniques successfully cloak them so they
+   are not detected by these defenses."
+
+1. Watch the video: https://www.usenix.org/node/184508, [[https://2459d6dc103cb5933875-c0245c5c937c5dedcca3f1764ecc9b2f.ssl.cf2.rackcdn.com/sec14/carlini.mp4][Video]] 17:12,
+   [[https://www.usenix.org/sites/default/files/conference/protected-files/sec14_slides_carlini.pdf][PDF]] 80+ slides, 80+ mainly because of PPT-animated to PDF
+   conversion.
+
+
+* ROP Exploits in Android
+
+1. Hanan Be'er, "Metaphor: A (Real) Real­Life Stagefright Exploit",
+   https://www.exploit-db.com/docs/39527.pdf, 38pp.
+   Mar 2016.  Uses ROP. Recommended Reading
+
+1. Project Zero team at Google, [[https://googleprojectzero.blogspot.com/2016/09/return-to-libstagefright-exploiting.html][Return to libstagefright: Exploiting
+   libutils on Android]], 9pp, Sep 2016.  Recommended Reading
+
+1. Drake, Joshua. "Stagefright: Scary Code in the Heart of Android."
+   BlackHat USA (2015).  [To my taste: A little too sensational.  Not
+   scary, but a coding bug, caused by C language misunderstanding,
+   that went unnoticed because of a lack of code auditing.  Discussed
+   later in this course.]  Recommended Reading
+
+* References
+
+1. Roemer, Ryan, Erik Buchanan, Hovav Shacham, and Stefan Savage.
+   (University of California, San Diego) "Return-Oriented Programming:
+   Systems, Languages, and Applications." ACM Transactions on
+   Information and System Security (TISSEC), Vol 15, no. 1 (2012):
+   https://cseweb.ucsd.edu/~hovav/dist/rop.pdf 42pp.  Rigorous.
+   Reference.  [[https://www.blackhat.com/presentations/bh-usa-08/Shacham/BH_US_08_Shacham_Return_Oriented_Programming.pdf][PDF]] Slides 50+ from BlackHat US 2008.  Uses x86
+   instructions.  Required Reading.
+
+1. Jonathan Salwan, "An introduction to the Return Oriented
+   Programming and ROP Chain Generation", [[http://shell-storm.org/talks/ROP_course_lecture_jonathan_salwan_2014.pdf][PDF]], slides Nov 2014.
+   https://github.com/JonathanSalwan/ROPgadget is a tool written in Py
+   that searches for gadgets in a program binary.  Recommended
+   Reading.
+
+1. https://www.corelan.be/index.php/security/rop-gadgets/ A collection
+   of ROP gadgets that can be found in Windows OS DLLs and
+   applications.  2011.  Recommended Reading.
+
+1. Andrei Homescu, Michael Stewart, Per Larsen, Stefan Brunthaler, and
+   Michael Franz, [[https://www.sba-research.org/wp-content/uploads/publications/woot12.pdf][Microgadgets: Size Does Matter In Turing-complete
+   Return-Oriented Programming]], University of California, Irvine,
+   201x.  Recommended Reading.
+
+1. [[https://blog.skullsecurity.org/2013/ropasaurusrex-a-primer-on-return-oriented-programming][A DEP/ASLR-bypassing exploit]] ropasaurusrex. A detailed
+   tutorial. 2013    Recommended Reading.
+
+1. Barrebas,
+   http://barrebas.github.io/blog/2015/06/28/rop-primer-level0/. The
+   ROP VM made for this exercise can be downloaded from
+   vulnhub.com. https://www.vulnhub.com/entry/rop-primer-02,114/. 2015.
+   Encouraged to try this out.
+1. https://ocw.cs.pub.ro/courses/cns/labs/lab-10 Lab on Return
+   Oriented Programming.  Reference.
+
+1. Dai Zovi, Dino. "Practical return-oriented programming." SOURCE
+   Boston (2010).  [[http://repository.root-me.org/Exploitation%20-%20Syst%C3%A8me/Microsoft/EN%20-%20Practical%20Return%20Oriented%20Programming.pdf][PDF]] 40+ slides.  Recommended Reading.
+
+1. https://software.intel.com/en-us/articles/introduction-to-x64-assembly
+1. Borrello, Pietro, Emilio Coppa, Daniele Cono D'Elia, and Camil
+   Demetrescu. "The ROP Needle: Hiding Trigger-Based Injection Vectors
+   via Code Reuse." In Proceedings of the 34th ACM/SIGAPP Symposium on
+   Applied Computing, pp. 1962-1970. ACM, 2019.
+1. LeMay, Michael. "Hardened safe stack for return oriented
+   programming attack mitigation." U.S. Patent Application 15/629,458,
+   filed December 27, 2018.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

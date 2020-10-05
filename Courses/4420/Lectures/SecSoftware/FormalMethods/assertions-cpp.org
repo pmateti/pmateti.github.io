@@ -1,0 +1,88 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE: Assertions in  C++
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+#+STYLE: <style> @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-preamble-format (("en" "<a href=\"http://cecs.wright.edu/~pmateti/Courses/7140/\">CS 7140 Advanced Software Engineering</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+
+
+* Assertions in C++ Programs
+
+1. =#include <cassert >=        C++   =/usr/include/c++/4.7.3/cassert=
+1. =#include <assert.h>=        C     =/usr/include/assert.h=
+
+1. Defines the =assert()= macro.  Its argument must be a valid Boolean
+   expression.
+
+1. =#define NDEBUG=
+
+   1. In the *absence* of this, the assert's boolexp gets compiled in.
+      When executed, if it evaluates to "false", the macro-expanded
+      compiled-in code witll print an error message including the line
+      number of the source code, and aborts the process.
+
+   1. In the presence of this (above the =#include=), the assert macro
+      becomes empty, and there is no trace of the boolexp in the
+      executable image.
+
+1. Remember: 0 is false, and non-0 is true in C/C++
+
+** Assertions in our [[http://cecs.wright.edu/~pmateti/Courses/7140/Notes/worms.cpp.html][C++ Worms]] Program
+
+1. Are we to actually implement these assertions/invariants as proper
+   C++ code or are you simply looking for assert()s?
+
+   1. For example, did I want something like:
+   #+BEGIN_SRC C++
+#include <cassert>
+#define MAXsegs 100
+class Worm {
+  ...
+  private int nsegs;
+  assert (nsegs <= MAXsegs)     // invariant
+  ...
+  public setNsegs(int segs) {
+    assert(segs <= MAXsegs);
+    nsegs = segs;
+  }
+}
+   #+END_SRC
+
+1. or something like this?
+   #+BEGIN_SRC C++
+#define MAXsegs 100
+class Worm {
+  ...
+  private int nsegs; // nsegs <= MAXsegs
+  ...
+}
+   #+END_SRC
+
+1. Answer:  The first kind.
+
+1. Focus on class invariants
+
+   1.  E.g., what are the relationships on the x-, y- coordinates of
+       the body segments of the worm?
+   1.  How does direction affect this?
+   1.  When a worm crawls, describe what happens to these values not
+       as an algorithm but by relating previous values with current ones.
+   1.  Etc.
+
+* References
+
+1. "Googletest", https://code.google.com/p/googletest/wiki/Primer#Assertions 2013
+   Recommended Reading
+
+1. Stephen H. Edwards, Murali Sitaraman, Bruce W. Weide, and Joseph
+   Hollingsworth, 
+  Contract-Checking Wrappers for C++ Classes,
+  http://www.cse.ohio-state.edu/rsrg/documents/2004/04ESWH.pdf
+  IEEE Transactions on Software Engineering, Vol. 30, No. 11, November 2004, pp 794 - 810
+  Recommended Reading

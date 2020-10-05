@@ -1,0 +1,160 @@
+<html>
+  <head>
+    <title>CEG 4420 Computer Security Midsemester Exam by Prabhaker Mateti</title>
+    <meta name="author" content="Prabhaker Mateti">
+    <meta name="keywords" content=
+	  "Computer security, Network security">
+    <meta name="description" content=
+	  "This page is part of a set of lectures notes for a course
+	  on Security by Prabhaker Mateti
+	  http://www.cs.wright.edu/~pmateti/">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <style type="text/css">
+      a:hover      { color: blue; background-color: yellow; }
+      a:active     { color: white; background-color: green;}
+      p { text-align: justify }
+      li { text-align: justify }
+      pre {border:blue 1px dotted;}
+      tt {border:blue 1px dotted;}
+      @media screen {BODY {margin: 15%;} }
+    </style>
+  </head>
+
+  <body>
+    <table border="0" width="100%" cellpadding="10">
+      <tr>
+	<td valign="top" width="10%">
+	  <a target="_blank" href="http://www.wright.edu/">
+	    <img src="./wsu-logo-xsm.gif" border="0" width="150" align="left"></a>
+	</td>
+	<td valign="top" width="40%">
+          <h3><a href="http://www.cs.wright.edu/~pmateti/Courses/4420/">
+	      CEG 4420/6420: Host Computer Security</a></h3>
+
+          <h3>Fall 2012 &bull; Midterm &bull; 100 points</h3>
+
+	  <p>Due: Nov 10, 2012 Saturday 11:59 PM.  
+
+	</td>
+      </tr>
+    </table>
+
+    <blockquote>
+      <p>This is a take home exam given to you on Nov 09, 2012 at 5:00 PM.
+	Be aware that copy-n-paste answers constitute cheating.  Your
+	answers are expected to be in your own words after digesting
+	the relevant educational materials, however discovered.  Do
+	not give or take help from others.
+      <p>Submit your answers on
+	gandalf.cs.wright.edu using <tt>~pmateti/ceg4420/turnin MT
+	  answers.pdf</tt>
+    </blockquote>
+
+    <ol>
+      <li>(5*5 points each) The following statements may or may not be
+	(fully or partially) valid.  Explain the underlined
+	    technical term</i> (also marked with ##) occurring in each statement.  Explain/
+	discuss/ dispute the statement.  It is <i>possible</i> to write no
+	more than, say, ten, sentences each, and yet receive full score.
+
+	<ol type=i>
+	  <li>An nmap <u>scan</u> ## showed the following TCP ports as
+	  open: 135, 139, 445, 515, 5357.  It is ok to continue to
+	  leave these ports open because there is no security risk.
+
+	  <li>The Pulseaudio TOCTOU exploit is enabled by the presence of <u><tt>/proc/self/exe</tt></u>.
+
+	  ##<li>
+	    <tt>echo 1 > /proc/sys/net/ipv4/<u>tcp_syncookies</u></tt>
+	    ##
+	    Proper configuration suggests that the preceding be done
+	    in a root-run script to prevent killing connections using
+	    tools such as sniper-fin.
+
+	  <li>By <u>sniffing</u> ## a small number of Ethernet frames
+	  and/or IP packets on one host, the gateway/router it uses
+	  can be determined.
+
+	  <li>The following showed up as <u>suid</u> ## programs:
+	  <tt>/usr/bin/sudo</tt>, <tt>/usr/bin/arping</tt>, <tt>/usr/bin/X</tt>,
+		<tt>/usr/sbin/uuidd</tt>, <tt>/usr/lib/virtualbox/VirtualBox</tt>.  In
+	    the absence of capabilities, etc.  it is justifiable that
+	    they were given suid permissions.
+      </ol></li>
+
+      <li>(5*15 points)
+
+	<ol type="i">
+	  <li>Consider the following ten significant events that occur
+	    in the rebooting of a Unix machine from power on to login
+	    prompt. The events may or may not occur in the order
+	    given. <b>E1</b>: Root volume is mounted by the
+	    kernel; <b>E2</b>: Process <code>init</code> is
+	    created;&nbsp; <b>E3</b>: <code>inetd</code> daemon is
+	    started; <b>E4</b>. OS Boot loader invokes the
+	    kernel;&nbsp; <b>E5</b>:&nbsp; <code>getty</code>
+	    processes are started.&nbsp; <b>E6</b>: The run level
+	    changes from 3 to 5.&nbsp; <b>E7</b>: BIOS finds the boot
+	    device. <b>E8</b>:&nbsp; run level changes to
+	    0, <b>E9</b>:&nbsp; All file volumes are
+	    unmounted.&nbsp; <b>E10</b>: Networking is shutdown.  (3*5
+	    points) Explain steps E3, E4 and E6 further, and&nbsp;
+	    describe how security could be breeched in these
+	    steps. </li>
+
+	  <li>Suppose a password crack program came up with the answer
+	    24 for the root-line taken from /etc/shadow.  How will you
+	    verify that that works?  Would your attempts at
+	    verification be noticeable by the real root user? How?  How
+	    would you then verify the password without alerting the
+	    root user?</li>
+
+	  <li>Compile the file <tt>testsc.c</tt> of AlephOne, and run
+	    it under strace as in <tt>strace ./testsc</tt> in a modern
+	    Linux (Knoppix 7.x or BackTrack5 or Ubuntu 12.x) (i) (5
+	    points) Did the shell code get executed?  Explain fully.
+	    (ii) (10 points) Explain the details of each of the system
+	    call traced by strace.
+
+	  <li>Improve the code of <tt>exploit4.c</tt> so that there
+	    are no warning messages from <tt>gcc</tt> even after using
+	    the flags as in<tt> gcc -ansi -pedantic -Wall</tt>.
+	    Itemize and explain every change you made.  No need to
+	    include/turnin the revised source code.  Make sure no
+	    functionality is lost.</li>
+
+	  <li> Running <tt>splint -warnposix strlcpy.c</tt> where the
+	    current working directory was <tt>sudo-1.6.7p5</tt>
+	    produced the following warnings:
+<pre>
+strlcpy.c: (in function strlcpy)
+strlcpy.c:56:8: Operands of == have incompatible types (char, int):
+                   (*d++ = *s++) == 0
+  Types are incompatible. (Use -type to inhibit warning)
+strlcpy.c:65:10: Test expression for while not boolean, type char: *s++
+  Test expression type is not boolean. (Use -predboolothers to inhibit warning)
+strlcpy.c:69:8: Return value type int does not match declared type size_t:
+                   (s - src - 1)
+  To allow arbitrary integral types to match any integral type, use
+  +matchanyintegral.
+strlcpy.c:35:19: File static variable rcsid declared but not used
+  A variable is declared but never used. Use /*@unused@*/ in front of
+  declaration to suppress message. (Use -varuse to inhibit warning)
+
+Finished checking --- 4 code warnings
+</pre>
+Without inhibiting the warnings (using the flag suggestions), fix the
+code of strlcpy so that the warnings do not appear.
+	</ol>
+      <li> (0 points) [For survey purposes only.] Please record your
+	effort in minutes for each of the above ten items.  Other feedback
+	you wish to give is also welcome.
+      </li>
+    </ol>
+    <hr size="1">
+    <a href="../copyright.html">Copyright &copy;</a>  2012
+    <a href="http://www.cs.wright.edu/~pmateti" target=
+       "_blank">Prabhaker Mateti</a> ; Nov 2012
+
+  </body>
+</html>

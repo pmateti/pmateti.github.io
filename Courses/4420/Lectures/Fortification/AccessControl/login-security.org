@@ -1,0 +1,59 @@
+# -*- mode: org -*-
+#+DATE: 2014-07-11
+#+TITLE: Login Security
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:1
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: WSU CEG 4900/6900 Android Internals and Security
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d <a href=\"../../Top/\"> CEG 4900</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2014 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> %d"))
+#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.4)
+
+#+HTML_HEAD_EXTRA:
+#+REVEAL_ROOT: http://www.cs.wright.edu/~pmateti/RevealJS
+#+REVEAL_PREAMBLE: <a href="./overviewOnePage.html"> Single-Page</a><style> P {text-align: justify} code, pre.src, pre.src-java  {font-family: monospace; font-size: 10pt; color: brown;}  </style>
+#+REVEAL_THEME: night
+#+REVEAL_TRANS: default
+#+REVEAL_HLEVEL: 2
+#+REVEAL-SLIDE-NUMBER: t
+#+OPTIONS: reveal_control:t reveal_progress:t reveal_history:t reveal_center:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t
+#+REVEAL_TITLE_SLIDE_TEMPLATE: <h1>%t</h1><h3>%a</h3>%e<br> %d First Lecture <br><a href="../../Top/"> CEG 4900/6900: Android Internals and Security</a>
+#+ATTR_REVEAL: highlight-blue  # not working
+
+
+* Lectures
+
+1. User Authentication Approaches
+
+   1. What You Know
+   2. What You Have
+   3. What You Are
+
+1. Passwords on a Linux System
+
+1. Cracking the Passwords
+
+1. Prevention of Password Cracking
+
+1. Two Factor Authentication
+
+* Android UID setup
+
+1. Android does *not* have /etc/passwd,
+   /etc/shadow, and /etc/group files.  The file named
+   [[https://android.googlesource.com/platform/system/core.git/+/master/include/private/android_filesystem_config.h][android-filesystem-config.h]] in the AOSP source tree has the
+   equivalent code.
+
+1.  E.g.,
+    1. =#define AID_ROOT 0 /* traditional unix root user */=
+    1. =#define AID_GPS 1021 /* GPS daemon */=
+
+
+* References
+
+1. Prabhaker Mateti, [[../../../4420/Password/index.html][Password Cracking]], 2013. Skip the Lab experiment.
+   Required Reading.

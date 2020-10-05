@@ -1,0 +1,229 @@
+# -*- mode: org -*-
+#+DATE: 2016-06-20
+#+TITLE: Wirth's Mark Errors
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7380 Cloud Computing
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P,li {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+
+* Mark Errors
+
+In processing an input line of text, a program we are working on
+discovered errors.  Each error is recorded as a pair (p, e) of
+numbers.  We wish to point to the p-th character that caused the
+error, and print the error number e next to it.  Some times a single
+position in the input line triggers multiple errors.  You are given a
+list of these pairs, and the input line.  We need a procedure that
+prints this line, and the error numbers below it, properly located.
+Use no more lines than necessary.  [This is an Exercise from Niklaus
+Wirth, Systematic Programming book, 197x]
+
+*Spec by Example 1*
+
+#+begin_src bash
+error list      :(4,1), (7,2), (10, 2), (20, 2), (23, 2).
+column numbers  :1234567890123456789012345
+line of text    : Thos broplem is peenuds.
+line of errors  :   ^1 ^2 ^2        ^2 ^2
+#+end_src
+
+*Spec by Example 2*
+#+begin_src bash
+error list      :(5, 9), (13, 9), (13, 787), (18,94), (18, 126), (25,73),
+(continued)     :(30, 9), (30, 23), (30, 26), (39, 9), (40, 742).
+column numbers  :12345678901234567890123456789012345678901234
+line of text    : if x > 0 anf y +) then 0 := x else f(x.y) ;
+line of errors  :    ^9      ^9   ^94,126^73  ^9,23,26 ^9
+line of errors  :            ^787                       ^742
+#+end_src
+
+[We can never specify software using examples.  But, this is popular
+because it quickly communicates essential features.  Where it
+typically fails is in the "edge" cases.]
+
+* "Solutions"
+
+1. Several [[./mark-error-pos.cpp.html]["solutions"]] are presented.  The code given here is expected
+   to solve a simpler version (read the comments) S1 of the above
+   problem.  Your task: Figure out which ones, if any, are correct.
+
+1. Note that this code uses =cout= to construct =out[]=.  What is
+   output cannot then be changed later.
+
+1. The problem can be further simplified if we build =out[]= in memory,
+   and print it all at once.
+
+
+* Teaching
+
+1. This problem can be used in teaching. For different purposes.
+
+1. Develop the requirements analysis, and rigorous specs for the Mark
+   Error problem as described in Section 1.
+
+1. Develop pre- post- conditions for each solution, and loop
+   invariants for every loop.  Even incorrect programs have all these!
+
+1. What was the thinking behind these "solutions"?
+
+1. Can you figure out which ones go into an infinite loop *without* testing it?
+
+1. Is this a "debugging" problem?
+
+1. Having identified the "correct" solutions, develop it further to
+   solve the specs of  Section 1. Mark Errors.  Look up: Agile
+   Iterative Development.
+
+1. Can this be done in one-pass?  Always?
+
+* Requirements Clarifications
+
+1. Q: Is the array pos[] as in "solutions" sorted (ltor)? Are these indices
+   guaranteed to be those of txt? A: Yes, and yes.
+
+1. Q: Is txt[] just one line? A: Yes. The txt[] has "ordinary"
+   characters (only); no '\t', '\n', and such.
+
+1. Q: How large are the numbers? A: Assume that the numbers are
+   unsigned 16-bit.  C++ ushort will do.
+
+1. Make (further) reasonable/ sympathetic assumptions.  This is not a problem cooked
+   up to raise your awareness of requirements analyses.  It is a
+   "develop a correct solution to what is stated" problem.
+
+* Simpler Version S1 of the Problem
+
+1. The following three lines are extracted from the source code given.
+
+   : int  pos[] = { 3, 6, 9, 19, 22 };
+   : char txt[] = "Thes broplem is peenuds.";   // example input
+   : char out[] = "  *  *  *         *  *";     // expected output
+
+1. S1: We should have out[y] == '*' for every y
+   given in pos[].  All the rest of out[] should be blanks.  Not
+   rigorously stated, but pretty good.
+
+1. Like we did in the Dutch National Flag problem, use this as the
+   post condition of the =markErrorPos= method, and use a weakened
+   version of the post as a loop invariant for the code yet to be
+   designed.  
+
+* A Solution for S1 that is/ better-be Correct-by-Design
+
+** Make S1 Rigorous
+
+1. Assume that the starting index of arrays is a 1, not 0 (even though
+   this is not Pascal).  To keep it less confusing, we are conforming
+   to the code given.  But, the indices i, j, k used below are
+   unrelated to those of the code.
+
+1. Weakest Pre Condition P
+   1. Def L == (sizeof(txt)/sizeof(char))
+   2. Def n == (sizeof(pos)/sizeof(int))
+   3. sorted(pos), which is-defined-as pos[ 1] < pos [ 2] < ... < pos[n].
+   4. 0 < pos[i] < L+1 for all indices i of pos[].
+   5. For ease of use, let us call the conjunction (AND-ing) of all
+      the above as P.
+
+2. Post Condition Q
+   1. Think of out[] as modeling the stdout produced by our markErrorPos().
+   2. out[j] is either ' ' (a blank) or '*', for all its indices j.
+   3. out[pos[i]] == '*' for all indices i of pos[].
+   5. For ease of use, let us call the conjunction (AND-ing) of all
+      the above as Q.
+
+3. To keep things simple, we will continue to assume that pos[], txt[]
+   and out[] are global arrays.  Later, we will model as follows:
+   {out[] := markErrorPos(txt, pos);}
+
+4. The spec S1 is {P} markErrorPos() {Q}
+
+** A Loop Invariant from S1
+
+1. Based on our "experience", we are expecting to design an iterative
+   algorithm for markErrorPos().
+
+2. Take the Q above, and revise it as Q(k), a function of k, where k
+   is a valid index of pos[].  Item 3 of Q above is weakened:
+   1. out[pos[i]] == '*' for indices i of pos[], 0 < i < k
+   2. Imagine that out[] starts out as an empty string, and grows.
+   3. Only out[1 .. pos[i]] is defined (produced) so far.
+
+3. Based on this Q(k), we formulate the following.
+
+** Tentative Algorithm
+
+: out := ""; z := length-of(out);
+: n := length-of(pos);
+: for (k := 1; k < n; k++) {
+:    assert Q(k) && 0 < k < n && 0 <= z == length-of(out) < pos[k];
+:    while (z < pos[k]) {
+:       assert Q(k) && 0 <= k < n && 0 <= z == length-of(out) < pos[k];
+:       out += " "; z ++;
+:    }
+:    out += "*"; z ++;
+: }
+
+Written in a VHLL of our own making.
+
+* Full Version Spec S2
+
+This section presents the spec S2 for the full version of the problem
+as described in Section 1 above.
+
+1. Read the symbol =: as "yields".
+2. Exercise: Define itostr.  Ex: itostr(742) =: "742", no leading zeros, only
+   digits 0 to 9, input assumed to be decimal.
+
+3. Exercise: Define toString. Ex: toString(40, 742) =: b^39 + "^" +
+   itostr(742); b stands for a blank, b^39 is a string of 39 spaces, +
+   is overloaded as string catenation.
+
+** Overlays
+
+1. We use the idea of overlaid overhead projection transparencies of
+   yesteryear.
+
+4. overlay(s, t) =: u, where s, t and u are all strings.
+   1. Intuitively, t is overlaid on s to yield u. (Just for now,
+      assume that t is longer than equal in length). Only where t[i] is a
+      blank will the s[i] show through in u[i].
+   2. length-of(u) is max (length-of(s), length-of(t))
+   3. For the purpose of the defs below:
+      4. s[i] is b if i > length-of(s) ; starting index is 1.
+      5. t[i] is b if i > length-of(t) ; starting index is 1.
+   6. u[i] is s[i] if t[i] == b 
+   7. u[i] is t[i] if t[i] != b
+
+** markErrorPos
+
+5. markErrorPos(txt, pos) =: a string
+6. out is overlay(s, t), where s is tostring(pos[ 1].p, and t is
+   markErrorPos(txt, pos[ 2..n])
+
+** Commentary
+
+1. This is not declarative, is it?
+1. This looks like a program written in functional style, no?
+1. Did we assume that strings end with a NUL character?
+1. Did we take care of multiple lines of mark errors?
+1. When we do need multiple lines, how to make sure we use a minimal number?
+1. If we were to implement this spec as-is, it will be pretty
+   inefficient.  This is a good quality of a spec!
+
+* References
+
+1. Niklaus Wirth, Systematic Programming: An Introduction (book), Prentice
+   Hall, 1973. 208 pages. ISBN-10: 0138803692; ISBN-13: 978-0138803698
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

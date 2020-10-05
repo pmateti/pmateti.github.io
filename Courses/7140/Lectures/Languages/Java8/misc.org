@@ -1,0 +1,36 @@
+# -*- mode: org -*-
+#+date: 2015-10-05
+#+TITLE: Miscellaneous Java8 and Less Noticed Old Features
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"index-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+1. Oracle.com, [[https://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html][Security Enhancements]] in Java8
+
+** Anonymous Classes
+
+1. Since 1.1, Java had anonymous inner classes.
+1. https://docs.oracle.com/javase/tutorial/java/javaOO/anonymousclasses.html
+1. https://docs.oracle.com/javase/tutorial/java/javaOO/localclasses.html
+1. https://docs.oracle.com/javase/tutorial/java/javaOO/whentouse.html
+
+** Delegates
+
+1. Java does not have the delegate keyword (unlike C#). But the idea
+   can be implemented.
+1. https://en.wikipedia.org/wiki/Delegation_pattern
+
+** Interfaces with Methods
+
+1. Virtual Extension Methods
+1. Previously called: default methods, or defender methods.
+1. Similar but not as powerful as Scala traits.
+1. Interfaces can now define static methods: =default= methods
+1. http://www.lambdafaq.org/what-are-default-methods/
+

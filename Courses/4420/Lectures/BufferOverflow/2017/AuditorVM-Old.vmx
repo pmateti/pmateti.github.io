@@ -1,0 +1,38 @@
+#!/usr/bin/vmware
+.encoding = "UTF-8"
+  # VM Machine Info
+  guestOS = "linux"
+  displayName = "Auditor Live"
+config.version = "7"
+#Memory allocation
+  memsize = "512"
+
+  # CDROM Info
+  ide1:0.present = "TRUE"
+
+  ide1:0.fileName = "/var/DownLoads2/Software/OSISO/auditor-250405-01.iso"
+  ide1:0.deviceType = "cdrom-image"
+
+  floppy0.present = "FALSE"
+
+  Ethernet0.present = "TRUE"
+  ethernet0.addressType = "generated"
+
+  usb.present = "TRUE"
+
+virtualHW.version = "3"
+sound.fileName = "-1"
+extendedConfigFile = "AuditorVM-Old.vmxf"
+virtualHW.productCompatibility = "hosted"
+tools.upgrade.policy = "manual"
+
+ethernet0.generatedAddress = "00:0c:29:00:ed:23"
+uuid.location = "56 4d bd 5e fd 02 98 e4-54 12 a8 b6 d2 00 ed 23"
+uuid.bios = "56 4d bd 5e fd 02 98 e4-54 12 a8 b6 d2 00 ed 23"
+ethernet0.generatedAddressOffset = "0"
+
+sound.startConnected = "FALSE"
+cleanShutdown = "TRUE"
+replay.supported = "FALSE"
+replay.filename = ""
+vmotion.checkpointFBSize = "16777216"

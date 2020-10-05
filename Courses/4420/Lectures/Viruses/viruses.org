@@ -1,0 +1,397 @@
+
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+TITLE: Malware: Viruses, Worms, Trojans, ...
+#+AUTHOR: Prabhaker Mateti
+#+STARTUP:showeverything
+#+OPTIONS: toc:t
+#+LINK_HOME: ../Top/index.html
+#+DESCRIPTION: Computer Security: Viruses, Worms, and Trojans
+#+STYLE: <style> P {text-align: justify} li { text-align: justify; } code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-preamble-format (("en" "%d<br><a href=\"http://cecs.wright.edu/~pmateti/Courses/4420/\">Computer Security</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a> &bull; %d"))
+
+
+  Abstract:This lecture discusses viruses, worms, Trojans and other
+  malware. We study the structure of these, and how virus removal
+  programs work.
+
+  Slides: virusPM.pptx  Stuxnet 2011
+
+* Educational  Objectives
+
+  1. Understand the technique of infection.
+
+  1. Learn the virus removal techniques.
+
+  1. Able to distinguish among viruses, worms and trojans.
+
+  1. Understand the modern delivery of malware.
+
+
+"Unix. The world's first computer virus."
+Title of Chapter 1 of The Unix Haters Handbook, ISBN: 1-56884-203-1
+
+  The above book is in fact written by serious computer
+  scientists. Nevertheless, we must disregard the suggestion that
+  Unix is a virus as an attempt at being hilarious. Equally
+  unhelpful are the news media that use the term virus in referring
+  to <i>any/ piece of malicious software. The academic world
+  uses the term "malware'' for these. The <i>purpose/, not the
+  approach, makes a program malicious. Many of the programs that
+  fall in the malware categories have benevolent uses. For example,
+  worms can be used to distribute computation on idle processors;
+  back doors are useful for debugging programs; and viruses can be
+  written to update source code and patch bugs. Rigorous
+  definitions have been given by many computer security experts but
+  they do not match the typical use even by other security experts.
+  Thus, we must settle for "practical definitions" of malicious
+  software.
+
+* Malware
+  
+/Viruses/ are executable code pieces that modify other programs on a
+computer, inserting copies of themselves.  Here we use the word
+"program" in a very careful way: On Linux systems, the ELF document of
+some 50-pages describes the format of the programs.  In this sense,
+viruses are not programs -- they cannot run on their own, and need to
+become part of some host program.  When such an infected program is
+executed, the virus is designed to attach itself to another and so on.
+Computer science use of the word is intended to mirror its use in
+biology.
+
+/Worms/ are independent programs that can travel from one machine
+another using networking.
+
+/Trojans/ replace their namesake but pristine programs.  Trojans are
+programs that appear to have one function but actually perform another
+function, like the famous horse of the Greek Trojan War.
+
+
+
+** Virus Stats
+
+** Stealth Virus
+
+  A /stealth/ virus has code in it that seeks to conceal
+  itself from discovery or defends itself against attempts to
+  analyze or remove it. The stealth virus adds itself to a file or
+  boot sector but, when you examine, it appears normal and
+  unchanged. The stealth virus performs this trickery by staying in
+  memory after it is executed. From there, it monitors and
+  intercepts your system calls. When the system seeks to open an
+  infected file, the stealth virus displays the uninfected version,
+  thus hiding itself.
+
+** Macro Viruses
+
+  Macro languages are (often) equal in power to ordinary
+  programming languages such as C. A program written in a macro
+  language is interpreted by the application. Macro languages are
+  conceptually no different from so-called scripting languages. Gnu
+  Emacs uses Lisp, most Microsoft applications use Visual Basic
+  Script as macro languages. The typical use of a macro in
+  applications, such as MS Word, is to extend the features of the
+  application. Some of these macros, known as auto-execute macros,
+  are executed in response to some event, such as opening a file,
+  closing a file, starting an application, and even pressing a
+  certain key. A macro virus is a piece of self-replicating code
+  inserted into an auto-execute macro. Once a macro is running, it
+  copies itself to other documents, delete files, etc. Another type
+  of hazardous macro is one named for an existing command of the
+  application. For example, if a macro named FileSave exists in the
+  "normal.dot" template of MS Word, that macro is executed whenever
+  you choose the Save command on the File menu. Unfortunately,
+  there is often no way to disable such features.
+
+  In May 2000, an OutLook mail program macro virus called
+  LOVELETTER propagated widely.
+
+** Unix/Linux Viruses
+
+  The most famous of the security incidents in the last decade
+  was the Internet Worm incident which began from a Unix system.
+  But Unix systems were considered virus-immune -- not so. Several
+  Linux viruses have been discovered. The Staog virus first
+  appeared in 1996 and was written in assembly language by the VLAD
+  virus writing group, the same group responsible for creating the
+  first Windows 95 virus called Boza.
+
+  Like the Boza virus, the Staog virus is a proof-of-concept
+  virus to demonstrate the potential of Linux virus writing without
+  actually causing any real damage. Still, with the Staog assembly
+  language source code floating around the Internet, other virus
+  writers are likely to study and modify the code to create new
+  strains of Linux viruses in the future.
+
+  The second known Linux virus is called the Bliss virus. Unlike
+  the Staog virus, the Bliss virus can not only spread in the wild,
+  but also possesses a potentially dangerous payload that could
+  wipe out data.
+
+  While neither virus is a serious threat to Linux systems,
+  Linux and other Unix systems will not remain virus-free.
+  Fortunately, Linux virus writing is more difficult than macro
+  virus writing for Windows, so the greatest virus threat still
+  remains with Windows. [July 2000, <a href=
+  "http://www.boardwatch.com/mag/2000/jul/bwm142pg2.htmlhttp://www.boardwatch
+  .com/ mag/ 2000/ jul/ bwm142pg2.html</a> ]
+
+** Spreading Malware via the Internet
+
+  Whereas a Trojan horse is delivered pre-built, a virus
+  infects. In the past, such malicious programs arrived via tapes
+  and disks, and the spread of a virus around the world took many
+  months. Antivirus companies had time to identify a new viral
+  strain, and create cleaning procedures. Today, Trojan horses, and
+  viruses are network deliverable as E-mail, Java applets, ActiveX
+  controls, JavaScripted pages, CGI-BIN scripts, or as
+  self-extracting packages.
+
+  Integrated mail systems such as Microsoft Outlook make it very
+  simple to send not only a quick note edited within a limited text
+  editor but also previously composed computer documents of
+  arbitrary complexity to anyone, and to work with objects that you
+  receive via standards such as MIME. They also support application
+  programming interfaces (such as MAPI) that allow programs to send
+  and process mail automatically. Well over 500 million E-mail
+  messages are delivered daily in July 2000.
+
+  Mobile-program systems are becoming more and more widespread.
+  The most widely-hyped examples today are Java and ActiveX. This
+  technology became popular with Web servers and browsers, but it
+  is now integrated (e.g., Java into Lotus Notes, and ActiveX into
+  Outlook) mail systems. Both Java and ActiveX have been found to
+  have security bugs.
+
+* Famous Malware
+
+** The Morris Internet worm of 1988
+
+
+  The http://en.wikipedia.org/wiki/Morris_worm Morris
+    worm</a> has been extensively analyzed as it was perhaps the first
+    worm to use Internet to spread out.  Of course, the Internet of
+    1988 was only few thousand nodes.  Robert Tappan Morris was
+    convicted and sentenced to three years of probation, 400 hours of
+    community service, a fine of $10,050, etc.
+
+
+** StuxNet Worm
+
+  Popular media often labelled the
+    http://en.wikipedia.org/wiki/Stuxnet StuxNet</a> of
+    2010 as a virus, but it is a worm.  There is a
+    http://www.ted.com/talks/ralph_langner_cracking_stuxnet_a_21st_century_cyberweapon.html
+TED talk</a> (Ralph Langner, "Cracking Stuxnet, a 21st-Century Cyber
+    Weapon", Mar 31, 2011).  Read also:
+http://securitywatch.pcmag.com/none/296603-report-stuxnet-worm-was-planted-by-an-iranian-secret-agent
+  http://securitywatch.pcmag.com/none/296603-report-stuxnet-worm-was-planted-by-an-iranian-secret-agent</a> Apr 13, 2012.
+http://midsizeinsider.com/en-us/article/researchers-release-stuxnet-like-exploit http://midsizeinsider.com/en-us/article/researchers-release-stuxnet-like-exploit</a>
+
+Researchers Release Stuxnet-Like Exploits on Metasploit
+http://abcnews.go.com/blogs/headlines/2012/03/new-version-of-stuxnet-related-cyber-weapon-discovered/ http://abcnews.go.com/blogs/headlines/2012/03/new-version-of-stuxnet-related-cyber-weapon-discovered/</a> Mar 23, 2012.
+
+Langner
+
+
+* Structure of Viruses
+
+  Here is a simple structure of a virus. In the infected binary,
+  at a known byte location in the file, a virus inserts a signature
+  byte used to determine if a potential carrier program has been
+  previously infected.
+
+#+begin_src C
+V()
+{
+  infectExecutable();
+  if (triggered()) {
+    doDamage();
+  }
+  jump to main of infected program;
+}
+
+void infectExecutable()
+{
+ file = chose an uninfected executable file;
+ prepend V to file;
+}
+
+void doDamage() {
+   ...
+}
+
+int triggered()
+{
+  return (some test? 1 : 0);
+}
+#+end_src
+
+  The above virus makes the infected file longer than it was,
+  making it easy to spot. There are many techniques to leave the
+  file length and even a check sum unchanged and yet infect. For
+  example, many executable files often contain long sequences of
+  zero bytes, which can be replaced by the virus and re-generated.
+  It is also possible to compress the original executable code like
+  the typical Zip programs do, and uncompress before execution and
+  pad with bytes so that the check sum comes out to be what it
+  was.
+
+* Trojans
+
+
+
+* Malware Detection
+
+  Known viruses are by far the most common security problem on
+  modern computer systems. Several web sites maintain complete
+  lists of known viruses. There are thousands. Visit, e.g.,
+  http://www.cai.com/virusinfo/encyclopedia/www.cai.com/
+  virusinfo/ encyclopedia/</a>. In the month of July 2000, there
+  were 200+ "PC Viruses in the Wild" (<a href=
+  "http://www.wildlist.org/www. wildlist. org</a>). Virus
+  detection programs analyze a suspect program for the presence of
+  known viruses.
+
+  Fred Cohen has proven mathematically that perfect detection of
+  unknown viruses is impossible: no program can look at other
+  programs and say either "a virus is present" or "no virus is
+  present", and always be correct. But, in the real world, most new
+  viruses are sufficiently like old viruses that the same sort of
+  scanning that finds known viruses also finds the new ones. And
+  there are a large number of heuristic tricks that anti-virus
+  programs use to detect new viruses, based either on how they
+  look, or what they do. These heuristics are only sometimes
+  successful, but since brand-new viruses are comparatively rare,
+  they are sufficient to the purpose.
+
+  Virus scanners are sometimes classified by their "generation."
+  The first generation virus scanners used previously obtained a
+  virus signature, a bit pattern, to detect a known virus. They
+  record and check the length of all executables. The second
+  generation scans executables with heuristic rules, looking, e.g.,
+  for fragments of code associated with a typical virus. They also
+  do integrity checking by calculating a checksum of a program and
+  storing somewhere else the encrypted checksum. The third
+  generation use a memory resident program to monitor the execution
+  behavior of programs to identify a virus by the types of action
+  that the virus takes. The fourth Generation Virus Detection
+  combines all previous approaches and includes access control
+  capabilities.
+
+  It is very educational to study the details of a scanner. The
+  paper by Sandeep Kumar, and Gene Spafford, "A Generic Virus
+  Scanner in C++," Proceedings of the 8th Computer Security
+  Applications Conference, IEEEPress, Piscataway, NJ; pp.210-219,
+  2-4 Dec 1992 [virusScanner.pdfLocal copy .pdf</a>] is
+  Required Reading.
+
+  <h1>2. <a name="Worms" id="WormsWorms</a></h1>A /worm/ is a
+  malicious program that copies itself from one computer to another on
+  a network. A worm is an independent program, in the sense described
+  above, unlike a virus which is a part-program that must insert
+  itself into a whole-program. A worm typically does not modify other
+  programs. A typical worm may carry other code, including programs
+  and viruses.  We describe just two famous worms.
+
+
+* Malware Prevention
+
+* Lab Experiment
+
+  1. Study the paper
+     http://www.research.ibm.com/antivirus/SciPapers/VB2000DC.htm An
+    Undetectable Computer Virus</a>, 2000. Construct a virus as
+    described. Which of the typical ant-virus scanners detect
+    this?
+
+* Acknowledgements
+
+  These lecture materials are gleaned from many sources. All are
+  presented after careful reading. In some cases, I may have
+  neglected proper attribution. I assure the reader it is not
+  because I claim authorship. Indeed, in the lectures there is
+  hardly any thing new that I have contributed. Suggestions for
+  improvement are always welcome.
+
+* Reading List
+
+** Required Reading
+
+
+
+  1. Simson Garfinkel, Gene Spafford, Practical Unix and
+    Internet Security, 3rd edition (2003), O'Reilly &amp;
+    Associates; ISBN: 0596003234. Chapter on Protecting Against
+    Programmed Threats. Required Reading.
+
+  1. Sandeep Kumar, and Gene Spafford, "A Generic Virus Scanner
+    in C++," Proceedings of the 8th Computer Security Applications
+    Conference; IEEEPress, Piscataway, NJ; pp.210-219, 2-4 Dec
+    1992. [virusScanner.pdfLocal copy .pdf</a>] Required
+    Reading.
+
+  1. Ozgun Erdogan and Pei Cao, Hash-AV: fast virus signature
+    scanning by cache-resident filters, International Journal of
+    Security and Networks, Volume 2, Number 1-2 / 2007 Pages: 50 -
+    59. Recommended Reading.
+
+  1. Anthony Cheuk Tung Lai, "Comprehensive Blended Malware
+    Threat Dissection Analyze Fake Anti-Virus Software and PDF
+    Payloads", 2010, <a href=
+    "http://www.sans.org/reading_room/http://www.sans.org/reading_room/</a>
+    Recommended Reading.<br>
+    Bryan Barber, " Cheese Worm: Pros and Cons of a Friendly Worm",
+    2003, <a href=
+    "http://www.sans.org/reading_room/http://www.sans.org/reading_room/</a>
+    Recommended Reading.
+
+  1. Schaffer, G.P., Worms and viruses and botnets, oh my!
+    Rational responses to emerging Internet threats, <a href=
+    "http://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=8013Security
+    &amp; Privacy, IEEE</a>, May-June 2006, Volume: 4, <a href=
+    "http://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=34312&amp;isYear=2006
+    Issue: 3</a>, pp. 52-58. Recommended Reading.
+
+  1. http://vxheavens.com/http://vxheavens.com/</a>
+    Their slogan: "Viruses don't harm, ignorance does!" Collection
+    of viruses source code.
+
+  1. Dark Angel, &ldquo;(Phalcon/Skism) Virus Writing
+    Tutorials,&rdquo; <a href=
+    "http://www.sirkussystem.com/virus.html
+    http://www.sirkussystem.com/virus.html</a> Required Reading.
+
+  1. Mihai Christodorescu, Somesh Jha, Douglas Maughan, Dawn
+    Song, and Cliff Wang, /Malware detection/, Springer, 2010
+    ISBN-10: 1441940952 324 pages.  Reference
+
+** Recommended Reading
+
+1. Virus Bulletin, http://www.virusbtn.com/ Technical journal on
+   developments in the field of computer viruses and anti-virus
+   products.  Reference.
+
+1. Thimbleby, Harold, Stuart Anderson, and Paul Cairns. "A framework
+   for modelling trojans and computer virus infection." The Computer
+   Journal 41.7 (1998): 444-458.
+
+1. Hypponen, Mikko. "Malware goes mobile." Scientific American 295.5
+   (2006): 70-77.
+
+1.  Cerf, Vinton G.  Google "Defense against the Dark Arts"
+    Programmers must understand the mechanisms of malware attacks if
+    they're to defend against them. Some believe programmers should
+    also be taught and even practice both attacks and defense under
+    controlled conditions. The notion of practicing attacks and
+    writing malware is controversial. Further development of forensic
+    tools and learning to use them will complement a curriculum
+    designed to prepare programmers for a hostile environment,
+    especially in public networks such as the Internet.  Internet
+    Computing, IEEE (Volume:16 , Issue: 1 )
+
+1.  Mikko H. Hypponen, "The History and Evolution of Computer
+    Viruses," Defcon 19, https://www.youtube.com/watch?v=Xr0ESMH1hwY, 2012
+
+# -eof-

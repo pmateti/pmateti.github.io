@@ -1,0 +1,94 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-16
+#+TITLE: Notes on Game of Life Assertions
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7380 Cloud Computing
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+I am writing informally but precisely.  For now, I am letting some
+design issues spill into these assertions aimed at specifying
+"things".
+
+This HW1 is yet to be turned in.  So, there are quite a few things
+that need to be filled out.
+
+* The Grid
+
+1. Define this as the (internal rep of the) grid of cells where our
+   organisms are.  The user views (a portion of) this grid subject to
+   the finite size limitations of the display.
+
+1. g: A grow/shrink 2D array of 0s and 1s.  Zero => not-alive. One =>
+   alive.
+
+1. First index is y, second index is x.  For GoL, these x-, y-
+   coordinates can be negative integers also, and there are no
+   upper/lower bounds.
+
+1. We can define g.minx as least x such that for some y, g[y, x] == 1.
+   Intuitively, there is no live cell to the left-of minx.  At the
+   level of specs, this is a function taking g as input and computing
+   minx.  A design might maintain this as an integer variable.
+
+1. Define g.maxx, g.miny, g.maxy similarly.
+
+1. You are most likely creating g via new().  The result should be !=
+   null.  This should be part of the class invariant.
+
+* Initial State
+
+1. What should we expect the g to be at the beginning?
+
+* Next State
+
+1. The important assertion in the GoL has to do with how the g.pre and
+   g.post are related for any method: g.post = GoL-rules(g.pre).
+
+1. There is a lot buried in the function named GoL-rules.  It should
+   be defined by cases corresponding to the rules of the game.
+
+* Display
+
+1. aka: screen, monitor, window, ...
+
+1. d: a fixed size 2D array of 0s and 1s.  Zeros and ones interpreted
+   as in g.  d.minx == 0, d.miny=0.  d.maxx, and d.maxy are determined
+   by the monitor device.  The y-axis ("lines") increases downward,
+   top is 0.  The x-axis is normal (left-most is 0, right-most is
+   maxx).
+
+* Game Activity Control
+
+1. This usage of the word "activity" is unrelated to Android.
+
+** Requirements
+
+1. This is *really* a requirements discussion.
+1. We would want to control the delay between consecutive updates of
+   the display.  Including pause/resume.
+1. What to do with "run away" clusters of cells?  A wicked problem!
+
+** User Interface
+
+1. Your choice.
+
+* Design Issues
+
+1. Map g to d: This is *one of the* difficult things in the design.
+   Do we have any guidance from "Requirements"?
+
+1. That d is mapped correctly with respect to g at all times is part
+   of the game invariant.
+
+1. The obvious thing is to scan the g[., .] bounded by g.min* to g.max*
+   and apply the rules of the game to compute the next state of g.
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

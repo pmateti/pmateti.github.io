@@ -1,0 +1,206 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE: Knuth's Common Words Problem Spec/Design
+#+AUTHOR: Prabhaker Mateti
+#+DATE: 2020-09-25
+#+DESCRIPTION: Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../../Top/index.html
+#+HTML_HEAD: <style> P,li {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* CWP (Common Words Problem)
+
+1. "Given a file of text, and a number k, print the k most common words."
+1. Used as an example of Literate Programming, the art of preparing
+   programs for human readers.  See [[../../Design/design-doc.org]].
+1. Our interest here:  How to describe its spec + design?
+
+* Design of Knuth's Program for CWP
+
+1. Let us not question: Why do we need such a complex design?
+1. Instead: How do we describe this design?
+1. Instead: Did Knuth describe the design or the implementation?
+
+* CWP Spec
+
+1. The focus of this lecture is the design.  But, we should be clear
+   about the specs.
+1. Defs of text, words, ... Straightforward.
+1. Def of "common" word.
+1. "Most Common"?  (Based on #occurrences in the given file.)
+1. Mateti(2013) [[../../../PDF/cwp-pmateti-2013.pdf]] Section 2.1
+
+* CWP Design 
+
+1. Design Description of CWP needs several levels.
+1. See  [[../../Design/correct-by-design.org]] for S |= D  (Design D meets Spec S)
+1. S |= D1 |= D2 |= ... |= Implementation
+
+** Phase 1: Build the bag of words in the file
+
+3. Our pseudo code permits many special characters as part of an
+   identifier, as in Scheme.
+
+1. Scanner Design (not shown here) provides
+   1. initialize-the-scanner-with-the-file();
+   2. next-word-from-scanner()
+   4. close-the-scanner-and-the-file();
+
+1. Psuedo-code
+
+   1. B is a bag of words occurring in the file scanned so far
+   3. union with lhs notation is +=
+   4. The : = {} and  += operations should be provided by the design of B
+   : initialize-the-scanner-with-the-file();
+   : B := {} # empty bag
+   : while not-at-eof do
+   :   B += { next-word-from-scanner() };
+   : od
+   : close-the-scanner-and-the-file();
+
+** Phase 2: Sort the Bag B into a Sequence Q
+
+1. Sort the Bag into an ordered sequence based on word-counts
+   1. A design provides (to be shown later)  sort-the-bag-*
+   : Q := sort-the-bag-word-count-based(B); assert bag(Q) == B;
+   : print Q[0 .. k-1];
+
+** Meta Comments
+
+1. The above can be claimed as a "canonical" design solution.  That
+   is, we cannot design in some other way, or without the two phases.
+
+1. We can refine the design into a distributed/ concurrent
+   one where B and Q are built simultaneously.
+
+
+* CWP Design Refinements Hierarchy
+
+1. Recall: D_2 is-a-refinement-of D1, D_1 |= D_2
+   1. D_1 is an /abstraction/ of D_2
+   2. See  [[../../Design/correct-by-design.org]] 
+
+1. How do we progress from a simple bag of words B (phase 1) to n-ary
+   hash trie?  In five steps.
+4. The bag of words B can be read out in each design.
+
+** Bags refined as Tables
+   1. Rows of (Word, nOccurs) pairs
+
+** Tables refined as n-ary Trees
+   1. Collection of (Word, nOccurs) as an n-ary tree
+   1. ex: [[../../../PDF/cwp-nary-tree.pdf][cwp-nary-tree.pdf]], a node has upto 26 children
+   2. Is a Prefix of a Word a Word?  Yes.
+   3. Sorted on the spelling
+   4. Why? Efficient search to locate place of insertion
+** n-ary Trees refined as Plain Tries
+
+   1. ex: [[../../../PDF/cwp-plain-trie.pdf][cwp-plain-trie.pdf]]
+   1. A more space efficient trie: Two liks per node, not 26
+
+** Plain Tries refined as Ringed Tries
+
+   1. Gather siblings into a circular list, sorted reverse alphabetically
+   2. Introduce a header node
+   3. Parent points to header
+   4. ex: [[../../../PDF/cwp-ringed-trie.org][cwp-ringed-trie]].pdf
+
+** Ringed Tries refined as Hash Tries
+
+1. Concrete data structure: An array of Items.
+2. Each item: a structure/ record of 4 data members
+3. View it as a table of 4 columns, named
+   1. link, ch, sibling, and count
+   2. ex: [[../../../PDF/cwp-hash-trie.pdf][cwp-hash-trie.pdf]] .
+
+
+* Hashed Trie
+
+1. CWP final design uses a hash trie. ex: [[../../../PDF/cwp-hash-trie.pdf][cwp-hash-trie.pdf]] .
+
+8. Why a Hash Trie?
+   1. Pro: Space efficiency
+   2. Con: Code complexity increase
+   3. Pro: Pointers (addresses) replaced with offsets
+   4. To show off Literate Programming
+
+1. Recall: The : = {} and += operations should be provided by the
+   design of B and all its refinements.
+
+1. Construct an empty hash trie.
+1. Add a word into the hash trie.  May run into a collision.
+
+
+* Construct the List of (Words, nOccurs) sorted by nOccurs
+
+1. Sort the collection of words based on nOccurs (Phase 2) into a sequence.
+1. Many simple design solutions do exist.  Knuth chose a complex design.
+
+** Background on Tree Traversals
+
+1. Consider, e.g., in-order binary tree traversal.
+1. Straightforward to write a recursive traversal.
+1. Straightforward to convert that into a non-recursive traversal, but
+   using a stack of nodes (as a reminder list of nodes to be
+   traversed).
+1. Suppose we "forbid" the use of a stack.  How exactly do we forbid?
+1. We forbid the declaration of a stack using memory apart from the
+   storage of the binary tree.
+1. In a  binary tree of n nodes, half its links are nil/ null.
+1. Clever algorithms now exist that build a stack with these null-links.
+
+** Traversal of Hash Trie
+
+1. Knuth's CWP /destructively/ traverses the hash trie
+1. We skip it.  Beyond the scope of this course.
+
+* Criticism of Knuth's Solution
+
+1. Others criticized as an example of software development.
+   1. "Faberge Egg!"
+   2. Equivalent shell script with pipes using standard Unix/Linux
+      utilities (McIlroy, p480, CACM 1986)
+
+1. Our criticism is that Knuth's article was not "good documentation."
+   It only described the *implementation* made to meet an intuitive
+   problem statement.  The design and spec were never documented.
+
+* Exercises
+
+1. Exercise: The figure shown in [[../../../PDF/cwp-hash-trie.pdf][cwp-hash-trie.pdf]] is a hash trie.
+   Draw its abstraction that we called a Ring Trie.
+1. Exercise: Row 3021 has an error (ch should be 20 not 21).  Trace
+   how this row represents the word "bent".
+1. Exercise: Develop a Java class of the Hash Trie.  [An
+   implementation-level Pascal src code is in Knuth's paper.]
+1. Exercise: Develop a literate program edition of the above in Java.
+   Use any of the tools mentioned at http://www.literateprogramming.com/
+1. Exercise: What is the class invariant of the Hash Trie?
+
+
+* References
+
+1. Donald E. Knuth, "A Solution to the Common Words Problem",
+   Communications of the ACM, 1986.  Knuth is a Turing Award winner.
+   (local PDF [[../../../PDF/cwp-knuth-cacm-1986.pdf]] of Knuth's paper, but search
+   for another  PDF link for a clean version).  Required Reading.
+
+2. Reviews of Knuth's solution by David Hanson, John Gilbert,
+   Communications of ACM (Literate Programming column), July 1987,
+   594 - 599.  Recommended Reading.
+
+3. Prabhaker Mateti, Rigorous Re-Design of Knuth's Solution to the
+   Common Words Problem, [[../../../PDF/cwp-pmateti-2013.pdf]] 45pp, 2013.
+   [[../../../PDF/cwp-pmateti-highlighted-full-2018.pdf]] reformatted, 2018, now 14pp.
+   1. [[../../../PDF/cwp-pmateti-highlighted-full-2018.pdf][Full version]]: Recommended Reading.
+   2. [[../../../PDF/cwp-pmateti-highlighted-full-2018.pdf][Boxed + highlighted portions]]: Required Reading.
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

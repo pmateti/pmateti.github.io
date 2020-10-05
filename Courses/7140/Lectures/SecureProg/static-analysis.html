@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Static Analysis of Source Code</title>
+<!-- 2018-06-09 Sat 18:36 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="Software Engineering"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Static Analysis of Source Code</h1>
+<p>
+TBD: merge <a href="../Bugs/static-analysis.html">../Bugs/static-analysis.html</a>
+</p>
+
+
+<p>
+Abstract: Large amount of research exists.  Several commercial/free
+tools exist.  The technique is (i) generate abstract syntax trees of
+the source code (ii) look for pattern matches that are known to be
+security wise problematic, (iii) either auto-fix or alert the
+programmer.  This is not the same as an area known as "formal
+verification"
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Background</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li><a href="../Languages/Grammars">../Languages/Grammars</a>, Derivation Trees, Abstract Syntax Trees.
+Required Reading.
+</li>
+
+<li><a href="http://www.eclipse.org/jdt/">Eclipse Java development tools (JDT)</a> Abstract Syntax Trees API.
+</li>
+
+<li>Formal verification is based on assertions, discrete mathematics,
+logic, and algorithmic theorem proving.
+</li>
+
+<li>Most of the tools mentioned below use abstract syntax trees (AST).
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Static Analysis of Source Code</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Jackpot Example</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>Jackpot (of NetBeans): Given the rule
+</li>
+</ol>
+
+<pre class="example">
+$1.isDirectory() :: $1 instanceof java.io.File
+=&gt; !$1.isFile()
+;;
+</pre>
+
+<p>
+it will rewrite
+</p>
+
+<pre class="example">
+java.io.File testFile = new java.io.File("/tmp");
+if (testFile.isDirectory()) {
+    System.err.println("/tmp is a directory");
+}
+</pre>
+
+<p>
+into
+</p>
+
+<pre class="example">
+java.io.File testFile = new java.io.File("/tmp");
+if (!testFile.isFile()) {
+    System.err.println("/tmp is a directory");
+}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> AutoRefactor Examples</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li><a href="http://autorefactor.org/">http://autorefactor.org/</a>  Site looks old-fashined, but content is
+good.  Collection of <a href="http://autorefactor.org/html/samples.html">Examples</a>.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Security Improvement</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li><a href="https://www.owasp.org/images/a/a9/Owaspday2West.pdf">OWASP</a> 35+ slides based on "Secure Programming with Static Analysis"
+2008 book.  <a href="https://www.owasp.org/index.php/Static_Code_Analysis">https://www.owasp.org/index.php/Static_Code_Analysis</a>.  Lecture.
+</li>
+
+<li><a href="http://www.inf.ed.ac.uk/teaching/courses/sp/2015/lecs/13-static.pdf">Secure Programming: Code Review and Static Analysis</a>, 40+ slides,
+David Aspinall, University of Edinburgh, Scotland, 2016. Lecture.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Commercial Tools</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li><a href="http://www.coverity.com/">http://www.coverity.com/</a> (Bought out by Synopsys in 2014.)
+Stanford U research on static analysis commercialized.  (i) Dawson
+Engeler, et al., A Few Billion Lines of Code Later: Using Static
+Analysis to Find Bugs in the Real World, CACM, 10pp, 2010.
+<a href="http://courses.cs.washington.edu/courses/cse484/14au/reading/coverity.pdf">http://courses.cs.washington.edu/courses/cse484/14au/reading/coverity.pdf</a>.
+Required Reading. (ii)
+<a href="http://go.coverity.com/rs/157-LQW-289/images/2014-Coverity-Scan-Report.pdf">http://go.coverity.com/rs/157-LQW-289/images/2014-Coverity-Scan-Report.pdf</a>
+Required Reading.
+</li>
+
+<li><a href="https://semmle.com/">https://semmle.com/</a> "Code as Data" "Semmle QL, is a declarative,
+object-oriented query language.  It is a modern variant of Datalog.
+Unbounded ability to ask questions of code repos: Find all
+instances of a security vulnerability; Check correct usage of an API"
+<a href="https://semmle.com/wp-content/uploads/2016/01/paper.pdf">https://semmle.com/wp-content/uploads/2016/01/paper.pdf</a>
+</li>
+
+<li><a href="http://www.klocwork.com/">http://www.klocwork.com/</a> "Code Matters." "Detect security, safety,
+and reliability issues as you type."  "Through complete program
+analysis of syntax, semantics, variable estimation, and control and
+data flow, static code analysis finds issues that are difficult or
+impossible to find through manual testing. That’s because SCA is
+based on application structure and data, covering a much broader
+set of scenarios than a developer ever could. Klocwork takes static
+code analysis to the next level &#x2013; making it happen on-the-fly."
+</li>
+
+<li>This list is obviously non-exhaustive.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> FindBugs</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>A bug pattern is a code idiom that is often an error.
+<ol class="org-ol">
+<li>Difficult language features
+</li>
+<li>Misunderstood API methods
+</li>
+<li>Misunderstood invariants when code is maintain
+</li>
+<li>typos, wrong boolean operators, &#x2026;
+</li>
+</ol>
+</li>
+<li>Static analysis to inspect Java bytecode for bug patterns.
+<ol class="org-ol">
+<li>Without executing the program
+</li>
+<li>don't even need the program's source
+</li>
+</ol>
+</li>
+<li>can report false warnings, and also miss real errors.
+<ol class="org-ol">
+<li>In practice, false warnings &lt; 50%.
+</li>
+</ol>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> FindBugs Categories</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>Bad practice
+</li>
+<li>Correctness
+</li>
+<li>Dodgy
+</li>
+<li>Experimental
+</li>
+<li>Internationalization
+</li>
+<li>Malicious code vulnerability
+</li>
+<li>Multithreaded correctness
+</li>
+<li>Performance
+</li>
+<li>Security
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> PMD</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li><a href="https://www.owasp.org/images/c/cc/Securing_Development_with_PMD_-_Teaching_an_Old_Dog_New_Tricks_-_OWASP.pdf">PMD</a> debugging plugin (for Eclipse and IdeaJ) for static analysis of
+security.
+</li>
+
+<li><a href="https://www.owasp.org/images/c/cc/Securing_Development_with_PMD_-_Teaching_an_Old_Dog_New_Tricks_-_OWASP.pdf">Security Analysis with PMD</a> Using the PMD debugging plugin (for
+Eclipse and IdeaJ) for static analysis of
+security. <a href="https://github.com/GDSSecurity/GDS-PMD-Security-Rules">https://github.com/GDSSecurity/GDS-PMD-Security-Rules</a>
+</li>
+
+<li>PMD parses Java source code and looks for potential problems like:
+</li>
+
+<li>Possible bugs - empty try/catch/finally/switch statements
+</li>
+<li>Dead code - unused local variables, parameters and private methods
+</li>
+<li>Suboptimal code - wasteful String/StringBuffer usage
+</li>
+<li>Overcomplicated expressions - unnecessary if statements, for loops
+that could be while loops
+</li>
+<li>Duplicate code - copied/pasted code means copied/pasted bugs
+</li>
+<li>PMD-CPD - Copy/Paste Detector (CPD)
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> PMD RuleSets</h3>
+<div class="outline-text-3" id="text-5-1">
+<ol class="org-ol">
+<li>Android Rules: These rules deal with the Android SDK.
+</li>
+<li>Basic Rules: The Basic Ruleset contains a collection of good practices which everyone should follow.
+</li>
+<li>Braces Rules: The Braces Ruleset contains a collection of braces rules.
+</li>
+<li>Clone Implementation Rules: The Clone Implementation ruleset contains a collection of rules that find questionable usages of the
+clone() method.
+</li>
+<li>Code Size Rules: The Code Size Ruleset contains a collection of rules that find code size related problems.
+</li>
+<li>Controversial Rules: The Controversial Ruleset contains rules that, for whatever reason, are considered controversial.
+</li>
+<li>Coupling Rules: These are rules which find instances of high or inappropriate coupling between objects and packages.
+</li>
+<li>Design Rules: The Design Ruleset contains a collection of rules that find questionable designs.
+</li>
+<li>Import Statement Rules: These rules deal with different problems that can occur with a class' import statements.
+</li>
+<li>JavaBean Rules: The JavaBeans Ruleset catches instances of bean rules not being followed.
+</li>
+<li>JUnit Rules: These rules deal with different problems that can occur with JUnit tests.
+</li>
+<li>Java Logging Rules: The Java Logging ruleset contains a collection of rules that find questionable usages of the logger.
+</li>
+<li>Migration Rules: Contains rules about migrating from one JDK version to another.
+</li>
+<li>Migration15: Contains rules for migrating to JDK 1.5
+</li>
+<li>Naming Rules: The Naming Ruleset contains a collection of rules about names - too long, too short, and so forth.
+</li>
+<li>Optimization Rules: These rules deal with different optimizations that generally apply to performance best practices.
+</li>
+<li>Strict Exception Rules: These rules provide some strict guidelines about throwing and catching exceptions.
+</li>
+<li>String and StringBuffer Rules: Problems that can occur with manipulation of the class String or StringBuffer.
+</li>
+<li>Security Code Guidelines: These rules check the security guidelines from Sun.
+</li>
+<li>Unused Code Rules: The Unused Code Ruleset contains a collection of rules that find unused code.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> PMD Rule Examples</h3>
+<div class="outline-text-3" id="text-5-2">
+<ol class="org-ol">
+<li>EmptyCatchBlock: Empty Catch Block finds instances where an
+exception is caught, but not hing is done. In most circumstances,
+this swallows an exception which should either be acte d on or
+reported.
+</li>
+<li>EmptyIfStmt: Empty If Statement finds instances where a condition
+is checked but nothing is done about it.
+</li>
+<li>EmptyWhileStmt: Empty While Statement finds all instances where a
+while statement does nothing. If it is a timing loop, then you
+should use Thread.sleep() for it; if it's a while loop th at does a
+lot in the exit expression, rewrite it to make it clearer.
+</li>
+<li>EmptyTryBlock: Avoid empty try blocks - what's the point?
+</li>
+<li>EmptyFinallyBlock: Avoid empty finally blocks - these can be deleted.
+</li>
+<li>EmptySwitchStatements: Avoid empty switch statements.
+</li>
+<li>JumbledIncrementer: Avoid jumbled loop incrementers - it's usually
+a mistake, and it's conf using even if it's what's intended.
+</li>
+<li>ForLoopShouldBeWhileLoop: Some for loops can be simplified to while
+loops - this makes t hem more concise.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Slides</h3>
+<div class="outline-text-3" id="text-5-3">
+<ol class="org-ol">
+<li><a href="./findbugs-etc.pptx">./findbugs-etc.pptx</a> FindBugs, PMD, etc. Eclipse and IDEA Plugins.
+These are pmateti's slides. 2013.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Misc Open Source Projects</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li><a href="http://spoon.gforge.inria.fr/">Spoon INRIA</a>, France. Spoon - Source Code Analysis and
+Transformation for Java.  Renaud Pawlak, Martin Monperrus, Nicolas
+Petitprez, Carlos Noguera, Lionel Seinturier. "Spoon: A Library for
+Implementing Analyses and Transformations of Java Source Code". In
+Software: Practice and Experience, Wiley-Blackwell, 2015. Doi:
+10.1002/spe.2346.
+</li>
+
+<li><a href="https://sewiki.iai.uni-bonn.de/research/jtransformer/">https://sewiki.iai.uni-bonn.de/research/jtransformer/</a> "JTransformer
+lets you analyse and transform the full source code of a Java
+project (even the comments). &#x2026; Source code edits are propagated
+automatically and incrementally to the internal model of the
+program. Transformations of the internal model are propagated to
+the source code upon explicit request. Thus model transformation is
+reflected as source-code transformation at the push of a button."
+</li>
+
+<li><a href="https://github.com/checkstyle/checkstyle">https://github.com/checkstyle/checkstyle</a> CheckStyle: Development
+tool to help programmers write Java code that adheres to a coding
+standard.  It automates the process of checking Java code to spare
+humans of this boring (but important) task. Dead Code Detector TBD
+fig
+</li>
+
+<li><a href="https://kenai.com/projects/refactoringng/">RefactoringNG</a> for Net Beans
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Formal Verification Tools</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li>"Formal Verification" == Assertions in a well-defined math + logic
+based language + automatic theorem proving.  Mostly static
+analysis.  May do a formal sandboxed excution.
+</li>
+
+<li><a href="http://frama-c.com/">http://frama-c.com/</a> FOSS.  <del>For C only.</del>  <del>Not C+</del>.  <a href="http://frama-c.com/download/e-acsl/e-acsl.pdf">E-ACSL</a>
+Executable ANSI/ISO C Specification Language, 2016. "04 July 2016
+The first version of the Frama-Clang plugin, an experimental C++
+front-end for Frama-C, is available."
+</li>
+
+<li><a href="http://types.cs.washington.edu/checker-framework/">Java Checker</a> Framework, U of Washington.  FOSS.
+</li>
+
+<li><a href="http://www.kestrel.edu/home/projects/java/">Specware</a> for Java byte code at Kestrel Institute, Palo Alto, CA 94304
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> References</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li>Several refs embedded above.
+</li>
+
+<li>Caitlin Sadowski, Jeffrey van Gogh, Ciera Jaspan, Emma Söderberg,
+Google, Inc., Collin Winter, <a href="http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43322.pdf">Tricorder: Building a Program Analysis
+Ecosystem</a>, 2015 IEEE/ACM 37th IEEE International Conference on
+Software Engineering (ICSE), 2015.  Recommended Reading.
+</li>
+
+<li>Brown, Fraser, Andres Nötzli, and Dawson Engler. "<a href="http://web.stanford.edu/~mlfbrown/paper.pdf">How to Build
+Static Checking Systems Using Orders of Magnitude Less Code</a>",
+Proceedings of the Twenty-First International Conference on
+Architectural Support for Programming Languages and Operating
+Systems. ACM, 2016.  PDF   Recommended Reading.
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2016 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2016-07-08
+</div>
+</body>
+</html>

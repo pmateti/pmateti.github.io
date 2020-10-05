@@ -1,0 +1,153 @@
+
+# -*- mode: org -*-
+#+date: 2018-09-07
+#+TITLE: Linux System Administation #1
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./index-slides.html>Slides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Abstract
+
+These are items that you, as security student, must know at a bare
+minimum.  Read the =man= page on the commands, before trying them out.
+Most of them need to be run as =root=.  You can use the =sudo= prefix,
+or set aside a root-dedicated terminal, with a distinctly different
+appearance, where you have logged in as =root=.
+
+* Terminology
+
+1. Commands are programs or script; read up on =man file=.
+
+* What is Where in Your Linux Machine
+
+
+** Hardware
+
+1. Commands that report on what your machine has.  Should remain
+   unchanged unless you added/removed hardware items.
+1. =blkid=
+1. =lshw=
+1. =lsusb=
+1. =dmidecode=
+1. https://www.pugetsystems.com/labs/support-software/Linux-hardware-identification-tools---now-with-more-GUI-1104/
+   But, in this course, we much prefer command line usage, not GUI.
+
+
+** Commands
+
+1. Commands that report on what is installed, currently in use or
+   not. Should remain unchanged unless you updated the installation.
+
+1. =cat /etc/issue=
+1. =find /etc -name *mod*=
+1. =ls -alR /boot=
+1. =more /boot/config-*=
+1. =more /boot/abi-*= " Linux kernel and GNU C Library define the
+   Linux API. After compilation, the binaries offer an ABI; keeping
+   this ABI stable over a long time is important for ISVs.  In
+   computer software, an application binary interface (ABI) is an
+   interface between two binary program modules; often, one of these
+   modules is a library or operating system facility, and the other is
+   a program that is being run by a user."
+
+1. =which init=
+1. =ls -l /sbin/init=
+
+** Where are the Programs and Scripts?
+
+1. =ls -l /bin /sbin /usr /usr/bin /usr/bin /usr/local/bin | wc -l=
+
+** /dev
+
+1. =ls -l /dev=
+1. Major and minor numbers; ex: major 8, minor 1, block device
+   : brw-rw---- 1 root disk 8, 1 Sep  6 20:09 /dev/sda1
+
+
+
+** Abstract Devices
+
+1. =ls -l /dev/random /dev/urandom /dev/zero /dev/null=
+1. Devices are also organized based on their function and usage.
+1. =ls -l /dev/fuse /dev/kmsg
+1. -ls -l /dev/loop*=
+1. =ls -l /dev/block/=
+1. =find /dev/ -name *by*=
+
+
+* Currently Running Linux
+
+** File Volumes and Swap
+
+1. =cat /etc/fstab /etc/exports /etc/samba/smb.conf=
+1. =df -Th=
+
+** Kernel
+
+1. =cat /proc/cmdline=
+1. =modprobe(8), insmod(8), lsmod(8), modinfo(8) depmod(8, rmmod(8)=
+   Volume# 8
+1. cat /proc/meminfo
+
+** User Accounts
+
+1. =ls -l /etc/passwd /etc/shadow /etc/group /etc/sudoers=
+
+
+** /proc
+
+1. Proc is a psuedo-file system.  These are not real files sitting on
+   the HDDs.  OS presents its inner settings constructed as files in
+   this directory.  There are occasional discrepancies: Even after
+   reporting the size as 0, cat will display size able content.
+
+1. =cat /proc/version=  related to =uname -a=
+
+1. =cat /proc/1/cmdline=
+1. =ls -ld /proc/1/*=
+1. =cat /proc/mounts=
+1. =cat /proc/vmstat=
+1. =cat /proc/interrupts=
+
+** Installed Distributions on Your HDDs
+
+1. =/boot/grub/grub.cfg=
+
+* Proper Config of Grub
+
+** Configure the Initial Grub Installation
+1. Proper Grub: https://opensource.com/article/17/3/introduction-grub2-configuration-linux 2017
+1. http://tldp.org/HOWTO/Remote-Serial-Console-HOWTO/configure-boot-loader-grub.html
+   2003
+
+** Devious Grub
+
+1. Replacing Grub Files: Easy if we have "console" access.
+1. Replacing Grub Files: Easy if we have remote root access while
+   Linux is running.
+
+** Secure Config of Grub
+
+1. https://help.ubuntu.com/community/Grub2/Passwords  The least you
+   want to do.
+
+1. We assumed that you already secured UEFI / BIOS and TPM.
+1. TPM is beyond the scope of this course.
+   https://trustedcomputinggroup.org/resource/trusted-platform-module-tpm-summary/
+
+* References
+
+1. https://help.ubuntu.com/community/Grub2/Passwords  Required Reading
+1. https://help.ubuntu.com/lts/serverguide/user-management.html.en  Required Reading
+1. https://wiki.ubuntu.com/UEFI/SecureBoot   Recommended Reading
+1. https://wiki.gentoo.org/wiki/Security_Handbook/Bootloader_security   Recommended Reading
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,137 @@
+# -*- mode: org -*-
+#+DATE: 2018-08-15
+#+TITLE: Mandatory Access Control (MAC)
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+* MAC Overview
+
+1. System defined access control: Required ("Mandatory") for all.
+   1. Users cannot override the policy.
+   2. Access control at a much finer granularity.
+
+1. MAC enforcement requires all policies to be specified by an
+   administrator.  Users cannot change these policies
+
+3. Principle of Least Privilege
+1. [[../SELinux][SELinux]] is a MAC design and implementation adapted to Linux.
+
+** MAC Overview #2
+
+2. Controls objects (and "subjects") such as processes, inodes, files, etc.
+
+3. Any operation by any subject on any object will be tested against
+   the set of authorization rules (aka /policy/) to determine if the
+   operation is allowed.
+   1. Ex: wish to control access to =/etc/shadow=
+   2. Ex: wish to control a process
+
+** MAC Overview #3
+
+4. MAC is mainstream now: Linux, Windows, OS X, Android, iOS
+   1. In addition to DAC
+
+5. Linux MAC solutions: AppArmor, SELinux, Smack, TOMOYO
+   1. Ubuntu distribution uses AppArmor; can =apt-get install selinux=
+   2. RedHat distribution uses SELinux
+
+1. DAC to MAC flow
+#+caption: Simplified DAC to MAC flow
+#+attr_html: :width 100%
+[[./Figures/dac-mac-flow1.png]]
+#+caption: Detailed DAC to MAC flow
+[[./Figures/dac-mac-flow2.png]]
+
+* Sensitivity Labels
+
+1. DAC limits access to files, processes, ... through the notions of
+   owner, group and the rest of the users.  This model is unacceptable
+   for higher levels of security.  Additional security attributes
+   called /sensitivity labels/ (SLs) are added to system resources
+   such as files, processes, network ports, interfaces, and host addresses.
+
+1. Access control using system-enforced labels is called mandatory
+   access control (MAC).
+
+1. ""For example, incoming packets from a network interface can be
+   assigned SLs, perhaps based on the source IP address or the network
+   interface. Outgoing packets will have the label of the process or
+   daemon that created them. An incoming or outgoing packet will be
+   dropped if the SL of the packet is not valid for both the interface
+   and the remote host.  
+
+1. ""Network services, such as HTTP daemons and associated CGI
+   scripts, can be given read-only access to web pages and CGI
+   directories and can be completely isolated from other resources
+   (such as internal network interfaces, system files, and other
+   network daemons). 
+
+1. ""A network server configured in this way can protect its web pages
+   and CGI scripts from ever being modified from an external
+   connection, even if damaging bugs exist in the software that allow
+   incoming users to execute any random sequence of machine instructions.
+
+* Domain and Type Enforcement (DTE)
+
+1. DTE is a mandatory access control system, which assigns "types" to
+   files, and "domains" to processes.
+
+1. DTE controls access from domains to types, domain transitions, and
+   signal access between domains, based on a DTE policy which is read at
+   boot time.
+
+1. Type enforcement is a partially ordered non-hierarchical labeling
+   system combined with access mapping from a similarly labeled
+   execution domain.
+
+1. For labeling subjects, all processes are confined to "domains".
+
+1. Objects (e.g., disk files) have labels known as "types".
+
+1. Each domain has specific permissions to do things to any particular
+   type, say to read files in that type.  Processes cannot change
+   domains unless the system lets them.
+1. Domain configurations are either strictly controlled or cannot even
+   be modified in multi-user mode, depending on the implementation.
+
+1. Type access can be any of read, write, execute,
+   create, and directory descend.
+
+1. Domain access refers the right to send signals as well as that to
+   transition to a new domain.
+
+1. A process belongs to exactly one domain at any particular time.  A
+   process transitions to a new domain by executing a file which has
+   been defined as an entry point to that domain.
+
+1. The three types of domain transitions are auto, exec, or none.  If
+   Domain A has auto access to domain B, and a process in domain A
+   executes an entry point for domain B, then the process will be
+   automatically switched to domain B.  If domain A has exec access to
+   domain B, then a process running under domain A can choose whether
+   to switch to domain B on execution of one of B's entry points.
+
+* NSA Security Enhanced Linux MAC
+
+1. [[../SELinux][SELinux]] is a MAC design and implementation adapted to Linux.
+
+* References
+
+6.  http://www.linux.com/learn/docs/727873-overview-of-linux-kernel-security-features/
+   2013 Good overview.   Highly recommended reading.
+
+1.  Don Porter, CSE 506 MAC vs.  DAC
+1.  https://tthtlc.wordpress.com/2012/07/22/don-porter-and-his-linux-kernel-related-resources/
+1.  Don Porter,
+   https://www3.cs.stonybrook.edu/~porter/courses/cse506/f12/slides/selinux-handout.pdf
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

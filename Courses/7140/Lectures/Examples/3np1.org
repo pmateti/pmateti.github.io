@@ -1,0 +1,95 @@
+
+# -*- mode: org -*-
+#+TITLE: 3n+1 Termination?
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+DESCRIPTION: On Assertions in Software Engineering
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016  &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+
+Study the following program.  Assuming that the arg[ 1] is a
+non-negative integer, does it terminate?  
+
+Build it.  Run it a few times.
+
+Demonstrating that in billion of such runs, it terminated each time is
+not good enough.  Demonstrating that in one specific example run with
+initial value x0 for x, the loop will reassign that value to x again
+is a valid counter example.
+
+* The Code for 3n+1
+
+#+begin_src c++
+// 3n+1 
+
+#include <iostream>
+using namespace std;
+#include <stdlib.h>
+
+int main(int argc, char * argv []) {
+  int x = atoi(argv[1]);
+  int y;
+  cout << x;
+
+  /*@ x is the given input integer, x > 0 */
+  while (x > 1) {
+    cout << x << '\n';
+    x = (x % 2 == 0? x / 2 : 3*x + 1);
+  }
+}
+#+end_src
+
+* Pre- Post Conditions
+
+1. The pre-condition for the while loop is =x > 0=
+1. The post-condition for the while loop is =!(x > 1)=
+
+* Loop Invariant
+
+1. Can we write loop invariant(s) for this? Yes, of course.
+
+1. The trivial =true= is a loop invariant.  But, too weak to be of
+   help here.
+
+1. In our course, we
+   permitted outselves a notation through we can refer to values that
+   a var had at the beginning of that line. E.g., x@3 stands for the
+   value x had at the beginning of line# 3.
+
+1. Among all possible loop invariants, we choose the strongest one.
+
+* Termination?
+
+1. How do we show/ discuss/ argue that some loop terminates?  We
+   discover some expression E that monotonically decreases and we know
+   what its least value is, say Z. Then, =Z < = E < E-prime= becomes
+   (part of) the loop invariant.  Here =E-prime= stands for the value
+   of E in an earlier iteration.
+
+1. The expression E may or may not have been there in the loop
+   originally.  Just for showing properties of a piece of code, we are
+   permitted to introduce new variables and expressions that do not
+   otherwise influence the process state.
+
+* Lessons from 3n+1
+
+1. Our point #1: Simple programs can have properties that are
+   extremely hard to prove.
+
+2. Our point #2: It is failrly easy to dress probelms from other
+   fields (in this case, Number Theory) into problems of software.
+
+3. Our point #3: If we some how discover such masquerades, and
+   "forbid" them: Are the rest of the properties of software
+   "difficult"?
+
+* References
+
+1. The above is known as
+   https://en.wikipedia.org/wiki/Collatz_conjecture.  Recommended Reading.
+

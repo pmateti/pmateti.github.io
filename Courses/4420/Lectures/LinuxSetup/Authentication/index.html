@@ -1,0 +1,405 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<title>Authentication</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+</head>
+
+<body>
+
+<table cellspacing="10" cellpadding="10" width="100%" border="0">
+   <tr>
+    <td width="33%"><a target="_blank" href="http://www.wright.edu/">
+      <img src="../images/wsu-logo-xsm.gif" border="0" width="150" height="66"></a><br>
+      <h3><b><a href="http://www.cs.wright.edu/~pmateti/Courses/499/">CEG 499/699:<br>
+      Internet Security</a></b></h3>
+      <p>
+       <br>
+       <a href="http://www.cs.wright.edu/">College of Engineering &amp; CS</a><br>
+       <a href="http://www.wright.edu/">Wright State University</a><br>
+       <a href="http://www.dayton.net/dayton/">Dayton,</a>
+       <a href="http://www.state.oh.us/">Ohio</a> 45435-0001</td>
+    <td width="67%"><table border="0" width="100%">
+      <tr>
+       <td width="100%"><h1>Authentication</h1>
+       </td>
+      </tr>
+      <tr>
+       <td width="100%">&nbsp;</td>
+      </tr>
+      <tr>
+       <td width="100%"><h2><a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+         Prabhaker Mateti</a></h2>
+       </td>
+      </tr>
+      <tr>
+       <td width="100%">&nbsp;</td>
+      </tr>
+      <tr>
+       <td width="100%">Abstract:&nbsp; User, node and service authentication.</td>
+      </tr>
+      <tr>
+       <td width="100%">&nbsp;</td>
+      </tr>
+      <tr>
+       <td width="100%">This work is supported in part by NSF DUE-9951380.</td>
+      </tr>
+      </table>
+    </td>
+   </tr>
+</table>
+<table cellspacing="0" cellpadding="0" width="100%" bgcolor="#008080" border="0">
+   <tr>
+    <td>&nbsp;</td>
+    <td align="right">&nbsp;</td>
+   </tr>
+</table>
+<h2><a name="Table of Contents">Table of Contents</a></h2>
+<ol>
+  <li><a href="#Educational Objective">Educational Objectives</a></li>
+  <li><a href="#Lab Experiment">Lab Experiment</a></li>
+  <li><a href="#Acknowledgements">Acknowledgements</a></li>
+  <li><a href="#References">References</a></li>
+</ol>
+<hr>
+<h2><a name="Educational Objective">Educational Objective</a>s</h2>
+<ol>
+  <li>Understand the need for authentication.</li>
+  <li>&nbsp;</li>
+</ol>
+<hr>
+<h1>Authentication</h1>
+<table cellpadding="10" border="0" width="100%" cellspacing="0" bgcolor="#FFFFCC" 
+style="border-collapse: collapse" bordercolor="#111111">
+   <tr>
+    <td><p align="right">
+      from <a href="http://www.m-w.com/cgi-bin/dictionary">
+      http://www.m-w.com/cgi-bin/dictionary</a> </p>
+      <p>
+       <b>au·then·tic</b> Pronunciation: <tt>&amp;-'then-tik, o- </tt>Function: <i>adjective;
+       </i>Etymology: Middle English <i>autentik, </i>from Middle French <i>autentique,
+       </i>from Late Latin <i>authenticus, </i>from Greek <i>authentikos, </i>from <i>
+       authentEs </i>perpetrator, master, from <i>aut- + -hentEs </i>(akin to Greek <i>
+       anyein </i>to accomplish, Sanskrit <i>sanoti </i>he gains) Date: 14th century<br>
+       <b>1</b> <i>obsolete</i> <b>:
+       <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=authoritative">
+       <font size="-1">AUTHORITATIVE</font></a></b><br>
+       <b>2 a</b> <b>:</b> worthy of acceptance or belief as conforming to or based on 
+       fact &lt;paints an <i>authentic</i> picture of our society&gt; <b>b</b> <b>:</b> 
+       conforming to an original so as to reproduce essential features &lt;an <i>authentic</i> 
+       reproduction of a colonial farmhouse&gt; <b>c</b> <b>:</b> made or done the same way 
+       as an original &lt;<i>authentic</i> Mexican fare&gt;<br>
+       <b>3</b> <b>:</b> not false or imitation <b>:
+       <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=real">
+       <font size="-1">REAL</font></a>,
+       <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=actual">
+       <font size="-1">ACTUAL</font></a></b> &lt;based on <i>authentic</i> documents&gt; &lt;an <i>
+       authentic</i> cockney accent&gt;<br>
+       <b>4 a</b> <i>of a church mode</i> <b>:</b> ranging upward from the keynote -- 
+       compare <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=plagal+">
+       <font size="-1">PLAGAL </font></a>1 <b>b</b> <i>of a cadence</i> <b>:</b> 
+       progressing from the dominant chord to the tonic -- compare
+       <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=plagal+">
+       <font size="-1">PLAGAL </font></a>2<br>
+       <b>5</b> <b>:</b> true to one's own personality, spirit, or character<br>
+       <b>synonyms</b>
+       <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=authentic">
+       <font size="-1">AUTHENTIC</font></a>,
+       <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=genuine">
+       <font size="-1">GENUINE</font></a>,
+       <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=bona+fide+">
+       <font size="-1">BONA FIDE </font></a>mean being actually and exactly what is 
+       claimed.
+       <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=authentic+">
+       <font size="-1">AUTHENTIC </font></a>implies being fully trustworthy as according 
+       with fact &lt;an <i>authentic </i>account of the perilous journey&gt;; it can also stress 
+       painstaking or faithful imitation of an original &lt;an <i>authentic </i>reproduction&gt; 
+       &lt;<i>authentic </i>Vietnamese cuisine&gt;.
+       <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=genuine+">
+       <font size="-1">GENUINE </font></a>implies actual character not counterfeited, 
+       imitated, or adulterated &lt;<i>genuine </i>piety&gt; &lt;<i>genuine </i>maple syrup&gt;; it 
+       also connotes definite origin from a source &lt;a <i>genuine </i>Mark Twain 
+       autograph&gt;.
+       <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=bona+fide+">
+       <font size="-1">BONA FIDE </font></a>implies good faith and sincerity of intention 
+       &lt;a <i>bona fide </i>offer for the stock&gt;.</p>
+      <p>
+       <b>au·then·ti·cate</b> Pronunciation: <tt>&amp;-'then-ti-&quot;kAt, o- ; </tt>Function: <i>
+       transitive verb; </i>Inflected Form(s): <b>-cat·ed</b>; <b>-cat·ing; </b>Date: 1653<br>
+       <b>:</b> to prove or serve to prove the
+       <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=authenticity">
+       authenticity</a> of<br>
+       <b>synonym</b> see
+       <a href="http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=confirm">
+       <font size="-1">CONFIRM</font></a><br>
+       - <b>au·then·ti·ca·tion</b>&nbsp; /<tt>-&quot;then-ti-'kA-sh&amp;n</tt>/ <i>noun</i><br>
+       - <b>au·then·ti·ca·tor</b>&nbsp; /<tt>-'then-ti-&quot;kA-t&amp;r</tt>/ <i>noun</i></td>
+   </tr>
+</table>
+<p>
+</p>
+<p>
+ Authentication is a corner stone of computer security. </p>
+<h2>User Authentication</h2>
+<p>
+ Some computer systems have no user authentication at all.&nbsp; This is not an intrinsic 
+ property of home PCs running Windows 95 or older OS, but the result of decisions made 
+ regarding the control of access.&nbsp; Systems that contain &quot;valuable&quot; resources wish to 
+ grant different degrees of access to different users.&nbsp; This makes it necessary that 
+ a user authenticate himself.&nbsp; </p>
+<p>
+ User authentication, on ordinary computer systems, is almost always by a password.&nbsp; 
+ As long as you have given the right password for Joe User, most systems accept as Joe 
+ User.&nbsp; This widespread use of passwords is mostly because the technology for using 
+ other methods, such as biometrics, is far too expensive.&nbsp; The password method fails 
+ mostly because people do not carefully chose passwords, and also because there are 
+ ingenious and computationally extensive techniques that can guess a password.</p>
+<p>
+ “Over the Internet, no one knows you're a dog.”&nbsp; -- Anonymous</p>
+<p>
+ This joke illustrates a problem that the same password is used whether you are logging on 
+ the console or remotely logging in from a thousand miles.</p>
+<h2>Node Authentication</h2>
+<p>
+&nbsp;The word <i>node</i> is here synonymous with <i>host.&nbsp; </i>Suppose you are 
+ trying to use a machine remotely.&nbsp; How do you know that you are interacting with the 
+ right machine?&nbsp; Programs like the secure-shell perform node authentication by 
+ exchanging long strings of digits, and remembering what they received the last time they 
+ asked the remote node to authenticate itself.&nbsp; </p>
+<h2>Service Authentication</h2>
+<h2>Keys</h2>
+<p>
+ Authentication is always based on encryption.&nbsp; Without encryption, it is like having 
+ a paper-thin door to a house.&nbsp; Thus, a computer system stores password in encrypted 
+ form.&nbsp; It sends or receives messages regarding authentication in encrypted form.&nbsp;
+</p>
+<p>
+ A key is a carefully generated series of digits.&nbsp; A key unlocks the secret in a 
+ message by deciphering it.&nbsp; We also use a key to encrypt. A <i>public</i> key is a 
+ key that you may reveal to others.&nbsp; A <i>private</i> key must be kept confidential. 
+ Key management refers to how the keys are generated, etc.</p>
+<h2>Kerberos</h2>
+<p>
+ Kerberos is a secure method for authenticating a request for a service in a computer 
+ network.</p>
+<p>
+ &quot;[</p>
+<p>
+ 1. Suppose you want to access a server on another computer (which you may get to by 
+ sending a Telnet or similar login request). You know that this server requires a Kerberos 
+ &quot;ticket&quot; before it will honor your request. </p>
+<p>
+ 2. To get your ticket, you first request authentication from the Authentication Server 
+ (AS). The Authentication Server creates a &quot;session key&quot; (which is also an encryption key) 
+ basing it on your password (which it can get from your user name) and a random value that 
+ represents the requested service. The session key is effectively a &quot;ticket-granting 
+ ticket.&quot; </p>
+<p>
+ 3. You next send your ticket-granting ticket to a ticket-granting server (TGS). The TGS 
+ may be physically the same server as the Authentication Server, but it's now performing a 
+ different service. The TGS returns the ticket that can be sent to the server for the 
+ requested service. </p>
+<p>
+ 4. The service either rejects the ticket or accepts it and performs the service. </p>
+<p>
+ 5. Because the ticket you received from the TGS is time-stamped, it allows you to make 
+ additional requests using the same ticket within a certain time period (typically, eight 
+ hours) without having to be reauthenticated. Making the ticket valid for a limited time 
+ period make it less likely that someone else will be able to use it later. </p>
+<p>
+ The actual process is much more complicated than just described. The user procedure may 
+ vary somewhat according to implementation.</p>
+<p>
+ ]</p>
+<h2>Passport</h2>
+<p>
+ Passport is a single sign-on mechanism for e-commerce that MS Windows now supports. A 
+ customer does not need to establish an &quot;account&quot; with each of these e-businesses.&nbsp; 
+ Instead, he supplies his passport. Then through a series of authentications and encrypted 
+ cookie certificates, the user is able to purchase items at participating e-commerce 
+ sites. </p>
+<h3><span style="font-weight: 400">Passport Registration</span></h3>
+<p>
+ [</p>
+<p>
+ &quot;In the Passport model, there are three entities: the client at a Web browser, the 
+ e-merchant, and the Passport login server. The login server maintains authentication and 
+ customer profile information for the client and gives the merchant access to this 
+ information when permitted by the customer. Passport divides client data into profile 
+ information (such as addresses, shoe size, and so on) and the <i>wallet</i>, which 
+ contains credit card information. Passport's protocols are designed to enable the secure 
+ transfer of this profile and wallet information between the Passport server and the 
+ merchants.</p>
+<font size="-1"><h3><span style="font-weight: 400">Single Signon Protocol </span></h3>
+</font><p>
+ &quot;Passport's interaction with a user begins when a client, visiting a merchant site, needs 
+ to authenticate (to provide some personal information or make a purchase). The merchant 
+ Web server redirects the customer's browser to a well-known Passport server. The Passport 
+ server presents the user with a login page over an SSL connection. The user logs into the 
+ Passport server, and the Passport server redirects the user back to the end server. 
+ Authentication information is included in the redirect message in the query string. This 
+ information is encrypted using triple DES with a key previously established between 
+ Passport and the merchant server. The end server then sets an encrypted cookie in the 
+ client's browser. </p>
+<p>
+ <img border="0" src="kormann_fig1.gif" width="500" height="333"></p>
+<p>
+ <b>The Passport architecture.</b></p>
+<p>
+ The idea is that when a user returns to the IBM site, for example, the encrypted cookie 
+ is returned as well. The site can decrypt the cookie and verify that the user is already 
+ authenticated. The Passport server also sets a cookie. Thus, if a user visits another 
+ site, say, dell.com, when the browser is redirected to the Passport server, the user is 
+ no longer presented with a login screen because the previous Passport cookie is used. If 
+ this cookie contains valid credentials, the client is redirected back to the merchant 
+ server without user intervention. </p>
+<p>
+ Wallet Protocol </p>
+<p>
+ The wallet protocol is very similar in nature to the single signon protocol. Instead of 
+ just authenticating, however, the user can insert all sorts of personal and credit card 
+ information. Then, when the user is shopping on an end server site, the user can select 
+ which information to include for that merchant. The user never needs to enter the 
+ information again for participating end servers. </p>
+<p>
+ &quot;<b>User Interface</b> - In security systems, the user interface is one of the most 
+ crucial and frequently inadequate parts. For example, any merchant site that uses 
+ Passport displays a Passport signout icon that is supposed to remove Passport cookies. 
+ One of the most popular Passport services currently deployed is the Hotmail e-mail 
+ service from Microsoft. We set up some Hotmail accounts and did some experimentation. One 
+ thing we discovered is that, in addition to the Passport signout icon, there is also a 
+ Hotmail logout option on the page. So, what does this mean to a user? Presumably, the 
+ Hotmail logout button is used to remove the Hotmail credentials, while the Passport 
+ signout button is used to remove the Passport credentials to all services. While this may 
+ be clear to computer security experts, it is unlikely that the average nonexpert computer 
+ user will understand the distinction. A user making the mistaken, but reasonable, 
+ presumption that the Hotmail Logout button will remove Passport credentials could easily 
+ walk away from a browser still able to authenticate on behalf of the user.</p>
+<p>
+ <b>&quot;Key Management</b> - The Passport protocol requires that the Passport server share 
+ triple DES keys with each merchant. The keys are used to encrypt information transferred 
+ from Passport to the merchants in redirect messages. These keys must be generated 
+ securely (that is, randomly) and assigned out of band. Many systems have been broken 
+ because poor randomness was used to generate keys. It is a difficult problem that 
+ requires careful attention.</p>
+<p>
+ Passport encrypts information for itself and stores the information in Passport cookies 
+ on client machines. A single key is used to encrypt all of the cookies. This represents 
+ an unnecessary risk of exposure of that key. A better solution is to use a master key to 
+ generate a unique key per client.</p>
+<p>
+ <b>Central Point of Attack</b> - As with all single-signon systems, Passport establishes 
+ a service trusted by all others to make authoritative decisions about the authenticity of 
+ a user. Whereas in traditional Web authentication each merchant is responsible for 
+ safeguarding the authentication information of customers, all data is centralized in 
+ Passport. Compromise of this central service would be particularly disastrous. Besides 
+ authentication data, the Passport login service maintains consumer profile information on 
+ all registered users. Storing this information in a central location, while convenient, 
+ makes the server an extremely attractive target for attack, both for denial of service 
+ and for unauthorized access. The centralized service model is antithetical to the 
+ distributed nature of the Internet that has made it so robust and so popular.</p>
+<p>
+ <b>Cookies and Javascript</b> - The danger with cookies is limited to the exposure of 
+ sensitive cookie payloads to unintended recipients. Because the Passport cookie contains 
+ sensitive data, the system encrypts these cookies using triple DES. Passport cookies, 
+ though, are also proofs of authentication whose lifetimes are determined only by the 
+ lifetime of the Web browser and the (encrypted) time window in the cookie. On a public 
+ machine, a user who forgets to log out of a Passport account could leave valid 
+ authentication tokens behind on the machine for any user to recover.</p>
+<p>
+ The most important problems, however, with cookies and JavaScript are more social than 
+ technological. Regardless of their actual value or security, these technologies have been 
+ shown to compromise user privacy. Dictating (or even strongly recommending) the use of 
+ technologies that are not felt to be trustworthy in a system whose purpose is to 
+ establish trust can undermine significantly the perceived value of that system.</p>
+<p>
+ <b>Persistent Cookies</b> - Passport leaves authenticators, in the form of browser 
+ cookies, on the client machine. The Passport server does not have to reissue credentials 
+ if the cookie has not expired yet. This is reminiscent of single signon in Kerberos.</p>
+<p>
+ Kerberos uses tickets, which are encrypted credentials, to establish continuous 
+ authentication within a specified amount of time, without requiring a return trip to the 
+ authentication server. In Passport, where cookies stand in for tickets, possession of the 
+ cookie is all that is necessary to impersonate the valid user of that cookie. No further 
+ proof is required.</p>
+<p>
+ <b>Bogus Merchant</b> - The bogus merchant threat is probably the weakest aspect of 
+ Passport. Imagine that users get accustomed to using Passport. They enjoy the convenience 
+ of single signon and wallet services, while trusting that the service is secure. Now, to 
+ attack the system, a merchant sets up a phony Web store, selling something attractive. 
+ When the user visits the phony Web site, the server simulates a redirect to pasport.com, 
+ and the user is prompted for his credentials on a page that looks exactly like the 
+ legitimate Passport server. The user is in the habit of filling this out every once in a 
+ while, so he does not notice the misspelled URL, or check the certificate. Even if he did 
+ check the certificate, he might not notice the misspelling. In practice, any URL, even 
+ one that does not resemble the word &quot;passport,&quot; would probably work as well.</p>
+<p>
+ <b>Active Attack</b> - An attacker with access to the network between the client's Web 
+ browser and the merchant server (and able, therefore, to rewrite packets passing between 
+ the two hosts) can take advantage of this access to achieve the same result described 
+ above while permitting the client to interact normally with the merchant site. Such 
+ access is not prohibitively difficult to obtain. Large ISPs concentrate the traffic of 
+ thousands of users through a fairly small set of routers and servers. Obtaining 
+ unauthorized access to one of these hosts interposes the attacker between these users and 
+ all services they wish to access. Any traffic passing through such a compromised host 
+ could potentially then be read and rewritten.</p>
+<p>
+ <b>DNS Attacks</b> - Passport's security model depends heavily on the Domain Name System. 
+ In addition to the well-known problem of SSL's dependence on the DNS, HTTP redirects 
+ generally specify a host to receive the redirection in the form of a DNS name. An 
+ intruder who controls a client's DNS service could transparently perform the rewriting 
+ process by simply aliasing http://www.passport.com to the IP address of a server 
+ controlled by the intruder.</p>
+<p>
+ ]</p>
+<h2>Pluggable Authentication Modules (PAM)</h2>
+<hr>
+<h2><a name="Lab Experiment">Lab Experiment</a></h2>
+<hr>
+<h2><a name="Acknowledgements">Acknowledgements</a></h2>
+<hr>
+<h2><a name="References">References</a></h2>
+<ol>
+  <li>Bryan Ericson, INTRODUCTION TO PAM,&nbsp; P H R A C K M A G A Z I N E - Volume 0xa 
+  Issue 0x38, Article p56-0x0d, May 2000.</li>
+  <li>Steve Bellovin and Michael Merritt. <i>
+  <a href="http://ftp.aist-nara.ac.jp/Security/doc/paper/bellovin.kerberoslimit.ps.gz">
+  Limitations of the Kerberos Authentication System</a>. </i>USENIX Winter Conference, 
+  1991, Dallas TX.
+  <a href="http://www.cs.berkeley.edu/~gribble/summaries/glomop/kerb_limit.html">AF</a></li>
+  <li>Prabhaker Mateti, Passwords, <a href="../Password/index.html">..\Password\index.html</a></li>
+  <li>Kerberos Papers and Documentation,
+  <a href="http://www.isi.edu/gost/info/kerberos/documentation.html">
+  http://www.isi.edu/gost/info/kerberos/documentation.html</a></li> </li>
+  <li>Richard E. Smith, Authentication: From Passwords to Public Keys,
+  <a href="http://www.aw.com/cseng/">Addison Wesley</a>, ISBN: 0201615991; Published: OCT 
+  01, 2001; </li>
+</ol>
+<table cellspacing="0" cellpadding="0" width="100%" bgcolor="#008080" border="0">
+   <tr>
+    <td align="right"><font color="#ffffff">
+      <!--webbot bot="Timestamp" s-type="EDITED" 
+        s-format="%B %d, %Y %I:%M:%S %p" startspan -->February 03, 2002 05:40:04 PM<!--webbot 
+      bot="Timestamp" endspan i-checksum="57318" --></font></td>
+   </tr>
+</table>
+</div>
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+   <tr>
+    <td width="50%"><a href="mailto:pmateti@cs.wright.edu?subject=EGR199-home-page" 
+      color="red">pmateti@cs.wright.edu</a></td>
+    <td align="right" width="50%"></td>
+   </tr>
+</table>
+<address>
+&nbsp;
+</address>
+</td>
+</tr>
+</table>
+
+</body>
+
+</html>

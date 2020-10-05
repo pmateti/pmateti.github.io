@@ -1,0 +1,185 @@
+# -*- mode: org -*-
+#+date: 2018-11-14
+#+TITLE: SysCall Implementation
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+
+* Overview
+
+This page describes the internals of creating an LKM and adding a new
+system call.
+
+1. Get an overview of an existing system call. https://elixir.bootlin.com/linux/latest/source/fs/open.c
+   Initially,  skim the lines that have =SYSCALL_DEFINE=
+1. Example LKM: [[./sysredirect.c]] 
+1. How to build an LKM.  [[../../BuildKernel]]
+1. How to insert/ remove an LKM.  =man insmod=
+1. Testing system calls.
+
+* SysCall Table Idea
+
+1. What is a Table of Pointers to Functions?  If f(...) { ...} is a C
+   function, then f, without parentheses, is the address (pointer) of
+   function f.  Any address can be cast to =void *=.
+
+1. SysCall Table is an
+   array of pointers to syscall functions.  The index is the syscall
+   number.
+
+2. All the syscall functions have the same prototype signatures.
+3. Add:
+   1. Write the code for the new system call.
+   2. Add the pointer to this function into the table.
+3. Delete: delete the pointer [set it to the address of no-op()]
+4. Invariant Assertion: All pointers in the table are valid pointers
+   to functions.
+
+* Symbols in the Kernel
+
+1. =$ sudo more /proc/kallsyms=  [invoked by root] Read =man nm= for
+   the meaning of A T t etc.
+
+* SysCall Table as in Linux
+
+1. =sys_call_table= initialization
+   #+begin_src bash
+#define SYSCALLTBL319020 0xffffffff81801680 /* 3.19.0-20-lowlatency  */
+#define SYSCALLTBL401000 0xffffffff81801400 /* 4.0.1 */
+#define SYSCALLTBL418010 0xffffffff81e001c0 /* 4.18.0-10-generic */
+#define SYSCALLTBL418011 0xffffffff844001c0 /* 4.18.0-11-generic */
+#define SYSCALLTBL SYSCALLTBL418011
+
+void * * sys_call_table = (void *) SYSCALLTBL; /* decl needs improvement */
+#+end_src
+
+1. https://elixir.bootlin.com/linux/v4.19/ident/kallsyms_lookup_name
+
+1. Discovering the address of the =sys_call_table= The following was
+   done on a Ubuntu 18.10 64-bit system.  Dynamic lookup.
+   : # grep sys_call_table /proc/kallsyms 
+   : ffffffff9e0001c0 R sys_call_table
+   : ffffffff9e0015a0 R ia32_sys_call_table
+
+1. Can also find in =/boot/System.map-*= Static lookup.  Note the
+   different values.
+   : root@Milner:~# grep sys_call_table /boot/System.map-4.18.0-10-generic 
+   : ffffffff81e001c0 R sys_call_table
+   : ffffffff81e015a0 R ia32_sys_call_table
+
+
+* A "Not Implemented" SysCall
+
+1. =sys_ni_syscall= A "not implemented" syscall
+   : # grep sys_ni_syscall /proc/kallsyms
+   : ffffffff9d2b4270 T sys_ni_syscall
+
+1. =.../kernel/sys_ni.c=
+   https://elixir.bootlin.com/linux/latest/ident/sys_ni_syscall
+   #+begin_src C
+asmlinkage long sys_ni_syscall(void)
+{
+	return -ENOSYS;
+}
+#+end_src
+
+* RW of SysCall Table
+
+1. For improved security, the syscall table is set to Read-Only.  The
+   table is constructed at build time.
+
+1. Do not leave the =sys-call-table= write able.  As soon as the
+   redirect/ hijack is made, bring it to read-only.
+
+1. If you wish to change the table during run time, set the mode to RW.
+
+1. A portion of the [[./sysredirect.c]] that is our example LKM is shown below:
+   #+begin_src C
+void * * sys_call_table = (void *) SYSCALLTBL; /* needs improvement */
+...
+static void * syscallredirect(int nrdel, int nradd) {
+    unsigned int unused = 0;
+    pte_t * pte = lookup_address((long) sys_call_table, & unused);
+    void * oldptr = sys_call_table[nrdel];
+    pte->pte |= _PAGE_RW;       /* set page to RW */
+    sys_call_table[nrdel] = sys_call_table[nradd];
+    pte->pte &= ~ _PAGE_RW;	/* set page back to RO */
+    return oldptr;
+}
+#+end_src
+1. =pte_t= is page-table-entry type.  Instead of =pte->pte= OR-ed with
+   bit mask =_PAGE_RW=, using =set_memory_rw()= (search at
+   https://elixir.bootlin.com/linux/latest/ident/ ) keeps the relevant
+   abstraction visible.
+
+* Source Code of New SysCalls
+
+1. Write the code for the new system call.  [Place it in the kernel/
+   subtree.  Preferably.]
+
+1. The code for an LKM can be located outside the Linux kernel tree.
+
+1. Update the [[./Makefile]] The =make= tool uses features of the kernel's
+   Makefile in building the LKM.  Understand the =-C= flag.  The end
+   result will be a =.ko= module.
+
+2. Add the pointer to this function into the sys- call- table.
+
+1. Link to existing syscall source
+   https://elixir.bootlin.com/linux/latest/source/fs/open.c
+   Initially,  skim the lines that have =SYSCALL_DEFINE=
+
+* C Usage
+
+1. The C language =static= is like =private= of C++; static symbols
+   are not exported.
+
+1. What is the proper declaration of sys-call-table? =void * *
+   sys_call_table= works expediently, but not "correct".  Exercise!
+
+1. The type =int= is compiler specific.  =sizeof(int)= is typically 4
+   or 8 bytes.  On very old systems, and even modern embedded systems,
+   it can be 2 bytes.  The width of a ptr is architecture specific.  A
+   ptr value on a 64-bit system is 8 bytes wide. The GNU C compiler
+   was indeed warning about =(int) dirp= shown below.
+
+1. C ptr arithmetic. The resulting value of =p + x= is computed as the
+   equivalent =long long int= value of ptr =p=, plus (ordinary arith)
+   =x * sizeof(p)=
+
+1. Kernel coding style: https://www.kernel.org/doc/html/v4.19/process/coding-style.html
+
+** Bad C Usage
+
+1. Bad C usage.  Reckless int-long-ptr synonyms.  The following bad C
+   usage was found in a blog.
+   #+begin_src
+struct linux_dirent64 *cur = dirp;
+...
+int reclen = cur->d_reclen;
+char *next_rec = (char *)cur + reclen;
+int len = (int)dirp + rtn - (int)next_rec;
+#+end_src
+
+
+1. =asmlinkage int (*ogetdents64) (unsigned int fd, struct
+   linux_dirent64 *dirp, unsigned int count);= should not have
+   =asmlinkage= And, this is declaring a ptr variable named
+   =ogetdents64=.  It also declares that (i) the ptr it holds is the
+   address of a function, (ii) this function takes three arguments as
+   declared.
+
+1. I was expecting the GNU C compiler to produce a warning/error on
+   =ogetdents64(...)= versus =(*ogetdents64)(...)= But, it did not!
+   Further investigation is warranted.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

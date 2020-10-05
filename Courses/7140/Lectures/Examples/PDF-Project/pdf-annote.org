@@ -1,0 +1,80 @@
+
+# -*- mode: org -*-
+#+DATE: 2016-05-25
+#+TITLE: Adv Software Engineering Project: PDF Library iText
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7380 Cloud Computing
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+=pdftk=
+
+1. https://github.com/itext/itext7 iText 7 Community; src code repository
+1. http://developers.itextpdf.com/content/itext-7-jump-start-tutorial
+
+1. http://resources.infosecinstitute.com/pdf-file-format-basic-structure/
+1. http://what-when-how.com/itext-5/creating-a-pdf-document-in-five-steps-with-itext/
+
+1. https://jaxenter.com/bruno-lowagie-interview-125730.html
+
+The iText 5 architecture was based on a design from the year 2000,
+which has worked for us very well for all those years, though we were
+reaching the limits of that architecture. One major problem that we
+had, the number 1 request from users, was support for Indic languages,
+such as Hindi. This required a complete rewrite of our font support,
+which was impossible to do in iText 5, we couldn’t bolt that language
+support onto the existing library without breaking a lot of the
+functionality. We saw this as an opportunity to come up with a new
+architecture that allows us to meet a lot of our other customer
+requests at the same time. For instance, EverNote is a customer that
+uses iText on Android, that reached the implementation limits of iText
+and so they’ll also benefit from the new architecture, which is more
+modular, enabling the user to select which parts they want to use. We
+cleaned up the API, in the past it wasn’t possible to see the
+difference between a class and an interface, and we have refactored
+things to make it more intuitive and consistent from a programming
+point of view.
+
+ Because of the modular approach, iText will be easier to extend. In
+ iText 7 we support Hindi and Tamil, though we know customers also
+ want Telugu and other eastern languages. Thanks to the new
+ architecture, these kinds of needs will be easier to meet
+
+Although we developed iText 7 from scratch, and we could have made it
+closed source, we decided to keep it open source. Nevertheless, we
+will have some modules that will be closed source, because they will
+be value add-ons.
+
+* itext-7-7.0.0
+
+ 4096 barcodes
+  896 BUILDING.md
+  641 CodeConventions.md
+ 3235 CODE_OF_CONDUCT.md
+ 8985 CONTRIBUTING.md
+ 4096 font-asian
+ 4096 forms
+34354 gnu-agpl-v3.0.md
+ 4096 hyph  hyphenation
+ 4096 io
+ 4096 kernel
+ 4096 layout
+ 2035 LICENSE.md
+ 4096 pdfa
+ 4096 pdftest
+20317 pom.xml
+ 4096 sign
+ 2607 sloccount.txt
+  995 Vagrantfile
+
+
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

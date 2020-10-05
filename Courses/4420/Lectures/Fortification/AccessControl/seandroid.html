@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>SEAndroid: SELinux Adapted to Android</title>
+<!-- 2017-09-11 Mon 22:55 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="WSU CEG 4900/6900 Android Internals and Security"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div><div id="preamble" class="status">
+2017-08-15 <a href="../../Top/"> TOP</a> | <a href="nsa-se-slides.html"> Slides</a>
+</div>
+<div id="content">
+<h1 class="title">SEAndroid: SELinux Adapted to Android</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. SEAndroid: SELinux Adapted to Android</a>
+<ul>
+<li><a href="#sec-1-1">1.1. SEAndroid on my Samsung Note 10.1 P600</a></li>
+<li><a href="#sec-1-2">1.2. SEAndroid #3</a></li>
+<li><a href="#sec-1-3">1.3. Output of id-Z</a></li>
+<li><a href="#sec-1-4">1.4. Output of id-Z, on another device</a></li>
+<li><a href="#sec-1-5">1.5. /property contexts</a></li>
+<li><a href="#sec-1-6">1.6. se policy</a></li>
+<li><a href="#sec-1-7">1.7. Sample SE policy</a></li>
+<li><a href="#sec-1-8">1.8. se app contexts</a></li>
+<li><a href="#sec-1-9">1.9. selinux occurrences</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. References</a></li>
+<li><a href="#sec-3">3. End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> SEAndroid: SELinux Adapted to Android</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>SEAndroid is an adapation of SELinux for the Android-embedded
+Linux, and Framework.  Mostly because of Binder.
+</li>
+
+<li>Starting from Andoroid Lollipop: SEAndroid is enabled by default
+</li>
+
+<li>SE Android Timeline: Samsung specific<br  />
+</li>
+</ol>
+
+<div class="figure">
+<p><img src="./Figures/timeline.jpg" alt="timeline.jpg" align="center" width="80%" /> 
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> SEAndroid on my Samsung Note 10.1 P600</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+
+<pre class="src src-bash">shell@lt03wifiue:/ $ ls -l /se*                                                
+-rw-r--r-- root     root         7477 1969-12-31 19:00 seapp_contexts
+-rw-r--r-- root     root      1446273 1969-12-31 19:00 sepolicy
+-rw-r--r-- root     root          235 1969-12-31 19:00 sepolicy_version
+</pre>
+</div>
+<ol class="org-ol">
+<li>Ignore the date-time stamp
+</li>
+<li><b>Not all</b> explicitly shown files are from this one device; check
+the prompt
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> SEAndroid #3</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li>SELinux modes
+<ol class="org-ol">
+<li>GooglePlay SELinuxModeChanger APK can switch between modes
+"permissive"(used in android 4.3) and "enforcing"(in kitkat).
+</li>
+<li><code>adb shell su 0 setenforce 1</code>
+</li>
+<li><code>root@C6833:/ # setenforce</code>
+</li>
+<li><code>usage:  setenforce [ Enforcing | Permissive | 1 | 0 ]</code>
+</li>
+<li><code>setenforce 0</code> puts it into permissive mode.
+</li>
+<li>SELinux <b>can</b> cause some rooted apps to break.
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Output of id-Z</h3>
+<div class="outline-text-3" id="text-1-3">
+<ol class="org-ol">
+<li><code>id -Z</code> Do note the prompt strings. E.g., <code>shell@C6833:/ $</code> Context
+is at the end.  Lines are manually wrapped.
+<div class="org-src-container">
+
+<pre class="src src-bash">shell@C6833:/ $ id -Z
+uid=2000(shell) gid=2000(shell) groups=1004(input),1007(log),
+1011(adb),1015(sdcard_rw),1028(sdcard_r),2991(removable_rw),
+3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats) 
+context=u:r:shell:s0
+
+shell@C6833:/ $ su
+root@C6833:/ # id -Z
+uid=0(root) gid=0(root) context=u:r:init_shell:s0
+</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Output of id-Z, on another device</h3>
+<div class="outline-text-3" id="text-1-4">
+<ol class="org-ol">
+<li>On Samsung Note 10.1 P600
+<div class="org-src-container">
+
+<pre class="src src-bash">shell@lt03wifiue:/ $ id
+uid=2000(shell) gid=2000(shell) groups=1003(graphics),1004(input),1007(log),
+1011(adb),1015(sdcard_rw),1028(sdcard_r),
+3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats)
+context=u:r:shell:s0
+</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> /property contexts</h3>
+<div class="outline-text-3" id="text-1-5">
+<ol class="org-ol">
+<li>A (se security) context is a sequence of four values, colon-separated.
+<ol class="org-ol">
+<li>user-id: object: property-type: sensitivity
+</li>
+</ol>
+</li>
+
+<li>Contents of <code>/property_contexts</code> <br  />
+  (some times the path name is given as <code>external/sepolicy/property_contexts</code>)
+<pre class="example">
+net.rmnet0              u:object_r:radio_prop:s0
+net.gprs                u:object_r:radio_prop:s0
+net.ppp                 u:object_r:radio_prop:s0
+net.qmi                 u:object_r:radio_prop:s0
+net.lte                 u:object_r:radio_prop:s0
+net.cdma                u:object_r:radio_prop:s0
+gsm.                    u:object_r:radio_prop:s0
+persist.radio           u:object_r:radio_prop:s0
+net.dns                 u:object_r:radio_prop:s0
+sys.usb.config          u:object_r:radio_prop:s0
+ril.                    u:object_r:rild_prop:s0
+net.                    u:object_r:system_prop:s0
+dev.                    u:object_r:system_prop:s0
+runtime.                u:object_r:system_prop:s0
+hw.                     u:object_r:system_prop:s0
+sys.                    u:object_r:system_prop:s0
+sys.powerctl            u:object_r:powerctl_prop:s0
+service.                u:object_r:system_prop:s0
+wlan.                   u:object_r:system_prop:s0
+dhcp.                   u:object_r:system_prop:s0
+bluetooth.              u:object_r:bluetooth_prop:s0
+debug.                  u:object_r:shell_prop:s0
+log.                    u:object_r:shell_prop:s0
+service.adb.root        u:object_r:shell_prop:s0
+service.adb.tcp.port    u:object_r:shell_prop:s0
+persist.audio.          u:object_r:audio_prop:s0
+persist.sys.            u:object_r:system_prop:s0
+persist.service.        u:object_r:system_prop:s0
+persist.service.bdroid. u:object_r:bluetooth_prop:s0
+persist.security.       u:object_r:system_prop:s0
+persist.mmac.           u:object_r:security_prop:s0
+selinux.                u:object_r:security_prop:s0
+\*                      u:object_r:default_prop:s0
+vold.                   u:object_r:vold_prop:s0
+crypto.                 u:object_r:vold_prop:s0
+ctl.dumpstate           u:object_r:ctl_dumpstate_prop:s0
+ctl.ril-daemon          u:object_r:ctl_rildaemon_prop:s0
+ctl.                    u:object_r:ctl_default_prop:s0
+</pre>
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> se policy</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li><pre class="example">
+shell@C6833:/ $ ls -l /sepolicy
+-rw-r--r-- root     root        77338 1970-01-01 05:30 sepolicy
+root@pmateti-XE700T1C:~# file /sepolicy
+sepolicy: SELinux policy v26 MLS 8 symbols 7 ocons
+</pre>
+</li>
+
+<li>The policy file is constructed by a tool from <code>/file_contexts</code>,
+<code>/property_contexts</code>, <code>/seapp_contexts</code> and a <code>/mac_permissions.xml</code>
+files.
+</li>
+
+<li>The <code>/file_contexts</code> labels files at build time (e.g., the system
+partition) and at run time (e.g., device nodes, service socket
+files, /data directories created by init.rc, &#x2026;).
+</li>
+<li>The <code>/property_contexts</code> the security context of Android properties for permission checking.
+</li>
+<li>The <code>/seapp_contexts</code> label app processes and app package directories.
+</li>
+<li>The <code>/system/etc/security/mac_permissions.xml</code> middleware MAC policy.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> Sample SE policy</h3>
+<div class="outline-text-3" id="text-1-7">
+<ol class="org-ol">
+<li><pre class="example">
+type bluetoothd, domain;
+type bluetoothd_exec, exec_type, file_type;
+
+init_daemon_domain(bluetoothd)
+allow bluetoothd self:capability { setuid \
+  net_raw net_bind_service net_admin };
+allow bluetoothd self:socket *;
+allow bluetoothd bluetoothd_data_file:dir \
+  create_dir_perms;
+allow bluetoothd bluetoothd_data_file:file \
+  create_file_perms;
+unix_socket_connect(bluetoothd, dbus, dbusd)
+</pre>
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> se app contexts</h3>
+<div class="outline-text-3" id="text-1-8">
+<pre class="example">
+root@C6833:/ # more /seapp_contexts
+isSystemServer=true domain=system
+user=system domain=system_app type=system_data_file
+user=bluetooth domain=bluetooth type=bluetooth_data_file
+user=nfc domain=nfc type=nfc_data_file
+user=radio domain=radio type=radio_data_file
+user=_app domain=untrusted_app type=app_data_file levelFrom=none
+user=_app seinfo=platform domain=platform_app type=platform_app_data_file
+user=_app seinfo=shared domain=shared_app type=platform_app_data_file
+user=_app seinfo=media domain=media_app type=platform_app_data_file
+user=_app seinfo=release domain=release_app type=platform_app_data_file
+user=_isolated domain=isolated_app
+user=shell domain=shell type=shell_data_file
+user=smartcard domain=smartcard type=smartcard_data_file
+user=suntrold domain=suntrold type=suntrold_exec
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="section-number-3">1.9</span> selinux occurrences</h3>
+<div class="outline-text-3" id="text-1-9">
+<ol class="org-ol">
+<li><code>root@C6833:/ # grep -n selinux /*</code>
+<pre class="example">
+file_contexts:178:/data/local/tmp/selinux(/.*)?   u:object_r:tombstone_data_file:s0
+Binary file init matches
+init.rc:363:    chown system system /sys/fs/selinux/load
+init.rc:364:    chown system system /sys/fs/selinux/enforce
+init.rc:442:on property:selinux.reload_policy=1
+property_contexts:44:# selinux non-persistent properties
+property_contexts:45:selinux. u:object_r:security_prop:s0
+</pre>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> References</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li><a href="http://source.android.com/devices/tech/security/se-linux.html">http://source.android.com/devices/tech/security/se-linux.html</a>
+   Validating Security-Enhanced Linux in Android.  Required Reading.
+</li>
+
+<li>Stephen Smaley, "Security Enhanced (SE) Android: Bringing Flexible
+MAC to Android." <a href="./SEAndroid-NDSS2013-pm-tab.pdf">./SEAndroid-NDSS2013-pm-tab.pdf</a> NDSS 2013 paper,
+with a few of my annotations. Slides:
+<a href="./seandroid-Presentation02_4.pdf">./seandroid-Presentation02_4.pdf</a>
+<a href="http://kernsec.org/files/lss2015/lss2014_androidtcb_smalley.pdf">http://kernsec.org/files/lss2015/lss2014_androidtcb_smalley.pdf</a>
+Recommended Reading.
+</li>
+
+<li><a href="http://www.electronicsweekly.com/eyes-on-android/what-is/what-is-security-enhanced-se-android-2013-03/">http://www.electronicsweekly.com/eyes-on-android/what-is/what-is-security-enhanced-se-android-2013-03/</a>
+   2013 Overview. Light reading.  Recommended.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> End</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2017 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> 2017-08-15
+</div>
+</body>
+</html>

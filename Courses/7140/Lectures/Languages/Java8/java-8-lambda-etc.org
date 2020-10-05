@@ -1,0 +1,84 @@
+
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE: Lambda Expressions, Etc. of Java 8
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS:   H:3 num:t   toc:3 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:nil
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+#+BIND: org-export-html-preamble-format (("en" "<a href=\"../../Top/\">CS 7140 Advanced Software Engineering</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+OPTIONS:   TeX:t LaTeX:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+OPTIONS:   author:t creator:t timestamp:t email:t
+#+SEQ_TODO: FIXME FIXED
+#+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+
+* Java 8
+
+1. Java8 has several new things cf Java7
+1. Lambda Expressions, and 
+1. Functional Interfaces
+1. Interfaces can now define static methods.
+1. We highlight a few
+
+* Functional interfaces
+
+1. A functional interface defines exactly one abstract method. 
+1. =java.lang.Runnable=\\
+   =public abstract void run();=   abstract can be omitted
+
+* Lambda expressions
+
+1. Alonzo Church, the Lambda Calculus, 1936
+1. Used the Greek \lambda character
+
+** Functions without Names (Lambda syntax)
+
+1. Suppose we have =f(x, y)= defined as =(x + 1)*(y + 2)=.  So, =f(3, 4)==24=.
+1. The anonymous version of f is: =lambda x, y: (x + 1)*(y + 2) ;=
+1. The f(3, 4) is written as =(lambda x, y: (x + 1)*(y + 2))(3, 4)=
+1. Function definition appears in-line with function-invocation.
+1. Another, but same, in-line def makes it another anonymous function
+   that we happen to know is the same.
+
+* Java8 Functions without Names
+1. =(int x, int y) -> { return (x + 1)*(y + 2); }=
+
+1. =(x, y) -> { (x + 1)*(y + 2); }= as above but with inferred types
+
+1. =x -> { System.out.println(x); }= 
+   is an example of single parameter with inferred type on the left of
+   the arrow, and a block with no return value on the rhs.
+
+1. Without Lambda exp
+  #+begin_src java
+Runnable r1 = new Runnable() {
+  public void run() {
+    System.out.println("Running without Lambda");
+  }
+};
+#+end_src java
+   With Lambda exp
+  #+begin_src java
+Runnable r2 = () -> { System.out.println("Running with Lambda"); };
+#+end_src java
+   No inputs.
+
+1. Selecting persons based on some criteria
+  #+begin_src java
+printPersons(
+    roster, (Person p) ->
+        p.getGender() == Person.Sex.MALE && p.getAge() >= 18
+);
+#+end_src java
+
+* References
+
+1. http://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
+   Nested Classes [from the Java Tutorial].
+

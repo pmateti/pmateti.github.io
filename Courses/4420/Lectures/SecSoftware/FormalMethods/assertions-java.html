@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Assertions in Java</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Assertions in Java"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-09-26T00:14-0400"/>
+<meta name="author" content="Prabhaker Mateti"/>
+<meta name="description" content="CS7140 Software Engineering Lecture"/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<style> @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="../../Lectures"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div>
+
+<div id="preamble">
+<a href="http://cecs.wright.edu/~pmateti/Courses/7140/">CS 7140 Advanced Software Engineering</a>
+</div>
+
+<div id="content">
+<h1 class="title">Assertions in Java</h1>
+
+
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Java Programming With Assertions by Oracle.com</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<ol>
+<li>Assertions are part of language definition.  Not macro based.
+</li>
+<li>E1 is a boolean expressions.  E2 is an expression
+   that has a value.
+
+</li>
+<li><code>assert E1 ;</code> When the system runs the assertion, it evaluates E1
+   and if it is false throws an <code>AssertionError</code> with no detail
+   message.
+
+</li>
+<li><code>assert E1 : E2 ;</code> The <code>AssertionError</code> constructor uses the string
+   value of Expression2 to generate a detailed message when E1 is
+   false.
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Excerpts from <a href="http://www.javapractices.com/">http://www.javapractices.com/</a></h2>
+<div class="outline-text-2" id="text-2">
+
+
+<ol>
+<li>Assertions in general
+</li>
+<li>Assert use cases
+</li>
+<li>Force enabling of assertions
+</li>
+<li>Assert is for private arguments only
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> References</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<ol>
+<li>Oracle.com, Java Programming With Assertions, <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/language/assert.html">http://docs.oracle.com/javase/7/docs/technotes/guides/language/assert.html</a>,
+   2013.Required Reading.
+
+</li>
+<li><a href="http://www.javapractices.com/">http://www.javapractices.com/</a> Assertions Writeup
+   Required Reading.
+
+</li>
+<li>"I am studing for &hellip; Oracla Java SE Certification and I saw
+   this question &hellip;" <a href="http://stackoverflow.com/questions/15072956/">http://stackoverflow.com/questions/15072956/</a>  Required Reading.
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr size=1>Copyright &copy; 2013 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a>
+</div>
+</body>
+</html>

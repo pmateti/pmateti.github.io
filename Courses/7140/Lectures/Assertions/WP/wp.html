@@ -1,0 +1,103 @@
+<html>
+
+<head>
+<title>Software Engineering Lectures by Prabhaker Mateti</title>
+<meta name="author" content="Prabhaker Mateti">
+<meta name="keywords" content="Split binary semaphore, CSP, Linda, RPC, RMI">
+<meta name="description" content="Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+
+<style type="text/css">
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P, li { text-align: justify }
+  @media screen {BODY {margin: 15%} }
+</style>
+</head>
+
+<h2>Weakest Preconditions</h2>
+
+<ol class=o>
+
+<li>Let R stand for wp(S, Q).  R is an assertion/ predicate/ condition.
+<p>For all states s that satisfy R, executing S on s guarantees that S
+terminates, and the resulting state s' is such that s' staisfies Q.
+
+<p>{wp(S, Q)} S {Q}<br>
+
+<p>Note that wp() is about total correctness: It includes
+termination.
+
+<li><i>wp(S, False) = False</i> is impossible. True/False? Explain.
+
+<p>
+This is known as the Law of Excluded Miracle.  The phrase "is
+impossible" apparently confuses some of you.  Understand it as "we
+cannot do it" as in we cannot satisfy the precondition False and then
+execute S.  So, for any Q, <i>wp(S, Q) = False</i> is impossible.
+
+
+<li><i>wp(S, True ) = False</i> defines liveness of S.
+	  True/False? Explain.
+<p>
+As stated above, it "is impossible".  But, what about
+<i>wp(S, True ) = True</i>?  Dos this define liveness of S?
+
+
+<li>Determine weakest
+preconditions of the following. Show <i>all</i> intermediate steps. Assume
+that all variables are of integer type.  PL code is shown enclosed in
+braces.
+
+<i><pre>
+wp( {n := n + m; m := n + m; n := m - n},  (n == 6) and (m == 1) )</pre></i>
+
+
+<pre class=sol>
+= wp( {n := n + m; m := n + m}, (m - n == 6) and (m == 1) )
+= wp( {n := n + m}, (n + m - n == 6) and (n + m == 1) )
+= wp( {n := n + m}, (m == 6) and (n + m == 1) )
+= (m == 6) and (n + m + m == 1)
+= m == 6 and n == -11
+</pre>
+
+<i><pre>
+wp( {if  i > j then i := i - j else j := i fi},  i == j )</pre></i>
+
+<pre class=sol>
+= (i > j => wp({i := i - j},i == j)) and (i <= j => wp({j := i}, i == j))
+= (i > j => i - j == j) and (i <= j => i == i)
+= (i > j => i == 2*j) and (i > j or true)
+= (i <= j or i == 2*j) and (true)
+= (i <= j or i == 2*j)
+</pre>
+
+<i><pre>
+wp( {while i > 3 do i := i - 3 od},  i == 3 )</pre></i>
+
+<pre class=sol>
+P0 = (i <= 3) and (i == 3) = (i == 3)
+P1 = (i > 3) and wp({i := i - 3}, i==3) = (i > 3) and (i-3 == 3) = (i == 6)
+P2 = (i > 3) and wp({i := i - 3}, i==6) = (i > 3) and (i-3 == 6) = (i == 9)
+Pk = i == 3*(k+1)
+
+wp( {while i > 3 do i := i - 3 od},  i == 3 ) =  (P0 or &exist; k>= 0: Pk)
+= (i == 3 or (&exist; k>= 0: i == 3*(k+1)))
+= (&exist; k>= 1: i == 3*k)
+= i == 3*k, for some k > 0
+</pre>
+
+</ol>
+
+<h2>Reference</h2>
+
+Dijkstra, Edsger Wybe, A Discipline of Programming. Englewood Cliffs:
+prentice-hall, 217pp, 1976.  A classic.  Dijkstra is a Turing award winner.
+
+
+</body>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2016 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2015-09-03
+</div>
+</body>
+</html>

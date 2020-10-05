@@ -1,0 +1,505 @@
+# -*- mode: org -*-
+#+date: 2018-09-10
+#+TITLE: Security Fortification
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+<blockquote><p> Abstract: This lecture is about adding a layer of
+    protection beyond proper configuration of the OS and applications.
+    This layer of protection consists of tools that help detect changes in
+    the system and monitor (suspicious) system activity.  Fortification is
+    the addition of packages to improve security.  It should be done after
+    a system has been properly configured with the supplied components.
+    Fortification frequently will discard a supplied component in
+    preference to a carefully chosen added component.  Some what rarely,
+    fortification involves deletion of components.
+</blockquote>
+
+
+* <a name="Educational Objective">Educational Objective</a>s
+
+ 1. Appreciate the need for adding extra layers of protection beyond 
+ out-of-the-box installation of an operating system </li>
+ 1. Understand the limitations of such a protective layer </li>
+ 1. Aware of widely available tools for fortification.</li>
+</ol>
+
+<h1>Security Fortification</h1>
+
+<p>
+  Fortification is the addition of packages to improve security.  It
+  should be done after a system has been properly configured with the
+  supplied components.  Fortification frequently will discard a supplied
+  component in preference to a carefully chosen added component.  Some
+  what rarely, fortification involves deletion of components.  In our
+  discussion, we will postpone certain &quot;fortification&quot; items
+  as &quot;hardening&quot; items even though we cannot offer a rigorous
+  definition regarding the use of these two terms.</p>
+
+<h2>Malware Detection</h2>
+
+* Virus Scanners
+<p>
+Of the many fortification suggestions made in this lecture, virus 
+scanners are probably the most universally experienced item.  Windows-based 
+virus scanners do focus on detecting not only viruses but also Trojans and root 
+kits and are often also integrity checkers.</p>
+
+* Root Kit Detection
+
+<p>Loadable kernel modules (LKM) bring run-time modularity to
+  Linux. Device drivers and their modules are loaded only when
+  necessary keeping the core kernel small. On the negative side, LKM
+  rootkits are the easiest and most “elegant” way to modify the
+  running kernel. In a modularized kernel the attacker can insert
+  rootkits into kernel once he gains root privileges.  Through LKM
+  rootkit the attacker can modify any part of the kernel. Typically
+  LKM rootkits would redirect the system calls to the attacker’s own
+  implementation.</p>
+
+<p> The character device <tt>/dev/kmem</tt> is an image of the kernels
+  virtual memory. Through this device, an attacker can modify the
+  kernels text or data, and can drastically change the behavior of
+  kernel. Other memory devices which can similarly be exploited are
+  /dev/mem and /dev/port which give direct access to physical memory
+  of the system.
+</p>
+
+<p>
+Unless a file system auditor is in place, it is not
+easy to spot the root kits after their installation.  The time to
+be alert is when the root kits are being installed. </p>
+
+<pre>apt-get install chkrootkit rkhunter unhide</pre>
+
+<h2>Authentication</h2>
+
+* User Authentication
+* Host Authentication
+* Service Authentication
+
+<p>Look up Kerberos.</p>
+
+<p>Read
+<a href="https://help.ubuntu.com/community/LDAPClientAuthentication">https://help.ubuntu.com/community/LDAPClientAuthentication</a></p>
+
+<pre>apt-get install munge otp john</pre>
+
+<p>"A process creates a credential by requesting one from the local
+MUNGE service.  The encoded credential contains the UID and GID
+of the originating process.  This process sends the credential to
+another process within the security realm as a means of proving its
+identity.  The receiving process validates the credential with the
+use of its local MUNGE service.  The decoded credential provides
+the receiving process with a reliable means of ascertaining the
+UID and GID of the originating process, and this information can
+be used for accounting or access control decisions."</p>
+
+<p>otp == One Time Passwords</p>
+
+
+<h2>Audit</h2>
+
+<p>
+Capture the output of <tt>ps aux</tt> and examine all processes
+periodically.  The exact list will depend on the (Linux)
+distribution. However, from one session to another, the first few are
+not expected to have different process ids. The remainder may get
+higher or lower pids depending on what is included in the boot up
+scripts. However, once the boot scripts have stabilized you must make
+a note of all process ids, and expect them to remain unchanged until
+the scripts change again. </p>
+
+<p>
+You should also check that all processes owned by user &quot;nobody&quot; are 
+running programs explicitly identified as legitimate for untrusted, 
+unverified, remote users.  Each process belonging to a non-root 
+system user is explicitly identified as legitimate for that user in 
+this environment.
+</p>
+
+* File System Audit
+
+<p>
+Intruders often replace binaries with their own Trojan versions.  
+Many system administrators relied on time-stamping and check sum the 
+files to determine when a binary file has been modified. But it is 
+fairly simple to recreate the same time-stamp for the Trojan file as 
+the original file. For example, if your standard <tt>touch</tt> 
+does not do <tt>touch -r /bin/login</tt> develop a <tt>touch</tt> 
+program that does it.  Or, by setting the system clock time back 
+to the original file's time and then adjusting the Trojan file's time 
+to the system clock. Once the binary Trojan file has the exact same 
+time as the original, the system clock is reset to the current time. 
+Simple check sum programs rely on a CRC checksum and are easily 
+spoofed.  MD5 check sums are based on an algorithm that no one 
+has yet spoofed.  This technology is behind the well known 
+Tripwire.</p>
+
+<pre>apt-get install tripwire systraq</pre>
+
+<p>
+Systraq daily consists of few very small shell scripts
+that warn when system files change.
+</p>
+
+* Activity Monitors
+
+<p>
+A few open-source activity monitoring programs (including intrusion
+detection/prevention tools) are described below.</p>
+
+<p>
+<a href="http://www.snort.org/"> snort/</a> can be used as a packet
+sniffer like tcpdump, a packet logger, or as a network intrusion
+prevention/detection system.  Its rule-based system can detect buffer
+overflows, stealth port scans, CGI attacks, SMB probes, OS
+fingerprinting attempts, etc.
+</p>
+
+<p>Firewalls: iptables and some GUI frontend are standard in Linux
+distributions.  Consider installing shorewall and webmin.
+</p>
+
+<p><tt>apt-get install tiger</tt> "is a set of Bourne shell scripts, C
+programs and data files which are used to perform a security audit of
+unix/Linux systems."
+</p>
+
+<p>xinetd: "xinetd has access control mechanisms, extensive logging
+  capabilities, the ability to make services available based on time,
+  and can place limits on the number of servers that can be started,
+  among other things.  It has the ability to redirect TCP streams to a
+  remote host and port.  This is useful for those of that use IP
+  masquerading, or NAT, and want to be able to reach your internal
+  hosts.  It also has the ability to bind specific services to
+  specific interfaces.  This is useful when you want to make services
+  available for your internal network, but not the rest of the
+  world. Or to have a different service running on the same port, but
+  different interfaces."
+</p>
+<p>
+TCP Wrapper: When a potentially insecure service must be run,
+tcp_wrappers should be utilized to &quot;wrap&quot; it. The wrapper
+software does more detailed logging and better access control checking
+by &quot;wrapping&quot; itself around the normal network daemons
+configured in <i> inetd.conf</i>.  The <tt>tcpd</tt> used in
+Linux is a new version of the TCP wrapper.</p>
+
+<p>
+ifstatus is a standalone program to check for 
+promiscuous interfaces available from
+<a href="ftp://coast.cs.purdue.edu/pub/tools/unix/ifstatus">
+ftp://coast.cs.purdue.edu/pub/tools/unix/ifstatus</a> </p><p>
+dtk or &quot;Deception Toolkit&quot; is a kit of fake daemons and services 
+designed to waste an intruders time. dtk is available from
+<a href="http://all.net/dtk/example.html">all.net/dtk/example.html</a></p>
+<p>
+Bastille Linux is a series of scripts which tighten up security on stock Linux 
+systems, by changing permissions and disabling features.</p>
+<p>
+Network Information Service (NIS) has been source of many weaknesses. 
+Using Rsync + SSH as a replacement for NIS is often better.</p>
+<p>
+Logs produced by the<tt> kerneld, syslogd, tcpd,</tt> and the 
+various services can become so large that it is humanly impossible to 
+scan them for spotting suspicious activity and take a more serious 
+look.  A few well known log analyzers are listed below.</p>
+
+
+  1. sagan, Real-time syslog Monitoring System</li>
+  1. wwwstat, HTTPd Log file Analysis Software.</li>
+  1. Analog, Web server log file analyzer </li>
+  1. freq, A lastlog analyzer.</li>
+  1. tcpdstats, tcpd log analyzer.
+  1. <tt>apt-get install god</tt> "God is an easy to configure, easy
+    to extend monitoring framework written in Ruby."
+</li>
+
+</ol>
+
+<h2>Improved Kernels</h2>
+
+<p>The kernels supplied in various distributions are generic and 
+security-wise permissive.  It is possible to recompile the kernel using the 
+same source code as used by the distributor but with different selection of 
+components and including them in the vmlinuz binary instead of as a dynamically 
+loadable module.</p>
+* POSIX capabilities
+
+  <p>POSIX capabilities (Pcaps) can turn a setuid-root file into a
+    file with minimum privileges, run a daemon with uid=0 but with
+    amost no superuser privileges, etc.  Privileges are granted to
+    processes instead of users.  Pcaps are implemented in Linux
+    kernels since 2.6.x; capsh, getpcaps, getcap, setcap are some of
+    the tools.  Pcaps divide privileges that are typically granted to
+    root user.  </p>
+
+  <p>The table below presents PCaps for a few typical suid-root
+  binaries.  The CAP-names used are defined in
+  /usr/include/linux/capability.h.
+
+<table>
+<tr><td>ping</td><td>CAP_NET_RAW (13)</td></tr>
+<tr><td>traceroute</td><td>CAP_NET_RAW (13)</td></tr>
+<tr><td>chsh</td><td>CAP_CHOWN (0), CAP_DAC_READ_SEARCH (2), CAP_FSETID (4), CAP_SETUID (7)</td></tr>
+<tr><td>chfn</td><td>CAP_CHOWN (0), CAP_DAC_READ_SEARCH (2), CAP_FSETID (4), CAP_SETUID (7)</td></tr>
+<tr><td>chage</td><td>CAP_DAC_READ_SEARCH (2)</td></tr>
+<tr><td>passwd</td><td>CAP_CHOWN (0), CAP_DAC_OVERRIDE (1), CAP_FOWNER (3)</td></tr>
+<tr><td>mount</td><td>CAP_DAC_OVERRIDE (1), CAP_SYS_ADMIN (21)</td></tr>
+<tr><td>umount</td><td>CAP_DAC_OVERRIDE (1), CAP_SYS_ADMIN (21)</td></tr>
+</table>
+
+  <p>To change, run <tt>chmod u-s /usr/bin/chsh; setcap
+  0,2,4,7=ep /usr/bin/chsh</tt>
+
+<h2><a name="Lab Experiment">Lab Experiment</a></h2>
+
+* Lab Experiment 1</a>
+
+<p> Objective: Experience a file system audit tool.  Experience log
+  analysis.</p>
+
+<h4>Procedure</h4>
+
+
+  1. Install the package tripwire.  &quot;Tripwire is a policy driven
+    file system integrity checking tool that allows system
+    administrators to verify the integrity of their data.&quot;</li>
+
+  1. Build the database following the instructions found in the 
+    package.</li>
+
+  1. Select and modify a few &quot;system&quot; files from directories such as 
+    /bin, /sbin, /usr/sbin and /etc.</li>
+
+  1. Observe and explain tripwire's reports.</li>
+  1. Install and experience a tool that analyzes log reports (usually
+    in /var/log/).
+</ol>
+
+* Lab Experiment 2</a>
+
+<p> Objective: Tightening suid binaries and scripts.</p>
+
+
+
+  1.  Run a find script to discover all suid binaries and scripts on LXU.
+  1.  Carefully analyze and report the need for each of these.
+  1.  Rewrite the suid scripts into C/C++ programs.
+  1.  Does rewriting scripts into programs improve security?  Discuss.
+  1.  Install a forensic tool and experience it.
+</ol>
+
+1. Removing Unnecessary Software Packages
+
+1. Patching Linux Systems
+
+
+* Disabling Unneeded Services
+
+1. Exposed machines should run as few programs as possible;
+  the ones that are run should be as small as possible.
+
+1. Services are started in exactly three ways:
+
+   1. During boot time via a script. This is traceable from
+      =/etc/inittab= and =/etc/init.d/*=.
+   1. As a result of network connection. This is traceable from
+      =/etc/inetd.conf.=
+
+   1. Explicitly as a command.
+  
+1. In all cases, only install the *absolutely necessary*
+  services. If you are not sure what it is, <i>disable</i> it.
+  These services (listed alphabetically) are commonly left running
+  in improperly configured Unix/ Linux distributions. In the
+  following, "wrapping" a service refers to initiating the service
+  through a wrapper program that does extra checking and logging
+  before invoking the original program that provides the service.
+  Two well known wrappers are =tcpwrapper= and
+  =tcpd=.
+
+1. Most, but not all, Linux systems now use =xinetd= instead
+  of =inetd=. The configuration files for xinetd are
+  "distributed" into =/etc/xinetd.conf= and into files located
+  in the subdirectory =/etc/xinetd.d/= All references below to
+  =/etc/inetd.conf= should be understood as including
+  these if xinetd is in use.
+
+1. *bootp, bootps* : Used for bootp services.
+
+1. *echo, daytime, discard, chargen*: These services are
+  used largely for testing and are largely unnecessary.
+
+1. *exec*: Allow remote users to execute commands on a host
+  without needing to log in. It exposes remote user passwords on
+  the network, thus is highly insecure. We recommend disabling the
+  service.
+
+1. *finger*: allows remote users to use the <i>finger</i>
+  utility to obtain information about arbitrary users on a host.
+  Considered highly insecure. We recommend disabling the service or
+  using a more secure version such as cfinger.
+
+1. *ftp* : allows remote users to transfer files to/from a
+  host using <i>ftp</i>. Since user passwords are easily sniffable
+  (they are transmitted over the wire in clear text), we recommend
+  disabling the service and using instead a secure file transfer
+  mechanism which encrypts the entire session (such as Kerberized
+  ftpd or SSH). If ftp access is a must, the service should be
+  wrapped.
+
+1. "filez" transfers: If you allow files to both be written to
+  and read from by anonymous FTP users, attackers will find those
+  accounts and use them to transfer "warez", MP3 files, and
+  porn.
+
+1. *login*: Allows remote users to use the Berkeley
+  <i>rlogin</i> utility to log in to a host without supplying a
+  password (via the =.rhosts= mechanism). Use SSH
+  instead. If rlogin access is a must, the service should be
+  wrapped.
+
+1. *netstat* : Designed to provide network status
+  information about a host to remote hosts.
+
+1. *shell* : See login above.
+
+1. *smtp* If you allow the "relay" feature on SMTP servers,
+  spammers will find your server and use it to forward spam through
+  (to hide themselves and also take advantage of your higher-speed
+  connection).
+
+1. *systat* : designed to provide status information about a
+  host.
+
+1. *smurf amplifiers* If you do not adjust your subnet masks
+  and visible services, attackers will attempt to use your site as
+  a "smurf" or "fraggle" amplifier to flood other victims on the
+  net.
+
+1. *website defaults* If you put a web server on the
+  Internet, you must carefully remove all "defaults", "samples",
+  and "CGI scripts" or attackers will at minimum deface web pages
+  or compromise the machine.
+
+1. *telnet* : Allows remote users to connect to a host via
+  <i>telnet</i>. which transmits user passwords over the wire in plain
+  text and can therefore be easily sniffed. Use ssh instead.  If
+  telnet access is a must, the service should be "TCP-wrapped".
+
+1. *talk, ntalk* : allows remote users to use <i>talk</i> to
+  have a real time conversation with a user on a host.
+
+1. *tftp* : allows remote users to transfer files from a
+  host without requiring login. Used primarily by X-terminals and
+  routers. If tftp access is desired, the service be wrapped.
+
+1. *time*: Used for clock synchronization. We recommend
+  disabling the service and using <i>xntp</i> to synchronize your
+  system clock to WWV.
+
+1. *uucp* : allows remote users to transfer files to/from a
+  host using the UUCP protocol. Unless you use UUCP, we recommend
+  disabling the service.
+
+** *RPC* based services
+
+1. *RPC* based services such as NFS and NIS are a major
+  security hazards unless you are using secure RPC. Our general
+  recommendation is therefore against the use of NIS or NFS unless
+  the physical network segments are protected either physically or
+  via the use of switched hubs. All RPC based services should be
+  disabled in <i>inetd.conf</i> (unless NFS/NIS must be used).
+
+1. Alternatives to NIS are: the use of Sun Microsystem's NIS+,
+  and the use of <i>rsync</i> along with SSH to distribute
+  <i>/etc/passwd</i>, <i>/etc/group</i>, etc. to clients from a
+  central server.
+
+1. Common RPC based services defined in <i>inetd.conf</i>
+  are:
+
+1. *rexd* : allows remote users to run RPC programs on a
+  host. Can be used to run an arbitrary shell on the host, thus
+  highly insecure. We recommend disabling the service.
+
+1. *rquotad* : returns quotas for a user of a local file
+  system which is mounted by a remote machine over the NFS. We
+  recommend disabling it.
+
+1. *rstatd* : extracts performance statistics from the
+  kernel for use by programs such as perfmeter. We recommend
+  disabling it.
+
+1. *ruserd* : is used to return a list of users on a
+  network. We recommend disabling it.
+
+1. *sprayd* : records the packets sent by spray, and sends a
+  response to the originator of the packets. We recommend disabling
+  it.
+
+1. *walld* : used for handling rwall and shutdown requests.
+  We recommend disabling it.
+
+1. *ypupdated* : used for updating NIS information. Since we
+  recommend against the use of NIS in general, this service should
+  be disabled.
+
+*  Monitoring a Running System
+
+1. Protecting the root Account  Even on a personal machine, normal daily use of the system
+  should be through a non-root account. The root must have a
+  non-trivial password. Run a password audit tool to verify that
+  the password is not weak.
+	
+1. Detecting Listening Network Ports
+	
+1. Restricting System Access from Servers and Networks
+	
+1. Kernel Tunable Security Parameters
+	
+1. /etc/sysctl.conf controls the system.
+	
+1. Preventing Accidental Denial of Service
+	
+1. Displaying Login Banners
+	
+1. Watch the log files. Minimally, files that should be examined are:
+  =/var/log/messages, /var/log/syslog=.
+  
+
+
+* <a name="Acknowledgements">Acknowledgements</a>
+
+<h2><a name="References">References</a></h2>
+
+
+ 1. Wietse Venema, &quot;TCP Wrapper: Network monitoring, access
+   control, and booby traps&quot;,  Proceedings of the Third Usenix
+   UNIX Security Symposium, pp. 85-92, Baltimore, September 1992.
+   <a href="http://www.porcupine.org/"> http://www.porcupine.org/</a>.
+   This is now a standard part of Linux distros as libwrap.
+   [<a href="./tcpwrap.ps">Local copy in .ps</a>].  Required reading. </li>
+
+1. 
+  Prabhaker Mateti,
+  <a href="../RootKits/index.html">
+    RootKits</a>.  2013. Required Reading.
+
+1. wikipedia.org,
+  <a href="http://en.wikipedia.org/wiki/Category:Linux_security_software">
+    Linux_security_software</a>, 2013.  Required Visit.
+</ol>
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

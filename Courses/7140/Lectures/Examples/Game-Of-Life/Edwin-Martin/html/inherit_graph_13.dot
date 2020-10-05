@@ -1,0 +1,13 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Canvas",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="org.bitstorm.gameoflife.\lCellGridCanvas",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="org.bitstorm.util.ImageComponent",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classorg_1_1bitstorm_1_1util_1_1ImageComponent.html"];
+  Node4 [label="ImageObserver",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

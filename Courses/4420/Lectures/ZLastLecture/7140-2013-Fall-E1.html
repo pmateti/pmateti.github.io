@@ -1,0 +1,145 @@
+<html>
+  <head>
+    <title>CS 7140 Advanced Software Engineering MidsemesterZ Exam by Prabhaker Mateti</title>
+    <meta name="author" content="Prabhaker Mateti">
+    <meta name="keywords" content=
+	  "Computer security, Network security">
+    <meta name="description" content=
+	  "This page is part of a set of lectures notes for a course
+	  on Software Engineering by Prabhaker Mateti
+	  http://www.cs.wright.edu/~pmateti/">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <style type="text/css">
+      a:hover      { color: blue; background-color: yellow; }
+      a:active     { color: white; background-color: green;}
+      p { text-align: justify }
+      li { text-align: justify }
+      code {color: brown;}
+      @media screen {BODY {margin: 10%;} }
+    </style>
+  </head>
+
+  <body>
+    <table border="0" width="100%" cellpadding="10">
+      <tr>
+	<td valign="top" width="10%">
+	  <a target="_blank" href="http://www.wright.edu/">
+	    <img src="http://www.cs.wright.edu/~pmateti/images/wsu-logo-xsm.gif"
+	         border="0" width="150" align="left"></a>
+	</td>
+	<td valign="top" width="40%">
+          <h3><a href="http://www.cs.wright.edu/~pmateti/Courses/7140/">
+	      CS 7140 Advanced Software Engineering</a></h3>
+
+          <h3>2013 Fall &bull; Midterm &bull; 100 points</h3>
+        </td>
+      </tr>
+    </table>
+
+    <blockquote>
+      <p>This take-home exam permits the use of a Linux/Windows
+	laptop/PC running javac, g++, Eclipse, Idea, and other
+	software development and drawing tools.  It is otherwise a
+	traditional closed book, closed notes exam.  In particular,
+	you are honor bound <i>*not*</i> to Internet surf or access any
+	content already existing (other than as indicated) once you
+	access the midterm until you turnin the answers.  The primary
+	reasons in making this a take-home are to relieve time pressure
+	and give you a comfortable (computing/home) environment.  Do
+	not give or take help from others.
+
+      <p>Submit your answers by Sat Nov 02, 2013 12:00 noon
+        on <code>gandalf.cs.wright.edu</code>
+        using <code>~pmateti/cs7140/turnin MT answers.pdf</code>
+
+    </blockquote>
+
+    <ol>
+      <li>(5 points each) The following statements may or may not be
+	(fully or partially) valid.  Explain the underlined technical
+	terms</i> occurring in each statement.  Explain/ discuss/
+	dispute the statement.  It is <i>possible</i> to write no more
+	than, say, five, lines each, and yet receive full score.
+
+	<ol type=i>
+	  <li> Suppose we wrote down <u>specs</u> rigorously/
+            formally using mathematics and logic,
+            and <u>requirements</u> in carefully worded English.
+            There is no method other than a judge+jury system to
+            decide if these two are consistent with each other.
+
+	  <li> If the <u>pre-condition</u> of a piece of code S
+	    is <code>false</code>, we are asserting that S does not
+	    terminate and therefore we can have fun and claim a
+	    preposterous <u>post-condition</u>.
+
+	  <li>The <u>Design by contract</u> principle is a variation
+            of the Liskov Substitution Principle.
+
+	  <li> Once we write a <u>program</u> for a <u>wicked problem</u> it
+	    is no longer wicked.
+
+	  <li> Suppose we are revising a 1970s program, that used as
+	  little memory as possible, into a modern one, that uses
+	  memory liberally, in the hope of significantly improved
+	  <u>performance</u>.  We can use the old program as
+	  a <u>functional specification</u> for the new one.
+      </ol></li>
+
+      <li>(15 points each)
+
+	<ol type="i">
+	  <li> Consider our 
+            <a href="../Lectures/Worms/worms.cpp.html ">
+              Wiggly Worms program</a>.  We can intuitively describe
+              the "connectedness" of a worm's body as "we can draw a
+              line possibly with a few turns without lifting our pen
+              starting from the head body segment to the tail".  State
+              this as an assertion using mathematical notations using
+              the typedefs originally given or the class definitions
+              you have derived from it.
+          <li>
+            Here is a link to 
+            <a href="http://algs4.cs.princeton.edu/11model/BinarySearch.java.html">
+              BinarySearch.java</a>.  Focus on the <code> public
+            static int rank(int key, int[] a)</code> method.  Give, in
+            JML, its weakest pre-condition and strongest
+            post-condition and strongest loop invariant for the while
+            loop of the method.  You are welcome to use JML plugin in
+            Eclipse or IDEA.
+
+	  <li> Our 
+            <a href="../Lectures/Design/small-set.html">
+              requirements</a> for the SmallSet of Integers have
+	    changed as follows.  (i) It is no longer a set but a bag
+	    -- we now want a SmallBag of Integers; (ii) No bigger than
+	    1000 elements; unchanged (iii) Deletions (as well as
+	    insertions) are frequent ops (iv) item-is-in-the-set(S, e)
+	    is now <code>item-is-in-the-bag(S, e)</code> and
+	    furthermore not used often (iv) Some ops can "fail", but
+	    only if they must.  Modify our SmallSet design so that it
+	    is now a SmallBag design.  Present it in a VHLL.  You will
+	    lose points if it is almost Java.
+
+	  <li> Give an example OOP program of your own in Java or C++
+	    that illustrates the Liskov Substitution Principle.
+
+          <li> A specific hash trie in the context of Common Words Problem
+            is shown in 
+            <a href="http://cecs.wright.edu/~pmateti/Courses/7140/Notes/cwp-hash-trie.pdf">
+              cwp-hash-trie.pdf</a>.  We now insert the word "bend".
+              Show the resulting hash trie.
+
+	</ol>
+    </ol>
+  </body>
+</html>
+
+    </ol>
+    <hr size="1">
+    <a href="../copyright.html">Copyright &copy;</a>  2013
+    <a href="http://www.cs.wright.edu/~pmateti" target=
+       "_blank">Prabhaker Mateti</a> ; Oct 31, 2013
+
+  </body>
+</html>

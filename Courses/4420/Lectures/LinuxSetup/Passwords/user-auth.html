@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>User Authentication: Passwords</title>
+<!-- 2018-10-18 Thu 23:17 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="Mateti: Android Internals and Security"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">User Authentication: Passwords</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. User Authentication  Approaches</a>
+<ul>
+<li><a href="#sec-1-1">1.1. What You Know</a></li>
+<li><a href="#sec-1-2">1.2. What You Have</a></li>
+<li><a href="#sec-1-3">1.3. What You Are</a></li>
+<li><a href="#sec-1-4">1.4. Password Verification Services</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. Choosing Good Passwords</a>
+<ul>
+<li><a href="#sec-2-1">2.1. DOs and DONTs</a></li>
+<li><a href="#sec-2-2">2.2. Bad Common Practices</a></li>
+<li><a href="#sec-2-3">2.3. Password Strength Metrics</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. One Time Password (OTP) Authentication</a></li>
+<li><a href="#sec-4">4. Two-Factor Authentication</a></li>
+<li><a href="#sec-5">5. References</a></li>
+<li><a href="#sec-6">6. End</a></li>
+</ul>
+</div>
+</div>
+<p>
+Abstract: This chapter is about how computer systems authenticate
+users.  We focus on the password system of Linux in detail and that of
+Windows briefly.  Cryptography forms the backbone of any password
+system.  We sketch the password cracking procedures and describe a lab
+experiment that uses well-known carcking tools.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> User Authentication  Approaches</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Authentication of Users, Services, Servers, Documents, &#x2026;  is a
+corner stone of computer security.
+</p>
+
+<p>
+Is there a computer system that has no user authentication at all?
+This is not an intrinsic property of old PCs running older OS, but the
+result of decisions made regarding the control of access.  (i) Systems
+that contain "valuable" resources wish to grant different degrees of
+access to different users.  (ii) Systems that can become pawns
+("pwned") in a larger scheme of malicious activities.  This makes it
+necessary that a user authenticate himself.
+</p>
+
+<p>
+User authentication, on ordinary computer systems, is almost always by
+a password.  As long as the user has given the right password for Joe
+User, most systems accept the user as Joe.  This widespread use of
+passwords is mostly because the technology for using other methods,
+such as biometrics, is far too expensive.  The password method fails
+mostly because people do not carefully chose passwords, and also
+because there are ingenious and computationally extensive techniques
+that can guess a password.
+</p>
+
+<p>
+"Over the Internet, no one knows you're a dog."  &#x2013; Anonymous.  This
+joke illustrates a problem that the same password is used whether you
+are logging on the console or remotely logging in from a thousand
+miles.
+</p>
+
+<p>
+All approaches for human authentication rely on one or more of the
+following:
+</p>
+</div>
+
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> What You Know</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Something you know (e.g., a password).  Unfortunately, "Axiom: It is
+beyond the capabilities of the human brain to remember enough strong
+passwords" &#x2013; source unknown.  And if you write it down, then other
+people might find it.
+</p>
+
+<p>
+The term "CAPTCHA" is an acronym for "Completely Automated Public
+Turing test to tell Computers and Humans Apart".  It is a
+challenge-response system.  Its purpose is to determine if the
+response it receives is produced by a human or a robot script.  The
+challenge is usually to present a highly distorted/ segmented/ crowded
+image of two words (typically accompanied by a voice recording) and
+the user is expected to type it out.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> What You Have</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Something you have (e.g., <a href="http://www.google.com/search?q=security+token&tbm=isch">Security Tokens</a>, <a href="https://www.google.com/search?q=security+smart+card&tbm=isch">Security Smart Cards</a>) with
+you can be used to authenticate.  Of course, it might get stolen.  The
+transmission from the "reading" device to the authenticator is assumed
+to be "unbreakable".
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> What You Are</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Several laptops, and iPhone (2013) have incorporated finger print
+scanners.  Unfortunately, biometric sensors are expensive and the
+accuracy is yet to be widely tested.  There are proposals on face
+recognition (<a href="http://en.wikipedia.org/">http://en.wikipedia.org/</a> wiki/ VeriFace), voice
+recognition, etc.  DARPA wishes "to turn humans into passwords" by
+capturing what they have "done" on the computer system; read
+<a href="http://www.nationaldefensemagazine.org/">http://www.nationaldefensemagazine.org/</a> archive/ 2012/ January/ Pages/
+DARPAtoTurnHumansIntoPasswords.aspx
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Password Verification Services</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+Password verification is now increasingly out-sourced.  Facebook,
+Google, et al. provide <a href="http://openid.net/">OpenID</a> service.  OpenID is an open API standard
+between the ID provider and the OpenID acceptor.  Visit
+<a href="http://www.openauthentication.org/">http://www.openauthentication.org/</a>
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Choosing Good Passwords</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The goal is to make password cracking difficult.
+</p>
+
+<p>
+1997.01.02, PA News: "A recent survey by Compaq in the financial
+district of London showed that poor choices are the norm for computer
+passwords there. A staggering 82% of the respondents said they used,
+in order of preference, "a sexual position or abusive name for the
+boss" (30%), their partner's name or nickname (16%), the name of their
+favorite holiday destination (15%), sports team or player (13%), and
+whatever they saw first on their desk (8%)."
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> DOs and DONTs</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+<b>Don't</b> use the following for passwords: Your first name.  Your last
+name. Your login name. Your pet's name.  Names and birth dates of
+spouses, friends, relatives and friends.  Any name at all. SS
+number. House number. Telephone number. Your bank PIN.  Any password
+shorter than six characters.
+</p>
+
+<p>
+<b>Don't</b> use the same password for all your accounts.  An attacker who
+broke into one account usually discovers these other accounts by going
+through the memoranda that the user keeps in his files as well as by
+running keystroke loggers or simple sniffers.
+</p>
+
+
+<p>
+<b>Do</b> use passwords of six characters or more.  Use a combination of
+letters, numbers, and special characters. E.g., the following advice
+is found on the web.
+</p>
+
+
+<ol class="org-ol">
+<li>Think of a memorable phrase, such as "over the hills and far away,
+to grand mothers house we go."
+</li>
+
+<li>Next, turn it into an acronym (including the punctuation): <code>othafa,tgmhwg.</code>
+</li>
+
+<li>Add complexity by substituting numbers and symbols for letters in
+the acronym. For example, substitute 0 for o, 3 for e, 7 for t and
+the at symbol (@) for a: <code>07h@f@,7gmhwg.</code>
+</li>
+
+<li>Add more complexity by capitalizing at least one letter,
+such as H. <code>07H@f@,7gmHwg</code>.
+</li>
+
+<li>Finally, do not use the example password above.
+</li>
+</ol>
+
+
+<p>
+Of course, we must be aware of password cracking/stealing procedures
+in choosing passwords.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Bad Common Practices</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Most passwords are typed by real humans in real time.  It is
+unreasonable to expect that people will choose either long passwords
+("pass phrases") or difficult passwords.  Any requirement that
+ultimately causes people to write passwords down on paper or in a file
+defeats it.
+</p>
+
+<p>
+This obvious point is lost on most system administrators and auditors.
+E.g., consider the following guidelines:
+</p>
+
+<p>
+"In addition to the password requirements below, please also remember
+that your password is case sensitive and you should always change your
+stored password on any mobile devices you use.
+</p>
+
+<ol class="org-ol">
+<li>The password length must be 8 to 14 
+</li>
+<li>The password must contain a letter.
+</li>
+<li>The password must contain at least one of these special characters:0123456789<sup>()</sup>&#x2013;!$
+</li>
+<li>Do NOT use names or common words in the dictionary.
+</li>
+<li>Do NOT use the following symbols %#.@
+</li>
+<li>Do NOT use the last four digits of your SSN.
+</li>
+<li>Do NOT use your CAMPUS Account username, your first name, or your last name.
+</li>
+<li>Do NOT use 3 or more repeated (i.e., aaa or 111) or consecutive (i.e., abc or 123) characters.
+</li>
+</ol>
+
+<p>
+Frequently, the recycling of previously used passwords is forbidden.
+This implies that the old passwords are stored somewhere.  If and when
+that system is intruded, not only the current passwords but all the
+old passwords are revealed.  We must realize that many users use the
+same passwords on multiple systems.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Password Strength Metrics</h3>
+<div class="outline-text-3" id="text-2-3">
+
+<div class="figure">
+<p><img src="./Figures/password-strength-xkcd.png" alt="password-strength-xkcd.png" width="100%" />
+</p>
+<p><span class="figure-number">Figure 1:</span> XKCD on Password Strength</p>
+</div>
+
+<ol class="org-ol">
+<li><a href="https://en.wikipedia.org/wiki/Password_strength">https://en.wikipedia.org/wiki/Password_strength</a>
+</li>
+<li><a href="https://github.com/GoSimpleLLC/nbvcxz">https://github.com/GoSimpleLLC/nbvcxz</a> A password strength estimator
+in Java.
+</li>
+
+<li><a href="https://blogs.dropbox.com/tech/2012/04/zxcvbn-realistic-password-strength-estimation/">https://blogs.dropbox.com/tech/2012/04/zxcvbn-realistic-password-strength-estimation/</a>
+</li>
+
+<li><a href="http://www.hackerattacker.com/2015/03/tedtalks-password-strength-part-i.html">http://www.hackerattacker.com/2015/03/tedtalks-password-strength-part-i.html</a> 
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> One Time Password (OTP) Authentication</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Because of the "human issues" (referred to above as wetware)
+  involved, a password that can be used only once is better. This
+  OTP is generated from a secret phrase that the user remembers or
+  holds in a tiny device, and a next-use one time password is
+  randomly generated. OTP provides protection from eavesdropping,
+  and dictionary attacks.  No secret algorithms are used and no
+  secrets are stored on host.  See RFC 2289 for further
+  details of OTP.
+</p>
+
+<p>
+There are many implementations of OTP.  E.g., <code>apt-get install
+    donkey otp otpw yubiserver</code> on Ubuntu. 
+  <a href="http://linotp.org/">http://linotp.org/</a> " <a href="http://linotp.org/">http://linotp.org/</a>  Smartphone
+  apps for OTP.  Android OATH tokens.
+</p>
+
+<p>
+To make the experience of using OTP concrete, we describe briefly
+  the procedure to login to a machine S that supports S/Key OTP.
+  (That is, the <code>ssh, login, su</code> and other
+  password-requiring programs on S are OTP-based programs.)
+</p>
+
+
+
+<ol class="org-ol">
+<li>Initialize S/Key.  (The <code>donkey</code> is an
+alternative for S/KEY's commands.)  E.g., calculate ten OTPs at
+once:
+</li>
+</ol>
+<div class="org-src-container">
+
+<pre class="src src-text">% donkey -n 10 -f md5 80 is12345
+Enter passphrase : xxxxxxxxxxxxxxxxxxxxxxx
+71: RAG GLOB REAL BRAD RUNS QUAD 
+72: GAY GUN DRAB FOR NECK MILL   
+73: CLAY YARD DUSK LOY DUNE CAL  
+74: DING SLOT SOAR WILD LOST DOE 
+75: SAT WEST WEAN MAD NAVE SLIM  
+76: MAST KNOT JAIL FIGS EDEN HE  
+77: KILL COOT SNOB SAND TESS HAY 
+78: CORE VASE SHAM AFAR LASS LACK
+79: MID EAT DUST OFF DOCK ARAB   
+80: JOEL RAVE SWAY APS COL KUDO
+</pre>
+</div>
+
+<p>
+The secret pass phrase (shown as xxx&#x2026;) is typed on the
+  local machine.  The <code>is12345</code> is the seed (which is
+  sometimes, confusingly, called a "key") consisting of two
+  letters and five digits.  The iteration count, in the example
+  80, is a number between 1 and 100.  The passphrase can be
+  anything, but ought to be 5 words.  Lower/Upper case
+  matters.
+</p>
+
+<p>
+The seed and pass phrase strings are passed through one of
+  MD4, MD5 or SHA1, chosen by the user.  It is repeatedly
+  "folded" 80 times (in this example).  The server stores the
+  final hash (a 64-bit number), the seed, the iteration count,
+  and the sequence number (80 now), in the server's S/Key
+  database.  The pass phrase is not stored.  Even if someone
+  gains access to the S/Key database, they will need to reverse
+  the hash to find the next OTP.  A simple algorithm
+  "translates" the 64-bit hash into six words, as shown
+  above.
+</p>
+
+<ol class="org-ol">
+<li>      Run the above command on S after logging into S using your
+  existing login procedure.  You have just set up OTP good for
+  80 uses.1. 
+When you wish to login to the server, the server provides a
+  challenge, which consists of the  chosen hash, the seed and
+  a next-lower sequence number, 79.  The user goes through the
+  same procedure used to produce the initial step and hashes it
+  79 times. The resulting 64-bit hash is the OTP to be supplied
+  in this login.  Note that this will not be the same as the
+  hash stored in the S/Key database, which has been hashed 80
+  times.  The server hashes the supplied password one more time.
+  If it matches the stored hash, the user is authenticated. The
+  server updates the databse with the supplied password and the
+  next-lower sequence number (79) for use in the next login. 
+
+<p>
+After 80 uses, the user must re-initialise with a new seed,
+  and optionally a new pass phrase.
+</p>
+</li>
+</ol>
+
+
+<p>
+To login via s/key in the future, paste "80 is12345" into the
+  s/key calculator (donkey) running on local machine. Type in
+  your passphrase.  This generates the response on the local
+  screen.  Paste the response into the ssh, telnet-ssl or
+  ftp-ssl window to login to S.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Two-Factor Authentication</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Multi-factor authentication provides additional layers of security on
+top of password protection.  Suppose your username/password became
+known.  To access the system you would need to submit other
+"tokens/keys".  Multi-factor authentication requires two or more of
+the three factors that you know/have/are.  The password has been the
+classical "you know" part.  What "you are" are the biometric factors.
+The what "you have" category includes various hardware (e.g.,
+<a href="http://www.yubico.com/yubikey">http://www.yubico.com/yubikey</a>" yubi key ) or software tokens.  There
+are also several smart phone two-factor apps.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> References</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Simson Garfinkel, Gene Spafford, Practical Unix and Internet
+Security, O'Reilly &amp; Associates; Chapter on Defending Your
+Accounts. The book is on WSU Safari OnLine.  For 4xxx: Required
+Reading.  For 3900: Recommended Reading.
+</li>
+
+<li>Prabhaker Mateti, <a href="../Top/lectures.html">Cryptography</a>, A lecture from Computer Security
+course.  2013.  For 4xxx: Required Reading.  For 3900: Recommended
+Reading.
+</li>
+
+<li>Password Cracking FAQ, <a href="http://www.password-crackers.com/">http://www.password-crackers.com/</a>
+en/ articles/ 12/ Also has links to many down loadable cracking
+tools.  Recommended Reading
+</li>
+
+<li>N. Haller, C. Metz, P. Nesser, M. Straw, "A One-Time Password
+System," RFC 2289, February 1998.
+<a href="http://www.rfc-editor.org/">http://www.rfc-editor.org/</a> rfc/ rfc2289.txt Reference.
+</li>
+
+<li><a href="http://www.linotp.org/">http://www.linotp.org/</a>, "LinOTP is an open solution for
+strong two-factor authentication with One Time Passwords."
+Recommended Reading
+</li>
+
+<li><a href="http://www.piotrbania.com/all/kon-boot/">http://www.piotrbania.com/all/kon-boot/</a> "Kon-boot is a
+chain loader that boots into Windows or Linux and sets up
+"hooks" at the kernel level that bypasses password checking."
+Recommended Visit.
+</li>
+
+<li>Bryan Ericson, Introduction to PAM, Phrack magazine, Volume 0xa,
+Issue 0x38, Article p56-0x0d, May 2000.  Recommended Reading.
+</li>
+
+<li>Joseph Bonneau, Cormac Herley, Paul C. van Oorschot, and Frank
+Stajano, "The quest to replace passwords: a framework for
+comparative evaluation of Web authentication schemes", IEEE
+Security and Privacy Symposium, May 2012.  Recommended Reading
+</li>
+
+<li>Fred B. Schneider, "Something You Know, Have, or Are",
+<a href="http://www.cs.cornell.edu/">http://www.cs.cornell.edu/</a> courses/ cs513/ 2005fa/
+nnlauthpeople.html, 2005.  Recommended Reading
+</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> End</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2017 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2017-02-06
+</div>
+</body>
+</html>

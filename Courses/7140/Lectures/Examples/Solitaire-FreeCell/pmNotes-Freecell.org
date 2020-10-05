@@ -1,0 +1,55 @@
+
+* Refs
+
+@inproceedings{stracuzzi2006memory,
+  title={Memory organization and knowledge transfer},
+  author={Stracuzzi, D},
+  booktitle={ICML Workshop on Structural Knowledge Transfer for Machine Learning},
+  year={2006}
+}
+
+@inproceedings{eisenstein2009reading,
+  title={Reading to learn: Constructing features from semantic abstracts},
+  author={Eisenstein, Jacob and Clarke, James and Goldwasser, Dan and Roth, Dan},
+  booktitle={Proceedings of the 2009 Conference on Empirical Methods in Natural Language Processing: Volume 2-Volume 2},
+  pages={958--967},
+  year={2009},
+  organization={Association for Computational Linguistics}
+}
+
+@incollection{choi2005learning,
+  title={Learning teleoreactive logic programs from problem solving},
+  author={Choi, Dongkyu and Langley, Pat},
+  booktitle={Inductive Logic Programming},
+  pages={51--68},
+  year={2005},
+  publisher={Springer}
+}
+
+@article{kendall2008survey,
+  title={A Survey of NP-Complete Puzzles.},
+  author={Kendall, Graham and Parkes, Andrew J and Spoerer, Kristian},
+  journal={ICGA Journal},
+  volume={31},
+  number={1},
+  pages={13--34},
+  year={2008}
+}
+@article{goldwasser2014learning,
+  title={Learning from natural instructions},
+  author={Goldwasser, Dan and Roth, Dan},
+  journal={Machine learning},
+  volume={94},
+  number={2},
+  pages={205--232},
+  year={2014},
+  publisher={Springer}
+}
+@inproceedings{langley2005adaptive,
+  title={An adaptive architecture for physical agents},
+  author={Langley, Pat},
+  booktitle={Web Intelligence, 2005. Proceedings. The 2005 IEEE/WIC/ACM International Conference on},
+  pages={18--25},
+  year={2005},
+  organization={IEEE}
+}

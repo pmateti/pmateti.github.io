@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-09-24 Mon 13:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DAC (Discretionary Access Control)</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a> | <a href=./>NoSlides</a>
+</div>
+<div id="content">
+<h1 class="title">DAC (Discretionary Access Control)</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgd70a5cb">1. Discretionary Access Control (DAC)</a></li>
+<li><a href="#org6127bc1">2. Authentication</a>
+<ul>
+<li><a href="#org985f99c">2.1. User Authentication Approaches</a></li>
+<li><a href="#orgc2df74e">2.2. Passwords</a></li>
+</ul>
+</li>
+<li><a href="#orgc73a4d3">3. Set User ID (suid)</a>
+<ul>
+<li><a href="#org380396c">3.1. suid examples</a></li>
+<li><a href="#orgffc826e">3.2. suid root</a></li>
+<li><a href="#orgb696fbc">3.3. suid Based Escalation of Priviledge</a></li>
+</ul>
+</li>
+<li><a href="#org75771a0">4. Android UID setup</a></li>
+<li><a href="#orgdd752eb">5. References</a></li>
+<li><a href="#orgba917b3">6. End</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgd70a5cb" class="outline-2">
+<h2 id="orgd70a5cb"><span class="section-number-2">1</span> Discretionary Access Control (DAC)</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>"Trusted Computer System Evaluation Criteria" TCSEC, US DoD Standard 5200.28-STD.</li>
+<li>My opinion: "Discretionary", "Mandatory" both misleading names.</li>
+<li>Generally speaking: The security model of Linux is DAC</li>
+<li>Concepts
+<ol class="org-ol">
+<li>Entities: Users, Files, Processes, &#x2026;</li>
+<li>Ownership</li>
+<li>Permissions: read, write, execute, &#x2026;</li>
+<li>Granting of permissions</li>
+</ol></li>
+<li>Android inherits from Linux all of DAC.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org6127bc1" class="outline-2">
+<h2 id="org6127bc1"><span class="section-number-2">2</span> Authentication</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>Machines</li>
+<li>Users</li>
+<li>Services/Servers</li>
+</ol>
+</div>
+
+<div id="outline-container-org985f99c" class="outline-3">
+<h3 id="org985f99c"><span class="section-number-3">2.1</span> User Authentication Approaches</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>What You Know</li>
+<li>What You Have</li>
+<li>What You Are</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgc2df74e" class="outline-3">
+<h3 id="orgc2df74e"><span class="section-number-3">2.2</span> Passwords</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>Passwords on a Linux System</li>
+
+<li>Cracking the Passwords
+<ol class="org-ol">
+<li>Current consensus: Given enough time, any password can be cracked.</li>
+</ol></li>
+
+<li>Prevention of Password Cracking</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc73a4d3" class="outline-2">
+<h2 id="orgc73a4d3"><span class="section-number-2">3</span> Set User ID (suid)</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Privilege Acqusition Mechanism</li>
+<li>Invoke a program (file) that has suid set.</li>
+<li>Expected to be invoked by non-root users.</li>
+<li>suid can be set to non-root owner.</li>
+<li>The created process runs with the privileges of the owner, not the
+invoker</li>
+<li>Big Q: Must we have suid programs?</li>
+<li><a href="./setuidBishop1996-sans-tut.pdf">./setuidBishop1996-sans-tut.pdf</a> Matt Bishop, Writing secure suid
+programs, 1996.  Required Reading.</li>
+</ol>
+</div>
+
+<div id="outline-container-org380396c" class="outline-3">
+<h3 id="org380396c"><span class="section-number-3">3.1</span> suid examples</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Note the 's' or 'S'.  Example command: <code>chmod +s apt-get.sh</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">-rwsr-xr-x 1 root root 34888 Aug 14 06:15 /bin/mount
+-rwsr-xr-x 1 root root 64424 Mar  9  2017 /bin/ping
+-rwsr-xr-x 1 root root 40168 Aug 20 19:56 /bin/su
+
+-rwsrw-r-- 1 pmateti pmateti 23097 Jan 21  2015 turnin
+
+-rwSr-Sr-- 1 root root   276 Aug 31 12:59 /rootapt-get.sh
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgffc826e" class="outline-3">
+<h3 id="orgffc826e"><span class="section-number-3">3.2</span> suid root</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li>Discover <code>find / -user root -perm -4000 -type f -exec ls -ld {} \;</code></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb696fbc" class="outline-3">
+<h3 id="orgb696fbc"><span class="section-number-3">3.3</span> suid Based Escalation of Priviledge</h3>
+<div class="outline-text-3" id="text-3-3">
+<ol class="org-ol">
+<li>An attacker arrives with non-root privileges.</li>
+<li>Exploits an suid-root process to spawn a root owned shell.</li>
+<li>The classsic "buffer overflow attack" injects the shellcode onto
+the stack.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org75771a0" class="outline-2">
+<h2 id="org75771a0"><span class="section-number-2">4</span> Android UID setup</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li><a href="./android-uid.html">./android-uid.html</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgdd752eb" class="outline-2">
+<h2 id="orgdd752eb"><span class="section-number-2">5</span> References</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Prabhaker Mateti, <a href="../../../4420/Password/index.html">Password Cracking</a>, 2013. Skip the Lab experiment.
+Required Reading.</li>
+
+<li><a href="https://en.wikipedia.org/wiki/Discretionary_access_control">https://en.wikipedia.org/wiki/Discretionary_access_control</a> Required Reading.</li>
+
+<li>P. A. Loscocco, S. D. Smalley, P. A. Muckelbauer, R. C. Taylor,
+S. J. Turner, and J. F. Farrell. "The Inevitability of Failure: The
+Flawed Assumption of Security in Modern Computing Environments." In
+Proceedings of the 21st National Information Systems Security
+Conference, pp. 303–14, Oct. 1998. A classic paper. Recommended
+Reading</li>
+
+<li><a href="http://faculty.cs.nku.edu/~waldenj/classes/2014/spring/cit380/lectures/AccessControl.pdf">http://faculty.cs.nku.edu/~waldenj/classes/2014/spring/cit380/lectures/AccessControl.pdf</a>
+Slides.  Required Reading.</li>
+
+<li>Karim Yaghmour, <a href="./android-security-yaghmour-2014.pdf">./android-security-yaghmour-2014.pdf</a> Android
+Security, From the Ground Up, ELCE 2014.  Required Reading.</li>
+
+<li>Secuirty features in Ubuntu
+<a href="https://wiki.ubuntu.com/Security/Features">https://wiki.ubuntu.com/Security/Features</a>   Required Reading.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgba917b3" class="outline-2">
+<h2 id="orgba917b3"><span class="section-number-2">6</span> End</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2018-09-24
+</div>
+</body>
+</html>

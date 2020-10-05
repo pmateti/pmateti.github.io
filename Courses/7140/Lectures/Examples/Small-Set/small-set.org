@@ -1,0 +1,147 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+TITLE: Design of a SmallSet
+#+AUTHOR: Prabhaker Mateti
+#+LINK_HOME: ../../
+#+LINK_UP: ../
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"small-set-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Abstract
+
+This note describes the design of a set of integers.  This is expected
+to be a good example of software engineering "in the tiny".  There is
+a link to a Java implementation.  Possibly contains bugs.  It is also
+intended as an example for use later with learning JML assertions,
+JUnit/TestNG, and FindBugs.
+
+* Design Example: SmallSet
+1. Illustrates abstraction in design
+1. cf.  [[http://docs.oracle.com/javase/8/docs/api/java/util/Set.html][http://docs.oracle.com/.../Set]]
+1. Focus on the "methods"
+   1. not the size
+   1. not the PL notation
+   1. for now, not (even) Java
+
+** Design Example: SmallSet
+
+1. SmallSet Operations: (for now) Just the Names
+   1. insert-an-item, delete-an-item
+   1. item-is-in-the-set
+   1. number-of-items-in-the-set
+   1. union-with, diff-with
+   1. construct-empty-set
+   1. All the above should be well-specified
+   1. irrelevant detail:  item ==> int
+1. all the above converges to "API"
+
+* SmallSet Requirements Clarifications
+
+1. No bigger than 1000 elements  
+1. Insertions are far more frequent cf to other ops  
+1. item-is-in-the-set(S, e): searched for again often
+1. Some ops can "fail"
+
+* SmallSet Operations: Signatures
+   1. insert-an-item: Set, Item --> Set
+   1. delete-an-item: Set, Item --> Set
+   1. item-is-in-the-set: Set, Item --> Boolean
+   1. number-of-items-in-the-set: Set, Item --> Integer
+   1. union-with: Set, Set --> Set
+   1. diff-with: Set, Set --> Set
+   1. cons: --> Set
+
+* SmallSet Operations: Semantics
+1. insert-an-item(S, e): S.post = S.pre + {e}
+1. item-is-in-the-set(S, e):
+   1. False, if S == cons()
+   1. True, if S == insert-an-item(T, e)  for some T
+   1. False, if S != insert-an-item(T, e) for no T
+   1. item-is-in-the-set(S, f) == ...
+1. diff-with(A, B) yields  (A + B) - (A intersect B)
+
+
+* Design of a Small Set Using an Array
+1. int array A of fixed size, sz >=  1000  (Requirement R1)
+1. least index A[i] unfilled, ux
+1. duplicate items permitted (R2)
+1. number-of-items-in-the-set, ne may be strictly < ux
+1. More sophisticated designs do NOT use arrays
+
+** Design Documentation  
+
+1. abstraction(A, ux) == S, the set S ::= {A[i] | 0 <= i < ux}
+1. ux <= sz
+   1.  initial value of ux == ?
+1. Deducible: A[ux .. sz-1] vacant
+
+* insert-an-item(S, e)
+
+1. pre: ux  <  sz
+1. post:  S == S.pre + {e}
+1. impl:  A[ux] := e; ux++;
+
+** Design Documentation  
+
+1.  at pre item-is-in-the-set(S, e) may be true
+1.  may be better: A[ux] := A[ 0]; ux++; A[ 0] := e;
+1.  Is this design dependent on how is-in-the-set is designed?
+
+
+* item-is-in-the-set(S, e)
+
+1.  A[ux] := e; fx := linear-search(A, 0, ux);
+1.  fx  <  ux?
+    1.  if so  {swap A[fx] with A[ 0]}
+1.  return (fx  <  ux)
+
+** The idea of a sentinel
+
+1. A[ux] := e;  (ux should now be < sz always)
+1. without it linear search has two tests per iteration
+1. swap done because of R3
+
+* More Design Issues
+
+1. Do we ever compact (delete dupes) the A[0 .. ux-1]?
+   1.  As is our design is prone to fail
+   1.  If we do, when do we do it?
+   1.  "All" the time?
+1.  Is this design or implementation?
+1.  Concurrency?
+
+
+* Class Invariants
+
+1. =classInv= is both a pre- and a post-condition for all public methods
+1. It is a convention not to state this again and agian for each
+   public method.
+
+** Abstraction Function
+
+1.  =setOf(s)= the abstraction function that yields the
+    mathematical set represented by the Java SmallSet object s.
+1.  setOf(SmallSet s) ::= setOf(s.ear[0..s.ux -1]).
+
+
+* Small Set in Java
+
+1. =javadoc=
+1. My implementation of [[./GEN/SmallSet.java]] | [[./GEN/SmallSet.java.html][html]] | [[./GEN/SmallSet.java.pdf][pdf]]
+1. [[./GEN]] javadoc generated documentation
+1. =java -enableassertions ...=
+
+* References
+
+1. C. A. R. Hoare, Acta Informatica, 1972 introduced this problem.  Reference.
+1. Oracle.com, Programming With Assertions,
+   http://docs.oracle.com/javase/8/docs/technotes/guides/language/assert.html, 2015. Required
+   Reading.
+
+1. [[./Java-assertions-lehigh-edu.ppt]] Recommended Reading

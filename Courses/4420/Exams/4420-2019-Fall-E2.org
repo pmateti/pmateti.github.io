@@ -1,0 +1,104 @@
+
+# -*- mode: org -*-
+#+date: 2019-12-13
+#+TITLE: CEG4420/6420 Final Exam 2019
+#+AUTHOR: Prabhaker Mateti
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<img src=./wsu-logo-xsm.gif border=0 width=100>"))
+#+BIND: org-html-postamble-format (("en" "<hr/>Copyright &copy; 2019 <a href=https://cecs.wright.edu/~pmateti>Dr Prabhaker Mateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+This exam permits the use of a Linux/ Mac/ Windows laptop/ PC running
+Ubuntu/ Knoppix/ Kali/ ..., gcc, ps2pdf, splint, etc. but *not* man
+pages. It is otherwise a traditional closed book, closed notes
+exam. Once you click the exam link, you are honor bound
+
+1. not to take longer than 120 minutes,
+1. not to surf or access any content already existing (other than the
+   links given),
+1. not to give or take help from others and to assure us that every
+   sentence and figure submitted is *your own work* produced during
+   the two hours
+
+until you turnin the =fianswers.pdf= on Pilot dropbox for Final before
+Dec 14, 2019 11:59:59 PM.  CEG 4420 and 6420 have separate dropboxes.
+
+* Survey (0 points)
+
+Please record your effort in minutes for each of the ten items below. Other feedback you wish to give is also welcome.
+
+* Part I (5 points each)
+
+The following statements may or may not be (fully or partially)
+valid. (i) Explain the _underlined_ technical term (also marked with ##)
+occurring in each statement.  (ii) Explain/ discuss/ dispute the
+statement. It is possible to write no more than, say, ten, sentences
+each, and yet receive full score.
+
+1. _Code signing_ ## uses symmetric key encryption and guarantees the
+   integrity of the software by verifying that the software has not
+   been modified.
+
+1. AlephOne describes the _eggshell program_ ## as "usage: eggshell [-a
+   <alignment>] [-b <buffersize>] [-e <eggsize>] [-o <offset>]\n".
+   Why do we need these arguments?
+
+1. There are several _log files_ ## within =/var/log/= directory in
+   all Linux systems.  These are for performance monitoring.  None of
+   them is useful in the context of security.  If you become a
+   sysadmin, you will not waste your time on these.
+
+1. _Address Space Layout Randomization_ ## (ASLR) helps prevent
+   machine code injection but causes stack top randomization.
+
+1. _ROP gadgets_ ## are harvested, at compile/link time, from the
+   libraries and the processes own machine code.  Modern compilers
+   insert ROP gadgets into the linked programs to prevent machine code
+   injection but cause stack top randomization.
+
+* Part II (15 points each)
+
+
+1. Suppose that an attacker has acquired root privileges on a Linux
+   system.  Suppose his/her primary goal is to obtain one hundred
+   userid-password combinations.  A secondary goal is to do this
+   without being noticed.  How will you verify that this attack has
+   happened?  How will you discover files that are changed, and
+   perhaps later replaced with originals?  Give your answers first (i)
+   (5 points) in English prose, then (ii) (10 points) as a =bash=
+   script.
+
+2. One of the hardening actions taken in modern Linux kernels is to
+   remove abstract devices =/dev/mem= and =/dev/kmem=. (i) Explain the
+   purpose of these devices as used in the past. (ii) Using an example
+   or two, describe an exploit that uses these devices. (iii) Discuss
+   if these devices can be resurrected in a running Linux system with
+   a modern kernel even though the kernel is compiled without them.
+
+1. The code of =get_sp()= as given by Aleph One is shown:
+   =unsigned long get_sp(void) { __asm__("movl %esp,%eax"); }=
+   It ought to return an =unsigned long=.  What does it "compute"?
+   Write an alternate but equivalent version of =get_sp()= without
+   using *any* assembly code.
+
+4. Describe any three of the Principles of Robust Programming of Matt
+   Bishop's article in the context of Software without Security Holes.
+
+5. In my lecture notes and videos on SELinux, an example on the
+   =passwd= program was discussed using the four rules shown here.
+      1. =allow passwd_t passwd_exec_t : file entrypoint;=
+      2. =allow user_t passwd_exec_t : file { getattr execute };=
+      3. =type_transition user_t passwd_exec_t : process passwd_t;=
+      4. =allow user_t passwd_exec_t : file { getattr execute };=
+   In the context of these rules, answer the
+   following:
+      1. (3 points) What is /context/, /role/, and /type/?  Give examples.
+      3. (2 points) What is the problem of /domain transitions/?
+      1. (10 points) How did the MAC rules above improve the standard
+         Linux (DAC) passwd security?  Why did we need four rules?
+         Does the order of these rules matter?
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

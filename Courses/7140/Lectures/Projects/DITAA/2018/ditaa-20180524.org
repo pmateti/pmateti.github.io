@@ -1,0 +1,93 @@
+# -*- mode: org -*-
+#+DATE: 2018-05-24
+#+TITLE: CS7140 Project: DITAA 2018-05-24
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CS7140 Adv Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+
+* Suggestions Given for 2018-05-24 Class
+
+1. Goal: [Reverse Engineer] The Requirements of DITAA.
+1. Read the Requirements section of Summer 2018 [[../Projects/index.html][Project Work]].
+1. Focus on DITAA producing EPS.
+
+* DITAA Requirements Doc
+
+1. Requirements Doc is a Technical Report.
+2. Tentative list of chapter titles.  Shown below as subsection
+   titles.  Of course, improve!
+
+** What is an ASCII Diagram?
+** Use Case Ex: Diagrams via =javadoc=
+** What is EPS?
+** Examples of DITAA
+
+1. We have 8 students.  Each of you contribute an example.  More
+   sophisticated than the one below.
+1. There is a trivial example in
+   http://ditaa-addons.sourceforge.net/.  Include it.
+
+1. For the eight examples, include input-n.txt and output-n.eps files
+   in Appendix B: Examples.
+
+** What DITAA "cannot" draw
+
+1. Draw EPS examples using other tools.  Explain why these could not
+   be DITAA.
+
+** Overall Requirements
+
+** Appendix A: Syntax of Input ASCII Diagrams
+
+1. Should we make our doc self contained? Or, just give links to
+   existing docs?
+
+
+* Build Tutorial
+
+1. In terms of SE life-cycle, this is not part of requirements.  But,
+   we are working with an existing product.
+
+1. We should build ditaa091.jar (version number included) and
+   ditaa-eps.jar.  Usage: =java -jar ditaa-eps.jar input.txt
+   output.eps=
+
+1. https://sourceforge.net/projects/ditaa-addons/files/DitaaEps/0.2/DitaaEps-0_2.zip/download?use_mirror=ayera
+   This is the link given.  Is this different from [ Ref 2]? Yes.
+1. =ls -l ditaa-eps/libs= has =186095 Sep 19  2012 ditaa0_9.jar=
+
+1. If new to IntelliJ IDEA, please read [[../Tools/IntelliJ-IDEA-HadiHariri.html]]
+
+1. sloccount
+: 9742    ditaa           java=7845,xml=1733,jsp=164
+: 758     ditaa-eps       java=718,xml=40
+
+* Kotlin?
+
+1. Preferably use Kotlin instead of Java.
+1. https://fabiomsr.github.io/from-java-to-kotlin/
+1. IntelliJ IDEA http://kotlinlang.org/docs/tutorials/getting-started.html 
+1. The Kotlin plugin is bundled with IntelliJ IDEA and is activated by default.
+
+* Links
+
+1. Summer 2018 [[../Projects/index.html][Project Work]]
+2. https://github.com/madeye/ditaa-eps A fork of ditaa-addon with the
+   latest ditaa libary. 2012.  "Converts output to scalable EPS
+   graphics."
+
+3. http://ditaa-addons.sourceforge.net/ DIagrams Through Ascii Art -
+   addons.  =178144 Jan 15  2011 ditaa0_6b.jar=
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

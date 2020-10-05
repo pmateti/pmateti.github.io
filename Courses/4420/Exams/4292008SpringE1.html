@@ -1,0 +1,199 @@
+<html>
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<title>Internet Security Exam by Prabhaker Mateti</title>
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+<meta name="author" content="Prabhaker Mateti">
+
+<meta name="keywords" 
+
+content="Internet security, Network security, TCP/IP security">
+
+<meta name="description" 
+
+content="This page is part of a set of lectures notes for a course
+
+on Internet Security by Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+
+<meta http-equiv="Content-Style-Type" content="text/css">
+
+<style type="text/css">
+
+a:hover      { background-color: yellow; background-repeat: repeat; background-attachment: 
+
+               scroll; background-position: 0% 50% }
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<table cellspacing="10" cellpadding="10" width="100%" border="0">
+
+  <tr>
+
+    <td width="33%"><a target="_blank" href="http://www.wright.edu/">
+
+    <img src="../images/wsu-logo-xsm.gif" border="0" width="150" 
+
+    height="66"></a></td>
+
+    <td width="67%">
+
+    <table border="0" width="100%">
+
+      <tr>
+
+        <td width="100%">
+
+        <h3><a href="http://www.cs.wright.edu/~pmateti/Courses/429/">CEG 429/629:Internet Security</a></h3>
+
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td width="100%"><b>Mid Term //Spring&nbsp; 2008//100 points max//75 minutes</b></td>
+
+      </tr>
+
+      <tr>
+
+        <td width="100%"><font size="2">Fine Print:&nbsp; This is a 
+
+         
+
+        closed notes exam.&nbsp; Do not give or take help 
+
+        during the exam.</font></td>
+
+      </tr>
+
+    </table>
+
+    </td>
+
+  </tr>
+
+</table>
+
+<ol>
+
+  <li>(6*5 points each) The following statements may or may not be 
+
+  (fully or partially) valid.&nbsp;&nbsp; Explain <u><i>the technical term</i></u> 
+
+  occurring in each statement.&nbsp;&nbsp; Explain/ discuss/ dispute the 
+
+  statement.&nbsp; It is <i>possible</i> to write no more than, say, 
+
+  ten, sentences each, and yet receive full score.
+
+  <ol type="a">
+
+    <li>On a host that has two NICs, a fully capable<i> <u>routing 
+
+    table</u></i> need be no more than two rows.</li>
+
+    <li>It is possible to setup a Linux/ Unix system without a single <u><i> <code>suid</code></i></u> program. </li>
+
+    <li>Masquerading, <u><i>spoofing</i></u>, and smurfing are all describing changes made to 
+
+    IP packets.</li>
+
+    <li>Backdoors are used to install <i><u>rootkits</u></i>.</li>
+
+    <li>In a TCP segment with SYN=1, the <u><i>SEQ number</i></u> must be non-zero.</li>
+
+    <li><i><u>Probing</u></i> is used to detect the weaknesses of a target machine.</li>
+
+  </ol>
+
+</li>
+
+  <li>(4*10 points)
+
+  <ol type="a">
+
+    <li>Describe, in detail, the techniques used in <code>sniper-fin.</code></li>
+	<li>What are one-time passwords?</li>
+
+    <li>Explain how public-key encryption scheme can be useful in <i>host (node) authentication.</i></li>
+	<li>
+	<p align="justify">Consider the following ten significant events that occur in 
+
+  the rebooting of a Unix machine from currently running (power on, duh) to 
+
+  login prompt. The events may or may not occur in the order given. <b>E1</b>: 
+
+  Root volume is mounted by the kernel; <b>E2</b>: Process <code>init</code> is 
+
+  created;&nbsp; <b>E3</b>: <code>inetd</code> daemon is started; <b>E4</b>. OS Boot 
+
+  loader invokes the kernel;&nbsp; <b>E5</b>:&nbsp; <code>getty</code> processes are 
+
+  started.&nbsp; <b>E6</b>: The run level changes from 3 to 5.&nbsp; <b>E7</b>: BIOS 
+
+  finds the boot device. <b>E8</b>:&nbsp; run level changes to 0, <b>E9</b>:&nbsp; 
+
+  All file volumes are un-mounted.&nbsp; <b>E10</b>: Networking is shutdown.&nbsp;&nbsp; 
+	Arrange these events in chronological order, and explain why these must 
+	happen in that order.</ol>
+</li>
+  <li>(3*10 points)&nbsp; The context of this question is the paper by Aleph One.
+  <div>
+        <blockquote>
+			<pre>bottom of  DDDDDDDDEEEEEEEEEEEE  EEEE  FFFF  FFFF  FFFF  FFFF   top of
+memory     89ABCDEF0123456789AB  CDEF  0123  4567  89AB  CDEF   memory
+           buffer                sfp   ret   a     b     c
+&lt;------   [JJSSSSSSSSSSSSSSCCss][ssss][0xD8][0x01][0x02][0x03]
+           ^|^             ^|            |
+           |||_____________||____________| (1)
+       (2)  ||_____________||
+             |______________| (3)
+top of                                                       bottom of
+stack                                                            stack</pre>
+		</blockquote>
+</div>
+	<ol type="a">
+		<li>In developing the various versions of <code>exploitN.c,</code> 
+AlephOne&nbsp; wishes to avoid the occurrence of <code>0x00</code> in the <code>
+shellcode[]</code>.&nbsp; Why?&nbsp; How does he avoid it?
+
+  </li>
+		<li>Explain what the arrow labeled (3) does and why it is needed.</li>
+		<li>How does <code>exploit3.c </code>differ from 
+		<code>exploit4.c</code>? </li>
+	</ol></li>
+
+	<table cellspacing="0" cellpadding="0" width="100%" border="0">
+		<tr>
+			<td width="33%"><a href="../copyright.html">Copyright ©</a>&nbsp; 
+			2008 <a href="http://www.cs.wright.edu/~pmateti" target="_blank">Prabhaker Mateti</a> ;
+
+    		<!--webbot bot="Timestamp" S-Type="EDITED" S-Format="%B %d, %Y" startspan -->May 15, 2008<!--webbot bot="Timestamp" endspan i-checksum="11189" --></td>
+		</tr>
+	</table>
+
+
+
+</body>
+
+
+
+</html>

@@ -1,0 +1,33 @@
+# -*- mode: org -*-
+#+DATE: 2015-08-10
+#+TITLE: Refreshers on OS, FileSys, Networking
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+LINK_HOME: ../../
+#+LINK_UP: ../
+#+DESCRIPTION: Android Internals and Security
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d <a href=\"../../Top/\"> Top</a> | <a href=\"index-slides.html\">Slides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> %d"))
+#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+
+* Refreshers
+
+Everything you see here is required background for our discussion of
+Android Internals and Security.
+
+1. [[./programs-processes.org][Programs, Processes and IPC]]
+1. [[./file-systems.org][File Systems]]
+1. [[./networking.org][Networking]]
+
+* References
+
+1. [[http://cecs.wright.edu/~pmateti/Courses/2350/][CEG 2350]]: OS Concepts and Usage. This course presents most of our
+   prerequisite materials.  Lecture and lab notes are fully on-line.
+
+1. [[http://cecs.wright.edu/~pmateti/Courses/4350/Top/index.html][CEG 4350]]: OS Internals and Design.  A undergraduate
+   senior-level (final year) course.  Lecture and lab notes are fully
+   on-line.
+1. [[http://www.all-things-android.com/content/android-toolbox-command-reference][Android toolbox command reference]]; [[http://www.all-things-android.com/content/mirbsd-korn-shell-android-shell][MirBSD Korn Shell is the
+   Android shell]] 2014; Recommended Reading.

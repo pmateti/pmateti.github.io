@@ -1,0 +1,756 @@
+<head>
+
+<title>IntelliJ IDEA Minimal Survival Guide &#8211; Hadi Hariri</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="/assets/css/main.min.css">
+
+<meta http-equiv="cleartype" content="on">
+
+<script src="/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="http://assets.cookieconsent.silktide.com/current/style.min.css"/>
+    <style>
+      a:visited { color: black; text-decoration: none;}
+      a:hover { color: red; background-color: yellow; }
+      a:active { color: white; background-color: green;}
+      body {margin: 10%; counter-reset: h2;}
+      h2:before {counter-increment: h2; content: counter(h2) ". ";}
+      h2 {counter-reset: h3;}
+      h3:before {content: counter(h2) "." counter(h3) " ";}
+      h3 {counter-increment: h3; content: counter(h2) "." counter(h3) " ";}
+    </style>
+</head>
+
+<body class="post">
+
+<h1><a href="http://hadihariri.com/2014/01/06/intellij-idea-minimal-survival-guide/">
+    IntelliJ IDEA Minimal Survival Guide</a></h1>
+
+<p>
+<a href="http://hadihariri.com"> http://hadihariri.com</a> |
+<a href="http://twitter.com/hhariri" class="author-social"
+   target="_blank"><i class="icon-twitter"></i> Twitter</a> |
+<a href="http://linkedin.com/pub/hadi-hariri/83/68a/b03"
+   class="author-social" target="_blank"><i class="icon-linkedin"></i>
+  LinkedIn</a> |
+<a href="http://github.com/hhariri" class="author-social"
+   target="_blank"><i class="icon-github"></i> Github</a> &bull; Last
+   updated: 07 January, 2014<br> [Reformatted for use
+   in <a href="http://www.wright.edu/~pmateti">my lectures</a>.]
+
+<h2>Table of Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#why-this-guide" id="markdown-toc-why-this-guide">Why this Guide</a>    <ul>
+      <li><a href="#work-in-progress" id="markdown-toc-work-in-progress">Work in progress</a></li>
+      <li><a href="#target-audience" id="markdown-toc-target-audience">Target Audience</a></li>
+      <li><a href="#what-this-guide-is-not" id="markdown-toc-what-this-guide-is-not">What this guide is not</a></li>
+    </ul>
+  </li>
+  <li><a href="#the-basics" id="markdown-toc-the-basics">The Basics</a>    <ul>
+      <li><a href="#cross-platform" id="markdown-toc-cross-platform">Cross Platform</a></li>
+      <li><a href="#multiple-languages-and-technologies" id="markdown-toc-multiple-languages-and-technologies">Multiple Languages and Technologies</a></li>
+      <li><a href="#extensible" id="markdown-toc-extensible">Extensible</a></li>
+      <li><a href="#community-edition-or-ultimate-edition" id="markdown-toc-community-edition-or-ultimate-edition">Community Edition or Ultimate Edition?</a></li>
+      <li><a href="#intellij-idea-or-android-studio" id="markdown-toc-intellij-idea-or-android-studio">IntelliJ IDEA or Android Studio?</a></li>
+      <li><a href="#webstorm-pycharm-rubymine-phpstorm-appcode-or-intellij-idea" id="markdown-toc-webstorm-pycharm-rubymine-phpstorm-appcode-or-intellij-idea">WebStorm, PyCharm, RubyMine, PhpStorm, AppCode or IntelliJ IDEA?</a></li>
+    </ul>
+  </li>
+  <li><a href="#project-formats" id="markdown-toc-project-formats">Project Formats</a>    <ul>
+      <li><a href="#intellij-idea-projects" id="markdown-toc-intellij-idea-projects">IntelliJ IDEA Projects</a>        <ul>
+          <li><a href="#modules-and-libraries" id="markdown-toc-modules-and-libraries">Modules and Libraries</a></li>
+          <li><a href="#storage-format" id="markdown-toc-storage-format">Storage Format</a></li>
+        </ul>
+      </li>
+      <li><a href="#maven-projects" id="markdown-toc-maven-projects">Maven Projects</a></li>
+      <li><a href="#gradle-projects" id="markdown-toc-gradle-projects">Gradle Projects</a></li>
+      <li><a href="#files-to-check-in-to-version-control" id="markdown-toc-files-to-check-in-to-version-control">Files to check-in to Version Control</a></li>
+    </ul>
+  </li>
+  <li><a href="#creating-a-new-project" id="markdown-toc-creating-a-new-project">Creating a new Project</a>    <ul>
+      <li><a href="#adding-new-modules-to-existing-projects" id="markdown-toc-adding-new-modules-to-existing-projects">Adding new Modules to existing projects</a></li>
+    </ul>
+  </li>
+  <li><a href="#working-with-maven-and-gradle-projects" id="markdown-toc-working-with-maven-and-gradle-projects">Working with Maven and Gradle Projects</a>    <ul>
+      <li><a href="#gradle" id="markdown-toc-gradle">Gradle</a></li>
+      <li><a href="#maven" id="markdown-toc-maven">Maven</a></li>
+    </ul>
+  </li>
+  <li><a href="#sharing-projects-with-eclipse" id="markdown-toc-sharing-projects-with-eclipse">Sharing Projects with Eclipse</a></li>
+  <li><a href="#project-settings" id="markdown-toc-project-settings">Project Settings</a>    <ul>
+      <li><a href="#project-setting-tab" id="markdown-toc-project-setting-tab">Project Setting Tab</a></li>
+      <li><a href="#module-entries" id="markdown-toc-module-entries">Module Entries</a>        <ul>
+          <li><a href="#sources" id="markdown-toc-sources">Sources</a></li>
+          <li><a href="#paths" id="markdown-toc-paths">Paths</a></li>
+          <li><a href="#dependencies" id="markdown-toc-dependencies">Dependencies</a></li>
+        </ul>
+      </li>
+      <li><a href="#libraries" id="markdown-toc-libraries">Libraries</a></li>
+      <li><a href="#facets" id="markdown-toc-facets">Facets</a></li>
+      <li><a href="#artifacts" id="markdown-toc-artifacts">Artifacts</a></li>
+      <li><a href="#sdks" id="markdown-toc-sdks">SDK’s</a></li>
+      <li><a href="#global-libraries" id="markdown-toc-global-libraries">Global Libraries</a>        <ul>
+          <li><a href="#external-libraries" id="markdown-toc-external-libraries">External Libraries</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#building-projects" id="markdown-toc-building-projects">Building Projects</a></li>
+  <li><a href="#running-applications" id="markdown-toc-running-applications">Running Applications</a>    <ul>
+      <li><a href="#run-configurations" id="markdown-toc-run-configurations">Run Configurations</a></li>
+    </ul>
+  </li>
+  <li><a href="#debugging-applications" id="markdown-toc-debugging-applications">Debugging Applications</a>    <ul>
+      <li><a href="#temporary-configurations" id="markdown-toc-temporary-configurations">Temporary Configurations</a></li>
+    </ul>
+  </li>
+  <li><a href="#unit-testing" id="markdown-toc-unit-testing">Unit Testing</a>    <ul>
+      <li><a href="#running-debugging-and-code-coverage" id="markdown-toc-running-debugging-and-code-coverage">Running, Debugging and Code Coverage</a></li>
+      <li><a href="#integrating-with-teamcity" id="markdown-toc-integrating-with-teamcity">Integrating with TeamCity</a></li>
+    </ul>
+  </li>
+  <li><a href="#completion" id="markdown-toc-completion">Completion</a>    <ul>
+      <li><a href="#documentation-and-parameter-info" id="markdown-toc-documentation-and-parameter-info">Documentation and Parameter Info</a></li>
+      <li><a href="#code-generation" id="markdown-toc-code-generation">Code Generation</a></li>
+    </ul>
+  </li>
+  <li><a href="#navigation" id="markdown-toc-navigation">Navigation</a></li>
+  <li><a href="#code-analysis" id="markdown-toc-code-analysis">Code Analysis</a></li>
+  <li><a href="#refactoring" id="markdown-toc-refactoring">Refactoring</a></li>
+  <li><a href="#version-control" id="markdown-toc-version-control">Version Control</a>    <ul>
+      <li><a href="#local-history" id="markdown-toc-local-history">Local History</a></li>
+    </ul>
+  </li>
+  <li><a href="#tools" id="markdown-toc-tools">Tools</a>    <ul>
+      <li><a href="#terminal" id="markdown-toc-terminal">Terminal</a></li>
+      <li><a href="#rest-client" id="markdown-toc-rest-client">REST Client</a></li>
+      <li><a href="#file-comparisons" id="markdown-toc-file-comparisons">File Comparisons</a></li>
+      <li><a href="#database-tools" id="markdown-toc-database-tools">Database Tools</a></li>
+    </ul>
+  </li>
+  <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a>    <ul>
+      <li><a href="#importing-and-exporting-settings" id="markdown-toc-importing-and-exporting-settings">Importing and Exporting Settings</a></li>
+      <li><a href="#key-bindings-and-schemes" id="markdown-toc-key-bindings-and-schemes">Key Bindings and Schemes</a></li>
+      <li><a href="#fonts-colors-and-theme" id="markdown-toc-fonts-colors-and-theme">Fonts, Colors and Theme</a>        <ul>
+          <li><a href="#remember-these-two-keyboard-shortcuts" id="markdown-toc-remember-these-two-keyboard-shortcuts">Remember these two keyboard shortcuts</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#editing" id="markdown-toc-editing">Editing</a>    <ul>
+      <li><a href="#no-save" id="markdown-toc-no-save">No Save</a></li>
+    </ul>
+  </li>
+  <li><a href="#plugins" id="markdown-toc-plugins">Plugins</a></li>
+  <li><a href="#intellij-idea-for-eclipse-users" id="markdown-toc-intellij-idea-for-eclipse-users">IntelliJ IDEA For Eclipse Users</a></li>
+  <li><a href="#change-log" id="markdown-toc-change-log">Change Log</a></li>
+</ul>
+
+<h2 id="why-this-guide">Why this Guide</h2>
+
+<p>Much like its counterpart, <a href="http://hadihariri.com/2013/12/29/jvm-minimal-survival-guide-for-the-dotnet-developer/">the JVM Guide</a> the purpose of this guide is to make it easier for newbies to
+get up to speed faster with IntelliJ IDEA.</p>
+
+<h3 id="work-in-progress">Work in progress</h3>
+
+<p>While it is a blog post, it is also a page that I will update as and when I come across new things. At the top is the latest updated date.</p>
+
+<h3 id="target-audience">Target Audience</h3>
+
+<p>This guide is for anyone starting out on IntelliJ IDEA. Some comparisons are made with Visual Studio, so if you’re familiar with .NET and Visual Studio, you’ll feel
+right at home.</p>
+
+<h3 id="what-this-guide-is-not">What this guide is not</h3>
+
+<p>This guide is not meant to replace the <a href="http://www.jetbrains.com/idea/webhelp">documentation for IntelliJ IDEA</a> or the many <a href="http://confluence.jetbrains.com/display/IntelliJIDEA/Getting+Started">tutorials available</a>. When appropriate this guide links to help and tutorials available.</p>
+
+<h2 id="the-basics">The Basics</h2>
+
+<p>IntelliJ IDEA is a full-fledged IDE with all the things you'd come to expect from one including:</p>
+
+<ol>
+  <li>Intellisense and Code Completion</li>
+  <li>Coding Helpers</li>
+  <li>Code Analysis</li>
+  <li>Navigation</li>
+  <li>Refactoring</li>
+  <li>Debugging</li>
+  <li>Source Control Integration</li>
+  <li>Unit Testing and Code Coverage</li>
+  <li>Code Formatting</li>
+  <li>Build Management</li>
+  <li>Continuous Integration support</li>
+  <li>Other Tooling and Features</li>
+</ol>
+
+<h3 id="cross-platform">Cross Platform</h3>
+
+<p>IntelliJ IDEA is cross-platform. It run on Java, which means you can run it on Windows, OSX and Linux. You can use either Oracle's JVM distribution or OpenJDK (except OpenJDK 6).</p>
+
+<h3 id="multiple-languages-and-technologies">Multiple Languages and Technologies</h3>
+
+<p>IntelliJ IDEA is not just a Java IDE, where Java refers to Java the language. There are dozens of plugins for multiple languages including Clojure, Scala, Kotlin, Go, HTML, JavaScript, etc. Some of these plugins are
+developed by JetBrains, others by the community.</p>
+
+<p>You can use IntelliJ IDEA to even develop web applications that are built using HTML and JavaScript and have nothing to do with Java. Although in these cases, it's recommended that you use WebStorm (if you don't need JVM technology).</p>
+
+<p>In addition to languages, it supports an array of technologies and frameworks such as Spring, Android, Java EE, et al.</p>
+
+<h3 id="extensible">Extensible</h3>
+
+<p>A lot of the features in IntelliJ IDEA are plugins. Some are bundled, others can be downloaded from the <a href="http://plugins.jetbrains.com">plugin repository</a>. There are over 1000 plugins available.</p>
+
+<p>You can also build your <a href="http://confluence.jetbrains.com/display/IDEADEV/PluginDevelopment">own plugins for IntelliJ IDEA</a>.</p>
+
+<h3 id="community-edition-or-ultimate-edition">Community Edition or Ultimate Edition?</h3>
+
+<p>IntelliJ IDEA comes in two flavors:</p>
+
+<ul>
+  <li><strong>Community Edition</strong> - Free and OSS. Includes Android Development.</li>
+  <li><strong>Ultimate Edition</strong> - Commercial product.</li>
+</ul>
+
+<p>Ultimate builds on top of Community Edition, adding some features. See <a href="http://www.jetbrains.com/idea/features/editions_comparison_matrix.html">full comparison</a>.</p>
+
+<h3 id="intellij-idea-or-android-studio">IntelliJ IDEA or Android Studio?</h3>
+
+<p><a href="http://developer.android.com/sdk/installing/studio.html">Android Studio</a> is a Google product that is built on top of IntelliJ IDEA Community Edition. It is also free and OSS but is maintained by Google, not JetBrains.
+If you're doing only Android development and want to adopt Google's release cycle, use Android Studio. If you're doing other types of development, be it JVM, Web, etc.
+then you're best bet is to use IntelliJ IDEA.</p>
+
+<h3 id="webstorm-pycharm-rubymine-phpstorm-appcode-or-intellij-idea">WebStorm, PyCharm, RubyMine, PhpStorm, AppCode or IntelliJ IDEA?</h3>
+
+<p>JetBrains provides specialized IDE's which are more focused around a specific language and/or technology. These are:</p>
+
+<ul>
+  <li><strong>WebStorm</strong>: For JavaScript and general Web</li>
+  <li><strong>PyCharm</strong>: Python, Django, etc.</li>
+  <li><strong>RubyMine</strong>: Ruby and Rails</li>
+  <li><strong>PhpStorm</strong>: PHP</li>
+  <li><strong>AppCode</strong>: Objective-C</li>
+</ul>
+
+<p>All of them are based on the same platform: IntelliJ IDEA Platform. If you are doing JVM Development, you need IntelliJ IDEA. Otherwise pick the IDE that's most appropriate for you.
+All the functionality included in each of these individual IDE's (with the exception of AppCode), are also available in IntellIJ IDEA, some ship out of the box, others you can
+download as <a href="http://plugins.jetbrains.com">plugins</a>.</p>
+
+<p>The release cycles for IntelliJ IDEA and other IDE's vary though.</p>
+
+<h2 id="project-formats">Project Formats</h2>
+
+<p>When working with IntelliJ IDEA you have various options on how you want to deal with projects. You can use IntelliJ IDEA's own format or use Maven/Gradle projects.</p>
+
+<h3 id="intellij-idea-projects">IntelliJ IDEA Projects</h3>
+
+<h4 id="modules-and-libraries">Modules and Libraries</h4>
+
+<p>An IntelliJ IDEA Project is similar to a Visual Studio Solution and can consist of modules and libraries:</p>
+
+<ul>
+  <li><strong>Module</strong>: A discrete unit of functionality that can be compiled, debugged, tested independently. Think of them as Projects in Visual Studio. Configuration information for
+a module is stored in a file with extensions <em>.iml</em>. Each module inside the project has its own <em>.iml</em> file.</li>
+  <li><strong>Libraries</strong>: An archive of compiled code (i.e. JAR) that a module can depend on.</li>
+</ul>
+
+<p>A single IntellIJ project can consist of one or more modules and/or libraries.</p>
+
+<h4 id="storage-format">Storage Format</h4>
+
+<p>IntelliJ Projects can be persisted in two ways:</p>
+
+<ul>
+  <li><strong>Project File</strong> (Legacy): Project information is stored in a file with extension <em>.ipr</em>.</li>
+  <li><strong>Directory Based</strong> (Recommended): Project information is stored in a folder called .idea in the main root of the project folder.</li>
+</ul>
+
+<p>More information about <a href="http://www.jetbrains.com/idea/webhelp/project.html">projects and storage formats</a></p>
+
+<h3 id="maven-projects">Maven Projects</h3>
+
+<p>IntelliJ IDEA can also work with Maven modules. You can either import existing Maven modules or create a new one.</p>
+
+<h3 id="gradle-projects">Gradle Projects</h3>
+
+<p>IntelliJ IDEA can also work with Gradle projects. Much like Maven, you can also create a new one or import an existing one.</p>
+
+<h3 id="files-to-check-in-to-version-control">Files to check-in to Version Control</h3>
+
+<p>When working with Version Control, you should check in all files in the project folder, including the .idea folder (when using directory based approach), except for
+the <em>workspace.xml</em> and <em>tasks.xml</em> files. <a href="https://intellij-support.jetbrains.com/entries/23393067">See Serge's explanation for more information</a></p>
+
+<h2 id="creating-a-new-project">Creating a new Project</h2>
+
+<ol>
+  <li>
+    <p>Click on <strong>File | New Project</strong></p>
+  </li>
+  <li>
+    <p>Select the type of module. The most basic one is <em>Java</em>, independently of the language you're going to use. Remember, IntelliJ IDEA is multi-language so in essence you can have multiple
+languages in the same module. The other options are technology specific. So for instance, Android will create an Android application, Spring will create a Spring application, et al.</p>
+
+    <p><img src="http://hadihariri.com/images/idea-guide-1.png"
+    alt="New Project" width=100% /></p>
+  </li>
+  <li>
+    <p>Select the SDK. Usually you'd pick a JDK here (or Android SDK). This is equivalent to selecting the target .NET framework in Visual Studio. If you don't have anything
+available in the dropdown, it's because you don't have a JDK IntelliJ IDEA knows about. Click New and add one, which means: point to the installation folder of the JDK. You can also add
+other types of SDK's such as Android or IntelliJ IDEA Plugin SDK.</p>
+  </li>
+  <li>
+    <p>On clicking <em>Next</em>, you have the chance to pick the technologies you want included in the module. This means ultimately adding library references or support for specific languages.
+For instance, when working with Kotlin, I pick Kotlin at this stage (albeit IntelliJ IDEA can also detect new Kotlin files and add support automatically). You can pick things like
+Java EE support, Heroku Development, etc.</p>
+
+    <p><img src="http://hadihariri.com/images/idea-guide-2.png"
+    alt="Pick Technologies" width=100% /></p>
+  </li>
+  <li>
+    <p>Click Finish. You should now end up with a new Project and module</p>
+
+    <p><img src="http://hadihariri.com/images/idea-guide-3.png"
+    alt="New Project and Module" width=100% /></p>
+  </li>
+</ol>
+
+<h3 id="adding-new-modules-to-existing-projects">Adding new Modules to existing projects</h3>
+
+<p>If you want to add a second module (think C#/VB project) to the project:</p>
+
+<ol>
+  <li>
+    <p>Click on <strong>File | New Module</strong></p>
+  </li>
+  <li>
+    <p>Repeat steps 2 to 5 from <a href="#creating-a-new-project">Creating a new Project</a></p>
+  </li>
+</ol>
+
+<h2 id="working-with-maven-and-gradle-projects">Working with Maven and Gradle Projects</h2>
+
+<p>You can create and import existing Maven or Gradle projects into IntelliJ IDEA. If it's a new project, select Maven/Gradle in Step 2 of <a href="#creating-a-new-project">Creating a new Project</a>.
+If it's an existing project, select <strong>File | Import Module</strong> or <strong>Import Module</strong> from the main welcome window and point to the corresponding <em>pom.xml</em> file for Maven or
+<em>build.gradle</em> for Gradle.</p>
+
+<p>Once you do this, IntelliJ IDEA will automatically provide you with a tool window to handle Maven/Gradle.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-4.png"
+        alt="Gradle" width=100% /></p>
+
+<h5 id="gradle">Gradle</h5>
+
+<p><img src="http://hadihariri.com/images/idea-guide-5.png"
+        alt="Maven" width=100% /></p>
+
+<h5 id="maven">Maven</h5>
+
+<h2 id="sharing-projects-with-eclipse">Sharing Projects with Eclipse</h2>
+
+<p>If some members of your team are using Eclipse, you can still use IntelliJ IDEA and have two-sync. See the <a href="http://www.jetbrains.com/idea/documentation/migration_faq.html">Eclipse FAQ for IntelliJ IDEA users</a>.</p>
+
+<h2 id="project-settings">Project Settings</h2>
+
+<p>This one can be a bit overwhelming when you first open it.</p>
+
+<h3 id="project-setting-tab">Project Setting Tab</h3>
+
+<p>This contains information global to all modules, that is the project name, SDK and if applicable language level. In addition you can set the output compilation folder.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-6.png"
+        alt="Project Settings" width=100% /></p>
+
+<ul>
+  <li><strong>SDK</strong>: As mention previously, this is like the .NET Framework we're targeting.</li>
+  <li><strong>Language Level</strong>: In IntelliJ IDEA you can pick the language version you want to target. This is different to Visual Studio whereby each version has its own associated version of the compiler.</li>
+</ul>
+
+<h3 id="module-entries">Module Entries</h3>
+
+<p>Each module has its own entry with its own settings. Clicking on Modules we can see each entry on the right pane.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-7.png"
+        alt="Module Settings" width=100% /></p>
+
+<p>The buttons at the top (+/-/Copy) allow you to add/remove and copy modules directly from this page.</p>
+
+<h4 id="sources">Sources</h4>
+
+<p>There are some folders in IntelliJ IDEA that have a special meaning, namely</p>
+
+<ul>
+  <li>Source Folders</li>
+  <li>Test Folders</li>
+  <li>Resources</li>
+  <li>Test Resources</li>
+</ul>
+
+<p>then there's Excluded Folders.</p>
+
+<p>This is where you can mark what is what. Right-click and select. You can also do this from the Project Window.</p>
+
+<p>Usually when creating a new project, <em>src</em> is automatically marked as a <em>src</em> folder. Folders such as <em>out</em> are excluded.</p>
+
+<p>See <a href="http://www.jetbrains.com/idea/webhelp/sources-tab.html">Sources Tab for more detailed information</a></p>
+
+<h4 id="paths">Paths</h4>
+
+<p>This one is pretty straight-forward. You can override the default project settings and specify different paths. You can also manage <a href="http://www.jetbrains.com/idea/webhelp/paths-tab.html">JavaDoc lookups and Annotations</a>.</p>
+
+<h4 id="dependencies">Dependencies</h4>
+
+<p>This is where you specify your module dependencies (i.e. other things you rely on). A dependency can be:</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-8.png"
+        alt="Dependencies" width=100% /></p>
+
+<ul>
+  <li>A JAR or directory containing classes</li>
+  <li>A Library</li>
+  <li>Another module in the project</li>
+</ul>
+
+<p>Wondering about Maven dependencies? Wait till we get to <a href="#libraries">Libraries</a>, which is next!</p>
+
+<h3 id="libraries">Libraries</h3>
+
+<p>This is where you can reference external modules. IntelliJ IDEA defines these as libraries. A library can be a Maven library or a JAR directory with its class files, sources and docs.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-9.png"
+        alt="Libraries" width=100% /></p>
+
+<p>You can also add additional directories (or remove them) from existing libraries (right pane).</p>
+
+<p>See <a href="http://www.jetbrains.com/idea/webhelp/configuring-module-dependencies-and-libraries.html">Configuring Module Dependencies and Libraries</a>.</p>
+
+<h3 id="facets">Facets</h3>
+
+<p>Frameworks such as Spring require certain configurations, libraries, dependencies and technologies. A Facet is a way to group all this into a manageable component that
+is then used by IntelliJ IDEA. You can add Facets here. For instance, when creating a Spring module with a new project, it adds the Spring Facet.</p>
+
+<p>For more information about <a href="http://www.jetbrains.com/idea/webhelp/facet.html">Facets see the documentation</a></p>
+
+<h3 id="artifacts">Artifacts</h3>
+
+<p>Artifacts, or otherwise known as output generated by your project. This is where you tell IntelliJ IDEA to create JAR's, WAR's and other types of artifacts for you.
+Once you define them you can then access them from the <strong>Build</strong> menu.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-10.png"
+        alt="Artifacts" width=100% /></p>
+
+<h3 id="sdks">SDK's</h3>
+
+<p>These are globally available SDK's for IntelliJ IDEA. Add and remove at will. Obviously don't remove those required!</p>
+
+<h3 id="global-libraries">Global Libraries</h3>
+
+<p><a href="#libraries">Libraries</a> as we saw are libraries you can use in your project, but they're only available to your project. If you want libraries to be available
+globally for all projects, define them here.</p>
+
+<h4 id="external-libraries">External Libraries</h4>
+
+<p>In the Project Window you always see an entry named <em>External Libraries</em>. These are libraries that are not internal to your project (i.e. other modules).</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-11.png"
+        alt="External Libraries" width=100% /></p>
+
+<h2 id="building-projects">Building Projects</h2>
+
+<p>IntelliJ IDEA is aware of the build system you use, to the point that if you're using Ant, Maven or Gradle you can actually have these invoke project builds. In fact, with Maven and Gradle, your project
+is continuously being built when changes occur.</p>
+
+<p>In the case of Ant, Maven or Gradle, you can use the corresponding <a href="#maven">tool</a> <a href="#gradle">windows</a></p>
+
+<p>However, there's also a <em>Build</em> menu that has a few options:</p>
+
+<ul>
+  <li><strong>Compile</strong>: Compiles files in the selected scope, whether they've changed or not</li>
+  <li><strong>Make Module</strong>: Compiles module, and only recompiles files if they have changed</li>
+  <li><strong>Make Project</strong>: Same as Make Module but for the entire project.</li>
+  <li><strong>Rebuild Project</strong>: Forces a recompile of the entire project.</li>
+</ul>
+
+<p>For more details <a href="http://www.jetbrains.com/idea/webhelp/compilation-types.html">see documentation</a>
+Note: these still work even if you're using Ant, Maven or Gradle.</p>
+
+<p>I usually use Make Project (Cmd+F9 on OSX).</p>
+
+<h2 id="running-applications">Running Applications</h2>
+
+<h3 id="run-configurations">Run Configurations</h3>
+
+<p>IntelliJ IDEA has the concept of <a href="http://www.jetbrains.com/idea/webhelp/running.html">Run Configurations</a>. What this means is that before you can run an app, you need
+to create a run configuration for it. Fortunately this is quite easy. In fact with certain types of applications, such as command line apps, you can just right-click
+on the main class and hit Run. IntelliJ IDEA will automatically create a run configuration for you.</p>
+
+<p>Alternatively, click on <strong>Run | Edit Configurations</strong> to create a new entry</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-12.png" alt="Run
+        Configuration Defaults" width=100% /></p>
+
+<p><em class="warning">Do not modify the defaults</em></p>
+
+<p>The entries you see are defaults. You don't usually modify these. What you need to do is add a new configuration:</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-13.png" alt="Add
+        Run Configuration" width=100%/></p>
+
+<p>Once you have a Run Configuration, the Run button will be enabled. If you have more than one, you can pick the one you want from the dropdown</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-14.png" alt="Run
+                                                                  Options"
+        width=100% /></p>
+
+<h2 id="debugging-applications">Debugging Applications</h2>
+
+<p>Just like <a href="#run-configurations">Run Configurations</a>, IntelliJ IDEA also provides configurations for debugging. Same principle, except you provide parameters
+required for debugging. See <a href="http://www.jetbrains.com/idea/webhelp/creating-and-editing-run-debug-configurations.html">Creating and Editing Run/Debug Configurations</a> for more information.</p>
+
+<p>Much like any decent IDE, IntelliJ IDEA provides a full debugger with breakpoints, conditional breakpoints, watches, evaluations, etc. In addition it provides
+JavaScript debugging too (and for most languages that have a plugin available)</p>
+
+<p>See <a href="http://www.jetbrains.com/idea/webhelp/debugging.html">Debugging</a> for more information.</p>
+
+<h3 id="temporary-configurations">Temporary Configurations</h3>
+
+<p>In case you were wondering, yes, you can have <a href="http://www.jetbrains.com/idea/webhelp/creating-and-saving-temporary-run-debug-configurations.html">temporary configurations too</a></p>
+
+<h2 id="unit-testing">Unit Testing</h2>
+
+<h3 id="running-debugging-and-code-coverage">Running, Debugging and Code Coverage</h3>
+
+<p>IntelliJ IDEA ships with support for JUnit, TestNG, Groovy JUnit, FlexUnit, JSTestDriver, Jasmine out of the box, and allows you to run, debug and get code coverage for tests
+using any of these frameworks.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-22.png" alt="Code
+                                                                  Coverage"
+        width=100%/></p>
+
+<p>Similar to ReSharper Unit Test Runner, you can also create test sessions, run the current tests, run a scope of tests, etc.</p>
+
+<p>See the <a href="http://confluence.jetbrains.com/display/IntelliJIDEA/Unit+Testing+and+Code+Coverage">Unit Testing and Code Coverage</a> tutorial for more details</p>
+
+<h3 id="integrating-with-teamcity">Integrating with TeamCity</h3>
+
+<p>// TODO</p>
+
+<h2 id="completion">Completion</h2>
+
+<p>IntelliJ IDEA offers code completion, making you type less and providing you with insight into API's.</p>
+
+<p>Check out the <a href="http://confluence.jetbrains.com/display/IntelliJIDEA/Code+Completion">Completion Tutorial for more information</a></p>
+
+<h3 id="documentation-and-parameter-info">Documentation and Parameter Info</h3>
+
+<p>IntelliJ IDEA supports <a href="http://confluence.jetbrains.com/display/IntelliJIDEA/Quick+Popups">in-place documentation and parameter information</a></p>
+
+<h3 id="code-generation">Code Generation</h3>
+
+<p>File Templates are the fastest way to create new files (Cmd+Ctrl+N on OSX when inside a file or Cmd+N when in Project Window).</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-15.png" alt="New
+                                                                  File"
+        width=100% /></p>
+
+<p>Cmd+N on a class allows you to override methods, implement methods, etc. It's context sensitive</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-17.png"
+        alt="Override" width=100% /></p>
+
+<p>Along with File templates, you also have Live Templates which are interactive snippets. You can access them via <strong>Preferences | Live Templates</strong></p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-16.png" alt="Live
+                                                                  Templates"
+        width=100% /></p>
+
+<h2 id="navigation">Navigation</h2>
+
+<p>Very rich navigation and pretty much aligned feature-wise with ReSharper. If there's one key to remember that's Double-Shift (IntelliJ IDEA 13+): <em>Search Everywhere</em></p>
+
+<p>Check out the <a href="http://confluence.jetbrains.com/display/IntelliJIDEA/Navigation">Navigation tutorial</a> for more information.</p>
+
+<h2 id="code-analysis">Code Analysis</h2>
+
+<p>IntelliJ IDEA sees Dead Code, a.k.a. <a href="http://www.ptxstore.com/jetbrains/product_info.php?products_id=442&amp;osCsid=6ab235f88dd658808603e500d77331f1">the famous T-Shirt</a>. It detects
+issues in your code (via Inspections) and offers you quick fixes (Intentions). That's the famous Alt+Enter menu shortcut. Which btw, <a href="http://www.ptxstore.com/jetbrains/product_info.php?products_id=1870">has its sister ReSharper T-Shirt</a>.</p>
+
+<p>The Red marks you see in the gutter are all these inspections that IntelliJ IDEA does. Don't get scared. If you don't agree, you can turn them off.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-18.png"
+        alt="Gutter" width=100% /></p>
+
+<p>If the top square is Green, you're all good. If it's Yellow, there are some warnings and hints. If Red, you got a problem!</p>
+
+<p>Navigate over the marks to see a preview</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-19.png"
+        alt="Preview Inspections" width=100% /></p>
+
+<p>Click on them to navigate to them (you can also do this via keyboard shortcuts):</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-20.png"
+        alt="Inspections" width=100% /></p>
+
+<p>Hit Alt+Enter to see what IntelliJ IDEA offers (Intentions):</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-21.png"
+        alt="Intentions" width=100% /></p>
+
+<p>For more information see the <a href="http://confluence.jetbrains.com/display/IntelliJIDEA/Inspections">Inspections</a> tutorial as well as the <a href="http://confluence.jetbrains.com/display/IntelliJIDEA/Intentions">Intentions one</a></p>
+
+<h2 id="refactoring">Refactoring</h2>
+
+<p>IntelliJ IDEA was initially named Renamer, so refactoring is in the core of the product! There are too many refactorings to cover in detail, but before doing any
+manual refactoring, check to make sure IntelliJ IDEA doesn't already support it</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-23.png"
+        alt="Refactoring Menu" width=100% /></p>
+
+<p>Also, note that Refactoring, much like Inspections and Navigation are language-dependent. So if some entries are missing, they're not implemented yet for your language of choice.</p>
+
+<h2 id="version-control">Version Control</h2>
+
+<p>IntelliJ IDEA supports a variety of version control systems including Git, Mercurial, Subversion, Perforce and even TFS.</p>
+
+<p>You can add, delete, commit, revert, branch, push, pull, and pretty much do anything you want from inside the IDE.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-25.png" alt="VCS"
+        width=100%/></p>
+
+<h3 id="local-history">Local History</h3>
+
+<p>Something that can save you often is <strong>Local History</strong>. IntelliJ IDEA keeps a local history of your changes, so even if you haven't committed or attached the project
+to version control, you can still benefit from being able to rollback changes.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-24.png"
+        alt="Local History" width=100% /></p>
+
+<h2 id="tools">Tools</h2>
+
+<p>IntelliJ IDEA comes with a series of frequently used tools. Too many to cover in this guide in one go but here are some important ones you might need:</p>
+
+<h3 id="terminal">Terminal</h3>
+
+<p>Just launch the <strong>Tools | Terminal</strong> and you have complete shell access from inside the IDE</p>
+
+<h3 id="rest-client">REST Client</h3>
+
+<p>Want to talk to your HTTP servers? Issue POST/PUT/DELETE or JSON even? Use the built-in <em>Test RESTful Web Service</em>.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-26.png"
+        alt="REST" width=100% /></p>
+
+<p>See this <a href="http://www.jetbrains.com/phpstorm/webhelp/testing-restful-web-services.html">tutorial from PhpStorm</a> for more information. Or <a href="http://www.youtube.com/watch?v=fpNhaMRaLgY">watch this video</a>.</p>
+
+<p>Note: This, and many other features and tools of IntelliJ IDEA are part of the core platform so they are available in all the different JetBrains IDE products.</p>
+
+<h3 id="file-comparisons">File Comparisons</h3>
+
+<p>Same as you can do with <a href="#local-history">Local History</a>, you can select two files and compare them, as well as edit in place. Just select the two files in the
+Project Window, right-click and <em>Compare files</em></p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-27.png"
+        alt="Compare Files" width=100% /></p>
+
+<h3 id="database-tools">Database Tools</h3>
+
+<p>Want to talk to a SQL Database? Just use the <a href="http://blog.jetbrains.com/phpstorm/2013/10/database-tools-and-sql-editor-changes-in-phpstorm-7/">built-in database tools</a>.
+(this post is a bit outdated as it's now much easier to set up new connections. No need to specify JDBC string anymore).</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>IntelliJ IDEA is extremely configurable and you'll discover features as you use it more. It would be impossible to cover every aspect in this guide, but a couple of hints:</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-28.png"
+        alt="Configuration" width=100% /></p>
+
+<p>Do not sit looking through pages and tabs of configuration, just open up the dialog box and start typing. There's a quick find. For instance, want to go to change
+inspection settings for obsolete code, start typing ‘obsol…'</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-29.png"
+        alt="Search Settings" width=100% /></p>
+
+<h3 id="importing-and-exporting-settings">Importing and Exporting Settings</h3>
+
+<p>To import and export settings use <strong>File | Import Settings</strong> and <strong>File | Export Settings</strong> respectively. Settings are saved as <em>.jar</em> files. All settings, be it
+keyboard mappings, templates, fonts, colors are all saved in the same file. You can pick what you want to import/export.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-35.png"
+        alt="Settings Import Export" width=100% /></p>
+
+<h3 id="key-bindings-and-schemes">Key Bindings and Schemes</h3>
+
+<p>Configure the key bindings to best adapt to your needs. If you are coming from Visual Studio and using ReSharper with IntelliJ IDEA or ReSharper 2.x key mapping, there's an option
+available for you. If you prefer ReSharper settings, <a href="https://github.com/hhariri/Tidbits/blob/master/resharper.jar">I've created a file (although I no longer maintain) with these mappings</a>.</p>
+
+<p>If you're coming from Eclipse, you have one too.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-30.png"
+        alt="Keymaps" width=100% /></p>
+
+<p>Personally I try and adapt to a new environment learning the settings for that one. On Mac I use the default Mac OSX+ keymap scheme.</p>
+
+<h3 id="fonts-colors-and-theme">Fonts, Colors and Theme</h3>
+
+<p>I use Darcula theme with my own font size. You can change it to your needs. But remember, you need to first Save the scheme to a new name before you can change it.</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-31.png" alt="Font
+                                                                  Settings"
+        width=100%/></p>
+
+<h4 id="remember-these-two-keyboard-shortcuts">Remember these two keyboard shortcuts</h4>
+
+<p>If all else fails remember:</p>
+
+<ul>
+  <li>
+    <p><strong>Double Shift</strong>: Search everywhere. And I really mean everywhere. Even settings.</p>
+
+    <p><img src="http://hadihariri.com/images/idea-guide-32.png"
+    alt="Shift Everywhere" width=100% /></p>
+  </li>
+  <li>
+    <p><strong>Cmd+Shift+A</strong>: Can't remember a keyboard shortcut or menu entry? Start looking for it</p>
+
+    <p><img src="http://hadihariri.com/images/idea-guide-33.png"
+    alt="Cmd+Shift+A" width=100% /></p>
+  </li>
+</ul>
+
+<h2 id="editing">Editing</h2>
+
+<h3 id="no-save">No Save</h3>
+
+<p>You don't need to save files in IntelliJ IDEA. It automatically does so.</p>
+
+<h2 id="plugins">Plugins</h2>
+
+<p>Over 1000 plugins so too many to even consider mentioning here. You can either browse or search for them via the browser on the <a href="http://plugins.jetbrains.com">JetBrains plugin site</a>
+or directly from inside IntelliJ IDEA</p>
+
+<p><img src="http://hadihariri.com/images/idea-guide-34.png"
+        alt="Plugins" width=100% /></p>
+
+<p>You can install plugins from:</p>
+
+<ul>
+  <li><strong>JetBrains Plugins</strong>: These are plugins created and maintained by JetBrains (i.e. official)</li>
+  <li><strong>Browse Repositories</strong>: By default points to plugins.jetbrains.com but you can point to other repositories too.</li>
+  <li><strong>Install plugin from disk</strong>: Point to a zip file (plugins ship as zip files)</li>
+</ul>
+
+<p>You can also of course <a href="http://confluence.jetbrains.com/display/IntelliJIDEA/Plugin+Development">create your own plugins</a>.</p>
+
+<p>And while I can't mention any because there are way too many cool ones, for VIM lovers, there's IDEAVim which gives you a somewhat Vim experience inside IntelliJ IDEA.</p>
+
+<h2 id="intellij-idea-for-eclipse-users">IntelliJ IDEA For Eclipse Users</h2>
+
+<p>Anton from Zeroturnaround has written an <a href="http://zeroturnaround.com/rebellabs/getting-started-with-intellij-idea-as-an-eclipse-user/">awesome and complete guide for IntelliJ IDEA users coming from Eclipse</a>. Highly recommended if it's your case. And still recommended even if you're not coming from Eclipse as
+it contains a ton of tips and tricks.</p>
+
+<hr>
+&copy; 2016 Hadi Hariri. Powered by Jekyll using the Minimal Mistakes theme.
+</body>
+</html>

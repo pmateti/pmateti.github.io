@@ -1,0 +1,249 @@
+<html>
+
+  <head>
+    <meta http-equiv="Content-Language" content="en-us">
+    <title>Security Lectures by Prabhaker Mateti</title>
+    <meta name="author" content="Prabhaker Mateti">
+    <meta name="keywords" content="Virtual Machines, Buffer Overflow, Stack Smashing, Internet security, Network security, TCP/IP security">
+    <meta name="description" content= "This page is part of a set of lectures on Security by Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+
+    <base target="_top">
+    <style type="text/css">
+      a:hover { color: blue; background-color: yellow; } a:active {
+      color: white; background-color: green;} @page { size: 8.5in 11in
+      } P { text-align: justify } pre {border:blue 1px dotted;} tt
+      {border:blue 1px dotted;} ol.o {padding-left: 0px; } li {
+      text-align: justify; } @media screen {BODY {white; margin: 15%}}
+    </style>
+  </head>
+
+  <body>
+
+    <h1>Virtual Machines for <a href=".">Buffer Overflow Lab</a></h1>
+    <h3><a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+	Prabhaker Mateti</a></h3>
+
+    <h1>Virtual Machines</h1>
+
+    <p>&quot;A virtual machine (VM) is a software implementation of a
+      machine (i.e. a computer) that executes programs like a physical
+      machine. Virtual machines are separated into two major
+      categories, based on their use and degree of correspondence to
+      any real machine. A <b>system virtual machine</b> provides a
+      complete system platform</a> which supports the execution of a
+complete operating system</a> (OS). In contrast, a <b>process
+  virtual machine</b> is designed to run a single program</a>,
+which means that it supports a single process</a>. An essential
+characteristic of a virtual machine is that the software running
+inside is limited to the resources and abstractions provided by
+the virtual machine -- it cannot break out of its virtual
+world.&quot; --- from [1].</p>
+
+<p>In general, virtual machines (VMs) are designed so that an
+  entire computer system (hardware + software) is mimicked inside
+  (however, Java Virtual Machine [JVM] is a case where it is
+  &quot;just the CPU-equivalent&quot; without an actual operating
+  system). The end effect is that we are able to run multiple
+  systems &quot;simultaneously&quot; within another host
+  system.  For example, we can install a virtual machine on CentOS
+  5.5 and, within the VM on CentOS, run Windows XP, Windows Vista
+  (if you have a desire to use that OS for some odd reason), OS-X,
+  and Kubuntu 12.10. However, for this lab, we won't be doing
+  anything nearly so complex. For the rest of this article, I will
+  use 'host OS' to refer to the original operating system
+  installed on a particular machine, and 'guest OS' to refer to an
+  operating running within a virtual machine.</p>
+
+<p>The operating systems running within the VM share the resources
+  of the host system. Therefore, CPU and RAM are not
+  dedicated. The partitions for the guest OS are actually virtual
+  partitions created on a hard drive of the physical machine. For
+  instance, the host OS may mount /dev/sda1 as the root drive
+  (Remember, the 'a' refers to the first physical drive found, and
+  the '1' refers to the first partition on that drive). The guest
+  OS might see a 20GB drive available and mount it as its root,
+  but that drive is only a portion of the real hard drive within
+  an actual partition (such as /dev/sda1).</p>
+
+
+<h1>Linux PCs</h1>
+
+<ol>
+
+  <li>There are several virtual machine programs (see [1]).  Two
+    that are free (may not be GPL3 open source), but are considered
+    the best among the breed are:
+    <ol>
+      <li>Virtual Box <a href="http://www.virtualbox.org">
+	  http://www.virtualbox.org</a>
+      <li>VMware <a href="http://www.vmware.com/">
+	  http://www.vmware.com/</a> 
+    </ol>
+
+  <li> Download and install the free VirtualBox
+      from <a href="http://www.virtualbox.org/">
+      http://www.virtualbox.org/</a>.  Download the free VMware Player
+      from <a href="http://www.vmware.com/">
+      http://www.vmware.com/</a> for your platform.
+
+<strike>
+  <li>In the OSIS Lab, the NFS file server 192.168.17.111 exports
+    the volume <code>/var/ISO</code> that has the following files
+    relevant to this article:
+    <tt>
+      auditor-250405-01.iso, VMware-player-*.exe,
+      VMware-Player-*.x86_64.bundle</tt>
+
+    <p>They can be used as NFS-mounted files.  For better performance,
+      copy the needed files to a local hard drive or USB drive.
+
+    <p>The .bundle is a
+      shell "script" for Linux 64-bit systems; install it as in
+      <tt>/bin/sh VMware-Player-*.x86_64.bundle</tt>
+
+  <li>In the OSIS Lab, the <tt>auditor-250405-01.iso</tt> has been
+    copied to the local file volume on partition /dev/sda5 [check].
+    You can mount it in Knoppix or BackTrack as follows:
+    <pre>
+      mkdir -p /tmp/5
+      mount -o ro /dev/sda5 /tmp/5</pre>
+    <p>In VMplayer or VirtualBox, give the iso path name
+      as <tt>/tmp/5/boot/OSISO/auditor-250405-01.iso</tt>      
+
+  <li>USB drives can be mounted within the guest OS (e.g.,
+    Auditor), but may have to be manually mounted.
+
+  <li>If you wish network setup in the guest OS, you can
+    use <code>dhclient eth0</code>
+    </strike>
+</ol>
+
+<h1>Auditor Live CD</h1>
+
+<p> Auditor distribution is by the same group that now releases Kali/
+  BackTrack.  Auditor predates the many buffer overflow prevention
+  techniques that are now standard in current Linux distros.  Note in
+  particular that Auditor does not support SATA HDDs -- only supports
+  IDE drives.</p>
+
+<p>If you have an old PC that has IDE hard drives, you will get a much
+  faster Auditor by running the Auditor Live direct (without any VM).
+</p>
+
+<p>Within Auditor, expect the results of
+  <a href="./modReturnAddress-acer602-20080507.html">
+    modReturnAddress-acer602-20080507</a> to hold.  If you notice
+    discrepancies, please report.</p>
+
+<h1>Virtual Box (VB)</h1>
+
+  <ol>
+
+    <li>
+      Under the menu 'Machine', select &quot;New...&quot;. This starts a
+      wizard that sets up the hardware.  Of course, this hardware is
+      virtual, may or may not be physically present.  Create a name for
+      your VM.  Since we are running Auditor, we want the OS to be 'Linux'
+      and the Version to be 'Other Linux'.
+
+    <li>Set the size of RAM allocated to this machine to 512 MB.  That is
+      more than enough for our purposes in this lab.  If we were
+      setting up a virtual machine to play computer games or for high-end
+      processing, this should be significantly increased.
+
+    <li>Create a new hard disk (say 100 MB).  There are two ways the
+      VM can treat this drive. The first is fixed-sized where a file
+      of the size chosen is created immediately and this size never
+      changes. The other way is a hard drive with a dynamic size, that
+      grows, as needed, up to the size you originally specified.
+      Fixed-size is faster, dynamic size is flexible.  Complete both
+      the 'virtual disk wizard' and the 'VM setup wizard'.
+
+    <li>
+      VB knows that no OS is installed yet, and will ask for that
+      info via the 'First Run Wizard'.  Choose a "virtual CD/DVD
+      disk file", and naviagate to 
+      <tt>auditor-250405-01.iso</tt> The VM will
+      then proceed to boot from the "disk".  A screen resolution of
+      800x600 is sufficient.  The boot may take several minutes and
+      you will receive several pop-up messages warning about the
+      color depth and mouse support - just ignore those. Initially,
+      you will only have a console, but Auditor will soon launch X11
+      and present you with a GUI window.
+
+    <li> At this point, you have a fully-running version of Auditor
+      inside your VB running on host OS.  Before turning off the
+      virtual machine, shut down or power off within Auditor's menu.
+      To end the VB, select 'Close...' from the 'Machine' menu. VB
+      will then ask you what you want to do; select 'Power off the
+      machine'. This will safely turn off the guest OS, not the host
+      machine.
+
+    <li>If the mouse is captured by the guest OS, release it by
+      pressing the Right-Ctrl key.
+  </ol>
+
+
+  <h1>VMware Player</h1>
+
+  <ol>
+    <li>Download VMware Player free version from vmware.com.
+    <li>Virtual machine setup details via the GUI Menu are similar to
+      those above.  Easier perhaps is: <tt>vmplayer AuditorVM.vmx
+      &amp; </tt> (The AuditorVM.vmx file content is shown below.)
+      This will load the iso named in the .vmx file into the VMPlayer
+      and you will be prompted with Auditor's boot sequence. Select
+      video resolution (800x600).  Relax and wait: It can take minutes
+      for the entire iso to load up until the root# prompt is
+      shown. Wait another minute or so for the X11 GUI to load up,
+      when this finishes you are ready to do the buffer overflow lab.
+    <li>When finished go into the Auditor VM and logoff  &gt;
+      shutdown, wait until the 'remove cd' prompt appears, hit enter
+      and the VMPlayer will close successfully.
+    <li>To release mouse/ keyboard control of the VMPlayer,
+      press Ctrl + Alt. 
+  </ol>
+
+<h3>Contents of File: AuditorVM.vmx</h3>
+
+<pre>
+  #!/usr/bin/vmplayer
+  config.version = "7"
+  guestOS = "Linux"
+  displayName = "Auditor Live"
+  memsize = "512"
+  ide1:0.present = "TRUE"
+  ide1:0.fileName = "/tmp/5/boot/OSISO/auditor-250405-01.iso"
+  ide1:0.deviceType = "cdrom-image"
+  Ethernet0.present = "TRUE"
+  usb.present = "TRUE"
+  floppy0.present = "FALSE"</pre>
+
+<h3>USB Setup</h3>
+
+<p>
+"Failed to access the USB subsystem."  VirtualBox access to USB
+devices can be enabled by adding user to the 'vboxusers' group.  The
+user manual has a more detailed explanation.  Install the Oracle VM
+VirtualBox Extension Pack.
+
+<h2><a name="Acknowledgements">Acknowledgements</a></h2>
+
+<p>Richard van Hook wrote (2011) the section on
+  Virtual Box, <a href="mailto:otis.4@wright.edu">otis.4@wright.edu</a>
+  wrote (2010) the VMplayer section.  I edited these.</p>
+
+<h2><a name="References">References</a></h2>
+<ol>
+  <li><a href="http://en.wikipedia.org/wiki/Virtual_machine">
+      http://en.wikipedia.org/wiki/Virtual_machine</a> 2011.  Required Visit.
+  <li><a href="http://www.easyvmx.com/">http://www.easyvmx.com/</a> Create 
+    virtual machines for VMware Player. 2011
+  <li>
+    <a href="http://lifehacker.com/#!5714966/five-best-virtual-machine-applications">
+      http://lifehacker.com/</a>  Five Best Virtual Machine Applications. 
+    2010.
+</ol>
+</body>
+</html>

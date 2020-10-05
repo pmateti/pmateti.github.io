@@ -1,0 +1,22 @@
+
+* Real Life Programs that Need "Good" Specs/Designs
+
+1.  =f.org=
+    produced by me,
+    =f.html= and other formats generatable;
+    see http://emacswiki.org/emacs/OrgMode
+
+
++ =fnm.txt=
+    produced by me  
+
++ =markdown fnm.txt -o fnm-md.html=
+ 
++ =pandoc -s -S -i -t slidy fnm.txt -o fnm-slidy.html=
+
++ =pandoc fnm.txt -o fnm.pdf=
+
++ pandoc obligation?  
+    + =pandoc a.html -o a.txt=
+    + =pandoc a.txt -o b.html= 
+    + =diff a.html b.html=

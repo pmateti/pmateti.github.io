@@ -1,0 +1,242 @@
+# -*- mode: org -*-
+#+date: 2015-10-14
+#+TITLE: JavaFX Intro
+#+AUTHOR: Prabhaker Mateti
+
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"index-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+* Abstract
+
+JavaFX is the GUI building mechanism for Java applications.  It
+replaces Swing.  Other alternatives are libGDX and Unity.  JavaFX GUI
+uses threads, lambda expressions, etc.
+
+* JavaFX Examples
+** Trivial Example 1
+
+1. [[./javaFxApp1.java]] Blank pane
+1. =javac javaFxApp1.java; java javaFxApp1= is the simplest way to run this
+
+** Not So Trivial Example 1
+
+1. [[./javafxGrid.java]] Grid of Rectangles
+1. Relevant to the grid of Game of Life
+
+** Examples From the Web
+
+1. http://www.dummies.com/how-to/content/how-to-create-lines-and-shapes-in-javafx.html
+
+1. http://www.java2s.com/Tutorials/Java/JavaFX/0040__JavaFX_Line.htm
+   similar to my Java Whiteboard
+
+1. http://www.cs.armstrong.edu/liang/intro10e/html/TicTacToe.html
+   Y. Daniel Liang, author of "Introduction to Java Programming",
+   10th Edition
+
+1. https://www.safaribooksonline.com/library/view/javafxtm-developing-rich/9780137013524/ch13.html
+   Eric Bruno; Jim Connors; Jim Clarke, "JavaFX: Developing Rich
+   Internet Applications", RIA, Addison-Wesley Professional, 2009.  Safari
+   On-Line.  We can read through WSU Library proxy.
+
+1. https://github.com/hallvard/javafx/blob/master/games/src/games/sudoku/
+   Not sure how good this is.
+
+
+* JavaFX Overview
+
+1. Graphics, UI, video, audio, etc.
+2. Java APIs, integrated with Java 8; Not to be confused with JavaFX
+   1.x, which is a scripting language, not a Java API
+3. Effective JavaFX: Understand concurrency 
+   1. [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/Concurrency/concurrency-fundas.html]]
+   2. [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/Concurrency/concurrent-java.html]] 
+
+4. Effective JavaFX: Understand event driven programming
+   3. [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/EventDriven/]] Programming
+
+
+** Replaces Swing
+
+6. "Is JavaFX replacing Swing as the new client UI library for Java SE?"
+1. "Yes. However, Swing will remain part of the Java SE specification
+   for the foreseeable future, and therefore included in the
+   JRE. While we recommend developers to leverage JavaFX APIs as much
+   as possible when building new applications, it is possible to
+   extend a Swing application with JavaFX, allowing for a smoother
+   transition."  http://www.oracle.com/technetwork/java/javafx/overview/faq-1446554.html#6
+
+** JavaFX Getting Started
+
+1. https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm
+   Work with the source code as you read.  Highly Recommended Reading
+
+1. Ensemble "provides a gallery of over 100 sample applications
+   that use a wide range of JavaFX features, such as graphics, UI
+   controls, animation, charts, media and WebView. Source code for
+   each sample and links to API documentation are also
+   provided. Ensemble will provide developers with an interactive
+   reference tool for what they can build with JavaFX."
+
+1. http://www.oracle.com/technetwork/java/javase/overview/javafx-samples-2158687.html
+
+1. http://docs.gluonhq.com/javafxports/ JavaFX
+   tutorial, 2015. Presents JavaFX in the context of Android and iOS
+   also.
+
+1. [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/Java8/JavaFX-Basics-stonybrook.pdf][JavaFX GUI Basics]],  slides
+1. [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/Java8/JavaFX-Controls-stonybrook.pdf][JavaFX UI Controls and Multimedia]], slides
+
+* JavaFX App
+
+1. Extend javafx.application.Application
+1. Override the start() method
+1. follow along [[./javafxGrid.java]] Grid of Rectangles
+
+** Stage
+
+1. Think of it as a window.  (Theater analogy)
+
+** Scene
+
+1. Container for a scene graph.
+1. A stage can have multiple scenes.
+
+** Pane
+1. Organizer of nodes in scene graph
+1. StackPane, FlowPane, TilePane, GridPane, etc
+
+** Scene Graph
+
+1. Tree of nodes; there is a root node.
+1. A branch may have children (e.g., Group, Region)
+1. Leaf does not have children, (e.g., Rectangle, Circle)
+1. http://docs.oracle.com/javafx/2/scenegraph/jfxpub-scenegraph.htm
+1. https://www.google.com/search?q=javafx+scene+graph+example
+1. Oracle [[http://www.oracle.com/technetwork/java/javase/downloads/javafxscenebuilder-info-2157684.html][JavaFX Scene Builder]]
+
+*  Events
+
+** Std Control Flow
+1. Branches (a conditional or switch selects control flow)
+1. Loops (a loop repeats control flow)
+1. Methods (a method call nests control flow)
+
+** Even Based Control
+
+1. The occurrence of event changes control flow
+1. Event handling in UIs
+1. Events are instances of =javafx.event.Event=
+
+** Event properties:
+1. Event type
+1. Source
+1. Target
+
+** Event Driven Programming
+
+1. [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/EventDriven][Language Independent Discussion]]
+
+1. Java8 + JavaFX actions are typically written as Lambda Expressions.
+
+2. [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/Java8/JavaFX-EventDrivenProgramming-stonybrook.pdf][PDF]] Event-Driven Programming in JavaFX, slides, SUNY Stonybrook
+   2015; includes src code of examples
+
+   1. Explains Anonymous Classes
+   2. Explains Inner Classes
+   3. Explains Lambda Expressions
+
+
+** Event handlers
+
+1. An event handler will execute the code given when a certain event occurs.
+1. Lambda expressions
+1. For example: =scene.setOnKeyTyped(event -> { ... code ... })=
+
+* JavaFX Games
+
+1. Translation: Shifts a node from one position to another
+1. Rotation:  Rotates a node around some point
+
+** The Game Loop
+
+1. Classically, a game will have at its heart a loop like this:
+1. =while (notEndOfGame) { updateGameState(); renderGame(); }=
+
+1. The frequency of the loop is referred to as the frame rate, and can
+   determine the “smoothness” of the game play. 35mm film runs at
+   24FPS. Video games often run at about 30-60FPS.
+
+** A Game Loop in JavaFX
+
+1. JavaFX takes care of rendering, and can update at about 60FPS when possible.
+
+1. The AnimationTimer class can be used to get a call back every frame.
+
+#+begin_src java
+new AnimationTimer() {
+   @Override
+   public void handle(long now) { updateGameState(now); }
+}.start();
+#+end_src
+
+* JavaFX Multithreaded
+
+1. [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/Concurrency]] Language independent discussion.
+
+1. Java8 Example of threads: [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/Java8/src/Meenie.java]]
+1. [[http://clarkonium.net/2015/06/tasks-and-ui-updates-in-javafx/][Example]] of Tasks and UI Updates in JavaFX; [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/Java8/src/FXbackgroundWorkerDemo.java][just the src]]
+
+1. [[http://docs.oracle.com/javase/8/javafx/interoperability-tutorial/concurrency.htm][javafx.concurrent]] Package
+
+1. [[https://docs.oracle.com/javase/tutorial/essential/concurrency/exinter.html][ExecutorService]] API
+
+1. [[https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html][java.util.concurrent.Future]] Interface
+
+1. [[https://docs.oracle.com/javase/8/javafx/fxml-tutorial/][FXML]]
+   1. FXML is a scriptable, XML-based declarative language for
+      constructing JavaFX scene graphs.
+   1. https://blogs.oracle.com/sundararajan/entry/using_javafx_fxml_with_nashorn
+
+1. [[http://docs.oracle.com/javase/8/docs/technotes/guides/jweb/][Java Rich Internet Applications (RIA) Guide]]
+
+** State Diagram
+
+[[./thread-states.png]]
+
+* Refernces
+
+1. Oracle.com,
+   http://docs.oracle.com/javase/8/javafx/interoperability-tutorial/concurrency.htm
+   Concurrency in JavaFX 2015 (Note that
+   http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm is for
+   v2. 2012)  Reference.
+
+1. Hendrik Ebbers, author of a JavaFX8
+   book. http://www.guigarage.com/2015/01/concurrency-ui-toolkits-part-1/;
+   http://www.guigarage.com/2015/02/concurrency-ui-toolkits-part-2/;
+   Reference.
+
+1. http://jperedadnr.blogspot.com/2015/03/javafx-on-mobile-dream-come-true.html
+   A pretty good blog on how the author ported the 2048 game to
+   Android using JavaFX etc. 2015.    Reference.
+
+1. http://docs.gluonhq.com/javafxports/ JavaFX ported to Android and
+   iOS. 2015.  Reference.
+
+1. https://github.com/JacpFX/JacpFX "The JacpFX Project is an API to
+   create Rich Clients in MVC style with JavaFX, Spring (or other DI
+   frameworks) and an Actor like component approach."  Reference.
+
+1. https://www.cs.rit.edu/~csci242/Lectures/14/Event-diagrams.pdf Java
+   GUIs in JavaFX. 2015.  Recommended Reading.
+
+1. From cs.stonybrook.edu [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/Java8/JavaFX-Basics-stonybrook.pdf][JavaFX GUI Basics]], slides; [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/Java8/JavaFX-Controls-stonybrook.pdf][JavaFX UI
+   Controls and Multimedia]], slides; [[http://www.cs.wright.edu/~pmateti/Courses/4180/Lectures/Java8/JavaFX-EventDrivenProgramming-stonybrook.pdf][Event-Driven Programming in
+   JavaFX]], slides; Recommended Reading.

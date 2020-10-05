@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Lab: Software without Security Holes #2</title>
+<!-- 2018-10-26 Fri 13:37 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Lab: Software without Security Holes #2</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Background</a></li>
+<li><a href="#sec-2">2. Tasks</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Task: Experience Past Exploits: ShellShock [20 points]</a></li>
+<li><a href="#sec-2-2">2.2. Task: System Program fusermount  [20 points]</a></li>
+<li><a href="#sec-2-3">2.3. Task: CERT Coding Guides  [20 points]</a></li>
+<li><a href="#sec-2-4">2.4. Task: Assert fusermount [20 points]</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Tasks: [Bonus][Optional]</a>
+<ul>
+<li><a href="#sec-3-1">3.1. Task: Static Analysis Tool LLVM Clang-Analyzer [20 points]</a></li>
+<li><a href="#sec-3-2">3.2. Task: CodeChecker [20 points]</a></li>
+<li><a href="#sec-3-3">3.3. Task: Assert fusermount [20 points]</a></li>
+<li><a href="#sec-3-4">3.4. Task: Comparative Review [20 points]</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Submission</a></li>
+<li><a href="#sec-5">5. References</a></li>
+<li><a href="#sec-6">6. End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Background</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Objective: Introduce you to formal methods based tools.  Get you to
+think about secure programming some more.
+</li>
+
+<li>fusermount::
+<a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-10906">https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-10906</a>
+fusermount is vulnerable to a restriction bypass when SELinux is
+active. This allows non-root users to mount a FUSE file system with
+the 'allow-other' mount option regardless of whether
+'user-allow-other' is set in the fuse configuration. An attacker
+may use this flaw to mount a FUSE file system, accessible by other
+users, and trick them into accessing files on that file system,
+possibly causing Denial of Service or other unspecified effects.
+<a href="https://www.exploit-db.com/exploits/45106/">https://www.exploit-db.com/exploits/45106/</a> CVE-2018-10906 Reference
+</li>
+
+<li>ShellShock:: Refresh your hold on <code>bash</code> syntax and usage.
+</li>
+
+<li>HeartBleed:: Discovered in 2014, about the same time as shellshock.
+The bug is in SSL networking.  Not part of this course.
+</li>
+
+<li>Coding Guides:: For C and C++: Part of this course.  For Java: Not
+part of this course.
+</li>
+
+<li>System Programs: mount, fusermount, sudo, su, passwd, chsh, &#x2026;  We
+expect these to be free of security holes.
+</li>
+
+<li>Ordinary/ non-system programs/ utilities: cat, ls, date, make, and
+even login, bash, ash, dash, csh, zsh and other shells.
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Tasks</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Task: Experience Past Exploits: ShellShock [20 points]</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>Background: Learn about ShellShock 2014 bug in <code>bash</code>.  Older
+versions of Bash can be tricked into executing arbitrary commands.
+Study these:
+<ol class="org-ol">
+<li><a href="https://en.wikipedia.org/wiki/Shellshock_(software_bug)">https://en.wikipedia.org/wiki/Shellshock_(software_bug)</a>
+</li>
+<li><a href="https://www.sophos.com/hu-hu/lp/bash-shellshock.aspx">https://www.sophos.com/hu-hu/lp/bash-shellshock.aspx</a>
+</li>
+</ol>
+</li>
+
+<li>Check if bash, as is, in a modern Linux has this vulnerability.
+Include details of the bash version.  Describe in detail how you
+checked.  Develop a detection script.
+</li>
+
+<li>Download a version claimed in the articles above as being
+vulnerable from <a href="http://ftp.gnu.org/gnu/bash/">http://ftp.gnu.org/gnu/bash/</a>, which has older and
+current versions of bash.  Build it.  Rename the current
+<code>/bin/bash</code> as <code>/bin/bash-orig</code> .  Install the one you built as
+<code>/bin/bash</code>.  Verify that this version of bash has the
+vulnerability.  Include details of the bash version you installed.
+Describe in detail how you verified.  Develop a script that
+demonstrates.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Task: System Program fusermount  [20 points]</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>Background: Study FUSE documentation from within the kernel source tree:
+<a href="https://www.kernel.org/doc/Documentation/filesystems/fuse.txt">https://www.kernel.org/doc/Documentation/filesystems/fuse.txt</a>, 
+</li>
+
+<li>Download from    <a href="https://github.com/libfuse/libfuse">https://github.com/libfuse/libfuse</a>.  Build it, following the <a href="https://github.com/libfuse/libfuse#installation">Installation</a> guide.  Become
+familiar with its files.  Understand <a href="https://github.com/libfuse/libfuse#security-implications">security-implications</a>.
+</li>
+
+<li>Check that the just built fusermount works.  Describe in detail how
+you verified.  Develop a script that demonstrates.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Task: CERT Coding Guides  [20 points]</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li>Background:  Become familiar with <a href="https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard">CERT Coding Guide on C</a>.
+Understand the following deeply.
+<ol class="org-ol">
+<li><a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP39-C.+Do+not+access+a+variable+through+a+pointer+of+an+incompatible+type">EXP39-C</a>. Do not access a variable through a pointer of an
+incompatible type
+</li>
+<li><a href="https://wiki.sei.cmu.edu/confluence/display/c/EXP45-C.+Do+not+perform+assignments+in+selection+statements">EXP45-C</a>. Do not perform assignments in selection statements
+</li>
+</ol>
+</li>
+
+<li>Analyze, manually, the source code of <a href="https://github.com/libfuse/libfuse/blob/master/util/fusermount.c">fusermount.c</a> for any
+violations of the above rules.  Discover and explain at least two
+violations.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Task: Assert fusermount [20 points]</h3>
+<div class="outline-text-3" id="text-2-4">
+<ol class="org-ol">
+<li>Background: Learn assert.h.  <a href="https://en.wikipedia.org/wiki/Assert.h">https://en.wikipedia.org/wiki/Assert.h</a>  
+</li>
+
+<li>Give an entry assertion, an exit assertion, and a loop invariant
+for <b>two</b> non-trivial functions/ procedures of <a href="https://github.com/libfuse/libfuse/blob/master/util/fusermount.c">fusermount.c</a>.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Tasks: [Bonus][Optional]</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Task: Static Analysis Tool LLVM Clang-Analyzer [20 points]</h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li>Background: <a href="https://clang-analyzer.llvm.org/">https://clang-analyzer.llvm.org/</a> LLVM Clang-Analyzer
+</li>
+
+<li>Analyze, using <code>scan-build</code>, the source code of <a href="https://github.com/libfuse/libfuse/blob/master/util/fusermount.c">fusermount.c</a>.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Task: CodeChecker [20 points]</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li><a href="https://github.com/Ericsson/codechecker">https://github.com/Ericsson/codechecker</a> CodeChecker is a static
+analysis infrastructure built on the LLVM/Clang Static Analyzer
+toolchain, replacing <code>scan-build</code> in a Linux or OS-X development
+environment.
+</li>
+
+<li>Analyze, using <code>codechecker</code>, the source code of <a href="https://github.com/libfuse/libfuse/blob/master/util/fusermount.c">fusermount.c</a>.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Task: Assert fusermount [20 points]</h3>
+<div class="outline-text-3" id="text-3-3">
+<ol class="org-ol">
+<li>Assert fusermount.c.  Give an entry assertion, an exit assertion,
+and a loop invariant for ten non-trivial functions/ procedures of
+<a href="https://github.com/libfuse/libfuse/blob/master/util/fusermount.c">fusermount.c</a>.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Task: Comparative Review [20 points]</h3>
+<div class="outline-text-3" id="text-3-4">
+<ol class="org-ol">
+<li>Write a comparative review of the tools used in this lab, and in
+previous lab SecSoftware#1.  Ok to do the write up based just on
+reading about the tools, but it is better if it based on experience
+of having used them long enough.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Submission</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>Lab Report quality: 15 points.
+</li>
+
+<li>You must follow the Lab Report Template. There should be a section
+on each of the tasks. A couple of lines of an answer to each
+(implied/ explicit) question/ discussion item.  Must number it as
+in this document.  
+</li>
+
+<li>Use good judgement and do not make the report way longer than, say,
+20 pages. Submit explanations and code that verifies your answers.
+</li>
+
+<li>[5 points] Include a journal.  By the hour.
+</li>
+
+<li>Submit a PDF file named exactly <code>Report-L5.pdf</code>, and a tarball
+<code>L5.tbz</code> [use <code>tar cfjvv L5.tbz source-files*</code> ]. (Scripts are used
+to check various things – so file names should obey such "rules".)
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> References</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Prabhaker Mateti, <a href="../SecSoftware">../SecSoftware</a> 2018. Required Reading.
+</li>
+<li>Robert Love, Linux System Programming: Talking Directly to the
+Kernel and C Library Second Edition, {
+<a href="http://igm.univ-mlv.fr/~yahya/progsys/linux.pdf">http://igm.univ-mlv.fr/~yahya/progsys/linux.pdf</a> Free PDF. Perhaps
+of an older edition of the book.}  Written primarily for engineers
+looking to program (better) at the low level.  Reference.
+</li>
+
+<li>Robert Love, Linux Kernel Development (3rd Edition),
+<a href="https://www.amazon.com/Linux-Kernel-Development-Robert-Love/dp/0672329468/ref=as_li_ss_tl?ie=UTF8&tag=roblov-20">https://www.amazon.com/Linux-Kernel-Development-Robert-Love/dp/0672329468/ref=as_li_ss_tl?ie=UTF8&tag=roblov-20</a>
+</li>
+
+<li>ShellShock Refs
+<ol class="org-ol">
+<li><a href="https://www.us-cert.gov/ncas/alerts/TA14-268A">https://www.us-cert.gov/ncas/alerts/TA14-268A</a>;
+</li>
+<li><a href="https://en.wikipedia.org/wiki/Shellshock_(software_bug)">https://en.wikipedia.org/wiki/Shellshock_(software_bug)</a> 2014
+</li>
+
+<li><a href="https://www.owasp.org/images/1/1b/Shellshock_-_Tudor_Enache.pdf">https://www.owasp.org/images/1/1b/Shellshock_-_Tudor_Enache.pdf</a>
+      25 slides, 
+</li>
+<li><a href="https://www.cybrary.it/0p3n/shellshock-all-you-need-to-know-about-the-bash-bug-vulnerability/">https://www.cybrary.it/0p3n/shellshock-all-you-need-to-know-about-the-bash-bug-vulnerability/</a>
+</li>
+<li><a href="https://security.stackexchange.com/questions/68448/where-is-bash-shellshock-vulnerability-in-source-code">https://security.stackexchange.com/questions/68448/where-is-bash-shellshock-vulnerability-in-source-code</a>
+</li>
+</ol>
+</li>
+
+<li>CLang Analyzer
+<ol class="org-ol">
+<li><a href="http://btorpey.github.io/blog/2015/04/27/static-analysis-with-clang/">http://btorpey.github.io/blog/2015/04/27/static-analysis-with-clang/</a>;;
+</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Testing/Clang_static_analysis">https://developer.mozilla.org/en-US/docs/Mozilla/Testing/Clang_static_analysis</a>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> End</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2018-10-25
+</div>
+</body>
+</html>

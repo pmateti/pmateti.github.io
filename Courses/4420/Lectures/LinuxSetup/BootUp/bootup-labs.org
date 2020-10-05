@@ -1,0 +1,119 @@
+# -*- mode: org -*-
+#+date: 2017-09-20
+#+TITLE: Lab: OS BootUp in Computer Security
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2017 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Background
+
+1. Required Reading: BootUp in Computer Security
+1. Required Reading and Lab: USBD Multi-Boot Linux
+
+* Abstract
+
+Abstract: We discuss how a computer system boots from powering up to
+user login prompt.  This article is a description of how a Linux PC
+boots starting from power-on to user login.  Our focus is on what +
+how things can "go wrong" from a security point of view.  This
+discussion is specific to Linux and Intel x86.  But similar steps are
+valid for other computer systems.  So that a technique is understood,
+we often gloss over the details, even if it is at the risk of
+precision, but not at the level of "whole truth".
+
+
+* Educational Objectives
+
+Student should be able
+
+  1. Describe how a computer system boots from power-on.
+  1. Recognize the possibilities for Trojans.
+  1. Recognize unneeded daemons.
+  1. Develop a proper secure boot configuration
+
+
+[This page collects several possible labs.  Each semester, we select a
+subset.]
+
+* Lab for 2017 Fall CEG 4420/6420
+
+1. Lab: From Legitimate Init to User Login
+1. Lab: Power On to OS Loader Selection
+
+1. Lab: OS Loader to OS Kernel Selection
+
+1. Lab: OS Kernel Initialization to the First Process init
+
+
+* Lab: From Legitimate Init to User Login
+
+Objective: /Study/ the booting sequence ending at login prompt.
+
+  1. Freshly reboot into your choice of (HDD installed) Linux.  Wait
+     for the GUI to show.
+  1. Save the output of =ps= with flags that show all processes with
+     the greatest amount of detail.  You will notice several gaps in
+     the process id numbers.
+  1. Consider process ids in the ranges of 1 to 100, and 900 to 1000.
+     Note the missing pids.  Among the missing ids, explain the
+     details of <i>at least five</i> processes from the range 1 to 100
+     and another five from 900 to 1000 that must have come to life,
+     performed their duties, and terminated.
+  1. Be aware that the bash shell has many built in commands such as
+     =echo=  that do not cause process creation.
+  1. Among the currently running processes, identify <i>all</i> the
+     daemon processes, and how and where from they were invoked.
+  1. The specific names of script files in the current installation of Linux 
+     are not necessarily rc.multiuser etc as indicated in the sections above.  
+     Find and correct all such names.
+
+* Lab:  Knoppix Bootup
+
+1. Describe the bootup details of Knoppix.  Focus on how it detects
+   the hardware you have (almost always) correctly.
+
+* Lab:  Kali Bootup
+
+1. Describe the bootup details of Kali Linux.
+
+
+* Lab: Power On to OS Loader Selection
+
+1. [Devious.]  Suggest how an Alternate OS Loader can be installed and
+   made effective.  That is, instead of invoking the OS Boot Loader
+   you thought you installed, another one has taken over.
+
+1. This should not be easy to detect.
+
+1. Outline how this can be detected.
+
+
+* Lab: OS Loader to OS Kernel Selection
+
+1. Use your MultiBoot Linux USBD.
+1. Install at least two different kernels.  Need not be rogue kernels.
+   Make them selectable via the (legitimate) OS Boot Loader (e.g.,
+   Grub).
+1. On a HDD installed Linux, this happens all the time.
+
+* Lab: OS Kernel to Process init
+
+1. Describe how the kernel selects  the init program.  Doe the kernel
+   log this info somewhere?
+
+1. [Devious.] Plant an alternate, fully functional but rogue,
+   =init=.
+
+1. Did the kernel know it is invoking an alternate init, possibly a
+   rogue init?  How can you discover the rogue init?
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,98 @@
+# -*- mode: org -*-
+#+DATE: 2018-07-12
+#+TITLE: PMD
+#+AUTHOR: Prabhaker Mateti
+
+#+DESCRIPTION: Software Engineering
+#+HTML_LINK_UP: ./index.html
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+
+* PMD
+
+PMD parses Java source code and looks for potential problems like:
+
+1. Possible bugs - empty try/catch/finally/switch statements
+1. Dead code - unused local variables, parameters and private methods
+1. Suboptimal code - wasteful String/StringBuffer usage
+1. Overcomplicated expressions - unnecessary if statements, for loops
+   that could be while loops
+1. Duplicate code - copied/pasted code means copied/pasted bugs
+1. PMD-CPD - Copy/Paste Detector (CPD)
+1. Slides ~40  See OWASP link in the References.
+
+* PMD RuleSets
+
+1. Android Rules: These rules deal with the Android SDK.
+1. Basic Rules: The Basic Ruleset contains a collection of good practices which everyone should follow.
+1. Braces Rules: The Braces Ruleset contains a collection of braces rules.
+1. Clone Implementation Rules: The Clone Implementation ruleset contains a collection of rules that find questionable usages of the
+  clone() method.
+1. Code Size Rules: The Code Size Ruleset contains a collection of rules that find code size related problems.
+1. Controversial Rules: The Controversial Ruleset contains rules that, for whatever reason, are considered controversial.
+1. Coupling Rules: These are rules which find instances of high or inappropriate coupling between objects and packages.
+1. Design Rules: The Design Ruleset contains a collection of rules that find questionable designs.
+1. Import Statement Rules: These rules deal with different problems that can occur with a class' import statements.
+1. JavaBean Rules: The JavaBeans Ruleset catches instances of bean rules not being followed.
+1. JUnit Rules: These rules deal with different problems that can occur with JUnit tests.
+1. Java Logging Rules: The Java Logging ruleset contains a collection of rules that find questionable usages of the logger.
+1. Migration Rules: Contains rules about migrating from one JDK version to another.
+1. Migration15: Contains rules for migrating to JDK 1.5
+1. Naming Rules: The Naming Ruleset contains a collection of rules about names - too long, too short, and so forth.
+1. Optimization Rules: These rules deal with different optimizations that generally apply to performance best practices.
+1. Strict Exception Rules: These rules provide some strict guidelines about throwing and catching exceptions.
+1. String and StringBuffer Rules: Problems that can occur with manipulation of the class String or StringBuffer.
+1. Security Code Guidelines: These rules check the security guidelines from Sun.
+1. Unused Code Rules: The Unused Code Ruleset contains a collection of rules that find unused code.
+
+* PMD Rule Examples
+
+1. EmptyCatchBlock: Empty Catch Block finds instances where an
+   exception is caught, but not hing is done. In most circumstances,
+   this swallows an exception which should either be acte d on or
+   reported.
+1. EmptyIfStmt: Empty If Statement finds instances where a condition
+   is checked but nothing is done about it.
+1. EmptyWhileStmt: Empty While Statement finds all instances where a
+   while statement does nothing. If it is a timing loop, then you
+   should use Thread.sleep() for it; if it's a while loop th at does a
+   lot in the exit expression, rewrite it to make it clearer.
+1. EmptyTryBlock: Avoid empty try blocks - what's the point?
+1. EmptyFinallyBlock: Avoid empty finally blocks - these can be deleted.
+1. EmptySwitchStatements: Avoid empty switch statements.
+1. JumbledIncrementer: Avoid jumbled loop incrementers - it's usually
+   a mistake, and it's conf using even if it's what's intended.
+1. ForLoopShouldBeWhileLoop: Some for loops can be simplified to while
+   loops - this makes t hem more concise.
+1. https://pmd.github.io/pmd-6.5.0/pmd_rules_java.html    Recommended Reading.
+
+* References
+
+1. https://pmd.github.io/ PMD is a source code analyzer. It finds
+   common programming flaws like unused variables, empty catch blocks,
+   unnecessary object creation, and so forth. It supports Java,
+   JavaScript, Salesforce.com Apex and Visualforce, PLSQL, Apache
+   Velocity, XML, XSL. 26 Jun 2018: PMD 6.5.0 released.  Reference.
+
+1. https://stackoverflow.com/questions/17564726/what-is-the-full-form-of-pmd
+   Reference.
+
+1. Justin Clarke, "Securing Development with PMD - Teaching an Old Dog
+   New Tricks," 37 slides, 2013,
+   https://www.owasp.org/images/c/cc/Securing_Development_with_PMD_-_Teaching_an_Old_Dog_New_Tricks_-_OWASP.pdf
+   Recommended Reading.
+
+1. [[./findbugs-etc.pptx]] FindBugs, PMD, etc. Eclipse and IDEA Plugins.
+   These are pmateti's slides. 2013.     Recommended Reading.
+
+* End
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

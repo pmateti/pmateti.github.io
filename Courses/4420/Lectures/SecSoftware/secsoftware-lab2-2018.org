@@ -1,0 +1,115 @@
+# -*- mode: org -*-
+#+date: 2018-10-25
+#+TITLE: Lab: Software without Security Holes #2
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Background
+
+1. Objective: Introduce you to formal methods based tools.  Get you to
+   think about secure programming some more.
+
+1. fusermount::
+   https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-10906
+   fusermount is vulnerable to a restriction bypass when SELinux is
+   active. This allows non-root users to mount a FUSE file system with
+   the 'allow-other' mount option regardless of whether
+   'user-allow-other' is set in the fuse configuration. An attacker
+   may use this flaw to mount a FUSE file system, accessible by other
+   users, and trick them into accessing files on that file system,
+   possibly causing Denial of Service or other unspecified effects.
+   https://www.exploit-db.com/exploits/45106/ CVE-2018-10906 Reference
+
+1. ShellShock:: Refresh your hold on =bash= syntax and usage.
+
+1. HeartBleed:: Discovered in 2014, about the same time as shellshock.
+   The bug is in SSL networking.  Not part of this course.
+
+1. Coding Guides:: For C and C++: Part of this course.  For Java: Not
+   part of this course.
+
+1. System Programs: mount, fusermount, sudo, su, passwd, chsh, ...  We
+   expect these to be free of security holes.
+
+1. Ordinary/ non-system programs/ utilities: cat, ls, date, make, and
+   even login, bash, ash, dash, csh, zsh and other shells.
+
+
+
+
+* Tasks: [Bonus][Optional]
+
+** Task: Static Analysis Tool LLVM Clang-Analyzer [20 points]
+
+1. Background: https://clang-analyzer.llvm.org/ LLVM Clang-Analyzer
+
+1. Analyze, using =scan-build=, the source code of [[https://github.com/libfuse/libfuse/blob/master/util/fusermount.c][fusermount.c]].
+
+** Task: CodeChecker [20 points]
+
+1. https://github.com/Ericsson/codechecker CodeChecker is a static
+   analysis infrastructure built on the LLVM/Clang Static Analyzer
+   toolchain, replacing =scan-build= in a Linux or OS-X development
+   environment.
+
+1. Analyze, using =codechecker=, the source code of [[https://github.com/libfuse/libfuse/blob/master/util/fusermount.c][fusermount.c]].
+
+** Task: Assert fusermount [20 points]
+
+1. Assert fusermount.c.  Give an entry assertion, an exit assertion,
+   and a loop invariant for ten non-trivial functions/ procedures of
+   [[https://github.com/libfuse/libfuse/blob/master/util/fusermount.c][fusermount.c]].
+
+** Task: Comparative Review [20 points]
+
+1. Write a comparative review of the tools used in this lab, and in
+   previous lab SecSoftware#1.  Ok to do the write up based just on
+   reading about the tools, but it is better if it based on experience
+   of having used them long enough.
+
+* Submission
+
+1. Lab Report quality: 15 points.
+
+1. You must follow the Lab Report Template. There should be a section
+   on each of the tasks. A couple of lines of an answer to each
+   (implied/ explicit) question/ discussion item.  Must number it as
+   in this document.  
+
+1. Use good judgement and do not make the report way longer than, say,
+   20 pages. Submit explanations and code that verifies your answers.
+
+1. [5 points] Include a journal.  By the hour.
+
+1. Submit a PDF file named exactly =Report-L5.pdf=, and a tarball
+   =L5.tbz= [use =tar cfjvv L5.tbz source-files*= ]. (Scripts are used
+   to check various things – so file names should obey such "rules".)
+
+
+* References
+
+1. Prabhaker Mateti, [[../SecSoftware]] 2018. Required Reading.
+
+4. ShellShock Refs
+   1. https://www.us-cert.gov/ncas/alerts/TA14-268A;
+
+   3. https://www.owasp.org/images/1/1b/Shellshock_-_Tudor_Enache.pdf
+      25 slides, 
+   4. https://www.cybrary.it/0p3n/shellshock-all-you-need-to-know-about-the-bash-bug-vulnerability/
+   5. https://security.stackexchange.com/questions/68448/where-is-bash-shellshock-vulnerability-in-source-code
+
+5. CLang Analyzer Refs
+   1. http://btorpey.github.io/blog/2015/04/27/static-analysis-with-clang/;;
+   2. https://developer.mozilla.org/en-US/docs/Mozilla/Testing/Clang_static_analysis
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

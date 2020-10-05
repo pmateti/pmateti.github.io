@@ -1,0 +1,157 @@
+
+# -*- mode: org -*-
+#+date: 2019-08-29
+#+TITLE: Studying a Few Tiny Programs
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2019 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Overview
+
+1. The dir [[../StudyPrograms]] has several tiny files of C src code. =ls -lg=
+
+#+begin_src ls
+-rw-r--r-- 1 pmateti   494 Aug 29 19:52 arrays.c
+-rw-r--r-- 1 pmateti   228 Aug 29 19:52 example1.c
+-rw-r--r-- 1 pmateti   270 Aug 29 19:52 example2.c
+-rw-r--r-- 1 pmateti   159 Aug 29 19:52 execsh.c
+-rw-r--r-- 1 pmateti    59 Aug 29 19:52 exit.c
+-rw-r--r-- 1 pmateti 17775 Aug 29 20:42 index.html
+-rw-r--r-- 1 pmateti  5137 Aug 29 20:42 index.org
+-rw-r--r-- 1 pmateti   403 Aug 29 19:52 Makefile
+-rw-r--r-- 1 pmateti   450 Aug 29 19:52 recurse.c
+-rw-r--r-- 1 pmateti  1817 Aug 29 20:08 recurse.s
+-rw-r--r-- 1 pmateti 16848 Aug 29 20:32 syslib
+-rw-r--r-- 1 pmateti   415 Aug 29 19:52 syslib.c
+-rw-r--r-- 1 pmateti   387 Aug 29 19:52 testsc.c
+-rw-r--r-- 1 pmateti   776 Aug 29 19:52 yasc.c
+#+end_src
+
+1. Study the source to see what syscalls and library calls they make,
+   and how the programs are to be built, and the numerical
+   relationships between the addresses of variables.
+   
+1. What is the max amount of virtual memory can a Linux process have?
+
+1. All these programs are expected to be invoked as non-root.
+
+
+* [[./Makefile]]
+
+1. =make= will compile and link one program with no error messages.
+   It is using the =Makefile= as-is, and =CFLAGS = -g -Wall -ansi
+   -pedantic= Explain what these flags cause =gcc= to do.  Expand the
+   =Makefile= to become complete, so that all included programs in the
+   directory are built properly.
+
+
+* [[./example1.c]]
+
+1. Understand how arguments are passed to parameters.
+1. E.g., how does =function(1, 2, 3);= in main pass arguments to
+   procedure named =function=?
+
+* [[./example2.c]]
+
+1. Lookup the man page of =strcpy=.
+1. In C, a string is an array of chars ending in '\0' (ASCII NUL).
+1. Spot sloppy programming.
+
+* [[./execsh.c]]
+
+1. Learn to use =execve=
+1. =name= is an array of pointers to strings.
+1. What is volume or section 2 of man pages?
+
+* [[./exit.c]]
+
+1. How many system calls does this tiny program have?
+1. Tradition is that Unix/Linux processes return, as they terminate,
+   (i) a zero on "success", (ii) a negative integer on error(s).
+
+* [[./recurse.c]]
+
+1. =gcc= generates code for functions such that the return value is in
+   the "accumulator" register A (RAX/ EAX/ AX/ ...).
+
+1. Try =gcc -s recurse.c=.  Figure out what it does.
+
+1. What are "segment registers"? What is a "Segmentation Fault"?
+
+1. =get_sp()= is written in Gnu Assembly.  It copies the stack pointer
+   register (SP ) to the A register.
+
+1. On my Linux PC, invoking it as in =; ./recurse= prints
+: x 0 sp fea65670
+: x 1 sp fe965650
+: x 2 sp fe865630
+: x 3 sp fe765610
+: x 4 sp fe6655f0
+: x 5 sp fe5655d0
+: x 6 sp fe4655b0
+: Segmentation fault (core dumped)
+   before dying.  My prompt string =PS1= is =;=  .
+1. Improve [whatever] so that it recurses more deeply.  Explain what
+   you did.
+1. Must leave the array =a= the same.
+
+* [[./arrays.c]]
+
+1. Study its output.
+2. Learn
+   1. =sizeof=
+   1. address computations.
+   2. the syntax of printf format string.
+1. If we were to exchange the two lines =char b[5]; char c[3];=,
+   predict what the output will be [without re-compiling/ running].
+
+
+* [[./testsc.c]]
+
+1. This may appear tricky, but this kind of code is quite common in
+   systems programming.
+1. The bytes stored in =scb[]= are the x86 machine code manually
+   produced by compiling the so-called "shell code", which invokes the
+   shell through a system call.
+1. =rap= stands for return-address-ptr.
+1. First, experience the code by compiling and linking the code as in,
+   =gcc testsc.c -o testsc=, and invoking it.
+1. Invoking =testsc= as produced above, as-is, is going to produce
+   =*** stack smashing detected ***: <unknown> terminated; Aborted
+   (core dumped)"=
+1. Re-compilining as in =gcc -fno-stack-protector -z execstack
+   testsc.c -o testsc=, and invoking will terminate "silently".  What
+   did it do?  We explore this topic in a few weeks under the topic of
+   "stack smashing."
+
+* [[./yasc.c]]
+
+1. Similar to the above.
+1. Explains the bytes stored in =sc[]= in the comments.
+1. The ptr =fp= stores the address of a void method that takes no
+   arguments.
+1. In =(void *) sc= the =(void *)= is doing free type coercion.  "Free"
+   because this is happening at compile time, not run time. The type
+   of =sc=, which is =char []= is being coerced into a =void *=.  [Are
+   parens necessary here?  [Advice: When in doubt, parenthesize!]]
+
+* [[./syslib.c]]
+
+1. Library Calls v. SysCalls
+1. Build =syslib=.  Explain the output.
+
+* References
+
+1. Wikibooks,
+   https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture, 2019.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

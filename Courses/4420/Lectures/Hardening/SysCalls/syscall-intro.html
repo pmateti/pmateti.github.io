@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-10-27 Sun 23:48 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>System Calls</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../Top/">CEG 4350</a> 2016-01-12
+</div>
+<div id="content">
+<h1 class="title">System Calls</h1>
+
+<div id="outline-container-org9391972" class="outline-2">
+<h2 id="org9391972"><span class="section-number-2">1</span> Library Routines</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Library functions are implementations of high level, frequently used
+operations.  Several methods are collected together into an archive.
+</p>
+
+<p>
+Well known archives are at
+</p>
+
+<ol class="org-ol">
+<li>/usr/lib</li>
+<li>/lib</li>
+</ol>
+</div>
+
+<div id="outline-container-orgac348fc" class="outline-3">
+<h3 id="orgac348fc"><span class="section-number-3">1.1</span> Example Program</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>)
+{
+  printf(<span style="color: #8b2252;">"hello\n"</span>);
+  <span style="color: #a020f0;">return</span> 0;
+}
+</pre>
+</div>
+
+<p>
+with <code>g++ -Wall -o hello hello.cpp</code>.  
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf48ac40" class="outline-3">
+<h3 id="orgf48ac40"><span class="section-number-3">1.2</span> Man Pages</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+The <code>man</code> pages section 1 is devoted to programs ("apps"). Section 2
+is devoted to system calls; section 3 is devoted to library calls.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9f4b48e" class="outline-3">
+<h3 id="org9f4b48e"><span class="section-number-3">1.3</span> ltrace</h3>
+<div class="outline-text-3" id="text-1-3">
+<ol class="org-ol">
+<li><code>man ltrace</code></li>
+<li>Try <code>ltrace hello</code>  Even better, try <code>ltrace /bin/ls</code></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgc6bf63a" class="outline-3">
+<h3 id="orgc6bf63a"><span class="section-number-3">1.4</span> ldd  /bin/ls</h3>
+<div class="outline-text-3" id="text-1-4">
+<ol class="org-ol">
+<li><code>man ldd</code></li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-bash">linux-vdso.so.1 =&gt;  (0x00007fff6ecf2000)
+libselinux.so.1 =&gt; /lib/x86_64-linux-gnu/libselinux.so.1 (0x00007f501fdfe000)
+libacl.so.1 =&gt; /lib/x86_64-linux-gnu/libacl.so.1 (0x00007f501fbf5000)
+libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f501f82f000)
+libpcre.so.3 =&gt; /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007f501f5c2000)
+libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f501f3be000)
+<span style="color: #0000ff;">/lib64/ld-linux-x86-64.so.2</span> (0x00007f5020059000)
+libattr.so.1 =&gt; /lib/x86_64-linux-gnu/libattr.so.1 (0x00007f501f1b8000)
+libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f501ef9a000)
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>Exercise: Explain the above (by the end of this course).  What are
+the numbers in parentheses?  What is the arrow (=&gt;) suggesting?</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org328b333" class="outline-2">
+<h2 id="org328b333"><span class="section-number-2">2</span> System Calls</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+System calls are "methods" (functions) implemented within the OS
+kernel.  An application process calls these methods in much the same
+way, but not exactly the same way, as it does its own methods or those
+from the library.
+</p>
+
+<p>
+Calling a system call changes the CPU mode: from user mode to
+privileged mode.  Invoking a system call is translated by the compiler
+using a special machine instruction designed for that specific
+purpose: save the current "context", change CPU modes, etc.  After
+performing the syscall, it uses a special machine instruction to
+return to the calling process.
+</p>
+
+<p>
+A system call returns a coded integer, indicating success or specific
+failure.  Caller of a system call should always check this value and
+take relevant action.  A system call almost always changes global
+variables and/or environment that are visible to other processes.  The
+effects are not undoable.
+</p>
+
+<p>
+System calls are designed to be independent of programming languages.
+On Linux, the C standard library (glibc) provides wrappers for each
+system call.  The wrappers adapt the system call for use in C
+programs.
+</p>
+</div>
+
+<div id="outline-container-orgeb2d5bc" class="outline-3">
+<h3 id="orgeb2d5bc"><span class="section-number-3">2.1</span> OS as a Collection of SysCalls</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>System Calls are calls to methods already built into the OS.  The
+OS has a table of pointers to system calls.</li>
+
+<li>Listing of SysCalls  <a href="https://filippo.io/linux-syscall-table/">https://filippo.io/linux-syscall-table/</a>
+Searchable;  From the git repository <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/entry/syscalls/syscall_64.tbl">syscall-64.tbl</a>.</li>
+
+<li><a href="https://github.com/torvalds/linux/blob/master/include/linux/syscalls.h">https://github.com/torvalds/linux/blob/master/include/linux/syscalls.h</a>
+Also at linux-kernel-source-tree/ <code>include/linux/syscalls.h</code></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orge61f800" class="outline-3">
+<h3 id="orge61f800"><span class="section-number-3">2.2</span> CPU Instructions and Registers</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>System calls are services that userspace can call to request the
+kernel to perform something for them (and therefore execute in
+kernel space).</li>
+
+<li>CPUs have special instructions to make and return-from system calls.</li>
+
+<li>While still in userspace, calling a syscall requires writing the
+arguments to CPU registers. The system call number will always be
+written in EAX, while the the rest of the arguments will go into
+EBX, ECX, etc.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgeb1670d" class="outline-3">
+<h3 id="orgeb1670d"><span class="section-number-3">2.3</span> File Sys Related SysCalls</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li><code>open, close, read, write</code></li>
+<li>per-process open file table</li>
+<li><code>dup</code></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org3c25453" class="outline-3">
+<h3 id="org3c25453"><span class="section-number-3">2.4</span> Program to Process</h3>
+<div class="outline-text-3" id="text-2-4">
+<ol class="org-ol">
+<li>Given a program and arguments, to create a process from it is the
+most crucial thing that an OS does.</li>
+
+<li>execve - execute program
+
+<ol class="org-ol">
+<li><code>int execve(const char *filename, char *const argv[], char
+      *const envp[]);</code></li>
+</ol></li>
+
+<li>What files are "programs"?
+
+<ol class="org-ol">
+<li>Try <code>file path-name-to-a-file</code></li>
+<li>binary executables native to the OS; ELF &#x2026; for Linux</li>
+<li>or a script starting with <a href="http://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a> <code>#!</code> pathname-to-interpreter</li>
+</ol></li>
+
+<li>Parent and child processes
+<ol class="org-ol">
+<li>fork - create a new process <code>pid_t fork(void);</code></li>
+<li>vfork - create a child process and block parent <code>pid_t fork(void);</code></li>
+<li><code>execve</code> does not create a process; it takes over the "body" of the
+calling process.</li>
+<li>E.g., when you ran <code>ls</code> within a shell, the shell created a
+child, the child invoked execve.</li>
+<li>Humans think "No parents should outlive their child."</li>
+<li>Parent process awaits the childs termination.</li>
+</ol></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgf06a62b" class="outline-3">
+<h3 id="orgf06a62b"><span class="section-number-3">2.5</span> Sys Call Tracing</h3>
+<div class="outline-text-3" id="text-2-5">
+<ol class="org-ol">
+<li><code>man strace</code></li>
+<li>Run the executable with <code>strace ./hello</code>.</li>
+</ol>
+
+<p>
+Towards the end, find a line <code>write(1, "hello\n", 6)</code>.  {"There it
+is. The face behind the printf() mask." &#x2013; from the web.}  Each line
+that got printed corresponds to a syscall made by ./hello.
+</p>
+
+<p>
+Exercise: Learn <code>execve("./hello", ["./hello"], [/* 59 vars */])</code>.
+</p>
+
+<p>
+Even more interesting is <code>strace /bin/ls</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf744db7" class="outline-3">
+<h3 id="orgf744db7"><span class="section-number-3">2.6</span> Special Files</h3>
+<div class="outline-text-3" id="text-2-6">
+<ol class="org-ol">
+<li>Show and tell on thor.</li>
+<li><code>uname -a</code></li>
+<li><code>/proc</code> directory on Linux</li>
+<li><code>ls -l /dev/null /dev/zero /dev/random /dev/urandom</code></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org30674f8" class="outline-3">
+<h3 id="org30674f8"><span class="section-number-3">2.7</span> Library Calls v Sys Calls</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+Lib methods run completely in CPU user mode.  Some lib methods are a
+more convenient interface for the programmer to the system functions
+that do the real work.  System calls run in CPU kernel mode on the
+user's behalf and are entry points to the kernel.  E.g., the library
+function <code>printf()</code> formats the data into strings and writes the
+string using the system call <code>write()</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8373864" class="outline-3">
+<h3 id="org8373864"><span class="section-number-3">2.8</span> Sys Call Files in the Linux src tree</h3>
+<div class="outline-text-3" id="text-2-8">
+<ol class="org-ol">
+<li><code>/usr/src/linux/</code> is usually a sym link to the src tree</li>
+<li><code>/usr/src/linux/arch/x86/syscalls/syscall_64.tbl</code> <a href="./syscall_64.tbl">./syscall_64.tbl</a></li>
+<li><code>/usr/src/linux/include/linux/syscalls.h</code> <a href="./syscalls.h">./syscalls.h</a></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd687cc3" class="outline-2">
+<h2 id="orgd687cc3"><span class="section-number-2">3</span> Reference</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Richard Stevens, APUE</li>
+<li><a href="./syscalls.ppt">Slides on Sys Calls</a> Tarek Abdelzaher + Vikram Adve, U of
+Illinois. Highly Recommended Reading.</li>
+<li><a href="https://0xax.gitbooks.io/linux-insides/content/SysCall/linux-syscall-2.html">https://0xax.gitbooks.io/linux-insides/content/SysCall/linux-syscall-2.html</a></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2016 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2016-01-12
+</div>
+</body>
+</html>

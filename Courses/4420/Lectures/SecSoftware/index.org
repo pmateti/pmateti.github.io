@@ -1,0 +1,823 @@
+# -*- mode: org -*-
+#+date: 2019-09-18
+#+TITLE: Software Development without Security Holes
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+* Educational Objectives
+
+1. Understand the contribution to insecurity made by    programming errors.
+1. Be able to deploy no-security-holes programming techniques.
+
+
+Abstract:
+This article is about programming techniques that prevent
+security-exploitable errors in security software.  Buffer overflow
+issues are addressed in a separate article.  In this article, we
+describe a few source code analysis tools, and the background needed
+to understand their use.
+
+
+
+* Software without Security Holes: Big Picture
+
+1. Lecture #1: Overview; Sections 2 -- 4
+1. Lecture #2: First Lab: Software without Security Holes
+1. Lecture #3: Coding Principles and Static Analysis of Source Code;
+   Sections 5, and 6
+1. Lecture #4: Correct By Design and Mathematical Proof; Section 7
+1. Lecture #5: Second Lab: Software without Security Holes
+1. [[./SoftwareNoSecHoles.pptx][No SecHoles Software pptx]]
+
+** What are Bugs v Vulnerabilities v Exploits v Attacks?
+
+1. A bug is a behavioral deviation from the *functional* spec.  Two
+   generalizations are permitted: (i) Anything that crashes.  (ii)
+   Anything that hangs.  [Crashes and hangs can be rigorously
+   defined.]
+
+2. A vulnerability is a bug that has "security implications".
+   1. Not every bug is a vulnerability.
+   1. Can we detect/ deduce a vulnerability?
+   2. (We seem to) Know it after the fact.
+   3. Can we define    "security implications"?
+
+3. An exploit takes a vulnerabilty and builds software with an
+   unexpected behavior.
+
+4. An attack is a deployment of an exploit.  Often in large numbers.
+
+4. Fact about the State of the Art 2019: No contests to the following
+   claim: No single example exists that is 1000+ SLOC and is bug-free.
+
+** Can We Expect All Software to be Secure?
+
+  The following programs must be "security-wise robust": (i) The OS
+  kernel, boot loaders.  (ii) All =setuid= and =setgid= programs.
+  (iii) All system daemons [services] [that accept network
+  connections].  But ... are they?
+
+  All large programs are buggy; the above [(i), (ii) and (iii)] are
+  buggy.  And, we should understand the distinctions of being robust,
+  correct and/or secure.
+
+  Is it possible to develop secure programs?  Yes, but the cost of
+  developing such software is so high that neither customers not
+  companies are willing to spend.
+
+** Improving Cyber Security
+
+1. CPU Architecture
+   1. Secure Boot
+   1. Executable Address Space disjoint from global-data/ stack/ heap
+1. Network Protocols
+   1. Redesign of nearly all protocols
+   1. Client/Server should Dis-Trust each other, by default
+   1. Encrypted Packets
+1. OS Design
+   1. Privileges, Permissions, and Policies
+   1. Process Lineage/ Provenance
+   1. Address Space Layout Randomization
+   1. Control-Flow Integrity (ROC related)
+   1. Detection of Races
+1. Cryptography
+1. System Administration
+1. Software Development Practices
+1. Only SE considered here, all others not.
+
+** Security Architecture Design Flaws
+
+1. Cryptography misuse
+1. Lack of compartmentalization
+1. More privilege used than necessary
+1. Relying on secret algorithms
+1. Sharing resources 
+1. Usability problems
+
+** Solvable Security Problems
+
+  "All problems fall into one of two categories: Those that can
+  and those that cannot be easily solved. For instance, some of the
+  denial of service attacks ... are a result of the IP protocol's
+  design. Short of implementing a new protocol ..., not much can be
+  done beyond stopgap measures that make particular attacks less
+  effective.
+
+  Other difficult problems include network sniffing and
+  spoofing. These result from security-related information being
+  sent in the clear over networks. Then there is the general
+  authentication problem. The difficulty with authentication is
+  that the lowest common denominator is user names and passwords,
+  and that method is generally not sufficient.
+
+  Unfortunately, solving these problems requires new hardware,
+  new software, and user training, ... Over the longer term,
+  protocols like IPV6 and IPsec will resolve many of these issues.
+  Of course they may create new ones. ...
+
+  The solvable problems are the result of poor planning,
+  programming, and implementation. These can be solved by software
+  vendors ... to improve their coding methodologies. ... "
+
+  "... Is code getting better? You could assume that the
+  security holes in operating systems are the result of poor coding
+  way back when, and that new code and coding methods do not have
+  the same problem. You would be wrong. Consider Windows NT and its
+  sorry security state. Or look in our own back yard at Solaris.
+  Bugs in =admintool=, NIS+, the volume manager,
+  =procfs=, PPP, PAM, and the PCI bus drivers ... prove
+  the point." [Peter Galvin, Pete's Wicked World column, Sun World
+  Magazine, 1998]
+
+
+* Past Exploits and Their Causes
+
+** Top Ten Security Holes 2017
+
+For 2017, the OWASP Top 10 Most Critical Web Application Security
+Risks are:
+
+1. [Code] Injection
+1. Broken Authentication and Session Management
+1. Cross-Site Scripting (XSS) [[http://en.wikipedia.org/wiki/Cross-site_scripting][Cross-site scripting]] on wikipedia.  Recommended   Reading.
+1. Broken Access Control (As it was in 2004)
+1. Security Misconfiguration
+1. Sensitive Data Exposure
+1. Insufficient Attack Protection
+1. Cross-Site Request Forgery (CSRF)
+1. Using Components with Known Vulnerabilities
+1. Underprotected APIs
+
+** Top Ten Security Holes 2000
+
+  GSA Federal Chief Information Officers Council listed, in 2000, the
+  "The Ten Most Critical Internet Security Threats":
+
+1. BIND weaknesses: nxt, qinv and in.named allow immediate
+    root compromise.
+
+1. Vulnerable CGI programs and application extensions (e.g.,
+    ColdFusion) installed on web servers.
+
+1. Remote Procedure Call (RPC) weaknesses in rpc.ttdbserverd
+    (ToolTalk), rpc.cmsd (Calendar Manager), and rpc.statd that
+    allow immediate root compromise
+
+1. Remote Data Services (RDS) security hole in the Microsoft's
+    web server named IIS.
+
+1. Sendmail buffer overflow weaknesses, pipe attacks and
+    MIMEbo, that allow immediate root compromise.
+
+1. Buffer overflows in sadmind (remote administration access
+    to Solaris systems) and mountd (controls and arbitrates access
+    to NFS mounts on UNIX hosts) permit root compromise.
+
+1. Global file sharing and inappropriate information sharing
+    via NFS and Windows NT ports 135-&gt;139 (445 in Windows2000)
+    or UNIX NFS exports on port 2049. Also Appletalk over IP with
+    Macintosh file sharing enabled.
+
+1. User IDs, especially root/administrator with no passwords
+    or weak passwords.
+
+1. IMAP and POP buffer overflow vulnerabilities or incorrect
+    configuration.
+
+1. Default SNMP community strings set to &#8216;public&#8217;
+    and &#8216;private.&#8217;
+
+
+Observe how many of these are due to programming errors.  Items
+  1-6, and 9 are programming errors.  Items 7, 8, and 10 are
+  configuration errors.  Note that none of the top ten are due to
+  design errors in TCP/IP.
+
+** Past Exploits and Their Causes
+
+1. Unauthorized Access
+1. Denial of Service
+1. Confidential Information leakage 
+1. Hijacking the Flow of Control 
+1. Smashing the stack / Arbitrary Code injection 
+
+1. [[http://en.wikipedia.org/wiki/SQL_injection][SQL Injection]] on wikipedia.   Recommended   Reading.
+
+** Living with Bugs
+
+
+  All large programs are buggy.  It is unfortunate, but this axiom
+  captures the state of the technology.  Security-relevant programs
+  have security bugs. Large programs are buggier than their size would
+  indicate.  Good coding practices can make large programs less buggy.
+
+  Buffer Overflow.  Be sure all buffers (arrays of
+    items, usually characters) are bounded.  Do bounds
+    checking on every variable before the contents are copied to a
+    local buffer.  Avoid routines that fail to check buffer
+    boundaries when manipulating strings, particularly:
+    =sprintf(), fscanf(), scanf(), vsprintf(), realpath(),
+    getopt(), getpass(), streadd(), strecpy(), strtrns(),
+    gets()=, =strcpy()=, and
+    =strcat()=
+
+  Files and Directories. Always use full pathnames for any
+    file arguments.  The current directory assumed by your
+    program may not be where it is at.  Explicitly change
+    directories (=chdir()=) to an appropriate directory
+    at program start. If creating a new file, use *O-EXCL*
+    and *O-CREAT* flags to assure that the file does not
+    already exist. Do not create files in world-writable
+    directories. Use =lstat()= to make sure a file is
+    not a link, if appropriate. Set limit values to disable
+    creation of a core file if the program fails. If using
+    temporary files, consider using =tmpfile()= or
+    =mktemp()= system calls to create them (although
+    most =mktemp()= library calls have problematic race
+    conditions).
+
+    Be aware of race conditions, deadlock conditions and
+    sequencing conditions.
+
+    Never use =system()= and =popen()= (Huh? Why not??)
+    system calls
+
+    Do not make assumptions about port numbers, use
+    =getservbyname()= instead.  Do not assume
+    connections from low-numbered ports are legitimate or
+    trustworthy. Do not assume the source IP address is legitimate.
+    Place timeouts and load level limits on incoming
+    network-oriented read request.  Place timeouts on outgoing
+    network-oriented write requests.
+
+  Daemons allow users to access the system without first
+    getting authenticated.  A network daemon may answer a network
+    request and process it under the daemon's privileges, not a
+    user's. Therefore, this is another way for users to increase
+    access, or even gain initial access, to the target system.
+
+
+    Robust Compilation and Libraries. Make good use of tools such
+    as =lint= and =splint=.  Have internal
+    consistency-checking code.  Use your compiler wisely. With gcc,
+    use =-Wall -ansi -pedantic= flags.  Use safe libraries.
+
+    Have code reviewed by other people. E.g., commercial
+    products such as 3Com's  CoreBuilder and SuperStack II
+    hubs were revealed to have "secret" backdoor passwords.
+
+    Test thoroughly.  Test the software using the same
+    methods that crackers do: Try to overflow every buffer in the
+    package, Try to abuse command line options, Try to create every
+    race condition conceivable.  Have others besides the
+    designers and implementers test the code.  Be aware of
+    test coverage; gcc -pg -a causes the program to produce a
+    bb.out file that is helpful in determining how effective your
+    tests are at covering all branches of the code. 
+
+** Economy of Mechanism
+
+  Keep your implementation as simple as possible. Note that *simple*
+  is different from *small*: just because you *can* write a CGI
+  program in 300 bytes of line-noise Perl, doesn't mean you *should*.
+  All the usual structured-programming tips help here: clean
+  interfaces between modules, avoid global state, etc.
+
+  Keep Interactions Minimal. You often need to check how each
+  pair of subsystems interacts, and possibly even each
+  *subset* of subsystems.  For example, interactions
+  between the password checker and the page-fault mechanism.
+
+  Least Common Mechanisms. The assumptions originally made in shared
+  code may no longer be valid.
+
+  Make the program's critical portion as short and simple as possible.
+
+** Fail-Open or Fail-Closed?
+
+  Security can fail in two different ways: Allow access when it
+  shouldn't; this is called fail-open.  Refuse access when it
+  shouldn't; this is called fail-closed.  As an example, consider
+  electronic door lock.  When the power goes out, locking the door by
+  holding it closed with a massive electromagnet will fail-open,
+  whereas locking the door with a spring-loaded deadbolt that is
+  pulled out of the way with a solenoid will fail-closed.
+
+  Many programs do not check if enough resources will be
+  available.  What happens if there is not enough memory and some
+  allocations fail?  What happens if the program runs out of fille
+  descriptors?  What happens if the program cannot fork()?
+
+* Software Security Principles
+
+** Papers and Slides
+
+1. http://www.cs.ucsb.edu/~kemm/courses/cs177/principles.pdf 2012, 20+
+   slides, (Overview of) Security Principles, 2012.  Required
+   Reading.
+
+1. IEEE https://www.computer.org/cms/CYBSI/docs/Top-10-Flaws.pdf
+   Avoiding the Top 10 Software Security Design Flaws, [[./Top-10-Flaws-2014-pm.pdf][local PDF]]. 2014
+
+1. [[./sec-nasa-2015.pdf][NASA Addressing SW Security]], 20+ slides, 2015.
+
+** Trusting Untrustworthy Channels
+
+  If you send passwords in clear text over a LAN, if you create a
+  world-writeable file and later try to read back data from that file,
+  if you create a file in /tmp with O-TRUNC but not O-EXCL, etc., you
+  are trusting an untrustworthy intermediary.
+
+  Do not assume that inputs are valid.  E.g., if an
+    argument should be a positive integer in the range of 2 to 7,
+    verify that.  If an argument should be a non-empty string
+    of letters not exceeding 13 characters in length, verify
+    that.  Check interactive input to be sure it contains only
+    "good" characters.  Consider how such input will be parsed
+    when substituted.  Check arguments passed in environment
+    variables.
+
+  Do not require clear-text authentication information.
+
+  Use session encryption to avoid session hijacking and hide
+  authentication information.
+
+
+
+** Proper Defaults
+
+  If there are non-obvious, but insecure, defaults, it is likely that
+  system administrators will leave them alone. For example, if you
+  unpack an RPM or a ZIP archive and it creates some configuration
+  files world-writeable, you are unlikely to notice.
+
+** Error Handling and Reporting
+
+  Error handling and reporting is an essential part of any programming
+  paradigm. Delicate handling of and recovery from error conditions is
+  an absolute necessity, especially in a third party library.
+
+  Check all system call parameters and system call return code.
+  System calls should verify their arguments, but unfortunately most
+  OS calls do not for fear of becoming inefficient, so you must.
+  Fortunately, all system calls return a success or failure code.
+  Unfortunately, only a few programs verify these result codes.
+
+  Logging Events.  Do log relevant information, including date, time,
+  uid and effective uid, gid and effective gid, terminal information,
+  pid, command-line arguments, errors, and originating host.  Make
+  sure that the log files themselves remain bounded in size.
+
+
+** Change-of-Role Hole
+
+  What was originally a minor annoyance, or sometimes even a
+  convenience, can become a security hole when a program is run in a
+  different context.  For example, suppose you have a PostScript
+  interpreter that was originally intended to let you preview your
+  documents before printing them. This is not a security-sensitive
+  role; the PostScript interpreter doesn't have any capabilities that
+  you do not. But suppose you start using it to view documents from
+  other people. Suddenly, the presence of PostScript's file access
+  operators becomes a threat! Someone can send you a document which
+  will delete all your files -- or possibly stash copies of your files
+  someplace they can get at them.
+
+
+** Security Compartments
+
+  A system should be divided into security compartments.  For example,
+  a Linux system has numerous compartments known as "users", "kernel",
+  and "network".  The network subsystem is divided into sub
+  compartments known as "network connections". There are well-defined
+  trust relationships between these different compartments, which are
+  based on system setup and authentication.  The trust relationships
+  must be enforced at every interface between security compartments.
+
+
+
+* Secure Coding Guidelines
+
+** Holzmann's Ten Rules
+
+1. Holzmann's paper (see the References) presents "Ten Rules for
+   Writing Safety Critical Code":
+    1.  Restrict to simple control flow constructs.
+    1.  Give all loops a fixed upper-bound.
+    1.  Do not use dynamic memory allocation after initialization.
+    1.  Limit functions to no more than 60 lines of text.
+    1.  Use minimally two assertions per function on average.
+    1.  Declare data objects at the smallest possible level of scope.
+    1.  Check the return value of non-void functions, and check the
+        validity of function parameters.
+    1.  Limit the use of the preprocessor to file inclusion and simple macros.
+    1.  Limit the use of pointers. Use no more than two levels of
+        dereferencing per expression.
+    1.  Compile with all warnings enabled, and use one or more source
+        code analyzers.
+
+** CERT
+
+1. http://cs.stanford.edu/people/eroberts/cs181/projects/viruses/cert.html
+   The Role of CERT
+
+1. https://www.securecoding.cert.org/confluence/display/seccode/SEI+CERT+Coding+Standards
+   CMU SEI CERT Coding Standards. Required Reading -- Top Level.
+
+1. https://www.securecoding.cert.org/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java SEI CERT Oracle Coding Standard for Java
+
+** Android Source Code
+
+1. Prabhaker Mateti, Audit of Android Src Code, work-in-progress (not
+   ready for public), {pm-aosp-audit-min.pdf} located on thumb drive.
+   Discuss a couple of CERT rules for Android.
+
+** Secure Java and Secure C++
+
+1. [[./pl-security-java.org][Secure Java Programming]] basics by PM. About 2pp. Required Reading.
+
+1. [[./pl-security-c-cpp.org][Secure Programming in C/ C++]] basics by PM.  About 1 page. Required
+   Reading.
+
+
+* Static Analysis of Source Code
+
+1. Concepts
+   1. Data Flow Analysis
+   2. Control Flow Graph
+   3. Taint Analysis
+   4. Lexical Analysis
+   5. False Positives
+   6. False Negatives
+   7. AutoRefactor Examples of Code Transformation
+
+2. Static Source Code Analysis Tools
+   1. splint
+   2. Coverity
+
+3. Well-known "simple" Tools
+   1. CheckStyle
+   2. FindBugs
+   3. PMD
+   4. Ubuntu/ Debian: =apt install ...=
+4. Commercial Tools
+5. Advanced Tools
+   1. AutoRefactor Examples   
+   2. Security Improvement; 
+   3. Misc Open Source Projects; 
+6. Formal Verification Tools
+   1. Spoon
+   2. JTransformer
+   3. Frama-C
+7. All the above in [[./StaticAnalysis][Static Analysis of Source Code]]
+
+
+* Rough Auditing Tool for Security (RATS)
+
+RATS is a security auditing utility for C, C++, PHP, Perl, and Python
+source code. RATS scans source code, finding potentially dangerous
+function calls.  The goal of rats is to provide a starting point for
+performing manual security audits.  See the book "Building Secure
+Software" by Viega and McGraw, 2001.}  RATS is a standard package in
+Debian: =apt-get install rats=.  Read =man rats= and
+https://security.web.cern.ch/security/recommendations/en/codetools/rats.shtml
+2017
+
+* UNO
+
+It is invoked as in =uno file.c=.  It intercepts (i) Use of
+uninitialized variables, (ii) Null-pointer references, and (iii)
+Out-of-bounds array indexing.  Uno is not a standard Debian package;
+build it from the source code downloadable from
+http://spinroot.com/uno/.  [Current Tool Version: 2.14 -- 19 December
+2016]
+
+* Valgrind
+
+A fairly simple use of valgrind (http://valgrind.org/) is to monitor a
+process to detect coding errors such as uninitialized variables, index
+overflow of an array, or memory leaks.  =apt-get install valgrind
+kcachegrind= as these are standard packages in Debian; read =man
+valgrind kcachegrind=  Current release: valgrind-3.13.0 2017.
+
+* Correct By Design and Mathematical Proof
+
+** Robust, Correct and Secure Programs
+
+  For the purpose of this article, let us define robustness as
+  being crash proof, and hang-proof no matter what the inputs
+  are.  Crash is unexpected termination.  A hang is
+  unexpected non-termination.  Two classes of being hung are:
+  infinite looping, and waiting for an event that will not
+  occur.  Infinite looping consumes heavily the CPU
+  time.  Waiting for a non-occurring event consumes almost no
+  resources.  Note that infinite recursion will lead to a
+  crash via resource exhaustion.
+
+  When you're writing a normal piece of software, your purpose is
+  to make certain things possible, if the user does things correctly.
+  When you're writing a security-sensitive piece of software, you also
+  must make certain things *impossible*, no matter what any
+  trusted or untrusted user does. Cryptologists and real-time
+  programmers are familiar with doing things this way. Most other
+  programmers are not.
+
+  If the kernel has security holes, no amount of checking of system
+  programs is going to make the system secure from attack.  However,
+  relatively few kernel bugs are being found and exploited these days.
+  In terms of security, kernels are relatively bug-free because of the
+  limited interfaces available to attack. For instance, Solaris has
+  210+ system calls (check =/usr/include/sys/syscall.h=), and
+  Linux kernel of a few years ago about 190 and in 2012 about 320+.
+  Compare that to the thousands of points a hacker has available to
+  attack: sockets, files, devices, and programs.
+
+
+  It is expensive to develop secure programs by a factor of 10 or so.
+  It is also the case, that placing high importance on security will
+  lead to these programs being inefficient.  In the next few
+  paragraphs, we ignore both these issues (cost and
+  efficiency) and speculate on the possibility of developing secure
+  software.
+
+** Assertions, Pre- and Post-Conditions, Invariants
+
+1. [[./Assertions/assertions-101.org]] Process state, invariants, Pre-
+   Post-Conditions.
+1. The [[./Assertions/3np1.org][3n+1]] Termination Problem
+1. [[./Assertions/Java/assertions-java.org][Assertions in Java]]
+1. [[./Assertions/CPP/assertions-cpp.org][Assertions in C/C++]]
+1. [[./Assertions/practical-advice.org][Practical-Advice]] on Writing Assertions
+
+
+** Methods of Correct by Design
+
+  There is a large body of technical literature that advocates
+  designing software by first writing formal specifications capturing
+  the all requirements of the software yet to be constructed.
+  Subsequent steps are systematic refinements of such specifications
+  yielding several levels of designs ultimately producing the source
+  code in a programming language.  The writings of Turing-award
+  winners Dijkstra and Hoare are heavily influential in this
+  regard. (For an elementary introduction, read "Practical Advice on
+  Writing Pre- Post-Conditions for Real Programs," listed in the
+  References.) Unfortunately, the open literature has documented only
+  small programs that are so developed.  Most of the academic computer
+  science community as well as the industry believes that such
+  development is astronomically expensive and even then not
+  necessarily qualitatively "better."
+
+  In recent years, more practical uses of the above methodology
+  have emerged.  E.g., a tool, called SPLINT (see References), can
+  analyze large amounts of C source code at a speed comparable to that
+  of a typical compiler and flag a variety of notorious errors that
+  made secure software succumb to such attacks as buffer overflow.
+
+  Use formal specifications. At a minimum, develop pre- and
+    post-conditions in carefully written English.
+
+  assert(3) is a macro that accepts a single argument which it
+  treats as a Boolean expression. If the expression evaluates to
+  false, the assert macro prints an error message and terminates
+  the program. Assertions are useful in the developmental stages of
+  programs when verbose error handling is not in place or when a
+  grievous error condition that normally should not happen
+  occurs.  One must use assertions, but exiting abruptly even
+  after reporting an error is not acceptable. If a grievous error
+  condition is detected, the code should return error codes to the
+  caller, and let it decide what to do. Code should be able to
+  handle grievous errors well enough to be able to exit gracefully
+  from the top level (if possible).  Also, never use
+  structured exception handling as a substitute for writing solid
+  code in the first place.
+
+** Writing Safe =setuid=  Programs
+
+: -rwsr-xr-x 1 root root 94792 Mar 30  2012 /bin/mount
+: -rwsr-xr-x 1 root root 34888 Aug 14  2017 /bin/mount
+: 
+: -rwsr-xr-x 1 root root 42824 Sep 12  2012 /usr/bin/passwd
+: -rwsr-xr-x 1 root root 54224 Aug 20  2017 /usr/bin/passwd
+
+The =setuid= feature allows executables launched by a user to run with
+the privileges of the owner of the executable.  A typical example is
+the passwd program.  The "buffer overflow" attack exploits setuid root
+programs in order to gain root level access.
+
+A system administrator should hunt down all the setuid programs on a
+system, and remove the setuid bit, or thorughly evaluate why it must
+remain set.  Equally important is to avoid creating =setuid= or
+=setgid= shell scripts.  Check for the =s= permission in the =rwx=
+permissions field to see if an executable is setuid root. Run =find /
+-perm +4000 -print= to locate all setuid files. Add =-user root= to
+find those files that elevate to root.
+
+Like most man pages, the descriptions of suid the most famous syscall
+vary from Unix to Unix.  Unfortunately, the man pages are quite
+unclear, and many programmers do not study other carefully written
+setuid programs.
+
+** frama-c
+
+Frama-C is a suite of free tools that statically analyse the C source
+code.  Their tools let us "observe sets of possible values for the
+variables of the program at each point of the execution; slice the
+original program into simplified ones; navigate the dataflow of the
+program, from definition to use or from use to definition."
+(http://frama-c.com)
+
+** JTransformer
+
+"JTransformer is powerful and easy to use development environment for
+your own custom analyses and transformations of Java source code"
+https://sewiki.iai.uni-bonn.de/research/jtransformer/
+
+
+** Spoon
+
+1. http://spoon.gforge.inria.fr/ Spoon - Source Code Analysis and
+   Transformation for Java
+
+1. Spoon is an open-source library that enables you to transform and
+   analyze Java source code.  Any program element (classes, methods,
+   fields, statements, expressions...) can be accessed both for
+   reading and modification.  Spoon takes as input source code and
+   produces transformed source code ready to be compiled.  Spoon can
+   be integrated in Maven and Gradle.
+
+* Lab Experiments
+
+** Fall 2019
+
+1. [[./Labs/secsoftware-lab.org][Lab: Software without Security Holes]]
+1. [[./Labs/secsoftware-lab2.org][Lab: Software without Security Holes #2]]
+
+** Lab Experiment-1
+
+1. Objective: Introduce you to formal methods based tools.  Get you to
+   think about secure programming some more.
+
+1. Study Matt Bishop's Robust Programming article.  Provide answers to
+   Exercises 10 and 19 in the lab report.
+
+2. List (as in =ls -l=) all the setuid programs in Knoppix.
+
+3. Run =splint= on =exploit4.c= of Aleph One.  Revise the code of
+   =exploit4.c=, and adjust the flags of =splint= so that all errors
+   and warnings shown by =splint= are gone.  Include in the lab report
+   the content of =exploit4Revised.c=.  (Splint is already installed
+   on the OSIS Lab PCs under Ubuntu.)
+
+4. Download the source code of the latest stable release of =sudo=
+   from http://www.sudo.ws/sudo/.  Build as usual.  Read =man sudo=.
+   Check that it "works."  Submit details of how you checked.
+
+5. Run =splint=, with no flags (except for include-related),
+   collectively on all the source code files of =sudo=.  Insert all
+   its messages into the lab report as an appendix.
+
+6. Select /three/ interesting messages regarding source code errors
+   generated by splint, and explain the messages and the causes for
+   their generation.
+
+1. Bonus Points: Study the different versions of the man pages of sudo
+   that are in these tar balls.  Focus on the "seven sins of the
+   specifier", namely, 1. Noise, 2. Silence: 3. Overspecification,
+   4. Contradiction, 5. Ambiguity, 6. Forward Reference, 7. Wishful
+   Thinking (from Bertrand Meyer 1985).  Do you find that the man
+   pages became better or worse over the years.  Write up your
+   findings.
+1. [[./SecSoftwareLabGS.html][Lab-1 Grading Sheet]
+
+** Lab Experiment-2 
+
+1. Objective: Learn a few more static and dynamic analysis tools that
+   help discover security bugs.  Three such tools are briefly
+   described below.
+
+1. Continue to work with the source code files of the latest sudo from
+   http://www.sudo.ws/sudo/.  Build it as usual.  Check that it
+   "works."
+1. Use the above tools (of Section Source Code Analysis) RATS,
+   valgrind, and UNO on the source code files and/or the sudo program
+   built from the above.
+1. Select and discuss five discoveries made by each of the tools.
+   Total 15 items.
+1. Write a comparative review of the tools.
+
+1. Holzmann's paper (see the References) presents "Ten Rules for
+   Writing Safety Critical Code":
+    1.  Restrict to simple control flow constructs.
+    1.  Give all loops a fixed upper-bound.
+    1.  Do not use dynamic memory allocation after initialization.
+    1.  Limit functions to no more than 60 lines of text.
+    1.  Use minimally two assertions per function on average.
+    1.  Declare data objects at the smallest possible level of scope.
+    1.  Check the return value of non-void functions, and check the
+        validity of function parameters.
+    1.  Limit the use of the preprocessor to file inclusion and simple macros.
+    1.  Limit the use of pointers. Use no more than two levels of
+        dereferencing per expression.
+    1.  Compile with all warnings enabled, and use one or more source
+        code analyzers.
+1. Comment on whether =sudo= follows these rules.
+1. [[./SecSoftwareLab2GS.html][Lab-2 Grading Sheet]
+
+* Acknowledgements
+
+These lecture materials are gleaned from many sources.  All are
+presented after careful reading.  In some cases, I may have
+unintentionally neglected proper attribution.  I assure the reader it
+is not because I claim authorship.  Indeed, in the lectures there is
+hardly any thing new that I have contributed.  Suggestions for
+improvement are always welcome.
+
+
+* References
+
+1. Several references embedded in the above.
+1. Will reorganize these.  Real-Soon-Now.
+1. Matt Bishop, Robust Programming,
+   http://nob.cs.ucdavis.edu/%7Ebishop/secprog/robust.pdf, 17pp, 2003.
+   Required Reading.
+
+1. Matt Bishop, Secure setuid programs. 1996.
+   setuidBishop1996-sans-tut.pdf. Required Reading.
+
+1. David Evans and David Larochelle, Improving Security Using
+   Extensible Lightweight Static Analysis,
+   http://www.cs.virginia.edu/~evans/pubs/ieeesoftware-abstract.html
+   In IEEE Software, 2002.  Required Reading.
+
+** References #2
+
+1. Simson Garfinkel, Gene Spafford Practical Unix and Internet
+   Security, O'Reilly &amp; Associates; Chapter 23: Writing Secure
+   SUID and Network Programs.  Required Reading.
+
+1. Gerard J. Holzmann, The Power of Ten -- Rules for Developing Safety
+   Critical Code,'' IEEE Computer, June 2006, pp. 93-95
+   http://spinroot.com/gerard/pdf/P10.pdf Required Reading.
+   
+1. Prabhaker Mateti, "Practical Advice on Writing Pre- Post-Conditions
+   for Real Programs," Lecture Notes,
+   May 1998. [[./PrePost/prepostNotesPM.html]] Required Reading.
+
+1. Prabhaker Mateti, "Buffer Overflow", Lectures on Internet Security,
+   [[../../Top/lectures.html]] There is a section on robust programming
+   techniques that avoid the buffer overflow exploits.  Required
+   Reading.
+
+** References #3
+
+1. Adam Shostack, "Security Code Review Guidelines,"
+   http://www.homeport.org/%7Eadam/review.html 1996/July 2006. Highly
+   Recommended Reading.
+
+1. David A. Wheeler, "Secure Programming for Linux and Unix HOWTO", a
+   book,
+   http://www.linuxdoc.org/HOWTO/Secure-Programs-HOWTO.html 2015.
+   Free book.  Highly Recommended Reading.
+
+1. [Book] Chess, Brian, and Jacob West. Secure Programming with Static
+   Analysis. Pearson Education, 2007.  Reference
+
+1. [Book] Introduction to Computer Security, Michael Goodrich, University
+   of California, Irvine Roberto Tamassia, Brown University, Addison
+   Wesley, 2011.  Reference
+
+** References #4
+
+1. McGraw, Gary, and Ming Chow. "Guest Editors' Introduction:
+   Safeguarding the Future of Software Security." IEEE Security &
+   Privacy,  vol 7, no. 3 (2009): 11-12.  PDF accessible via WSU
+   Library proxy.  Required Reading.
+
+1. Prabhaker Mateti, [[http://www.cs.wright.edu/~pmateti/InternetSecurity/Lectures/SecSoftware/]["Software without Security Holes"]], 2018. Required
+   Reading.
+
+1. [[http://cwe.mitre.org/top25/][2011 CWE/SANS Top 25 Most Dangerous Software Errors]] Recommended
+   Reading.
+
+1. Dawson Engeler, et al., A Few Billion Lines of Code Later: Using
+   Static Analysis to Find Bugs in the Real World, CACM, 10pp, 2010.
+   http://courses.cs.washington.edu/courses/cse484/14au/reading/coverity.pdf.   Required Reading.
+
+** References #5
+
+1. [[http://www.ccs.neu.edu/home/noubir/Presentations/Network-Security-Use-Misuse-Crypto.pdf][Cryptography misuse]] 95+ slides, Guevara Noubir, Northeastern
+   University.  Recommended Reading
+
+1. [[https://www.cs.ucsb.edu/~chris/research/doc/ccs13_cryptolint.pdf][An Empirical Study of Cryptographic Misuse in Android Applications]]
+   2013 Recommended Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

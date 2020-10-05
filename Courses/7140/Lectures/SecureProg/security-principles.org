@@ -1,0 +1,24 @@
+# -*- mode: org -*-
+#+DATE: 2016-03-16
+#+TITLE: Software Security Principles
+#+AUTHOR: Prabhaker Mateti
+
+#+HTML_LINK_UP: ./index.html
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+
+#+OPTIONS: toc:t
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+
+1. http://www.cs.ucsb.edu/~kemm/courses/cs177/principles.pdf 2012, 20+
+   slides, (Overview of) Security Principles, 2012.  Required
+   Reading.
+
+1. IEEE https://www.computer.org/cms/CYBSI/docs/Top-10-Flaws.pdf
+   Avoiding the Top 10 Software Security Design Flaws, [[./Top-10-Flaws-2014-pm.pdf][local PDF]]. 2014
+
+1. [[./sec-nasa-2015.pdf][NASA Addressing SW Security]], 20+ slides, 2015.

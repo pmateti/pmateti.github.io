@@ -1,0 +1,65 @@
+
+# -*- mode: org -*-
+#+date: 2020-09-01
+#+TITLE: CEG4420/6420 \bull{} 2020-09-01
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Announcements/ Reminders
+
+1. Read+Watch+Study the last lecture. Videos on Pilot -> Panopto:
+   Dated 2020-09-01.  "Study": You can postpone beyond the next
+   lecture, but not "read" and "watch".
+1. Previously: Discussed Lab#1 on Getting Started.
+1. Post Qs on Pilot Discussion.  All are encouraged to answer them.
+   Email (must include the subject line CEG 4420 or 6420) only if it
+   is personal.
+1. (Top level) Links are on Course Home Page (only).
+1. Feedback to you: I am working on improving my lecture video/audio
+   quality.  Offer help (if you are an expert on, e.g., Panopto, or
+   OBS) !
+1. Looking for a TA/Grader: Should have taken this course and done
+   well.
+
+* Agenda
+
+** Discretionary Access Control
+
+1. DAC comes with out-of-the-box install  of any Linux distro.  I will
+   lecture on a  few items of the DAC lecture  notes.  More in later
+   lectures.
+1. MAC "Mandatory" Acess Control.  There are several.  This course
+   covers NSA SELinux [web search it] in coming weeks.
+1. The =sudo=.  Read =man sudoers= Among the many tutorials,
+   https://www.howtoforge.com/tutorial/sudo-beginners-guide/ is
+   recommended.  We will be using this "now".
+1. https://en.wikipedia.org/wiki/Setuid Required Reading.  [Finish
+   reading in the next few days.]
+
+** Config
+
+1. {Configuring a [Linux] System Properly}.  Within minutes after a
+   fresh install, Linux needs to be configured.  Out of the box, it is
+   too permissive.
+1. {Lab: Configuring a System Properly} covers these. [Lab is skipped
+   this Fall 2020, but it is still part of this course.]
+
+* References
+
+1. What is: Required Reading and Recommended Reading
+1. All the Lecture Notes linked from the Course Home Page are Required
+   Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+
+
+

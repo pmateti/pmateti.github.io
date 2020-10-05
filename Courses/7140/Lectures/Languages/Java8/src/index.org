@@ -1,0 +1,20 @@
+# -*- mode: org -*-
+#+date: 2015-11-23
+#+TITLE: Java/JavaFX Source Code Examples
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"index-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+1. [[../][Java8 Notes]] an new features of Java 8, compared to Java7, as well
+   as less noticed old features, such as closures.
+
+1. [[./TicTacToe.java.html][TicTacToe]] user-against-user, JavaFX GUI
+1. [[./CallableEx.java.html][CallableEx]] Futures and Callables
+1. [[./AuthLogStreamEx.java.html][AuthLogStreamEx]] Lambda Expressions, Streams; Grep /var/log/auth.log
+   for Invalid Users

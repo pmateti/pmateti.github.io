@@ -1,0 +1,63 @@
+# -*- mode: org -*-
+#+DATE: 2020-09-29
+#+TITLE: CS7140 Adv Software Engineering 2020-09-29
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"https://cecs.wright.edu/~pmateti\"> cecs.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Announcements/ Reminders
+
+1. Requirements Doc Review Critique Due 2020-09-29.  Post it on Pilot
+   ->Discussion ->DITAA Requirements.  I am expecting you all to read
+   each others critiques.
+1. Common Words Problem Lecture #4 later.
+1. do give feedback on extending/ shrinking some lectures.
+
+* Previously
+
+1. Homework #1 Wiggly Worms in C++, Small Set of Int, Condense Ranges
+1. JML == Java Modeling Language [[../Assertions/JML/index.org]]
+1. Common Words Problem: Lectures #1 #2 #3
+
+* Agenda
+
+1. Published Example of Spec + Design + Proof: PPP [2 lectures planned]
+1. Requirements
+2. A Specification Schema For Indenting Programs
+2. Lexical Equivalence
+2. Spec of a Lexical Analyzer
+2. Spec of a Lex Including Comments
+2. Selected Pieces of Specs
+3. A Design of PPP
+4. An Implementation of PPP
+5. A Proof of PPP
+5. Selected Assertions
+1. [[../Examples/Pretty-Printer/Pretty-Printer-links.html]] 
+
+* References
+
+1. Prabhaker Mateti, "A Specification Schema for Indenting Programs,"
+   Software -- Practice and Experience, Vol.13,
+   pp. 163 -- 179, 1983. (Reprinted in {\it Software Specification
+   Techniques}, McGettrick and Gehani (Eds.), Addison-Wesley 1986,
+   269 -- 288, ISBN: 0-201-14230-9.)  Local copy of the
+   paper: [[../../PDF/ppp-Spec-Schema-1983.pdf]] Required Reading.
+
+1. Prabhaker Mateti, Correctness Proof, ibid,
+   [[../../PDF/ppp-Correctness-1983.pdf]] Recommended Reading.
+
+1. Prabhaker Mateti, [[../Examples/Pretty-Printer/ppp-doc.html]]
+   Documenting the Program indent: An Example.  Required Reading.
+
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

@@ -1,0 +1,173 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<title>Computer Security Lectures by Prabhaker Mateti</title>
+
+<meta name="author" content="Prabhaker Mateti">
+
+<meta name="keywords" content="Internet security, Network security, 
+TCP/IP security, Cyber Security, Cybersecurity">
+<meta name="description" content="This page is part of a set of lecture notes
+for a course on Internet Security by Prabhaker Mateti
+http://www.cs.wright.edu/~pmateti/">
+
+<style type="text/css">
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  P { text-align: justify }
+  pre {border:blue 1px dotted;}
+  code {color: brown; border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+  li { text-align: justify; }
+  @page { size: 8.5in 11in }
+  @media screen {BODY {white; margin: 15%} }
+</style>
+</head>
+
+<body>
+
+
+<table cellSpacing="10" cellPadding="10" width="100%" border="0">
+  <tr>
+    <td width="33%"><a href="http://www.wright.edu/" target="_blank" 
+    style="color: #0000FF; text-decoration: underline">
+    <img src="../../../images/wsu-logo-xsm.gif" border="0" width="150" 
+    height="66"></a></td>
+    <td width="67%">
+      <h3>Grading Sheet for<br>
+	<a href="http://www.cs.wright.edu/~pmateti/Courses/4420/Top/index.html">
+	  CEG 4420/6420: Internet Security</a></h3>
+      <a href=".">
+      <h2>Hardening the Linux Kernel</h2></a>
+
+      <h3>Weight 5%</h3>
+
+    </td>
+  </tr>
+</table>
+
+<table border="1" width="100%">
+  <tr>
+    <td width="40%">Student</td>
+    <td width="20%">LoginID</td>
+    <td width="20%">Bonus</td>
+    <td width="20%">Points</td>
+  </tr>
+</table>
+
+<p>
+  Bonus points are awarded in recognition of good work and extra work,
+  in addition to the max possible points.&nbsp; Quality is
+  subjectively judged.&nbsp; Merely turning in a file will not receive
+  full score.&nbsp; Some items have a cascading effect.</p>
+
+
+<table border="1" width="100%" id="table4">
+  <tr>
+    <td><font size="4" width="80%">Item description</font></td>
+    <td align="right"><font size="4" width="5%">Max</font></td>
+    <td><font size="4" width="10%">Points</font></td>
+  </tr>
+  <tr>
+    <td>Acceptable Lab Report structure</td>
+    <td align="right">10</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>
+      Download a recent (stable or unstable, if not *the* latest,
+      choose within the last 6 months) bundle of source code of Linux
+      from <a href="https://www.kernel.org/">
+      https://www.kernel.org/</a> pub/ linux/ kernel/ v3.0/ Unpack it
+      and establish a symbolic link named <code>linux</code> to it.
+      Show the results of disk usage, <code>du</code> at this instant
+      of the <code>linux</code> dir.
+    </td>
+    <td align="right">5</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>In the following steps, you are welcome to follow some other
+      procedure to build the kernel, etc., but you must explicitly
+      describe and cite your source of info.
+    </td>
+    <td align="right">00</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>cd linux; make xconfig</code> Select any 5 or more
+      components from the list of Building a Secure Linux Kernel.
+      Include portion(s) of the generated <code>.config</code> file
+      that shows your selections.
+    </td>
+    <td align="right">30</td>
+    <td>&nbsp;</td>
+  <tr>
+    <td>
+      Describe in detail your kernel
+      config, the reasons for your choices and observations.
+    </td>
+    <td align="right">15</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Build the kernel and the modules: <code>make bzImage
+        modules</code> Time this using the bash prefixes <code>time</code>
+        and <code>nice</code>.  Show the results of disk
+        usage, <code>du</code> of the <code>linux</code> dir after the build.
+    </td>
+    <td align="right">10</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Locate and copy the <code>bzImage</code>, 
+      <code>config</code> and System.map files into LXU (Linux-on-USBD)
+	appropriately.  (<code>initrd</code> should not be needed.)
+	Fix <code>menu.lst</code> (legacu Grub) or <code>grub.cfg</code> (Grub
+	2) and show that your machine can boot with the new kernel.
+	You can do a <code>uname -a; cat /proc/version</code> after the
+	successful boot and capture the stdout to show. </td>
+    <td align="right">20</td>
+    <td>&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td>Develop a quick test that demonstrates the enhanced security
+      of the kernel.</td>
+    <td align="right">10</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Bonus Points: Recompile the Linux kernel, but using a compiler
+	other than <code>gcc</code>, using the same .config as above.
+	Verify that LXU works properly when its original kernel is
+	replaced by this one</td>
+    <td align="right">20B</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Bonus Points:&nbsp; Compile, using <code>gcc</code>, the Linux
+      kernel that maximizes the use of modules.  So, you will need
+      <code>initrd</code>.  Keep the security choices you made the same as
+      before.  Verify that LXU works properly when its original kernel
+      and initrd are replaced by these.</td>
+    <td align="right">20B</td>
+    <td>&nbsp;</td>
+  </tr>  <tr>
+    <td><b>Total</b></td>
+    <td align="right">100</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+  <hr size="1">
+  <a href="../../../copyright.html">Copyright &copy;</a> 2012
+  &bull; <a href=
+  "mailto:pmateti@wright.edu?subject=CEG420: Security">pmateti@wright.edu</a>
+  &bull; <a href=
+  "http://s17.sitemeter.com/stats.asp?site=s17pmateti"><img src=
+  "http://s17.sitemeter.com/meter.asp?site=s17pmateti"></a> &bull;
+  <a href="../Top/lectures.html">Security Lectures</a>
+</body>
+</html>
+

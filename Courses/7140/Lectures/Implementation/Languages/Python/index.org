@@ -1,0 +1,32 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-11
+#+TITLE: Python for Software Engineering
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Learn Python
+
+1. https://wiki.python.org/moin/BeginnersGuide
+1. https://www.reddit.com/r/Python/  Forum
+1. http://bender.astro.sunysb.edu/classes/python-science/lectures/python-practices.pdf
+   40 slides Software Engineering  Practices for Python
+1. http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011/unit-1-software-engineering/object-oriented-programming/
+1. http://www.greenteapress.com/thinkpython/thinkpython.html
+
+* Python v Ruby
+
+1. https://www.upguard.com/articles/python-vs-ruby
+1. https://news.ycombinator.com/item?id=7268483 Should I Learn Python or Ruby?
+
+* Python together with C++
+
+1. Software Engineering Wisdom: 90% of computing time is contributed
+   by 10% of code.
+1. https://www.quora.com/What-are-the-advantages-of-Python-over-C++
+1. https://wiki.python.org/moin/IntegratingPythonWithOtherLanguages

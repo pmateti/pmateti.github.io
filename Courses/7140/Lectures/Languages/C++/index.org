@@ -1,0 +1,97 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-11
+#+TITLE: Notes on C++14 
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7380 Cloud Computing
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+
+1. What is a standard?
+   1. https://isocpp.org/std
+   2. http://www.open-std.org/jtc1/sc22/wg21/
+
+1. TS: "A normative document representing the technical consensus
+   within an ISO committee".  TS is a preview of a standard.  ISO
+   requires that every TS either becomes standard or is withdrawn in 6
+   years.
+
+1. TR: "An informative document containing information of a different
+   kind from that normally published in a normative document."
+
+2. C++ Standards Timeline [source: WWW]
+
+#+attr_html: :width 80%
+[[./cpp14.png]]
+
+3. Evolution of C++  [source: WWW]
+#+attr_html: :width 80%
+[[./c-cpp-evolution.png]]
+
+1. C++ as in 2015  [source: WWW]
+#+attr_html: :width 80%
+[[./C++2015.png]]
+
+* C++1x Features
+
+1. Generic lambdas: =auto lambda = [](auto x, auto y) {return x + y;};=
+1. Constant Expressions: A =constexpr= is computed at compile time.
+1. Type Deduction of Return Value: =auto DeducedReturnTypeFunction();=
+
+1. https://gcc.gnu.org/projects/cxx-status.html#cxx14 g++ support
+
+1. [[https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization][RAII]] (Resource Acquisition Is Initialization) "In RAII, holding a
+   resource is a class invariant, and is tied to object lifetime".
+   Resource acquisition is done by the constructor.  Resource release
+   is done by the destructor.  Scope Bound Resource Management (SBRM)
+   is a better name for RAII?
+
+1. C++1x move semantics
+1. https://en.wikipedia.org/wiki/C%2B%2B17
+
+** Pointers
+
+1. =new= and =delete= are (almost) unnecessary.
+
+1. [[https://en.wikipedia.org/wiki/Allocator_(C%2B%2B)][Allocator]] The standard library provides several containers. They
+   grow/ shrink.
+
+1. Different types of smart pointers: =shared_ptr<T>=, =unique_ptr=,
+   =scoped_ptr=, =make_shared=, =make_unique=
+
+* Exercise
+
+1.  As a learning experience, fix this [[../Examples/worms-2013-08-00][worms example code]] so that it
+    is C++14 compliant.
+
+* References
+
+1. [[http://www.stroustrup.com/]] Home page of the creator of C++.  Has
+   many links.  Highly recommended visits.
+
+2. [[https://www.quora.com/Why-do-people-say-that-C++-has-a-lot-of-obscure-features]]
+   ?
+
+3. [[http://www.drdobbs.com/cpp/the-c14-standard-what-you-need-to-know/240169034]]
+
+4. SEI CERT Coding Standards, 2015:
+   1. C  https://www.securecoding.cert.org/confluence/display/c/SEI+CERT+C+Coding+Standard;
+   2. C++ https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=637
+   3. Book by Robert Seacord, [[http://www.informit.com/store/secure-coding-in-c-and-c-plus-plus-9780321822130][Secure Coding in C and C++]], 2nd Edition.
+
+2. C++14 Standard.  
+   1. The link
+      http://open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3797.pdf is
+      to a cost-free download of a draft dated 2013.  
+   2. The official 2014 pdf is paywalled
+   3. The working draft of the next version Pages = 1370+ http://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4567.pdf
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

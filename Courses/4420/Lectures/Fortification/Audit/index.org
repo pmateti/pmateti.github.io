@@ -1,0 +1,128 @@
+
+# -*- mode: org -*-
+#+date: 2018-09-24
+#+TITLE: Security Audit
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+* Overview
+
+Abstract: Auditing the security of an individual host and LAN is a
+necessary activity.  This lecture describes the components of a
+security policy and how to set up a platform for conducting this
+audit, and the typical structure of a final report.
+ 	
+* Site Security Handbook
+
+1. https://tools.ietf.org/pdf/rfc2196 24pp, 1997; 
+1. Table of Contents
+
+#+begin_src bash
+1.   Introduction....................................................  2
+1.1  Purpose of this Work............................................  3
+1.2  Audience........................................................  3
+1.3  Definitions.....................................................  3
+1.4  Related Work....................................................  4
+1.5  Basic Approach..................................................  4
+1.6  Risk Assessment.................................................  5
+2.   Security Policies...............................................  6
+2.1  What is a Security Policy and Why Have One?.....................  6
+2.2  What Makes a Good Security Policy?..............................  9
+2.3  Keeping the Policy Flexible..................................... 11
+3.   Architecture.................................................... 11
+3.1  Objectives...................................................... 11
+3.2  Network and Service Configuration............................... 14
+3.3  Firewalls....................................................... 20
+4.   Security Services and Procedures................................ 24
+4.1  Authentication.................................................. 24
+4.2  Confidentiality................................................. 28
+4.3  Integrity....................................................... 28
+#+end_src
+
+
+* Lab Experiment
+
+1. https://dirtycow.ninja/ Dirty COW (CVE-2016-5195) is a privilege
+   escalation vulnerability in the Linux Kernel
+
+1. https://github.com/oleg-fiksel/ansible_CVE-2016-5195_check Playbook
+   for testing the Dirty Cow vulnerability (CVE-2016-5195).
+
+1. https://github.com/mzet-/linux-exploit-suggester 2016+ Often a
+   security analyst needs to identify privilege escalation attack
+   vectors.  One of viable attack vectors is using publicly known
+   Linux exploit to gain root privileges.  Of course
+   in order to do that the analyst needs to identify the right PoC
+   exploit, make sure that his target is affected by the associated
+   vulnerability and finally modify the exploit to suit his
+   target. The =linux-exploit-suggester.sh= tool is designed to help
+   with these activities.
+
+1. Linux privilege escalation auditing tool
+   https://github.com/mzet-/linux-exploit-suggester 
+1. https://www.exploit-db.com/
+   https://www.exploit-db.com/platform/?p=Linux Download Exploit Code
+   · Download Vulnerable Application ... Linux 4.18 - Arbitrary Kernel
+   Read into dmesg via Missing Address Check in segfault.
+1. https://www.kb.cert.org/vuls/id/584653 CPU hardware vulnerable to
+   side-channel attacks Spectre Meltdown Variant 1 (CVE-2017-5753,
+   Spectre): Bounds check bypass ; Variant 2 (CVE-2017-5715, also
+   Spectre): Branch target injection; Variant 3 (CVE-2017-5754,
+   Meltdown): Rogue data cache load, memory access permission check
+   performed after kernel memory read
+
+1. https://www.cvedetails.com/cve/CVE-2018-1000200/ The Linux Kernel
+   versions 4.14, 4.15, and 4.16 has a null pointer dereference which
+   can result in an out of memory (OOM) killing of large mlocked
+   processes. The issue arises from an oom killed process's final
+   thread calling exit_mmap(), which calls munlock_vma_pages_all() for
+   mlocked vmas.This can happen synchronously with the oom reaper's
+   unmap_page_range() since the vma's VM_LOCKED bit is cleared before
+   munlocking (to determine if any other vmas share the memory and are
+   mlocked). Publish Date : 2018-06-05 Last Update Date : 2018-08-29
+
+1. https://www.cvedetails.com/vulnerability-list/vendor_id-33/product_id-47/Linux-Linux-Kernel.html
+   Security Vulnerabilities Null ptr deref; Buf Overflow
+
+1. A new severe vulnerability (CVE 2018-11776) has been disclosed in
+   Apache Struts 2 on Aug 22nd.
+
+
+* Acknowledgements
+
+
+* References
+
+1. Prabhaker Mateti, Security Audit, July 2000, [PowerPoint
+   slides]. Lance Spitzner, "Auditing Your Firewall Setup,"
+   March, 2000. http://www.enteract.com/~lspitz/ audit.html.  Required
+   Reading.
+
+1. Henderson Group,  "How to Audit Windows NT Security," 10/01/97,
+   http://home.us.net/~stu/ ntsec1.html  Recommended Reading.
+
+1. Dan Farmer, and Wietse Venema, "Improving the Security of Your Site
+   by Breaking Into it," [Local copy .html] Required Reading.
+
+1. Auditors Checklists and Other Audit Information,
+   http://all.net/books/audit/top.html Recommended Reading.
+
+1. https://en.wikipedia.org/wiki/Site_Security_Handbook; older
+   versions: P. Holbrook, J. Reynolds (Editors), "RFC 1244, Site
+   Security Handbook," https://www.ietf.org/rfc/rfc1244.txt 1991
+   Reference.
+
+1. Simson Garfinkel, Gene Spafford, Chapter 10: Auditing and Logging,
+   Practical Unix and Internet Security, 3rd edition (2003), O'Reilly
+   & Associates; ISBN: 0596003234. Required Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

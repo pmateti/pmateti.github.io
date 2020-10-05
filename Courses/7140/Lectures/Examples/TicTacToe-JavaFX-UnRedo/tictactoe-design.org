@@ -1,0 +1,55 @@
+# -*- mode: org -*-
+#+date: 2015-11-09
+#+TITLE: Tic-Tac-Toe Design
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" ""))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+This is part of
+[[../../Examples/TicTacToe-JavaFX-UnRedo]]
+
+
+* Overview
+
+In this case of TicTacToe, the design is very close to the
+implementation because the needed non-GUI abstractions (the grid as an
+array of arrays of cells, etc.)  are readily available in Java.
+
+
+* Design of Interactive GUI
+
+We are not aiming to design for two players who are two different
+users with different UIDs. We aim only for the one user playing the
+game will be forced to fill X/O alternately.  We intend to use GUI as
+provided by JavaFX.
+
+** Abstracted Primitives of JavaFX
+
+1. Association of Actions.  User clicks on a cell.  Depending on whose
+   turn it is this draws either an O or an X.  JavaFX has
+   =setOnMouseClicked= for such use.
+
+1. JavaFX is rich in geometrical drawing primitives.
+
+1. We do not need to think about how the mouse moves, clicks, etc.
+   All taken care of by OS, and Java + JavaFX libraries.
+
+
+** Forbidden Moves
+
+1. Only a cell that is a blank can become an O or an X.
+
+1. If a cell is already an X or an O, it must not be allowed to
+   change.
+
+1. From these we can deduce that if nFilled == 9, no cell changes
+   (i.e., moves) are possible.
+
+
+

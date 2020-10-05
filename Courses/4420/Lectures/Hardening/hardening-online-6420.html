@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Proper Configuration</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Proper Configuration"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-10-28T17:07-0400"/>
+<meta name="author" content="Prabhaker Mateti"/>
+<meta name="description" content="Online CEG6420 Course"/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="../../index.html"> UP </a>
+ |
+ <a accesskey="H" href="../Top"> HOME </a>
+</div>
+
+<div id="preamble">
+2013-10-28T17:07-0400<br><a href="http://cecs.wright.edu/~pmateti/Courses/4420/">OnLine CEG 6420: Computer Security</a>
+</div>
+
+<div id="content">
+<h1 class="title">Proper Configuration</h1>
+
+
+<p>
+These are notes to <a href="http://www.wright.edu/~pmateti">myself</a> and <a href="#chris.roberts-wright.edu">Chris Roberts</a> as we prepare to produce
+the lecture videos.  Expected video length of this "chapter": 60
+minutes.  Each line item below is worth between 30 sec to 2 minutes.
+</p>
+<blockquote>
+
+<p>Abstract: We distinguish <i>hardening</i> a system from proper
+<i>configuration</i> and <i>fortification</i>.  Hardening, in our definition,
+refers to areas of security tightening during the design and
+construction of systems rather than after their deployment.  Carefully
+adjusting various parameters after an out-of-the-box install is
+configuration.  Installing or uninstalling various packages using the
+OS native tools and mechanisms, such as apt-get in Debian/ Ubuntu,
+is fortification.  For further elaboration, read the 
+<a href="..//Config/config-online-6420.html">Proper Configuration</a>
+article/video.
+</p>
+</blockquote>
+
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Ideas of OS Hardening</a></li>
+<li><a href="#sec-2">2 Pruning the Kernel</a></li>
+<li><a href="#sec-3">3 Linux Kernel Enhancements</a></li>
+<li><a href="#sec-4">4 Lab Experiment</a></li>
+<li><a href="#sec-5">5 Required and Recommended Reading</a></li>
+<li><a href="#sec-6">6 Educational Objectives</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Ideas of OS Hardening</h2>
+<div class="outline-text-2" id="text-1">
+
+<ol>
+<li>Ideas applicable to all OS
+</li>
+</ol>
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Careful Recompilation</h3>
+<div class="outline-text-3" id="text-1-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Least Privilege</h3>
+<div class="outline-text-3" id="text-1-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Capabilities</h3>
+<div class="outline-text-3" id="text-1-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Mandatory Access Control</h3>
+<div class="outline-text-3" id="text-1-4">
+
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> Role-Based Access Control</h3>
+<div class="outline-text-3" id="text-1-5">
+
+</div>
+
+</div>
+
+<div id="outline-container-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> Enhanced Authentication</h3>
+<div class="outline-text-3" id="text-1-6">
+
+</div>
+
+</div>
+
+<div id="outline-container-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> Logging</h3>
+<div class="outline-text-3" id="text-1-7">
+
+</div>
+
+</div>
+
+<div id="outline-container-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> Source Code Review</h3>
+<div class="outline-text-3" id="text-1-8">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Pruning the Kernel</h2>
+<div class="outline-text-2" id="text-2">
+
+<ol>
+<li>Building a custom kernel with just the needed components
+<ol>
+<li>Pruning device drivers, file systems, &hellip;
+</li>
+</ol>
+
+</li>
+<li>Disable Loadable Kernel Modules (LKM)
+<ol>
+<li><code>/boot/vmlinuz</code> has all the "modules" merged in
+</li>
+<li><code>/lib/modules/this-version-of-kernel</code> will be empty
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Linux Kernel Enhancements</h2>
+<div class="outline-text-2" id="text-3">
+
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> POSIX capabilities</h3>
+<div class="outline-text-3" id="text-3-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Chroot restrictions</h3>
+<div class="outline-text-3" id="text-3-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> SE Linux</h3>
+<div class="outline-text-3" id="text-3-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> LIDS (Linux Intrusion Detection System)</h3>
+<div class="outline-text-3" id="text-3-4">
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> grsecurity</h3>
+<div class="outline-text-3" id="text-3-5">
+
+</div>
+
+</div>
+
+<div id="outline-container-3-6" class="outline-3">
+<h3 id="sec-3-6"><span class="section-number-3">3.6</span> AppArmor</h3>
+<div class="outline-text-3" id="text-3-6">
+
+</div>
+
+</div>
+
+<div id="outline-container-3-7" class="outline-3">
+<h3 id="sec-3-7"><span class="section-number-3">3.7</span> Address space modification protection</h3>
+<div class="outline-text-3" id="text-3-7">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Lab Experiment</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>Acknowledgements
+</p></div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Required and Recommended Reading</h2>
+<div class="outline-text-2" id="text-5">
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Educational Objectives</h2>
+<div class="outline-text-2" id="text-6">
+
+
+<p>
+Understand hardening in contrast to proper configuration and fortification of a system.
+Become familiar with what makes and OS trusted and/or secure.
+</p></div>
+</div>
+</div>
+
+<div id="postamble">
+<hr size=1>Copyright &copy; 2013 &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a> &bull; 2013-10-28T17:07-0400
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-11
+#+TITLE: PLs for Software Engineering Students
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+Large software systems are frequently composed of subsystems written
+in different PLs.
+
+* Graduate Students in Computer Science and Engineering
+
+[These are opinions.]
+
+1. Must be fluent in Java, C++ and Python.
+1. Be familiar with Grammars, Abstract Syntax Trees, and *How* IDEs work.
+1. Be familiar with ideas of Functional Programming and Logic Programming.
+1. Be familiar with ideas of Domain Specific Languages.
+

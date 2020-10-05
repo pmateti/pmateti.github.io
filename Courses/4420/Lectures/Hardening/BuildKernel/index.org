@@ -1,0 +1,515 @@
+
+# -*- mode: org -*-
+#+date: 2019-10-11
+#+TITLE: Linux Kernels
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2019 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* What is an OS Kernel?
+
+As used in this article: OS === Kernel
+
+An OS controls all the hardware of a computer, and every program
+currently running.  All computer systems, by definition, include an OS.
+Several modern day gadgets, such as cell phones, MP3 players, wrist
+watches, PDAs, video game consoles, and TiVO, are specialized computer
+systems.  Many appliances, such as microwave ovens, dishwashers and TVs,
+contain embedded computer systems.
+
+Currently popular OS for personal computers include Windows, Linux,
+MacOS, and Solaris.  Our discussion in this article is so modern that
+software known as CP/M (1960s), MS-DOS (1960s) will not qualify as OS.
+
+** Computer Systems
+
+A computer system can be divided into three pieces:
+
+1.  [Hardware] Motherboard (CPU, RAM, and other chips), various daughter
+   cards (e.g., a graphics card, a wireless network card), keyboard,
+   mouse, screen, hard disks, other IO devices, and power supply.
+2.  [Software] Operating system, and applications.
+3.  [Firmware] A basic input/output subsystem (BIOS) preloaded into a ROM
+
+A typical PC fits this classification very well; but, there are many
+classes of computers that do not.  E.g., some computer systems may not
+have a key board or a hard disk.
+
+A program is a sequence of CPU instructions (also called machine code)
+structured in a very specific way.  Software is a generic synonym for
+programs.  Applications are a subclass of software.
+
+The CPU can execute its instructions only when they are in RAM.  We have
+so many programs that it is infeasible to leave them all sitting in RAM.
+The OS stores them on a HDD and loads them into RAM as needed.
+
+We will explain in the lectures the "Fetch, Decode, and Execute cycle"
+of a CPU.
+
+CPU can generate traps and faults.
+
+Devices raise interrupts.  Interrupt handling is done by the OS.
+
+The moment a computer system is powered on, the firmware is in control
+of every piece of the hardware.  On a PC, this firmware is called the
+BIOS (basic input output subsystem).
+
+A computer system must not be shut down "ungracefully".  All the running
+processes need to be informed of the impending shut down, and wait
+politely for them to terminate.  This is known as graceful termination of
+the OS.  Most systems can now detect a power failure, and initiate a
+shutdown.  However, un-responding processes not withstanding, a shutdown
+cannot be postponed indefinitely, and the OS forcibly terminates.
+
+** OS Definition by Functionality
+
+There are many definitions of OS based on its typical functionality.
+From the book by Silbershatz and others: "What are the three main
+purposes of an operating system? Answer: (i) To provide an environment
+for a computer user to execute programs on computer hardware in a
+convenient and efficient manner.  (ii) To allocate the separate resources
+of the computer as needed to solve the problem given.  The allocation
+process should be as fair and efficient as possible.  (iii) As a control
+program it serves two major functions: (a) supervision of the execution
+of user programs to prevent errors and improper use of the computer, and
+(b) management of the operation and control of I/O devices."
+
+** OS Definition by Components
+
+A very useful definition of an OS is based on its components.  If we were
+to spread out all the code that constitutes an OS on a piece of cloth,
+we can then cut it up into the following components:
+
+OS = VM + FileM + ProcM + Net + IO + UserM + (Boot) + [SysPrg]
+
+Strictly speaking, an OS does not include GUI, nor CLI.  In the world of
+Linux, the GUI is provided by X11, Gnome and KDE software subsystems,
+and CLI by bash, csh, zsh or other such shells.  These are not strictly
+part of the Linux OS.  In the Windows world, the GUI is provided by
+(plain) Explorer, and the CLI by cmd or PowerShell.  These are not
+strictly part of the Windows OS.
+
+Programs like Word, Internet Explorer, Konqueror are applications.
+Visual Studio, g++, Active Python and such are (sub-) categorized as
+development tools.
+
+The above components can also be combined and then re-divided into a
+kernel + initial ram disk components + drivers + interrupt handlers.
+
+** OS as a Collection of System Calls
+
+The code of system calls is not disjoint from the code of previously
+mentioned components.  It is made of different pieces from these
+components.  Linux and Windows have around 350 system calls each.  The
+details of Linux syscalls can be found in the files:
+
+#+BEGIN_EXAMPLE
+    -rw-r--r--  1 root root  1403 2010-01-03 06:57 /usr/include/sys/syscall.h
+    -rw-r--r--  1 root root 22041 2010-01-28 00:56 /usr/include/asm/unistd_64.h
+#+END_EXAMPLE
+
+** OS as a Collection of Files
+
+***  Linux
+
+1.  =/boot/grub/=: OS boot loader files.
+2.  =/boot/vmlinuz/=: OS kernel.  This is a specially linked file.  All of its code
+   is executed in a privileged CPU mode.  Its code can be divided up as
+   suggested by the OS = VM + FileM + ProcM + Net + IO + UserM; note
+   that we dropped +(Boot)+[SysPrg] parts.  The z at the end in its name
+   indicates that this is a compressed file.  The exact location of this
+   file is indicated in the "kernel" line of a GRUB stanza.
+3. =/boot/initrd.gz=: This is a compressed collection of a bunch of system files
+   that the kernel needs as it boots.  The exact location of this file is
+   indicated in the "kernel" line of a GRUB stanza.
+4. =/lib/modules=: This directory contains a number of dynamically
+   loadable "modules", which are specially linked files that can be
+   incorporated into the running kernel.
+5. =/sbin/=: This directory contains a number of system programs that the
+   kernel can invoke and spawn off as separate OS helper processes.
+6. =/usr/sbin/=: This directory contains further system programs.  The
+   programs in /sbin are considered essential, whereas the one in
+   /usr/sbin are "less" so.
+7. Swap space is located on a separate partition or a large file.
+
+/bin, /usr/bin, ...: These directories do contain programs, but these
+are not considered part of the OS.  The programs in these directories are
+considered simply applications.
+
+** OS as a Collection of Processes
+
+Most of the OS stays RAM resident and dormant until (i) a system call is
+made by a process, (ii) a hardware interrupt causes a handler in the OS
+to run, or (iii) a software triggered even causes a handler in the OS to
+run.  Consequently, viewing an OS only as a collection of processes is
+going to be incomplete.
+
+The following is a severely pruned list of processes on a Linux PC as
+generated by the =ps= command.  The process-id shown (except for 1) may
+change.
+
+| PID    | TTY    | STAT      | TIME   | COMMAND                     | Functionality                                             |
+| 1      | ?      | Ss        | 0:00   | /sbin/init                  | The First Process                                         |
+| 2      | ?      | S<        | 0:00   | [kthreadd]                  |                                                           |
+| 3      | ?      | S<        | 0:00   | [migration/0]               | Processes shown within brackets are part of the Kernel.    |
+| 524    | ?      | S< s      | 0:00   | udevd                       | Dynamic Device Manager service                            |
+| 1053   | ?      | Ss        | 0:00   | portmap                     | RPC port map service                                      |
+| 1056   | ?      | Ss        | 0:00   | dd bs=1 if=/proc/kmsg ...    | Kernel message logging                                    |
+| 1063   | ?      | Sl        | 0:00   | rsyslogd                    |                                                           |
+| 1088   | ?      | Ss        | 0:10   | hald                        | Hardware Abstraction Layer                                |
+| 1357   | ?      | S<</td>   | 0:00   | [nfsiod]                    | NFS Serivice IO                                           |
+| 1403   | ?      | S         | 0:00   | hald-addon-cpufreq          | CPU frequency                                             |
+| 1404   | ?      | S         | 0:00   | hald-addon-acpi:            | ACP listening                                             |
+| 1479   | tty4   | Ss+       | 0:00   | /sbin/getty                 | User login process                                        |
+| 1503   | ?      | Ss        | 0:00   | acpid                       |                                                           |
+| 2159   | ?      | S         | 0:00   | dbus-launch                 |                                                           |
+| 2738   | ?      | Ss        | 0:00   | /usr/sbin/nmbd              | Samba Name Service                                        |
+| 2748   | ?      | Ss        | 0:00   | /usr/sbin/smbd              | Samba File Service                                        |
+
+For a list of Windows processes, invoke Task Manager and then select
+Show processes from all users.
+
+** The Life Cycle of an OS: Booting, Running, Shutting-Down
+
+** Power-On to the First Process
+
+1.  Powered on.  BIOS->POST.  ROM and RAM.  CPU fetch-decode-execute cycle.
+2.  Discover boot device.  Boot sectors.  Boot device priority order.
+3.  Bring in and give control to the boot loader.  Bring in v.  "load"
+4.  Bring in and give control to OS loader.  NTLDR, GRUB, etc.
+   ([[http://en.wikipedia.org/wiki/GRUB]])
+5.  OS kernel.
+
+1.  Cold versus warm boot.  Cold as if power is just applied.  Warm skips
+   first few steps.
+
+** The First Process
+
+1.  Linux init TBD 6.  For Linux: process init is started.   Process init
+   (in Linux, and its counterpart in Windows) is in control of
+   "normal" operation of a computer.
+
+1.  Ubuntu and other distributions use UUID (Universally Unique
+   Identifier) to indicate the root device.   From the Wiki: In its
+   canonical form, a UUID consists of 32 hexadecimal digits, displayed
+   in 5 groups separated by hyphens, for a total of 36 characters.  For
+   example: 550e8400-e29b-41d4-a716-446655440000 .
+
+1.  Linux distributions have many independent designs that can serve as
+   init.   Currently (2019), systemd is widely used.   Among others are
+   runit and openrc.
+
+
+1.  https://en.wikipedia.org/wiki/Windows_startup_process
+
+** Running
+
+1.  See the list of processes shown in a previous section.
+
+1.  The init process is expected to be alive during this phase.   All
+   other processes are descendents of init.
+
+1.  We usually configure init so that certain processes are re-generated
+   should they die.
+
+** Shutting Down
+
+1.  Properly shutting down is part of the functionality of the first
+   process.   It requests all process to voluntarily terminate
+   immediately.   Finally, it kills them all.
+
+1.  Various IO operations may be on-going at the time of shut down.   If
+   we terminate such operations arbitrarily, the file volume will
+   become corrupted.
+
+1.  The first process can also sense an imminent power outage.
+
+
+
+* Kernel Expectations
+
+** Provide "Standard" Abstractions
+
+1. A computer system can be divided into three pieces:
+
+   1. [Hardware] Motherboard (CPU, RAM, and other chips), various daughter cards (e.g., a graphics card, a wireless network card), keyboard, mouse, screen, hard disks, other IO devices, and power supply.
+   2. [Software] Operating system, and applications.
+   3. [Firmware] A basic input/output subsystem (UEFI/BIOS) preloaded
+      into a ROM
+
+1. OS Kernel Definition by Components: OSK == VirtualMem + FileM +
+   ProcessM + Net + IO + UserM + (Boot) + [SysPrg] ;; M stands for
+   Management.
+
+1. http://cecs.wright.edu/~pmateti/Courses/2350/Labs/OS-on-USB/OSonUSBLab.html
+   Recommended Reading.
+
+** Prevent/ Detect/ Mitigate/ Repair  Exploits
+
+1. In this course, we are focused on the security aspects of the kernel.
+1. Preventing Security Exploits is an expectation of all OS kernels,
+   and system software.  There is no consensus on the definition of
+   what "exploits" are, and what we mean by "prevention".
+
+1. A few specific classes of security exploits are describe below.
+1. Underneath all these exploits is the technique known as privilege
+   escalation.
+
+** Kernel Responsibilities
+
+Kernel should
+
+1. check the integrity of init.
+1. track the provenance (of processes)
+1. track network activity
+
+** Kernel Composition
+
+1. As a collection of files: vmlinuz, initrd, /lib/modules/*.
+2. Kernel is NOT a process.
+
+3. Kernel, like processes, uses pages, and segments of virtual memory.
+   1. The "text" (machine code) of a kernel is expected to remain
+      unchanged during execution.  Just like a process.
+   2. Kernel uses a stack.  Has private and public methods.  The
+      public methods are offered to user processes as system calls.
+4. Kernel discovers the pathname of init program, and invokes it.
+5. Except for init, all other processes are created at the request of
+   init or its children.  =man pstree=
+6. Several psuedo file volumes: =/proc, /sys, /dev= Browse!
+7. =/etc/modules=
+
+* What is a Kernel Bug?
+
+1. Kernel Bug: A bug in the code of the kernel.
+1. In a course on Software Engineering, we define a bug as a deviation
+   from the spec.  
+1. But, Linux still does not have a spec, informal or formal based on
+   math + logic + grammar.  What we do have are expectations.
+   Functional, performance and other expectations.  A deviation from
+   these is a bug.
+1. A crash is a bug.
+1. A hang is a bug.
+1. Recall:  Bug -> Exploit -> Vulnerability -> Attack
+
+** Bug-Status of OS Kernels
+
+1. All OS kernels, of Linux, MacOS, or Windows, are buggy.  OS kernels
+   have not yet reached a state of being bug free.  A security issue
+   in a bug makes it vulnerable.  An exploit presents an actual use of
+   this vulnerability in demonstrating the security issue.
+
+1. See Coverity articles for Linux kernel bugs.  Over the years
+   thousands of bugs have been discovered through code audits.
+1. https://scan.coverity.com/projects/linux "See how defect density
+   for 'Linux' compares with defect density for other ... arch/x86/.*,
+   No, 179,049, 0.54. Kernel .*/kernel/.*, No, 207,512, 0.70 …… The
+   root cause of each defect is clearly explained, making it easy to
+   fix bugs." Lines of code analyzed‎: 15,650,125. Required Visit.
+
+
+** Kernel CVE 
+
+1. 2019    Total number of vulnerabilities : 662
+   https://www.cvedetails.com/vulnerability-list/vendor_id-33/product_id-47/cvssscoremin-7/cvssscoremax-7.99/Linux-Linux-Kernel.html Required Visit.
+1. https://www.cvedetails.com/product/47/Linux-Linux-Kernel.html Linux
+   Kernel Vulnerability Statistics 1999 - 2018.  Required Visit.
+
+
+
+* Kernel Build from Source
+
+** Kernel Source Code
+
+1. The Main Linux Kernel repository https://www.kernel.org/;
+   1. stable: 5.3.6 As of 2019-10-11 104M Oct 11 linux-5.3.6.tar.xz
+   3. =du -sh linux-5.3.6/= before build gives 987M
+   3. =du -sh linux-5.3.6/= afetr build gives 21G
+   4. Here is a top level build log example:
+      https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4-rc3/BUILD.LOG.amd64
+      from Ubuntu
+
+1. https://www.kernel.org/doc/html/latest/ The Linux Kernel documentation
+
+1. http://kernel.ubuntu.com/~kernel-ppa/mainline/daily/current/ These binary packages represent builds by Ubuntu of the mainline or stable Linux kernel tree.
+1. git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git etc.
+1. https://elixir.bootlin.com/linux/v5.4-rc2/source Interlinked, and
+   browseable source code.
+
+** Why? What?
+
+1. Hardening depends on this how-to.
+1. Source code repositories
+1. Build Tools
+1. Build Overview
+1. Configure the build: make xconfig or make menuconfig
+1. make bzImage about 030 mins on my machine.
+1. make modules about 150mins on my machine.
+1. make install few seconds
+1. create a new entry in Grub
+1. Deploy a new Linux Kernel
+
+** Kernel Build Overview
+
+1. Guide to follow https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel
+   for Ubuntu Linux kernel.  For a generic Linux kernel, follow
+   https://wiki.ubuntu.com/KernelTeam/GitKernelBuild
+2. Software Tools/ Packages Needed in the build: =sudo apt install=
+   the following
+   1. =git build-essential kernel-package fakeroot libssl-dev=
+   2. =install libncurses5-dev libqt5*-dev ccache bison flex libelf-dev=
+   3. They amount to some 300+ MB.
+
+** xconfig
+
+1. Create a Linux kernel configuration: What components to include/
+   exclude / build-as-modules.  There are two main ways to configure.
+   xconfig uses GUI, menuconfig uses text-console.
+
+1.  =% make xconfig= This will take only a few seconds.  It generates
+   a GUI program that presents a menu.
+
+1.  =% xconfig= Invoke it and answer "thousand questions".  Select the
+   various kernel components carefully.  (This can take an hour or
+   more depending on your familiarity.)  Requires your interaction and
+   understanding.  Make an effort to understand the QAs, but do not
+   get discouraged.  There are many to choose by answering y/n/m; y =
+   yes make it part of the kernel, n = no omit it altogether, m =
+   build it as a module.  Make sure that everything needed for boot is
+   in the kernel image and not as a module.  You may have to web
+   search for details.  
+
+   1. The configuration, a text file, is saved to a file named
+      =.config= Click on Save before quitting xconfig.  The config
+      file you produced is the plain ascii text file (not recommended
+      to edit this by hand): =linux/.config=
+
+   1.  An example config produced: [[./dot-config.txt]] About 9600+ lines.
+       : -rw-rw-r-- 1 pmateti pmateti 218282 Oct  9 22:08 .config
+
+** Make vmlinuz, modules
+
+1.  =% make bzImage modules= This can take 30+ minutes on an i7.  You
+   can insert extra flags for make (e.g., =-j32=) to speed up the
+   build.  Does not require your interaction.  
+
+** Deploying a Kernel
+
+1. Copy the vmlinuz, modules to =/boot= etc.  Modules are stored in
+   =/lib/modules/= kernel-version-number.
+
+1.  =# make install= This (i) locates and copies the =bzImage, config=
+   and =System.map= files into the =/boot= directory; (ii) locates and
+   copies all the modules (*.ko) also onto the LXU into
+   =/lib/modules/= version-number-of-kernel.
+
+
+1. Prepare a new menu item in the Grub OS boot loader.
+
+1.  =# grub-update= Revise the =/boot/grub/menu.lst= on the
+   Linux-on-USBD appropriately so that the machine can be booted with
+   the newly built kernel.
+
+1. Lab Task:  Get a kernel package and deploy it.
+   http://kernel.ubuntu.com/~kernel-ppa/mainline/daily/current/linux-image-unsigned-4.19.0-999-lowlatency_4.19.0-999.201810082201_amd64.deb
+   This is a built .deb Debian package.  This can be installed by
+   =dpkg=
+
+
+* Pruning the Kernel
+
+1. Disable Loadable Kernel Modules (LKM)
+   1. =/boot/vmlinuz= has all the "modules" merged in by choosing
+     either y/n but never an "m" in the =% xconfig=
+   2. =/lib/modules/this-version-of-kernel= will be empty
+   3. Required Reading [[./LKM.org]]
+
+1. Building a custom kernel with just the needed components
+   1.  Pruning device drivers, file systems, ...
+
+
+* Linux Kernel Patches
+
+1. Objective: Be able to apply a patch and rebuild and deploy the new
+   kernel.  A patch to mitigate/ fix the vulnerability is provided by
+   experts.
+
+** What is a Patch?
+
+1. A patching program identifies an area in the given file, replaces
+   it with another.
+1. Patching can be done either in source code or in binary.
+
+1. Suppose we have src code file fg.c.  We discovered bugs and
+   improvements that can be made.  We did such changes by editing fg.c
+   and saved it as fh.c.  There is a standard program named =diff=
+   that takes fg.c and fh.c and generated a editor script called a
+   =patchfile= that can
+   transform fg.c to fh.c
+1. The program named =patch= takes the =patchfile= and =fg.c=
+   automates the generation of =fh.c=.  From the man page: SYNOPSIS
+   =patch [options] [originalfile [patchfile]]=
+
+** Examples of patches
+
+1. The kernels deployed by distributors are almost always patched
+   differently from each other.  Each distributor documents what
+   patches they have applied.  Unfortunately, they do not document
+   which patches they considered but did not apply, and the reasons
+   for the choice.
+
+1. https://kernel.ubuntu.com/~kernel-ppa/mainline/daily/2019-10-12/ lists
+   the following src code patches:
+
+:  0001-base-packaging.patch
+:  0002-UBUNTU-SAUCE-add-vmlinux.strip-to-BOOT_TARGETS1-on-p.patch
+:  0003-UBUNTU-SAUCE-tools-hv-lsvmbus-add-manual-page.patch
+:  0004-debian-changelog.patch
+:  0005-configs-based-on-Ubuntu-5.4.0-0.1.patch
+
+1. https://www.kernel.org/ lists patches that transform your earlier
+   downloads to the latest one.
+
+** Choosing Kernel Patches
+
+1. This is a highly knowledge-based operation.
+1. Moved into "Hardening" a kernel.
+
+** Patch A Linux Kernel
+
+1. Fetch the kernel source.
+2. Install the kernel source.
+3. Rebuild the kernel source.
+4. Copy the kernel source.
+5. Clean old module & config files.
+6. Apply the patch.
+7. Recompile Kernel.
+8. Compile the kernels modules.
+
+** Lab on Building a Patched Kernel
+
+1. http://kernel.ubuntu.com/~kernel-ppa/mainline/daily/current/ Get
+   the src dode, apply the listed patches.
+
+1. Build the kernel from the resulting source.
+1. How will you verify that the newly built kernel offer the "same"
+   semantics as the one that Ubuntu published.
+1. Deploy the new build.
+
+* References
+
+1. https://linux.die.net/man/1/patch  Reference
+
+1. https://www.suse.com/media/white-paper/suse_linux_patch_management.pdf,
+   6pp, Required Reading.
+1. http://www.reallylinux.com/docs/security.shtml Security Patches for Linux
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

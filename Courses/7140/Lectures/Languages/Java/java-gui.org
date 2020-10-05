@@ -1,0 +1,80 @@
+# -*- mode: org -*-
+#+date: 2015-10-14
+#+TITLE: GUI for Java in 2015
+#+AUTHOR: Prabhaker Mateti
+
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"index-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+
+* Java GUI Frameworks
+
+1. There are several to choose from.  Listed below a few.
+1. We only need 2D
+1. Size of the resulting program.
+1. Here is an example QA:
+   https://www.quora.com/With-which-should-I-start-developing-games-libGDX-framework-or-Unity3D
+
+** Swing
+
+1. Extract from
+   http://www.oracle.com/technetwork/java/javafx/overview/faq-1446554.html#6
+
+6. Is JavaFX replacing Swing as the new client UI library for Java SE?
+1. Yes. However, Swing will remain part of the Java SE specification
+   for the foreseeable future, and therefore included in the
+   JRE. While we recommend developers to leverage JavaFX APIs as much
+   as possible when building new applications, it is possible to
+   extend a Swing application with JavaFX, allowing for a smoother
+   transition.
+
+** JavaFX
+
+1. Ensemble "provides a gallery of over 100 sample applications
+   that use a wide range of JavaFX features, such as graphics, UI
+   controls, animation, charts, media and WebView. Source code for
+   each sample and links to API documentation are also
+   provided. Ensemble will provide developers with an interactive
+   reference tool for what they can build with JavaFX."
+
+1. http://www.oracle.com/technetwork/java/javase/overview/javafx-samples-2158687.html
+
+** DukeScript
+
+1. "Create cross-platform mobile and desktop applications with Java
+   and HTML5.  Unlike other solutions which make use of Java on the
+   server side, DukeScript uses Java on the client side without
+   relying on Oracle’s plug-in used in the past to run applets."
+
+1. "The technology runs on Android, iOS, desktop browsers, and any
+   HTML5/JavaScript environment."
+
+1. http://dukescript.com/
+
+** LibGDX
+
+1. Free and Open Source, Java
+1. HTML and CSS
+1. Ingress, Apparatus were developed on libGDX.
+1. "Publish your games on Windows, Mac, Linux, Android, iOS, BlackBerry
+   and HTML5, all with the same code base."
+1. https://libgdx.badlogicgames.com/
+
+** Unity
+
+1. Game engine.
+   1. Displaying, and animating objects
+   2. Physics modeling: Collision detection 
+   3. GUI
+   4. Artificial Intelligence
+
+2. Not open source, not free, but has a free version.
+3. Monument Valley, Temple Run 2, Angry Birds Epic were developed on Unity.
+4. http://unity3d.com/
+

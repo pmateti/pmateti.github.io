@@ -1,0 +1,23 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-11
+#+TITLE: PLs for Software Engineering
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+
+1. [[./surveys.org][Language Popularity Surveys]]
+2. [[./students.org][PLs for Graduate Students in Computer Science and Engineering]]
+3. [[./paradigms.org][Programming Paradigms]]
+   1. Procedural Paradigm
+   2. Functional Programming
+   3. Logic Programming.
+1. [[./Java8][Java8, Java9, Project Lombok, and Scala]]
+1. [[./C++14][C++ Std 2014]]
+1. [[./Python][Python]]
+1. [[./DSL][DSL]] (Domain Specific Languages)

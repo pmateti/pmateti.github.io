@@ -1,0 +1,25 @@
+ find /var/Public/PublicDocs/ -name *SELinux*
+/var/Public/PublicDocs/Android/Android-Security/SEAndroid/The_SELinux_Notebook-4th_Edition.pdf
+/var/Public/PublicDocs/Android/Android-Security/SEAndroid/O'Reilly SELinux NSA's Open Source Security Enhanced Linux.chm
+/var/Public/PublicDocs/Security/SELinux
+/var/Public/PublicDocs/Security/SELinux/The_SELinux_Notebook-4th_Edition.pdf
+/var/Public/PublicDocs/Security/SELinux/SELinux For Dummies.pptx
+/var/Public/PublicDocs/Mendeley/Lalani/Unknown/Lalani - 2014 - SECURING ANDROID DEVICES USING SELinux.pdf
+/var/Public/PublicDocs/PDF-2018/writingSELinuxpolicy_MUNI.pdf
+/var/Public/PublicDocs/PDF/SELinux-03-PolicyConcepts.pdf
+/var/Public/PublicDocs/PDF/SELinux_Syllabus-2017.pdf
+/var/Public/PublicDocs/PDF/SELinux_Policy.pdf
+/var/Public/PublicDocs/PDF/PDF-2018/The_SELinux_Notebook-4th_Edition.pdf
+/var/Public/PublicDocs/PDF/PDF-2018/writingSELinuxpolicy_MUNI.pdf
+/var/Public/PublicDocs/PDF/PDF-2018/SELinux_Intro.pdf
+/var/Public/PublicDocs/PDF/Red_Hat_Enterprise_Linux-7-SELinux_Users_and_Administrators_Guide-en-US.pdf
+/var/Public/PublicDocs/PDF/PDF-20181031/SELinux_Policy-lab.pdf
+/var/Public/PublicDocs/PDF/PDF-2016/Extending_SELinux_Android.pdf
+/var/Public/PublicDocs/PDF/The_SELinux_Notebook-4e.pdf
+/var/Public/PublicDocs/Download/Downloads/SEAndroid/The_SELinux_Notebook-4th_Edition.pdf
+/var/Public/PublicDocs/Download/Downloads/SEAndroid/Figs/RHEL5-SELinux-Benchmark_2_original.png
+/var/Public/PublicDocs/Download/Downloads/SEAndroid/Figs/RHEL5-SELinux-Benchmark_1_original.png
+/var/Public/PublicDocs/Download/Downloads/SEAndroid/Filesystem_Labeling_SELinux.pdf
+/var/Public/PublicDocs/Download/Downloads/SEAndroid/O'Reilly SELinux NSA's Open Source Security Enhanced Linux.chm
+/var/Public/PublicDocs/Download/Downloads/O'Reilly SELinux NSA's Open
+Source Security Enhanced Linux.chm

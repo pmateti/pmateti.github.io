@@ -1,0 +1,1199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-10-17 Thu 17:54 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Linux Kernels</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Linux Kernels</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org9eff751">1. What is an OS Kernel?</a>
+<ul>
+<li><a href="#org8ab94b9">1.1. Computer Systems</a></li>
+<li><a href="#orgcc72448">1.2. OS Definition by Functionality</a></li>
+<li><a href="#org7989835">1.3. OS Definition by Components</a></li>
+<li><a href="#org5eb1d79">1.4. OS as a Collection of System Calls</a></li>
+<li><a href="#orgda075bc">1.5. OS as a Collection of Files</a></li>
+<li><a href="#org99d8d7a">1.6. OS as a Collection of Processes</a></li>
+<li><a href="#orgf542d73">1.7. The Life Cycle of an OS: Booting, Running, Shutting-Down</a></li>
+<li><a href="#org5c169c2">1.8. Power-On to the First Process</a></li>
+<li><a href="#org3bf26f1">1.9. The First Process</a></li>
+<li><a href="#orgbfc2cec">1.10. Running</a></li>
+<li><a href="#orge6531ae">1.11. Shutting Down</a></li>
+</ul>
+</li>
+<li><a href="#org50abd1a">2. Kernel Expectations</a>
+<ul>
+<li><a href="#orge23fff8">2.1. Provide "Standard" Abstractions</a></li>
+<li><a href="#org3e24422">2.2. Prevent/ Detect/ Mitigate/ Repair  Exploits</a></li>
+<li><a href="#org636f5d6">2.3. Kernel Responsibilities</a></li>
+<li><a href="#orgfc27a00">2.4. Kernel Composition</a></li>
+</ul>
+</li>
+<li><a href="#org1819beb">3. What is a Kernel Bug?</a>
+<ul>
+<li><a href="#org3fc6144">3.1. Bug-Status of OS Kernels</a></li>
+<li><a href="#org78e3935">3.2. Kernel CVE</a></li>
+</ul>
+</li>
+<li><a href="#orgecf9566">4. Kernel Build from Source</a>
+<ul>
+<li><a href="#org8685d49">4.1. Kernel Source Code</a></li>
+<li><a href="#org92dc8a1">4.2. Why? What?</a></li>
+<li><a href="#org2556ba1">4.3. Kernel Build Overview</a></li>
+<li><a href="#org216b646">4.4. xconfig</a></li>
+<li><a href="#orgce719e3">4.5. Make vmlinuz, modules</a></li>
+<li><a href="#org171ab09">4.6. Deploying a Kernel</a></li>
+</ul>
+</li>
+<li><a href="#org86116d1">5. Pruning the Kernel</a></li>
+<li><a href="#org4c7697c">6. Linux Kernel Patches</a>
+<ul>
+<li><a href="#org0ced39d">6.1. What is a Patch?</a></li>
+<li><a href="#orgf2356eb">6.2. Examples of patches</a></li>
+<li><a href="#org339322b">6.3. Choosing Kernel Patches</a></li>
+<li><a href="#org124b973">6.4. Patch A Linux Kernel</a></li>
+<li><a href="#org94a725e">6.5. Lab on Building a Patched Kernel</a></li>
+</ul>
+</li>
+<li><a href="#org525dd20">7. References</a></li>
+<li><a href="#org77258e3">8. End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9eff751" class="outline-2">
+<h2 id="org9eff751"><span class="section-number-2">1</span> What is an OS Kernel?</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+As used in this article: OS <code>=</code> Kernel
+</p>
+
+<p>
+An OS controls all the hardware of a computer, and every program
+currently running.  All computer systems, by definition, include an OS.
+Several modern day gadgets, such as cell phones, MP3 players, wrist
+watches, PDAs, video game consoles, and TiVO, are specialized computer
+systems.  Many appliances, such as microwave ovens, dishwashers and TVs,
+contain embedded computer systems.
+</p>
+
+<p>
+Currently popular OS for personal computers include Windows, Linux,
+MacOS, and Solaris.  Our discussion in this article is so modern that
+software known as CP/M (1960s), MS-DOS (1960s) will not qualify as OS.
+</p>
+</div>
+
+<div id="outline-container-org8ab94b9" class="outline-3">
+<h3 id="org8ab94b9"><span class="section-number-3">1.1</span> Computer Systems</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+A computer system can be divided into three pieces:
+</p>
+
+<ol class="org-ol">
+<li>[Hardware] Motherboard (CPU, RAM, and other chips), various daughter
+cards (e.g., a graphics card, a wireless network card), keyboard,
+mouse, screen, hard disks, other IO devices, and power supply.</li>
+<li>[Software] Operating system, and applications.</li>
+<li>[Firmware] A basic input/output subsystem (BIOS) preloaded into a ROM</li>
+</ol>
+
+<p>
+A typical PC fits this classification very well; but, there are many
+classes of computers that do not.  E.g., some computer systems may not
+have a key board or a hard disk.
+</p>
+
+<p>
+A program is a sequence of CPU instructions (also called machine code)
+structured in a very specific way.  Software is a generic synonym for
+programs.  Applications are a subclass of software.
+</p>
+
+<p>
+The CPU can execute its instructions only when they are in RAM.  We have
+so many programs that it is infeasible to leave them all sitting in RAM.
+The OS stores them on a HDD and loads them into RAM as needed.
+</p>
+
+<p>
+We will explain in the lectures the "Fetch, Decode, and Execute cycle"
+of a CPU.
+</p>
+
+<p>
+CPU can generate traps and faults.
+</p>
+
+<p>
+Devices raise interrupts.  Interrupt handling is done by the OS.
+</p>
+
+<p>
+The moment a computer system is powered on, the firmware is in control
+of every piece of the hardware.  On a PC, this firmware is called the
+BIOS (basic input output subsystem).
+</p>
+
+<p>
+A computer system must not be shut down "ungracefully".  All the running
+processes need to be informed of the impending shut down, and wait
+politely for them to terminate.  This is known as graceful termination of
+the OS.  Most systems can now detect a power failure, and initiate a
+shutdown.  However, un-responding processes not withstanding, a shutdown
+cannot be postponed indefinitely, and the OS forcibly terminates.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcc72448" class="outline-3">
+<h3 id="orgcc72448"><span class="section-number-3">1.2</span> OS Definition by Functionality</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+There are many definitions of OS based on its typical functionality.
+From the book by Silbershatz and others: "What are the three main
+purposes of an operating system? Answer: (i) To provide an environment
+for a computer user to execute programs on computer hardware in a
+convenient and efficient manner.  (ii) To allocate the separate resources
+of the computer as needed to solve the problem given.  The allocation
+process should be as fair and efficient as possible.  (iii) As a control
+program it serves two major functions: (a) supervision of the execution
+of user programs to prevent errors and improper use of the computer, and
+(b) management of the operation and control of I/O devices."
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7989835" class="outline-3">
+<h3 id="org7989835"><span class="section-number-3">1.3</span> OS Definition by Components</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+A very useful definition of an OS is based on its components.  If we were
+to spread out all the code that constitutes an OS on a piece of cloth,
+we can then cut it up into the following components:
+</p>
+
+<p>
+OS = VM + FileM + ProcM + Net + IO + UserM + (Boot) + [SysPrg]
+</p>
+
+<p>
+Strictly speaking, an OS does not include GUI, nor CLI.  In the world of
+Linux, the GUI is provided by X11, Gnome and KDE software subsystems,
+and CLI by bash, csh, zsh or other such shells.  These are not strictly
+part of the Linux OS.  In the Windows world, the GUI is provided by
+(plain) Explorer, and the CLI by cmd or PowerShell.  These are not
+strictly part of the Windows OS.
+</p>
+
+<p>
+Programs like Word, Internet Explorer, Konqueror are applications.
+Visual Studio, g++, Active Python and such are (sub-) categorized as
+development tools.
+</p>
+
+<p>
+The above components can also be combined and then re-divided into a
+kernel + initial ram disk components + drivers + interrupt handlers.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5eb1d79" class="outline-3">
+<h3 id="org5eb1d79"><span class="section-number-3">1.4</span> OS as a Collection of System Calls</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+The code of system calls is not disjoint from the code of previously
+mentioned components.  It is made of different pieces from these
+components.  Linux and Windows have around 350 system calls each.  The
+details of Linux syscalls can be found in the files:
+</p>
+
+<pre class="example">
+-rw-r--r--  1 root root  1403 2010-01-03 06:57 /usr/include/sys/syscall.h
+-rw-r--r--  1 root root 22041 2010-01-28 00:56 /usr/include/asm/unistd_64.h
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgda075bc" class="outline-3">
+<h3 id="orgda075bc"><span class="section-number-3">1.5</span> OS as a Collection of Files</h3>
+<div class="outline-text-3" id="text-1-5">
+</div>
+<div id="outline-container-orgfa046e8" class="outline-4">
+<h4 id="orgfa046e8"><span class="section-number-4">1.5.1</span> Linux</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<ol class="org-ol">
+<li><code>/boot/grub/</code>: OS boot loader files.</li>
+<li><code>/boot/vmlinuz/</code>: OS kernel.  This is a specially linked file.  All of its code
+is executed in a privileged CPU mode.  Its code can be divided up as
+suggested by the OS = VM + FileM + ProcM + Net + IO + UserM; note
+that we dropped <del>(Boot)</del>[SysPrg] parts.  The z at the end in its name
+indicates that this is a compressed file.  The exact location of this
+file is indicated in the "kernel" line of a GRUB stanza.</li>
+<li><code>/boot/initrd.gz</code>: This is a compressed collection of a bunch of system files
+that the kernel needs as it boots.  The exact location of this file is
+indicated in the "kernel" line of a GRUB stanza.</li>
+<li><code>/lib/modules</code>: This directory contains a number of dynamically
+loadable "modules", which are specially linked files that can be
+incorporated into the running kernel.</li>
+<li><code>/sbin/</code>: This directory contains a number of system programs that the
+kernel can invoke and spawn off as separate OS helper processes.</li>
+<li><code>/usr/sbin/</code>: This directory contains further system programs.  The
+programs in /sbin are considered essential, whereas the one in
+/usr/sbin are "less" so.</li>
+<li>Swap space is located on a separate partition or a large file.</li>
+</ol>
+
+<p>
+/bin, /usr/bin, &#x2026;: These directories do contain programs, but these
+are not considered part of the OS.  The programs in these directories are
+considered simply applications.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org99d8d7a" class="outline-3">
+<h3 id="org99d8d7a"><span class="section-number-3">1.6</span> OS as a Collection of Processes</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+Most of the OS stays RAM resident and dormant until (i) a system call is
+made by a process, (ii) a hardware interrupt causes a handler in the OS
+to run, or (iii) a software triggered even causes a handler in the OS to
+run.  Consequently, viewing an OS only as a collection of processes is
+going to be incomplete.
+</p>
+
+<p>
+The following is a severely pruned list of processes on a Linux PC as
+generated by the <code>ps</code> command.  The process-id shown (except for 1) may
+change.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">PID</td>
+<td class="org-left">TTY</td>
+<td class="org-left">STAT</td>
+<td class="org-right">TIME</td>
+<td class="org-left">COMMAND</td>
+<td class="org-left">Functionality</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">?</td>
+<td class="org-left">Ss</td>
+<td class="org-right">0:00</td>
+<td class="org-left">/sbin/init</td>
+<td class="org-left">The First Process</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">?</td>
+<td class="org-left">S&lt;</td>
+<td class="org-right">0:00</td>
+<td class="org-left">[kthreadd]</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">?</td>
+<td class="org-left">S&lt;</td>
+<td class="org-right">0:00</td>
+<td class="org-left">[migration/0]</td>
+<td class="org-left">Processes shown within brackets are part of the Kernel.</td>
+</tr>
+
+<tr>
+<td class="org-right">524</td>
+<td class="org-left">?</td>
+<td class="org-left">S&lt; s</td>
+<td class="org-right">0:00</td>
+<td class="org-left">udevd</td>
+<td class="org-left">Dynamic Device Manager service</td>
+</tr>
+
+<tr>
+<td class="org-right">1053</td>
+<td class="org-left">?</td>
+<td class="org-left">Ss</td>
+<td class="org-right">0:00</td>
+<td class="org-left">portmap</td>
+<td class="org-left">RPC port map service</td>
+</tr>
+
+<tr>
+<td class="org-right">1056</td>
+<td class="org-left">?</td>
+<td class="org-left">Ss</td>
+<td class="org-right">0:00</td>
+<td class="org-left">dd bs=1 if=/proc/kmsg &#x2026;</td>
+<td class="org-left">Kernel message logging</td>
+</tr>
+
+<tr>
+<td class="org-right">1063</td>
+<td class="org-left">?</td>
+<td class="org-left">Sl</td>
+<td class="org-right">0:00</td>
+<td class="org-left">rsyslogd</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1088</td>
+<td class="org-left">?</td>
+<td class="org-left">Ss</td>
+<td class="org-right">0:10</td>
+<td class="org-left">hald</td>
+<td class="org-left">Hardware Abstraction Layer</td>
+</tr>
+
+<tr>
+<td class="org-right">1357</td>
+<td class="org-left">?</td>
+<td class="org-left">S&lt;&lt;/td&gt;</td>
+<td class="org-right">0:00</td>
+<td class="org-left">[nfsiod]</td>
+<td class="org-left">NFS Serivice IO</td>
+</tr>
+
+<tr>
+<td class="org-right">1403</td>
+<td class="org-left">?</td>
+<td class="org-left">S</td>
+<td class="org-right">0:00</td>
+<td class="org-left">hald-addon-cpufreq</td>
+<td class="org-left">CPU frequency</td>
+</tr>
+
+<tr>
+<td class="org-right">1404</td>
+<td class="org-left">?</td>
+<td class="org-left">S</td>
+<td class="org-right">0:00</td>
+<td class="org-left">hald-addon-acpi:</td>
+<td class="org-left">ACP listening</td>
+</tr>
+
+<tr>
+<td class="org-right">1479</td>
+<td class="org-left">tty4</td>
+<td class="org-left">Ss+</td>
+<td class="org-right">0:00</td>
+<td class="org-left">/sbin/getty</td>
+<td class="org-left">User login process</td>
+</tr>
+
+<tr>
+<td class="org-right">1503</td>
+<td class="org-left">?</td>
+<td class="org-left">Ss</td>
+<td class="org-right">0:00</td>
+<td class="org-left">acpid</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2159</td>
+<td class="org-left">?</td>
+<td class="org-left">S</td>
+<td class="org-right">0:00</td>
+<td class="org-left">dbus-launch</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2738</td>
+<td class="org-left">?</td>
+<td class="org-left">Ss</td>
+<td class="org-right">0:00</td>
+<td class="org-left">/usr/sbin/nmbd</td>
+<td class="org-left">Samba Name Service</td>
+</tr>
+
+<tr>
+<td class="org-right">2748</td>
+<td class="org-left">?</td>
+<td class="org-left">Ss</td>
+<td class="org-right">0:00</td>
+<td class="org-left">/usr/sbin/smbd</td>
+<td class="org-left">Samba File Service</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+For a list of Windows processes, invoke Task Manager and then select
+Show processes from all users.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf542d73" class="outline-3">
+<h3 id="orgf542d73"><span class="section-number-3">1.7</span> The Life Cycle of an OS: Booting, Running, Shutting-Down</h3>
+</div>
+
+<div id="outline-container-org5c169c2" class="outline-3">
+<h3 id="org5c169c2"><span class="section-number-3">1.8</span> Power-On to the First Process</h3>
+<div class="outline-text-3" id="text-1-8">
+<ol class="org-ol">
+<li>Powered on.  BIOS-&gt;POST.  ROM and RAM.  CPU fetch-decode-execute cycle.</li>
+<li>Discover boot device.  Boot sectors.  Boot device priority order.</li>
+<li>Bring in and give control to the boot loader.  Bring in v.  "load"</li>
+<li>Bring in and give control to OS loader.  NTLDR, GRUB, etc.
+(<a href="http://en.wikipedia.org/wiki/GRUB">http://en.wikipedia.org/wiki/GRUB</a>)</li>
+<li>OS kernel.</li>
+
+<li>Cold versus warm boot.  Cold as if power is just applied.  Warm skips
+first few steps.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org3bf26f1" class="outline-3">
+<h3 id="org3bf26f1"><span class="section-number-3">1.9</span> The First Process</h3>
+<div class="outline-text-3" id="text-1-9">
+<ol class="org-ol">
+<li>Linux init TBD 6.  For Linux: process init is started.   Process init
+(in Linux, and its counterpart in Windows) is in control of
+"normal" operation of a computer.</li>
+
+<li>Ubuntu and other distributions use UUID (Universally Unique
+Identifier) to indicate the root device.   From the Wiki: In its
+canonical form, a UUID consists of 32 hexadecimal digits, displayed
+in 5 groups separated by hyphens, for a total of 36 characters.  For
+example: 550e8400-e29b-41d4-a716-446655440000 .</li>
+
+<li>Linux distributions have many independent designs that can serve as
+init.   Currently (2019), systemd is widely used.   Among others are
+runit and openrc.</li>
+</ol>
+
+
+<ol class="org-ol">
+<li><a href="https://en.wikipedia.org/wiki/Windows_startup_process">https://en.wikipedia.org/wiki/Windows_startup_process</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgbfc2cec" class="outline-3">
+<h3 id="orgbfc2cec"><span class="section-number-3">1.10</span> Running</h3>
+<div class="outline-text-3" id="text-1-10">
+<ol class="org-ol">
+<li>See the list of processes shown in a previous section.</li>
+
+<li>The init process is expected to be alive during this phase.   All
+other processes are descendents of init.</li>
+
+<li>We usually configure init so that certain processes are re-generated
+should they die.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orge6531ae" class="outline-3">
+<h3 id="orge6531ae"><span class="section-number-3">1.11</span> Shutting Down</h3>
+<div class="outline-text-3" id="text-1-11">
+<ol class="org-ol">
+<li>Properly shutting down is part of the functionality of the first
+process.   It requests all process to voluntarily terminate
+immediately.   Finally, it kills them all.</li>
+
+<li>Various IO operations may be on-going at the time of shut down.   If
+we terminate such operations arbitrarily, the file volume will
+become corrupted.</li>
+
+<li>The first process can also sense an imminent power outage.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org50abd1a" class="outline-2">
+<h2 id="org50abd1a"><span class="section-number-2">2</span> Kernel Expectations</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orge23fff8" class="outline-3">
+<h3 id="orge23fff8"><span class="section-number-3">2.1</span> Provide "Standard" Abstractions</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>A computer system can be divided into three pieces:
+
+<ol class="org-ol">
+<li>[Hardware] Motherboard (CPU, RAM, and other chips), various daughter cards (e.g., a graphics card, a wireless network card), keyboard, mouse, screen, hard disks, other IO devices, and power supply.</li>
+<li>[Software] Operating system, and applications.</li>
+<li>[Firmware] A basic input/output subsystem (UEFI/BIOS) preloaded
+into a ROM</li>
+</ol></li>
+
+<li>OS Kernel Definition by Components: OSK == VirtualMem + FileM +
+ProcessM + Net + IO + UserM + (Boot) + [SysPrg] ;; M stands for
+Management.</li>
+
+<li><a href="http://cecs.wright.edu/~pmateti/Courses/2350/Labs/OS-on-USB/OSonUSBLab.html">http://cecs.wright.edu/~pmateti/Courses/2350/Labs/OS-on-USB/OSonUSBLab.html</a>
+Recommended Reading.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org3e24422" class="outline-3">
+<h3 id="org3e24422"><span class="section-number-3">2.2</span> Prevent/ Detect/ Mitigate/ Repair  Exploits</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>In this course, we are focused on the security aspects of the kernel.</li>
+<li>Preventing Security Exploits is an expectation of all OS kernels,
+and system software.  There is no consensus on the definition of
+what "exploits" are, and what we mean by "prevention".</li>
+
+<li>A few specific classes of security exploits are describe below.</li>
+<li>Underneath all these exploits is the technique known as privilege
+escalation.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org636f5d6" class="outline-3">
+<h3 id="org636f5d6"><span class="section-number-3">2.3</span> Kernel Responsibilities</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Kernel should
+</p>
+
+<ol class="org-ol">
+<li>check the integrity of init.</li>
+<li>track the provenance (of processes)</li>
+<li>track network activity</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgfc27a00" class="outline-3">
+<h3 id="orgfc27a00"><span class="section-number-3">2.4</span> Kernel Composition</h3>
+<div class="outline-text-3" id="text-2-4">
+<ol class="org-ol">
+<li>As a collection of files: vmlinuz, initrd, /lib/modules/*.</li>
+<li>Kernel is NOT a process.</li>
+
+<li>Kernel, like processes, uses pages, and segments of virtual memory.
+<ol class="org-ol">
+<li>The "text" (machine code) of a kernel is expected to remain
+unchanged during execution.  Just like a process.</li>
+<li>Kernel uses a stack.  Has private and public methods.  The
+public methods are offered to user processes as system calls.</li>
+</ol></li>
+<li>Kernel discovers the pathname of init program, and invokes it.</li>
+<li>Except for init, all other processes are created at the request of
+init or its children.  <code>man pstree</code></li>
+<li>Several psuedo file volumes: <code>/proc, /sys, /dev</code> Browse!</li>
+<li><code>/etc/modules</code></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1819beb" class="outline-2">
+<h2 id="org1819beb"><span class="section-number-2">3</span> What is a Kernel Bug?</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Kernel Bug: A bug in the code of the kernel.</li>
+<li>In a course on Software Engineering, we define a bug as a deviation
+from the spec.</li>
+<li>But, Linux still does not have a spec, informal or formal based on
+math + logic + grammar.  What we do have are expectations.
+Functional, performance and other expectations.  A deviation from
+these is a bug.</li>
+<li>A crash is a bug.</li>
+<li>A hang is a bug.</li>
+<li>Recall:  Bug -&gt; Exploit -&gt; Vulnerability -&gt; Attack</li>
+</ol>
+</div>
+
+<div id="outline-container-org3fc6144" class="outline-3">
+<h3 id="org3fc6144"><span class="section-number-3">3.1</span> Bug-Status of OS Kernels</h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li>All OS kernels, of Linux, MacOS, or Windows, are buggy.  OS kernels
+have not yet reached a state of being bug free.  A security issue
+in a bug makes it vulnerable.  An exploit presents an actual use of
+this vulnerability in demonstrating the security issue.</li>
+
+<li>See Coverity articles for Linux kernel bugs.  Over the years
+thousands of bugs have been discovered through code audits.</li>
+<li><a href="https://scan.coverity.com/projects/linux">https://scan.coverity.com/projects/linux</a> "See how defect density
+for 'Linux' compares with defect density for other &#x2026; arch/x86/.*,
+No, 179,049, 0.54. Kernel .*/kernel/.*, No, 207,512, 0.70 …… The
+root cause of each defect is clearly explained, making it easy to
+fix bugs." Lines of code analyzed‎: 15,650,125. Required Visit.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org78e3935" class="outline-3">
+<h3 id="org78e3935"><span class="section-number-3">3.2</span> Kernel CVE</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li>2019    Total number of vulnerabilities : 662
+<a href="https://www.cvedetails.com/vulnerability-list/vendor_id-33/product_id-47/cvssscoremin-7/cvssscoremax-7.99/Linux-Linux-Kernel.html">https://www.cvedetails.com/vulnerability-list/vendor_id-33/product_id-47/cvssscoremin-7/cvssscoremax-7.99/Linux-Linux-Kernel.html</a> Required Visit.</li>
+<li><a href="https://www.cvedetails.com/product/47/Linux-Linux-Kernel.html">https://www.cvedetails.com/product/47/Linux-Linux-Kernel.html</a> Linux
+Kernel Vulnerability Statistics 1999 - 2018.  Required Visit.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgecf9566" class="outline-2">
+<h2 id="orgecf9566"><span class="section-number-2">4</span> Kernel Build from Source</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org8685d49" class="outline-3">
+<h3 id="org8685d49"><span class="section-number-3">4.1</span> Kernel Source Code</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>The Main Linux Kernel repository <a href="https://www.kernel.org/">https://www.kernel.org/</a>;
+<ol class="org-ol">
+<li>stable: 5.3.6 As of 2019-10-11 104M Oct 11 linux-5.3.6.tar.xz</li>
+<li><code>du -sh linux-5.3.6/</code> before build gives 987M</li>
+<li><code>du -sh linux-5.3.6/</code> afetr build gives 21G</li>
+<li>Here is a top level build log example:
+<a href="https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4-rc3/BUILD.LOG.amd64">https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4-rc3/BUILD.LOG.amd64</a>
+from Ubuntu</li>
+</ol></li>
+
+<li><a href="https://www.kernel.org/doc/html/latest/">https://www.kernel.org/doc/html/latest/</a> The Linux Kernel documentation</li>
+
+<li><a href="http://kernel.ubuntu.com/~kernel-ppa/mainline/daily/current/">http://kernel.ubuntu.com/~kernel-ppa/mainline/daily/current/</a> These binary packages represent builds by Ubuntu of the mainline or stable Linux kernel tree.</li>
+<li>git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git etc.</li>
+<li><a href="https://elixir.bootlin.com/linux/v5.4-rc2/source">https://elixir.bootlin.com/linux/v5.4-rc2/source</a> Interlinked, and
+browseable source code.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org92dc8a1" class="outline-3">
+<h3 id="org92dc8a1"><span class="section-number-3">4.2</span> Why? What?</h3>
+<div class="outline-text-3" id="text-4-2">
+<ol class="org-ol">
+<li>Hardening depends on this how-to.</li>
+<li>Source code repositories</li>
+<li>Build Tools</li>
+<li>Build Overview</li>
+<li>Configure the build: make xconfig or make menuconfig</li>
+<li>make bzImage about 030 mins on my machine.</li>
+<li>make modules about 150mins on my machine.</li>
+<li>make install few seconds</li>
+<li>create a new entry in Grub</li>
+<li>Deploy a new Linux Kernel</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org2556ba1" class="outline-3">
+<h3 id="org2556ba1"><span class="section-number-3">4.3</span> Kernel Build Overview</h3>
+<div class="outline-text-3" id="text-4-3">
+<ol class="org-ol">
+<li>Guide to follow <a href="https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel">https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel</a>
+for Ubuntu Linux kernel.  For a generic Linux kernel, follow
+<a href="https://wiki.ubuntu.com/KernelTeam/GitKernelBuild">https://wiki.ubuntu.com/KernelTeam/GitKernelBuild</a></li>
+<li>Software Tools/ Packages Needed in the build: <code>sudo apt install</code>
+the following
+<ol class="org-ol">
+<li><code>git build-essential kernel-package fakeroot libssl-dev</code></li>
+<li><code>install libncurses5-dev libqt5*-dev ccache bison flex libelf-dev</code></li>
+<li>They amount to some 300+ MB.</li>
+</ol></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org216b646" class="outline-3">
+<h3 id="org216b646"><span class="section-number-3">4.4</span> xconfig</h3>
+<div class="outline-text-3" id="text-4-4">
+<ol class="org-ol">
+<li>Create a Linux kernel configuration: What components to include/
+exclude / build-as-modules.  There are two main ways to configure.
+xconfig uses GUI, menuconfig uses text-console.</li>
+
+<li><code>% make xconfig</code> This will take only a few seconds.  It generates
+a GUI program that presents a menu.</li>
+
+<li><code>% xconfig</code> Invoke it and answer "thousand questions".  Select the
+various kernel components carefully.  (This can take an hour or
+more depending on your familiarity.)  Requires your interaction and
+understanding.  Make an effort to understand the QAs, but do not
+get discouraged.  There are many to choose by answering y/n/m; y =
+yes make it part of the kernel, n = no omit it altogether, m =
+build it as a module.  Make sure that everything needed for boot is
+in the kernel image and not as a module.  You may have to web
+search for details.  
+
+<ol class="org-ol">
+<li>The configuration, a text file, is saved to a file named
+<code>.config</code> Click on Save before quitting xconfig.  The config
+file you produced is the plain ascii text file (not recommended
+to edit this by hand): <code>linux/.config</code></li>
+
+<li><p>
+An example config produced: <a href="./dot-config.txt">./dot-config.txt</a> About 9600+ lines.
+</p>
+<pre class="example">
+-rw-rw-r-- 1 pmateti pmateti 218282 Oct  9 22:08 .config
+
+</pre></li>
+</ol></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgce719e3" class="outline-3">
+<h3 id="orgce719e3"><span class="section-number-3">4.5</span> Make vmlinuz, modules</h3>
+<div class="outline-text-3" id="text-4-5">
+<ol class="org-ol">
+<li><code>% make bzImage modules</code> This can take 30+ minutes on an i7.  You
+can insert extra flags for make (e.g., <code>-j32</code>) to speed up the
+build.  Does not require your interaction.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org171ab09" class="outline-3">
+<h3 id="org171ab09"><span class="section-number-3">4.6</span> Deploying a Kernel</h3>
+<div class="outline-text-3" id="text-4-6">
+<ol class="org-ol">
+<li>Copy the vmlinuz, modules to <code>/boot</code> etc.  Modules are stored in
+<code>/lib/modules/</code> kernel-version-number.</li>
+
+<li><code># make install</code> This (i) locates and copies the <code>bzImage, config</code>
+and <code>System.map</code> files into the <code>/boot</code> directory; (ii) locates and
+copies all the modules (*.ko) also onto the LXU into
+<code>/lib/modules/</code> version-number-of-kernel.</li>
+</ol>
+
+
+<ol class="org-ol">
+<li>Prepare a new menu item in the Grub OS boot loader.</li>
+
+<li><code># grub-update</code> Revise the <code>/boot/grub/menu.lst</code> on the
+Linux-on-USBD appropriately so that the machine can be booted with
+the newly built kernel.</li>
+
+<li>Lab Task:  Get a kernel package and deploy it.
+<a href="http://kernel.ubuntu.com/~kernel-ppa/mainline/daily/current/linux-image-unsigned-4.19.0-999-lowlatency_4.19.0-999.201810082201_amd64.deb">http://kernel.ubuntu.com/~kernel-ppa/mainline/daily/current/linux-image-unsigned-4.19.0-999-lowlatency_4.19.0-999.201810082201_amd64.deb</a>
+This is a built .deb Debian package.  This can be installed by
+<code>dpkg</code></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org86116d1" class="outline-2">
+<h2 id="org86116d1"><span class="section-number-2">5</span> Pruning the Kernel</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Disable Loadable Kernel Modules (LKM)
+<ol class="org-ol">
+<li><code>/boot/vmlinuz</code> has all the "modules" merged in by choosing
+either y/n but never an "m" in the <code>% xconfig</code></li>
+<li><code>/lib/modules/this-version-of-kernel</code> will be empty</li>
+<li>Required Reading <a href="./LKM.html">./LKM.html</a></li>
+</ol></li>
+
+<li>Building a custom kernel with just the needed components
+<ol class="org-ol">
+<li>Pruning device drivers, file systems, &#x2026;</li>
+</ol></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org4c7697c" class="outline-2">
+<h2 id="org4c7697c"><span class="section-number-2">6</span> Linux Kernel Patches</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>Objective: Be able to apply a patch and rebuild and deploy the new
+kernel.  A patch to mitigate/ fix the vulnerability is provided by
+experts.</li>
+</ol>
+</div>
+
+<div id="outline-container-org0ced39d" class="outline-3">
+<h3 id="org0ced39d"><span class="section-number-3">6.1</span> What is a Patch?</h3>
+<div class="outline-text-3" id="text-6-1">
+<ol class="org-ol">
+<li>A patching program identifies an area in the given file, replaces
+it with another.</li>
+<li>Patching can be done either in source code or in binary.</li>
+
+<li>Suppose we have src code file fg.c.  We discovered bugs and
+improvements that can be made.  We did such changes by editing fg.c
+and saved it as fh.c.  There is a standard program named <code>diff</code>
+that takes fg.c and fh.c and generated a editor script called a
+<code>patchfile</code> that can
+transform fg.c to fh.c</li>
+<li>The program named <code>patch</code> takes the <code>patchfile</code> and <code>fg.c</code>
+automates the generation of <code>fh.c</code>.  From the man page: SYNOPSIS
+<code>patch [options] [originalfile [patchfile]]</code></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgf2356eb" class="outline-3">
+<h3 id="orgf2356eb"><span class="section-number-3">6.2</span> Examples of patches</h3>
+<div class="outline-text-3" id="text-6-2">
+<ol class="org-ol">
+<li>The kernels deployed by distributors are almost always patched
+differently from each other.  Each distributor documents what
+patches they have applied.  Unfortunately, they do not document
+which patches they considered but did not apply, and the reasons
+for the choice.</li>
+
+<li><a href="https://kernel.ubuntu.com/~kernel-ppa/mainline/daily/2019-10-12/">https://kernel.ubuntu.com/~kernel-ppa/mainline/daily/2019-10-12/</a> lists
+the following src code patches:</li>
+</ol>
+
+<pre class="example">
+0001-base-packaging.patch
+0002-UBUNTU-SAUCE-add-vmlinux.strip-to-BOOT_TARGETS1-on-p.patch
+0003-UBUNTU-SAUCE-tools-hv-lsvmbus-add-manual-page.patch
+0004-debian-changelog.patch
+0005-configs-based-on-Ubuntu-5.4.0-0.1.patch
+
+</pre>
+
+<ol class="org-ol">
+<li><a href="https://www.kernel.org/">https://www.kernel.org/</a> lists patches that transform your earlier
+downloads to the latest one.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org339322b" class="outline-3">
+<h3 id="org339322b"><span class="section-number-3">6.3</span> Choosing Kernel Patches</h3>
+<div class="outline-text-3" id="text-6-3">
+<ol class="org-ol">
+<li>This is a highly knowledge-based operation.</li>
+<li>Moved into "Hardening" a kernel.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org124b973" class="outline-3">
+<h3 id="org124b973"><span class="section-number-3">6.4</span> Patch A Linux Kernel</h3>
+<div class="outline-text-3" id="text-6-4">
+<ol class="org-ol">
+<li>Fetch the kernel source.</li>
+<li>Install the kernel source.</li>
+<li>Rebuild the kernel source.</li>
+<li>Copy the kernel source.</li>
+<li>Clean old module &amp; config files.</li>
+<li>Apply the patch.</li>
+<li>Recompile Kernel.</li>
+<li>Compile the kernels modules.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org94a725e" class="outline-3">
+<h3 id="org94a725e"><span class="section-number-3">6.5</span> Lab on Building a Patched Kernel</h3>
+<div class="outline-text-3" id="text-6-5">
+<ol class="org-ol">
+<li><a href="http://kernel.ubuntu.com/~kernel-ppa/mainline/daily/current/">http://kernel.ubuntu.com/~kernel-ppa/mainline/daily/current/</a> Get
+the src dode, apply the listed patches.</li>
+
+<li>Build the kernel from the resulting source.</li>
+<li>How will you verify that the newly built kernel offer the "same"
+semantics as the one that Ubuntu published.</li>
+<li>Deploy the new build.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org525dd20" class="outline-2">
+<h2 id="org525dd20"><span class="section-number-2">7</span> References</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li><a href="https://linux.die.net/man/1/patch">https://linux.die.net/man/1/patch</a>  Reference</li>
+
+<li><a href="https://www.suse.com/media/white-paper/suse_linux_patch_management.pdf">https://www.suse.com/media/white-paper/suse_linux_patch_management.pdf</a>,
+6pp, Required Reading.</li>
+<li><a href="http://www.reallylinux.com/docs/security.shtml">http://www.reallylinux.com/docs/security.shtml</a> Security Patches for Linux</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org77258e3" class="outline-2">
+<h2 id="org77258e3"><span class="section-number-2">8</span> End</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2019 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2019-10-11
+</div>
+</body>
+</html>

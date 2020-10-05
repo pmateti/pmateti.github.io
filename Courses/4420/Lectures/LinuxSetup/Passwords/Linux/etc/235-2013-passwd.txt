@@ -1,0 +1,193 @@
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/bin/sh
+bin:x:2:2:bin:/bin:/bin/sh
+sys:x:3:3:sys:/dev:/bin/sh
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/bin/sh
+man:x:6:12:man:/var/cache/man:/bin/sh
+lp:x:7:7:lp:/var/spool/lpd:/bin/sh
+mail:x:8:8:mail:/var/mail:/bin/sh
+news:x:9:9:news:/var/spool/news:/bin/sh
+uucp:x:10:10:uucp:/var/spool/uucp:/bin/sh
+proxy:x:13:13:proxy:/bin:/bin/sh
+www-data:x:33:33:www-data:/var/www:/bin/sh
+backup:x:34:34:backup:/var/backups:/bin/sh
+list:x:38:38:Mailing List Manager:/var/list:/bin/sh
+irc:x:39:39:ircd:/var/run/ircd:/bin/sh
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/bin/sh
+nobody:x:65534:65534:nobody:/nonexistent:/bin/sh
+libuuid:x:100:101::/var/lib/libuuid:/bin/sh
+syslog:x:101:103::/home/syslog:/bin/false
+messagebus:x:102:105::/var/run/dbus:/bin/false
+colord:x:103:108:colord daemon,,,:/var/lib/colord:/bin/false
+usbmux:x:104:46:usbmux daemon,,,:/home/usbmux:/bin/false
+avahi-autoipd:x:105:115:autoip daemon,,,:/var/lib/avahi-autoipd:/bin/false
+avahi:x:106:116:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/bin/false
+kernoops:x:107:65534:Kernel Oops Tracking Daemon,,,:/:/bin/false
+pulse:x:108:117:PulseAudio daemon,,,:/var/run/pulse:/bin/false
+rtkit:x:109:119:RealtimeKit,,,:/proc:/bin/false
+hplip:x:110:7:HPLIP system user,,,:/var/run/hplip:/bin/false
+kdm:x:111:65534::/home/kdm:/bin/false
+saned:x:112:120::/home/saned:/bin/false
+speech-dispatcher:x:113:29:,,,:/var/run/speech-dispatcher:/bin/sh
+mysql:x:114:123:MySQL Server,,,:/nonexistent:/bin/false
+ntp:x:117:127::/home/ntp:/bin/false
+asterisk:x:118:128:Asterisk PBX daemon,,,:/var/lib/asterisk:/bin/false
+Debian-exim:x:119:129::/var/spool/exim4:/bin/false
+gnugk:x:120:130:GNUgk daemon,,,:/var/run/gnugk:/bin/false
+jetty:x:121:131::/usr/share/jetty:/bin/false
+memcache:x:122:132:Memcached,,,:/nonexistent:/bin/false
+postgres:x:123:133:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
+rtpproxy:x:124:134::/home/rtpproxy:/bin/false
+ser:x:125:135:SIP Express Router,,,:/var/run/ser:/bin/false
+siproxd:x:126:136::/var/run/siproxd:/bin/false
+tomcat6:x:127:137::/usr/share/tomcat6:/bin/false
+yate:x:128:138:YATE daemon,,,:/var/lib/yate:/bin/sh
+oident:x:129:139::/:/bin/false
+statd:x:130:65534::/var/lib/nfs:/bin/false
+sshd:x:131:65534::/var/run/sshd:/usr/sbin/nologin
+monkeysphere:x:132:140:monkeysphere user,,,:/var/lib/monkeysphere:/bin/bash
+cl-builder:x:133:141::/usr/share/common-lisp/:/bin/false
+vdr:x:134:142:VDR user,,,:/var/lib/vdr:/bin/false
+stunnel4:x:135:143::/var/run/stunnel4:/bin/false
+debian-xfs:x:136:144::/nonexistent:/bin/false
+gitlog:x:137:65534::/nonexistent:/bin/false
+gitdaemon:x:138:65534::/nonexistent:/bin/false
+timidity:x:115:124:MIDI sequencer service:/etc/timidity:/bin/false
+dhcpd:x:116:145::/var/run:/bin/false
+libvirt-qemu:x:139:126:Libvirt Qemu,,,:/var/lib/libvirt:/bin/false
+libvirt-dnsmasq:x:140:146:Libvirt Dnsmasq,,,:/var/lib/libvirt/dnsmasq:/bin/false
+mixmaster:x:141:147:Anonymous Remailer,,,:/var/lib/mixmaster:/bin/bash
+radvd:x:142:65534::/var/run/radvd:/bin/false
+uml-net:x:143:148::/home/uml-net:/bin/false
+vde2-net:x:144:149::/var/run/vde2:/bin/false
+tryton:x:145:151::/var/lib/tryton:/bin/false
+hacluster:x:146:152:Heartbeat System Account,,,:/usr/lib/heartbeat:/bin/false
+nbd:x:147:153::/etc/nbd-server:/bin/false
+tftp:x:148:154:tftp daemon,,,:/var/lib/tftpboot:/bin/false
+clamav:x:149:155::/var/lib/clamav:/bin/false
+snort:x:150:156:Snort IDS:/var/log/snort:/bin/false
+nagios:x:151:157::/var/lib/nagios:/bin/false
+pmateti:x:1000:100:pmateti-OSIS-WSU:/home/pmateti:/bin/bash
+student:x:1001:100:Student of OSIS Lab,429 RC,,:/tmp:/bin/bash
+guest:x:1002:100:guest-OSIS-WSU:/tmp/guest:/bin/bash
+ceg235000:x:2350:2350:ceg235000-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235000:/bin/bash
+ceg235001:x:2351:2350:ceg235001-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235001:/bin/bash
+ceg235002:x:2352:2350:ceg235002-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235002:/bin/bash
+ceg235003:x:2353:2350:ceg235003-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235003:/bin/bash
+ceg235004:x:2354:2350:ceg235004-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235004:/bin/bash
+ceg235005:x:2355:2350:ceg235005-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235005:/bin/bash
+ceg235006:x:2356:2350:ceg235006-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235006:/bin/bash
+ceg235007:x:2357:2350:ceg235007-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235007:/bin/bash
+ceg235008:x:2358:2350:ceg235008-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235008:/bin/bash
+ceg235009:x:2359:2350:ceg235009-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235009:/bin/bash
+ceg23500a:x:2360:2350:ceg23500a-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500a:/bin/bash
+ceg23500b:x:2361:2350:ceg23500b-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500b:/bin/bash
+ceg23500c:x:2362:2350:ceg23500c-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500c:/bin/bash
+ceg23500d:x:2363:2350:ceg23500d-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500d:/bin/bash
+ceg23500e:x:2364:2350:ceg23500e-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500e:/bin/bash
+ceg23500f:x:2365:2350:ceg23500f-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500f:/bin/bash
+ceg23500g:x:2366:2350:ceg23500g-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500g:/bin/bash
+ceg23500h:x:2367:2350:ceg23500h-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500h:/bin/bash
+ceg23500i:x:2368:2350:ceg23500i-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500i:/bin/bash
+ceg23500j:x:2369:2350:ceg23500j-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500j:/bin/bash
+ceg23500k:x:2370:2350:ceg23500k-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500k:/bin/bash
+ceg23500m:x:2371:2350:ceg23500m-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500m:/bin/bash
+ceg23500n:x:2372:2350:ceg23500n-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500n:/bin/bash
+ceg23500o:x:2373:2350:ceg23500o-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500o:/bin/bash
+ceg23500p:x:2374:2350:ceg23500p-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500p:/bin/bash
+ceg23500q:x:2375:2350:ceg23500q-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500q:/bin/bash
+ceg23500r:x:2376:2350:ceg23500r-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500r:/bin/bash
+ceg23500s:x:2377:2350:ceg23500s-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500s:/bin/bash
+ceg23500t:x:2378:2350:ceg23500t-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500t:/bin/bash
+ceg23500u:x:2379:2350:ceg23500u-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500u:/bin/bash
+ceg23500v:x:2380:2350:ceg23500v-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500v:/bin/bash
+ceg23500w:x:2381:2350:ceg23500w-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500w:/bin/bash
+ceg23500x:x:2382:2350:ceg23500x-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500x:/bin/bash
+ceg23500y:x:2383:2350:ceg23500y-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500y:/bin/bash
+ceg23500z:x:2384:2350:ceg23500z-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23500z:/bin/bash
+ceg235010:x:2385:2350:ceg235010-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235010:/bin/bash
+ceg235011:x:2386:2350:ceg235011-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235011:/bin/bash
+ceg235012:x:2387:2350:ceg235012-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235012:/bin/bash
+ceg235013:x:2388:2350:ceg235013-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235013:/bin/bash
+ceg235014:x:2389:2350:ceg235014-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235014:/bin/bash
+ceg235015:x:2390:2350:ceg235015-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235015:/bin/bash
+ceg235016:x:2391:2350:ceg235016-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235016:/bin/bash
+ceg235017:x:2392:2350:ceg235017-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235017:/bin/bash
+ceg235018:x:2393:2350:ceg235018-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235018:/bin/bash
+ceg235019:x:2394:2350:ceg235019-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235019:/bin/bash
+ceg23501a:x:2395:2350:ceg23501a-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501a:/bin/bash
+ceg23501b:x:2396:2350:ceg23501b-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501b:/bin/bash
+ceg23501c:x:2397:2350:ceg23501c-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501c:/bin/bash
+ceg23501d:x:2398:2350:ceg23501d-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501d:/bin/bash
+ceg23501e:x:2399:2350:ceg23501e-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501e:/bin/bash
+ceg23501f:x:2400:2350:ceg23501f-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501f:/bin/bash
+ceg23501g:x:2401:2350:ceg23501g-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501g:/bin/bash
+ceg23501h:x:2402:2350:ceg23501h-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501h:/bin/bash
+ceg23501i:x:2403:2350:ceg23501i-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501i:/bin/bash
+ceg23501j:x:2404:2350:ceg23501j-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501j:/bin/bash
+ceg23501k:x:2405:2350:ceg23501k-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501k:/bin/bash
+ceg23501m:x:2406:2350:ceg23501m-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501m:/bin/bash
+ceg23501n:x:2407:2350:ceg23501n-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501n:/bin/bash
+ceg23501o:x:2408:2350:ceg23501o-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501o:/bin/bash
+ceg23501p:x:2409:2350:ceg23501p-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501p:/bin/bash
+ceg23501q:x:2410:2350:ceg23501q-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501q:/bin/bash
+ceg23501r:x:2411:2350:ceg23501r-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501r:/bin/bash
+ceg23501s:x:2412:2350:ceg23501s-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501s:/bin/bash
+ceg23501t:x:2413:2350:ceg23501t-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501t:/bin/bash
+ceg23501u:x:2414:2350:ceg23501u-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501u:/bin/bash
+ceg23501v:x:2415:2350:ceg23501v-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501v:/bin/bash
+ceg23501w:x:2416:2350:ceg23501w-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501w:/bin/bash
+ceg23501x:x:2417:2350:ceg23501x-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501x:/bin/bash
+ceg23501y:x:2418:2350:ceg23501y-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501y:/bin/bash
+ceg23501z:x:2419:2350:ceg23501z-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23501z:/bin/bash
+ceg235020:x:2420:2350:ceg235020-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235020:/bin/bash
+ceg235021:x:2421:2350:ceg235021-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235021:/bin/bash
+ceg235022:x:2422:2350:ceg235022-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235022:/bin/bash
+ceg235023:x:2423:2350:ceg235023-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235023:/bin/bash
+ceg235024:x:2424:2350:ceg235024-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235024:/bin/bash
+ceg235025:x:2425:2350:ceg235025-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235025:/bin/bash
+ceg235026:x:2426:2350:ceg235026-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235026:/bin/bash
+ceg235027:x:2427:2350:ceg235027-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235027:/bin/bash
+ceg235028:x:2428:2350:ceg235028-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235028:/bin/bash
+ceg235029:x:2429:2350:ceg235029-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235029:/bin/bash
+ceg23502a:x:2430:2350:ceg23502a-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502a:/bin/bash
+ceg23502b:x:2431:2350:ceg23502b-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502b:/bin/bash
+ceg23502c:x:2432:2350:ceg23502c-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502c:/bin/bash
+ceg23502d:x:2433:2350:ceg23502d-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502d:/bin/bash
+ceg23502e:x:2434:2350:ceg23502e-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502e:/bin/bash
+ceg23502f:x:2435:2350:ceg23502f-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502f:/bin/bash
+ceg23502g:x:2436:2350:ceg23502g-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502g:/bin/bash
+ceg23502h:x:2437:2350:ceg23502h-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502h:/bin/bash
+ceg23502i:x:2438:2350:ceg23502i-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502i:/bin/bash
+ceg23502j:x:2439:2350:ceg23502j-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502j:/bin/bash
+ceg23502k:x:2440:2350:ceg23502k-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502k:/bin/bash
+ceg23502m:x:2441:2350:ceg23502m-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502m:/bin/bash
+ceg23502n:x:2442:2350:ceg23502n-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502n:/bin/bash
+ceg23502o:x:2443:2350:ceg23502o-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502o:/bin/bash
+ceg23502p:x:2444:2350:ceg23502p-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502p:/bin/bash
+ceg23502q:x:2445:2350:ceg23502q-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502q:/bin/bash
+ceg23502r:x:2446:2350:ceg23502r-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502r:/bin/bash
+ceg23502s:x:2447:2350:ceg23502s-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502s:/bin/bash
+ceg23502t:x:2448:2350:ceg23502t-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502t:/bin/bash
+ceg23502u:x:2449:2350:ceg23502u-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502u:/bin/bash
+ceg23502v:x:2450:2350:ceg23502v-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502v:/bin/bash
+ceg23502w:x:2451:2350:ceg23502w-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502w:/bin/bash
+ceg23502x:x:2452:2350:ceg23502x-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502x:/bin/bash
+ceg23502y:x:2453:2350:ceg23502y-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502y:/bin/bash
+ceg23502z:x:2454:2350:ceg23502z-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23502z:/bin/bash
+ceg235030:x:2455:2350:ceg235030-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235030:/bin/bash
+ceg235031:x:2456:2350:ceg235031-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235031:/bin/bash
+ceg235032:x:2457:2350:ceg235032-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235032:/bin/bash
+ceg235033:x:2458:2350:ceg235033-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235033:/bin/bash
+ceg235034:x:2459:2350:ceg235034-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235034:/bin/bash
+ceg235035:x:2460:2350:ceg235035-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235035:/bin/bash
+ceg235036:x:2461:2350:ceg235036-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235036:/bin/bash
+ceg235037:x:2462:2350:ceg235037-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235037:/bin/bash
+ceg235038:x:2463:2350:ceg235038-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235038:/bin/bash
+ceg235039:x:2464:2350:ceg235039-2013-Fall-OSIS-WSU:/home/ceg2350/ceg235039:/bin/bash
+ceg23503a:x:2465:2350:ceg23503a-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23503a:/bin/bash
+ceg23503b:x:2466:2350:ceg23503b-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23503b:/bin/bash
+ceg23503c:x:2467:2350:ceg23503c-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23503c:/bin/bash
+ceg23503d:x:2468:2350:ceg23503d-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23503d:/bin/bash
+ceg23503e:x:2469:2350:ceg23503e-2013-Fall-OSIS-WSU:/home/ceg2350/ceg23503e:/bin/bash

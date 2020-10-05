@@ -1,0 +1,89 @@
+
+# -*- mode: org -*-
+#+date: 2017-02-06
+#+TITLE: Password Cracking: John-the-Ripper
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: Android Internals and Security
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2017 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* John-the-Ripper
+
+1. http://www.openwall.com/john/ "John the Ripper is a fast password
+   cracker, currently available for many flavors of Unix, Windows,
+   DOS, and OpenVMS. Its primary purpose is to detect weak Unix
+   passwords." https://github.com/magnumripper/JohnTheRipper
+
+1. Linux/Unix, Windows.  Command line.  =apt-get install john=
+   Installs =john=, =unshadow=, etc.
+
+   : sudo apt-get install john
+
+1. http://www.openwall.com/john/doc full docs, including download
+   links, etc.
+
+
+** What Does It Do?
+
+1. Suppose we have a file of salted and encoded passwords, such as
+   /etc/shadow of Linux.  John can crack these into plain text.
+
+1. Example Usage.  Can take hours/ days.
+
+   : sudo unshadow /etc/passwd /etc/shadow > /tmp/mypasswd.txt
+   : john /tmp/mypasswd.txt
+
+1. A log is produced as =~/.john/john.log= John prints a status line
+   when a key is pressed.  It contains guesses, passwords cracked,
+   time, etc.
+
+1. Invoke the external module AutoStatus to enable automatic output of
+   the status line every n-th guess.  External modules are custom
+   functions called by john, and can be defined in john.conf; see
+   below.
+
+** Successful Example
+
+1. =man john= Required Reading
+
+** Example That Can Take Days
+
+
+** How Does It Do?
+
+1. http://blog.nullmode.com/blog/2015/03/22/36-core-aws-john/
+
+1. Attempts (i) a dictionary attack, (ii) combined dictionary words,
+   (iii) hybrid attack of dictionary words with special characters and
+   numbers, (iv) brute force.
+
+** john.conf
+
+1. Configuration file.  This [[https://github.com/rafaveguim/jtr-lab-tools/blob/master/john.conf][john.conf]] is from the reference below.
+
+1. TBD Unknown option: "--pot=rockyou_vs_bfield.pot"
+
+#+begin_src bash
+./john --wordlist=./rockyou.txt \
+     --rules \
+     --pot=rockyou_vs_bfield.pot \
+     --conf=john.conf.txt \
+     --external=AutoStatus \
+     --format=Raw-MD5 \
+     battlefield-hashes.txt 2> rockyou_vs_bfield.log
+#+end_src
+
+* References
+
+1. Rafael Veras, [[http://rafaveguim.github.io/cracking/passwords/jtr/2016/05/05/jtr-research-lab/][Using John The Ripper in the Research Lab]], 2016.
+   Generates charts, etc.  Highly Recommended Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

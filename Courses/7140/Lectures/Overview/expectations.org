@@ -1,0 +1,10 @@
+
+** Expectations of You
+
+1. Typical prereq deficiency: Grammars, BNF, discrete math, and
+   mathematical logic.  Refresher lectures for this will be spread
+   over the semester.
+1. Fluency in OOP languages, specifically C++, Java, and concepts.  No
+   refresher.
+1. I take cheating seriously. One case of cheating, and you will get
+   an F in the entire course.

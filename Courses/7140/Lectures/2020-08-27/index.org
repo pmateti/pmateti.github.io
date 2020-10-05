@@ -1,0 +1,112 @@
+# -*- mode: org -*-
+#+DATE: 2020-08-27
+#+TITLE: CS7140 Adv Software Engineering 2020-08-27
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Announcements/ Reminders
+
+1. Oops Item: We lost the video of 2020-08-25 lecture. Sorry!  Lecture
+   Notes are intact.
+1. Action Item: Survey responses due: Aug 31, 2020.
+1. You are expected to have taken CEG4111 Software Engineering here at
+   WSU or an equivalent course elsewhere.  I will try to fill you in
+   on most of the missing background/ prerequisites.  A survey for
+   that purpose is posted on Pilot.  Here is a link
+   https://cecs.wright.edu/~pmateti/Courses/7140/Lectures/Overview/survey.html
+   Submit the written responses to the survey on Pilot.
+1. Action Item: [[../../Projects/7140-project.html][Project Work]]. Form into teams of 3.  [We continue
+   discussion on this in the next lecture.]
+1. Action Item: [[../Overview/7140-syllabus.html][Syllabus]] Please read by next lecture.
+1. Action Item: Watch/ Read/ Study lecture videos, notes, and articles.
+
+
+* Agenda
+
+** Metrics
+
+1. =sloc= by David Wheeler
+1. https://github.com/boyter/scc
+1. The area of "Software Metrics".  Look it up!
+1. SLOC of Linux, etc.
+
+1. Size/Complexity: [[http://en.wikipedia.org/wiki/Source_lines_of_code][wikipedia.org Source lines of code]] E.g., Windows
+   has 40+ MLOC.  ansic: Linux: ansic 18991315 (97.91%), of which
+   12977133 are drivers {ansic=12965717, perl=4459, asm=3842,
+   yacc=1680, lex=771}
+
+1. 5 - 50 bugs per KLOC?  Suppose 10% of the bugs result in security
+   faults.  40,000 KLOC*5*10% = 25,000 security bugs.
+
+** Programming in the Small .. Giga
+
+
+  1. Can we define: program, software? Small, Medium, Large, ..., Giga?
+
+  1. Our working/arbirary definitions:
+      1.  Tiny: 00 -- 01 KLOC;
+      1.  Small: 01  -- 10 KLOC;
+      1.  Medium: 10 -- 01 MLOC;
+      1.  Large: 01 -- 10 MLOC;
+      1.  Giga: 10+ MLOC  
+
+** Simple Problems
+
+1. [[../Overview/simple-problems.html]]
+
+** Wicked Problems
+
+1. Exercise: Discover what these are.  In Software Engineering.
+   Elsewhere.
+
+1. Agree/Disagree: "There are wicked problems for which we cannot
+   write programs."
+
+** Software Qualities
+
+1. [[../Overview/software-qualities.org]]
+
+** Bit of Humor
+
+1. [[../Overview/Humor/SwingCartoon/7140-life-cycle-cartoon.html][Software Life Cycle]]
+1. [[../Overview/Humor/dilbert-1153.strip.sunday.gif][dilbert]]
+1. [[../Overview/Humor/software-dev-5phases-humor.jpg][Software Dev Five Phases]]
+
+
+
+
+
+* References
+
+1. General Request to the reader: If you have updates to these links,
+   please send them!
+
+1. [[../Overview/math-logic.html]] Read ahead. Add any questions to
+   Discussion.  Required Reading.
+1. [[../Overview/Ethics-PM.pdf]] Lecture slides of a colleague.  Required
+   Reading.
+1. Google Talk on How They Build Their Software 2012: (i) [[http://www.youtube.com/watch?v=2qv3fcXW1mg][ Video]], (ii)
+   [[http://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/people/jeff/stanford-295-talk.pdf][ PDF]] Recommended Watching/Reading
+
+1. http://blogs.msdn.com/b/b8/archive/2012/03/06/going-behind-the-scenes-building-windows-8.aspx
+   Building Windows 8.  Recommended Reading.
+1. http://2013.icse-conferences.org/Keynote 2013 ICSE conference
+   Keynote "Does Scale Really Matter? -- Ultra-Large-Scale Systems
+   Seven Years after the Study".  Linda Northrop is director of the
+   Research, Technology, and Systems Solution Program at the Software
+   Engineering Institute (SEI).  In 2006, http://www.sei.cmu.edu/uls/
+   Ultra-Large-Scale Systems: The Software Challenge of the Future
+   (ISBN 0-9786956-0-7) documented the results of a year-long study.
+   Free book pdf.  Recommended Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

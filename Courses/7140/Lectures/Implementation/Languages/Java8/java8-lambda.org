@@ -1,0 +1,163 @@
+# -*- mode: org -*-
+#+date: 2015-11-09
+#+TITLE: Lambda Expressions of Java 8
+#+AUTHOR: Prabhaker Mateti
+
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a hrefTBD=\"index-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+* Abstract
+
+Lambda Expressions, method refs, functional interfaces, etc. of
+Java 8.
+
+* Background
+
+** First Class Entities
+
+1. Entities: any "thing" that can be defined in the prog language
+   1. values of builtin types
+   2. labels (targets of goto)
+   3. functions, methods, a section of code
+   4. type defs
+
+2. First-Class entities can be: (i) passed as a parameter; (ii) returned from a
+   function; (iii) assigned to a variable;
+
+3. Second-Class entities can be: (i), not (ii), not (iii)
+
+4. Third-Class entities can be: none of (i) (ii) (iii)
+
+** Lexical and Dynamic Scoping
+
+1. Consider the example below, 
+
+   #+begin_src pseudo
+int n := 123;               // written in pseudo code
+
+define meenie() {
+  print("meenie: " + n);
+}
+
+define minie(int n) {
+  print("minie: " + n);
+  meenie();                 // which n does this use?
+}
+
+print("main: " + n);
+minie(456);
+meenie();
+#+end_src
+
+1. main: 123 minie: 456 meenie: 123 meenie: 123  // lexical scoping
+1. main: 123 minie: 456 meenie: 456 meenie: 123  // dynamic scoping
+
+** Closures
+
+1. In a block, bound variables are those decalred within.  All others
+   (i.e., declared outside) are free variables.
+
+1. An environment is a table of triplets: the name of a variable, its
+   declaration, its current value.  Nested scopes give rise to a stack
+   of environments.
+
+1. A closure is a block of code that can be referenced and passed
+   around.  In general, it has free variables.  These free variables
+   are yield the values they have in that environment, regardless of
+   where this closure is evaluated.
+
+1. Def: Closures are procedure contexts as
+   first-class objects.
+   1. Define: first-class objects. See below.
+   2. Define: procedure contexts. section of code 
+
+1. Closures are a feature present in many (functional, as well as
+   procedural) languages.
+
+1. Java8 associates a closure with a lambda expression, paired with an
+   environment.  So the two terms are often used interchangeably in
+   the Java community. Other languages do not treat closures and
+   lambda expressions like so.
+
+1. If we use the above CS definition of what closures are, Java8 does
+   not have them.
+
+1. https://en.wikipedia.org/wiki/Closure_(computer_programming)
+
+* Java8 Lambdas
+
+** Lambda Calculus
+
+1. Alonzo Church, the Lambda Calculus, 1936; Used the Greek \lambda character
+1. Grammar: expr ::= \lambda id : expr | expr expr | id | (expr)
+1. Lambda calculus is mathematically equivalent to Turing Machines.
+
+** Function Defs without Names
+
+1. Suppose we have =f(x, y)= defined as =(x + 1)*(y + 2)=.  
+   So, =f(3, 4)= is =24=.
+1. The anonymous version of f is: =lambda x, y: (x + 1)*(y + 2) ;=
+1. The =f(3, 4)= is written as =(lambda x, y: (x + 1)*(y + 2))(3, 4)=
+1. Function definition appears in-line with function-invocation.
+1. Another, but same, in-line def makes it another anonymous function
+   that we happen to know is the same.
+
+** Java8 Functional interfaces
+
+1. A functional interface defines exactly one abstract method. 
+1. =java.lang.Runnable=\\
+   =public abstract void run();=   abstract can be omitted
+
+** Java8 Method References
+
+1. http://www.lambdafaq.org/what-are-method-references/
+
+** Java8 Functions without Names
+
+1. =(int x, int y) -> { return (x + 1)*(y + 2); }=
+
+1. =(x, y) -> { (x + 1)*(y + 2); }= as above but with inferred types
+
+1. =x -> { System.out.println(x); }= 
+   is an example of single parameter with inferred type on the left of
+   the arrow, and a block with no return value on the rhs.
+
+1. Without Lambda exp (No inputs)
+   #+begin_src java
+Runnable r1 = new Runnable() {
+  public void run() {
+    System.out.println("Running without Lambda");
+  }
+};
+#+end_src
+
+1. With Lambda exp  (No inputs)
+   #+begin_src java
+Runnable r2 = () -> { System.out.println("Running with Lambda"); };
+#+end_src
+
+1. Selecting persons based on some criteria
+   #+begin_src java
+printPersons(
+    roster, (Person p) ->
+        p.getGender() == Person.Sex.MALE && p.getAge() >= 18
+);
+#+end_src
+
+* References
+
+1. Lectured using these [[https://www.cs.cmu.edu/~charlie/courses/15-214/2014-fall/slides/26-java8.pdf][PDF slides]] by www.cs.cmu.edu/~charlie.
+   "Lambdas and Streams in Java8", 2014.  Required Reading.
+
+1. Oracle.com, [[https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html][Lambda Expressions]], [[http://docs.oracle.com/javase/tutorial/java/javaOO/nested.html][Nested Classes]].  Recommended
+   Reading.
+
+1. https://dzone.com/articles/dark-side-java-8 A critque. Recommended Reading.
+
+1. http://www.lambdafaq.org/  Reference

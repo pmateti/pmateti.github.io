@@ -1,0 +1,106 @@
+# -*- mode: org -*-
+#+date: 2016-02-04
+#+TITLE: Tic-Tac-Toe Specs
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+This is part of
+[[../../Examples/TicTacToe-JavaFX-UnRedo]]
+
+* Informal Description
+
+Tic-Tac-Toe is played on a grid of 3x3 cells.  Two players: the
+X-player, the O-player. All cells begin as blank cells.  Players
+alternate to place an X ("ex") or O (big-oh) in a blank-cell.  Goal is
+to have 3 Xs or 3 Os in a row, in a column, or in a digonal.  The
+first player to do so wins.  A game is a draw if all 9 cells are
+filled without anyone winning.
+
+* The Grid without GUI
+
+1. The cells are arranged in a grid named g, a 2d array of size 3x3.
+   By g[i, j] we refer to the cell in row i and column j rangin in 1
+   .. 3.  g[i, j] == one of blank ' ', 'X', 'O'.
+1. nFilled is a derived integer.  It counts how many cells are
+   non-blank.
+1. It is useful to write the entire g as a sequence of 9 characters as
+   in [OBOXBBXBB], where we replace a blank with a B for visual
+   clarity.  This is a linearization by row, top-down.  Note that not
+   all 9-char sequences of XOB represent legitimate states in the
+   game.
+
+** Changes in the Grid in One Move
+
+1. A grid g.old changes into g.new as a result of a move by a player.
+2. Preconditions: nFilled.old < 9.  Simplified to nFilled < 9.
+3. Postconditions: 
+   1. nFilled.new = nFilled.old + 1.  Simplified to nFilled = nFilled.old + 1.
+   2. One blank cell of g.old is no longer so in g.new.  That is, for
+      some i and j, g.old[i, j] = blank and g.new[i, j] != blank.
+
+** Who Won?
+
+
+1. Game is won by 'X': hasWon('X')
+
+1. Game is won by 'O': hasWon('O')
+
+1. Game is a draw: nFilled == 9, ! hasWon('X'), ! hasWon('O')
+
+** Players Alternate
+
+1. [Left as an Exercise.]
+
+** Game Progress
+
+1. The history of the game after step i can be written out as a sequence of grid
+   states: g_0, g_1, ..., g_(i-1), g_i.
+1. Before any player makes moves: g_0 = [BBBBBBBBB].
+1. Game ends when nFilled = 9 or when X or O hasWon.
+1. Consecutive values g_i and g_(i+1) are related as described in
+   "Changes in the Grid in One Move".
+
+* How To Spec Interactive GUI?
+
+1. This is best done by examples.  See the screen shots.  Specs by
+   Examples tend to overspecify.  So, the screenshots are followed
+   with explicit retractions.
+
+1. There are several
+   status messages: X's turn, O's turn, Game Over: X won, Game Over: O
+   won, Game Over: Draw!.  Use of other fonts and colors is OK. The
+   location of the status message is at the bottom.
+
+1. Should we write the move number in a small font in the non-blank cells?
+
+** Screenshots
+#+CAPTION: After 4 moves.  Blanks, X and O should be shown as in the screenshots. Other "good   looking" renderings are OK. The game status should be shown prominently.  
+#+ATTR_HTML: :alt tictactoe after 4 moves :title tictactoe4 :width 10% :align left
+[[./snapshot1.png]]
+#+CAPTION: After 5 moves.  What is the relationship between the numbers of Xs and Os? Can you determine who had the first turn?
+#+ATTR_HTML: :alt tictactoe after 4 moves :title tictactoe5 :width 10% :align right
+[[./snapshot2.png]]
+
+* Auxiliary Functions
+
+1. =Boolean hasWon(Grid g, char C)=
+1. =isGridLegit(seq q)=
+
+* Discussion/ Exercises
+
+1. Did we commit any of the Seven Sins of the Specifiers?
+1. Write a Requirements Document.
+
+1. It is possible to detect a draw "early"; specify this as a Boolean
+   function.  E.g., see this snapshot
+#+ATTR_HTML: :title tictactoe7 :width 10%
+   [[./snapshot4-draw.png]].
+
+

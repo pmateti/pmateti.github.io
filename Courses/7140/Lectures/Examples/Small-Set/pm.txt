@@ -1,0 +1,43 @@
+
+    public boolean isin(int e) {
+        int x = indexOf(e);
+        assert x >= ux || (e == ear[x] && 0 <= x && x < ux);
+        return (x < ux);
+    }
+
+assert x >= ux || (x == ear[x] && 0 <= x && x < ux);
+x == ear[x] should be e == ear[x]
+
+    public SmallSet(int [] a, int m, int n) {
+        assert m < n;
+        ear = new int[sz];
+        for (int i = m; i < n; i++) {
+            insert(a[i]);
+        }
+    }
+
+Must add classInv.  May cons w dupes.
+
+    private int indexOf(int e) {
+        //        assert classInv(this);
+        // should private methods assert clssInv?
+        int i = 0;
+        ear[ux] = e;
+        while (ear[i] != e)
+            i++;
+        assert 0 <= i && i <= ux && e == ear[i] ;
+        return i;
+    }
+
+    public int nitems() {
+        SmallSet s = compact();
+        ux = s.ux;
+        ear = s.ear;
+        assert ux == setOf(s).nitems();
+        return ux;
+    }
+
+assert ux == setOf(s).nitems(); should really be
+assert ux == this.nitems(); which of course should be removed because
+of inf recursion.
+

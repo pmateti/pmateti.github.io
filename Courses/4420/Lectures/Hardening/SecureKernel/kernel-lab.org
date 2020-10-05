@@ -1,0 +1,106 @@
+
+# -*- mode: org -*-
+#+date: 2018-11-28
+#+TITLE: Lab on Kernel Hardening
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Background
+
+1. Prerequisite:: Successful completion of SysCalls lab.
+1. Prerequisite:: Apply all known patches for security.  http://www.linuxsecurity.com/
+1. Prerequisite:: Build a kernel yourself.  Be fully conversant with
+   creating a =.config= file.
+1. Admitted:: We do not know deep-enough about the OS Kernels in
+   general, and Linux Kernel in particular.
+1. Goal:: Even so, we can successfully build and deploy a secure
+   kernel.
+1. Awareness:: On my Kubuntu system, =grep apparmor /proc/kallsyms |
+   wc -l= produces 80, and =grep selinux /proc/kallsyms | wc -l=
+   produces 288.  Check your system.
+
+* Tasks
+
+1. In each task, you are expected to build, document your build,
+   deploy, and demo the deployed kernel.  All of these should be
+   thoroughly described in the report.
+
+
+** Task: Kernel with No-SELinux [20 points]
+
+1. Include AppArmor, Exclude SELInux.  Show that =grep selinux
+   /proc/kallsyms | wc -l= comes out as (near) zero.
+1. Provide 5 extra slots for new syscalls in the sys-call-table
+
+
+** Task: Kernel with No-AppArmor [20 points]
+
+1. Exclude AppArmor, Include SELInux.  Show that =grep apparmor
+   /proc/kallsyms | wc -l= comes out as (near) zero.
+1. Provide 5 extra slots for new syscalls in the sys-call-table
+
+** Task: Devious Kernel [20 points]
+
+1. Build a devious kernel that does contain known bugs.  We
+   expect to use such kernels in labs.
+
+1. Focus on PIE (Position Independent Code).  See the references.
+
+1. Write a users' manual.
+
+** Task: Kernel Built by LLVM [20 points]
+
+1. Build the "No-SELinux Kernel" above with [[http://llvm.org/docs/][LLVM]], an alternate C
+   compiler and build system.
+
+1. Demonstrate that you are conversant with Unit tests for known LLVM
+   Linux Bugs.  Study https://blog.regehr.org/archives/1450 Testing
+   LLVM.
+
+* Submission
+
+1. [15 points] Lab Report quality, compliance, and completeness.  [5
+   points] Include a journal. By the hour.  You must follow the Lab
+   Report Template.  There should be a section on each of the tasks. A
+   couple of lines of an answer to each (implied/ explicit) question/
+   discussion item. Must number them as in this document.
+
+1. Use good judgment in (i) what to submit and (ii) what to omit and
+   (iii) how long the report becomes.  Do not make the report way
+   longer than, say, 20 pages.  It is possible to remain under 20 pp, and
+   receive full score.  Lack of judgment earns *negative* points.
+
+1. Submit relevant files of source code that you wrote, and of text.
+   Always interpret the results.
+
+1. Submit a PDF file named exactly =Report-L7.pdf=, and a tarball
+   =L7.tbz= [created with =tar cfjvv L7.tbz source-files*= ]. (Scripts
+   are used to check various things -- so file names should obey such
+   "rules".)
+
+* References
+
+1. Prabhaker Mateti, Lecture Notes on [[../SecureKernel][Linux Kernel Hardening]], 2018.
+
+1. https://www.vulnhub.com/ "To provide materials that allows anyone
+   to gain practical hands-on experience in digital security, computer
+   software & network administration. "  Required Visit.
+
+1. PIE (Position Independent Executables) Exploit https://nvd.nist.gov/vuln/detail/CVE-2017-1000253
+   Awareness Reference
+
+1. https://llvm.org/devmtg/2012-04-12/Slides/Mark_Charlebois.pdf 30+
+   slides. 2012.  Compiling Linux with LLVM.  Awareness Reference
+
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

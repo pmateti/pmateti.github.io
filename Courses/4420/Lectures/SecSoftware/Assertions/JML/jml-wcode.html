@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Design by Contract with JML</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Design by Contract with JML"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-09-26T01:26-0400"/>
+<meta name="author" content="Prabhaker Mateti"/>
+<meta name="description" content="CS7140 Software Engineering Lecture"/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<style> @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="../../Lectures"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div>
+
+<div id="preamble">
+<a href="http://cecs.wright.edu/~pmateti/Courses/7140/">CS 7140 Advanced Software Engineering</a>
+</div>
+
+<div id="content">
+<h1 class="title">Design by Contract with JML</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Design by Contract, refresher</a>
+<ul>
+<li><a href="#sec-1-1">1.1 Class Invariant</a></li>
+<li><a href="#sec-1-2">1.2 Loop Invariant</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 Java Modeling Language (JML) Overview</a>
+<ul>
+<li><a href="#sec-2-1">2.1 No Side Effects</a></li>
+<li><a href="#sec-2-2">2.2 Java extended syntax</a></li>
+<li><a href="#sec-2-3">2.3 Quantifiers</a></li>
+<li><a href="#sec-2-4">2.4 Java example source code files with JML annotations</a></li>
+<li><a href="#sec-2-5">2.5 Non-Null</a></li>
+<li><a href="#sec-2-6">2.6 assert</a></li>
+<li><a href="#sec-2-7">2.7 assignable</a></li>
+<li><a href="#sec-2-8">2.8 pure</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 Model Variables</a></li>
+<li><a href="#sec-4">4 Tools for JML</a></li>
+<li><a href="#sec-5">5 JML References</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Design by Contract, refresher</h2>
+<div class="outline-text-2" id="text-1">
+
+<ol>
+<li>Class invariant
+</li>
+<li>Pre- Post-conditions for public methods
+</li>
+<li>View point:
+<ol>
+<li>Assigning blame across interfaces
+</li>
+<li>Details of method responsibilities
+</li>
+<li>Avoiding constantly checking arguments
+
+</li>
+</ol>
+
+</li>
+<li>A contract can be satisfied in many ways
+<ol>
+<li>a method can have many implementation satisfying the contract
+</li>
+<li>Different performances (time, space, etc)
+
+</li>
+</ol>
+
+</li>
+<li>A contract hides the implementation details
+<ol>
+<li>We can change implementations.
+</li>
+<li>Caller's code Will work for any implementation that satisfies the
+   contract
+
+</li>
+</ol>
+
+</li>
+<li>Caller code 
+<ol>
+<li>will work for every implementation that satisfies the contract
+</li>
+<li>Can thus only use the contract (not the code)
+</li>
+<li>Must establish precondition. The caller guarantees precondition holds
+</li>
+<li>Can assume the postcondition. The caller is guaranteed  postcondition
+
+</li>
+</ol>
+
+</li>
+<li>Called code
+<ol>
+<li>Must satisfy contract
+</li>
+<li>Can assume precondition
+</li>
+<li>Must establish postcondition &ndash; but can do anything permitted by it.
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Class Invariant</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<ol>
+<li>Class invariant is an extended Boolean exp that is always true of
+   an object’s state (when control is not inside the object’s
+   methods).
+</li>
+</ol>
+
+
+<p>
+Invariants document design decisions.  Making them explicit helps in
+understanding the code. E.g.,
+</p>
+
+
+
+<pre class="example">public class Directory f;
+private File[] files;
+/*@ invariant
+      files != null
+      &amp;&amp;
+      (forall int i; 0 &lt;= i &amp;&amp; i &lt; files.length;
+        files[i] != null &amp;&amp; files[i].getParent() == this)
+      ;
+@*/
+</pre>
+
+
+<p>
+Note the <code>forall</code> syntax.  Universal &forall; JML <code>\forall</code> and
+existential &exist; JML <code>\exists</code>
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Loop Invariant</h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+
+
+
+<pre class="example">//@ loop invariant 0 &lt;= i &amp;&amp; i&lt;= n;
+//@ decreasing n-i;
+for(int i = 0; i &lt; 0; i++) {
+  ...
+}
+</pre>
+
+
+<p>
+We are asserting that the value of expression <code>n - i</code> will be
+decreasing from one iteration to the next.
+</p>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Java Modeling Language (JML) Overview</h2>
+<div class="outline-text-2" id="text-2">
+
+<ol>
+<li>JML is a "behavioral" (functional) interface specification language
+</li>
+<li>JML is contained in <i>annotations</i>
+<ol>
+<li><code>//@ JML annotation</code>
+</li>
+<li><code>/*@ JML annotation @*/</code>
+</li>
+<li><code>javac</code> will ignore these
+</li>
+<li><code>jmlc</code> processes these. Using jmlc is similar to using javac.
+</li>
+</ol>
+
+</li>
+<li>JML annotation is a Java boolean expression &hellip;
+<ol>
+<li>without any side effects
+</li>
+<li>extended with <code>\old</code>, <code>\result</code>
+</li>
+<li>extended with <code>\forall</code>, <code>\exists</code>
+</li>
+<li>JML keywords: <code>requires, ensures, invariant</code>
+</li>
+<li>JML keywords: <code>pure, nonnull, assignable, signals</code>
+</li>
+</ol>
+
+</li>
+<li>JML annotation includes <code>model</code> fields
+</li>
+</ol>
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> No Side Effects</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<ol>
+<li>No use of assignment <code>\=</code> , <code>++, --</code>, &hellip;
+</li>
+<li>Can only call pure methods.
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Java extended syntax</h3>
+<div class="outline-text-3" id="text-2-2">
+
+<ol>
+<li>a ==&gt; b stands for a implies b
+</li>
+<li>a &lt;==&gt; b stands for a iff b
+</li>
+<li>a &lt;=!=&gt; b stands for  !(a &lt;==&gt; b)
+</li>
+<li><code>\old(E)</code> stands for the value of E in pre-state
+</li>
+<li><code>\result</code> stands for the result of method
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Quantifiers</h3>
+<div class="outline-text-3" id="text-2-3">
+
+<ol>
+<li>Universal &forall; JML <code>\forall</code> and existential &exist; JML <code>\exists</code>
+</li>
+<li>General quantifiers (<code>\sum, \product, \min, \max</code>)
+</li>
+<li>Numeric quantifier (<code>\num_of</code>)
+</li>
+<li>Ex: <code>(\forall Student s; juniors.contains(s); s.getAdvisor() != null)</code>
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Java example source code files with JML annotations</h3>
+<div class="outline-text-3" id="text-2-4">
+
+
+<ol>
+<li><a href="./jml-one-page-ex-1.pdf">./jml-one-page-ex-1.pdf</a>
+</li>
+<li><a href="./jml-one-page-ex-2.pdf">./jml-one-page-ex-2.pdf</a>
+</li>
+</ol>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> Non-Null</h3>
+<div class="outline-text-3" id="text-2-5">
+
+<ol>
+<li>Some references must not be <code>null</code>.
+</li>
+<li><code>private /*@ non null @*/ File[] files;</code>
+</li>
+<li><code>void createSubdir(/*@ non null @*/ String name) {</code>
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> assert</h3>
+<div class="outline-text-3" id="text-2-6">
+
+<ol>
+<li><code>//@ assert i &gt; 0 &amp;&amp; 0 &lt; j &amp;&amp; j &lt; 5;</code>
+</li>
+<li><code>//@ assert (\forall int i; 0 &lt;= i &amp;&amp; i &lt; n; a[i] != null);</code>
+</li>
+<li>JML keyword assert also in Java (since Java 1.4).
+   assert in JML is more powerful
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> assignable</h3>
+<div class="outline-text-3" id="text-2-7">
+
+<ol>
+<li>Frame properties limit possible side-effects of methods.
+</li>
+<li><code>//@ requires amount &gt;= 0;</code>
+</li>
+<li><code>//@ assignable balance;</code>
+</li>
+<li><code>//@ ensures balance == \old(balance) - amount;</code>
+</li>
+<li><code>public int debit(int amount) { ... }</code>
+</li>
+<li><code>debit</code> can only assign to the ﬁeld balance.<br/>
+   NB this does not follow from the post-condition.
+</li>
+<li><code>//@ assignable \everything</code>
+</li>
+<li><code>//@ assignable \nothing</code>
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> pure</h3>
+<div class="outline-text-3" id="text-2-8">
+
+<ol>
+<li>A method without side-effects is said to be <code>pure</code>
+</li>
+<li><code>public /*@ pure @*/ int getBalance() { ... }</code>
+</li>
+<li>Pure methods have implicitly <code>assignable \nothing</code>
+</li>
+<li>Pure methods, and only pure methods, can be used in
+   speciﬁcations:
+</li>
+<li><code>//@ invariant 0 &lt;= getBalance() &amp;&amp; getBalance() &lt;= MAX_BALANCE</code>
+</li>
+</ol>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Model Variables</h2>
+<div class="outline-text-2" id="text-3">
+
+<ol>
+<li>variables to be used only in specifications
+</li>
+<li>Given value only by <code>represents</code> clauses
+</li>
+<li>Data abstraction
+</li>
+<li>Code below is Java-like only &ndash; not actual Java
+</li>
+</ol>
+
+
+
+
+
+<pre class="example">class Counter {
+  model n: int;
+  private a: int;
+  private b: int;
+  representation n is a – b;
+
+  method Increment()
+    modifies only n;
+    ensures old(n) + 1 == n;
+   { a := a + 1 }
+
+  method Decrement()
+    modifies only n;
+    ensures old(n) == n + 1;
+    { b := b + 1 }
+}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Tools for JML</h2>
+<div class="outline-text-2" id="text-4">
+
+<ol>
+<li>JMLC/JMLRAC
+<ol>
+<li>jmlc &ndash; copiler for JML assertions
+</li>
+<li>jmlrac &ndash; run time JML assertion checker; low-overhead;
+</li>
+<li><a href="http://jmleclipse.projects.cis.ksu.edu/">http://jmleclipse.projects.cis.ksu.edu/</a>
+</li>
+<li><a href="http://www.pm.inf.ethz.ch/research/universes/tools/eclipse/">http://www.pm.inf.ethz.ch/research/universes/tools/eclipse/</a>
+</li>
+<li><a href="http://sourceforge.net/apps/trac/jmlspecs/wiki/JmlEclipse">http://sourceforge.net/apps/trac/jmlspecs/wiki/JmlEclipse</a>
+</li>
+<li><a href="http://www.cse.chalmers.se/edu/year/2012/course/TDA566/">http://www.cse.chalmers.se/edu/year/2012/course/TDA566/</a>
+
+</li>
+</ol>
+
+</li>
+<li>Extended static checker (ESC/Java2): 
+<ol>
+<li><a href="http://kindsoftware.com/products/opensource/ESCJava2/">http://kindsoftware.com/products/opensource/ESCJava2/</a>
+</li>
+<li>prove JML assertions at compile time;
+</li>
+<li>high cost;
+</li>
+<li>possible only for small programs
+</li>
+<li>Improve the current software engineering process
+</li>
+<li>Input: Java + annotation subset of JML;
+
+</li>
+</ol>
+
+</li>
+<li>JACK: Java Applet Correctness Kit
+<ol>
+<li><a href="http://www-sop.inria.fr/everest/soft/Jack/jack.html">http://www-sop.inria.fr/everest/soft/Jack/jack.html</a>
+</li>
+<li>Please check it out.  Bonus Points!
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> JML References</h2>
+<div class="outline-text-2" id="text-5">
+
+<ol>
+<li>Gary T. Leavens and Yoonsik Cheon, "Design by Contract with JML",
+   <a href="http://www.jmlspecs.org/jmldbc.pdf">http://www.jmlspecs.org/jmldbc.pdf</a>, 2006. Compare with Meyers
+   paper. Required Reading.
+
+</li>
+<li><a href="http://www.eecs.ucf.edu/~leavens/JML/fmco.pdf">http://www.eecs.ucf.edu/~leavens/JML/fmco.pdf</a> Overview of JML tools
+   2004.Recommended Reading.
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr size=1>Copyright &copy; 2013 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a>
+</div>
+</body>
+</html>

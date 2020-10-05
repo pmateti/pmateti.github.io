@@ -1,0 +1,215 @@
+** Wiki
+
+Hashcat has such an exetensive wiki that it can be frustrating for
+casual users of hashcat.
+
+Hashcat is a CLI-tool, but does not obey (modern)
+Linux rules.
+
+Even after cracking the hashes, to get it to show the discovered
+passwords is non-trivial: Use the "--show" and "-o" option with your
+chosen file name, e.g., "output-fnm.txt".  For some reason, this -o
+file does not get created all the time.  You may wish to check the
+contents of % cat /usr/local/hashcat/hashcat.potfile
+
+** Log
+
+% /usr/local/hashcat/hashcat -m 0 -a0 hashes-md5.txt /usr/share/wordlists/rockyou.txt 
+hashcat (v3.5.0) starting...
+
+OpenCL Platform #1: Advanced Micro Devices, Inc.
+================================================
+ * Device #1: AMD FX(tm)-8150 Eight-Core Processor, 32152/32152 MB allocatable, 8MCU
+
+Hashes: 8 digests; 8 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Applicable optimizers:
+ * Zero-Byte
+ * Precompute-Init
+ * Precompute-Merkle-Demgard
+ * Meet-In-The-Middle
+ * Early-Skip
+ * Not-Salted
+ * Not-Iterated
+ * Single-Salt
+ * Raw-Hash
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+Watchdog: Temperature retain trigger disabled.
+
+Dictionary cache built:
+ * Filename..: /usr/share/wordlists/rockyou.txt
+ * Passwords.: 14344391
+ * Bytes.....: 139921497
+ * Keyspace..: 14343296
+
+2ac9cb7dc02b3c0083eb70898e549b63:Password1                
+eb61eead90e3b899c6bcbe27ac581660:HELLO                    
+75b71aa6842e450f12aca00fdf54c51d:P455w0rd                 
+2c9341ca4cf3d87b9e4eb905d6a3ec45:Test1234                 
+958152288f2d2303ae045cffc43a02cd:MYSECRET                 
+Approaching final keyspace - workload adjusted.           
+
+                                                          
+Session..........: hashcat
+Status...........: Exhausted
+Hash.Type........: MD5
+Hash.Target......: hashes-md5.txt
+Time.Started.....: Fri Apr  7 19:03:33 2017 (4 secs)
+Time.Estimated...: Fri Apr  7 19:03:37 2017 (0 secs)
+Guess.Base.......: File (/usr/share/wordlists/rockyou.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.Dev.#1.....:  3990.0 kH/s (1.21ms)
+Recovered........: 5/8 (62.50%) Digests, 0/1 (0.00%) Salts
+Progress.........: 14343296/14343296 (100.00%)
+Rejected.........: 2006/14343296 (0.01%)
+Restore.Point....: 14343296/14343296 (100.00%)
+Candidates.#1....: $HEX[216a6f6c6579303821] -> $HEX[042a0337c2a156616d6f732103]
+HWMon.Dev.#1.....: N/A
+
+Started: Fri Apr  7 19:03:25 2017
+Stopped: Fri Apr  7 19:03:38 2017
+Sutherland:~/Courses/3900/Lectures/Assignments
+
+** Posted on Pilot
+
+Ok, I think the issues are resolved.
+
+apt-get install hashcat works, but does not install "completely".  
+[This may be specific to my machine.  Kubuntu 16.10. AMD FX(tm)-8150 Eight-Core Processor, 32152/32152 MB allocatable, 8MCU.  ]  
+ERROR: clBuildProgram(): CL_BUILD_PROGRAM_FAILURE
+unsupported initializer for address space in m00000_m04
+Segmentation fault (core dumped)
+I git cloned the hashcat and built it.
+I installed the AMDGPU-Pro Driver.
+Now I can run hashcat.
+Further journaling of the "hashcat saga" will be linked via the
+Lectures/Passwords, and P6
+
+
+ERROR: clBuildProgram(): CL_BUILD_PROGRAM_FAILURE
+
+
+unsupported initializer for address space in m00000_m04
+Segmentation fault (core dumped)
+
+
+--
+
+root@Sutherland:/home/pmateti/Courses/3900/Lectures/Assignments# /usr/local/hashcat/hashcat -m 0 ./hashes-md5.txt ./passwords-johny.txt -o /tmp/hashcat-answers.txt
+hashcat (v3.5.0) starting...
+
+OpenCL Platform #1: Advanced Micro Devices, Inc.
+================================================
+ * Device #1: AMD FX(tm)-8150 Eight-Core Processor, 32152/32152 MB allocatable, 8MCU
+
+Hashes: 8 digests; 8 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Applicable optimizers:
+ * Zero-Byte
+ * Precompute-Init
+ * Precompute-Merkle-Demgard
+ * Meet-In-The-Middle
+ * Early-Skip
+ * Not-Salted
+ * Not-Iterated
+ * Single-Salt
+ * Raw-Hash
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+Watchdog: Temperature retain trigger disabled.
+
+Dictionary cache hit:
+ * Filename..: ./passwords-johny.txt
+ * Passwords.: 3551
+ * Bytes.....: 26325
+ * Keyspace..: 3551
+
+The wordlist or mask that you are using is too small.
+This means that hashcat cannot use the full parallel power of your device(s).
+Unless you supply more work, your cracking speed will drop.
+For tips on supplying more work, see: https://hashcat.net/faq/morework
+
+Approaching final keyspace - workload adjusted.           
+
+Session..........: hashcat                                
+Status...........: Exhausted
+Hash.Type........: MD5
+Hash.Target......: ./hashes-md5.txt
+Time.Started.....: Thu Apr  6 17:07:45 2017 (0 secs)
+Time.Estimated...: Thu Apr  6 17:07:45 2017 (0 secs)
+Guess.Base.......: File (./passwords-johny.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.Dev.#1.....:  4806.7 kH/s (0.66ms)
+Recovered........: 0/8 (0.00%) Digests, 0/1 (0.00%) Salts
+Progress.........: 3551/3551 (100.00%)
+Rejected.........: 2/3551 (0.06%)
+Restore.Point....: 3551/3551 (100.00%)
+Candidates.#1....: #!comment: -> sss
+HWMon.Dev.#1.....: N/A
+
+Started: Thu Apr  6 17:07:45 2017
+Stopped: Thu Apr  6 17:07:48 2017
+root@Sutherland:/home/pmateti/Courses/3900/Lectures/Assignments# cat /etc/issue
+Ubuntu 16.10 \n \l
+
+root@Sutherland:/home/pmateti/Courses/3900/Lectures/Assignments# 
+
+** Ex2
+
+% /usr/local/hashcat/hashcat -m400 -a0 /usr/share/wordlists/hash-wordpress.txt /usr/share/wordlists/rockyou.txt 
+hashcat (v3.5.0) starting...
+
+OpenCL Platform #1: Advanced Micro Devices, Inc.
+================================================
+ * Device #1: AMD FX(tm)-8150 Eight-Core Processor, 32152/32152 MB allocatable, 8MCU
+
+Parsing Hashes: 0/1 (0.00%)...No hashes loaded.
+
+Started: Fri Apr  7 08:07:05 2017
+Stopped: Fri Apr  7 08:07:05 2017
+Sutherland:~/Courses/3900/Lectures/Assignments
+
+** Ex3
+
+% /usr/local/hashcat/hashcat -m 400 -a 0 /usr/share/wordlists/hash-wordpress.txt /usr/share/wordlists/rockyou.txt 
+hashcat (v3.5.0) starting...
+
+OpenCL Platform #1: Advanced Micro Devices, Inc.
+================================================
+ * Device #1: AMD FX(tm)-8150 Eight-Core Processor, 32152/32152 MB allocatable, 8MCU
+
+Parsing Hashes: 0/1 (0.00%)...No hashes loaded.
+
+Started: Fri Apr  7 08:07:35 2017
+Stopped: Fri Apr  7 08:07:35 2017
+Sutherland:~/Courses/3900/Lectures/Assignments
+% /usr/local/hashcat/hashcat -m 400 -a 0 /usr/share/wordlists/hash /usr/share/wordlists/rockyou.txt 
+hashes-md5.txt      hash-wordpress.txt  
+Sutherland:~/Courses/3900/Lectures/Assignments
+% /usr/local/hashcat/hashcat -m 400 -a 0 /usr/share/wordlists/hashes-md5.txt /usr/share/wordlists/rockyou.txt 
+hashcat (v3.5.0) starting...
+
+OpenCL Platform #1: Advanced Micro Devices, Inc.
+================================================
+ * Device #1: AMD FX(tm)-8150 Eight-Core Processor, 32152/32152 MB allocatable, 8MCU
+
+Hashfile '/usr/share/wordlists/hashes-md5.txt' on line 1 (2ac9cb7dc02b3c0083eb70898e549b63): Line-length exception
+Hashfile '/usr/share/wordlists/hashes-md5.txt' on line 2 (eb61eead90e3b899c6bcbe27ac581660): Line-length exception
+Hashfile '/usr/share/wordlists/hashes-md5.txt' on line 3 (958152288f2d2303ae045cffc43a02cd): Line-length exception
+Hashfile '/usr/share/wordlists/hashes-md5.txt' on line 4 (2c9341ca4cf3d87b9e4eb905d6a3ec45): Line-length exception
+Hashfile '/usr/share/wordlists/hashes-md5.txt' on line 5 (75b71aa6842e450f12aca00fdf54c51d): Line-length exception
+Hashfile '/usr/share/wordlists/hashes-md5.txt' on line 6 (98bffa1e0b3872aa0813b0a62a2003ab): Line-length exception
+Hashfile '/usr/share/wordlists/hashes-md5.txt' on line 7 (b5af0b804ff7238bce48adef1e0c213f): Line-length exception
+Hashfile '/usr/share/wordlists/hashes-md5.txt' on line 8 (5a53193b4cca4ccdabf3ccb1fa514162): Line-length exception
+Parsing Hashes: 0/8 (0.00%)...No hashes loaded.
+
+Started: Fri Apr  7 08:08:00 2017
+Stopped: Fri Apr  7 08:08:00 2017
+Sutherland:~/Courses/3900/Lectures/Assignments

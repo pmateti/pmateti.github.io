@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>JavaFX Intro</title>
+<!-- 2018-11-27 Tue 20:08 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="Mateti: OO Programming and Design"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+2015-10-14 | <a href="../../"> ../../</a> | <a href="index-slides.html"> Slides </a>
+</div>
+<div id="content">
+<h1 class="title">JavaFX Intro</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Abstract</a></li>
+<li><a href="#sec-2">2. JavaFX Examples</a></li>
+<li><a href="#sec-3">3. JavaFX Overview</a></li>
+<li><a href="#sec-4">4. JavaFX App</a></li>
+<li><a href="#sec-5">5. Events</a></li>
+<li><a href="#sec-6">6. JavaFX Games</a></li>
+<li><a href="#sec-7">7. JavaFX Multithreaded</a></li>
+<li><a href="#sec-8">8. Refernces</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Abstract</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+JavaFX is the GUI building mechanism for Java applications.  It
+replaces Swing.  Other alternatives are libGDX and Unity.  JavaFX GUI
+uses threads, lambda expressions, etc.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> JavaFX Examples</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Trivial Example 1</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li><a href="./javaFxApp1.java">./javaFxApp1.java</a> Blank pane
+</li>
+<li><code>javac javaFxApp1.java; java javaFxApp1</code> is the simplest way to run this
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Not So Trivial Example 1</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li><a href="./javafxGrid.java">./javafxGrid.java</a> Grid of Rectangles
+</li>
+<li>Relevant to the grid of Game of Life
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Examples From the Web</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li><a href="http://www.dummies.com/how-to/content/how-to-create-lines-and-shapes-in-javafx.html">http://www.dummies.com/how-to/content/how-to-create-lines-and-shapes-in-javafx.html</a>
+</li>
+
+<li><a href="http://www.java2s.com/Tutorials/Java/JavaFX/0040__JavaFX_Line.htm">http://www.java2s.com/Tutorials/Java/JavaFX/0040__JavaFX_Line.htm</a>
+   similar to my Java Whiteboard
+</li>
+
+<li><a href="http://www.cs.armstrong.edu/liang/intro10e/html/TicTacToe.html">http://www.cs.armstrong.edu/liang/intro10e/html/TicTacToe.html</a>
+Y. Daniel Liang, author of "Introduction to Java Programming",
+10th Edition
+</li>
+
+<li><a href="https://www.safaribooksonline.com/library/view/javafxtm-developing-rich/9780137013524/ch13.html">https://www.safaribooksonline.com/library/view/javafxtm-developing-rich/9780137013524/ch13.html</a>
+Eric Bruno; Jim Connors; Jim Clarke, "JavaFX: Developing Rich
+Internet Applications", RIA, Addison-Wesley Professional, 2009.  Safari
+On-Line.  We can read through WSU Library proxy.
+</li>
+
+<li><a href="https://github.com/hallvard/javafx/blob/master/games/src/games/sudoku/">https://github.com/hallvard/javafx/blob/master/games/src/games/sudoku/</a>
+   Not sure how good this is.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> JavaFX Overview</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Graphics, UI, video, audio, etc.
+</li>
+<li>Java APIs, integrated with Java 8; Not to be confused with JavaFX
+1.x, which is a scripting language, not a Java API
+</li>
+<li>Effective JavaFX: Understand concurrency 
+<ol class="org-ol">
+<li><a href="../Concurrency/concurrency-fundas.html">../Concurrency/concurrency-fundas.html</a>
+</li>
+<li><a href="../Concurrency/concurrent-java.html">../Concurrency/concurrent-java.html</a> 
+</li>
+</ol>
+</li>
+
+<li>Effective JavaFX: Understand event driven programming
+<ol class="org-ol">
+<li><a href="../EventDriven/">../EventDriven/</a> Programming
+</li>
+</ol>
+</li>
+</ol>
+</div>
+
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Replaces Swing</h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li>"Is JavaFX replacing Swing as the new client UI library for Java SE?"
+</li>
+<li>"Yes. However, Swing will remain part of the Java SE specification
+for the foreseeable future, and therefore included in the
+JRE. While we recommend developers to leverage JavaFX APIs as much
+as possible when building new applications, it is possible to
+extend a Swing application with JavaFX, allowing for a smoother
+transition."  <a href="http://www.oracle.com/technetwork/java/javafx/overview/faq-1446554.html#6">http://www.oracle.com/technetwork/java/javafx/overview/faq-1446554.html#6</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> JavaFX Getting Started</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li><a href="https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm">https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm</a>
+   Work with the source code as you read.  Highly Recommended Reading
+</li>
+
+<li>Ensemble "provides a gallery of over 100 sample applications
+that use a wide range of JavaFX features, such as graphics, UI
+controls, animation, charts, media and WebView. Source code for
+each sample and links to API documentation are also
+provided. Ensemble will provide developers with an interactive
+reference tool for what they can build with JavaFX."
+</li>
+
+<li><a href="http://www.oracle.com/technetwork/java/javase/overview/javafx-samples-2158687.html">http://www.oracle.com/technetwork/java/javase/overview/javafx-samples-2158687.html</a>
+</li>
+
+<li><a href="http://docs.gluonhq.com/javafxports/">http://docs.gluonhq.com/javafxports/</a> JavaFX
+tutorial, 2015. Presents JavaFX in the context of Android and iOS
+also.
+</li>
+
+<li><a href="../Java/JavaFX-Basics-stonybrook.pdf">JavaFX GUI Basics</a>,  slides
+</li>
+<li><a href="../Java/JavaFX-Controls-stonybrook.pdf">JavaFX UI Controls and Multimedia</a>, slides
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> JavaFX App</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>Extend javafx.application.Application
+</li>
+<li>Override the start() method
+</li>
+<li>follow along <a href="./javafxGrid.java">./javafxGrid.java</a> Grid of Rectangles
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Stage</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>Think of it as a window.  (Theater analogy)
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> Scene</h3>
+<div class="outline-text-3" id="text-4-2">
+<ol class="org-ol">
+<li>Container for a scene graph.
+</li>
+<li>A stage can have multiple scenes.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Pane</h3>
+<div class="outline-text-3" id="text-4-3">
+<ol class="org-ol">
+<li>Organizer of nodes in scene graph
+</li>
+<li>StackPane, FlowPane, TilePane, GridPane, etc
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Scene Graph</h3>
+<div class="outline-text-3" id="text-4-4">
+<ol class="org-ol">
+<li>Tree of nodes; there is a root node.
+</li>
+<li>A branch may have children (e.g., Group, Region)
+</li>
+<li>Leaf does not have children, (e.g., Rectangle, Circle)
+</li>
+<li><a href="http://docs.oracle.com/javafx/2/scenegraph/jfxpub-scenegraph.htm">http://docs.oracle.com/javafx/2/scenegraph/jfxpub-scenegraph.htm</a>
+</li>
+<li><a href="https://www.google.com/search?q=javafx+scene+graph+example">https://www.google.com/search?q=javafx+scene+graph+example</a>
+</li>
+<li>Oracle <a href="http://www.oracle.com/technetwork/java/javase/downloads/javafxscenebuilder-info-2157684.html">JavaFX Scene Builder</a>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Events</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Std Control Flow</h3>
+<div class="outline-text-3" id="text-5-1">
+<ol class="org-ol">
+<li>Branches (a conditional or switch selects control flow)
+</li>
+<li>Loops (a loop repeats control flow)
+</li>
+<li>Methods (a method call nests control flow)
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Even Based Control</h3>
+<div class="outline-text-3" id="text-5-2">
+<ol class="org-ol">
+<li>The occurrence of event changes control flow
+</li>
+<li>Event handling in UIs
+</li>
+<li>Events are instances of <code>javafx.event.Event</code>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Event properties:</h3>
+<div class="outline-text-3" id="text-5-3">
+<ol class="org-ol">
+<li>Event type
+</li>
+<li>Source
+</li>
+<li>Target
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> Event Driven Programming</h3>
+<div class="outline-text-3" id="text-5-4">
+<ol class="org-ol">
+<li><a href="../EventDriven">Language Independent Discussion</a>
+</li>
+
+<li>Java8 + JavaFX actions are typically written as Lambda Expressions.
+</li>
+
+<li><a href="../Java/JavaFX-EventDrivenProgramming-stonybrook.pdf">PDF</a> Event-Driven Programming in JavaFX, slides, SUNY Stonybrook
+2015; includes src code of examples
+
+<ol class="org-ol">
+<li>Explains Anonymous Classes
+</li>
+<li>Explains Inner Classes
+</li>
+<li>Explains Lambda Expressions
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> Event handlers</h3>
+<div class="outline-text-3" id="text-5-5">
+<ol class="org-ol">
+<li>An event handler will execute the code given when a certain event occurs.
+</li>
+<li>Lambda expressions
+</li>
+<li>For example: <code>scene.setOnKeyTyped(event -&gt; { ... code ... })</code>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> JavaFX Games</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>Translation: Shifts a node from one position to another
+</li>
+<li>Rotation:  Rotates a node around some point
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> The Game Loop</h3>
+<div class="outline-text-3" id="text-6-1">
+<ol class="org-ol">
+<li>Classically, a game will have at its heart a loop like this:
+</li>
+<li><code>while (notEndOfGame) { updateGameState(); renderGame(); }</code>
+</li>
+
+<li>The frequency of the loop is referred to as the frame rate, and can
+determine the “smoothness” of the game play. 35mm film runs at
+24FPS. Video games often run at about 30-60FPS.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> A Game Loop in JavaFX</h3>
+<div class="outline-text-3" id="text-6-2">
+<ol class="org-ol">
+<li>JavaFX takes care of rendering, and can update at about 60FPS when possible.
+</li>
+
+<li>The AnimationTimer class can be used to get a call back every frame.
+</li>
+</ol>
+
+<div class="org-src-container">
+
+<pre class="src src-java">new AnimationTimer() {
+   @Override
+   public void handle(long now) { updateGameState(now); }
+}.start();
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> JavaFX Multithreaded</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li><a href="../Concurrency">../Concurrency</a> Language independent discussion.
+</li>
+
+<li>Java8 Example of threads: <a href="../Java/src/Meenie.java">../Java/src/Meenie.java</a>
+</li>
+<li><a href="http://clarkonium.net/2015/06/tasks-and-ui-updates-in-javafx/">Example</a> of Tasks and UI Updates in JavaFX; <a href="../Java/src/FXbackgroundWorkerDemo.java">just the src</a>
+</li>
+
+<li><a href="http://docs.oracle.com/javase/8/javafx/interoperability-tutorial/concurrency.htm">javafx.concurrent</a> Package
+</li>
+
+<li><a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/exinter.html">ExecutorService</a> API
+</li>
+
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html">java.util.concurrent.Future</a> Interface
+</li>
+
+<li><a href="https://docs.oracle.com/javase/8/javafx/fxml-tutorial/">FXML</a>
+<ol class="org-ol">
+<li>FXML is a scriptable, XML-based declarative language for
+constructing JavaFX scene graphs.
+</li>
+<li><a href="https://blogs.oracle.com/sundararajan/entry/using_javafx_fxml_with_nashorn">https://blogs.oracle.com/sundararajan/entry/using_javafx_fxml_with_nashorn</a>
+</li>
+</ol>
+</li>
+
+<li><a href="http://docs.oracle.com/javase/8/docs/technotes/guides/jweb/">Java Rich Internet Applications (RIA) Guide</a>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> State Diagram</h3>
+<div class="outline-text-3" id="text-7-1">
+
+<div class="figure">
+<p><img src="./thread-states.png" alt="thread-states.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Refernces</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li>Oracle.com,
+<a href="http://docs.oracle.com/javase/8/javafx/interoperability-tutorial/concurrency.htm">http://docs.oracle.com/javase/8/javafx/interoperability-tutorial/concurrency.htm</a>
+Concurrency in JavaFX 2015 (Note that
+<a href="http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm">http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm</a> is for
+v2. 2012)  Reference.
+</li>
+
+<li>Hendrik Ebbers, author of a JavaFX8
+book. <a href="http://www.guigarage.com/2015/01/concurrency-ui-toolkits-part-1/">http://www.guigarage.com/2015/01/concurrency-ui-toolkits-part-1/</a>;
+<a href="http://www.guigarage.com/2015/02/concurrency-ui-toolkits-part-2/">http://www.guigarage.com/2015/02/concurrency-ui-toolkits-part-2/</a>;
+</li>
+
+<li><a href="http://jperedadnr.blogspot.com/2015/03/javafx-on-mobile-dream-come-true.html">http://jperedadnr.blogspot.com/2015/03/javafx-on-mobile-dream-come-true.html</a>
+A pretty good blog on how the author ported the 2048 game to
+Android using JavaFX etc. 2015.
+</li>
+
+<li><a href="http://docs.gluonhq.com/javafxports/">http://docs.gluonhq.com/javafxports/</a> JavaFX ported to Android and
+iOS. 2015.  Reference.
+</li>
+
+<li><a href="https://github.com/JacpFX/JacpFX">https://github.com/JacpFX/JacpFX</a> "The JacpFX Project is an API to
+create Rich Clients in MVC style with JavaFX, Spring (or other DI
+frameworks) and an Actor like component approach."  Reference.
+</li>
+
+<li><a href="https://www.cs.rit.edu/~csci242/Lectures/14/Event-diagrams.pdf">https://www.cs.rit.edu/~csci242/Lectures/14/Event-diagrams.pdf</a> Java
+GUIs in JavaFX. 2015.  Recommended Reading.
+</li>
+
+<li>From cs.stonybrook.edu <a href="../Java/JavaFX-Basics-stonybrook.pdf">JavaFX GUI Basics</a>, slides; <a href="../Java/JavaFX-Controls-stonybrook.pdf">JavaFX UI
+Controls and Multimedia</a>, slides; <a href="../Java/JavaFX-EventDrivenProgramming-stonybrook.pdf">Event-Driven Programming in
+JavaFX</a>, slides; Recommended Reading.
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2015 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a>
+</div>
+</body>
+</html>

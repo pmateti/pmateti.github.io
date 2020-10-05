@@ -1,0 +1,123 @@
+# -*- mode: org -*-
+#+DATE: 2016-04-28
+#+TITLE: CS7140 Course Overview
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P,li {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Course Goals
+
+To enable you to
+
+1. Develop, individually, a 1000+ lines program with great confidence.
+   No bugs.  Well written Requirements, Specs, Design, Implementation,
+   and Testing documents.
+2. Practice with the best open source tools.
+3. Be fluent in Java/Kotlin and C++, and become aware of newer
+   programming languages.
+3. Comprehend research literature.
+
+
+* Prerequisites
+
+1. CEG 4110 intro to Software Engineering and CS 3100 Data Structures
+   and Algorithms.  Ignore the CS/CEG prefixes. Without the above two
+   courses (or their equivalent) you will find this course near
+   impossible.  More details at [[./7140-syllabus.html]]
+
+1. It is also expected that you are (i) fluent in Java and/or C++, and
+   (ii) comfortable developing programs using IntelliJ Idea, or
+   Eclipse.
+
+1. Be able to: Define/Describe {Requirements, Specifications, Design,
+   Implementation and Testing}.
+
+1. Typical deficiency: Grammars (BNF notation), Discrete Math, Logic.
+   We will fill you in on these.
+
+1. Quick survey: See below
+
+
+* Accounts
+
+1. The practical work of this course can be done on Linux or Windows.
+   I recommend Linux.
+2. CECS Account =thor.cs.wright.edu=
+   1. This is a large Linux server. Intel Xeon 24 core CPU
+      X5680, 132 GB RAM, etc.
+   2. Unless you have a "named" account (not cs7140xy), your files
+      will be wiped out soon after the finals.
+   3. All work needs to be submitted using =~cs714000/turnin=
+
+3. WSU Account =unixapps1.wright.edu=
+   1. As a student of WSU, you have an account (named as in w123abc)
+      on this Linux server.
+   2. You can set up your own web site on this machine in the
+      directory =~/www/=
+   3. Read https://www.wright.edu/information-technology/
+
+4. These two machines do not share userids or passwords.
+
+3. [[http://piazza.com/wright/ *  /cs7140]]  Please enroll.
+
+* Course Content
+
+1. Course Home Page: [[http://www.cs.wright.edu/~pmateti/Courses/7140/Top/][CS 7140: Advanced Software Engineering]] Visit
+   often.  Read the syllabus.  Full attendance is expected.
+
+** Our Programming Languages
+
+1. [[../Languages]] C++14
+1. [[../Languages]] Java8 + JavaFX
+1. Language Popularity Surveys
+
+   1. http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html
+   1. http://spectrum.ieee.org/computing/software/the-2015-top-ten-programming-languages
+   1. http://stackoverflow.com/research/developer-survey-2015
+
+
+** Expected Work
+
+1. Two Homeworks, Two Exams, One Team Project
+
+1. Exams are on online/ take-home -- tool use permitted.  -- but not
+   for surfing for answers.  High expectations of honor code.
+
+1. [[http://cecs.wright.edu/~pmateti/Courses/7140/Projects/7140-project.html][Course Project]]
+
+4. Team Formation Due date: eof this week.  Post on Pilot your team
+   details.
+
+1. Links to previous HW, Exams, Project are on the course home page.
+
+
+** Survey
+
+1. Please take the [[./survey.org][survey]].
+3. Please submit the prerequisites survey
+
+
+
+* State of Software Engineering
+
+1. [[./state-of-SE.org]]
+
+* References
+
+Reading list for this course is a transitive closure starting from the
+ones linked on the course home page. Items marked as Require Reading
+are sources for exam questions. Other items do enhance your
+understanding, but, if you are not aiming for an A, you may skip.
+
+1. Prabhaker Mateti, [[../][All My Lecture Notes]], 2016.
+   Required Reading.
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

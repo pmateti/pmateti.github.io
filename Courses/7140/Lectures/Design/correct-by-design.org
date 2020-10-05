@@ -1,0 +1,64 @@
+# -*- mode: org -*-
+#+DATE: 2018-09-24
+#+TITLE: Correct By Design
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CS7140 Adv Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Correct By Design
+
+1. Correct By Design i.e., "Correct By Intention/Effort" is a core
+   idea of this course.
+1. How do we judge if a design is "correct"?
+   1. Particularly, in the absence of specs? [Cannot]
+   1. Is it a judge/jury system? [Yes]
+1. A design D satisfies/ meets a spec S
+   1. This can be precisely stated,  S $\models$ D
+1. A spec S is consistent with a requirements document R
+   1. This will remain in the judge/jury system.
+
+* Design D satisfies Spec S, S $\models$ D
+
+1. Def: D "satisfies" S, notationally S $\models$ D.  Every property of specs
+   S can be observed in D.  Not necessarily vice versa.
+1. S is written in a spec language, SL
+1. D is written in a design language, DL
+1. SL and DL: Plenty in research literature, but not in wide use
+1. S $\models$ D_1, S $\models$ D_2, ..., S $\models$ D_n, ... [Multiple designs meet a
+   spec S]
+1. We will use: Discrete math and Logic.
+
+
+** Satisfies v Models
+
+1. We use this symbol $\models$ and call it "models".
+1. We can read the above as: S models D.
+1. Models suggests abstraction.
+1. Satisfies suggests adding concrete details.
+
+* Design Space Hierarchy
+
+1. Design D satisfies Spec S, S $\models$ D
+1. D2 refines D1 versus D2 is an alternate design cf D1
+   1. refines:  provides more detail
+   1. refines:  gets closer to the implementation language
+   1. alternate: explores a different design idea
+   1. alternate: better in some spec axes, worse in others
+1. Design Levels  S $\models$ D1 $\models$ D2 | ... $\models$ Dn $\models$ I
+   1.  In general, this is a tree with many leaves
+   2. Siblings are alternates.
+   3. One path from the root to an implementation: S $\models$ D1 $\models$ D2 |
+      ... $\models$ Dn $\models$ I
+1. Implementation I: Source Code in a PL
+5. Can/Should we have levels in Specs?  Yes!  S $\models$ S1 $\models$ S2 ... $\models$ Sk
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

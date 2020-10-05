@@ -1,0 +1,52 @@
+# -*- mode: org -*-
+#+DATE: 2020-08-23
+#+TITLE: WSU Accounts
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P,li {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Accounts
+
+1. The practical work of this course can be done on Linux or Windows.
+   I recommend Linux.
+
+** Thor
+
+2. CECS Account =thor.cs.wright.edu=
+   1. As a grad student of CECS WSU, you can have a named account (as
+      in first-initial-last-name) on this Linux server.
+   3. Fill out a green form.
+   1. This is a large Linux server. Intel Xeon 24 core CPU
+      X5680, 132 GB RAM, etc.
+   2. Unless you have a "named" account (not cs7140xy), your files
+      will be wiped out soon after the finals.
+
+** UnixApps1
+
+3. WSU Account =unixapps1.wright.edu=
+   1. As a student of WSU, you have an account (named as in w123abc)
+      on this Linux server.
+   2. You can set up your own web site on this machine in the
+      directory =~/www/=
+   3. Read https://www.wright.edu/information-technology/
+
+4. These two machines (thor and unixapps1) do not share userids or
+   passwords.
+
+** AWS Virtual Machine
+
+** Pilot
+
+1. We use Pilot for submissions of your work.
+1. Lectures are at http://cecs.wright.edu/~pmateti/Courses/7140/Top/index.html
+
+* End
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,39 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+Date: 2015-06-15
+#+TITLE:  JavaCard
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: WSU CS 7140 Advanced Software Engineering
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+OPTIONS: toc:t
+
+
+1. JavaCard is a subset of Java chosen for small memory, weak-CPU, embedded
+   devices.  Widely used in SIM cards and ATM cards.
+2. http://www.javacardforum.org/
+3. http://www.oracle.com/technetwork/java/embedded/javacard/overview/
+4. https://jcardsim.org/
+
+5. http://code.google.com/p/jcml/ Java Card Specification Language
+   based on JML.  No date.  Dead project?
+6. Erik Poll, Joachim van den Berg, Bart Jacobs, 
+   "Specification of the JavaCard API in JML"
+   http://cs.ru.nl/E.Poll/papers/cardis00.pdf  Recommended Reading.
+
+7. Nestor Catano, Tim Wahls, "Executing JML Specifications of Java
+   Card Applications: A Case Study", search for PDF Link, 2009.
+   Recommended Reading
+8. Parzian, Alessio. "Java Card Bytecode Verification. Designing a
+   novel verification system." (2015).  Master's thesis. University of
+   Twente.  http://fmt.cs.utwente.nl/files/sprojects/288.pdf
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,763 @@
+<toc label="Game-of-Life-WSU-CEG4180" topic="index.html">
+  <topic label="Readme" href="md_Readme.html"/>
+  <topic label="Packages">
+    <topic label="Packages" href="namespaces.html">
+      <topic label="org" href="namespaceorg.html">
+        <topic label="bitstorm" href="namespaceorg_1_1bitstorm.html">
+          <topic label="gameoflife" href="namespaceorg_1_1bitstorm_1_1gameoflife.html"/>
+          <topic label="util" href="namespaceorg_1_1bitstorm_1_1util.html"/>
+        </topic>
+      </topic>
+    </topic>
+  </topic>
+  <topic label="Classes">
+    <topic label="Class List" href="annotated.html">
+      <topic label="org" href="namespaceorg.html">
+        <topic label="bitstorm" href="namespaceorg_1_1bitstorm.html">
+          <topic label="gameoflife" href="namespaceorg_1_1bitstorm_1_1gameoflife.html">
+            <topic label="AppletFrame" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html">
+              <topic label="AppletFrame" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#a3674ccf89b34356df25aadd56aca2309"/>
+              <topic label="getStandaloneGameOfLife" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#aa5d8f7c48f29f9b464ec3b42c831d54e"/>
+              <topic label="processEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#a17f4b7896853f25026a6ea50b0e37ebc"/>
+              <topic label="showAboutDialog" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#ad011e6f8ec7dbd0901e7a10d09503e38"/>
+              <topic label="showLicenseDialog" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#a29ff8c2d783df6fa5339a7c0413a9e8c"/>
+              <topic label="showManualDialog" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#aca97361e902438a198dd4a0339ce2926"/>
+              <topic label="applet" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#ad59067e80f689ad8f2b0b87da46b99a8"/>
+            </topic>
+            <topic label="Cell" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html">
+              <topic label="Cell" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#a89c4e6c1f4caa787c41d51f70c4cc88a"/>
+              <topic label="equals" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#a2cc5e572b6c0ff6474ab35e285ec77d2"/>
+              <topic label="hashCode" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#a9eec31000cf28f27dacb721cd5507e75"/>
+              <topic label="toString" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#abe176087c4e24270f4e11bdf9fb5c646"/>
+              <topic label="col" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#ac20d58a8b386dfd40e3eed94ec550009"/>
+              <topic label="HASHFACTOR" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#aac263e6a5989c873ac4c2bb628a700f9"/>
+              <topic label="neighbour" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#a7fcf1a1dd3a8c5303a1403757ccf4ccb"/>
+              <topic label="row" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#aa097b0c6c6366fd17fb8d76c494f7da3"/>
+            </topic>
+            <topic label="CellGrid" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html">
+              <topic label="clear" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html#a2a96ab5a164e051071c9124fc98e3de3"/>
+              <topic label="getCell" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html#a94abceefd38277762ede6b62f8987e63"/>
+              <topic label="getDimension" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html#a3d0d61e186979b524e0603f81ebb5f8c"/>
+              <topic label="getEnum" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html#a8c4af64bbfc32c46745592d457066bac"/>
+              <topic label="resize" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html#a9b67fdcb9ea5cba3fe4b34d1e45ddb0a"/>
+              <topic label="setCell" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html#a250a2381a1a7153f2303f3b048198fb8"/>
+            </topic>
+            <topic label="CellGridCanvas" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html">
+              <topic label="CellGridCanvas" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#abfd116c33c06bcf9526f86ae9bdf71b4"/>
+              <topic label="draw" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a954b3b0eded603e78a2306669601218e"/>
+              <topic label="getMinimumSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#ad82c5c4fd5e729697100026b6cb05116"/>
+              <topic label="getPreferredSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a979bd0e18b38e3875a940e8a712450eb"/>
+              <topic label="paint" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a8de3f8998974c57f3a7d653f7c4e9c08"/>
+              <topic label="resized" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#aee9ad1be9764544207002396f4e83458"/>
+              <topic label="saveCellUnderMouse" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a5794257acd60b1bedc4480f120f23e6f"/>
+              <topic label="setAfterWindowResize" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a02e76b1d29d65f9022f68f2910004054"/>
+              <topic label="setCellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#ab1e000cbfa76d5951b16e4bec8042f4b"/>
+              <topic label="setShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a60c7e6c9074e2bdf58b392a17997076d"/>
+              <topic label="update" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a9611329f99524d2062b3fdde5cb706f1"/>
+              <topic label="cellGrid" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a07971ab47ce8e0f25b50e11f0bb6467c"/>
+              <topic label="cellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#aec40a510f7f6f163688492c65c5a043f"/>
+              <topic label="cellUnderMouse" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#af9d4e180bc9395b3adbc70741382f291"/>
+              <topic label="listeners" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#ae48f57911db08fc9cc6a7b24ee110344"/>
+              <topic label="newCellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a1a630f11c440928e57f8ef2d4947bd05"/>
+              <topic label="newShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#ae49d03f0cc3eb6176d47f6bc9e57cd8d"/>
+              <topic label="offScreenGraphics" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a732e1507763f74cca053648197289471"/>
+              <topic label="offScreenGraphicsDrawed" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a1adada3412528b19c30c41ac92b6f5a1"/>
+              <topic label="offScreenImage" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#aea25c24b1d0f6d241b152262dce4bbaa"/>
+              <topic label="offScreenImageDrawed" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a886ef40c7504a4c66c725d20f3584549"/>
+            </topic>
+            <topic label="GameOfLife" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html">
+              <topic label="alert" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a47264aea26a691df0c561db7ed1abc07"/>
+              <topic label="getAppletInfo" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a27e4de9534ce4fd8a99278bbd73420ac"/>
+              <topic label="getCellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#aa64fb4e92ac94757bae6af3ca54c4ff1"/>
+              <topic label="getParamInteger" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a70b4b846cdec2914a605b983b054b4e7"/>
+              <topic label="getParams" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a087736b47853880e3e5b65c6c2108b13"/>
+              <topic label="init" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a3b467cb67705fcf6919c4aad8905a4c1"/>
+              <topic label="isRunning" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#ac262379d26a0ea33c316f2d21dc3da02"/>
+              <topic label="nextButtonClicked" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a48e7101f6cc2cb37ef145ece68f0e69a"/>
+              <topic label="nextGeneration" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#adcbf66c4db0945ad9341978154d6de5a"/>
+              <topic label="reset" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a14aadd9fc7cc9166a1ba3c22f771fdf4"/>
+              <topic label="run" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#ac16bf544f1f596dd1ac90b1c41143c1e"/>
+              <topic label="setCellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a3f87d0bb9c822d1d57141734be08e508"/>
+              <topic label="setShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#afeb8b282dd54a19cfa34ec5c483c30d1"/>
+              <topic label="setSpeed" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#ac61d95acd02a90742293aac2c8114c3a"/>
+              <topic label="shapeSelected" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a3b7f46a84008ff699fb46214fcc6a87a"/>
+              <topic label="showGenerations" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#aa6d4b8ff19d66e6267316d2e381f65cb"/>
+              <topic label="speedChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#ab7407f490a9a46b60bc0fbec2eb64088"/>
+              <topic label="start2" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#af349d66a8c9c06797b58f4bfa326a851"/>
+              <topic label="startStopButtonClicked" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a5c74619661eda52e296aeede5a92ce78"/>
+              <topic label="stop" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#ae2fbc90e09937898d858da06d497e8d1"/>
+              <topic label="zoomChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a4db339f889960f73ab705ba4d9ba0f8d"/>
+              <topic label="cellCols" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a0f849de620b1dd36176ac5586bddb973"/>
+              <topic label="cellRows" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#aca66db88ffc3a943efef7a5b14890b48"/>
+              <topic label="cellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a58a27ab867bb97d9e62268981bc58f39"/>
+              <topic label="controls" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a2b5a6c271fcbad2d7a4ce4f63d7ec9d3"/>
+              <topic label="gameOfLifeCanvas" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#ad9a9975595fe52b54c5f468e15eb9338"/>
+              <topic label="gameOfLifeGrid" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a5721c16712edde89020d48b87ab16856"/>
+              <topic label="gameThread" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a8d424e5a043915824b97cbb95f749fdd"/>
+              <topic label="genTime" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a1656b1d87fd43489ea55bd942a1db543"/>
+            </topic>
+            <topic label="GameOfLifeControls" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html">
+              <topic label="GameOfLifeControls" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ad05308bd81ba404a69d9148854ba40e0"/>
+              <topic label="addGameOfLifeControlsListener" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#adc86ec99ead6862320e514895fa4fd7e"/>
+              <topic label="nextButtonClicked" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ac5dd1e7a9c064aeebfacc7f86af02e8b"/>
+              <topic label="removeGameOfLifeControlsListener" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#aeebe00e34602dd894db2d2777b312cfc"/>
+              <topic label="setGeneration" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#abc59bae4e48e8c79b47a9bd9fd0fd58a"/>
+              <topic label="setZoom" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a234f064c032e0072bd8595abf18a5692"/>
+              <topic label="shapeSelected" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#adb2c0e0f808d651df5205f3c2aa92d64"/>
+              <topic label="speedChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ac0067cfcd7c0c368fbf9a6d43ce81aa3"/>
+              <topic label="start" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ab33608ff77deab6585d4f11ea6d1501b"/>
+              <topic label="startStopButtonClicked" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a6c0c2c0653915494bb301d008f1dff33"/>
+              <topic label="stop" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#af4296f2ec925414a6cef19048ae53911"/>
+              <topic label="zoomChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a1620459adf40a9e167d8eee1b8908987"/>
+              <topic label="BIG" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ad4fca8d98a4f2827cef65165b671e688"/>
+              <topic label="FAST" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#aebcd9f3efed1dd3264ea25fd1c31b4d5"/>
+              <topic label="genLabel" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a4049e22b4b5ab8d5a0117324ffeadb8c"/>
+              <topic label="genLabelText" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ab519f6a93297400aad94b1989787f8b5"/>
+              <topic label="HYPER" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#adc68f59f161a94fd8f914fc27453d964"/>
+              <topic label="listeners" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a904ce603812b28af33f79a938f41afd5"/>
+              <topic label="MEDIUM" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a71eef5b346c84f5325ae8eb9a43e0a50"/>
+              <topic label="nextButton" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a00bfaae90e3b63b33e1933eac2d6ce78"/>
+              <topic label="nextLabelText" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a48f385551b1fb3415f7229c43a319760"/>
+              <topic label="shapesChoice" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a05d6a7255c98f82ca10ee2fe32d6a3b2"/>
+              <topic label="SIZE_BIG" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a51df8986aaf53bfccf2384e3a87f3929"/>
+              <topic label="SIZE_MEDIUM" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a5014b6e00bd1b9ccc2f0a1ca14fb4177"/>
+              <topic label="SIZE_SMALL" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#aaa8e612d2cfb04f1c89f922af364a2c9"/>
+              <topic label="SLOW" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a0bcc728ffe628247505317d79c00de5d"/>
+              <topic label="SMALL" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a4b9032f4a3dde15d7a2dfa8fe7d8782e"/>
+              <topic label="startLabelText" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ab46cfcb5c42c99581cc6affd4ef9181d"/>
+              <topic label="startstopButton" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a5842da4082dc2e061d6e38fca8a95522"/>
+              <topic label="stopLabelText" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#aeffe838e11901978bb9d6a0b5ca08948"/>
+              <topic label="zoomChoice" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a7f91ff1352757811a6fdcf0bb676ed81"/>
+            </topic>
+            <topic label="GameOfLifeControlsEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html">
+              <topic label="GameOfLifeControlsEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#ad3025463ef9f6b16d40a59c22197a438"/>
+              <topic label="getShapeName" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a0ca7b3c0ece829b5f9d3fd95dbdc0394"/>
+              <topic label="getShapeSelectedEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#aa21383896d045cdafe922578063f5291"/>
+              <topic label="getSpeed" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#afc970032f7ed97b8f1f885d01cbd407e"/>
+              <topic label="getSpeedChangedEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#afb18977ddfbb9c8c5097dc0e1acfccdf"/>
+              <topic label="getZoom" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a7f6074d947d106bd0299fa5f354598d0"/>
+              <topic label="getZoomChangedEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a5ae602bf2dfdd0bce6e8743926db4505"/>
+              <topic label="setShapeName" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a63533a826bc44f4c4760107c73fba9de"/>
+              <topic label="setSpeed" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a67c2d9d75534b0701692c0c81e9cf6c0"/>
+              <topic label="setZoom" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a814ddfc34efe8c857deb14ff88a53927"/>
+              <topic label="shapeName" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#aec7549e6f2be1cabb5f2cf9d47e4885f"/>
+              <topic label="speed" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a4bd3025789b50042e5c3a44036cce9ff"/>
+              <topic label="zoom" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a371c87ca4fb746f745a95e62d3a8f39c"/>
+            </topic>
+            <topic label="GameOfLifeControlsListener" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html">
+              <topic label="nextButtonClicked" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html#ab72b2361cda910d1c543de50ad760554"/>
+              <topic label="shapeSelected" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html#a9a2ecc687a2a4d6f2e2a1dd4c500dc51"/>
+              <topic label="speedChanged" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html#a687b174d0a69b0e186d8a949d20edca0"/>
+              <topic label="startStopButtonClicked" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html#aac9e22cf94513e3a248205580532c6ec"/>
+              <topic label="zoomChanged" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html#a6f3e3dcb0c300b6aa3c2c289b77a39fa"/>
+            </topic>
+            <topic label="GameOfLifeGrid" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html">
+              <topic label="GameOfLifeGrid" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a0c2fa1ab5fda0d6eb20ce35e53204616"/>
+              <topic label="addNeighbour" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#abb7db9f6ad787c7ab61da4bde2b7fc39"/>
+              <topic label="clear" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a493b68b42d54a841f90d8d0818799496"/>
+              <topic label="getCell" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#ae2811ba685371322bfe5af4e6619d401"/>
+              <topic label="getDimension" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a960299d7604cbe013db44cb903dca906"/>
+              <topic label="getEnum" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a6ee44df61a26a574383e396bd73a2c3f"/>
+              <topic label="getGenerations" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a3a008a5096f847dea2a7722c7609a8b1"/>
+              <topic label="next" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a715b46706f05cde5fce646f4042d9d27"/>
+              <topic label="resize" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a65c42eb84410f1f1eb12905e29d9996d"/>
+              <topic label="setCell" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#ad306530aa8fa3a9e6968dec15515ab8d"/>
+              <topic label="cellCols" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a17a7582b9b976fbe7b0d29d526f8f349"/>
+              <topic label="cellRows" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#abd8819282c169effbc7ca9de27addad3"/>
+              <topic label="currentShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a4a132b193f8db6eb2cda60c360a43bf3"/>
+              <topic label="generations" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a514b33f366f1b136a6313d6df17f5b97"/>
+              <topic label="grid" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a8add6edc3c363ddc24f7eb32d0f25bec"/>
+              <topic label="nextShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a39379a526c0cff4595a1438acb2afa6c"/>
+              <topic label="shapes" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a6bd2923c6c71bd883c157db8db53c35b"/>
+            </topic>
+            <topic label="Shape" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html">
+              <topic label="Shape" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#a2c71bb2fc45dfd959e827ff6464a16f6"/>
+              <topic label="getCells" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#af0eba4ba6880a8f72660924897e7984b"/>
+              <topic label="getDimension" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#a6a80dba830805dafabfbfb6b00afa05f"/>
+              <topic label="getName" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#adb8c8f6fc2e0409970805fd7e820bd95"/>
+              <topic label="toString" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#aedde649194715fed2f20e1954c66e42f"/>
+              <topic label="name" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#ab014ae8733b5957d62c959c83baec8bf"/>
+              <topic label="shape" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#a33131de78c3ed031a13cec766513b700"/>
+            </topic>
+            <topic label="ShapeCollection" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html">
+              <topic label="[static initializer]" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a6842ea7f2146a911dc6af795db4d7b16"/>
+              <topic label="getShapeByName" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#ac99f1ae3577eb03af1c077f9babe9066"/>
+              <topic label="getShapes" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a5336f3bdd5e5b1486d485bc0febfcda5"/>
+              <topic label="CELL10" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a841987fd675d2feafd7cb639e9df9677"/>
+              <topic label="CLEAR" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#ab42c57354c73fbf30268977ca0d807c3"/>
+              <topic label="COLLECTION" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a78724189bc28628557cce32201da0531"/>
+              <topic label="EXPLODER" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a0d849eab2bb1813761882fe23a881be1"/>
+              <topic label="FISH" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#aae926fd4244c98fbfb1f1b3b8d20fe99"/>
+              <topic label="GLIDER" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a5df1171c27a83c920e9bdc04b59f8624"/>
+              <topic label="PUMP" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a5b56a89377f5656e07f318d0a93eafcd"/>
+              <topic label="SHOOTER" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#abb63afdfbfbd0348560daa7acbcc3688"/>
+              <topic label="SMALLEXPL" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a8d9a89c8c7828419fa3551f0f0dd351a"/>
+            </topic>
+            <topic label="ShapeException" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeException.html">
+              <topic label="ShapeException" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeException.html#ac43d732ce172bc392fe1c035157ace16"/>
+              <topic label="ShapeException" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeException.html#a604321777b00b6fc2955c90ebc27dc64"/>
+            </topic>
+            <topic label="StandaloneGameOfLife" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html">
+              <topic label="GameOfLifeGridIO" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html">
+                <topic label="GameOfLifeGridIO" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#aecbd54a2650839de47dcbbe3e17f3416"/>
+                <topic label="makeShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a4361a254b6f582278fedb51d7551973d"/>
+                <topic label="openShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#aa8ab6b2b2f0856cde500e135ff875b53"/>
+                <topic label="openShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a009f4eda22bbb1aa245aba86ce3811ed"/>
+                <topic label="openShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a4d7c99fd3488f79ff6121775c1b166d2"/>
+                <topic label="openShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a0b5654d259a4a5b48cffaf556f0c14c5"/>
+                <topic label="saveShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a9bfa2d0e7b98ec0f8a9243377775990e"/>
+                <topic label="setShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#ac0d240b6b7db0b0b2a7caf855333c467"/>
+                <topic label="FILE_EXTENSION" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#aa9342d77401be1b6d865f21722daf439"/>
+                <topic label="filename" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a8f9611951dcb3829fad49f274d5d6239"/>
+                <topic label="grid" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a08df5e372fa02adb9c15d0e52f950a94"/>
+              </topic>
+              <topic label="MyDropListener" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html">
+                <topic label="dragEnter" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#a9461e5e6f911a53ed023b5abe0c4e819"/>
+                <topic label="dragExit" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#a252d814144e2ae348988901604fcf038"/>
+                <topic label="dragOver" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#ad065bdd963f71dc3cd75e9baadb50104"/>
+                <topic label="drop" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#a1bbd2c41345b635a2b3a689d769cb325"/>
+                <topic label="dropActionChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#ac1c09fd518ac9b230f1be4253fdc02e8"/>
+                <topic label="urlFlavor" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#a2cd051e831db97ba0c879a9d028ba9ae"/>
+              </topic>
+              <topic label="alert" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a30c57e35e342fa76b71ac33313d2307e"/>
+              <topic label="getAppletInfo" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a27e4de9534ce4fd8a99278bbd73420ac"/>
+              <topic label="getCellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#aa64fb4e92ac94757bae6af3ca54c4ff1"/>
+              <topic label="getGameOfLifeGridIO" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a135b825ffd7e18697e620f6368cfbea9"/>
+              <topic label="getParameter" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a7451a3ba40b4f4a3460a7fe9bcf0c392"/>
+              <topic label="getParamInteger" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a70b4b846cdec2914a605b983b054b4e7"/>
+              <topic label="getParams" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a087736b47853880e3e5b65c6c2108b13"/>
+              <topic label="init" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a3b467cb67705fcf6919c4aad8905a4c1"/>
+              <topic label="init" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#aec0977d9c85078ba0ba04010c6939533"/>
+              <topic label="isRunning" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ac262379d26a0ea33c316f2d21dc3da02"/>
+              <topic label="main" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a5471e5b139400fb8dce8730a0249a111"/>
+              <topic label="nextButtonClicked" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a48e7101f6cc2cb37ef145ece68f0e69a"/>
+              <topic label="nextGeneration" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#adcbf66c4db0945ad9341978154d6de5a"/>
+              <topic label="readShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ad1f712e8d96a8847da08bd149a717d21"/>
+              <topic label="reset" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a14aadd9fc7cc9166a1ba3c22f771fdf4"/>
+              <topic label="run" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ac16bf544f1f596dd1ac90b1c41143c1e"/>
+              <topic label="setCellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a3f87d0bb9c822d1d57141734be08e508"/>
+              <topic label="setShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#afeb8b282dd54a19cfa34ec5c483c30d1"/>
+              <topic label="setSpeed" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ac61d95acd02a90742293aac2c8114c3a"/>
+              <topic label="shapeSelected" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a3b7f46a84008ff699fb46214fcc6a87a"/>
+              <topic label="showStatus" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a824f8a6a19f63b44d59eddab579710a7"/>
+              <topic label="speedChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ab7407f490a9a46b60bc0fbec2eb64088"/>
+              <topic label="start2" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#af349d66a8c9c06797b58f4bfa326a851"/>
+              <topic label="startStopButtonClicked" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a5c74619661eda52e296aeede5a92ce78"/>
+              <topic label="stop" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ae2fbc90e09937898d858da06d497e8d1"/>
+              <topic label="zoomChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a4db339f889960f73ab705ba4d9ba0f8d"/>
+              <topic label="appletFrame" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#aa936e73d8b314bf51671edb7915aff68"/>
+              <topic label="args" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#aac6895472c463e5f0ad8f4b5c96c6185"/>
+              <topic label="cellCols" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a0f849de620b1dd36176ac5586bddb973"/>
+              <topic label="cellRows" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#aca66db88ffc3a943efef7a5b14890b48"/>
+              <topic label="cellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a58a27ab867bb97d9e62268981bc58f39"/>
+              <topic label="controls" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a2b5a6c271fcbad2d7a4ce4f63d7ec9d3"/>
+              <topic label="gameOfLifeCanvas" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ad9a9975595fe52b54c5f468e15eb9338"/>
+              <topic label="gameOfLifeGrid" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a5721c16712edde89020d48b87ab16856"/>
+              <topic label="gameThread" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a8d424e5a043915824b97cbb95f749fdd"/>
+              <topic label="genTime" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a1656b1d87fd43489ea55bd942a1db543"/>
+              <topic label="gridIO" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a40489ff496da57259f8c74af271b815f"/>
+            </topic>
+          </topic>
+          <topic label="util" href="namespaceorg_1_1bitstorm_1_1util.html">
+            <topic label="AboutDialog" href="classorg_1_1bitstorm_1_1util_1_1AboutDialog.html">
+              <topic label="AboutDialog" href="classorg_1_1bitstorm_1_1util_1_1AboutDialog.html#a06c2757fc0f0b673b65065605c5bc12d"/>
+              <topic label="close" href="classorg_1_1bitstorm_1_1util_1_1AboutDialog.html#a611a03620c5b2d0278115365bcb57955"/>
+              <topic label="processEvent" href="classorg_1_1bitstorm_1_1util_1_1AboutDialog.html#af9f513b1ec6f94f1c624655dc2d624d4"/>
+              <topic label="okButton" href="classorg_1_1bitstorm_1_1util_1_1AboutDialog.html#a61eb1e3708b2b7e4e70fcf9d2908bd35"/>
+            </topic>
+            <topic label="AlertBox" href="classorg_1_1bitstorm_1_1util_1_1AlertBox.html">
+              <topic label="AlertBox" href="classorg_1_1bitstorm_1_1util_1_1AlertBox.html#ab6042647fd0179f6915a2e321fa8a543"/>
+              <topic label="close" href="classorg_1_1bitstorm_1_1util_1_1AlertBox.html#a6318c35fe12f028fd485dd3cfccd3e13"/>
+              <topic label="processEvent" href="classorg_1_1bitstorm_1_1util_1_1AlertBox.html#a6a8f125bfa7b66d45b4cb6240a2daae3"/>
+              <topic label="okButton" href="classorg_1_1bitstorm_1_1util_1_1AlertBox.html#aee4c145f95ba88c44198780d4301b517"/>
+            </topic>
+            <topic label="EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html">
+              <topic label="EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a03540a496723a00cd75bd1bf0e446aec"/>
+              <topic label="EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a6107d6cc428522deb9c2ddc7cb7c333a"/>
+              <topic label="EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a4d3eceb90577a344a6b487d8159c5056"/>
+              <topic label="EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a9f22bed623600c4c6ff7f0cbb988ccf6"/>
+              <topic label="EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a209f325081233a626b7f12e24861cf6b"/>
+              <topic label="getFileName" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a21a0d0dc6528059afaea8ff657cce9a1"/>
+              <topic label="readText" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a1e05f4ef4928a35e4d7df295f29fc8e8"/>
+              <topic label="setFileExtension" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a7c85e0f2415cbf5d28a82fc73ad79069"/>
+              <topic label="setFileName" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#afd11f06e16eef5d943769e78627a205f"/>
+              <topic label="writeText" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a9730dd0d7a33ec7617f5c468628238e5"/>
+              <topic label="bufferLength" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a65f90aed8394b253a5610e7ad75cadc4"/>
+              <topic label="fileExtension" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a736c676421cce1b088682efb8968eaaa"/>
+              <topic label="filename" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a8af8832f49f95ad2443a33db1876cedf"/>
+              <topic label="filepath" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a6b43acdfc4ace269f3e39a1f015832a2"/>
+              <topic label="parent" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a0d1d3ebeb446ebdc13fd63b9532f3a7a"/>
+              <topic label="textFileReader" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#ad97ff23801138ffe4fb60530d63c0c73"/>
+              <topic label="textFileWriter" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a79642b14a4d60405e2d583a5188d7346"/>
+              <topic label="title" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#aaf2522ab7d868e245a28ff73fc0634a0"/>
+            </topic>
+            <topic label="ImageComponent" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html">
+              <topic label="ImageComponent" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html#a73451a2257f878b2be41c3e335d6ba69"/>
+              <topic label="getPreferredSize" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html#a5060589d162eef33da40d48418a81966"/>
+              <topic label="imageUpdate" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html#a104e5ce4599a774b7c1e5bd316d82626"/>
+              <topic label="paint" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html#ace1793ec21752455c570de751cd52614"/>
+              <topic label="image" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html#ade6c10cb933ae4850f326e8cd7ad2f18"/>
+            </topic>
+            <topic label="LineEnumerator" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html">
+              <topic label="LineEnumerator" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a680a5b3ad76aa8d35c89b1ff6dff8603"/>
+              <topic label="hasMoreElements" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a689cf44119a35290f06da92853c9003d"/>
+              <topic label="nextElement" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a186a095beb3a7eb37cf892dc84a22865"/>
+              <topic label="CR" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#adcdb9a3157caf64cc1a249d2efc96451"/>
+              <topic label="CRLF" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a37ada11108b0687dc4fca0a327a86ec9"/>
+              <topic label="eolOffset" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a8f3c61a13fa10a5ad53fd71ca4045b6e"/>
+              <topic label="LF" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a8295b73f8253f76b4cedbf6845201c54"/>
+              <topic label="offset" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a975a317b5fb25f632345bbe3bda69d07"/>
+              <topic label="s" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#aa4b3f4c9ad3be855e497c72083d2ec72"/>
+              <topic label="separator" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#ac02586c2eccbc4d45372f6afc8e21135"/>
+            </topic>
+            <topic label="TextFileDialog" href="classorg_1_1bitstorm_1_1util_1_1TextFileDialog.html">
+              <topic label="TextFileDialog" href="classorg_1_1bitstorm_1_1util_1_1TextFileDialog.html#ad7ebb9896cccf27c7528f5d7aabd4982"/>
+              <topic label="close" href="classorg_1_1bitstorm_1_1util_1_1TextFileDialog.html#a133a2c36ba5de8ba6db7e6752183eea8"/>
+              <topic label="processEvent" href="classorg_1_1bitstorm_1_1util_1_1TextFileDialog.html#a97a32228bf56e2895be63e5e9897482b"/>
+            </topic>
+          </topic>
+        </topic>
+      </topic>
+    </topic>
+    <topic label="Class Index" href="classes.html"/>
+    <topic label="Class Hierarchy" href="hierarchy.html">
+      <topic label="org.bitstorm.gameoflife.Cell" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html"/>
+      <topic label="org.bitstorm.gameoflife.CellGrid" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html">
+        <topic label="org.bitstorm.gameoflife.GameOfLifeGrid" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html"/>
+      </topic>
+      <topic label="org.bitstorm.util.EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html"/>
+      <topic label="Exception">
+        <topic label="org.bitstorm.gameoflife.ShapeException" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeException.html"/>
+      </topic>
+      <topic label="org.bitstorm.gameoflife.StandaloneGameOfLife.GameOfLifeGridIO" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html"/>
+      <topic label="Runnable">
+        <topic label="org.bitstorm.gameoflife.GameOfLife" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html">
+          <topic label="org.bitstorm.gameoflife.StandaloneGameOfLife" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html"/>
+        </topic>
+      </topic>
+      <topic label="org.bitstorm.gameoflife.Shape" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html"/>
+      <topic label="org.bitstorm.gameoflife.ShapeCollection" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html"/>
+      <topic label="Applet">
+        <topic label="org.bitstorm.gameoflife.GameOfLife" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html"/>
+      </topic>
+      <topic label="Canvas">
+        <topic label="org.bitstorm.gameoflife.CellGridCanvas" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html"/>
+        <topic label="org.bitstorm.util.ImageComponent" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html"/>
+      </topic>
+      <topic label="Dialog">
+        <topic label="org.bitstorm.util.AboutDialog" href="classorg_1_1bitstorm_1_1util_1_1AboutDialog.html"/>
+        <topic label="org.bitstorm.util.AlertBox" href="classorg_1_1bitstorm_1_1util_1_1AlertBox.html"/>
+        <topic label="org.bitstorm.util.TextFileDialog" href="classorg_1_1bitstorm_1_1util_1_1TextFileDialog.html"/>
+      </topic>
+      <topic label="DropTargetListener">
+        <topic label="org.bitstorm.gameoflife.StandaloneGameOfLife.MyDropListener" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html"/>
+      </topic>
+      <topic label="Enumeration">
+        <topic label="org.bitstorm.util.LineEnumerator" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html"/>
+      </topic>
+      <topic label="Event">
+        <topic label="org.bitstorm.gameoflife.GameOfLifeControlsEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html"/>
+      </topic>
+      <topic label="EventListener">
+        <topic label="org.bitstorm.gameoflife.GameOfLifeControlsListener" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html">
+          <topic label="org.bitstorm.gameoflife.GameOfLife" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html"/>
+        </topic>
+      </topic>
+      <topic label="Frame">
+        <topic label="org.bitstorm.gameoflife.AppletFrame" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html"/>
+      </topic>
+      <topic label="ImageObserver">
+        <topic label="org.bitstorm.util.ImageComponent" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html"/>
+      </topic>
+      <topic label="Panel">
+        <topic label="org.bitstorm.gameoflife.GameOfLifeControls" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html"/>
+      </topic>
+    </topic>
+    <topic label="Class Members" href="functions.html">
+      <topic label="All" href="functions.html">
+        <topic label="[" href="functions.html"/>
+        <topic label="a" href="functions_a.html"/>
+        <topic label="b" href="functions_b.html"/>
+        <topic label="c" href="functions_c.html"/>
+        <topic label="d" href="functions_d.html"/>
+        <topic label="e" href="functions_e.html"/>
+        <topic label="f" href="functions_f.html"/>
+        <topic label="g" href="functions_g.html"/>
+        <topic label="h" href="functions_h.html"/>
+        <topic label="i" href="functions_i.html"/>
+        <topic label="l" href="functions_l.html"/>
+        <topic label="m" href="functions_m.html"/>
+        <topic label="n" href="functions_n.html"/>
+        <topic label="o" href="functions_o.html"/>
+        <topic label="p" href="functions_p.html"/>
+        <topic label="r" href="functions_r.html"/>
+        <topic label="s" href="functions_s.html"/>
+        <topic label="t" href="functions_t.html"/>
+        <topic label="u" href="functions_u.html"/>
+        <topic label="w" href="functions_w.html"/>
+        <topic label="z" href="functions_z.html"/>
+      </topic>
+      <topic label="Functions" href="functions_func.html"/>
+      <topic label="Variables" href="functions_vars.html"/>
+    </topic>
+  </topic>
+  <topic label="Files">
+    <topic label="File List" href="files.html">
+      <topic label="AboutDialog.java" href="AboutDialog_8java.html">
+        <topic label="AboutDialog" href="classorg_1_1bitstorm_1_1util_1_1AboutDialog.html">
+          <topic label="AboutDialog" href="classorg_1_1bitstorm_1_1util_1_1AboutDialog.html#a06c2757fc0f0b673b65065605c5bc12d"/>
+          <topic label="close" href="classorg_1_1bitstorm_1_1util_1_1AboutDialog.html#a611a03620c5b2d0278115365bcb57955"/>
+          <topic label="processEvent" href="classorg_1_1bitstorm_1_1util_1_1AboutDialog.html#af9f513b1ec6f94f1c624655dc2d624d4"/>
+          <topic label="okButton" href="classorg_1_1bitstorm_1_1util_1_1AboutDialog.html#a61eb1e3708b2b7e4e70fcf9d2908bd35"/>
+        </topic>
+      </topic>
+      <topic label="AlertBox.java" href="AlertBox_8java.html">
+        <topic label="AlertBox" href="classorg_1_1bitstorm_1_1util_1_1AlertBox.html">
+          <topic label="AlertBox" href="classorg_1_1bitstorm_1_1util_1_1AlertBox.html#ab6042647fd0179f6915a2e321fa8a543"/>
+          <topic label="close" href="classorg_1_1bitstorm_1_1util_1_1AlertBox.html#a6318c35fe12f028fd485dd3cfccd3e13"/>
+          <topic label="processEvent" href="classorg_1_1bitstorm_1_1util_1_1AlertBox.html#a6a8f125bfa7b66d45b4cb6240a2daae3"/>
+          <topic label="okButton" href="classorg_1_1bitstorm_1_1util_1_1AlertBox.html#aee4c145f95ba88c44198780d4301b517"/>
+        </topic>
+      </topic>
+      <topic label="Cell.java" href="Cell_8java.html">
+        <topic label="Cell" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html">
+          <topic label="Cell" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#a89c4e6c1f4caa787c41d51f70c4cc88a"/>
+          <topic label="equals" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#a2cc5e572b6c0ff6474ab35e285ec77d2"/>
+          <topic label="hashCode" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#a9eec31000cf28f27dacb721cd5507e75"/>
+          <topic label="toString" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#abe176087c4e24270f4e11bdf9fb5c646"/>
+          <topic label="col" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#ac20d58a8b386dfd40e3eed94ec550009"/>
+          <topic label="HASHFACTOR" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#aac263e6a5989c873ac4c2bb628a700f9"/>
+          <topic label="neighbour" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#a7fcf1a1dd3a8c5303a1403757ccf4ccb"/>
+          <topic label="row" href="classorg_1_1bitstorm_1_1gameoflife_1_1Cell.html#aa097b0c6c6366fd17fb8d76c494f7da3"/>
+        </topic>
+      </topic>
+      <topic label="CellGrid.java" href="CellGrid_8java.html">
+        <topic label="CellGrid" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html">
+          <topic label="clear" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html#a2a96ab5a164e051071c9124fc98e3de3"/>
+          <topic label="getCell" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html#a94abceefd38277762ede6b62f8987e63"/>
+          <topic label="getDimension" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html#a3d0d61e186979b524e0603f81ebb5f8c"/>
+          <topic label="getEnum" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html#a8c4af64bbfc32c46745592d457066bac"/>
+          <topic label="resize" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html#a9b67fdcb9ea5cba3fe4b34d1e45ddb0a"/>
+          <topic label="setCell" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1CellGrid.html#a250a2381a1a7153f2303f3b048198fb8"/>
+        </topic>
+      </topic>
+      <topic label="CellGridCanvas.java" href="CellGridCanvas_8java.html">
+        <topic label="CellGridCanvas" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html">
+          <topic label="CellGridCanvas" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#abfd116c33c06bcf9526f86ae9bdf71b4"/>
+          <topic label="draw" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a954b3b0eded603e78a2306669601218e"/>
+          <topic label="getMinimumSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#ad82c5c4fd5e729697100026b6cb05116"/>
+          <topic label="getPreferredSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a979bd0e18b38e3875a940e8a712450eb"/>
+          <topic label="paint" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a8de3f8998974c57f3a7d653f7c4e9c08"/>
+          <topic label="resized" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#aee9ad1be9764544207002396f4e83458"/>
+          <topic label="saveCellUnderMouse" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a5794257acd60b1bedc4480f120f23e6f"/>
+          <topic label="setAfterWindowResize" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a02e76b1d29d65f9022f68f2910004054"/>
+          <topic label="setCellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#ab1e000cbfa76d5951b16e4bec8042f4b"/>
+          <topic label="setShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a60c7e6c9074e2bdf58b392a17997076d"/>
+          <topic label="update" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a9611329f99524d2062b3fdde5cb706f1"/>
+          <topic label="cellGrid" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a07971ab47ce8e0f25b50e11f0bb6467c"/>
+          <topic label="cellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#aec40a510f7f6f163688492c65c5a043f"/>
+          <topic label="cellUnderMouse" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#af9d4e180bc9395b3adbc70741382f291"/>
+          <topic label="listeners" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#ae48f57911db08fc9cc6a7b24ee110344"/>
+          <topic label="newCellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a1a630f11c440928e57f8ef2d4947bd05"/>
+          <topic label="newShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#ae49d03f0cc3eb6176d47f6bc9e57cd8d"/>
+          <topic label="offScreenGraphics" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a732e1507763f74cca053648197289471"/>
+          <topic label="offScreenGraphicsDrawed" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a1adada3412528b19c30c41ac92b6f5a1"/>
+          <topic label="offScreenImage" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#aea25c24b1d0f6d241b152262dce4bbaa"/>
+          <topic label="offScreenImageDrawed" href="classorg_1_1bitstorm_1_1gameoflife_1_1CellGridCanvas.html#a886ef40c7504a4c66c725d20f3584549"/>
+        </topic>
+      </topic>
+      <topic label="EasyFile.java" href="EasyFile_8java.html">
+        <topic label="EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html">
+          <topic label="EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a03540a496723a00cd75bd1bf0e446aec"/>
+          <topic label="EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a6107d6cc428522deb9c2ddc7cb7c333a"/>
+          <topic label="EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a4d3eceb90577a344a6b487d8159c5056"/>
+          <topic label="EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a9f22bed623600c4c6ff7f0cbb988ccf6"/>
+          <topic label="EasyFile" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a209f325081233a626b7f12e24861cf6b"/>
+          <topic label="getFileName" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a21a0d0dc6528059afaea8ff657cce9a1"/>
+          <topic label="readText" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a1e05f4ef4928a35e4d7df295f29fc8e8"/>
+          <topic label="setFileExtension" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a7c85e0f2415cbf5d28a82fc73ad79069"/>
+          <topic label="setFileName" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#afd11f06e16eef5d943769e78627a205f"/>
+          <topic label="writeText" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a9730dd0d7a33ec7617f5c468628238e5"/>
+          <topic label="bufferLength" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a65f90aed8394b253a5610e7ad75cadc4"/>
+          <topic label="fileExtension" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a736c676421cce1b088682efb8968eaaa"/>
+          <topic label="filename" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a8af8832f49f95ad2443a33db1876cedf"/>
+          <topic label="filepath" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a6b43acdfc4ace269f3e39a1f015832a2"/>
+          <topic label="parent" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a0d1d3ebeb446ebdc13fd63b9532f3a7a"/>
+          <topic label="textFileReader" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#ad97ff23801138ffe4fb60530d63c0c73"/>
+          <topic label="textFileWriter" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#a79642b14a4d60405e2d583a5188d7346"/>
+          <topic label="title" href="classorg_1_1bitstorm_1_1util_1_1EasyFile.html#aaf2522ab7d868e245a28ff73fc0634a0"/>
+        </topic>
+      </topic>
+      <topic label="GameOfLife.java" href="GameOfLife_8java.html">
+        <topic label="GameOfLife" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html">
+          <topic label="alert" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a47264aea26a691df0c561db7ed1abc07"/>
+          <topic label="getAppletInfo" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a27e4de9534ce4fd8a99278bbd73420ac"/>
+          <topic label="getCellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#aa64fb4e92ac94757bae6af3ca54c4ff1"/>
+          <topic label="getParamInteger" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a70b4b846cdec2914a605b983b054b4e7"/>
+          <topic label="getParams" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a087736b47853880e3e5b65c6c2108b13"/>
+          <topic label="init" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a3b467cb67705fcf6919c4aad8905a4c1"/>
+          <topic label="isRunning" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#ac262379d26a0ea33c316f2d21dc3da02"/>
+          <topic label="nextButtonClicked" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a48e7101f6cc2cb37ef145ece68f0e69a"/>
+          <topic label="nextGeneration" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#adcbf66c4db0945ad9341978154d6de5a"/>
+          <topic label="reset" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a14aadd9fc7cc9166a1ba3c22f771fdf4"/>
+          <topic label="run" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#ac16bf544f1f596dd1ac90b1c41143c1e"/>
+          <topic label="setCellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a3f87d0bb9c822d1d57141734be08e508"/>
+          <topic label="setShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#afeb8b282dd54a19cfa34ec5c483c30d1"/>
+          <topic label="setSpeed" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#ac61d95acd02a90742293aac2c8114c3a"/>
+          <topic label="shapeSelected" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a3b7f46a84008ff699fb46214fcc6a87a"/>
+          <topic label="showGenerations" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#aa6d4b8ff19d66e6267316d2e381f65cb"/>
+          <topic label="speedChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#ab7407f490a9a46b60bc0fbec2eb64088"/>
+          <topic label="start2" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#af349d66a8c9c06797b58f4bfa326a851"/>
+          <topic label="startStopButtonClicked" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a5c74619661eda52e296aeede5a92ce78"/>
+          <topic label="stop" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#ae2fbc90e09937898d858da06d497e8d1"/>
+          <topic label="zoomChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a4db339f889960f73ab705ba4d9ba0f8d"/>
+          <topic label="cellCols" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a0f849de620b1dd36176ac5586bddb973"/>
+          <topic label="cellRows" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#aca66db88ffc3a943efef7a5b14890b48"/>
+          <topic label="cellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a58a27ab867bb97d9e62268981bc58f39"/>
+          <topic label="controls" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a2b5a6c271fcbad2d7a4ce4f63d7ec9d3"/>
+          <topic label="gameOfLifeCanvas" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#ad9a9975595fe52b54c5f468e15eb9338"/>
+          <topic label="gameOfLifeGrid" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a5721c16712edde89020d48b87ab16856"/>
+          <topic label="gameThread" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a8d424e5a043915824b97cbb95f749fdd"/>
+          <topic label="genTime" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLife.html#a1656b1d87fd43489ea55bd942a1db543"/>
+        </topic>
+      </topic>
+      <topic label="GameOfLifeControls.java" href="GameOfLifeControls_8java.html">
+        <topic label="GameOfLifeControls" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html">
+          <topic label="GameOfLifeControls" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ad05308bd81ba404a69d9148854ba40e0"/>
+          <topic label="addGameOfLifeControlsListener" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#adc86ec99ead6862320e514895fa4fd7e"/>
+          <topic label="nextButtonClicked" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ac5dd1e7a9c064aeebfacc7f86af02e8b"/>
+          <topic label="removeGameOfLifeControlsListener" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#aeebe00e34602dd894db2d2777b312cfc"/>
+          <topic label="setGeneration" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#abc59bae4e48e8c79b47a9bd9fd0fd58a"/>
+          <topic label="setZoom" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a234f064c032e0072bd8595abf18a5692"/>
+          <topic label="shapeSelected" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#adb2c0e0f808d651df5205f3c2aa92d64"/>
+          <topic label="speedChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ac0067cfcd7c0c368fbf9a6d43ce81aa3"/>
+          <topic label="start" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ab33608ff77deab6585d4f11ea6d1501b"/>
+          <topic label="startStopButtonClicked" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a6c0c2c0653915494bb301d008f1dff33"/>
+          <topic label="stop" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#af4296f2ec925414a6cef19048ae53911"/>
+          <topic label="zoomChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a1620459adf40a9e167d8eee1b8908987"/>
+          <topic label="BIG" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ad4fca8d98a4f2827cef65165b671e688"/>
+          <topic label="FAST" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#aebcd9f3efed1dd3264ea25fd1c31b4d5"/>
+          <topic label="genLabel" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a4049e22b4b5ab8d5a0117324ffeadb8c"/>
+          <topic label="genLabelText" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ab519f6a93297400aad94b1989787f8b5"/>
+          <topic label="HYPER" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#adc68f59f161a94fd8f914fc27453d964"/>
+          <topic label="listeners" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a904ce603812b28af33f79a938f41afd5"/>
+          <topic label="MEDIUM" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a71eef5b346c84f5325ae8eb9a43e0a50"/>
+          <topic label="nextButton" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a00bfaae90e3b63b33e1933eac2d6ce78"/>
+          <topic label="nextLabelText" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a48f385551b1fb3415f7229c43a319760"/>
+          <topic label="shapesChoice" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a05d6a7255c98f82ca10ee2fe32d6a3b2"/>
+          <topic label="SIZE_BIG" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a51df8986aaf53bfccf2384e3a87f3929"/>
+          <topic label="SIZE_MEDIUM" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a5014b6e00bd1b9ccc2f0a1ca14fb4177"/>
+          <topic label="SIZE_SMALL" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#aaa8e612d2cfb04f1c89f922af364a2c9"/>
+          <topic label="SLOW" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a0bcc728ffe628247505317d79c00de5d"/>
+          <topic label="SMALL" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a4b9032f4a3dde15d7a2dfa8fe7d8782e"/>
+          <topic label="startLabelText" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#ab46cfcb5c42c99581cc6affd4ef9181d"/>
+          <topic label="startstopButton" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a5842da4082dc2e061d6e38fca8a95522"/>
+          <topic label="stopLabelText" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#aeffe838e11901978bb9d6a0b5ca08948"/>
+          <topic label="zoomChoice" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControls.html#a7f91ff1352757811a6fdcf0bb676ed81"/>
+        </topic>
+      </topic>
+      <topic label="GameOfLifeControlsEvent.java" href="GameOfLifeControlsEvent_8java.html">
+        <topic label="GameOfLifeControlsEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html">
+          <topic label="GameOfLifeControlsEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#ad3025463ef9f6b16d40a59c22197a438"/>
+          <topic label="getShapeName" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a0ca7b3c0ece829b5f9d3fd95dbdc0394"/>
+          <topic label="getShapeSelectedEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#aa21383896d045cdafe922578063f5291"/>
+          <topic label="getSpeed" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#afc970032f7ed97b8f1f885d01cbd407e"/>
+          <topic label="getSpeedChangedEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#afb18977ddfbb9c8c5097dc0e1acfccdf"/>
+          <topic label="getZoom" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a7f6074d947d106bd0299fa5f354598d0"/>
+          <topic label="getZoomChangedEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a5ae602bf2dfdd0bce6e8743926db4505"/>
+          <topic label="setShapeName" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a63533a826bc44f4c4760107c73fba9de"/>
+          <topic label="setSpeed" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a67c2d9d75534b0701692c0c81e9cf6c0"/>
+          <topic label="setZoom" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a814ddfc34efe8c857deb14ff88a53927"/>
+          <topic label="shapeName" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#aec7549e6f2be1cabb5f2cf9d47e4885f"/>
+          <topic label="speed" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a4bd3025789b50042e5c3a44036cce9ff"/>
+          <topic label="zoom" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsEvent.html#a371c87ca4fb746f745a95e62d3a8f39c"/>
+        </topic>
+      </topic>
+      <topic label="GameOfLifeControlsListener.java" href="GameOfLifeControlsListener_8java.html">
+        <topic label="GameOfLifeControlsListener" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html">
+          <topic label="nextButtonClicked" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html#ab72b2361cda910d1c543de50ad760554"/>
+          <topic label="shapeSelected" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html#a9a2ecc687a2a4d6f2e2a1dd4c500dc51"/>
+          <topic label="speedChanged" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html#a687b174d0a69b0e186d8a949d20edca0"/>
+          <topic label="startStopButtonClicked" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html#aac9e22cf94513e3a248205580532c6ec"/>
+          <topic label="zoomChanged" href="interfaceorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeControlsListener.html#a6f3e3dcb0c300b6aa3c2c289b77a39fa"/>
+        </topic>
+      </topic>
+      <topic label="GameOfLifeGrid.java" href="GameOfLifeGrid_8java.html">
+        <topic label="GameOfLifeGrid" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html">
+          <topic label="GameOfLifeGrid" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a0c2fa1ab5fda0d6eb20ce35e53204616"/>
+          <topic label="addNeighbour" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#abb7db9f6ad787c7ab61da4bde2b7fc39"/>
+          <topic label="clear" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a493b68b42d54a841f90d8d0818799496"/>
+          <topic label="getCell" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#ae2811ba685371322bfe5af4e6619d401"/>
+          <topic label="getDimension" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a960299d7604cbe013db44cb903dca906"/>
+          <topic label="getEnum" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a6ee44df61a26a574383e396bd73a2c3f"/>
+          <topic label="getGenerations" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a3a008a5096f847dea2a7722c7609a8b1"/>
+          <topic label="next" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a715b46706f05cde5fce646f4042d9d27"/>
+          <topic label="resize" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a65c42eb84410f1f1eb12905e29d9996d"/>
+          <topic label="setCell" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#ad306530aa8fa3a9e6968dec15515ab8d"/>
+          <topic label="cellCols" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a17a7582b9b976fbe7b0d29d526f8f349"/>
+          <topic label="cellRows" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#abd8819282c169effbc7ca9de27addad3"/>
+          <topic label="currentShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a4a132b193f8db6eb2cda60c360a43bf3"/>
+          <topic label="generations" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a514b33f366f1b136a6313d6df17f5b97"/>
+          <topic label="grid" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a8add6edc3c363ddc24f7eb32d0f25bec"/>
+          <topic label="nextShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a39379a526c0cff4595a1438acb2afa6c"/>
+          <topic label="shapes" href="classorg_1_1bitstorm_1_1gameoflife_1_1GameOfLifeGrid.html#a6bd2923c6c71bd883c157db8db53c35b"/>
+        </topic>
+      </topic>
+      <topic label="ImageComponent.java" href="ImageComponent_8java.html">
+        <topic label="ImageComponent" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html">
+          <topic label="ImageComponent" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html#a73451a2257f878b2be41c3e335d6ba69"/>
+          <topic label="getPreferredSize" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html#a5060589d162eef33da40d48418a81966"/>
+          <topic label="imageUpdate" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html#a104e5ce4599a774b7c1e5bd316d82626"/>
+          <topic label="paint" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html#ace1793ec21752455c570de751cd52614"/>
+          <topic label="image" href="classorg_1_1bitstorm_1_1util_1_1ImageComponent.html#ade6c10cb933ae4850f326e8cd7ad2f18"/>
+        </topic>
+      </topic>
+      <topic label="LineEnumerator.java" href="LineEnumerator_8java.html">
+        <topic label="LineEnumerator" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html">
+          <topic label="LineEnumerator" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a680a5b3ad76aa8d35c89b1ff6dff8603"/>
+          <topic label="hasMoreElements" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a689cf44119a35290f06da92853c9003d"/>
+          <topic label="nextElement" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a186a095beb3a7eb37cf892dc84a22865"/>
+          <topic label="CR" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#adcdb9a3157caf64cc1a249d2efc96451"/>
+          <topic label="CRLF" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a37ada11108b0687dc4fca0a327a86ec9"/>
+          <topic label="eolOffset" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a8f3c61a13fa10a5ad53fd71ca4045b6e"/>
+          <topic label="LF" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a8295b73f8253f76b4cedbf6845201c54"/>
+          <topic label="offset" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#a975a317b5fb25f632345bbe3bda69d07"/>
+          <topic label="s" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#aa4b3f4c9ad3be855e497c72083d2ec72"/>
+          <topic label="separator" href="classorg_1_1bitstorm_1_1util_1_1LineEnumerator.html#ac02586c2eccbc4d45372f6afc8e21135"/>
+        </topic>
+      </topic>
+      <topic label="Shape.java" href="Shape_8java.html">
+        <topic label="Shape" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html">
+          <topic label="Shape" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#a2c71bb2fc45dfd959e827ff6464a16f6"/>
+          <topic label="getCells" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#af0eba4ba6880a8f72660924897e7984b"/>
+          <topic label="getDimension" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#a6a80dba830805dafabfbfb6b00afa05f"/>
+          <topic label="getName" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#adb8c8f6fc2e0409970805fd7e820bd95"/>
+          <topic label="toString" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#aedde649194715fed2f20e1954c66e42f"/>
+          <topic label="name" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#ab014ae8733b5957d62c959c83baec8bf"/>
+          <topic label="shape" href="classorg_1_1bitstorm_1_1gameoflife_1_1Shape.html#a33131de78c3ed031a13cec766513b700"/>
+        </topic>
+      </topic>
+      <topic label="ShapeCollection.java" href="ShapeCollection_8java.html">
+        <topic label="ShapeCollection" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html">
+          <topic label="[static initializer]" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a6842ea7f2146a911dc6af795db4d7b16"/>
+          <topic label="getShapeByName" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#ac99f1ae3577eb03af1c077f9babe9066"/>
+          <topic label="getShapes" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a5336f3bdd5e5b1486d485bc0febfcda5"/>
+          <topic label="CELL10" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a841987fd675d2feafd7cb639e9df9677"/>
+          <topic label="CLEAR" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#ab42c57354c73fbf30268977ca0d807c3"/>
+          <topic label="COLLECTION" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a78724189bc28628557cce32201da0531"/>
+          <topic label="EXPLODER" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a0d849eab2bb1813761882fe23a881be1"/>
+          <topic label="FISH" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#aae926fd4244c98fbfb1f1b3b8d20fe99"/>
+          <topic label="GLIDER" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a5df1171c27a83c920e9bdc04b59f8624"/>
+          <topic label="PUMP" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a5b56a89377f5656e07f318d0a93eafcd"/>
+          <topic label="SHOOTER" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#abb63afdfbfbd0348560daa7acbcc3688"/>
+          <topic label="SMALLEXPL" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeCollection.html#a8d9a89c8c7828419fa3551f0f0dd351a"/>
+        </topic>
+      </topic>
+      <topic label="ShapeException.java" href="ShapeException_8java.html">
+        <topic label="ShapeException" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeException.html">
+          <topic label="ShapeException" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeException.html#ac43d732ce172bc392fe1c035157ace16"/>
+          <topic label="ShapeException" href="classorg_1_1bitstorm_1_1gameoflife_1_1ShapeException.html#a604321777b00b6fc2955c90ebc27dc64"/>
+        </topic>
+      </topic>
+      <topic label="StandaloneGameOfLife.java" href="StandaloneGameOfLife_8java.html">
+        <topic label="StandaloneGameOfLife" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html">
+          <topic label="GameOfLifeGridIO" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html">
+            <topic label="GameOfLifeGridIO" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#aecbd54a2650839de47dcbbe3e17f3416"/>
+            <topic label="makeShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a4361a254b6f582278fedb51d7551973d"/>
+            <topic label="openShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#aa8ab6b2b2f0856cde500e135ff875b53"/>
+            <topic label="openShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a009f4eda22bbb1aa245aba86ce3811ed"/>
+            <topic label="openShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a4d7c99fd3488f79ff6121775c1b166d2"/>
+            <topic label="openShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a0b5654d259a4a5b48cffaf556f0c14c5"/>
+            <topic label="saveShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a9bfa2d0e7b98ec0f8a9243377775990e"/>
+            <topic label="setShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#ac0d240b6b7db0b0b2a7caf855333c467"/>
+            <topic label="FILE_EXTENSION" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#aa9342d77401be1b6d865f21722daf439"/>
+            <topic label="filename" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a8f9611951dcb3829fad49f274d5d6239"/>
+            <topic label="grid" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a08df5e372fa02adb9c15d0e52f950a94"/>
+          </topic>
+          <topic label="MyDropListener" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html">
+            <topic label="dragEnter" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#a9461e5e6f911a53ed023b5abe0c4e819"/>
+            <topic label="dragExit" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#a252d814144e2ae348988901604fcf038"/>
+            <topic label="dragOver" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#ad065bdd963f71dc3cd75e9baadb50104"/>
+            <topic label="drop" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#a1bbd2c41345b635a2b3a689d769cb325"/>
+            <topic label="dropActionChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#ac1c09fd518ac9b230f1be4253fdc02e8"/>
+            <topic label="urlFlavor" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#a2cd051e831db97ba0c879a9d028ba9ae"/>
+          </topic>
+          <topic label="alert" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a30c57e35e342fa76b71ac33313d2307e"/>
+          <topic label="getAppletInfo" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a27e4de9534ce4fd8a99278bbd73420ac"/>
+          <topic label="getCellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#aa64fb4e92ac94757bae6af3ca54c4ff1"/>
+          <topic label="getGameOfLifeGridIO" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a135b825ffd7e18697e620f6368cfbea9"/>
+          <topic label="getParameter" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a7451a3ba40b4f4a3460a7fe9bcf0c392"/>
+          <topic label="getParamInteger" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a70b4b846cdec2914a605b983b054b4e7"/>
+          <topic label="getParams" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a087736b47853880e3e5b65c6c2108b13"/>
+          <topic label="init" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a3b467cb67705fcf6919c4aad8905a4c1"/>
+          <topic label="init" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#aec0977d9c85078ba0ba04010c6939533"/>
+          <topic label="isRunning" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ac262379d26a0ea33c316f2d21dc3da02"/>
+          <topic label="main" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a5471e5b139400fb8dce8730a0249a111"/>
+          <topic label="nextButtonClicked" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a48e7101f6cc2cb37ef145ece68f0e69a"/>
+          <topic label="nextGeneration" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#adcbf66c4db0945ad9341978154d6de5a"/>
+          <topic label="readShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ad1f712e8d96a8847da08bd149a717d21"/>
+          <topic label="reset" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a14aadd9fc7cc9166a1ba3c22f771fdf4"/>
+          <topic label="run" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ac16bf544f1f596dd1ac90b1c41143c1e"/>
+          <topic label="setCellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a3f87d0bb9c822d1d57141734be08e508"/>
+          <topic label="setShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#afeb8b282dd54a19cfa34ec5c483c30d1"/>
+          <topic label="setSpeed" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ac61d95acd02a90742293aac2c8114c3a"/>
+          <topic label="shapeSelected" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a3b7f46a84008ff699fb46214fcc6a87a"/>
+          <topic label="showStatus" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a824f8a6a19f63b44d59eddab579710a7"/>
+          <topic label="speedChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ab7407f490a9a46b60bc0fbec2eb64088"/>
+          <topic label="start2" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#af349d66a8c9c06797b58f4bfa326a851"/>
+          <topic label="startStopButtonClicked" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a5c74619661eda52e296aeede5a92ce78"/>
+          <topic label="stop" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ae2fbc90e09937898d858da06d497e8d1"/>
+          <topic label="zoomChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a4db339f889960f73ab705ba4d9ba0f8d"/>
+          <topic label="appletFrame" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#aa936e73d8b314bf51671edb7915aff68"/>
+          <topic label="args" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#aac6895472c463e5f0ad8f4b5c96c6185"/>
+          <topic label="cellCols" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a0f849de620b1dd36176ac5586bddb973"/>
+          <topic label="cellRows" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#aca66db88ffc3a943efef7a5b14890b48"/>
+          <topic label="cellSize" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a58a27ab867bb97d9e62268981bc58f39"/>
+          <topic label="controls" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a2b5a6c271fcbad2d7a4ce4f63d7ec9d3"/>
+          <topic label="gameOfLifeCanvas" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#ad9a9975595fe52b54c5f468e15eb9338"/>
+          <topic label="gameOfLifeGrid" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a5721c16712edde89020d48b87ab16856"/>
+          <topic label="gameThread" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a8d424e5a043915824b97cbb95f749fdd"/>
+          <topic label="genTime" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a1656b1d87fd43489ea55bd942a1db543"/>
+          <topic label="gridIO" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife.html#a40489ff496da57259f8c74af271b815f"/>
+        </topic>
+        <topic label="MyDropListener" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html">
+          <topic label="dragEnter" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#a9461e5e6f911a53ed023b5abe0c4e819"/>
+          <topic label="dragExit" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#a252d814144e2ae348988901604fcf038"/>
+          <topic label="dragOver" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#ad065bdd963f71dc3cd75e9baadb50104"/>
+          <topic label="drop" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#a1bbd2c41345b635a2b3a689d769cb325"/>
+          <topic label="dropActionChanged" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#ac1c09fd518ac9b230f1be4253fdc02e8"/>
+          <topic label="urlFlavor" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1MyDropListener.html#a2cd051e831db97ba0c879a9d028ba9ae"/>
+        </topic>
+        <topic label="GameOfLifeGridIO" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html">
+          <topic label="GameOfLifeGridIO" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#aecbd54a2650839de47dcbbe3e17f3416"/>
+          <topic label="makeShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a4361a254b6f582278fedb51d7551973d"/>
+          <topic label="openShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#aa8ab6b2b2f0856cde500e135ff875b53"/>
+          <topic label="openShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a009f4eda22bbb1aa245aba86ce3811ed"/>
+          <topic label="openShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a4d7c99fd3488f79ff6121775c1b166d2"/>
+          <topic label="openShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a0b5654d259a4a5b48cffaf556f0c14c5"/>
+          <topic label="saveShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a9bfa2d0e7b98ec0f8a9243377775990e"/>
+          <topic label="setShape" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#ac0d240b6b7db0b0b2a7caf855333c467"/>
+          <topic label="FILE_EXTENSION" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#aa9342d77401be1b6d865f21722daf439"/>
+          <topic label="filename" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a8f9611951dcb3829fad49f274d5d6239"/>
+          <topic label="grid" href="classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a08df5e372fa02adb9c15d0e52f950a94"/>
+        </topic>
+        <topic label="AppletFrame" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html">
+          <topic label="AppletFrame" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#a3674ccf89b34356df25aadd56aca2309"/>
+          <topic label="getStandaloneGameOfLife" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#aa5d8f7c48f29f9b464ec3b42c831d54e"/>
+          <topic label="processEvent" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#a17f4b7896853f25026a6ea50b0e37ebc"/>
+          <topic label="showAboutDialog" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#ad011e6f8ec7dbd0901e7a10d09503e38"/>
+          <topic label="showLicenseDialog" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#a29ff8c2d783df6fa5339a7c0413a9e8c"/>
+          <topic label="showManualDialog" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#aca97361e902438a198dd4a0339ce2926"/>
+          <topic label="applet" href="classorg_1_1bitstorm_1_1gameoflife_1_1AppletFrame.html#ad59067e80f689ad8f2b0b87da46b99a8"/>
+        </topic>
+      </topic>
+      <topic label="TextFileDialog.java" href="TextFileDialog_8java.html">
+        <topic label="TextFileDialog" href="classorg_1_1bitstorm_1_1util_1_1TextFileDialog.html">
+          <topic label="TextFileDialog" href="classorg_1_1bitstorm_1_1util_1_1TextFileDialog.html#ad7ebb9896cccf27c7528f5d7aabd4982"/>
+          <topic label="close" href="classorg_1_1bitstorm_1_1util_1_1TextFileDialog.html#a133a2c36ba5de8ba6db7e6752183eea8"/>
+          <topic label="processEvent" href="classorg_1_1bitstorm_1_1util_1_1TextFileDialog.html#a97a32228bf56e2895be63e5e9897482b"/>
+        </topic>
+      </topic>
+    </topic>
+  </topic>
+</toc>

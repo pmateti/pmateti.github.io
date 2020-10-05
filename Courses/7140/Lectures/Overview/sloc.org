@@ -1,0 +1,225 @@
+# -*- mode: org -*-
+#+DATE: 2018-07-26
+#+TITLE: CS7140 SLOC of Software
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CS7140 Adv Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+
+How to predict the effort needed to produce a software?  Afterward, how to
+"measure" the effort?
+
+Much effort has gone into this.  Web search for "software metrics".
+
+* A Few Quotes
+
+** Fred Brooks
+1. https://amturing.acm.org/award_winners/brooks_1002187.cfm
+1. "Adding manpower to a late software project makes it later."
+1. "How does a project get to be a year behind schedule? One day at a time."
+1. "Good judgment comes from experience and experience comes from bad judgment."
+
+** Questions with No Answers?
+
+1. What is the largest program/sofware ever written? (No matter how
+   long it took.)
+
+1. by one person?
+2. by a team? what is the size?
+
+1. Do you know of *a* program > 1000 lines that is bug-free?
+
+
+** Misc
+
+1. https://www.quora.com/What-line-of-code-changed-the-world-of-programming
+   This line of code changed the world of low-level computer graphics:
+   i  = 0x5f3759df - ( i >> 1 );               // wtf? 
+
+1. Does programming in the Small differ from Large (Giga etc)
+   qualitatively, or is it just additive scale?
+
+* Sizes of Some "Programs"
+
+1. How many lines of code are there in Minecraft? Jack Bruienne, First
+   played Minecraft in 2011.  "I once wondered this because I was
+   looking for a million lines of code for a school presentation. I
+   concatenated all of the lines of code from Minecraft 1.9 
+   ... and got 285,197 lines.  I’m not sure if this is
+   exactly correct ...
+
+1. (S)LOC: count of source code lines, ignoring blank lines and
+   comments.  Debian/Ubuntu tools {=bogosec, cccc, sloccount=}.
+
+1. The numbers below are in MLOC.  Linux numbers can be trusted, but
+   the other numbers are based on rumors.
+
+ | 1993 | Windows NT 3.1      | 6    |  | |   | | 200x | Red Hat Linux 6.2  | 17   | |
+ | 1994 | Windows NT 3.5      | 10   |  | |   | | 200x | Red Hat Linux 7.1  | 30   | |
+ | 1996 | Windows NT 4.0      | 16   |  | |   | | 200x | Debian 2.2         | 56   | |
+ | 2000 | Windows 2000        | 29   |  | |   | | 200x | Debian 3.0         | 104  | |
+ | 2002 | Windows XP          | 40   |  | |   | | 200x | Debian 3.1         | 213  | |
+ | 2003 | Windows Server 2003 | 50   |  | |   | | 200x | Linux kernel 2.6.0 | 6    | |
+ | 2008 | Windows 7           | 40   |  | |   | | 2010 | Linux kernel 3.x.x | 13.5 | |
+ | 200x | Gimp-2.3.8          | 0.65 |  | |   | | 2011 | Linux kernel 3.6.x | 15.9 | |
+ | 200x | SABRE               | 200  |  | |   | | 2013 | Linux kernel 3.9.x | 11 * | |
+ | 200x | SAP                 | 160  |  | |   | | 200x | Sun Solaris 7      | 0.5  | |
+ | 200x | IRS                 | 62   |  | |   |                                      |
+
+[For the above, no real refs can be given, but mostly from
+https://en.wikipedia.org/wiki/Source_lines_of_code
+What is included/ excluded in the count?
+
+*** sloccount /usr/local/src/linux-3.10.2 # Aug 2013
+    :PROPERTIES:
+    :CUSTOM_ID: sloccount-usrlocalsrclinux-3.10.2-aug-2013
+    :END:
+
+#+BEGIN_EXAMPLE
+  SLOC    Directory       SLOC-by-Language (Sorted)
+  6453062 drivers         ansic=6448301,yacc=1688,asm=1476,perl=792,lex=779,
+                          sh=26
+  2019776 arch            ansic=1750979,asm=267172,sh=810,awk=476,pascal=231,
+                          python=45,perl=33,sed=30
+  770378  fs              ansic=770378
+  580043  sound           ansic=579860,asm=183
+  556120  net             ansic=556024,awk=96
+  354424  include         ansic=351241,cpp=3141,asm=42
+  135562  kernel          ansic=135553,asm=9
+  88104   tools           ansic=80499,perl=3775,python=1810,sh=1317,yacc=432,
+                          lex=257,asm=14
+  61376   crypto          ansic=61376
+  60419   mm              ansic=60419
+  56568   Documentation   xml=46640,ansic=5117,perl=2453,sh=915,python=907,
+                          lisp=218,asm=189,awk=129
+  46430   security        ansic=46430
+  42702   scripts         ansic=26260,perl=9229,sh=2499,cpp=1821,yacc=1440,
+                          lex=1006,python=447
+  35769   lib             ansic=35636,perl=120,awk=13
+  18449   block           ansic=18449
+  6195    ipc             ansic=6195
+  5407    virt            ansic=5407
+  2507    init            ansic=2507
+  1991    samples         ansic=1991
+  1876    firmware        asm=1660,ansic=216
+  567     usr             ansic=553,asm=14
+  0       top_dir         (none)
+#+END_EXAMPLE
+
+Totals grouped by language
+
+#+BEGIN_EXAMPLE
+  ansi-c:     10943391 (96.86%)
+  asm:         270759 (2.40%)
+  xml:          46640 (0.41%)
+  perl:         16402 (0.15%)
+  sh:            5567 (0.05%)
+  cpp:           4962 (0.04%)
+  yacc:          3560 (0.03%)
+  python:        3209 (0.03%)
+  lex:           2042 (0.02%)
+  awk:            714 (0.01%)
+  pascal:         231 (0.00%)
+  lisp:           218 (0.00%)
+  sed:             30 (0.00%)
+#+END_EXAMPLE
+
+*** sloccount /usr/local/src/linux-4.19, 2018-Oct-22
+    :PROPERTIES:
+    :CUSTOM_ID: sloccount-usrlocalsrclinux-4.19-2018-oct-22
+    :END:
+
+1.
+
+2. 2. Before kernel build, =du -sh linux-4.19= is =908M=
+
+3. 3. After kernel build, =du -sh linux-4.19= is TBD.
+
+4. 4. Source Lines of Code (SLOC) Totals grouped by language
+
+   #+BEGIN_EXAMPLE
+           : ansic:     16756046 (97.89%)
+           : asm:         271828 (1.59%)
+           : sh:           29564 (0.17%)
+           : perl:         27344 (0.16%)
+           : python:       17875 (0.10%)
+           : cpp:           5063 (0.03%)
+           : yacc:          4648 (0.03%)
+           : lex:           2583 (0.02%)
+           : awk:           1385 (0.01%)
+           : ruby:            25 (0.00%)
+           : sed:              5 (0.00%)
+   #+END_EXAMPLE
+
+*** Programming in the Small .. Giga
+    :PROPERTIES:
+    :CUSTOM_ID: programming-in-the-small-..-giga
+    :END:
+
+1. Can we define: program, software? Small, Medium, Large, ..., Giga?
+2. Our working/arbirary definitions:
+   | Tiny:   | -- 01 KLOC; |
+   | Small:  | -- 10 KLOC; |
+   | Medium: | -- 01 MLOC; |
+   | Large:  | -- 10 MLOC; |
+   | Giga:   | 10+ MLOC    |
+
+** The Field of Software Metrics
+   :PROPERTIES:
+   :CUSTOM_ID: the-field-of-software-metrics
+   :END:
+
+There are books on this topic. In this course, we will discuss this
+topic only in passing. Main reason for interest: Cost estimation. Main
+reason for disinterest: Polemics.
+
+1. We do not have any metrics that cannot be sabotaged.
+2. Other than SLOC: Number of functions/procedures/methods;\\
+   Man years\\
+3. complexity; McCabe Cyclomatic Number;
+   [[http://en.wikipedia.org/wiki/Cyclomatic_complexity][wikipedia.org
+   Cyclomatic_complexity]] Halstead Software Science; see book on
+   Metrics.
+4. [[http://en.wikipedia.org/wiki/Efferent_Coupling][wikipedia.org
+   Efferent_Coupling]] "It measures the number of data types a class
+   knows about. This includes inheritance, interface implementation,
+   parameter types, variable types, and exceptions. A large efferent
+   coupling can indicate that a class is unfocused. It may also indicate
+   brittleness, since it depends on the stability of all the types to
+   which it is coupled."
+
+** References
+   :PROPERTIES:
+   :CUSTOM_ID: references
+   :END:
+
+1. Google Talk on how they build their software: (i)
+   [[http://www.youtube.com/watch?v=2qv3fcXW1mg][Video]], (ii)
+   [[http://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/people/jeff/stanford-295-talk.pdf][PDF]]
+   Recommended Watching/Reading
+2. [[http://blogs.msdn.com/b/b8/archive/2012/03/06/going-behind-the-scenes-building-windows-8.aspx][Building
+   Windows 8]] Recommended Reading.
+3. [[http://2013.icse-conferences.org/Keynote][2013 ICSE conference
+   Keynote]] "Does Scale Really Matter? -- Ultra-Large-Scale Systems
+   Seven Years after the Study" Linda Northrop is director of the
+   Research, Technology, and Systems Solution Program at the Software
+   Engineering Institute (SEI). In 2006,
+   [[http://www.sei.cmu.edu/uls/][Ultra-Large-Scale Systems]]: The
+   Software Challenge of the Future (ISBN 0-9786956-0-7) documented the
+   results of a year-long study. Free book pdf. Recommended Reading.
+
+--------------
+
+[[http://www.cs.wright.edu/~pmateti/copyright.html][Copyright]] © 2013
+[[http://www.cs.wright.edu/~pmateti][Prabhaker Mateti]]
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,92 @@
+# -*- mode: org -*-
+#+DATE: 2016-03-16
+#+TITLE: Best Practices
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+[Links have not been stable.  Web search using the title.]
+
+
+
+* ISO
+
+1. ISO/IEC TR 12182:2015 Systems and software engineering --
+   Framework for categorization of IT systems and software, and guide
+   for applying it
+
+1. ISO/IEC 27034:2011+ Information technology — Security techniques —
+   Application security.
+
+1. ISO 9001:2015 Quality management systems -- Requirements
+
+1. ISO/IEC/IEEE CD 12207 Systems and software engineering -- Software
+   life cycle processes
+
+1. ISO/IEC CD 20741 Systems and Software Engineering -- Guideline for
+   the evaluation and selection of software engineering tools
+
+1. ISO/IEC PRF TS 24748-1 Systems and software engineering -- Life
+   cycle management -- Part 1: Guide for life cycle management
+
+1. ISO 27000 family of security standards
+
+* IEEE Software Engineering Standards
+
+1. IEEE 1471 Recommendations for Software Documentation
+
+1. IEEE Recommended Practice for Software Requirements Specifications
+   IEEE Std 830-1998 Abstract: The content and qualities of a good
+   software requirements specification (SRS) are described and several
+   sample SRS outlines are presented. This recommended practice is
+   aimed at specifying requirements of software to be developed but
+   also can be applied to assist in the selection of in-house and
+   commercial software products. Guidelines for compliance with
+   IEEE/EIA 12207.1-1997 are also provided.
+
+1. IEEE Recommended Practice for Software Design Descriptions IEEE Std
+   1016-1998 Abstract: The necessary information content and
+   recommendations for an organization for Software Design
+   Descriptions (SDDs) are described. An SDD is a representation of a
+   software system that is used as a medium for communicating software
+   design information. This recommended practice is applicable to
+   paper documents, automated databases, design description languages,
+   or other means of description.
+
+1. IEEE STANDARD 29148-2011 - Systems and software engineering -- Life
+   cycle processes --Requirements engineering
+
+1. IEEE Standard for Software Test Documentation IEEE Std 829-1998
+   Abstract: A set of basic software test documents is described. This
+   standard specifies the form and content of individual test
+   documents. It does not specify the required set of test documents.
+
+1. IEEE Standard for Software User Documentation IEEE Std 1063-2001
+   Abstract: Minimum requirements for the structure, information
+   content, and format of user documentation, including both printed
+   and electronic documents used in the work environment by users of
+   systems containing software, are provided in this standard.
+
+* Misc
+
+1. Manifesto for Agile Software Development
+
+1. Systems and software engineering — Requirements for designers and
+   developers of user documentation INTERNATIONAL STANDARD ISO/IEC
+   FDIS 26514 From the Foreword: This International Standard supports
+   the interest of software users in consistent, complete, accurate,
+   and usable documentation. It includes both approaches to
+   standardization: a) process standards, which specify the way in
+   which documentation products are to be developed; and b)
+   documentation product standards, which specify the characteristics
+   and functional requirements of the documentation.
+
+1. NASA-STD 8739.8 Standard for Software Assurance
+
+1. SEI CERT Secure Coding Standards

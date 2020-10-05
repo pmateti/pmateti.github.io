@@ -1,0 +1,243 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-27
+#+TITLE: Specifications of Linux
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+Abstract: We outline how the Linux OS can be specified rigorously and
+unambiguously.  To give specs of Linux, as we did in the small, is a
+monumental task.  So, this will remain an outline with pointers to
+where pieces of this are done in detail.  Our expectation is that this
+outline can be used as template for the spec of any current OS.
+
+* What is an OS?
+
+[A graduate student reader should remain skeptical while reading this
+section.  Does a section like this belong in the Spec of Linux?]
+
+An OS controls all the hardware of a computer, and every +program+
++currently running+ process.  All computer systems, by definition,
+include an OS.  Several modern day gadgets, such as cell phones, MP3
+players, wrist watches, PDAs, video game consoles, and TiVO, are
+specialized computer systems.  Many appliances, such as microwave
+ovens, dishwashers and TVs, contain embedded computer systems.
+
+** Computer Systems
+
+A computer system can be divided into three pieces:
+  
+1. [Hardware] Motherboard (CPU, RAM, and other chips), various
+    daughter cards (e.g., a graphics card, a wireless network card),
+    keyboard, mouse, screen, hard disks, other IO devices, and power
+    supply.
+
+1. [Software] Operating system, and applications.
+
+1. [Firmware] A basic input/output subsystem (BIOS) preloaded into a
+    ROM
+  
+
+  A typical PC fits this classification very well; but, there
+  are many classes of computers that do not.  E.g., some
+  computer systems may not have a key board or a hard
+  disk.  
+
+  A program is a sequence of CPU instructions (also called
+  machine code) structured in a very specific way.  Software
+  is a generic synonym for programs.  Applications are a
+  subclass of software. 
+
+  The CPU can execute its instructions only when they are in
+  RAM.  We have so many programs that it is infeasible to
+  leave them all sitting in RAM.  The OS stores them on a HDD
+  and loads them into RAM as needed. 
+
+  CPU can generate traps and faults.  
+
+  Devices raise interrupts. Interrupt handling is done by the
+  OS. 
+
+  The moment a computer system is powered on, the firmware is in
+  control of every piece of the hardware. On a PC, this firmware is
+  called the BIOS (basic input output subsystem). 
+
+  A computer system must not be shut down "ungracefully". 
+  All the running processes need to be informed of the impending
+  shut down, and wait politely for them to terminate.  This is
+  known as graceful termination of the OS.  Most systems can
+  now detect a power failure, and initiate a shutdown. 
+  However, un-responding processes not withstanding, a shutdown
+  cannot be postponed indefinitely, and the OS forcibly
+  terminates. 
+
+**   OS Definition by Functionality
+
+  There are many definitions of OS based on its typical
+  functionality. From the book by Silbershatz and others: 
+  "What are the three main purposes of an operating system? Answer:
+  (i) To provide an environment for a computer user to execute
+  programs on computer hardware in a convenient and efficient
+  manner. (ii) To allocate the separate resources of the computer
+  as needed to solve the problem given. The allocation process
+  should be as fair and efficient as possible. (iii) As a control
+  program it serves two major functions: (a) supervision of the
+  execution of user programs to prevent errors and improper use of
+  the computer, and (b) management of the operation and control of
+  I/O devices." 
+
+**   Definition by Components
+
+  A very useful definition of an OS is based on its
+  components.  If we were to spread out all the code that
+  constitutes an OS on a piece of cloth, we can then cut it up into
+  the following components: 
+
+  OS = VM + FileM + ProcM + Net + IO + UserM + (Boot) +
+  [SysPrg] 
+
+  Strictly speaking, an OS does not include GUI, nor CLI. 
+  In the world of Linux, the GUI is provided by X11, Gnome and KDE
+  software subsystems, and CLI by bash, csh, zsh or other such
+  shells.  These are not strictly part of the Linux OS. 
+  In the Windows world, the GUI is provided by (plain) Explorer,
+  and the CLI by cmd or PowerShell.  These are not
+  strictly  part of the Windows OS. 
+
+  Programs like Word, Internet Explorer, Konqueror are
+  applications.  Visual Studio, g++, Active Python and such
+  are (sub-) categorized as development tools. 
+
+  The above components can also be combined and then re-divided
+  into a kernel + initial ram disk components + drivers + interrupt
+  handlers. 
+
+**   1.4 OS as a Collection of System Calls
+
+  The code of system calls is not disjoint from the code of
+  previously mentioned components.  It is made of different
+  pieces from these components.  Linux and Windows have around
+  350 system calls each. The details of Linux syscalls can be found
+  in the files: 
+  <pre>
+-rw-r--r--  1 root root  1403 2010-01-03 06:57 /usr/include/sys/syscall.h
+-rw-r--r--  1 root root 22041 2010-01-28 00:56 /usr/include/asm/unistd_64.h
+</pre>
+
+** Linux as a Collection of Files
+
+1. =/boot/grub/=: Dir of OS boot loader files.
+
+1. =vmlinuz=: OS kernel. This is a specially linked file. All of its
+   code is executed in a privileged CPU mode. Its code can be divided
+   up as suggested by the OS = VM + FileM + ProcM + Net + IO + UserM;
+   note that we dropped +(Boot)+[SysPrg] parts. The z at the end in
+   its name indicates that this is a compressed file. The exact
+   location of this file is indicated in the "kernel" line of a GRUB
+   stanza.
+
+1. initrd.gz: This is a compressed collection of a bunch of system
+   files that the kernel needs as it boots. The exact location of this
+   file is indicated in the "kernel" line of a GRUB stanza.
+
+1. /lib/modules: This directory contains a number of dynamically
+   loadable "modules", which are specially linked files that can be
+   incorporated into the running kernel.
+
+1. /sbin: This directory contains a number of system programs that the
+   kernel can invoke and spawn off as separate OS helper processes.
+
+1. /usr/sbin: This directory contains further system programs.  The
+    programs in /sbin are considered essential, whereas the one in
+    /usr/sbin are "less" so.
+
+1. swap space is located on a separate partition or large file.
+
+1. /bin, /usr/bin, ...: These directories do contain programs, but
+   these are not considered part of the OS.  The programs in these
+   directories are considered simply applications.
+
+** OS as a Collection of Processes
+
+1. Most of the OS stays RAM resident and dormant until (i) a system
+   call is made by a process, (ii) a hardware interrupt causes a
+   handler in the OS to run, or (iii) a software triggered even causes
+   a handler in the OS to run. Consequently, viewing an OS only as a
+   collection of processes is going to be incomplete.
+
+1. Process init
+
+** OS Boot
+
+Boot sequence.  POST.  Locating bootable media.
+  Loading the MBR.  Loading the OS boot loader. 
+
+1. Powered on.  BIOS-to-POST. ROM and RAM. CPU fetch-decode-execute
+   cycle.
+
+2. Discover boot device.  Boot sectors. Boot device priority
+  order.
+
+3. Bring in and give control to the boot loader.  Bring in
+  v. "load"
+
+4. Bring in and give control to OS loader.  NTLDR, GRUB,
+  etc.  (<a class="url" href=
+  "http://en.wikipedia.org/wiki/GRUB">http://en.wikipedia.org/wiki/GRUB</a>)
+
+5. OS kernel.  Linux kernel = vmlinuz + initrd
+6. For Linux: process init is started.
+  
+1. Process init (in Linux, and its counterpart in Windows) is in
+   control of "normal" operation of a computer.
+  
+1. Cold versus warm boot.  Cold as if power is just applied.  Warm
+  skips first few steps.
+
+1. Ubuntu and other distributions use UUID (Universally Unique
+  Identifier) to indicate the root device.  From the Wiki: In its
+  canonical form, a UUID consists of 32 hexadecimal digits, displayed
+  in 5 groups separated by hyphens, for a total of 36 characters. For
+  example: 550e8400-e29b-41d4-a716-446655440000 .
+
+** Remarks
+
+The rest of this note outlines the spec of Linux based on the above.
+
+* Specification of Linux File System
+
+file system = file volume + methods
+
+cite Slough-Mateti
+
+* Specification of a Program v Process
+
+There are two classes of executables: binaries, and scripts.  The
+=file= command can accurately identify this.
+
+** ELF and Other Program Binaries
+
+The typical binary executable is defined by the ELF (https://en.wikipedia.org/wiki/Executable_and_Linkable_Format).
+
+** Bash and Other Scripts
+** Spec of =execve=
+
+* Specification of a Process
+
+* What is Omitted?
+
+Virtualization (a la Xen, KVM)
+
+* References
+
+1. coverity linux
+
+1. William A. Slough, and Prabhaker Mateti, "Functional Specifications
+   of a Hierarchical File System," Fifteenth Hawaii International
+   Conference on System Sciences, 210-217, Jan 1982.

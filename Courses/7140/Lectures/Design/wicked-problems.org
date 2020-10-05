@@ -1,0 +1,34 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-27
+#+TITLE: Wicked Problems, Requirements
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+
+
+* "Wicked" Problems
+
+[from Horst Rittel, 197x]
+
+1. Cannot understand the problem until a solution is developed.
+
+1. Wicked problems have no definitive formulation.  
+
+1. No solution of a wicked problem has a definitive, scientific test.
+
+
+
+* References
+
+1. Jean-Pierre Protzen, David J. Harris, /The Universe of Design:
+   Horst Rittel's Theories of Design and Planning/, Publisher:
+   Routledge; ISBN-13: 978-0415779890, 264 pages, 2010.  Reference.
+
+1. http://en.wikipedia.org/wiki/Wicked_problem   Required Reading.

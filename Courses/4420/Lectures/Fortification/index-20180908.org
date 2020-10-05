@@ -1,0 +1,318 @@
+
+# -*- mode: org -*-
+#+date: 2018-09-07
+#+TITLE: Security Fortification
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Abstract
+
+This lecture is about adding a layer of protection beyond proper
+configuration of the OS and applications.  This layer of protection
+consists of tools that help detect changes in the system and monitor
+(suspicious) system activity.  Fortification is the addition of
+packages to improve security.  It should be done after a system has
+been properly configured with the supplied components.  Fortification
+frequently will discard a supplied component in preference to a
+carefully chosen added component.  Some what rarely, fortification
+involves deletion of components.  </blockquote>
+
+** Educational Objectives
+ 1. Appreciate the need for adding extra layers of protection beyond  out-of-the-box installation of an operating system 
+ 1. Understand the limitations of such a protective layer 
+ 1. Aware of widely available tools for fortification.
+
+* Security Fortification
+
+
+  Fortification is the addition or even deletion of packages to
+  improve security.  It should be done after a system has been
+  properly configured with the supplied components.  Fortification
+  frequently will discard a supplied component in preference to a
+  carefully chosen added component.  Some what rarely, fortification
+  involves deletion of components.  In our discussion, we will
+  postpone certain &quot;fortification&quot; items as
+  &quot;hardening&quot; items even though we cannot offer a rigorous
+  definition regarding the use of these two terms.
+
+* Malware Detection
+
+** Virus Scanners
+
+Of the many fortification suggestions made in this lecture, virus 
+scanners are probably the most universally experienced item.  Windows-based 
+virus scanners do focus on detecting not only viruses but also Trojans and root 
+kits and are often also integrity checkers.
+
+** Root Kit Detection
+
+Loadable kernel modules (LKM) bring run-time modularity to
+  Linux. Device drivers and their modules are loaded only when
+  necessary keeping the core kernel small. On the negative side, LKM
+  rootkits are the easiest and most “elegant” way to modify the
+  running kernel. In a modularized kernel the attacker can insert
+  rootkits into kernel once he gains root privileges.  Through LKM
+  rootkit the attacker can modify any part of the kernel. Typically
+  LKM rootkits would redirect the system calls to the attacker’s own
+  implementation.
+
+ The character device <tt>/dev/kmem</tt> is an image of the kernels
+  virtual memory. Through this device, an attacker can modify the
+  kernels text or data, and can drastically change the behavior of
+  kernel. Other memory devices which can similarly be exploited are
+  /dev/mem and /dev/port which give direct access to physical memory
+  of the system.
+
+Unless a file system auditor is in place, it is not
+easy to spot the root kits after their installation.  The time to
+be alert is when the root kits are being installed. 
+
+: <pre>apt-get install chkrootkit rkhunter unhide</pre>
+
+* Authentication
+
+** User Authentication
+** Host Authentication
+** Service Authentication
+
+Look up Kerberos.
+
+
+
+
+: apt-get install munge otp john
+
+"A process creates a credential by requesting one from the local
+MUNGE service.  The encoded credential contains the UID and GID
+of the originating process.  This process sends the credential to
+another process within the security realm as a means of proving its
+identity.  The receiving process validates the credential with the
+use of its local MUNGE service.  The decoded credential provides
+the receiving process with a reliable means of ascertaining the
+UID and GID of the originating process, and this information can
+be used for accounting or access control decisions."
+
+otp == One Time Passwords
+
+
+* Audit
+
+
+Capture the output of <tt>ps aux</tt> and examine all processes
+periodically.  The exact list will depend on the (Linux)
+distribution. However, from one session to another, the first few are
+not expected to have different process ids. The remainder may get
+higher or lower pids depending on what is included in the boot up
+scripts. However, once the boot scripts have stabilized you must make
+a note of all process ids, and expect them to remain unchanged until
+the scripts change again. 
+
+
+You should also check that all processes owned by user &quot;nobody&quot; are 
+running programs explicitly identified as legitimate for untrusted, 
+unverified, remote users.  Each process belonging to a non-root 
+system user is explicitly identified as legitimate for that user in 
+this environment.
+
+
+** File System Audit
+
+
+Intruders often replace binaries with their own Trojan versions.  
+Many system administrators relied on time-stamping and check sum the 
+files to determine when a binary file has been modified. But it is 
+fairly simple to recreate the same time-stamp for the Trojan file as 
+the original file. For example, if your standard <tt>touch</tt> 
+does not do <tt>touch -r /bin/login</tt> develop a <tt>touch</tt> 
+program that does it.  Or, by setting the system clock time back 
+to the original file's time and then adjusting the Trojan file's time 
+to the system clock. Once the binary Trojan file has the exact same 
+time as the original, the system clock is reset to the current time. 
+Simple check sum programs rely on a CRC checksum and are easily 
+spoofed.  MD5 check sums are based on an algorithm that no one 
+has yet spoofed.  This technology is behind the well known 
+Tripwire.
+
+: <pre>apt-get install tripwire systraq</pre>
+
+
+Systraq daily consists of few very small shell scripts
+that warn when system files change.
+
+
+** Activity Monitors
+
+
+A few open-source activity monitoring programs (including intrusion
+detection/prevention tools) are described below.
+
+
+<a href="http://www.snort.org/"> snort/</a> can be used as a packet
+sniffer like tcpdump, a packet logger, or as a network intrusion
+prevention/detection system.  Its rule-based system can detect buffer
+overflows, stealth port scans, CGI attacks, SMB probes, OS
+fingerprinting attempts, etc.
+
+
+Firewalls: iptables and some GUI frontend are standard in Linux
+distributions.  Consider installing =shorewall= and =webmin.=
+
+
+<tt>apt-get install tiger</tt> "is a set of Bourne shell scripts, C
+programs and data files which are used to perform a security audit of
+unix/Linux systems."
+
+
+xinetd: "xinetd has access control mechanisms, extensive logging
+  capabilities, the ability to make services available based on time,
+  and can place limits on the number of servers that can be started,
+  among other things.  It has the ability to redirect TCP streams to a
+  remote host and port.  This is useful for those of that use IP
+  masquerading, or NAT, and want to be able to reach your internal
+  hosts.  It also has the ability to bind specific services to
+  specific interfaces.  This is useful when you want to make services
+  available for your internal network, but not the rest of the
+  world. Or to have a different service running on the same port, but
+  different interfaces."
+
+
+TCP Wrapper: When a potentially insecure service must be run,
+tcp_wrappers should be utilized to &quot;wrap&quot; it. The wrapper
+software does more detailed logging and better access control checking
+by &quot;wrapping&quot; itself around the normal network daemons
+configured in <i> inetd.conf</i>.  The <tt>tcpd</tt> used in
+Linux is a new version of the TCP wrapper.
+
+
+ifstatus is a standalone program to check for 
+promiscuous interfaces available from
+<a href="ftp://coast.cs.purdue.edu/pub/tools/unix/ifstatus">
+ftp://coast.cs.purdue.edu/pub/tools/unix/ifstatus</a> 
+dtk or &quot;Deception Toolkit&quot; is a kit of fake daemons and services 
+designed to waste an intruders time. dtk is available from
+<a href="http://all.net/dtk/example.html">all.net/dtk/example.html</a>
+
+Bastille Linux is a series of scripts which tighten up security on stock Linux 
+systems, by changing permissions and disabling features.
+
+Network Information Service (NIS) has been source of many weaknesses. 
+Using Rsync + SSH as a replacement for NIS is often better.
+
+Logs produced by the<tt> kerneld, syslogd, tcpd,</tt> and the 
+various services can become so large that it is humanly impossible to 
+scan them for spotting suspicious activity and take a more serious 
+look.  A few well known log analyzers are listed below.
+
+
+  1. sagan, Real-time syslog Monitoring System
+  1. wwwstat, HTTPd Log file Analysis Software.
+  1. Analog, Web server log file analyzer 
+  1. freq, A lastlog analyzer.
+  1. tcpdstats, tcpd log analyzer.
+  1. <tt>apt-get install god</tt> "God is an easy to configure, easy
+    to extend monitoring framework written in Ruby."
+
+* Improved Kernels
+
+The kernels supplied in various distributions are generic and 
+security-wise permissive.  It is possible to recompile the kernel using the 
+same source code as used by the distributor but with different selection of 
+components and including them in the =vmlinuz= binary instead of as a dynamically 
+loadable module.
+
+We will discuss more details under Hardening.
+
+* POSIX capabilities
+
+POSIX capabilities can turn a setuid-root file into a file with
+minimum privileges, run a daemon with uid=0 but with almost no
+superuser privileges, etc.  Privileges are granted to processes
+instead of users.  Pcaps divide privileges that are typically granted
+to root user.  Pcaps are implemented in Linux kernels since 2.6.x;
+=capsh, getpcaps, getcap, setcap= are some of the tools.
+
+The table below presents PCaps for a few typical suid-root binaries.
+The CAP-names used are defined in =/usr/include/linux/capability.h= .
+
+
+|ping | CAP-NET-RAW (13)|
+|chsh | CAP-CHOWN (0), CAP-DAC-READ-SEARCH (2), CAP-FSETID (4), CAP-SETUID (7)|
+|chfn | CAP-CHOWN (0), CAP-DAC-READ-SEARCH (2), CAP-FSETID (4), CAP-SETUID (7)|
+|chage | CAP-DAC-READ-SEARCH (2)|
+|passwd | CAP-CHOWN (0), CAP-DAC-OVERRIDE (1), CAP-FOWNER (3)|
+|mount | CAP-DAC-OVERRIDE (1), CAP-SYS-ADMIN (21)|
+|umount | CAP-DAC-OVERRIDE (1), CAP-SYS-ADMIN (21)|
+
+
+To change, run =chmod u-s /usr/bin/chsh; setcap 0,2,4,7=ep
+  /usr/bin/chsh=
+
+* Lab Experiments
+** Lab Experiment 1
+
+ Objective: Experience a file system audit tool.  Experience log
+  analysis.
+
+  1. Install the package tripwire.  &quot;Tripwire is a policy driven
+    file system integrity checking tool that allows system
+    administrators to verify the integrity of their data.&quot;
+
+  1. Build the database following the instructions found in the 
+    package.
+
+  1. Select and modify a few &quot;system&quot; files from directories such as 
+    /bin, /sbin, /usr/sbin and /etc.
+
+  1. Observe and explain tripwire's reports.
+  1. Install and experience a tool that analyzes log reports (usually
+    in /var/log/).
+
+
+** Lab Experiment 2
+
+ Objective: Tightening suid binaries and scripts.
+
+  1.  Run a find script to discover all suid binaries and scripts on LXU.
+  1.  Carefully analyze and report the need for each of these.
+  1.  Rewrite the suid scripts into C/C++ programs.
+  1.  Does rewriting scripts into programs improve security?  Discuss.
+  1.  Install a forensic tool and experience it.
+
+
+** Lab Experiment 3
+
+1. Fall 2018 Lab: [[./fortify-lab.org]] Lab: Config and Pruning and Grafting
+
+* References
+
+ 1. Wietse Venema, &quot;TCP Wrapper: Network monitoring, access
+   control, and booby traps&quot;,  Proceedings of the Third Usenix
+   UNIX Security Symposium, pp. 85-92, Baltimore, September 1992.
+   <a href="http://www.porcupine.org/"> http://www.porcupine.org/</a>.
+   This is now a standard part of Linux distros as libwrap.
+   [<a href="./tcpwrap.ps">Local copy in .ps</a>].  Required reading. 
+
+1. Prabhaker Mateti,  <a href="../RootKits/index.html">
+    RootKits</a>.  2013. Required Reading.
+
+1. wikipedia.org,
+   http://en.wikipedia.org/wiki/Category:Linux-security-software,  2018.  Required Visit.
+
+1. POSIX Capabilities TBD
+1. https://help.ubuntu.com/community/LDAPClientAuthentication
+
+1. http://www.webmin.com/ "Webmin is a web-based interface for system
+   administration for Unix. Using any modern web browser, you can
+   setup user accounts, Apache, DNS, file sharing and much
+   more."
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

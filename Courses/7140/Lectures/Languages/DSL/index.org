@@ -1,0 +1,113 @@
+# -*- mode: org -*-
+#+DATE: 2018-01-11
+#+TITLE: DSLs for Software Engineering
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P,li {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Overview
+
+1. Lecture using  [[./dsl-jlcanovas-slides-156.pptx]] 150+ slides
+1. https://en.wikipedia.org/wiki/Domain-specific_language  Required Reading
+1. https://dzone.com/articles/kotlin-dsl-from-theory-to-practice
+   Kotlin DSL  Required Reading
+
+* Domain Specific Languages
+
+1. http://martinfowler.com/books/dsl.html "DSLs are small languages,
+   focused on a particular aspect of a software system. You can't
+   build a whole program with a DSL, but you often use multiple DSLs
+   in a system mainly written in a general purpose language."  Reference.
+
+1. Building a software product requires knowledge in both software
+      engineering and the domain the software is written for.
+
+2. However, common software engineering methods in fact exclude
+      domain experts    from the architectural design of a software
+      system, because the    generality of the notations defined by
+      these methods require expert    knowledge in the field of
+      software engineering and especially    software architecture. 
+
+3. In order to avoid this effect,    domain-specific languages
+      (DSL) have been proposed as an   alternative to the general
+      purpose languages being normally used in    software
+      architecture.
+
+4. One of the advantages of DSLs is that they are less cryptic and
+      easier to learn for domain experts. Of course, the design of
+      such a language requires deep understanding of the   problem
+      domain, on the other hand the existing tools for language
+      design are only mastered by a few experts.
+
+* DSL Examples
+
+1. There are easily 1000+ DSLs.  But there is no known collection of
+   links.  But, see
+   https://blog.xrds.acm.org/2013/12/on-domain-specific-language-usage/ 2013
+
+1. Generally believed: For the development of a large software, the
+   cost in designing and implementing a DSL for that software
+   development more than offsets the development costs.
+
+1. The design and implementation of DSL is a highly sought after
+   skill.
+
+
+** Well Known Examples
+
+1. HTML  --  web layout.  Many other "markup" lanaguages.  MarkDown,
+   PHP, ...
+1. sed  --  non-interactive text editing.  =man sed= in Linux.
+1. gawk  --  manipulate lines of text.  =man gawk= in Linux.
+1. [[https://en.wikipedia.org/wiki/DOT_(graph_description_language)][dot]]  --  define graphs, with nodes and directed/ undirected edges.
+1. PlantUML  --  A DSL to draw UML diagrams. http://plantuml.com/
+1. SQL  --  database query language. 
+1. build.gradle -- software build scripting
+
+** Less Known Examples
+
+1. Gherkin  --  A DSL to define functional tests.  https://www.guru99.com/gherkin-test-cucumber.html
+1. Website-spec  --  A DSL for functional web testing.  https://www.npmjs.com/package/website-spec
+
+* Tools for the DSLs
+ 
+
+1. Several tools exist now (2018).  E.g., MPS: Domain-Specific Language
+   Creator by JetBrains.
+
+1. The tools assume good command over Grammars and ASTs.
+
+1. See the book by Voelter et al. (see Refs).
+
+* References
+
+1. Javier Luis Canovas Izquierdo, Domain-specific Languages,
+   javier.canovas@inria.fr, [[./dsl-jlcanovas-slides-156.pptx]] 156
+   slides. 2013. Required Reading.
+
+1. http://martinfowler.com/books/dsl.html Domain Specific Languages,
+   Language workbenches.  2010.  [[http://www.informit.com/articles/article.aspx?p=1592379][DSLs: An Introductory Example]], first
+   chapter of the book.  Highly Recommended Reading.
+
+1. Mernik, Marjan, Jan Heering, and Anthony M. Sloane. "[[http://people.cis.ksu.edu/~schmidt/505f14/Lectures/WhenDSL.pdf][When and how
+   to develop Domain-Specific Languages]]", ACM Computing Surveys,
+   vol. 37, no. 4, 2005, pp 316-344.  Recommended Reading.
+
+1. Markus Voelter et al., DSL Engineering: Designing, Implementing and
+   Using Domain-Specific Languages, 2013, http://dslbook.org/
+   "Donationware".  Pretty good.  Recommended Reading.
+
+1. Shaikhha, Amir, Vojin Jovanovic, and Christoph Koch. "A
+   Compiler-Compiler for DSL Embedding." arXiv preprint
+   arXiv:1808.01344 (2018).    Recommended Reading.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

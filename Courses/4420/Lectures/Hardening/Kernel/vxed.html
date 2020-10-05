@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>vxed</title>
+<!-- 2018-10-10 Wed 20:16 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">vxed</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. VXE - Virtual eXecuting Environment</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> VXE - Virtual eXecuting Environment</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+One of the main problem with UNIX security is that super user can do
+with system anything he wants.  There are programs (daemons) which work
+with super user privileges, for example popd, sendmail, and accessible
+from network (Internet/Intranet).   There are bugs in many of these
+programs.  An intruder connects to such programs via network, exploits
+existing bugs in it and gets control over all of the
+host.  &lt;/font&gt;&lt;font face="Times New Roman,Times,Times NewRoman"&gt; "VXE
+creates virtual environment for each subsystem.  In such environment
+only needed for normal work resources are visible and available for
+subsystem.   Subsystem here, is startup program and all sub processes
+initiated (forked) by it.  Any sub process runs in the same VXE that
+the parent.  To affect any system resources, program use OS system
+calls (syscalls).  VXE has means to describe what system calls, with
+what parameters are available for each subsystem.  For example, it can
+be described (for file operation syscalls) that some files are
+readable and some executable, network operations unavailable (in case
+of POP server - it handle network connection, but doesn't make new
+ones) and this restrictions can't be broken even by a program with
+super user privileges.   These restrictions can be as smart as
+needed.  If intruder gets a control over such subsystems, he can't use
+ordinary methods to sniff information or affect the system.  Everything
+he can do in theory, using sophisticated methods, - is to affect the
+work of hacked subsystem, but not OS itself, nor another subsystems.
+Here, ordinary methods, are those, when intruder gets super user
+privileges and runs command interpreter (shell), and ordinary
+utilities, such as text editor, copy utility and so on.  He can't do
+anything without such utilities.  For example, POP server doesn't need
+text editor and copy utility for it's work, so there is no such
+programs in VXE environment, created for POPD protection.   More
+exactly, VXE protects system and it's subsystems from interference of
+hacked subsystem (which works under the control of VXE).  And as side
+effect, provides protection of subsystem itself (in a way described
+above).  For simplicity, in the following text, we will say that VXE
+protects subsystem.   VXE description (VXED) is small LISP program (set
+of functions) which use declarative description of acceptable
+parameters for different system calls.   This VXED loaded to the
+kernel, controls system calls parameters from the specified
+subsystem.  So VXEDs are dynamically loadable modules, handled by the
+small LISP interpreter, inserted into the kernel.  In current VXE
+version, this is vxelisp, derived from RefLisp (Bill Birch &lt;font
+face="Times New Roman,Times,Times NewRoman"
+color="#0000ff"&gt;&lt;u&gt;birchb@ozemail.com.au&lt;/u&gt;&lt;/font&gt;).   vxelisp has new
+internal bigstring representation, full set of string and bit
+functions.  Kernel version of vxelisp is reentrant, to handle different
+VXEDs simultaneously.
+</p>
+
+<p>
+There are two methods to activate VXED.  Explicit and implicit (automatic).
+Explicit activation is done by vxe program.  Parameters are VXED pathname,
+path and parameters of executable, which will be run with restrictions,
+described in named VXED.  For automatic method, vxed utility preloads all
+needed VXEDs into the kernel.  Each VXED has activation pattern.  During program
+start (exec), kernel checks executable path against patterns.  VXED with matching
+pattern is activated.  This method can be used, to activate protection at the
+start of any program in specified directory (and all subdirectories).  For
+example, to protect system from CGI scripts, supplied by users, VXEDs can be
+defined for each user subdirectory.
+Any sophisticated VXED can be created manually, using full power of vxelisp.
+But VXE doesn't force administrator to learn and use LISP.  One can think about
+VXE as of self-learning system.  VXE development system (DS) runs VXE in trace
+mode.
+Such run makes description of permitted (used) system calls.  Creation and
+modification of VXED is made via WWW interface.  Development system supports two
+types of VXED.  Strict and filesystem types.  Strict VXED describes all permitted
+syscalls explicitly.  Filesystem VXED describes read, write, and execute
+permissions for defined paths.  Specified restrictions apply to filesystem
+syscalls, all other syscalls are permitted.  After VXED has been created for
+particular subsystem, VXED works in soft mode.  In this mode all violations of
+VXED are logged, but syscalls are performed.  VXE DS can upgrade VXED
+automatically, using logged information.
+Surely, needed changes in VXED can be done manually using VXED editor.
+Violations can be caused by intruder activity or by deviation in subsystem's
+behavior under various circumstances.  VXE administrator reviews log with the
+help of DS and makes decision, if upgrade is reasonable.  If there are no
+violations, VXED can be switched to production mode.  In this mode violations are
+logged and syscalls are blocked (fail).  Once again, the log can be used for
+intruder detection or for VXED upgrade (tuning).
+For security reasons, all control actions over VXE can be done only by super
+user and outside any VXE.
+VXE affects performance in following ways.  If program runs outside any VXE,
+every syscall executes two assembler instructions more (checks if VXE is in
+effect for current process and jump if no).  For every exec syscall a small C
+subroutine checks if there is a matching VXED already available in the kernel.
+For programs that run in VXE, a few lines of C code checks if parameter
+verification is needed.  Some syscalls can be marked in VXED as uncheckable (for
+example, by default, read and write operations).  And only the rest syscalls are
+checked by very small LISP functions.  These functions located in VXED and can be
+easily observed by administrator.
+Two types of VXED are two security policy models.  New models can be
+implemented without any changes in the kernel.  "
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Prabhaker Mateti (<a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.2.2 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

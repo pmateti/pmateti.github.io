@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Wright State U OnLine CEG6420: Computer Security</title>
+  <meta name="author" content="Prabhaker Mateti">
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="../../../../RevealJS/css/reveal.min.css">
+  <link rel="stylesheet" href="../../../../RevealJS/css/theme/serif.css" id="theme">
+
+  <!-- For syntax highlighting -->
+  <link rel="stylesheet" href="../../../../RevealJS/lib/css/zenburn.css">
+
+  <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+  <script>
+    document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+  </script>
+
+  <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+      <![endif]-->
+  <style> code {color: brown;} P {text-align: justify;}
+    li {text-align: justify;}
+  </style>
+</head>
+
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+<section "id=preamble">
+
+</section>
+
+<section id="content">
+<h1 class="title">Software Architecture #2</h1>
+<h3 style="color: darkblue">Prabhaker Mateti<h3>
+<h2>Wright State University</h2>
+<tt>www.cs.wright.edu/~pmateti</tt>
+</section>
+
+
+
+<section id="table-of-contents">
+<h2>Table of Contents</h2>
+
+<ul>
+<li><a href="#sec-1">1 Bertrand Meyer on Software Architecture OOP v Func</a>
+<ul>
+<li><a href="#sec-1-1">1.1 Compute S, the Sugar Content: Functional Prog Solution</a></li>
+<li><a href="#sec-1-2">1.2 Advantages</a></li>
+<li><a href="#sec-1-3">1.3 Statement of A Financial Contract Problem</a></li>
+<li><a href="#sec-1-4">1.4 Functional Programming Version</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 The Pudding Combinators</a></li>
+<li><a href="#sec-3">3 Pudding Class Diagram</a></li>
+<li><a href="#sec-4">4 List from the Eiffel Library</a></li>
+<li><a href="#sec-5">5 Visitor Pattern Explored</a></li>
+<li><a href="#sec-6">6 An Architecture for Constructing Puddings</a></li>
+<li><a href="#sec-7">7 References</a></li>
+</ul>
+</section>
+</section>
+
+<section id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Bertrand Meyer on Software Architecture OOP v Func</h2>
+<sectionX  id="text-1">
+
+
+<ol>
+<li>Toy Example: Puddings
+<ol>
+<li>pudding = on-top-of topping main-part
+</li>
+<li>topping = whipped (take pint cream)
+</li>
+<li>main-part = mixture apple-part orange-part
+</li>
+<li>apple-part = chopped (take 3 apples)
+</li>
+<li>orange-part = optional (take 6 oranges)
+</li>
+<li><i>combinators</i>: take, whipped, mixture, chopped, optional
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+
+</section>
+
+<section id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Compute S, the Sugar Content: Functional Prog Solution</h3>
+<sectionX  id="text-1-1">
+
+
+<ol>
+<li>S (on-top-of p1 p2) = S (p1) + S (p2)
+</li>
+<li>S (whipped p) = S (p)
+</li>
+<li>S (take q i) = = q * S(i)
+</li>
+<li>&hellip;
+</li>
+</ol>
+
+
+</section>
+
+</section>
+
+<section id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Advantages</h3>
+<sectionX  id="text-1-2">
+
+<ol>
+<li>When we define a new pudding/recipe, we can calculate its sugar content
+   with no further work.  
+
+</li>
+<li>Only if we add new combinators or new ingredients would we need to
+   enhance S.
+</li>
+</ol>
+
+
+
+</section>
+
+</section>
+
+<section id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Statement of A Financial Contract Problem</h3>
+<sectionX  id="text-1-3">
+
+<ol>
+<li>Against the promise to pay USD 2.00 on December 27 (the price of
+   the option), the holder has the right, on December 4, to choose
+   between:
+<ol>
+<li>Receiving USD 1.95 on December 29, or
+
+</li>
+<li>Having the right, on December 11, to choose between:
+
+<ol>
+<li>Receiving EUR 2.20 on December 28, or
+
+</li>
+<li>Having the right, on December 18, to choose between:
+
+<ol>
+<li>Receiving GBP 1.20 on December 30, or
+
+</li>
+<li>Paying immediately one more EUR and receiving EUR 3.20
+              on December 29”
+</li>
+</ol>
+
+</li>
+</ol>
+
+</li>
+</ol>
+
+</li>
+<li>Originally used as an example of how Functional Prog can do things well.
+</li>
+</ol>
+
+
+</section>
+
+</section>
+
+<section id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Functional Programming Version</h3>
+<sectionX  id="text-1-4">
+
+
+<ol>
+<li>Europian Option: european t u = get (truncate t (or u zero))
+
+</li>
+<li>H below denotes the expiry date, or horizon
+
+</li>
+<li>H (zero)  = ∞  , where ∞ is a special value with the expected properties
+
+</li>
+<li>H (or c1 c2)  = max (H (c1), H (c2))
+
+</li>
+<li>H (anytime c) = H (c)
+
+</li>
+<li>H (truncate t c) = min (t, H (c))
+
+</li>
+<li>H (get c) = H (c)
+</li>
+</ol>
+
+
+</section>
+</section>
+
+</section>
+
+<section id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> The Pudding Combinators</h2>
+<sectionX  id="text-2">
+
+
+<ol>
+<li>All the internal (i.e., non-leaf) nodes are combinators.
+<ol>
+<li>"combinator" a func prog term for functions that construct
+       composite objects.
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+<p>
+<img src="./meyer-pudding-ex.png"  alt="./meyer-pudding-ex.png" />
+</p>
+</section>
+
+</section>
+
+<section id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Pudding Class Diagram</h2>
+<sectionX  id="text-3">
+
+
+
+<p>
+<img src="./meyer-pudding-classes.png"  alt="./meyer-pudding-classes.png" />
+</p>
+</section>
+
+</section>
+
+<section id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> List from the Eiffel Library</h2>
+<sectionX  id="text-4">
+
+
+<p>
+<img src="./meyer-eiffel-list.png"  alt="./meyer-eiffel-list.png" />
+</p>
+
+</section>
+
+</section>
+
+<section id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Visitor Pattern Explored</h2>
+<sectionX  id="text-5">
+
+
+<p>
+<img src="./meyer-actors-visitor-pattern.png"  alt="./meyer-actors-visitor-pattern.png" />
+</p>
+</section>
+
+</section>
+
+<section id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> An Architecture for Constructing Puddings</h2>
+<sectionX  id="text-6">
+
+
+<p>
+<img src="./meyer-pudding-architecture.png"  alt="./meyer-pudding-architecture.png" />
+</p>
+</section>
+
+</section>
+
+<section id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> References</h2>
+<sectionX  id="text-7">
+
+
+<ol>
+<li>Diomidis Spinellis, Georgios Gousios, "Beautiful Architecture",
+   O'Reilly Media, Inc., 432 pp, 2009.  Highly readable.  Find it on
+   WSU Library Safari.  
+<ol>
+<li>The whole book is a Reference.  
+
+</li>
+<li>Chapter 11 by Blandy on GNU Emacs is Required Reading.
+
+</li>
+<li>Chapter 13 by Bertrand Meyer on 
+      <a href="./Bertrand-Meyer-Arch-OO-Func-2009.pdf">Software Architecture: Object-Oriented Versus Functional</a>
+      is Required Reading.
+
+</li>
+</ol>
+
+</li>
+<li><a href="http://www.oodesign.com/factory-method-pattern.html">http://www.oodesign.com/factory-method-pattern.html</a>
+
+</li>
+<li><a href="http://www.oodesign.com/visitor-pattern.html">http://www.oodesign.com/visitor-pattern.html</a>
+
+</li>
+<li><a href="http://stackoverflow.com/questions/255214/when-should-i-use-the-visitor-design-pattern">the visitor design pattern</a> at stackoverflow.com
+
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Command-query_separation">http://en.wikipedia.org/wiki/Command-query_separation</a>
+
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Lamda_expression">http://en.wikipedia.org/wiki/Lamda_expression</a> (correct spelling: lambda)
+
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Eiffel_(programming_language)#Deferred_classes_and_features">Eiffel: deferred class</a> v effecting class
+
+</li>
+<li><a href="./meyer-eiffel-intro.pptx">./meyer-eiffel-intro.pptx</a>  Introduction to Eiffel slides
+</li>
+</ol>
+
+</section>
+</section>
+</section>
+
+<section id="postamble">
+<hr size=1>Copyright &copy; 2013 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="www.wright.edu/~pmateti">www.wright.edu/~pmateti</a>
+</section>
+</body>
+</html>
+</div>
+
+</div>
+
+<script src="../../../../RevealJS/lib/js/head.min.js"></script>
+<script src="../../../../RevealJS/js/reveal.min.js"></script>
+
+<script>
+
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+  controls: true,
+  progress: true,
+  history: true,
+  center: true,
+
+  theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+  transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+  { src: '../../../../RevealJS/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+  { src: '../../../../RevealJS/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../../../../RevealJS/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../../../../RevealJS/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+  { src: '../../../../RevealJS/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+  { src: '../../../../RevealJS/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+  });
+
+</script>
+
+  </body>
+</html>
+

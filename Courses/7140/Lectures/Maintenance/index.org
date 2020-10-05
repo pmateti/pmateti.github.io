@@ -1,0 +1,54 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-11
+#+TITLE: Software Maintenance
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7380 Cloud Computing
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+* Software Quality
+
+1. [[../Overview/state-of-SE.org]]
+1. [[../Overview/hoare-quality-1972.pdf]] 3pp Hoare's list of qualities
+1. [[../Overview/metrics.html][Software Engineering Metrics]]
+
+* Software Maintenance
+
+1. Bug Fixes
+2. Enhancements
+   1. Functionality, GUI, ...
+   3. [[../Overview/state-of-SE.org][Software Quality]] Improvements
+
+      2. Improved Performance, Decreased size
+      4. Code Structure: Refactoring
+
+
+* Refactoring
+
+1. [[./refactoring.org][Refactoring]] is the modification of software source code
+   to improve software qualities.
+1. Code Refactoring
+2. Bad Code Smells
+3. Big Refactorings
+1. [[../OODesign][OODesign]]
+4. Anti-Patterns
+
+* References
+
+1. [[../Overview/hoare-quality-1972.pdf]] 3pp Hoare's list of qualities
+1. https://calhoun.nps.edu/bitstream/handle/10945/40278/Schneidewind_The_State_of_Software.pdf%3Bjsessionid%3D0DD31AEA1944EB07EA2B814BF4A137CB?sequence%3D4
+1. https://link.springer.com/article/10.1186/s40411-018-0046-4 A
+   survey of search-based refactoring for software maintenance, 2018
+1. https://onlinelibrary.wiley.com/journal/1096908x Journal of
+   Software Maintenance: Research and Practice
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

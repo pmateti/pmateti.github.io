@@ -1,0 +1,160 @@
+# -*- mode: org -*-
+#+TITLE: Practical Advice on Writing Assertions
+#+AUTHOR: Prabhaker Mateti
+#+date: 2015-10-05
+#+DESCRIPTION: CS7140 Adv Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+An assertion is a logical formula.  It should be written so that if we
+"evaluate" it, the resulting value will be either the Boolean True or
+False.  And, the evaluation causes no changes in global/local
+variables and files.
+
+Most assertional facilities will have a way to not compile the
+assertions into code executable at run time.  But this is like
+discarding a lifeboat while at sea.
+
+1. [[./assertions-101.org]]
+1. [[../OODesign/design-by-contract.org][Design by Contract]]
+1. [[./CPP/assertions-cpp.org][Assertions in C/C++]]
+1. [[./Java/assertions-java.org][Assertions in Java]]
+1. This article is "more intuitive" than the above.
+
+
+* Pre- and Post-Conditions
+
+These are assertions.  The syntax of these depends on the programming
+language.
+
+Pre is placed at the top of a method's body.  It can refer to the values
+of parameters and globals.  It should not refer to local variables.
+The pre-condition of a method is expected to be true before calling
+it.  It is the responsibility of the caller.  The called method can
+assume that the pre-condition holds -- no need to double check it.
+
+The post-condition of a method is placed at the bottom of a method's
+body.  It is expected to be true before returning to the caller.  If
+your method has multiple returns, this should hold at every return.
+It can refer to the values of parameters, globals, and local
+variables.
+
+We use the word "method", as we already did, also as a generic term
+for procedures and functions.  As you know, a function is a method
+that has no side effects, and returns a value to the caller.
+Functions, by this definition, do not alter the values of any global
+variables, files, or arguments. Whereas the sole purpose of a
+procedure is to have a side-effect.
+
+If necessary write additional boolean returning functions whose use is
+only within assertions.
+
+* Loop Invariants
+
+There should be an assertion inserted into every loop that effectively
+explains how the loop is accomplishing its goals.  Its location is
+your choice.  For a /while/-loop, it is typically inserted just to the
+left of the boolean-exp.
+
+
+* Class Invariants
+
+A class invariant describes the values and relationships among all
+data members.  A class invariant is both a pre- and a post-condition
+for all public methods.
+
+* Signatures
+
+The signature of a method says quite a bit.  That something is an
+integer and such are in the signature, and you should not repeat it in
+the pre post conditions.  Learn to write good signatures -- e.g., if a
+parameter is a non-negative integer declare it as unsigned int.
+
+When you declare a formal parameter as a value parameter, you are
+saying that its value at the end of the method is by itself of no
+significance, and the actual argument for it is unchanged.  When you
+declare it as a /var/ (or /in-out/) parameter, you are saying that the
+method is expected to change its value as seen by the caller.
+
+* Methods that Alter Globals
+
+A typical post condition relates the current (about to return) value
+of a variable to what it was upon entry to the return.  Whenever this
+is so, the easiest universal solution is to introduce a new variable,
+e.g., /x0/ for variable /x/, and immediately upon entry, assign to it
+the value of a variable that may change later.
+
+Procedures often alter global variables whose names are not passed in
+as actual arguments.  The heading of a method in C/C++/Java does not
+make clear which globals are accessed and/or modified.  But the
+specifications of such procedures should list all such variables, and
+describe their values before and after a call to the procedure.
+
+Frequently, we have a file that declares many globals.  Not all of
+them are manipulated by a method. So, adopt the following
+convention. If a post condition is silent regarding a global, we
+assume that it is actually asserting that that global /is-Unchanged/ by
+that method. Some time a method may not only read but also actually
+update the value of global in between but finally leaves its value as
+it was upon entry. In this case, silence is unacceptable, and we
+should explicitly state that the global is unchanged.
+
+* Robustness Tests
+
+Consider the following code:\\
+
+#+begin_src C
+int f (T x) {
+  int r;
+  if (! bexp(x))
+	return -1;
+  ... more code ...
+  ... r is ...
+  return r;
+}
+#+end_src
+
+This is typical of many functions. Some checking of the given value of
+x is made. The function is re-checking its precondition in order to
+improve its robustness. If it does not pass this test, i.e., =bexp(x)=
+is false, the method quits.  This is often indicated to the caller by
+returning a value that is outside the "legit" values, in this example
+a -1. In other examples, you might see a 
+=panic()=
+method being called.
+
+Q: Is =bexp(x)= a precondition of =f()= ?
+
+A: No.  The pre-condition of /f/ is True (i.e., nothing at all).
+Should you check /bexp(x)/?  Obviously, it is a pre-condition to the
+rest of the code, so you should.
+
+* Some Useful Predicates
+
+=is-defined(v)= asserts that a legitimate value from the domain type
+of v has been assigned to the variable =v= after its declaration.
+=is-undefined(v)= is the same as =not (V is-defined)=.
+
+=is-unchanged(v)= asserts that the variable v is unchanged by this
+method.  That its value at the point of return is the same as it was
+at the point of entry.
+
+=is-malloc-returned(p)= asserts that the pointer value stored in the
+variable =p= is a value returned by the method /malloc/ or /new/. 
+You can create many other similar predicates by using the names of
+other functions in place of malloc.
+
+The above predicates are really useful but unfortunately not
+predefined.  So even if you have to define them using macros that
+unltimately expand them to simply True, do it!
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

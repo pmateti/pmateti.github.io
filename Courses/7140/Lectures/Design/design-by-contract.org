@@ -1,0 +1,72 @@
+# -*- mode: org -*-
+#+DATE: 2020-09-15
+#+TITLE: Design by Contract (DbC)  WIP
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"https://cecs.wright.edu/~pmateti\"> cecs.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+
+* Background
+
+1. [[../Assertions/][Assertions]]
+1. Correct by Design
+
+* Contract?
+
+1. Imagine: You are subcontracting out the design and construction of
+   subsystems (classes) or methods.
+1. Assigning blame across interfaces
+1. Details of method responsibilities
+
+** An Example Contract
+
+1. A contract can be satisfied in many ways
+  1. a method can have many implementation satisfying the contract;
+  1. Different performances (time, space, etc);
+1. A contract hides the implementation details
+  1. We can change implementations.
+  1. Caller's code Will work for any implementation that satisfies the
+   contract
+
+* Techniques
+
+** Public Methods
+
+1. Weakest Pre-conditions  =requires= for public methods
+   1. The called method assumes precondition holds
+   1. Avoiding constantly checking arguments
+   1. The caller guarantees precondition holds
+
+1. Strongest Post-conditions =ensures= for public methods
+   1. The called method guarantees postcondition
+   1. The caller method is guaranteed  postcondition
+
+** Class Invariants  
+
+1. Consider only the public methods Their entry- exit-
+   assertions. Rewrite, if nec, using and's (at the top level)
+1. The common portion across all the above is the /class invariant/
+1. Strongest Class invariant
+
+
+* Reference
+
+1. Bertrand Meyer. Applying "design by contract".  IEEE Computer,
+   25(10):40--51, October 1992.
+   http://se.ethz.ch/~meyer/publications/computer/contract.pdf Also in
+   his book "Object-Oriented Software Construction".
+   [[../../PDF/design-by-contract-meyer-1992-markedUp.pdf]] marked-up by
+   pmateti.  Required Reading.
+
+1. Bertrand Meyer, ACM Webinar, Sep 2015.
+   https://bertrandmeyer.com/2015/09/15/design-by-contract-acm-webinar-this-thursday/
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

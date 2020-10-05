@@ -1,0 +1,59 @@
+
+Originally described by PeterNaur.  Write a program that takes a number
+w, then accepts lines of text and outputs lines of text, where the
+output lines have as many words as possible but are never longer than w
+characters. Words may not be split, but you may assume that no single
+word is too long for a line.
+
+--
+
+McKeeman,W. M., Respecifying the Telegram Problem, Report Date : 02 FEB
+1977 Pagination or Media Count : 16 Abstract : The telegram problem was
+initially proposed as a programming exercise suitable for beginning
+students. A number of solutions have been published, all containing
+errors. In this paper the trouble is traced to the original
+specification and offer a new version. The most significant difference
+is the use of a grammatical notation for some parts of the
+specification. The new specification is then followed to a new
+solution. The concusion is that the new specification is of higher
+quality, but not different in kind from the original.
+
+--
+
+The program's input is a stream of characters whose end is signaled
+with a special end-of-text character, ET.  There is exactly one ET
+character in each input stream.  Characters are classified as
+
+break characters -- BL (blank) and NL (new line);\\
+nonbreak characters -- all others except ET;\\
+the end-of-text indicator -- ET.\\
+
+A {\sl word} is a nonempty sequence of nonbreak characters.  A {\sl break}
+is a sequence of one or more break characters.  Thus, the input can be
+viewed as a sequence of words separated by breaks, with possibly
+leading and trailing breaks, and ending with ET.
+
+The program's output should be the same sequence of words as in the
+input, with the exception that an oversized word (i.e., a word
+containing more than MAXPOS characters, where {\tt MAXPOS} is a
+positive integer) should cause an error exit from the program (i.e., a
+variable Alarm, should have the the value {\tt TRUE}).  Upto the point
+of error, the program's output should have the following properties:
+
+\begin{enumerate}
+\item
+A newline should start only between words and at the beginning of the
+output text, if any.
+
+\item
+A break in the input is reduced to a single break character in the
+output.
+
+\item
+As many words as possible should be placed on each line (i.e., between
+successive
+NL characters).
+
+\item
+No line may contain more than MAXPOS characters (words and BLs)
+\end{enumerate}

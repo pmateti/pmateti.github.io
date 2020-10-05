@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>On Software Bugs</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="On Software Bugs"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-10-29T18:15-0400"/>
+<meta name="author" content="Prabhaker Mateti"/>
+<meta name="description" content="CS7140 Software Engineering Lecture"/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="../../Lectures"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div>
+
+<div id="preamble">
+<a href="../../Top/">CS 7140 Advanced Software Engineering</a>
+</div>
+
+<div id="content">
+<h1 class="title">On Software Bugs</h1>
+
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Bugs Over The Years</a></li>
+<li><a href="#sec-2">2 On Bugs</a></li>
+<li><a href="#sec-3">3 Knuth's TeX Errors</a></li>
+<li><a href="#sec-4">4 Bugs (Errors) in Linux Kernel</a></li>
+<li><a href="#sec-5">5 Practical Debugging</a></li>
+<li><a href="#sec-6">6 References</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Bugs Over The Years</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<ol>
+<li><a href="http://www.devtopics.com/20-famous-software-disasters/">20 Famous Software Disasters</a> in four parts.
+
+</li>
+<li><a href="http://www.wired.com/software/coolapps/news/2005/11/69355?currentPage=all">History's Worst Software Bugs</a> by Simson Garfinkel 2005
+
+</li>
+<li><a href="http://www.cs.tau.ac.il/~nachumd/horror.html">Software Horror Stories</a> collected by Nachum Dershowitz
+</li>
+</ol>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> On Bugs</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<ol>
+<li>Bugs or Errors? 
+</li>
+<li>Kim Herzig, Sascha Just, and Andreas Zeller, "Its Not a Bug, Its a
+   Feature: How Misclassification Impacts Bug Prediction", 
+   35th International Conference on Software Engineering (ICSE 2013). Reference.
+
+</li>
+<li>Implicit Specs (No matter what the input is &hellip;)
+<ol>
+<li>No Crashes: Illegal ops, such as div by 0, out of range array index, &hellip;
+</li>
+<li>No Crashes: pointer values outside the address space
+</li>
+<li>No Hangs: Infinite Loop/Recursion
+</li>
+<li>No Hangs: Waiting for an Event That Won't Happen
+
+</li>
+</ol>
+
+</li>
+<li>Classification?
+<ol>
+<li>uininitialized vars; v := 0, p := nil
+</li>
+<li>off by 1
+</li>
+<li>array bounds exceeded
+</li>
+<li>ptr == nil
+</li>
+<li>memory leaks (not freed malloc-d areas)
+</li>
+<li>Knuth on TeX gives fifteen classes of errors
+</li>
+<li>See Errors in Linux
+
+</li>
+</ol>
+
+</li>
+<li>How Many Bugs per KLOC? Anecdotal data: 0.1 to 50 bugs per KLOC
+
+</li>
+<li>What is the largest program you can write that has no bugs with
+   "normal" effort?
+
+<ol>
+<li>Right after the first compilation?
+
+</li>
+<li>After one month, one year, &hellip;?
+
+</li>
+</ol>
+
+</li>
+<li>Why do programs have errors? 
+
+</li>
+<li>Definition: A bug is a deviation from functional spec.
+
+</li>
+<li>What does a "debugger" do?
+<ol>
+<li>A compiler <i>compiles</i> your source code.
+</li>
+<li>An assembler &hellip;
+</li>
+<li>A linker &hellip;
+</li>
+<li>A word processor &hellip;
+</li>
+<li>A "debugger" (lets us &hellip;) examines process state
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Knuth's TeX Errors</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<ol>
+<li>Donald E. Knuth, "The Errors of TeX". Software: Practice and
+   Experience, vol 19, no. 7, pp. 607 - 685.  Find it on Wiley on-line
+   archives via WSU Library proxy.  Also,
+   <a href="http://tug.ctan.org/systems/knuth/dist/errata/">http://tug.ctan.org/systems/knuth/dist/errata/</a>, Knuth on TeX errors
+   Highly Recommended Reading.
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Bugs (Errors) in Linux Kernel</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<ol>
+<li>Dawson Engler, Stanford U and his students,  Errors in Linux
+
+<ol>
+<li>Linux kernel, 2004, 5.7 MLOC, about 1000 bugs from <a href="http://lwn.net/Articles/115530/">http://lwn.net/Articles/115530/</a> 
+<ol>
+<li>Crash causing defects 569
+</li>
+<li>Incorrect program behavior ??
+</li>
+<li>Performance degradation 33
+</li>
+<li>Improper use of APIs ??
+</li>
+<li>Security flaws 100
+</li>
+<li>Buffer overflows 25
+</li>
+</ol>
+
+</li>
+<li>"Linux Kernel Developer Responses to Static Analysis Bug Reports" <a href="http://static.usenix.org/events/usenix09/tech/full_papers/guo/guo.pdf">http://static.usenix.org/events/usenix09/tech/full_papers/guo/guo.pdf</a>, 2009. Recommended Reading.
+</li>
+<li><a href="http://www.stanford.edu/~engler/engler-vmcai04-extended.pdf">http://www.stanford.edu/~engler/engler-vmcai04-extended.pdf</a> 2004 Reference
+</li>
+<li><a href="http://www.coverity.com/library/pdf/linux_report.pdf">http://www.coverity.com/library/pdf/linux_report.pdf</a> 2004. <b>Required Reading.</b>
+
+</li>
+</ol>
+
+</li>
+<li>Cindy Rubio-Gonzalez, Ben Liblit, Defective Error/Pointer
+   Interactions in the Linux Kernel
+   <a href="http://pages.cs.wisc.edu/~liblit/issta-2011/issta-2011.pdf">http://pages.cs.wisc.edu/~liblit/issta-2011/issta-2011.pdf</a> 2011. Reference
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Practical Debugging</h2>
+<div class="outline-text-2" id="text-5">
+
+
+<ol>
+<li><a href="./findbugs-etc.pptx">./findbugs-etc.pptx</a> FindBugs, etc. Eclipse and IDEA Plugins.  These
+   are pmateti's slides, TBD to be merged into these notes.
+
+</li>
+<li>Prevention of bugs
+
+</li>
+<li>Discovery of bugs
+<ol>
+<li>Watch Points
+</li>
+<li>Break Points
+
+</li>
+</ol>
+
+</li>
+<li>Norman Matloff and Peter Jay Salzman, "Art of Debugging with GDB,
+   DDD, and Eclipse," No Starch Press, September 2008, 280 pp.  ISBN:
+   978-1-59327-174-9.   Recommended.
+<ol>
+<li>DDD is a GUI front end for GDB
+
+</li>
+</ol>
+
+</li>
+<li><a href="http://findbugs.sourceforge.net/">http://findbugs.sourceforge.net/</a> David Hovemeyer and William Pugh,
+   "Finding Bugs is Easy", ACM SIGPLAN Notices, Volume 39 Issue 12,
+   December 2004, pp 92 - 106, search for its PDF, <b>Required Reading</b>
+
+</li>
+<li><a href="http://checkstyle.sourceforge.net/">http://checkstyle.sourceforge.net/</a> Checkstyle verifies that your
+   Java code adheres to a coding standard.
+
+</li>
+<li><a href="http://pmd.sourceforge.net/">http://pmd.sourceforge.net/</a> PMD finds unused variables, empty catch
+   blocks, unnecessary object creation, and so forth.  Plugin for
+   Eclipse and IDEA
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> References</h2>
+<div class="outline-text-2" id="text-6">
+
+
+<ol>
+<li>Andreas Zeller, "Why Programs Fail: A Guide to Systematic Debugging",
+   Morgan Kaufmann, 424pp, 2009, ISBN: 978-0-12-374515-6.  Reference.
+
+</li>
+<li><a href="https://www.udacity.com/">https://www.udacity.com/</a> Online Course on Debugging by Andreas
+   Zeller.  Free.  Recommended.
+
+</li>
+<li>Brittany Johnson, Yoonki Song, Emerson Murphy-Hill, and Robert
+   Bowdidge "Why Don't Software Developers Use Static Analysis Tools
+   to Find Bugs? ", <a href="http://2013.icse-conferences.org/">http://2013.icse-conferences.org/</a> 35th
+   International Conference on Software Engineering (ICSE 2013). Reference.
+</li>
+</ol>
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr size=1>Copyright &copy; 2013  <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>; 2013-10-29T18:15-0400
+</div>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>New Linux System Call Implementation</title>
+<!-- 2018-11-10 Sat 21:40 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a> | <a href=./>NoSlides</a>
+</div>
+<div id="content">
+<h1 class="title">New Linux System Call Implementation</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. New Linux System Call Implementation</a>
+<ul>
+<li><a href="#sec-1-1">1.1. syscall-table address</a></li>
+<li><a href="#sec-1-2">1.2. Adding a System Call: Method 1</a></li>
+<li><a href="#sec-1-3">1.3. Module</a></li>
+<li><a href="#sec-1-4">1.4. Testing and Debugging a New System Call</a></li>
+<li><a href="#sec-1-5">1.5. Virtual Box with New Kernel</a></li>
+<li><a href="#sec-1-6">1.6. Test Program Application</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. Refs - SysCall Impl</a></li>
+<li><a href="#sec-3">3. End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> New Linux System Call Implementation</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+We will show how to add a system call using an example.  As explained
+above, the design of a new system call is crucial.  To skirt this
+issue, we will introduce a system call named <code>readnew</code> that duplicates
+the existing <code>read</code>.  Assume the new syscall is implemented in one C
+file named <code>readnew.c</code>.
+</p>
+
+<ol class="org-ol">
+<li>cd to the root of the kernel source tree: <code>.../linux-4.19.0</code>
+</li>
+<li>Edit file <code>include/linux/syscalls.h</code> [ TBD linux/ ] Add new
+function declaration <code>asmlinkage long sys_readnew(int fd);</code> before
+the line <code>#endif</code>
+</li>
+<li>Add the new syscall file <code>readnew.c</code> under <code>arch/x86/kernel</code>
+</li>
+<li>Add <code>obj-y +=readnew.o</code> to <code>arch/x86/kernel/Makefile</code> 
+</li>
+<li>Run <code>make –j8</code> # or -j16 etc, if you have a multi-core CPU; check
+up with <code>nproc</code> command.  Or, use <code>make -j$(nproc)</code>
+</li>
+
+<li>TBD Check If you must build a 64 bit x86 kernel, you also have to
+put a new entry in the table in the file
+arch/x86/include/asm/unistd<sub>64</sub>.h The 64-bit code to #include's this
+file (twice!) into arch/x86/kernel/syscall<sub>64</sub>.c to build the system
+call table.
+</li>
+</ol>
+</div>
+
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> syscall-table address</h3>
+<div class="outline-text-3" id="text-1-1">
+<ol class="org-ol">
+<li>2010
+<a href="http://gadgetweb.de/linux/40-how-to-hijacking-the-syscall-table-on">http://gadgetweb.de/linux/40-how-to-hijacking-the-syscall-table-on</a>
+How To: Hijacking the syscall table on latest 2.6.x kernel systems;
+</li>
+
+<li>2011 January 20, 2011
+<a href="https://memset.wordpress.com/2011/01/20/syscall-hijacking-dynamically-obtain-syscall-table-address-kernel-2-6-x/">https://memset.wordpress.com/2011/01/20/syscall-hijacking-dynamically-obtain-syscall-table-address-kernel-2-6-x/</a>
+</li>
+
+<li>March 18, 2011
+<a href="https://memset.wordpress.com/2011/03/18/syscall-hijacking-dynamically-obtain-syscall-table-address-kernel-2-6-x-2/">https://memset.wordpress.com/2011/03/18/syscall-hijacking-dynamically-obtain-syscall-table-address-kernel-2-6-x-2/</a>
+</li>
+
+<li>June 2014
+<a href="https://github.com/maK-/Syscall-table-hijack-LKM/blob/master/template.c">https://github.com/maK-/Syscall-table-hijack-LKM/blob/master/template.c</a>
+This is the template file used to build a system specific kernel
+module.
+</li>
+
+<li><code>syscall</code> versus <code>int 0x80</code>  Kernel 3.3 v 2.6
+</li>
+
+<li><a href="https://filippo.io/linux-syscall-table/">https://filippo.io/linux-syscall-table/</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Adding a System Call: Method 1</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li>Insert the new system call code in in an existing file in the
+Linux src tree.
+</li>
+
+<li>The following is described on many blogs.
+<ol class="org-ol">
+<li>asmlinkage
+</li>
+</ol>
+<pre class="example">
+asmlinkage long sys_helloworld(void) {
+ printk(KERN_EMERG "Hello, world!\n");
+ return 0;
+}
+</pre>
+</li>
+
+<li>file arch/x86/syscalls/syscall<sub>32</sub>.tbl
+<pre class="example">
+350     i386    helloworld             sys_helloworld
+</pre>
+</li>
+</ol>
+
+<p>
+EXTRAVERSION = .ownsyscall
+</p>
+
+<p>
+int main ()
+{
+ syscall(350);
+ return 0;
+}
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Module</h3>
+<div class="outline-text-3" id="text-1-3">
+<ol class="org-ol">
+<li>Several include files were not being found even after apt-get
+install linux-headers-version#
+</li>
+
+<li><code>gcc -I /usr/src/linux-headers-3.19.0-20/include/ -I   /usr/src/linux-headers-3.19.0-20/arch/x86/include/asm/ -c   find-syscall-table.c</code> produces syntax errors in include files!
+</li>
+
+<li>It is possible to build a module whose files are not within kernel
+source directory.  Use the <code>make -C</code> Details in
+<code>Documentation/kbuild</code>
+</li>
+
+<li><a href="http://www.gilgalab.com.br/hacking/programming/linux/2013/01/11/Hooking-Linux-3-syscalls/">http://www.gilgalab.com.br/hacking/programming/linux/2013/01/11/Hooking-Linux-3-syscalls/</a>
+   <code>#define CR0_WP 0x00010000 // Write Protect Bit (CR0:16)</code>
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Testing and Debugging a New System Call</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+So, we have a new vmlinuz, initrd, and lib/modules.  How do we test
+these?
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> Virtual Box with New Kernel</h3>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> Test Program Application</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+We need to build test programs that use the newly introduced syscalls.
+We can certainly write them under the current kernel, but it is best
+to compile and build after the new kernel is booted and with the
+updates #include files.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Refs - SysCall Impl</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li><a href="https://www.kernel.org/doc/Documentation/kbuild/modules.txt">https://www.kernel.org/doc/Documentation/kbuild/modules.txt</a>
+</li>
+<li><a href="http://www.tldp.org/LDP/lkmpg/2.6/html/x181.html">http://www.tldp.org/LDP/lkmpg/2.6/html/x181.html</a> Describes for
+kernel version 2.6.  Needs to be fixed up for current kernels.
+</li>
+<li><a href="http://algalon.net/adding-a-system-call-to-linux-3-1/">http://algalon.net/adding-a-system-call-to-linux-3-1/</a> There are
+plenty of blog posts about adding a system call to Linux 2.6, but
+they are out of date now. Here is a article about adding a system
+call to Linux 3.14. I assume you can easily add the system call for
+further kernel.  {PM: Have read it.  Several spelling mistakes.
+Implements set-root as a new syscall; too difficult to check, so
+not a good choice.  But ok technical content.  I should write my
+tutorial based on this.}
+</li>
+<li><a href="http://lxr.free-electrons.com/source/arch/x86/syscalls/">http://lxr.free-electrons.com/source/arch/x86/syscalls/</a>;; <a href="https://elixir.bootlin.com/linux/latest/source/arch/x86/syscalls">https://elixir.bootlin.com/linux/latest/source/arch/x86/syscalls</a>
+</li>
+<li>July 16, 2014 (i) <a href="https://lwn.net/Articles/604287/">https://lwn.net/Articles/604287/</a> (ii)
+<a href="https://lwn.net/Articles/604515/">https://lwn.net/Articles/604515/</a> Anatomy of a system call, part 1,
+part 2
+</li>
+<li><a href="http://my.cs.lmu.edu/~tcostell/ubuntu-kernel-howto/">http://my.cs.lmu.edu/~tcostell/ubuntu-kernel-howto/</a> This guide will
+explain how to build a linux kernel and add a custom system
+call. Ubuntu 3.13.0-16 is the version used in this guide&#x2013;keep in
+mind that other versions of Ubuntu will likely not follow this
+guide exactly. To be safe and to avoid damaging your system, I
+highly reccommend that you use a virtual machine (I am using
+VirtualBox) when building the kernel. In addition, the git version
+control system is required.
+</li>
+<li><a href="https://www.first.org/resources/papers/conference2014/">https://www.first.org/resources/papers/conference2014/</a>
+   <code>first_2014_-_gurkok-_cem_-_rootkits_in_os_x_memory_20140626.pdf</code>
+</li>
+
+<li><a href="http://www.cs.albany.edu/~sdc/CSI500/Fal11/Labs/L06/OwnSyscall.html">http://www.cs.albany.edu/~sdc/CSI500/Fal11/Labs/L06/OwnSyscall.html</a>
+   Linux 2.6 or 3.0
+</li>
+
+<li><a href="https://linux-kernel-labs.github.io/master/lectures/syscalls.html">https://linux-kernel-labs.github.io/master/lectures/syscalls.html</a>
+Linux 4.15.0; Linux system calls implementation, System Call Table,
+VDSO and virtual syscalls, Accessing user space from system calls
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> End</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2018-11-05
+</div>
+</body>
+</html>

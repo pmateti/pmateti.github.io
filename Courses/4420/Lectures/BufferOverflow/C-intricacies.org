@@ -1,0 +1,79 @@
+
+# -*- mode: org -*-
+#+date: 2018-10-10
+#+TITLE: Intricacies of C Semantics
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Intricacies of C Semantics
+  1. What are "strings"? =char *p = "hello";= versus =char q[] =
+     "hello";= .
+  2. Address relationships =int x; int y;=
+  3. Word alignment
+  4. Standard Library: =libc strlen strcpy strcat=
+  5. Files in [[./modret/]]
+
+* SysCall Redirect
+
+These notes are triggered by our attempt at writing a new Linux kernel
+module.
+
+1. The C language =static= is like =private= of C++; that symbol is
+   not exported.
+
+1. Do not leave the sys-call-table writeable until the module exits.
+   Not good.  As soon as the redirect/hijack is made, bring it to
+   read-only.
+
+1. The following was found in a blog.
+   #+begin_src
+struct linux_dirent64 *cur = dirp;
+...
+int reclen = cur->d_reclen;
+char *next_rec = (char *)cur + reclen;
+int len = (int)dirp + rtn - (int)next_rec;
+#+end_src
+
+1. Bad C usage.  Reckless int-long-ptr synonyms.  The type =int= is
+   compiler specific.  =sizeof(int)= is typically 4 or 8 bytes.  On
+   very old systems, and even modern embedded systems, it can be 2
+   bytes.  The width of a ptr is architecture specific.  A ptr value
+   on a 64-bit system is 8 bytes wide. The GNU C compiler indeed
+   generated a warning about =(int) dirp=.
+
+1. C ptr arithmetic. The resulting value of =p + x= is computed as the
+   equivalent =long long int= value of ptr =p=, plus (ordinary arith)
+   =x * sizeof(p)=
+
+1. =asmlinkage int (*ogetdents64) (unsigned int fd, struct
+   linux_dirent64 *dirp, unsigned int count);= should not have
+   =asmlinkage= And, this is declaring a ptr variable named
+   =ogetdents64=.  It also declares that (i) the ptr it holds is the
+   address of a function, (ii) this function takes three arguments as
+   declared.
+
+1. I was expecting the GNU C compiler to produce a warning/error on
+   =ogetdents64(...)= versus =(*ogetdents64)(...)= But, it did not!
+   TBD Further investigation is warranted.
+
+1. What is the proper declaration of sys-call-table? =void * *
+   sys_call_table= works expediently, but not "correct". TBD Will post
+   details on this later.
+
+1. =sys_call_table= initialization
+#+begin_src bash
+#define SYSCALLTBLPM 0xffffffff81801680 /* pmateti 3.19.0-20-lowlatency  */
+#define SYSCALLTBLAS 0xffffffff81801400 /* asish 4.0.1 */
+#define __NR_ni 7 /* NR of sys_ni_syscall */
+#+end_src
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

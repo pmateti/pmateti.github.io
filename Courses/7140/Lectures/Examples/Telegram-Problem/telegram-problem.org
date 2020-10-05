@@ -1,0 +1,30 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+TITLE: Peter Naur's "Telegram Problem"
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+#+STYLE: <style> @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-preamble-format (("en" "<a href=\"http://cecs.wright.edu/~pmateti/Courses/7140/\">CS 7140 Advanced Software Engineering</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+
+1. "Write a program that takes a number w, then accepts lines of text
+   and outputs lines of text, where the output lines have as many
+   words as possible but are never longer than w characters. Words may
+   not be split, but you may assume that no single word is too long
+   for a line."
+
+1. Originally described in 197x by Peter Naur, 2005 Turing Award
+   Winner.
+
+1. This is essentially word-wrapping within a paragraph of a text
+   editor.  "As such, it is a classic ObjectOriented problem, used as
+   an example in the Design Patterns Book."
+
+1. It is surprisingly difficult to specify correctly, and to design
+   a correct program in Java or C++.
+
+1. Do a requirement analysis.  E.g.: What assumptions must we make so that
+   this problem is doable?

@@ -1,0 +1,126 @@
+<html>
+<head>
+  <title>CEG 429 Internet Security Midterm Exam by Prabhaker
+  Mateti</title>
+  <meta name="author" content="Prabhaker Mateti">
+  <meta name="keywords" content=
+  "Internet security, Network security, TCP/IP security">
+  <meta name="description" content=
+  "This page is part of a set of lectures notes for a course on Internet Security by Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <base target="_top">
+  <style type="text/css">
+    a:hover      { color: blue; background-color: yellow; }
+    a:active     { color: white; background-color: green;}
+    @page { size: 8.5in 11in }
+    P { text-align: justify }
+    LI { text-align: justify }
+    @media screen {BODY {margin: 15%;} }
+  </style>
+</head>
+
+<body class="margin">
+  <table border="0" width="100%" cellpadding="10">
+    <tr>
+      <td valign="top" width="10%"><a target="_blank" href=
+      "http://www.wright.edu/"><img src=
+      "./wsu-logo-xsm.gif" border="0" width="150"
+      align="left"></a></td>
+
+      <td valign="top" width="40%">
+        <h3><a href="http://www.cs.wright.edu/~pmateti/Courses/429/">
+	    CEG 429/629:Internet Security</a></h3>
+
+        <h3>Spring 2012 &bull; Midterm &bull; 100 points &bull;
+        75min</h3>
+
+        <h3><a href="http://www.cs.wright.edu/~pmateti">
+	    Prabhaker Mateti</a></h3>
+      </td>
+    </tr>
+  </table>
+
+  <blockquote>
+    <p>Login and use a laptop to edit your answers.txt file.
+    However, this is a closed book, closed notes exam. Do not surf.
+    Do not use pre-existing files. Do not give or take help during
+    the exam. <tt>ssh 130.108.17.111</tt> (OSIS Lab Server) and
+    turnin your answers as in <tt>~ceg42900/bin/turnin MT
+    answers.txt</tt></p>
+  </blockquote>
+
+  <ol>
+    <li>(5*5 points each) The following statements may or may not
+    be (fully or partially) valid.   Explain <u><i>the
+    underlined technical term</i></u> occurring in each
+    statement.    Explain/ discuss/ dispute the
+    statement.  It is <i>possible</i> to write no more than,
+    say, ten, sentences each, and yet receive full score.
+
+      <ol type="i">
+        <li>It is possible to setup a Linux/ Unix system without a
+        single <u><tt>suid</tt></u> program.</li>
+
+        <li>It is possible to determine the local gateway of an
+        unknown network via passive <u>sniffing</u>.</li>
+
+        <li>After a <u>rootkit</u> attack, there is not cleanup other
+          than a fresh re-install of the OS.</li>
+	<li> An <u>IP filtering </u>package must be run on a
+	  router.  It has no effect if run on a normal host with a
+	  single network card.
+
+	<li><u>Code signing</u> guarantees the integrity of the
+	  software by verifying that the software has not been
+	  modified using symmetric key encryption.
+
+      </ol></li>
+
+    <li>(5*15 points)
+
+      <ol type="i">
+        <li>Describe any one of TCP/IP fingerprinting methods
+        supported by nmap.</li>
+
+        <li>Describe, using enough details of IP/TCP packets with real
+	  or cooked-up but realistic numbers, the technique used
+	  in <tt>sniper-fin</tt>.</li>
+
+	<li>Explain <i>fully</i> the arrows labeled (1) and (2) of the
+	  figure below reproduced from the paper by Aleph One.
+
+<pre>
+bottom of  DDDDDDDDEEEEEEEEEEEE  EEEE  FFFF  FFFF  FFFF  FFFF     top of
+memory     89ABCDEF0123456789AB  CDEF  0123  4567  89AB  CDEF     memory
+           buffer                sfp   ret   a     b     c
+&lt;------   [JJSSSSSSSSSSSSSSCCss][ssss][0xD8][0x01][0x02][0x03]
+           ^|^             ^|            |
+           |||_____________||____________| (1)
+       (2)  ||_____________||
+             |______________| (3)
+top of                                                          bottom of
+stack                                                               stack
+</pre></font>
+
+	<li>Explain <i>fully</i> the arrow labeled (3) of the
+	  figure above reproduced from the paper by Aleph One.
+
+        <li>The code of <tt>get_sp()</tt> as given by Aleph One is
+	  shown: <tt>unsigned long get_sp(void) {
+   __asm__(&quot;movl %esp,%eax&quot;);
+}
+</tt>
+	  What does it "compute"?  Describe an alternate but
+	  equivalent version of <tt>get_sp()</tt> without using any
+	  assembly code.
+</li>
+
+      </ol>
+      <hr size="1">
+      <a href="../copyright.html">Copyright &copy;</a>  2012
+      <a href="http://www.cs.wright.edu/~pmateti" target=
+      "_blank">Prabhaker Mateti</a> ; May 07, 2012
+    </li>
+  </ol>
+</body>
+</html>

@@ -1,0 +1,308 @@
+
+;; Function MyThread.run() (_ZN8MyThread3runEJvv, funcdef_no=1, decl_uid=218, cgraph_uid=1, symbol_order=2)
+
+Before removal of unreachable regions:
+Eh tree:
+   1 try land:{1,<L9>} catch:{(void *) &java.lang.InterruptedException_ref}
+Reachable regions: n_bits = 2, set = {1 }
+Reachable landing pads: n_bits = 2, set = {1 }
+
+
+After removal of unreachable regions:
+Eh tree:
+   1 try land:{1,<L9>} catch:{(void *) &java.lang.InterruptedException_ref}
+
+
+MyThread.run() (struct MyThread * D.413)
+{
+  long D.1450;
+  void * D.1397;
+  struct 
+  {
+    struct java.lang.Class * class;
+    void * methods[2];
+  } * D.1396;
+  void * D.1395;
+  void * D.1392;
+  struct 
+  {
+    struct java.lang.Class * class;
+    void * methods[2];
+  } * D.1391;
+  struct java.util.concurrent.Semaphore * D.1390;
+  void * D.1389;
+  struct 
+  {
+    struct java.lang.Class * class;
+    void * methods[2];
+  } * D.1388;
+  void * D.1387;
+  struct 
+  {
+    struct java.lang.Class * class;
+    void * methods[2];
+  } * D.1386;
+  struct java.util.concurrent.Semaphore * D.1385;
+  struct java.lang.Object * D.426;
+  struct java.util.concurrent.Semaphore * D.430;
+  struct java.io.PrintStream * D.912;
+  struct java.lang.Object * D.1020;
+  struct java.util.concurrent.Semaphore * D.1021;
+  int D.1022;
+  struct java.lang.Throwable * D.1070;
+  void * #ref#1#13;
+  void * #exc_obj;
+  int #slot#3#10;
+  void * #ref#3#9;
+  void * #ref#2#4;
+  void * #ref#0#2;
+  int #slot#1#1;
+  int #slot#2#0;
+  boolean D.910;
+  void java.lang.Throwable::<T421> (struct java.lang.Throwable *) * D.1383;
+  void * D.1382;
+  void * * D.1381;
+  struct 
+  {
+    struct java.lang.Class * class;
+    void * methods[2];
+  } * D.1380;
+  void * _ref_2_4.4;
+  void java.util.concurrent.Semaphore::<T1c8> (struct java.util.concurrent.Semaphore *) * D.1377;
+  void * D.1376;
+  void * * D.1375;
+  struct 
+  {
+    struct java.lang.Class * class;
+    void * methods[2];
+  } * D.1374;
+  void * _ref_2_4.3;
+  void java.io.PrintStream::<T3d2> (struct java.io.PrintStream *, struct  *) * D.1372;
+  void * D.1371;
+  void * * D.1370;
+  struct 
+  {
+    struct java.lang.Class * class;
+    void * methods[2];
+  } * D.1369;
+  void * _ref_2_4.2;
+  void java.util.concurrent.Semaphore::<T1c3> (struct java.util.concurrent.Semaphore *) * D.1364;
+  void * D.1363;
+  void * * D.1362;
+  struct 
+  {
+    struct java.lang.Class * class;
+    void * methods[2];
+  } * D.1361;
+  void * _ref_2_4.1;
+  int #slot#1#1_1;
+  boolean _2;
+  boolean _7;
+  int #slot#2#0_8;
+  int #slot#1#1_9;
+  int #slot#2#0_12;
+  int #slot#3#10_13;
+  void * #ref#2#4_16;
+  struct java.util.concurrent.Semaphore * _17;
+  void * #ref#2#4_19;
+  void * _ref_2_4.1_20;
+  struct 
+{
+  struct java.lang.Class * class;
+  void * methods[2];
+} * _21;
+  struct 
+{
+  struct java.lang.Class * class;
+  void * methods[2];
+} * _22;
+  void * * _23;
+  void * _24;
+  void * _25;
+  void java.util.concurrent.Semaphore::<T1c3> (struct java.util.concurrent.Semaphore *) * _26;
+  boolean _29;
+  void * #ref#2#4_31;
+  void * #ref#3#9_32;
+  void * _ref_2_4.2_33;
+  struct 
+{
+  struct java.lang.Class * class;
+  void * methods[2];
+} * _34;
+  struct 
+{
+  struct java.lang.Class * class;
+  void * methods[2];
+} * _35;
+  void * * _36;
+  void * _37;
+  void * _38;
+  void java.io.PrintStream::<T3d2> (struct java.io.PrintStream *, struct  *) * _39;
+  void * #ref#2#4_42;
+  struct java.util.concurrent.Semaphore * _43;
+  void * #ref#2#4_45;
+  void * _ref_2_4.3_46;
+  struct 
+{
+  struct java.lang.Class * class;
+  void * methods[2];
+} * _47;
+  struct 
+{
+  struct java.lang.Class * class;
+  void * methods[2];
+} * _48;
+  void * * _49;
+  void * _50;
+  void * _51;
+  void java.util.concurrent.Semaphore::<T1c8> (struct java.util.concurrent.Semaphore *) * _52;
+  int #slot#1#1_54;
+  void * #exc_obj_55;
+  void * _56;
+  void * #ref#2#4_57;
+  void * #ref#1#13_58;
+  void * #ref#2#4_60;
+  void * _ref_2_4.4_61;
+  struct 
+{
+  struct java.lang.Class * class;
+  void * methods[2];
+} * _62;
+  struct 
+{
+  struct java.lang.Class * class;
+  void * methods[2];
+} * _63;
+  void * * _64;
+  void * _65;
+  void * _66;
+  void java.lang.Throwable::<T421> (struct java.lang.Throwable *) * _67;
+
+  <bb 2>:
+  _7 = 0;
+  #slot#2#0_8 = 0;
+  #slot#1#1_9 = #slot#2#0_8;
+  goto <bb 18> (*.LJpc=1030);
+
+*.LJpc=1005:
+  _15 = _14(D);
+  #ref#2#4_16 = _15;
+  _17 = MEM[(struct MyThread *)#ref#2#4_16].s2;
+
+  <bb 4>:
+  _18 = _17;
+  #ref#2#4_19 = _18;
+  _ref_2_4.1_20 = #ref#2#4_19;
+  _21 = MEM[(struct java.lang.Object *)_ref_2_4.1_20].vtable;
+
+  <bb 5>:
+  _22 = _21;
+  _23 = _22 + 64;
+  _24 = *_23;
+
+  <bb 6>:
+  _25 = _24;
+  _26 = (void java.util.concurrent.Semaphore::<T1c3> (struct java.util.concurrent.Semaphore *) *) _25;
+  _26 (_ref_2_4.1_20);
+
+  <bb 7>:
+  if (_2 == 0)
+    goto <bb 8>;
+  else
+    goto <bb 10>;
+
+  <bb 8>:
+  _Jv_InitClass (&java.lang.System.class$$);
+
+  <bb 9>:
+
+  <bb 10>:
+  _29 = 1;
+  _30 = out;
+  #ref#2#4_31 = _30;
+  #ref#3#9_32 = _CD_MyThread[1];
+  _ref_2_4.2_33 = #ref#2#4_31;
+  _34 = MEM[(struct java.lang.Object *)_ref_2_4.2_33].vtable;
+
+  <bb 11>:
+  _35 = _34;
+  _36 = _35 + 248;
+  _37 = *_36;
+
+  <bb 12>:
+  _38 = _37;
+  _39 = (void java.io.PrintStream::<T3d2> (struct java.io.PrintStream *, struct  *) *) _38;
+  _39 (_ref_2_4.2_33, #ref#3#9_32);
+
+  <bb 13>:
+  _41 = _14(D);
+  #ref#2#4_42 = _41;
+  _43 = MEM[(struct MyThread *)#ref#2#4_42].s1;
+
+  <bb 14>:
+  _44 = _43;
+  #ref#2#4_45 = _44;
+  _ref_2_4.3_46 = #ref#2#4_45;
+  _47 = MEM[(struct java.lang.Object *)_ref_2_4.3_46].vtable;
+
+  <bb 15>:
+  _48 = _47;
+  _49 = _48 + 96;
+  _50 = *_49;
+
+  <bb 16>:
+  _51 = _50;
+  _52 = (void java.util.concurrent.Semaphore::<T1c8> (struct java.util.concurrent.Semaphore *) *) _51;
+  _52 (_ref_2_4.3_46);
+
+  <bb 17>:
+  #slot#1#1_54 = #slot#1#1_1 + 1;
+
+  # #slot#1#1_1 = PHI <#slot#1#1_9(2), #slot#1#1_54(17)>
+  # _2 = PHI <_7(2), _29(17)>
+*.LJpc=1030:
+  _11 = #slot#1#1_1;
+  #slot#2#0_12 = _11;
+  #slot#3#10_13 = 10;
+  if (#slot#2#0_12 < #slot#3#10_13)
+    goto <bb 3> (*.LJpc=1005);
+  else
+    goto <bb 19>;
+
+  <bb 19>:
+  goto <bb 21> (*.LJpc=1044);
+
+*.LJpc=1039:
+  _56 = MEM[(struct java.lang.Throwable * *)#exc_obj_55 + -8B];
+  #ref#2#4_57 = _56;
+  #ref#1#13_58 = #ref#2#4_57;
+  _59 = #ref#1#13_58;
+  #ref#2#4_60 = _59;
+  _ref_2_4.4_61 = #ref#2#4_60;
+  _62 = MEM[(struct java.lang.Object *)_ref_2_4.4_61].vtable;
+  _63 = _62;
+  _64 = _63 + 96;
+  _65 = *_64;
+  _66 = _65;
+  _67 = (void java.lang.Throwable::<T421> (struct java.lang.Throwable *) *) _66;
+  _67 (_ref_2_4.4_61);
+
+*.LJpc=1044:
+
+<L8>:
+  return;
+
+<L9>:
+  _69 = __builtin_eh_filter (1);
+  switch (_69) <default: <L11>, case 1: <L10>>
+
+<L11>:
+  resx 1
+
+<L10>:
+  #exc_obj_55 = __builtin_eh_pointer (1);
+  goto <bb 20> (*.LJpc=1039);
+
+}
+
+

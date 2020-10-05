@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Tic-Tac-Toe Specs</title>
+<!-- 2016-02-06 Sat 08:18 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="Mateti: OO Programming and Design"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+2016-02-04
+</div>
+<div id="content">
+<h1 class="title">Tic-Tac-Toe Specs</h1>
+<p>
+This is part of
+<a href="../../Examples/TicTacToe-JavaFX-UnRedo">../../Examples/TicTacToe-JavaFX-UnRedo</a>
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Informal Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Tic-Tac-Toe is played on a grid of 3x3 cells.  Two players: the
+X-player, the O-player. All cells begin as blank cells.  Players
+alternate to place an X ("ex") or O (big-oh) in a blank-cell.  Goal is
+to have 3 Xs or 3 Os in a row, in a column, or in a digonal.  The
+first player to do so wins.  A game is a draw if all 9 cells are
+filled without anyone winning.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> The Grid without GUI</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>The cells are arranged in a grid named g, a 2d array of size 3x3.
+By g[i, j] we refer to the cell in row i and column j rangin in 1
+.. 3.  g[i, j] == one of blank ' ', 'X', 'O'.
+</li>
+<li>nFilled is a derived integer.  It counts how many cells are
+non-blank.
+</li>
+<li>It is useful to write the entire g as a sequence of 9 characters as
+in [OBOXBBXBB], where we replace a blank with a B for visual
+clarity.  This is a linearization by row, top-down.  Note that not
+all 9-char sequences of XOB represent legitimate states in the
+game.
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Changes in the Grid in One Move</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>A grid g.old changes into g.new as a result of a move by a player.
+</li>
+<li>Preconditions: nFilled.old &lt; 9.  Simplified to nFilled &lt; 9.
+</li>
+<li>Postconditions: 
+<ol class="org-ol">
+<li>nFilled.new = nFilled.old + 1.  Simplified to nFilled = nFilled.old + 1.
+</li>
+<li>One blank cell of g.old is no longer so in g.new.  That is, for
+some i and j, g.old[i, j] = blank and g.new[i, j] != blank.
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Who Won?</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>Game is won by 'X': hasWon('X')
+</li>
+
+<li>Game is won by 'O': hasWon('O')
+</li>
+
+<li>Game is a draw: nFilled == 9, ! hasWon('X'), ! hasWon('O')
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Players Alternate</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li>[Left as an Exercise.]
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Game Progress</h3>
+<div class="outline-text-3" id="text-2-4">
+<ol class="org-ol">
+<li>The history of the game after step i can be written out as a sequence of grid
+states: g<sub>0</sub>, g<sub>1</sub>, &#x2026;, g<sub>(i-1)</sub>, g<sub>i</sub>.
+</li>
+<li>Before any player makes moves: g<sub>0</sub> = [BBBBBBBBB].
+</li>
+<li>Game ends when nFilled = 9 or when X or O hasWon.
+</li>
+<li>Consecutive values g<sub>i</sub> and g<sub>(i+1)</sub> are related as described in
+"Changes in the Grid in One Move".
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> How To Spec Interactive GUI?</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>This is best done by examples.  See the screen shots.  Specs by
+Examples tend to overspecify.  So, the screenshots are followed
+with explicit retractions.
+</li>
+
+<li>There are several
+status messages: X's turn, O's turn, Game Over: X won, Game Over: O
+won, Game Over: Draw!.  Use of other fonts and colors is OK. The
+location of the status message is at the bottom.
+</li>
+
+<li>Should we write the move number in a small font in the non-blank cells?
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Screenshots</h3>
+<div class="outline-text-3" id="text-3-1">
+
+<div class="figure">
+<p><img src="./snapshot1.png" alt="tictactoe after 4 moves" title="tictactoe4" width="10%" align="left" />
+</p>
+<p><span class="figure-number">Figure 1:</span> After 4 moves.  Blanks, X and O should be shown as in the screenshots. Other "good   looking" renderings are OK. The game status should be shown prominently.</p>
+</div>
+
+<div class="figure">
+<p><img src="./snapshot2.png" alt="tictactoe after 4 moves" title="tictactoe5" width="10%" align="right" />
+</p>
+<p><span class="figure-number">Figure 2:</span> After 5 moves.  What is the relationship between the numbers of Xs and Os? Can you determine who had the first turn?</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Auxiliary Functions</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li><code>Boolean hasWon(Grid g, char C)</code>
+</li>
+<li><code>isGridLegit(seq q)</code>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Discussion/ Exercises</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Did we commit any of the Seven Sins of the Specifiers?
+</li>
+<li>Write a Requirements Document.
+</li>
+
+<li>It is possible to detect a draw "early"; specify this as a Boolean
+function.  E.g., see this snapshot
+</li>
+</ol>
+<p>
+<img src="./snapshot4-draw.png" alt="snapshot4-draw.png" title="tictactoe7" width="10%" />.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2016 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> 2016-02-04
+</div>
+</body>
+</html>

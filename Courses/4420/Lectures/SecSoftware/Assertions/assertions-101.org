@@ -1,0 +1,222 @@
+# -*- mode: org -*-
+#+DATE: 2015-09-03
+#+TITLE: Assertions 101
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+DESCRIPTION: On Assertions in Software Engineering
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:t
+
+* Abstract
+
+An assertion is an expression on +program+ process state that
+evaluates to true or false.  Without side effects.  Simple assertions
+are made up of Boolean expressions.  Deeper assertions use First or
+Higher Order Logics.  These notes are about using assertions in Java,
+C++, [TBD Scala and Python].
+
+* +Program+ Process State
+
+1. Assertions are expressions yielding true/false on a process state.
+1. We should really say *process* state.
+
+1. So, what is a state?
+
+** Process State: Crudely
+
+1. Crudely, a full dump, including the portions of the state
+   maintained by the OS for the process.
+
+** Process State: Refined
+
+2. A labeled collection of all variables and their values at a given
+   moment
+   1. Include all scopes (global, local, ...)
+   2. Includes "external" objects: files, network connections, ...
+3. Observers do not alter the process state
+4. Non-Observers (for lack of a consensus term)
+   1. Before beginning: process state S' (S prime)
+   2. After the operation: process state S (S no prime)
+   3. Occasionally, S == S'  (deep equality)
+   4. Almost always, S != S'
+
+* What are Assertions?
+
+1. An assertion is an expression on a program state that we expect to
+   evaluate to true.  Without side effects.  
+
+1. Assertions are predicates written using the syntax of the host
+   programming language.  All the variables are those of a program.
+   We are allowed to write side-effect free boolean functions to deal
+   with for-all and there-exists quantifiers.
+
+2. Simple assertions are made up of Boolean expressions.  
+3. Deeper assertions use First or Higher Order Logics.
+
+4. An assertion is placed at a control point.
+
+
+* Floyd-Hoare Triplets
+
+1. /{P} S {Q}/ is known as the Floyd-Hoare Triplet, named after Turing
+   Award winners Robert Floyd and Tony Hoare.
+
+1. P and Q are assertions.  S is a block of code.
+
+** Semantics of {P} S {Q}
+
+1. This triplet stands for the following: Let t' be a state satisfying
+   P.  Execute S on t'.  Suppose S terminates; let us call the
+   resulting state t.  Then, t staisfies Q.
+
+2. The {P} S {Q} yields a true/false value.  There is no middle ground
+   of "may be" or "undefined".  We are assuming that there is no
+   middle ground for each of P, Q and S.
+
+1. So what if S does not terminate? Cryptic, but then {P} S {Q} is not
+   saying any thing about whether Q holds.  We could not reach the
+   control point where Q is stated.
+
+1. What if no state satisfies P?  Again, {P} S {Q} is not saying any
+   thing about the behavior of S.  It may "work" or not.  But, the
+   boolen value of the box [{P} S {Q}] is true just as [False => Any]
+   is true.
+
+1. Note that the triplet is about /partial/ correctness: It omits
+   termination.
+
+1. In the context of C++/Java, the notation changes a little:
+   =/*@ P @*/ S /*@ Q @*/=
+
+** Pre-Conditions (aka Entry Assertions)
+
+5. Let S be a method.  Every method has (i) a precondition P, and (ii) a
+   post condition Q.
+
+1. Pre-condition P is expected to be true just before the method is
+   entered.
+
+2. A pre-condition can talk about the arguments, and globals, but not
+   about the local variables of the method.
+
+** Post-Conditions (aka Exit Assertions)
+
+1. Post-condition Q is expected to be true just before the method is returning.
+
+2. A post-condition can talk about the values of arguments at entry,
+   and the values of globals at entry and exit, but not about the
+   local variables of the method.  We will invent some notation to
+   describe the values at entry; e.g., old-x, or x.old.
+
+2. If the method is a function a post-condition can talk about the
+   return value.
+
+** Weakest and Strongest
+
+1. Given two assertions A1 and A2, if A1 implies A2, we say that A1 is
+   stronger than A2.
+
+1. For a given S, we prefer the weakest pre-condition P.
+
+1. For a given S, we prefer the strongest post-condition Q.
+
+** Design-by-Contract
+
+1. Imagine we are yet to develop S.
+
+2. It is the responsibility of the caller to guarantee that a
+   pre-codition holds.  The method is expected to assume this without
+   checking.
+
+3. It is the responsibility of the developer of S to guarantee that
+   the post condition holds upon return from S.
+
+
+* Loop Invariant
+
+1. Every loop has an assertion placed within the loop.  It is called a
+   loop invariant.
+
+1. For while-loops, the traditional location for the loop invariant is
+   just-left-of the Boolean expression.
+
+1. Invariant means that the relationship given remains true every time
+   control hits the location.  Not that nothing changes.  E.g., x >
+   y + 2 can be an invariant, even though both x and y change.
+
+* Class Invariant
+
+1. Every class has an assertion that describes the relationships among
+   its data members and public methods.  This called the class invariant.
+
+1. Quick Example: See Small Set example.
+
+
+* Assertion Examples
+
+1. Ex: Assertions for sorting: 
+   : {n >= 0}  sorting-alg {sorted(a[0..n-1]) and perm(a, a')} 
+
+1. [[./assertions-in-the-small.html][Assertions, with Tiny Examples]]
+1. [[./practical-advice.org][Practical-Advice]] on Writing Assertions
+1. The [[./3np1.org][3n+1]] Termination Problem
+1. [[./assertions-java.org][Assertions in Java]]
+1. [[./assertions-cpp.org][Assertions in C++]]
+
+* The Meaning of Silence
+
+1. Consider {pre P:: x is an integer} S {post Q:: x is a
+   prime number}.  
+   1. Assume that this code S is part of a program that also uses an
+      integer variable named y.
+   1. The obligations of S are clear.  At the end of it, the value
+      that x has must be a prime number.
+1. But what about y?  If the value of y was y0 before S, can we expect
+   that y is equal to y0 after S?  The pre- and post- were silent on
+   y.  So is S free to do what ever to y?
+1. Suppose S was x := exp.  Do not jump to the conclusion that after
+   all this is an assignment to x, therefore y could not change.
+1. From now on, our expectation is this: If we have a sequence of
+   statements S, and its P and Q are silent with respect to (wrt) y,
+   then y must remain as it was before/after S.
+
+* For All ...
+
+1. There is an implicit for all in the assertions.  E.g., when we
+   write =n >== =0= in the entry assertions, it includes =for all n=
+   that you may give so that n >=0.  The n that is bound here is taken
+   in all subsequent assertions -- in loop invariants and in the exit
+   assertion.  
+
+* "When" and "for how long" must an assertion be true?
+
+1. This question is important when we have threads/ processes.
+1. Consider the S and Q as above.  Instantaneouly after S finished, Q
+   is true.  Are we expecting that Q will remain true, say for another
+   60 secs?
+1. Consider =S; S2=.  Let e1 == ending time of S, let b2== beginning
+   time stamp of S2.  Recall that in all modern PLs, we must not
+   assume that b2 == e1 + delta.  Clearly, delta cannot be negative.
+   We cannot say that for some d, delta < d.
+1. Concurrency literature talks about "interference".  Without
+   interference, we expect the post condition Q to hold good at least
+   until S2 starts.  In the presence of interference, we must not
+   expect this.
+
+
+* References
+
+1. Gries, David, The Science of Programming, Springer, 2012 [shouldn't
+   this be 1981?].  Highy Recommended.
+
+1. Alagic, Suad, and Michael A. Arbib. The Design of Well-Structured
+   and Correct Programs. Springer Science & Business Media, 2013.
+   Highy Recommended. 
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

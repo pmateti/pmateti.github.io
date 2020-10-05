@@ -1,0 +1,76 @@
+
+#+TITLE: Secure Java Programming
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:t
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+#+STYLE: <style> @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 %e &bull; <a href=\"www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+
+*  Java vulnerabilties
+1. jdk*11 to jdk*17
+1. https://www.google.com/search?q=java+vulnerabilities+2013
+
+* The Security Manager
+
+1. A security manager is an object.
+1. Defines a security policy for an application. 
+1. system policy file =${JAVA_HOME}/lib/security/java.policy=
+   1.  e.g ., =/usr/lib/jvm/jdk1.7.0_13/jre/lib/security/java.policy=
+   1.  http://docs.oracle.com/javase/tutorial/security/userperm/policy.html
+1. Java library checks with SM whenever a "dangerous" operation is
+   about to be called.
+1. SM can raise a =SecurityException=
+
+* Java Classloader
+
+1. Part of the JRE that dynamically loads classes into the JVM.
+
+1. The bootstrap class loader loads the core libraries
+   ={$JAVA_HOME/jre/lib}=
+
+1. The extensions class loader loads the code in the extensions
+   directories ={$JAVA_HOME/jre/lib/ext}=
+
+1. The system class loader loads code found on =$CLASSPATH.=
+
+1. Classes loaded by different loaders do not have package-private
+   access to one another even if they have the same package name.
+
+1. http://en.wikipedia.org/wiki/Java_Classloader  Reference
+
+1. http://www.onjava.com/pub/a/onjava/2005/01/26/classloading.html Reference
+
+1. http://incubator.apache.org/depot/version/jar-hell.html Reference
+
+* Java Sandbox
+
+1. The sandbox is a set of rules.  Similar to "jail", =chroot=.
+
+1. Byte Code Verifier -- Checks ("verifies") JVM code before allowing to run. 
+
+1. Applet Class Loader -- when and how an applet can add/replace
+   classes to JRE.  Applets are sent by a web server.
+
+* [[./sec-java-oracle-pm-edited.html]]
+
+* References
+
+1. http://docs.oracle.com/javase/tutorial/index.html Java Tutorials by
+   sun/oracle.com.  Excellent tutorials.  Free to download in its
+   1000+ page entirety. Recommended Reading.
+
+1. http://docs.oracle.com/javase/tutorial/security/index.html
+   "Tutorial Trail: Security Features in Java SE"  From the above.
+   Highly Recommended Reading
+
+1. http://www.oracle.com/technetwork/java/seccodeguide-139067.html
+   Secure Coding Guidelines for Java.  Today's lecture is based on
+   this.  [[./sec-java-oracle-pm-edited.html][CS7140 version]] Required Reading.
+
+1. http://docs.oracle.com/javase/7/docs/technotes/guides/security/index.html
+   Java security APIs: cryptography, public key infrastructure, secure
+   communication (TLS, SASL), authentication (JAAS), and access
+   control.  Reference
+

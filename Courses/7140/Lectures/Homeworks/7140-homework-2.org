@@ -1,0 +1,71 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+DATE: 2020-07-11
+#+TITLE: Adv Software Eng: HW2 Fall 2020
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CS7140 Software Engineering
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+
+Home work in this course is done individually, without help from
+others.  The due date is announced on the course home page.
+
+In this home work we need the source code of a couple of class files.
+Choose the [[../Examples/SmallSet/index.org][SmallSet]] files.
+
+1. (25 points) [Literate Programming] Express the chosen class file(s)
+   as a literate program (LP).  The LP version should exemplify the
+   SOLID principles, in general, and the Design by Contract principle,
+   in particular.  Recommended: https://www.cs.tufts.edu/~nr/noweb/
+   the =noweb= tool.
+
+1. (25 points) [Assert in JML] This part of the home work is focussed
+   on gaining experience with the use of Java asserts using JML.
+   Thoroughly document the chosen class file(s) using Java assertions
+   for invariants, requires, ensures, assignable, ... .
+
+1. (20 points) [JUnit or TestNG] This part of the home work is
+   focussed on systematic testing of the chosen file(s).  Use a JUnit
+   Plugin or a TestNG plugin (in Eclipse, or Intellij Idea).
+
+1. (20 points) [FindBugs or PMD] This part of the home work is
+   focussed on gaining experience with the use of a static source code
+   analysis tool.  Examine closely the reports produced by the tool.
+   Which of the items do you agree with?  How did you resolve the
+   issues?
+
+* Journal
+
+1. [10 Easy-to-Earn Points] Please maintain a journal for this
+   homework.  Submit a summary.
+
+* Turn In
+
+1. Follow all ethical/ scholary traditions of attribution.
+
+1. The =hw2.pdf= should have five sections, devoted to each of the
+   above items.  Include overviews for each.  Other than the source
+   code files, put *everything else* -- overviews, diagrams, screen
+   shots -- together and produce one =hw2.pdf= file.  Include the
+   source code files in the tar-ball named =hw2.tar.bzip2=
+ 
+1. The file =hw1.tar.bzip2= should be a compressed tar ball of all the
+   source code files, and the noweb files related to this homework.
+   Include the revised/ original source code files so that everything
+   builds cleanly.  I expect to see sub-directories for each section.
+   I expect to be able to build all the programs by invoking =make=,
+   ..., =gradlew build= at the top level.
+
+1. Submit on Pilot.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

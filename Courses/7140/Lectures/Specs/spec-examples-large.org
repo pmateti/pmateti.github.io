@@ -1,0 +1,64 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-27
+#+TITLE: Specifications of "Larger" Example Programs
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+Abstract: We outline how several programs, whose SLOC > 10000, can be
+specified rigorously and unambiguously.
+
+* Prospects
+
+4. [[./spec-examples-gameoflife.org][Prospects of Specifying The Game-of-Life]]
+5. [[../Examples/Editor][Prospects of Specifying GNU Emacs]]
+6. [[./spec-examples-linux.org][Prospects of Specifying Linux]]
+
+* Challenge: Specify  =pandoc= et al.
+
+1. Text-to-Text Transformers
+
+1.  =f.org= produced by me, =f.html= and other formats generatable; see
+    http://emacswiki.org/emacs/OrgMode
+
+1. =markdown fnm.txt -o fnm-md.html=  produced by me  =fnm.txt=
+
+1. =pandoc -s -S -i -t slidy fnm.txt -o fnm-slidy.html=
+
+1. =pandoc fnm.txt -o fnm.pdf=
+
+1. pandoc obligation?  
+    + =pandoc a.html -o a.txt=
+    + =pandoc a.txt -o b.html= 
+    + =diff a.html b.html=
+
++ OrgMode http://emacswiki.org/emacs/OrgMode
+   1. =f.org= produced by me/you, =f.html= and other formats
+      generatable
+
++ MarkDown http://daringfireball.net/projects/markdown/
+
+  1. =fnm.txt=  produced by us.
+  1. =markdown fnm.txt -o fnm-md.html= 
+  1. GitHub uses markdown for all "readme" files.
+  1. http://www.codinghorror.com/blog/2012/10/the-future-of-markdown.html
+ 
++ PanDoc http://pandoc.org/ a universal document converter
+  1. =pandoc -s -S -i -t slidy fnm.txt -o fnm-slidy.html= text file to
+     slides in html
+  1. =pandoc fnm.txt -o fnm.pdf= to PDF
+  1. What are pandoc's obligations?  
+    + =pandoc a.html -o a.txt= strip html
+    + =pandoc a.txt -o b.html=  back to html
+    + =diff a.html b.html= should these be equal?
+
+
+
+* References
+

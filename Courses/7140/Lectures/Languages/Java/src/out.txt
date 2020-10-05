@@ -1,0 +1,3 @@
+com.foo.bar
+co.il.boo
+dot.org.biz

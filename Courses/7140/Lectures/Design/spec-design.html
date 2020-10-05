@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Famous Examples of Spec/Design</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Famous Examples of Spec/Design"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-09-26T02:27-0400"/>
+<meta name="author" content="Prabhaker Mateti"/>
+<meta name="description" content="CS7140 Software Engineering Lecture"/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<style> @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="../../Lectures"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div>
+
+<div id="preamble">
+<a href="http://cecs.wright.edu/~pmateti/Courses/7140/">CS 7140 Advanced Software Engineering</a>
+</div>
+
+<div id="content">
+<h1 class="title">Famous Examples of Spec/Design</h1>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Examples of Spec/Design</h2>
+<div class="outline-text-2" id="text-1">
+
+<ol>
+<li>Others and Bertrand Meyer, "How Specifications Change and Why You
+   Should Care" <a href="http://arxiv.org/pdf/1211.4775v2.pdf">PDF</a> Jan 2013. Required Reading.
+</li>
+<li>In our lectures so far
+<ol>
+<li>Telegram
+</li>
+<li>Tabulate Equations
+</li>
+<li>Condense the List of Numbers
+</li>
+<li>pretty printing
+</li>
+<li>Worms
+</li>
+</ol>
+
+</li>
+<li>Knuth's Common Words Problem
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> JavaCard</h2>
+<div class="outline-text-2" id="text-2">
+
+<ol>
+<li>JavaCard is a subset of Java chosen for small memory, weak-CPU, embedded
+   devices.  Widely used in SIM cards and ATM cards.
+</li>
+<li><a href="http://code.google.com/p/jcml/">http://code.google.com/p/jcml/</a>  Java Card Specification Language based on JML
+</li>
+<li><a href="http://www.javacardforum.org/">http://www.javacardforum.org/</a>
+</li>
+<li>Erik Poll, Joachim van den Berg, Bart Jacobs, 
+   "Specification of the JavaCard API in JML"
+   <a href="http://cs.ru.nl/E.Poll/papers/cardis00.pdf">http://cs.ru.nl/E.Poll/papers/cardis00.pdf</a>  Recommended Reading.
+</li>
+<li>Nestor Catano, Tim Wahls, "Executing JML Specifications of Java
+   Card Applications: A Case Study", search for PDF Link, 2009.
+   Recommended Reading
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Knuth's Common Words Problem</h2>
+<div class="outline-text-2" id="text-3">
+
+<ol>
+<li>"Given a file of text, and a number k, print the k most common words."
+</li>
+<li>Used as an example of Literate Programming
+</li>
+<li>Criticized as an example of software development
+</li>
+<li>Our interest here:  How to describe its spec + design?
+</li>
+<li>Defs of text, words, &hellip;
+</li>
+<li>Def of "common" word
+</li>
+<li>nary Tries, &hellip;
+</li>
+<li>Destructive Traversals
+</li>
+<li>Donald E. Knuth, "A Solution to the Common Words Problem",
+   Communications of the ACM, 1986, search for PDF link.  Knuth is a
+   Turing Award winner. Required Reading.
+</li>
+</ol>
+
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> N-ary Tries</h3>
+<div class="outline-text-3" id="text-3-1">
+
+<ol>
+<li><a href="http:./cwp-nary-tree.pdf">cwp-nary-tree.pdf</a>
+</li>
+<li><a href="http:./cwp-plain-trie.pdf">cwp-plain-trie.pdf</a>
+</li>
+<li><a href="http:./cwp-ringed-trie.pdf">cwp-ringed-trie.pdf</a>
+</li>
+<li><a href="http:./cwp-hash-trie.pdf">cwp-hash-trie.pdf</a>
+</li>
+</ol>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> References</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<ol>
+<li>Others and Bertrand Meyer, "How Specifications Change and Why You
+   Should Care" <a href="http://arxiv.org/pdf/1211.4775v2.pdf">PDF</a> Jan 2013. Required Reading.
+
+</li>
+<li>Donald E. Knuth, "A Solution to the Common Words Problem",
+   Communications of the ACM, 1986, search for PDF link.  Knuth is a
+   Turing Award winner. Required Reading.
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr size=1>Copyright &copy; 2013 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a>
+</div>
+</body>
+</html>

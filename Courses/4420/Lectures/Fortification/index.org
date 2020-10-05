@@ -1,0 +1,438 @@
+
+# -*- mode: org -*-
+#+date: 2018-09-07
+#+TITLE: Security Fortification
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Abstract
+
+This lecture is about adding a layer of protection beyond proper
+configuration of the OS and applications.  This layer of protection
+consists of tools that help detect changes in the system and monitor
+(suspicious) system activity.  Fortification is the addition of
+packages to improve security.  It should be done after a system has
+been properly configured with the supplied components.  Fortification
+frequently will discard a supplied component in preference to a
+carefully chosen added component.  Some what rarely, fortification
+involves deletion of components.
+
+Educational Objectives
+
+ 1. Appreciate the need for adding extra layers of protection beyond
+    out-of-the-box installation of an operating system
+ 1. Understand the limitations of such a protective layer 
+ 1. Aware of widely available tools for fortification.
+
+* Config, Fortify and Harden
+
+/We/ distinguish, even though it is not common yet, "proper
+configuration" from "hardening a system" from "fortification" from
+"designing an OS from scratch with security as a significant
+requirement". There are also "secure operating systems" and "trusted
+operating systems."  Alas, no one can offer technically rigorous
+definitions for these terms. For example, there is regular Solaris and
+there is Trusted Solaris.  It is also telling to find the following
+quote, "Windows NT is a secure operating system but only if it's
+configured correctly."  Both NT, and several of Unix derivatives claim
+to be secure and trusted.
+
+** Proper Configuration
+
+Systems, as distributed, are often loosely configured.  Occasionally this
+is due to sloppiness of the distributor.  More commonly, it is because the
+distributor has tried to configure a generic appeal-to-all setup.  So, it
+is important that we examine the configuration at length and determine what if
+any changes must be made.
+
+Proper configuration of the system as given is a prerequisite to either
+fortifying or hardening.  Systems as distributed are often loosely
+configured.  Occasionally this is due to sloppiness of the
+distributor.  More commonly it is because the distributor has tried to
+configure a generic appeal-to-all setup.  So, it is important that we
+examine the configuration at length and determine what if any changes must be
+made.
+
+** Fortification
+
+Fortification is about adding a layer of protection beyond proper
+configuration of the OS and applications. This layer of protection consists of
+tools that help detect changes in the system and monitor (suspicious) system
+activity.  Fortification is the addition (and in some cases <i>deletion</i>)
+of packages to improve security.  It should be done after a system has been
+properly configured with the supplied components.  Fortification frequently
+will discard a supplied component in preference to a carefully chosen added
+component.
+
+Fortification is the addition or even deletion of packages to improve
+security.  It should be done after a system has been properly
+configured with the supplied components.  Fortification frequently
+will discard a supplied component in preference to a carefully chosen
+added component.  Some what rarely, fortification involves deletion of
+components.  In our discussion, we will postpone certain
+"fortification" items as "hardening" items even though we cannot offer
+a rigorous definition regarding the use of these two terms.
+
+Sections 3 through  10 are fortification items.
+
+
+** Hardening
+
+1. Hardening refers to areas of security tightening during the design
+   and construction of systems rather than after their deployment. In
+   the notes below, we learn howto harden an out-of-the-box
+   installation into a more secure Linux system.
+
+1. Build and Deploy a Kernel, with selected patches applied.  [[./BuildKernel]]
+1. Past Kernel Exploits and Patches [[../KernelExploits]]
+1. Ideas for Improving Kernel Security [[./SecureKernel]]
+1. Hardening System Programs [[./SysProgs]]
+1. Lab on SysCall Add/ Delete/ Freeze  [[./SysCalls/lab-syscalls.org]]
+1. Lab on Hardening the Kernel [[./SecureKernel/lab-kernel.org]]
+1. Lab on Hardening System Programs [[./SysProgs/lab-sysprogs.org]]
+1. Improved Kernels: The kernels supplied in various distributions are
+   generic and security-wise permissive.  It is possible to recompile
+   the kernel using the same source code as used by the distributor
+   but with different selection of components and including them in
+   the =vmlinuz= binary instead of as a dynamically loadable module.
+1. [Included in [[../Hardening/]]]
+
+* Malware Detection
+
+** Virus Scanners
+
+Of the many fortification suggestions made in this lecture, virus 
+scanners are probably the most universally experienced item.  Windows-based 
+virus scanners do focus on detecting not only viruses but also Trojans and root 
+kits and are often also integrity checkers.
+
+** Rootkit Detection
+
+Loadable kernel modules (LKM) bring run-time modularity to
+  Linux. Device drivers and their modules are loaded only when
+  necessary keeping the core kernel small. On the negative side, LKM
+  rootkits are the easiest and most “elegant” way to modify the
+  running kernel. In a modularized kernel the attacker can insert
+  rootkits into kernel once he gains root privileges.  Through LKM
+  rootkit the attacker can modify any part of the kernel. Typically
+  LKM rootkits would redirect the system calls to the attacker’s own
+  implementation.
+
+ The character device =/dev/kmem= is an image of the kernels
+  virtual memory. Through this device, an attacker can modify the
+  kernels text or data, and can drastically change the behavior of
+  kernel. Other memory devices which can similarly be exploited are
+  /dev/mem and /dev/port which give direct access to physical memory
+  of the system.
+
+Unless a file system auditor is in place, it is not
+easy to spot the rootkits after their installation.  The time to
+be alert is when the rootkits are being installed. 
+
+: apt-get install chkrootkit rkhunter unhide
+
+* Authentication
+
+** User Authentication
+
+1. User Authentication Approaches:
+   2. What You Know
+   3. What You Have
+   4. What You Are
+1. Linux Passwords Overview
+1. =ssh= public/private keys for users and hosts
+1. OTP == One Time Passwords
+1. [All the above in [[../LinuxSetup/Passwords/index.html][Passwords]]]
+
+
+** Host Authentication
+
+1. How do we "recognize"/ authenticate a host?
+1. The following confusing answer is from stackoverflow.com: "Host
+   based authentication is where the host (or server) is authenticated
+   so some users can just authenticate without the need of a key or
+   whatsoever. Key base authentication is where you, as a user
+   generate a public and private key from your machine or host."
+1. We are not, in this section, asking what is host-*based* user
+   authentication.  We are asking how would we know if we connected to
+   a masquerader.
+
+1. =cat ~/.ssh/known_hosts=  Machines that you have accepted as trusted.
+1. =ls -l /etc/ssh/=  [pruned] [Note the perms on the non .pub files.]
+  #+begin_src ls
+-rw------- 1 root root    505 Mar  3  2019 ssh_host_ecdsa_key
+-rw-r--r-- 1 root root    177 Mar  3  2019 ssh_host_ecdsa_key.pub
+-rw------- 1 root root    411 Mar  3  2019 ssh_host_ed25519_key
+-rw-r--r-- 1 root root     97 Mar  3  2019 ssh_host_ed25519_key.pub
+-rw------- 1 root root   1823 Mar  3  2019 ssh_host_rsa_key
+-rw-r--r-- 1 root root    397 Mar  3  2019 ssh_host_rsa_key.pub
+#+end_src
+
+** Service Authentication
+
+1. Say you are requesting a service from a machine.  How can we be
+   sure that we are not being duped by a Trojan?
+
+1. Example Linux man page =munge(7)= "A process creates a credential
+   by requesting one from the local MUNGE service.  The encoded
+   credential contains the UID and GID of the originating process.
+   This process sends the credential to another process within the
+   security realm as a means of proving its identity.  The receiving
+   process validates the credential with the use of its local MUNGE
+   service.  The decoded credential provides the receiving process
+   with a reliable means of ascertaining the UID and GID of the
+   originating process, and this information can be used for
+   accounting or access control decisions."
+
+* Audit
+
+
+Simple Audit: Capture the output of =ps aux= and examine all processes
+periodically.  The exact list will depend on the (Linux)
+distribution. However, from one session to another, the first few are
+not expected to have different process ids. The remainder may get
+higher or lower pids depending on what is included in the boot up
+scripts. However, once the boot scripts have stabilized you must make
+a note of all process ids, and expect them to remain unchanged until
+the scripts change again.
+
+
+You should also check that all processes owned by user "nobody" are 
+running programs explicitly identified as legitimate for untrusted, 
+unverified, remote users.  Each process belonging to a non-root 
+system user is explicitly identified as legitimate for that user in 
+this environment.
+
+
+** File System Audit
+
+Intruders often replace binaries with their own Trojan versions.  
+Many system administrators relied on time-stamping and check sum the 
+files to determine when a binary file has been modified. But it is 
+fairly simple to recreate the same time-stamp for the Trojan file as 
+the original file. For example, if your standard =touch= 
+does not do =touch -r /bin/login= develop a =touch= 
+program that does it.  Or, by setting the system clock time back 
+to the original file's time and then adjusting the Trojan file's time 
+to the system clock. Once the binary Trojan file has the exact same 
+time as the original, the system clock is reset to the current time. 
+Simple check sum programs rely on a CRC checksum and are easily 
+spoofed.  MD5 check sums are based on an algorithm that no one 
+has yet spoofed.  This technology is behind the well known 
+Tripwire.
+
+: apt-get install tripwire systraq
+
+
+Systraq daily consists of few very small shell scripts
+that warn when system files change.
+
+
+** Activity Monitors
+
+A few open-source activity monitoring programs (including intrusion
+detection/prevention tools) are described below.
+
+http://www.snort.org can be used as a packet sniffer like tcpdump, a
+packet logger, or as a network intrusion prevention/detection system.
+Its rule-based system can detect buffer overflows, stealth port scans,
+CGI attacks, SMB probes, OS fingerprinting attempts, etc.
+
+Firewalls: iptables and some GUI frontend are standard in Linux
+distributions.  Consider installing =shorewall= and =webmin.=
+
+=apt-get install tiger "is a set of Bourne shell scripts, C programs
+and data files which are used to perform a security audit of
+unix/Linux systems."
+
+xinetd: "xinetd has access control mechanisms, extensive logging
+  capabilities, the ability to make services available based on time,
+  and can place limits on the number of servers that can be started,
+  among other things.  It has the ability to redirect TCP streams to a
+  remote host and port.  This is useful for those of that use IP
+  masquerading, or NAT, and want to be able to reach your internal
+  hosts.  It also has the ability to bind specific services to
+  specific interfaces.  This is useful when you want to make services
+  available for your internal network, but not the rest of the
+  world. Or to have a different service running on the same port, but
+  different interfaces."
+
+TCP Wrapper: When a potentially insecure service must be run,
+tcp_wrappers should be utilized to "wrap" it. The wrapper
+software does more detailed logging and better access control checking
+by "wrapping" itself around the normal network daemons
+configured in <i> inetd.conf</i>.  The =tcpd= used in
+Linux is a new version of the TCP wrapper.
+
+ifstatus is a standalone program to check for 
+promiscuous interfaces available from
+ftp://coast.cs.purdue.edu/pub/tools/unix/ifstatus
+
+dtk or "Deception Toolkit" is a kit of fake daemons and services 
+designed to waste an intruders time. dtk is available from
+http://all.net/dtk/example.html
+
+Bastille Linux is a series of scripts which tighten up security on stock Linux 
+systems, by changing permissions and disabling features.
+
+Logs produced by the =kerneld, syslogd, tcpd= and the 
+various services can become so large that it is humanly impossible to 
+scan them for spotting suspicious activity and take a more serious 
+look.  A few well known log analyzers are listed below.
+
+  1. sagan, Real-time syslog Monitoring System
+  1. wwwstat, HTTPd Log file Analysis Software.
+  1. Analog, Web server log file analyzer 
+  1. freq, A lastlog analyzer.
+  1. tcpdstats, tcpd log analyzer.
+  1. =apt-get install ruby-god= "God is an easy to configure, easy
+    to extend monitoring framework written in Ruby."
+
+
+* Access Control and DAC + MAC
+
+1. [[./AccessControl]]
+1. [[./DAC-MAC/index.org]]
+
+* Intrusion Detection
+
+1. [[./IntrusionDetection]]
+
+
+* Security Enhanced Linux (selinux)
+
+1. [[./SELinux]]
+
+* Adding SSH, and SFTP
+
+1. [[./SSH/]]
+
+* Sand Boxes
+
+1. In computer security, a "sandbox" is a security mechanism for
+   separating running programs, usually in an effort to mitigate
+   system failures or software vulnerabilities from spreading.
+1. https://en.wikipedia.org/wiki/Sandbox_(computer_security) Required Reading.
+
+
+** chroot jail
+
+1. [[../Refreshers/chroot.org]]
+
+** Stack Protection
+
+1. https://en.wikipedia.org/wiki/Buffer_overflow_protection  Required Reading.
+1. [[../BufferOverflow/code-injection.html]] Lecture Notes of this course. Required Reading.
+
+** System Call Monitoring
+
+1. https://www.avoxi.com/blog/what-is-call-monitoring/   Required
+   Reading.
+1. =ltrace= of Linux
+1. =strace= of Linux
+
+
+** Kernel Devices
+
+The kernel includes a few block and character devices available on
+Linux that help with security.
+
+=/dev/random= and =/dev/urandom, are managed by the kernel and provide
+random data at any time for any number of applications.  This might
+include generating random passwords, seeding TCP sequence numbers, and
+even cryptographic functions.  Both =/dev/random=
+and =/dev/urandom= should be secure enough to use in
+generating PGP keys, SSH challenges, and other applications where
+secure random numbers are requisite.  Attackers should be unable to
+predict the next number given any initial sequence of numbers from
+these sources.  There has been a lot of effort put in to ensuring that
+the numbers you get from these sources are random in every sense of
+the word random.  The only difference is that <tt
+class="tt">/dev/random= runs out of random bytes and it makes you
+wait for more to be accumulated.  Note that on some systems, it can
+block for a long time waiting for new user-generated entry to be
+entered into the system.  So you have to use care before using <tt
+class="tt">/dev/random=.  =/dev/random= is high
+quality entropy, generated from measuring the system interrupt times
+and other events which are non-deterministic.  It blocks until enough
+bits of random data are available.  =/dev/urandom=
+is similar, but when the store of entropy is running low, it'll return
+a cryptographically strong hash of what there is.  This isn't as
+secure, but it's enough for most applications.  You might read from
+the devices using something like: [dave@magneto ~dave]# head -c 6
+/dev/urandom | mmencode
+
+This will print (approximately) six random characters on the console, suitable
+for password generation.  You can find =mmencode(1)= (perhaps
+also known as mimencode on some systems) in the metamail mail package.
+See http://www.linuxsecurity.com/feature_stories/random.c"
+target="_blank">/usr/src/linux/drivers/char/random.c</a> for a description of
+the algorithm.
+ 
+
+
+* Lab Experiments
+** Lab Experiment 1
+
+ Objective: Experience a file system audit tool.  Experience log
+  analysis.
+
+  1. Install the package tripwire.  "Tripwire is a policy driven
+    file system integrity checking tool that allows system
+    administrators to verify the integrity of their data."
+
+  1. Build the database following the instructions found in the 
+    package.
+
+  1. Select and modify a few "system" files from directories such as 
+    /bin, /sbin, /usr/sbin and /etc.
+
+  1. Observe and explain tripwire's reports.
+  1. Install and experience a tool that analyzes log reports (usually
+    in /var/log/).
+
+
+** Lab Experiment 2
+
+ Objective: Tightening suid binaries and scripts.
+
+  1.  Run a find script to discover all suid binaries and scripts on LXU.
+  1.  Carefully analyze and report the need for each of these.
+  1.  Rewrite the suid scripts into C/C++ programs.
+  1.  Does rewriting scripts into programs improve security?  Discuss.
+  1.  Install a forensic tool and experience it.
+
+
+** Lab Experiment 3
+
+1. Fall 2019 Lab: [[./fortify-lab.org]] Lab: Config and Pruning and Grafting
+
+* References
+
+1. wikipedia.org,
+   https://en.wikipedia.org/wiki/Trusted_operating_system Required
+   Reading.
+
+1. Prabhaker Mateti, [[../RootKits/index.html][RootKits]] 2013. Required Reading.
+
+1. wikipedia.org,
+   http://en.wikipedia.org/wiki/Category:Linux-security-software,  2018.  Required Visit.
+
+1. ubuntu.com,
+   https://help.ubuntu.com/community/LDAPClientAuthentication
+
+1. http://www.webmin.com/ "Webmin is a web-based interface for system
+   administration for Unix. Using any modern web browser, you can
+   setup user accounts, Apache, DNS, file sharing and much
+   more."
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

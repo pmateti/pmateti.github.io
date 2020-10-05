@@ -1,0 +1,46 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+TITLE: SmallSet: Specs
+#+AUTHOR: Prabhaker Mateti
+#+LINK_HOME: ../../
+#+LINK_UP: ../
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"SmallSet-design-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* SmallSet Operations: Specs
+
+1. The big (uppercase) S below is the abstract SmallSet.
+1. S.pre is the value of S at pre-condition.
+1. S.post is the value of S at post-condition.
+1. Specs of some ops are for you TODO.
+
+** SmallSet Op: insert-an-item(S, e)
+
+1. S.post == S.pre + {e}
+1. {e} is the singleton set containing e.
+1. + is an alt symbol for union \cup.
+
+** SmallSet Op: item-is-in-the-set(S, e)
+
+   1. False, if S == cons()
+   1. True, if S == insert-an-item(T, e)  for some T
+   1. False, if S != insert-an-item(T, e) for no T
+   1. item-is-in-the-set(S, f) == RHS // above 3 lines
+
+** SmallSet Op: diff-with(A, B)
+
+1. diff-with(A, B) yields  (A union B) - (A intersect B)
+1. diff-with(A, B) yields  (A \cup B) - (A \cap B) // using math symbols
+1. Alternate defs exists; we will use the above.  It is also called
+   /symmetric difference/.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

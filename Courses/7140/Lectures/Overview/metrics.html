@@ -1,0 +1,330 @@
+<html>
+  <head>
+    <title>Software Engineering: Metrics by Mateti</title>
+    <base target="_self">
+    <base target="_top">
+    <style type="text/css">
+      a:hover      { color: blue; background-color: yellow; }
+      a:active     { color: white; background-color: green;}
+      p { text-align: justify }
+      li {text-align: justify;}
+      pre {border:blue 1px dotted;}
+      tt {border:blue 1px dotted;}
+      @page { size: 8.5in 11in }
+      @media screen {BODY {margin: 12%;} }
+      body {counter-reset: chapter; counter-reset: section;}
+      h2:before {content: counter(section) ". "; counter-increment: section; }
+      h2 {counter-reset: subsection;}
+      h3:before {content: counter(section) "." counter(subsection) " " ; counter-increment: subsection;}
+    </style>
+  </head>
+  <body>
+
+    <p><a href="../../"> ../../ </a>
+    |  NoSlides </p>
+
+<section>
+    <h1>Software Engineering Metrics</h1>
+
+    <a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+    Prabhaker Mateti</a>
+
+    <p>Does programming in the Small differ from Large (Giga etc)
+    qualitatively, or is it just additive scale?
+</section>
+      <h2>Questions with No Answers?</h2>
+
+
+<p>What is the largest program/sofware ever written? (No matter how
+  long it took.)
+  <ol>
+    <li> by one person?
+    <li> by a team? what is the size?
+  </ol>
+
+<p>Do you know of a program > 1000 lines that is bug-free?  
+
+
+      <h2>Sizes of Some "Programs"</h2>
+
+      <p>(S)LOC: count of source code lines, ignoring blank lines and
+	comments.  Debian/Ubuntu tools {bogosec, cccc, SLOCCount}.
+	The numbers below are in MLOC.</p>
+
+
+	<table width="100%">
+	  <tr>
+	    <td width=50%>
+	    <table>
+	      <tr>
+		<td>1993</td>
+		<td>Windows NT 3.1</td>
+		<td>6</td>
+	      </tr>
+	      <tr>
+		<td>1994</td>
+		<td>Windows NT 3.5</td>
+		<td>10</td>
+	      </tr>
+	      <tr>
+		<td>1996</td>
+		<td>Windows NT 4.0</td>
+		<td>16</td>
+	      </tr>
+	      <tr>
+		<td>2000</td>
+		<td>Windows 2000</td>
+		<td>29</td>
+	      </tr>
+	      <tr>
+		<td>2002</td>
+		<td>Windows XP</td>
+		<td>40</td>
+	      </tr>
+	      <tr>
+		<td>2003</td>
+		<td>Windows Server 2003</td>
+		<td>50</td>
+	      </tr>
+	      <tr>
+		<td>2008</td>
+		<td>Windows 7</td>
+		<td>40</td>
+	      </tr>
+	      <tr>
+		<td>200x</td>
+		<td>Gimp-2.3.8</td>
+		<td>0.65</td>
+	      </tr>
+	      <tr>
+		<td>200x</td>
+		<td>SABRE</td>
+		<td>200</td>
+	      </tr>
+	      <tr>
+		<td>200x</td>
+		<td>SAP</td>
+		<td>160</td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>200x</td>
+		<td>IRS</td>
+		<td>62</td>
+	      </tr>
+	    </table>
+	    </td>
+	    <td>&nbsp;</td>
+	    <td width="50%" valign=top>
+	      <table>
+	      <tr>
+		<td>200x</td>
+		<td>Red Hat Linux 6.2</td>
+		<td>17</td>
+	      </tr>
+	      <tr>
+		<td>200x</td>
+		<td>Red Hat Linux 7.1</td>
+		<td>30</td>
+	      </tr>
+	      <tr>
+		<td>200x</td>
+		<td>Debian 2.2</td>
+		<td>56</td>
+	      </tr>
+	      <tr>
+		<td>200x</td>
+		<td>Debian 3.0</td>
+		<td>104</td>
+	      </tr>
+	      <tr>
+		<td>200x</td>
+		<td>Debian 3.1</td>
+		<td>213</td>
+	      </tr>
+	      <tr>
+		<td>200x</td>
+		<td>Linux kernel 2.6.0</td>
+		<td>6</td>
+	      </tr>
+	      <tr>
+		<td>2010</td>
+		<td>Linux kernel 3.x.x</td>
+		<td>13.5</td>
+	      </tr>
+	      <tr>
+		<td>2011</td>
+		<td>Linux kernel 3.6.x</td>
+		<td>15.9</td>
+	      </tr>
+	      <tr>
+		<td>2013</td>
+		<td>Linux kernel 3.9.x</td>
+		<td>11 *</td>
+	      </tr>
+	      <tr>
+		<td>200x</td>
+		<td>Sun Solaris 7</td>
+		<td>0.5</td>
+	      </tr>
+	      </table>
+	      </td>
+	    </tr>
+	    </table>
+      </ol>
+
+<p>[For the above, no real refs can be given, but mostly from
+  <a href="http://en.wikipedia.org/wiki/Source_lines_of_code">
+    wikipedia.org Source_lines_of_code</a> in millions LOC.  What is
+  included in the count?]
+
+<h3>sloccount /usr/local/src/linux-3.10.2  # Aug 2013</h3>
+
+<pre>
+SLOC    Directory       SLOC-by-Language (Sorted)
+6453062 drivers         ansic=6448301,yacc=1688,asm=1476,perl=792,lex=779,
+                        sh=26
+2019776 arch            ansic=1750979,asm=267172,sh=810,awk=476,pascal=231,
+                        python=45,perl=33,sed=30
+770378  fs              ansic=770378
+580043  sound           ansic=579860,asm=183
+556120  net             ansic=556024,awk=96
+354424  include         ansic=351241,cpp=3141,asm=42
+135562  kernel          ansic=135553,asm=9
+88104   tools           ansic=80499,perl=3775,python=1810,sh=1317,yacc=432,
+                        lex=257,asm=14
+61376   crypto          ansic=61376
+60419   mm              ansic=60419
+56568   Documentation   xml=46640,ansic=5117,perl=2453,sh=915,python=907,
+                        lisp=218,asm=189,awk=129
+46430   security        ansic=46430
+42702   scripts         ansic=26260,perl=9229,sh=2499,cpp=1821,yacc=1440,
+                        lex=1006,python=447
+35769   lib             ansic=35636,perl=120,awk=13
+18449   block           ansic=18449
+6195    ipc             ansic=6195
+5407    virt            ansic=5407
+2507    init            ansic=2507
+1991    samples         ansic=1991
+1876    firmware        asm=1660,ansic=216
+567     usr             ansic=553,asm=14
+0       top_dir         (none)
+</pre>
+
+Totals grouped by language
+<pre>
+ansi-c:     10943391 (96.86%)
+asm:         270759 (2.40%)
+xml:          46640 (0.41%)
+perl:         16402 (0.15%)
+sh:            5567 (0.05%)
+cpp:           4962 (0.04%)
+yacc:          3560 (0.03%)
+python:        3209 (0.03%)
+lex:           2042 (0.02%)
+awk:            714 (0.01%)
+pascal:         231 (0.00%)
+lisp:           218 (0.00%)
+sed:             30 (0.00%)
+</pre>
+
+<h3>sloccount /usr/local/src/linux-4.19, 2018-Oct-22</h3>
+
+
+<ol>
+<li>
+<li>
+2. Before kernel build, =du -sh linux-4.19= is =908M=
+<li>
+3. After  kernel build, =du -sh linux-4.19= is TBD.
+<li>
+4. Source Lines of Code (SLOC) Totals grouped by language
+<pre>
+      : ansic:     16756046 (97.89%)
+      : asm:         271828 (1.59%)
+      : sh:           29564 (0.17%)
+      : perl:         27344 (0.16%)
+      : python:       17875 (0.10%)
+      : cpp:           5063 (0.03%)
+      : yacc:          4648 (0.03%)
+      : lex:           2583 (0.02%)
+      : awk:           1385 (0.01%)
+      : ruby:            25 (0.00%)
+      : sed:              5 (0.00%)
+</pre>
+</ol>
+
+
+<h3>Programming in the Small .. Giga</h3>
+
+<ol>
+  <li>Can we define: program, software? Small, Medium, Large, ..., Giga?
+
+  <li>Our working/arbirary definitions:
+    <table>
+      <tr><td> Tiny:</td><td>  -- 01 KLOC;</td></tr>
+      <tr><td> Small:</td><td>  -- 10 KLOC;</td></tr>
+      <tr><td> Medium:</td><td>  -- 01 MLOC;</tr>
+      <tr><td> Large:</td><td>  -- 10 MLOC;</tr>
+      <tr><td> Giga: </td><td>10+ MLOC  </td></tr>
+    </table>
+
+  </li>
+</ol>
+
+<h2>The Field of Software Metrics</h2>
+
+<p>There are books on this topic. In this course, we will discuss this
+  topic only in passing.  Main reason for interest: Cost
+  estimation.  Main reason for disinterest: Polemics.
+
+  <ol>
+    <li>We do not have any metrics that cannot be sabotaged.
+    <li>Other than SLOC:
+      Number of functions/procedures/methods;<br>
+      Man years<br>
+    <li>complexity; McCabe Cyclomatic Number;
+      <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity">
+	wikipedia.org Cyclomatic_complexity</a>
+      Halstead Software Science; see book on Metrics.
+    <li><a href="http://en.wikipedia.org/wiki/Efferent_Coupling">
+	wikipedia.org Efferent_Coupling</a>
+      "It measures the number of data types a class knows about. This
+      includes inheritance, interface implementation, parameter types,
+      variable types, and exceptions. A large efferent coupling can
+      indicate that a class is unfocused. It may also indicate
+      brittleness, since it depends on the stability of all the types to
+      which it is coupled."</p>
+</li>
+</ol>
+
+<h2>References</h2>
+
+<ol>
+  <li>Google Talk on how they build their software: (i)
+    <a href="http://www.youtube.com/watch?v=2qv3fcXW1mg">
+      Video</a>, (ii)
+    <a href="http://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/people/jeff/stanford-295-talk.pdf">
+      PDF</a> Recommended Watching/Reading
+
+  <li>
+    <a href="http://blogs.msdn.com/b/b8/archive/2012/03/06/going-behind-the-scenes-building-windows-8.aspx">
+      Building Windows 8</a>  Recommended Reading.
+  <li><a href="http://2013.icse-conferences.org/Keynote"> 2013 ICSE
+      conference Keynote</a> "Does Scale Really Matter? --
+      Ultra-Large-Scale Systems Seven Years after the Study" Linda
+      Northrop is director of the Research, Technology, and Systems
+      Solution Program at the Software Engineering Institute (SEI).
+      In 2006, <a href="http://www.sei.cmu.edu/uls/">
+      Ultra-Large-Scale Systems</a>: The Software Challenge of the
+      Future (ISBN 0-9786956-0-7) documented the results of a
+      year-long study.  Free book pdf.  Recommended Reading.
+</ol>
+
+  <hr size="1">
+  <a href=
+     "http://www.cs.wright.edu/~pmateti/copyright.html">Copyright</a>
+  &copy; 2013 <a target="_blank" href=
+		 "http://www.cs.wright.edu/~pmateti">Prabhaker Mateti</a>
+</body>
+</html>

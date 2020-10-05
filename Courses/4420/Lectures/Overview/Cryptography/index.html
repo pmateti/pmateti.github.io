@@ -1,0 +1,1026 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Cryptography in Cyber Security</title>
+<!-- 2018-10-17 Wed 14:02 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a> | <a href=./index.html>NoSlides</a>
+</div>
+<div id="content">
+<h1 class="title">Cryptography in Cyber Security</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Abstract</a></li>
+<li><a href="#sec-2">2. Cryptography in Cyber Security</a></li>
+<li><a href="#sec-3">3. Prime Factorization Theorem</a>
+<ul>
+<li><a href="#sec-3-1">3.1. Factorization of Arbitrarily Large Numbers is Infeasible</a></li>
+<li><a href="#sec-3-2">3.2. Decryption without Key is Infeasible</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. What does "Computationally Infeasible" Mean?</a>
+<ul>
+<li><a href="#sec-4-1">4.1. Not the Same as Turing-incomputable</a></li>
+<li><a href="#sec-4-2">4.2. Heuristic Computations</a></li>
+<li><a href="#sec-4-3">4.3. Quantum Computing</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. One Way Hash Function</a>
+<ul>
+<li><a href="#sec-5-1">5.1. Message Digests</a></li>
+<li><a href="#sec-5-2">5.2. MD5 and SHA1</a></li>
+<li><a href="#sec-5-3">5.3. SHA512</a></li>
+<li><a href="#sec-5-4">5.4. Example Outputs of SHA512 and MD5</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6. Symmetric-Key Encryption</a>
+<ul>
+<li><a href="#sec-6-1">6.1. DES</a></li>
+<li><a href="#sec-6-2">6.2. IDEA</a></li>
+<li><a href="#sec-6-3">6.3. Blowfish</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7. Public-Key Encryption</a>
+<ul>
+<li><a href="#sec-7-1">7.1. RSA</a></li>
+<li><a href="#sec-7-2">7.2. DSA</a></li>
+<li><a href="#sec-7-3">7.3. Secure Communication Using Public Keys</a></li>
+</ul>
+</li>
+<li><a href="#sec-8">8. Man-in-the-Middle (MiTM) Attack</a></li>
+<li><a href="#sec-9">9. Digital Certificates and Signatures</a>
+<ul>
+<li><a href="#sec-9-1">9.1. Certification Authority (CA)</a></li>
+<li><a href="#sec-9-2">9.2. What is a Digital Certificate?</a></li>
+<li><a href="#sec-9-3">9.3. Usage</a></li>
+<li><a href="#sec-9-4">9.4. X.509</a></li>
+<li><a href="#sec-9-5">9.5. Obtaining a Digital Certificate</a></li>
+<li><a href="#sec-9-6">9.6. Digital Signature</a></li>
+</ul>
+</li>
+<li><a href="#sec-10">10. Open Source Cryptography</a></li>
+<li><a href="#sec-11">11. StegFS - A Steganographic File System for Linux</a></li>
+<li><a href="#sec-12">12. References</a></li>
+<li><a href="#sec-13">13. End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Abstract</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Data integrity and privacy, on the Internet and within your
+PC and smartphones, primarily rests on using cryptography well.
+Unfortunately, it is easily compromised by errors in (operating)
+system configuration.  This lecture is a quick overview of
+cryptography as relevant in cyber security and passwords.
+</p>
+
+<p>
+Educational Objectives
+</p>
+
+<ol class="org-ol">
+<li>Introduce the student to cryptography as it applies to computer/
+cyber security.
+</li>
+<li>Describe the authentication technology.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Cryptography in Cyber Security</h2>
+<div class="outline-text-2" id="text-2">
+<blockquote>
+<p>
+"Whoever thinks his problem can be solved using cryptography, doesn't
+understand his problem and doesn't understand cryptography."  &#x2013; Roger
+Needham/Butler Lampson.  Lampson is a 1992 <a href="https://amturing.acm.org/award_winners/lampson_1142421.cfm">Turing Award winner</a>
+</p>
+</blockquote>
+
+<p>
+Data integrity and privacy on the Internet primarily rests on using
+cryptography well.  The design and implementation of cryptography
+requires deep understanding of discrete mathematics and number theory.
+Unfortunately, when cryptography is deployed carelessly, it is easily
+compromised by errors in (operating) system configuration.  This
+lecture is a quick overview of cryptography as relevant in cyber
+security and passwords.
+</p>
+
+<p>
+A cryptographic encryption algorithm, also known as <i>cipher</i>,
+transforms a "plain text" (e.g., human
+readable) <code>pt</code> and outputs cipher text
+<code>ct</code> as the output, 
+</p>
+
+<pre class="example">
+ct = cipher(pt, key)
+</pre>
+
+
+<p>
+ so that it is possible to re-generate the <code>pt</code> from
+the <code>ct</code> through a companion <i>decryption</i> algorithm.  Note
+that we said "for example, human readable" and not
+"that is, human readable" as an explanation for the phrase
+"plain text".  Often, the so-called "plain text"
+is human un-readable binary data that is ready-to-be-used by a
+computer.
+</p>
+
+
+
+<p>
+Ciphers use <i>keys</i> together with plain text as the input to produce 
+cipher text.  It is in the key that the security of a modern cipher lies, 
+not in the details of the algorithm.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Prime Factorization Theorem</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Any natural number N can be factorized into primes:
+</p>
+
+<blockquote>
+<p>
+N = 2<sup>n<sub>2</sub></sup> * 3<sup>n<sub>3</sub></sup> * 5<sup>n<sub>5</sub></sup> * 7<sup>n<sub>7</sub></sup> *   &#x2026;
+</p>
+</blockquote>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Factorization of Arbitrarily Large Numbers is Infeasible</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+The factorization of an arbitrarily large number N, into its
+constituent primes, determining the powers n2, n3, n5, n7, etc. of the
+primes, is computationally infeasible.  As far as we know.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Decryption without Key is Infeasible</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Decryption uses factorization internally.  So, it is computationally
+infeasible.  Note that this is assuming that we are using known
+methods, including brute force.
+</p>
+
+<p>
+Is it possible that some one or some country has actually discovered
+fast algorithms, but chose to keep them secret, for these tasks that
+we believe to be computationally infeasible?
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> What does "Computationally Infeasible" Mean?</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Roughly speaking, computationally infeasible means that a certain
+computation that we are talking about takes way too long (hundreds of
+years)  to compute using the fastest of (super)
+computers.  
+</p>
+
+<p>
+Suppose our key is a 128-bit number.  There are
+340,282,366,920,938,463,463,374,607,431,768,211,456 128-bit numbers
+starting from zero (i.e., 128 bits of 0).  To recover a particular key
+by brute force, one must, on average, search half the key space:
+170,141,183,460,469,231,731,687,303715,884,105,728.  If we use
+1,000,000,000 machines that could try 1,000,000,000 keys/sec, it would
+take all these machines longer than the universe as we know it has
+existed to find the key.
+</p>
+</div>
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Not the Same as Turing-incomputable</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+This is not the same thing as saying that computational infeasibility
+is the same idea as Turing-incomputable.  
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> Heuristic Computations</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Nor is it the same thing as saying that you cannot make a lucky guess,
+or heuristically arrive at a possible answer, and then systematically
+verify that the guessed answer is indeed the correct answer, all done
+within a matter of seconds on a lowly PC.
+</p>
+
+<p>
+Here is an example: Microsoft's old Windows NT used the DES encryption
+algorithm in storing the passwords.  Brute-forcing such a scrambled
+password to compute the plain text password can take, according to
+Microsoft, "about a billion years." But <a href="https://www.l0pht.com">https://www.l0pht.com</a> claims
+that L0phtCrack breaks Windows passwords in about one week, running in
+the background on an old Pentium PC.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Quantum Computing</h3>
+<div class="outline-text-3" id="text-4-3">
+<ol class="org-ol">
+<li>As of 2018: Most popular public-key algorithms can be efficiently
+broken by a sufficiently strong hypothetical quantum computer.
+</li>
+
+<li><a href="https://en.wikipedia.org/wiki/Post-quantum_cryptography">https://en.wikipedia.org/wiki/Post-quantum_cryptography</a> Recommended Reading.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> One Way Hash Function</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+A hash function maps input sequences of bytes into a fixed-length
+sequence.  The fixed length is considerably shorter than the typical
+length (millions of bytes) of the input, and hence the function is a
+hash function.
+</p>
+
+<p>
+The nature of all hash functions is that there must exist multiple
+input sequences that map to the same hash.  The inverse is a
+mathematical relation, not a mathematical function. But, good hash
+functions have the following properties: It is hard to <i>find</i> two
+strings, from the expected set of typically used strings, that would
+produce the same hash value.  A slight change in an input string
+causes the hash value to change drastically. 
+</p>
+
+<p>
+A "one way" hash function is designed to be computationally
+infeasible to reverse the process, that is, to algorithmically
+discover a string that hashes to a given value. 
+</p>
+</div>
+
+
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Message Digests</h3>
+<div class="outline-text-3" id="text-5-1">
+<ol class="org-ol">
+<li>One-way hash functions are also known as message digests (MD),
+fingerprints, or compression functions.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> MD5 and SHA1</h3>
+<div class="outline-text-3" id="text-5-2">
+<ol class="org-ol">
+<li>The most popular one-way hash algorithms are MD4 and MD5 (both
+producing a 128-bit hash value), and SHA Secure Hash Algorithm,
+also known as SHA1 (producing a 160-bit hash value).
+</li>
+
+<li>As of 2006, both MD5 and SHA1 are considered separately broken.
+That is, given plain text p, <i>it is possible to modify p to a
+desired p' so that md5(p) = md5(p')</i>.
+</li>
+
+<li>Similarly, for SHA1.  What is <b>not</b> known is <b>if</b> we can modify p
+to a p' so that md5(p) = md5(p') and  sha1(p) = sha1(p').
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> SHA512</h3>
+<div class="outline-text-3" id="text-5-3">
+<ol class="org-ol">
+<li>SHA2, a successor to SHA1, is a range of hash functions and
+includes closely related SHA224, SHA256 (256 bits long), SHA384 and
+SHA512 (512 bits long).  SHA3 is released by NIST
+in 2015. <a href="https://en.wikipedia.org/wiki/SHA-3">https://en.wikipedia.org/wiki/SHA-3</a>.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> Example Outputs of SHA512 and MD5</h3>
+<div class="outline-text-3" id="text-5-4">
+<ol class="org-ol">
+<li>Read the man pages: <code>man md5</code> and <code>man md5sum</code> and <code>man sha1sum</code> and <code>man hashalot</code>
+   etc.
+<ol class="org-ol">
+<li>% sha512sum kubuntu-cosmic-desktop-amd64.iso # stdout shown folded
+<pre class="example">
+851238208f71114e64dd3dfd2bd516d097823fb5fe94432a7ed4dfad02dfe8f1
+ce966f9f04793ce019869ee241db9044ade7219fcff8fe73db406c4a4a3b94f0
+kubuntu-cosmic-desktop-amd64.iso
+</pre>
+</li>
+<li>% sha256sum kubuntu-cosmic-desktop-amd64.iso 
+<pre class="example">
+3f470978690b8fb343c94b8a8ded62f0372f9837ced583eba84045480d79d065
+kubuntu-cosmic-desktop-amd64.iso
+</pre>
+</li>
+<li>% md5sum kubuntu-cosmic-desktop-amd64.iso 
+<pre class="example">
+bb93c40531b7b13fe7b01a9c75bbc312  kubuntu-cosmic-desktop-amd64.iso
+</pre>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Symmetric-Key Encryption</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Symmetric-key cryptography is an encryption system in which the
+sender and receiver of a message share a single, common key to encrypt
+and decrypt the message.  Symmetric-key systems are simpler and
+faster, but their main drawback is that the two parties must somehow
+exchange the key in a secure way.  Symmetric-key cryptography is
+sometimes also called <i>secret-key cryptography.</i> 
+</p>
+
+<p>
+If ct = encryption (pt, key), then pt = decryption (ct, key).
+</p>
+
+
+<p>
+Encryption is done as follows.  Consider the entire message to be
+encrypted as a sequence of bits.  Suppose the length of n in bits is
+b.  Split the message into blocks of length b or b-1.  A block viewed
+as a b-bit number should be less than n; if it is not, choose it to be
+b-1 bits long.  Each block is separately encrypted, and the encryption
+of the entire message is the catenation of the encryption of the
+blocks.  
+</p>
+
+<p>
+Let m stand for a block viewed as a number.  Multiply m with itself e
+times, and take the modulo n result as c, which is the encryption of
+m.  That is, c = m<sup>e</sup> mod n.
+</p>
+
+<p>
+Decryption is the "inverse" operation:  <i>m = c<sup>d</sup>
+mod n.</i>
+</p>
+</div>
+
+<div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> DES</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+A popular symmetric-key system is the DES, short for Data
+Encryption Standard.  DES was developed in 1975 and standardized by
+ANSI in 1981. DES encrypts data in 64-bit blocks using a 56-bit key.
+The algorithm transforms the input in a series of steps into a 64-bit
+output.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> IDEA</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+IDEA (International Data Encryption Algorithm) is a block cipher
+which uses a 128-bit length key to encrypt successive 64-bit blocks of
+plain text. The procedure is quite complicated using subkeys generated
+from the key to carry out a series of modular arithmetic and XOR
+operations on segments of the 64-bit plaintext block. The encryption
+scheme uses a total of fifty-two 16-bit subkeys.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6-3" class="outline-3">
+<h3 id="sec-6-3"><span class="section-number-3">6.3</span> Blowfish</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+Blowfish is a symmetric block cipher that can be used as a drop-in
+replacement for DES or IDEA. It takes a variable-length key, from 32
+bits to 448 bits, making it ideal for both domestic and exportable
+use.  Blowfish is unpatented and license-free, and is available
+free for all uses.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Public-Key Encryption</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Public key cryptography uses two keys &#x2013; a <i>public key</i> known
+to everyone, and a <i>private</i> or <i>secret key</i> that is kept
+confidential. Public key cryptography was invented in 1976 by
+Whitfield Diffie and Martin Hellman.  It is also called
+/asymmetric encryption / because it uses two keys instead of one key. The 
+two keys are mathematically related, yet it is computationally infeasible to 
+deduce one from the other. 
+</p>
+
+
+<p>
+Unfortunately, public-key cryptography is about 1000 times slower
+than symmetric key cryptography.  But, modern hardware can cope with
+it.
+</p>
+</div>
+
+<div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> RSA</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+The most well-known of the public-key encryption algorithms is RSA, named 
+after its designers Rivest, Shamir, and Adelman. The un-breakability of the 
+algorithm is based on the fact that there is no efficient way to factor very 
+large numbers into their primes.
+</p>
+
+<ol class="org-ol">
+<li>Find two (large) primes, p and q.
+</li>
+<li>Compute the product, <i>n = p*q</i> (called, the public modulus). 
+</li>
+<li>Choose <i>e</i> (the public exponent), such that
+<ol class="org-ol">
+<li>e &lt;  n, and
+</li>
+<li>e is relatively prime to (p-1)*(q-1)
+</li>
+</ol>
+</li>
+<li>Compute <i>d</i> (the private exponent) such that <i>(e*d) mod
+(p-1)*(q-1) = 1</i>.
+</li>
+<li>Public-key is (n, e), and the private key is (n, d). 
+</li>
+</ol>
+
+<p>
+An example of the above numbers: <a href="./rsa.txt">./rsa.txt</a>.  Look up the man page:
+openssl(1).
+</p>
+
+
+<p>
+The/e/ and <i>d</i> are symmetric in that using either ((n,e)
+  or (n,d)) as the encryption key, the other can be used as the
+  decryption key.
+</p>
+
+
+<p>
+The only way known to find <i>d</i> is to know <i>p</i>
+and <i>q</i>.  If the number n is small, p and q are easy to discover
+by prime factorization.  Thus, p and q are chosen to be as large as
+possible, say, a few hundred digits long.  Obviously, p and q should
+never be revealed.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7-2" class="outline-3">
+<h3 id="sec-7-2"><span class="section-number-3">7.2</span> DSA</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+The Digital Signature Algorithm (DSA) is a United States Federal
+Government standard for digital signatures.
+</p>
+
+<ol class="org-ol">
+<li>Choose a prime q. Choose a prime modulus p such that p - 1 is a
+</li>
+</ol>
+<p>
+multiple of q.
+</p>
+
+<ol class="org-ol">
+<li>Choose g, a number whose multiplicative order modulo p is
+q. (This may be done by setting g = h<sup>((p - 1)/q)</sup> mod p for some
+arbitrary h (1 &lt; h &lt; p-1), and trying again with a different h if
+the result comes out as 1. Most choices of h will lead to a usable
+g; commonly h=2 is used.  )1.  Choose x by some random method,
+where 0 &lt; x &lt; q.
+</li>
+
+<li>Calculate y = g<sup>x</sup> mod p.
+</li>
+
+<li>Public key is (p, q, g, y), and the private key is x.
+</li>
+</ol>
+
+<p>
+An example of the above numbers: <a href="./dsa.txt">./dsa.txt</a>
+Look up the man page: openssl(1).
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7-3" class="outline-3">
+<h3 id="sec-7-3"><span class="section-number-3">7.3</span> Secure Communication Using Public Keys</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+Public-key systems, such as Pretty Good Privacy (PGP), are popular
+  for transmitting information via the Internet. They are extremely
+  secure and relatively simple to use.  You need to retrieve the
+  recipient's public key from one of several world-wide registries of
+  public keys that now exist to encrypt a message.
+</p>
+
+
+<p>
+When John wants to send a secure message to Jane, he uses Jane's
+  public key to encrypt the message. Jane then uses her private key to
+  decrypt it.
+</p>
+
+
+<p>
+In real-world implementations, public keys are rarely used to
+  encrypt actual messages because public-key cryptography is
+  slow. Instead, public-key cryptography is used to distribute
+  symmetric keys, which are then used to encrypt and decrypt actual
+  messages, as follows:
+</p>
+
+<ol class="org-ol">
+<li>Bob sends Alice his public key.  (Or, Alice retrieves Bob's public 
+key from a registry.)
+</li>
+<li>Alice generates a (random) symmetric key (called a session key),
+encrypts it with Bob's public key, and sends it to Bob.
+</li>
+<li>Bob decrypts the session key with his private key. 
+</li>
+<li>Alice and Bob exchange messages using the session key.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Man-in-the-Middle (MiTM) Attack</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+The public key-based communication between Alice and 
+Bob described above is vulnerable to a man-in-the-middle attack. 
+</p>
+
+
+<p>
+Let us assume that Mallory, a cracker, not only can listen to the
+traffic between Alice and Bob, but also can modify, delete, and
+substitute Alice's and Bob's messages, as well as introduce new
+ones.  Mallory can impersonate Alice when talking to Bob and
+impersonate Bob when talking to Alice. Here is how the attack
+works. 
+</p>
+
+<ol class="org-ol">
+<li>Bob sends Alice his public key. Mallory intercepts the key and
+sends her  own public key to Alice. 
+</li>
+
+<li>Alice generates a random session key, encrypts it with Bob's
+public key (which is really Mallory's), and sends it to Bob.
+</li>
+
+<li>Mallory intercepts the message. He decrypts the session key with
+his private key, encrypts it with Bob's public key, and sends it
+to   Bob.
+</li>
+<li>Bob receives the message thinking it came from Alice. He
+decrypts it with his private key and obtains the session key. 
+</li>
+
+<li>Alice and Bob start exchanging messages using the session
+key. Mallory, who also has that key, can now decipher the entire   conversation.
+</li>
+</ol>
+
+
+<p>
+A man-in-the-middle attack works because Alice and Bob have no way
+to verify they are talking to each other. An independent third party
+that everyone trusts is needed to foil the attack. This third party
+could bundle the name "Bob" with Bob's public key and sign
+the package with its own private key. When Alice receives the signed
+public key from Bob, she can verify the third party's signature. This
+way she knows that the public key really belongs to Bob, and not
+Mallory. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> Digital Certificates and Signatures</h2>
+<div class="outline-text-2" id="text-9">
+</div><div id="outline-container-sec-9-1" class="outline-3">
+<h3 id="sec-9-1"><span class="section-number-3">9.1</span> Certification Authority (CA)</h3>
+<div class="outline-text-3" id="text-9-1">
+<p>
+An independent third party that everyone trusts, whose
+responsibility is to issue certificates, is called a Certification
+Authority (CA). 
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-9-2" class="outline-3">
+<h3 id="sec-9-2"><span class="section-number-3">9.2</span> What is a Digital Certificate?</h3>
+<div class="outline-text-3" id="text-9-2">
+<p>
+A package containing a person's name or website's name &#x2026; (and
+possibly some other information such as an E-mail address and company
+name) and his public key and signed by a trusted third party is called
+a digital certificate (or digital ID).  A digital certificate
+certifies the ownership of a public key by the named subject of the
+certificate.
+</p>
+
+<p>
+A digital certificate serves two purposes.  First, it
+provides a cryptographic key that allows another party to encrypt
+information for the certificate's owner.  Second, it provides a measure
+of proof that the holder of the certificate is who they claim to be.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-9-3" class="outline-3">
+<h3 id="sec-9-3"><span class="section-number-3">9.3</span> Usage</h3>
+<div class="outline-text-3" id="text-9-3">
+<p>
+The recipient of an encrypted message uses (i) the CA's public key to
+decode the digital certificate attached to the message, (ii) verifies
+the certificate as issued by the CA, (iii) obtains the sender's public
+key and identification information held within the certificate.  The
+message must have been encrypted with the private key of the sender.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-9-4" class="outline-3">
+<h3 id="sec-9-4"><span class="section-number-3">9.4</span> X.509</h3>
+<div class="outline-text-3" id="text-9-4">
+<p>
+The most widely used standard for digital certificates is X.509.  What
+are colloquially known as SSL certificates are X.509 certificates.
+X.509 uses public key infrastructure (PKI) standard.  It defines the
+following:
+</p>
+
+<ol class="org-ol">
+<li>Version field identifies the certificate format.
+</li>
+<li>Serial Number unique within the CA.
+</li>
+<li>Signature Algorithm identifies the algorithm used to sign the certificate.
+</li>
+<li>Issuer Name is the name of the CA.
+</li>
+<li>Period of Validity is a pair of Not Before, and Not After Dates
+</li>
+<li>Subject Name is the name of the user to whom the certificate is   issued
+</li>
+<li>Subject's Public Key field includes algorithm name and the  public key of the subject.
+</li>
+<li>Extensions
+</li>
+<li>Signature of CA.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-9-5" class="outline-3">
+<h3 id="sec-9-5"><span class="section-number-3">9.5</span> Obtaining a Digital Certificate</h3>
+<div class="outline-text-3" id="text-9-5">
+<ol class="org-ol">
+<li>"You can either buy an SSL (X.509) certificate or generate your own
+(a self-signed certificate) for testing or, depending on the
+application, even in a production environment. Good news: If you
+self-sign your certificates you may save a ton of money. Bad news:
+If you self-sign your certificates nobody but you and your close
+family (perhaps) may trust them."
+</li>
+
+<li><a href="https://letsencrypt.org/">https://letsencrypt.org/</a> Let’s Encrypt is a free, automated, and
+open Certificate Authority.
+</li>
+
+<li>IRS approved certificate authorities: <a href="https://www.irs.gov/businesses/corporations/digital-certificates">https://www.irs.gov/businesses/corporations/digital-certificates</a>
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-9-6" class="outline-3">
+<h3 id="sec-9-6"><span class="section-number-3">9.6</span> Digital Signature</h3>
+<div class="outline-text-3" id="text-9-6">
+<ol class="org-ol">
+<li>The digital signature is associated with a
+document to authenticate where the document originated.
+
+<ol class="org-ol">
+<li>Alice the sender.
+<ol class="org-ol">
+<li>Compute a hash H of the document D.
+</li>
+<li>Encrypt H with the sender’s private key.  Result is E.
+</li>
+<li>Send the E and the digital certificate DCA of Alice.
+</li>
+</ol>
+</li>
+
+<li>Bob the recipient of the document D, E, and DCA.
+<ol class="org-ol">
+<li>Compute a hash H' of D.
+</li>
+<li>Decrypts E, the signature, with Alice's public key from DCA.
+Result is E'.
+</li>
+<li>Compare the two values, E' == H'?.  If they match, Bob knows that:
+<ol class="org-ol">
+<li>the document really came from Alice and
+</li>
+<li>the document was not tampered with during transmission.
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+
+<li>A digital certificate contains the digital signature of the
+certificate-issuing authority.
+</li>
+
+<li>"While digital signature is a technical term, defining the result
+of a cryptographic process that can be used to authenticate a
+sequence of data, the term electronic signature &#x2013; or e-signature
+&#x2013; is a legal term that is defined legislatively."
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> Open Source Cryptography</h2>
+<div class="outline-text-2" id="text-10">
+<ol class="org-ol">
+<li>Changes in the crypto export regulations in 2000 now make it
+possible to distribute open source cryptography.
+</li>
+
+<li><a href="https://kernel.org/pub/linux/kernel/crypto/">https://kernel.org/pub/linux/kernel/crypto/</a> contains crypto
+extensions to the kernel that provide the ability to encrypt
+filesystems, create virtual private networks, etc.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> StegFS - A Steganographic File System for Linux</h2>
+<div class="outline-text-2" id="text-11">
+<ol class="org-ol">
+<li>Steganography hides "data" such that it cannot be proved to be there.
+</li>
+<li>StegFS encrypts data.
+</li>
+<li><a href="https://www.cl.cam.ac.uk/~mgk25/ih99-stegfs.pdf">https://www.cl.cam.ac.uk/~mgk25/ih99-stegfs.pdf</a> Reference
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> References</h2>
+<div class="outline-text-2" id="text-12">
+<ol class="org-ol">
+<li><code>man openssl</code> This man page is Required Reading.
+</li>
+
+<li>Simson Garfinkel, and Gene Spafford, Practical Unix and Internet
+Security, 3rd edition (2003), O'Reilly &amp; Associates; ISBN:
+0596003234; Chapter on Cryptography.  Required Reading.
+</li>
+
+<li>Microsoft, "Introduction to Code Signing," Required reading.
+</li>
+
+<li>Boaz Barak, An Intensive Introduction to Cryptography,
+<a href="https://intensecrypto.org/public/">https://intensecrypto.org/public/</a>, 2018. Free PDF.  Whole Book: Reference.
+Chapter on Public Key Cryptography: Required Reading.
+</li>
+
+<li><a href="https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/slides/13-sigs.pdf">https://crypto.stanford.edu/~dabo/courses/OnlineCrypto/slides/13-sigs.pdf</a>
+   What is  a digital signature? 60+ slides from stanford.edu
+</li>
+
+<li><a href="https://medium.com/cryptolawreview/cryptolaw-9410cf7a8fd4">https://medium.com/cryptolawreview/cryptolaw-9410cf7a8fd4</a> CryptoLaw
+How to (1) see the Crypto Legal Matrix, (2) overcome regulatory
+anxiety (3) make peace with law.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-13" class="outline-2">
+<h2 id="sec-13"><span class="section-number-2">13</span> End</h2>
+<div class="outline-text-2" id="text-13">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2018-09-05
+</div>
+</body>
+</html>

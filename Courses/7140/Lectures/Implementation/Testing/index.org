@@ -1,0 +1,156 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+
+#+TITLE: Software Testing
+#+AUTHOR: Prabhaker Mateti
+
+#+DESCRIPTION: Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Overview/Goals
+
+1. You may have understood testing on very intuitive basis
+1. Make this understanding more rigorous
+1. Software testing v testing in engineering
+
+1. Software Test Design Goal: "hope" to fail
+#+BEGIN_QUOTE
+   "Testing shows the presence, not the absence, of bugs"
+   -- Edsger W. Dijkstra, 1969, Turning Award Winner 1972
+ #+END_QUOTE
+1. Goal of Debugging: Identify the location where errant behavior begins
+  1. Definition of a "Errant Behavior"
+  1. Can we recognize errant behavior?  How soon?
+
+1. Repeatability of Tests
+  1. In the presence of concurrency
+
+1. Test Suites
+  1. [[http://en.wikipedia.org/wiki/Smoke_testing]["Smoke" Test]] description on Wikipedia
+  1. Conformance/ Acceptance Tests
+  1. [[http://en.wikipedia.org/wiki/Regression_testing][Regression]] description on Wikipedia
+
+* Definition of a "Test"
+  1. test io pair: input and its *expected* output
+     1. "test vector" refers to the inputs given at one time
+  1. input includes: actual arguments, state of files, databases, ...
+     1. everything the program "reads"
+  1. output: as above
+     1. everything the program "writes"
+  1. test fails if *observed* output != expected
+  1. hangs v crashes; both => fail
+
+* Test Generation
+  1. Generate the io pairs, with high likelihood of test failures
+  2. Assume for now that input is text, and the output is text
+  3. when it is a test of an "internal" component, the io may not be a
+     "text/text" pair
+     1. Unit testing solves this problem
+  4. Considerable research on: Formal specs  => Tests
+
+     1. Offutt, Jeff, and Aynur Abdurazik. "Generating tests from UML
+        specifications." In «UML»’99—The Unified Modeling Language,
+        pp. 416-429. Springer Berlin Heidelberg, 1999.  Reference
+
+     1. Pradel, Michael, and Thomas R. Gross. "Leveraging test
+        generation and specification mining for automated bug
+        detection without false positives." In 34th International
+        Conference on Software Engineering (ICSE),
+        pp. 288-298. IEEE, 2012.  Reference
+
+* Test Coverage
+
+1. Can we construct tests that exercise every line of code?
+1. Statement coverage: execute each statement (at least) once
+1. Branch coverage: Execute each branch after a condition statement
+1. Path coverage: Execute all paths through the code
+1. Tools to track coverage
+   1. C/C++: gprof, gcov/lcov, googletest, ...
+   1. Java: eCobertura, [[http://codecover.org/][CodeCover]], EclEmma  
+1. Does 100% coverage and no failures, guarantee that software is
+   fault-free?
+
+* Testing Techniques
+1. Black box testing (aka functional testing): Uses no info re internals
+1. White box testing (aka structural testing): Uses all info re internals
+1. Worst/Special Case Testing
+  1. Errors seem to cluster at boundaries
+  1. What if values fall outside their ranges
+  1. "Torture" (Stress) Tests 
+
+* Equivalence Class Testing
+
+1. Goal: Reduction of human/computer testing effort
+1. Divide the test vectors into subsets so that test coverage is the same
+1. The program is likely constructed so that it either succeeds or 
+   fails for each of the values in that class
+1. To test for robustness: for each equivalence class of valid
+   inputs, devise equivalence classes of invalid inputs
+1. "cover" a class: Construct tests choosing one value from the class
+1. The goal is to cover all equivalence classes
+
+* Unit testing, Integration Testing
+
+1. OOP and programming language (PL) neutral term "unit"  cf. class, method
+1. Unit test: test one method of one isolated class with one thread
+1. Tools for unit testing: JUnit and TestNG (both for any JVM based PL)
+1. Integration test: Test (all) the units together. It occurs after
+   unit testing and before validation testing.
+1. see separate lectures
+   1. [[./testing-units.org]]
+   1. [[./testing-integrated.org]]
+
+
+* Testing of Interactive Programs
+1. Input generated in "real" time
+1. Output observed in "real" time
+1. Correctness judgement?
+1. Book: Don Libes, "Exploring Expect: A Tcl-based Toolkit for
+   Automating Interactive Programs", O'Reilly Media, Inc., 2010, 606
+   pages.  Look it up in WSU Library Safari Books.
+1. The "expect" is a standard package in Debian/Ubuntu systems
+
+* Mutation Testing
+1. How "good" are the tests?  Suppose we alter the source code, and
+   apply the same tests.  Do the results change?
+2. Simple Source Code Mutations
+   1. Replace && in boolexp with ||
+   2. Replace if B then S fi with while B do S od
+   3. Exchange parameters/args (of the same type)
+3. Does a test distingguish actual software S from a mutated S'.
+4. http://en.wikipedia.org/wiki/Mutation_testing  Required Reading.
+5. IntelliJ IDEA + Eclipse plugin http://pitest.org/quickstart/mutators/
+6. Eclipse Plugin http://muclipse.sourceforge.net/
+   1. inactive 2011; so activate it!
+   1. http://cs.gmu.edu/~offutt/mujava/ is "a mutation system for Java
+      programs. It automatically generates mutants for both
+      traditional mutation testing and class-level mutation
+      testing. µJava can test individual classes and packages
+      ... encapsulated in methods in JUnit classes."
+
+* Reference
+
+1. Glenford J. Myers, The Art of Software Testing, Second
+   Edition Revised and Updated by Tom Badgett and Todd M. Thomas with
+   Corey Sandler John Wiley & Sons, Inc.  2004. Reference.
+
+4. http://en.wikipedia.org/wiki/Mutation_testing  Required Reading.
+
+1. Pfleeger and Atlee, Software Engineering, chapters on Testing.
+   Slides.  Required Reading.
+   1. http://wps.prenhall.com/esm_pfleeger_softengtp_4/
+   1. [[./PA-chapter08-Testing.ppt]]
+   1. [[./PA-chapter09-TestingTheSystem.ppt]]
+
+1. Barr, Earl T., et al. "The oracle problem in software testing: A
+   survey." IEEE transactions on software engineering 41.5 (2015):
+   507-525. http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6963470
+
+1. http://courses.cs.washington.edu/courses/cse331/16wi/L08/L08-Testing.pdf
+   Reference

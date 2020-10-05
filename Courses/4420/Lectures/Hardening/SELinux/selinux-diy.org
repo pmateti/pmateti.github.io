@@ -1,0 +1,180 @@
+
+# -*- mode: org -*-
+#+date: 2018-11-30
+#+TITLE: SELinux DIY Policy Module
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Example Driven
+
+1. =man hddtemp= root@Milner:~# hddtemp -uF /dev/sdb /dev/sdb: WDC WD1002FAEX-00Z3A0: 91°F
+
+1. An SELinux policy controls the AVC decisiom making based on process
+   labels coupled with other   labels on the system.
+1. This is known as type enforcement.  Happens within the kernel LSM.
+
+* seinfo demo
+
+1. =seinfo= on my PC
+1.
+   #+begin_src bash
+root@Milner:~# seinfo
+Statistics for policy file: /sys/fs/selinux/policy
+Policy Version:             31 (MLS enabled)
+Target Policy:              selinux
+Handle unknown classes:     allow
+  Classes:             128    Permissions:         454
+  Sensitivities:         1    Categories:         1024
+  Types:              4053    Attributes:          207
+  Users:                 6    Roles:                14
+  Booleans:            239    Cond. Expr.:         269
+  Allow:            105172    Neverallow:            0
+  Auditallow:           23    Dontaudit:         17663
+  Type_trans:         9231    Type_change:          72
+  Type_member:          16    Range_trans:          35
+  Role allow:           28    Role_trans:          416
+  Constraints:         136    Validatetrans:         0
+  MLS Constrain:        57    MLS Val. Tran:         0
+  Permissives:           0    Polcap:                5
+  Defaults:              0    Typebounds:            0
+  Allowxperm:            0    Neverallowxperm:       0
+  Auditallowxperm:       0    Dontauditxperm:        0
+  Initial SIDs:         27    Fs_use:               26
+  Genfscon:             90    Portcon:             473
+  Netifcon:              0    Nodecon:               0
+#+end_src
+
+
+* Policy Rules
+
+   1. Policy Rules Statement: command sourcetype targettype: class perms;
+   2. command: =allow, dontaudit, audit2allow, neverallow=
+   3. class: =file, dir, sock_file, tcp_socket, process=
+   4. perms: =read, open, write=
+   5. ex: =allow staff_t etc_t:file { open read getattr ioctl lock};=
+   6. ex: =dontaudit staff_t shadow_t:file { open read getattr ioctl lock};=
+
+** Policy rules TBD
+ 1. m4 macro language
+       1. policy macros are used
+         define(`r_file_perms', `{ open read getattr lock ioctl }
+1. =/usr/share/selinux/devel/include/support/obj_perm_sets.spt=
+
+* Attributes: Group Types
+
+1. =attribute file_type=
+1. =type etc_t, file_type=
+1. =typeattribute etc_t, file_type=
+1. =allow rpm_t file_type: file manage_file_perms=
+
+* Policy Module?
+
+1. It is a place where all policy statements are located
+1. allows users to easily customize policy
+1. allows third parties to ship policy with their debs, rpms, ... packages
+
+1. similar to kernel modules
+1. recompile and reload
+
+** Policy Package
+
+1. Generate policy package (.pp) to be installed on systems.
+
+* Our hddtemp Policy
+
+1. Disable the current policy: =# semodule -d hddtemp=
+1. Fix labels
+   #+begin_src bash
+     # for i in $(dpkg -L hddtemp); do restorecon -R -v $i; done
+     # systemctl restart hddtemp
+     # ps -eZ |grep hddtemp
+   #+end_src
+
+1. What are you getting?
+
+** Check Environment
+
+  1. you should see =initrc_t= type
+  1. default type for process without SELinux policy started by init system
+  1. unconfined domain
+  1. we don't want to have initrc_t on a system => we need to create a policy
+
+** Generating Initial Policy
+
+1. Generate the policy files: [cwd was =/root= ]
+   #+begin_src bash
+# sepolicy generate -n myhddtemp --init $(which hddtemp)=
+Created the following files:
+/root/myhddtemp.te # Type Enforcement file
+/root/myhddtemp.if # Interface file
+/root/myhddtemp.fc # File Contexts file
+/root/myhddtemp.sh # Setup Script
+#+end_src
+
+** Install Policy
+
+1. =# sh myhddtemp.sh=
+1. Using Makefile generate .pp file
+   #+begin_src bash
+        # make -f /usr/share/selinux/devel/Makefile myhddtemp.pp
+        # systemctl hddtemp stop
+        # semodule -i myhddtemp.pp
+        # for i in $(dpkg -L hddtemp);do restorecon -R -v $i;done
+   #+end_src
+
+**  Initial Policy: Checks
+
+1. 
+   #+begin_src bash
+    # semodule -l | grep hddtemp
+    # ls -Z `which hddtemp`
+    # systemctl start hddtemp
+    # ps -eZ | grep hddtemp
+    # ausearch -m avc -ts recent
+   #+end_src
+
+1. Does the service work correctly?
+1. Does it work without permissive?
+
+
+* Permissive Domains
+
+1. initial policies are running as permissive  domains
+4. check AVC messages: =# ausearch -m avc -ts recent | grep hddtemp=
+5. make domain permissive: =# semanage permissive -a hddtemp_t=
+3. users don't have to switch to permissive mode globally
+
+* Building policy
+
+1. loop until good policy
+  1. test application
+  1. examine generated AVC messages
+
+1. ausearch, audit2allow tools
+     1. =# ausearch -m avc -ts today | grep myhddtemp | audit2allow -R=
+1. compile and load rules
+     1. =# ausearch -m avc -ts today | grep hddtemp | audit2allow -R >> myhddtemp.te=
+     1. =# make -f /usr/share/selinux/devel/Makefile myhddtemp.pp=
+     1. =# semodule -i myhddtemp.pp=
+1. Test it with enforcing mode
+
+** Confined vs unconfined daemon
+  1. without myhddtemp policy
+     1. ls -Z /sbin/hddtemp -> bin_t type
+     1. init_t @bin_t -> initrc_t
+  1. with the myhddtemp policy
+     1. ls -Z /sbin/hddtemp -> myhddtemp_exec_t type
+     1. init_t @hddtemp_exec_t -> hddtemp_t
+  1. run directly
+     1. unconfined_t @hddtemp_exec_t-> hddtemp_t
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

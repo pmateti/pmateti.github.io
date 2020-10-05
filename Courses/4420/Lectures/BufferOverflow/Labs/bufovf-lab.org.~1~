@@ -1,0 +1,109 @@
+# -*- mode: org -*-
+#+date: 2018-10-09
+#+TITLE: Lab on Buffer Overflow Exploits WIP TBD
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Background Knowledge
+
+1. What is the "prompt string"?  How do you change it?
+1. What is the "environment"?  How does one process pass it to the next?
+1. What does =system("/bin/bash")= do?  What else can we substitute
+   instead of "/bin/bash"?
+1. Why does =exploit3.c= run =system("/bin/bash")= at the end of
+   =main()=?
+1. There are now (201x) many preventive measures in place that the
+   AlephOne's exploit4 no longer works in modern Linux installations.
+   But, you can run an older distro, such as Auditor, and experience
+   the exploit.  [[./Auditor/vm-setup.html]] describes a setup using
+   [[./Auditor/auditor-250405-01.iso]] Auditor Live CD of 2008, from the
+   same group that develops Kali Linux.
+
+
+* Tasks
+
+Objective: Understand the stack smashing buffer exploit thoroughly.
+
+** Task: GCC Should Not Complain [2 * 5 points]
+
+1. Improve the source code of =exploit3.c= and =exploit4.c= of
+   AlephOne so that there are no warning messages from =gcc= even
+   after using the =gcc -ansi -pedantic -Wall= flags.  This implies
+   replacing asm-coding of =get_sp()= with plain C code.
+
+** Task: Size Reduction [10 points]
+
+1. Reduce the size of their [ =exploit3.c= and =exploit4.c= ] compiled
+   and linked
+   binaries by at least 5% as seen by the =size= command when exactly
+   the same flags are used in the compilation.  Make sure no
+   functionality is lost. E.g., do not just remove =printf='s.  Not
+   easy.  Do your best.  Document your effort.
+
+1. Thoroughly describe your changes, and how you verified that there
+   was no loss of functionality.  Include properly indented versions
+   of your =exploit*.c= files.  Use =indent -kr=.
+
+1. Real goal of this task is to study the code thoroughly.
+
+** Task: Experience the Exploit TBD
+
+1. TBD modret in Auditor and a modern Linux.
+
+1. TBD exploit the vulnerable.c Does it Still Work? Login as a
+   non-root user.  Verify that the exploit still works on the
+   =vulnerable= program. (It may not!)
+
+1. TBD exploit a setuid-root program found within Auditor.
+1. TBD exploit a setuid-root program found within a modern Linux.
+
+** Task: Current Buffer Overflow Exploits
+
+1. Search the web and report on at least two recent (within last 12
+   months) buffer overflow exploits/ attacks.  Recall that there are
+   alternate names for this exploit.  The report should be technically
+   deeper than what you may find on CNN, https://www.cnet.com/, etc.
+   Aim for the level at least that of typical articles of
+   https://arstechnica.com/.
+
+
+* Tasks: [Bonus][Optional]
+
+1. [25 points] Take an exploit reported above.  Study its CVE.  Demo
+   that the exploit works on a Linux installation of a recent (say,
+   last 24 months) distro.
+
+* Submission
+
+1. Lab L4 Grading Sheet is superseded by this document.  Point
+   assignments are shown in brackets.  There are bonus points for a
+   "job well done" even if you skipped the bonus tasks.
+
+1. You must follow the Lab Report Template. There should be a section
+   on each of the tasks. A couple of lines of an answer to each
+   (implied/ explicit) question/ discussion item.  Must number it as
+   in this document.  
+
+1. Use good judgement and do not make the report way longer than, say,
+   20 pages. Submit explanations and code that verifies your answers.
+
+1. [5 points] Include a journal.  By the hour.
+
+1. This lab requires revisions of a few given source code
+   files. Include the revised versions in L4.tbz.
+
+1. Submit a PDF file named exactly =Report-L4.pdf=, and a tarball
+   =L4.tbz= [use =tar cfjvv L4.tbz source-files*= ]. (Scripts are used
+   to check various things – so file names should obey such "rules".)
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

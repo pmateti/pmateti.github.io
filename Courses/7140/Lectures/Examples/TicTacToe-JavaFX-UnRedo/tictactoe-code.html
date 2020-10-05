@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Code Documentation of Tic-Tac-Toe with JavaFX</title>
+<!-- 2016-02-06 Sat 09:11 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="Mateti: OO Programming and Design"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../../Top/index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Code Documentation of Tic-Tac-Toe with JavaFX</h1>
+<p>
+This is part of <a href="../../Examples/TicTacToe-JavaFX-UnRedo">../../Examples/TicTacToe-JavaFX-UnRedo</a>.  It describes
+the src code.  It is assumed that the reader knows how JavaFX works.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Src Code</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>JavaFX source code of TicTacToe
+<ol class="org-ol">
+<li><a href="./TicTacToe.java">./TicTacToe.java</a> Java src code 
+</li>
+<li><a href="./TicTacToe.java.html">./TicTacToe.java.html</a> Java src code colorized
+</li>
+<li>You can build and run it as in 
+<pre class="example">
+% javac TicTacToe.java; java TicTacToe
+</pre>
+</li>
+</ol>
+</li>
+<li><code>sloccount TicTacToe.java</code> gives java: 109 (100.00%).
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> TicTacToe extends JavaFX Application</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>The <code>start</code> method overrides the JavaFX provided default.  It is
+indirectly invoked by the <code>launch</code> in <code>main</code>.  The argument
+<code>primaryStage</code> is supplied through this mechanism.
+</li>
+<li><code>hasWon</code>, <code>isFull</code> are obvious
+</li>
+<li><code>drawX</code> draws two JavaFX lines so that they look like an X.
+</li>
+<li><code>drawO</code> draws a circle using the JavaFX Ellipse method.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Inner Class Named Cell extends JavaFX Pane</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Note that cell is one cell of the 3x3 grid.
+</li>
+<li>In <code>setOnMouseClicked(e -&gt; handleMouseClick());</code>, we are using
+Java8 Lambda Expression.  This says when a mouse-click happens
+within the area of a cell, invoke the method named
+<code>handleMouseClick</code>.  We are ignoring the details of the event <code>e</code>.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Event Listeners</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>The <code>main</code> method invokes <code>launch</code>.  This is typical of a JavaFX
+Application.  The launch invokes <code>start</code>.  Then onwards, it is all
+driven by events.
+</li>
+<li>The for-loop in <code>start</code> constructed Cell objects, all of which have the
+same <code>handleMouseClick</code> method as their event handler.  This
+handler is executing in the context of the specific Cell object
+where the event occurred.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Discussion</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>The code linked above has at least one bug.  Find and fix its bugs.
+</li>
+<li>Code smells:  Should some of those <code>public</code> methods be private?
+What other bad smells do you detect?
+</li>
+<li>The business logic and GUI are not well separated. Revise the code.
+</li>
+<li>How does this program terminate?
+</li>
+<li>Redo the implementation of <code>whoseTurn</code> as a renamed <code>itIsXsTurn</code>
+   Boolean. Does this make the code better or worse?
+</li>
+<li>This problem was used as a <a href="http://cecs.wright.edu/~pmateti/Courses/4180/Labs/L4.html">Lab of CEG 4180</a> OOProg + Design.  Do the
+Undo/Redo.
+</li>
+<li>Should documentation be embedded in the source code file itself?
+Perhaps following javadoc suggestions?
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2015 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a>
+</div>
+</body>
+</html>

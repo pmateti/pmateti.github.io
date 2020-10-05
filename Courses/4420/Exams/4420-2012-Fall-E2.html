@@ -1,0 +1,154 @@
+<html>
+  <head>
+    <title>CEG 4420 Computer Security Midsemester Exam by Prabhaker Mateti</title>
+    <meta name="author" content="Prabhaker Mateti">
+    <meta name="keywords" content=
+	  "Computer security, Network security">
+    <meta name="description" content=
+	  "This page is part of a set of lectures notes for a course
+	  on Security by Prabhaker Mateti
+	  http://www.cs.wright.edu/~pmateti/">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <style type="text/css">
+      a:hover      { color: blue; background-color: yellow; }
+      a:active     { color: white; background-color: green;}
+      p { text-align: justify }
+      li { text-align: justify }
+      pre {border:blue 1px dotted;}
+      tt {border:blue 1px dotted;}
+      @media screen {BODY {margin: 10%;} }
+    </style>
+  </head>
+
+  <body>
+    <table border="0" width="100%" cellpadding="10">
+      <tr>
+	<td valign="top" width="10%">
+	  <a target="_blank" href="http://www.wright.edu/">
+	    <img src="./wsu-logo-xsm.gif" border="0" width="150" align="left"></a>
+	</td>
+	<td valign="top" width="40%">
+          <h3><a href="http://www.cs.wright.edu/~pmateti/Courses/4420/">
+	      CEG 4420/6420: Host Computer Security</a></h3>
+
+          <h3>Fall 2012 &bull; Final &bull; 100 points</h3>
+
+	  <p>Due: Dec 13, 2012 Thursday 11:59 PM.  
+
+	</td>
+      </tr>
+    </table>
+
+    <blockquote>
+      <p>This is a take home exam given to you on Dec 12, 2012 at 5:00
+	PM.  Be aware that copy-n-paste answers constitute cheating.
+	Your answers are expected to be in your own words after
+	digesting the relevant educational materials, however
+	discovered.  It is unprofessional to not cite your sources.
+	Do not give or take help from others.
+      <p>Submit your answers on
+	<tt>gandalf.cs.wright.edu</tt>
+	  using <tt>~pmateti/ceg4420/turnin FI answers.pdf exploit4-revised.c</tt>.
+    </blockquote>
+
+    <ol>
+      <li>(5*5 points) The following statements may or may not be
+	(fully or partially) valid.  Explain the underlined
+	    technical term</i> (also marked with ##) occurring in each statement.  Explain/
+	discuss/ dispute the statement.  It is <i>possible</i> to write no
+	more than, say, five, sentences each, and yet receive full score.
+
+	<ol type=i>
+	<li>A packet filter can be configured to prevent <u>IP
+	spoofing.</u> ##</li>
+	<li>For something to be called a <u>virus</u> ##, it must
+      embed in such a way that it is executed only intermittently.</li>
+	<li> <u>Address Space Layout Randomization</u> (ASLR) ## helps prevent 
+	backdoors.</li>
+	  <li>At least one of the following <u>log files</u> ##
+<tt>/var/log/dmesg</tt>,
+<tt>/var/log/messages</tt>,
+<tt>/var/log/syslog</tt> does exist in all Linux systems, but 
+none of them is useful in the context of security.
+	  <li><u>Hackers</u> ##, as distinct from attackers, do have
+	  ethics.</li>
+	</ol>
+      </li>
+
+      <li>(5*15 points)
+
+	<ol type="i">
+	  <li>This exercise is a continuation of the one given in the
+	    last <a href="http://www.cs.wright.edu/~pmateti/Courses/4420/Exams/">
+	    Mid Semester Exam</a>.  Our attack plan is to replace the
+	    kernel and init with Trojaned versions that are already
+	    created by the attacker and available
+	    at <tt>/root/.-+/.-vmlinuz</tt>
+	    and <tt>/root/.-+/.-init</tt>.  Assume that these files
+	    were not detected.  Assume that the existing modules and
+	    initrd are useable with the new vmlinuz.  Note the use of
+	    dot and other characters.  The replaced versions should
+	    become effective at next boot.  Give details of the attack
+	    plan, at the level of bash scripts and invoking them at
+	    events E1 through E10 etc.
+	  </li>
+
+	  <li>Suppose that you as an attacker has already acquired
+	    root privileges on a large Linux system that has thousands
+	    of users.  Your goal is to obtain 10+ username-password
+	    (in clear text) combinations, replace what ever changes
+	    you made with their originals so that this activity has a
+	    greater chance of going unnoticed.  You want the clear
+	    text passwords because cracking the encoded passwords in
+	    the <tt>shadow</tt> file proved to be too hard.  Give
+	    details, at the level of bash scripts, of how you would
+	    accomplish this task. </li>
+
+	  <li>Take
+	    <a href="../BufferOverflow/AlephOne/">
+	      exploit4.c</a>
+	    of Aleph One, and fix it so that all of
+	    Holzmann's Ten Rules are satisfied.  Describe the changes
+	    you made.  Include the exploit4-revised.c as a separate
+	    file in your turnin.
+
+
+	  <li>One of the hardening actions taken in modern Linux
+	    kernels is to remove abstract devices <tt>/dev/mem</tt>
+	    and <tt>/dev/kmem</tt>. (i) Explain the purpose of these
+	    devices as used in the past.  (ii) Using an example or
+	    two, describe an exploit that uses these devices.  (iii)
+	    Discuss if these devices can be resurrected in a running
+	    Linux system with a modern kernel (such as 3.6+) even
+	    though the kernel is compiled without them.
+	  </li>
+
+
+	  <li>It is well-known that a large percentage of systems
+	    remain vulnerable long after security patches have been
+	    issued because the patches have not been applied.&nbsp;
+	    Mr. Means Well, a security expert, got tired of this
+	    situation, and wrote a worm-like system, MWP, that applies
+	    patches without engaging in a dialog with the
+	    sysadmin.&nbsp; The MWP examines the system that it is
+	    currently on, fetches all relevant patches from reputable
+	    web sites, verifies their digital signatures, applies them
+	    to the current system, and mails to the sysadmin (i) a
+	    detailed log of what files were modified and why, and (ii)
+	    a script that will undo the work of MWP bringing the
+	    system back to what it was.  It then spreads to other
+	    systems.&nbsp; Discuss the ethical issues raised by
+	    MWP.</ol>
+
+      <li>(0 points) [For survey purposes only.] Please record your
+	effort in minutes for each of the above ten items.  Other feedback
+	you wish to give is also welcome.
+      </li>
+    </ol>
+    <hr size="1">
+    <a href="../copyright.html">Copyright &copy;</a>  2012
+    <a href="http://www.cs.wright.edu/~pmateti" target=
+       "_blank">Prabhaker Mateti</a> ; Dec 2012
+
+  </body>
+</html>
