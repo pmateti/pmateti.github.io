@@ -1,6 +1,0 @@
-
-1. org gen html uses <div ...> a lot; replace all these with <section ...>
-1. reveal has just two <div>
-1. or html toc uses ul
-1. section no need for id
-1. del <span class="section-number-3">2.1</span>? or change the css for it

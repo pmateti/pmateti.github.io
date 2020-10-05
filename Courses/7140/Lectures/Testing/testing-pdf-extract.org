@@ -1,8 +1,0 @@
-
-** testing overview
-1. testing.pdf
-Software Testing Software Testing
-CISC 323
-Winter 2006
-Prof. Lamb             Prof. Kelly
-malamb@cs.queensu.ca  kelly-d@rmc.ca 

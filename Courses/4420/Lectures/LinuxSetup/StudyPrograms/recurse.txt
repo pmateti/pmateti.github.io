@@ -1,2 +1,0 @@
-x 2046 sp 401f7788
-Segmentation fault

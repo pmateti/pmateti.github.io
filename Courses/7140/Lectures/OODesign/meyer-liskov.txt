@@ -1,9 +1,0 @@
-
-Meyer specifically rejects the Leskov Substitution Principle (LSP). Under the definitions of Meyer and America, a MutablePoint would be a behavioral subtype of ImmutablePoint, whereas LSP forbids this. Note the Python Tuple vs. List mutability distinction.
- 
-Tuple cannot be a subclass of List because Lists are mutable and tuples aren't. Therefore, Tuples can't be used in some situations where Lists are used. Similarly, List cannot be a subclass of Tuple because Tuples can be used in situations (like keys in dictionaries) where mutable types can't be used.
- 
- 
-Meyer's language, Eiffel, uniquely among mainstream languages, allows the arguments of an overriding method to have a more specific type than the method in the superclass (argument type covariance). This means that the subtype CANNOT be used in every situation where the super type can be used.
- 
-From "Masterminds of Programming: Conversations with the Creators of Major Programming Languages":
