@@ -1,0 +1,79 @@
+# -*- mode: org -*-
+#+date: 2020
+#+TITLE: New Things of Java8+ and Less Noticed Old Features
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"index-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+These notes are an overview of new features of Java 8 and up, as well
+as less noticed old features, such as closures.
+
+* Java 8+
+
+1. [[../Java/java8-lambda.org][Lambda Expressions]] (Closures)
+2. [[../Java/concurrent-java.org][Concurrency in Java]]
+3. [[../EventDriven][Event Driven Programming]]
+4. [[../Java/javaFX.org][JavaFX for GUI]],  [[../Java/src/][Examples of Java/JavaFX Programs]]
+5. [[../Java/java8-stream.org][Sequential Streams]]
+6. [[../Java/java8-stream-par.org][Parallel Streams]]
+7. [[../Java/futures-callables.org][Futures and Callables]]
+8. [[../Java/misc.org][Miscellaneous]]
+   1. Improved Security
+   2. Delegates
+   3. Anonymous Classes
+   4. Interfaces with Methods
+
+1. Java 11 https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
+   Nested Classes. Just like methods, variables of a class too can
+   have other classes as its members.
+
+1. Java 12 https://blog.jetbrains.com/idea/2018/10/preview-raw-string-literals-in-intellij-idea-2018-3/
+
+
+* Scala
+
+1. Scala can be considered a "modern version" of Java.
+   1. Elimination of "boiler plate" code: setters, getters,
+      constructors auto generated.
+   2. FOSS Project https://projectlombok.org/ does that for Java, by
+      manipulating the ASTs.
+   3. Syntax is substantially different.
+   5. Design of Scala started in 2001.
+2. Type inference is an integral part of Scala.
+3. Has functional programming features also.
+4. [[../Scala]]
+
+* Kotlin
+
+1. Kotlin == ++Java, Kotlin improves over Java.
+1. Less verbose: type inference, getter + setter methods, etc.
+1. Kotlin can be compiled into JVM byte code, as well as, native
+   machine code.  So, can Java.
+1. IntelliJ can "convert" Java source to Kotlin.
+1. Kotlin has coroutines, etc.
+1. Kotlin is the recommended dev language in Android SDK
+1. https://kotlinlang.org/docs/reference/comparison-to-java.html
+
+* References
+
+1. https://en.wikipedia.org/wiki/Java_version_history  Required Reading.
+1. Oracle.com, Java Essentials Tutorial,
+   https://docs.oracle.com/javase/tutorial/essential/TOC.html.  This
+   is *the* recommended tutorial.  Reference.
+
+1. http://lambdafaq.org Maurice Naftalin's Lambda and friends
+   FAQ. Includes streams, etc. 2015.  Reference.
+
+1. David Svoboda,
+   https://insights.sei.cmu.edu/sei_blog/2015/10/is-java-more-secure-than-c.html
+   Is Java More Secure than C? Oct 2015.  Recommended Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

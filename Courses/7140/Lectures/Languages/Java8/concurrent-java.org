@@ -1,0 +1,53 @@
+# -*- mode: org -*-
+#+date: 2015-10-14
+#+TITLE: Java and Concurrency
+#+AUTHOR: Prabhaker Mateti
+
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"concurrent-java-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Abstract
+
+These are notes on how Java supports concurrency.  There is a separate
+page for Java support for event-driven programming.  We are assuming
+that a course in OS concepts has contributed pretty good understanding
+of concurrency, and processes.
+
+* Concurrency Fundamentals
+
+1. [[./concurrency-fundas.org]] Processes, Threads, msg passing, synch,
+   mutex, scheduling, etc.  Language independent discussion.
+
+1. the /happens-before/ relationship
+1. Atomic Access
+1. Locks
+
+* Java Concurrency
+
+1. Java had concurrency support from Java1. Java8 adds significant
+   improvements.  [[https://docs.oracle.com/javase/8/docs/technotes/guides/concurrency/changes8.html][Official docs]].
+
+1. Defining and Starting a Thread
+1. Synchronized Methods, Guarded Blocks
+1. =java.util.concurrent.ExecutorService= Interface
+1. Thread Pools
+1. Fork/Join
+
+** Example Source Code
+1. [[../Java8/src/Meenie.java]] Eeny, meeny, threads
+1. http://sourceforge.net/projects/javaconcurrenta/ Open source. Java
+   Concurrent Animated: Animations that show usage of concurrency
+   features.
+1. To try it out, download =javaConcurrentAnimated.jar=, and run\\
+   =java -cp patName/javaConcurrentAnimated.jar vgrazi.concurrent.samples.launcher.ConcurrentExampleLauncher=
+
+1. https://docs.oracle.com/javase/tutorial/essential/concurrency/
+   Oracle Java Tutorial, Concurrency Trail; My Lecture. The items
+   above are all covered here.  Required Reading
+

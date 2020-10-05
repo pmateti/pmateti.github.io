@@ -1,0 +1,453 @@
+<html>
+<head>
+  <title>Configuring a System Properly</title>
+  <style type="text/css">
+body {margin: 2cm 2cm 0cm 2cm;}
+  a:hover { color: blue; background-color: yellow; }
+  a:active{ color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P { text-align: justify }
+  li { text-align: justify }
+  tt {border:blue 1px dotted;}
+  @media screen {BODY {margin: 10%;} }
+  </style>
+</head>
+
+<body>
+  <h1>Configuring a System Properly</h1>
+
+  <h2><a target="_blank" href=
+  "http://www.cs.wright.edu/~pmateti">Prabhaker Mateti</a></h2>
+
+  <blockquote>
+    <p>Abstract: As many as a billion nodes connected to the Internet
+    are personal machines running Windows and Linux, with little
+    supervision from system administrators.  These have become targets
+    of script kiddies. This lecture and the associated lab experiment
+    are intended to help configure personal systems running Linux.</p>
+  </blockquote>
+
+  <h2><a name="Table of Contents">Table of Contents</a></h2>
+
+  <ol>
+    <li><a href="#Educational%20Objective">Educational
+        Objectives</a></li>
+
+    <li>Proper Configuration of Security for Personal Machines</li>
+    <li>Files and Installed Software<ol>
+        <li>Removing Unnecessary Software Packages</li>
+	<li>Patching Linux Systems</li>
+	<li>SUID executables</li>
+	<li>Checking File Permissions and Ownership</li>
+        <li>Securing Postfix, Sendmail</li>
+        <li>Securing NFS</li>
+	<li>Securing SSH</li>
+        <li>Copying Files Using SSH Without Providing Login Prompts</li>
+	<li>Checking Accounts, Strong Passwords.</li>
+	<li>Restricting Direct Login Access for System and Shared Accounts</li>
+	<li>Restricting su Access to System and Shared Accounts</li>
+      </ol>
+
+    </li>
+    <li>Booting Sequence<ol>
+        <li>Reviewing inittab and Boot Scripts</li>
+	<li>Disabling Unneeded Services</li>
+	<li>Configuring Services</li>
+        <li>Closing Network Ports and Disabling Runlevel System Services</li>
+        <li>Closing Network Ports and Disabling Xinetd Services</li>
+      </ol>
+    </li>
+    <li>Monitoring a Running System<ol>
+        <li>Protecting the root account</li>
+	<li>Detecting Listening Network Ports</li>
+	<li>Restricting System Access from Servers and Networks</li>
+	<li>Kernel Tunable Security Parameters</li>
+	<li>/etc/sysctl.conf</li>
+	<li>Preventing Accidental Denial of Service</li>
+	<li>Displaying Login Banners</li>
+	<li>Watch the log files.</li>
+      </ol>
+
+    </li>
+    <li>Shutdown Sequence</li>
+    <li><a href="#LabExperiment">Lab Experiment</a></li>
+    <li><a href="#Acknowledgements">Acknowledgements</a></li>
+    <li><a href="#References">References</a></li>
+  </ol>
+
+  <h2><a name="Educational Objective">Educational
+  Objective</a>s</h2>
+
+  <ol>
+    <li>Recognize that out of the box installations of OS are
+    insecure.</li>
+
+    <li>Know the typical problem spots.</li>
+
+    <li>Identify unneeded services</li>
+  </ol>
+
+  <h1>Configuring a System Properly</h1>
+
+  <p>There are two other lectures related to the current lecture:
+    <a href="../../Fortification/"> Fortification</a> and
+    <a href="../../HardenOS/">
+      Hardening</a>.  It is important to understand the
+    differentiation among these terms but perhaps too pedantic to try
+    to rigorously distinguish between proper configuration from these
+    two topics.  Systems as distributed and installed "out-of-the-box"
+    are often loosely configured.  This may be due to sloppiness of
+    the distributor.  More commonly it is because the distributor has
+    tried to configure a generic appeal-to-all setup.  Proper
+    configuration involves the examination of configuration settings
+    of all installed software.  This is a prerequisite to fortifying
+    and/or hardening.</p>
+
+  <p>Proper configuration should happen immediately after a fresh
+    install of the OS, and then after making changes to the system
+    including adding or deleting services and user accounts.  It should
+    be done on the host machine without network connections.  We ignore
+    here the considerable amount of configuration tuning done to improve
+    performance, reduce resource usage, and in general for cleanup.
+  </p>
+
+  <p>We focus on the security of Linux systems.  We only highlight
+    what needs to be done leaving out the recipe-level
+    descriptions to the references.  
+
+  <h2>Proper Configuration of Security for Personal Machines</h2>
+
+  <p>The Internet Domain Survey (
+    <a href=https://www.isc.org/network/survey/>
+    https://www.isc.org/network/survey/</a>) reports the number of
+    hosts advertised in the DNS.  As of Jul 2017 it is 1 billion.
+    Perhaps as many as 95% of these are personal machines, the rest
+    being various servers. Perhaps 80% of these personal machines, and
+    nearly 100% of those behind firewalls in private LANs, are running
+    Windows 7/8/XP/.../10 and Linux with little supervision from
+    trained system administrators, the remaining systems being other
+    variants of Unix and Macintoshes.  These have become targets of
+    script kiddies.</p>
+
+  <h2>Files and Installed Software</h2>
+
+  <p>Installing a new OS image has become a straightforward
+    activity. Nearly all well-known Linux distributions and Windows can
+    be installed by non-computer specialist by booting from a supplied
+    DVD and answering a few questions. This activity is not the focus of
+    this lecture. In the lab experiment, we have simplified the install
+    problem further. There is a so-called "frugal install" which leaves
+    most of a Linux distribution installed as a single large (in the GB)
+    file that is an image of a compressed file system.  There is some
+    performance loss as a result, but there is also greater assurance
+    that the files within remain intact.</p>
+
+  <p>The rest of the lecture highlights checks you should make after
+    this initial phase of installing a new OS image, and associated
+    applications.  Depending on the distribution, the path names cited below may be
+    different.</p>
+  <ol>
+    <li>Removing Unnecessary Software Packages
+    <li>Patching Linux Systems
+    <li>Checking File Permissions and Ownership.  Examine all the
+      files in the standard directories: <tt>/, /bin, /boot, /dev,
+        /etc, /root, /sbin, /usr, /usr/bin,</tt>
+      and <tt>/usr/sbin.</tt>  These should all be owned by root and
+      not writeable to others.  The <tt>/tmp</tt> and </var/tmp> are
+world-writeable.  The file <tt>/etc/passwd</tt> is
+world-readable for legacy reasons, but <tt>/etc/shadow</tt>
+should be world-unreadable.
+<li>SUID executables: Examine every suid root file.  <tt>find / -type f \( -perm
+    -004000 -o -perm -002000 \) -exec ls -lg {} \;</tt> will list all
+  the SUID/SGID files.  Verify that every such binary or script needs
+  to be set-user-id-ed. Setuid scripts are very vulnerable.  If POSIX 
+  capabilities are enabled, suid root permission can be removed.
+<li>Securing Postfix, Sendmail
+<li>Securing NFS
+<li>Securing SSH
+<li>Copying Files Using SSH Without Providing Login Prompts
+<li>Checking Accounts.
+
+Strong Password Policy.
+Use tools such as "John the ripper" to find out weak users passwords on your server. Configure pam_cracklib.so to enforce the password policy.
+
+Linux: Force Users To Change Their Passwords Upon First Login
+Linux turn On / Off password expiration / aging
+Lock the user password
+Search for all account without password and lock them
+Use Linux groups to enhance security
+
+Under Linux you can use the faillog command to display faillog records or to set login failure limits. faillog formats the contents of the failure log from /var/log/faillog database / log file. It also can be used for maintains failure counters and limits.
+
+Only root account have UID 0 with full permissions to access the system.  Enable Password Aging.  Restrict Use of Previous Passwords.  Lock User Accounts After Too Many Login Failures.
+	<li>Restricting Direct Login Access for System and Shared Accounts
+	<li>Restricting su Access to System and Shared Accounts
+  </ol>
+
+  <h2>Booting Sequence</h2>
+
+  <p>Booting time is an excellent point where an attacker can install
+    Trojans.  Examine the booting sequence to verify that the kernel
+    and other executables are what they claim to be. <tt> </tt>Also,
+    compare the MD5 sums of the executables after each boot with those
+    you saved immediately after fresh install.</p>
+
+  <ol>
+    <li>Reviewing inittab and Boot Scripts
+	<li>Disabling Unneeded Services:  See below.
+	<li>Configuring Services
+<li>Closing Network Ports and Disabling Runlevel System Services
+<li>Closing Network Ports and Disabling Xinetd Services
+  </ol>
+
+  <h3>Disabling Unneeded Services</h3>
+
+  <p>Exposed machines should run as few programs as possible;
+  the ones that are run should be as small as possible.
+
+  <p>Services are started in exactly three ways:</p>
+
+  <ol>
+    <li>During boot time via a script. This is traceable from
+    <tt>/etc/inittab</tt> and <tt>/etc/init.d/*</tt>.
+
+    <li>As a result of network connection. This is traceable from
+    <tt>/etc/inetd.conf.</tt>
+
+    <li>Explicitly as a command.
+  </ol>
+
+  <p>In all cases, only install the <b>absolutely necessary</b>
+  services. If you are not sure what it is, <i>disable</i> it.
+  These services (listed alphabetically) are commonly left running
+  in improperly configured Unix/ Linux distributions. In the
+  following, "wrapping" a service refers to initiating the service
+  through a wrapper program that does extra checking and logging
+  before invoking the original program that provides the service.
+  Two well known wrappers are <tt>tcpwrapper</tt> and
+  <tt>tcpd</tt>.</p>
+
+  <p>Most, but not all, Linux systems now use <tt>xinetd</tt> instead
+  of <tt>inetd</tt>. The configuration files for xinetd are
+  "distributed" into <tt>/etc/xinetd.conf</tt> and into files located
+  in the subdirectory <tt>/etc/xinetd.d/</tt> All references below to
+  <tt>/etc/inetd.conf</tt> should be understood as including
+  these if xinetd is in use.</p>
+
+  <p><b>bootp, bootps</b> : Used for bootp services.</p>
+
+  <p><b>echo, daytime, discard, chargen</b>: These services are
+  used largely for testing and are largely unnecessary.</p>
+
+  <p><b>exec</b>: Allow remote users to execute commands on a host
+  without needing to log in. It exposes remote user passwords on
+  the network, thus is highly insecure. We recommend disabling the
+  service.</p>
+
+  <p><b>finger</b>: allows remote users to use the <i>finger</i>
+  utility to obtain information about arbitrary users on a host.
+  Considered highly insecure. We recommend disabling the service or
+  using a more secure version such as cfinger.</p>
+
+  <p><b>ftp</b> : allows remote users to transfer files to/from a
+  host using <i>ftp</i>. Since user passwords are easily sniffable
+  (they are transmitted over the wire in clear text), we recommend
+  disabling the service and using instead a secure file transfer
+  mechanism which encrypts the entire session (such as Kerberized
+  ftpd or SSH). If ftp access is a must, the service should be
+  wrapped.</p>
+
+  <p>"filez" transfers: If you allow files to both be written to
+  and read from by anonymous FTP users, attackers will find those
+  accounts and use them to transfer "warez", MP3 files, and
+  porn.</p>
+
+  <p><b>login</b>: Allows remote users to use the Berkeley
+  <i>rlogin</i> utility to log in to a host without supplying a
+  password (via the <tt>.rhosts</tt> mechanism). Use SSH
+  instead. If rlogin access is a must, the service should be
+  wrapped.</p>
+
+  <p><b>netstat</b> : Designed to provide network status
+  information about a host to remote hosts.</p>
+
+  <p><b>shell</b> : See login above.</p>
+
+  <p><b>smtp</b> If you allow the "relay" feature on SMTP servers,
+  spammers will find your server and use it to forward spam through
+  (to hide themselves and also take advantage of your higher-speed
+  connection).</p>
+
+  <p><b>systat</b> : designed to provide status information about a
+  host.</p>
+
+  <p><b>smurf amplifiers</b> If you do not adjust your subnet masks
+  and visible services, attackers will attempt to use your site as
+  a "smurf" or "fraggle" amplifier to flood other victims on the
+  net.</p>
+
+  <p><b>website defaults</b> If you put a web server on the
+  Internet, you must carefully remove all "defaults", "samples",
+  and "CGI scripts" or attackers will at minimum deface web pages
+  or compromise the machine.</p>
+
+  <p><b>telnet</b> : Allows remote users to connect to a host via
+  <i>telnet</i>. which transmits user passwords over the wire in plain
+  text and can therefore be easily sniffed. Use ssh instead.  If
+  telnet access is a must, the service should be "TCP-wrapped".</p>
+
+  <p><b>talk, ntalk</b> : allows remote users to use <i>talk</i> to
+  have a real time conversation with a user on a host.</p>
+
+  <p><b>tftp</b> : allows remote users to transfer files from a
+  host without requiring login. Used primarily by X-terminals and
+  routers. If tftp access is desired, the service be wrapped.</p>
+
+  <p><b>time</b>: Used for clock synchronization. We recommend
+  disabling the service and using <i>xntp</i> to synchronize your
+  system clock to WWV.</p>
+
+  <p><b>uucp</b> : allows remote users to transfer files to/from a
+  host using the UUCP protocol. Unless you use UUCP, we recommend
+  disabling the service.</p>
+
+  <h3><b>RPC</b> based services</h3>
+
+  <p><b>RPC</b> based services such as NFS and NIS are a major
+  security hazards unless you are using secure RPC. Our general
+  recommendation is therefore against the use of NIS or NFS unless
+  the physical network segments are protected either physically or
+  via the use of switched hubs. All RPC based services should be
+  disabled in <i>inetd.conf</i> (unless NFS/NIS must be used).</p>
+
+  <p>Alternatives to NIS are: the use of Sun Microsystem's NIS+,
+  and the use of <i>rsync</i> along with SSH to distribute
+  <i>/etc/passwd</i>, <i>/etc/group</i>, etc. to clients from a
+  central server.</p>
+
+  <p>Common RPC based services defined in <i>inetd.conf</i>
+  are:</p>
+
+  <p><b>rexd</b> : allows remote users to run RPC programs on a
+  host. Can be used to run an arbitrary shell on the host, thus
+  highly insecure. We recommend disabling the service.</p>
+
+  <p><b>rquotad</b> : returns quotas for a user of a local file
+  system which is mounted by a remote machine over the NFS. We
+  recommend disabling it.</p>
+
+  <p><b>rstatd</b> : extracts performance statistics from the
+  kernel for use by programs such as perfmeter. We recommend
+  disabling it.</p>
+
+  <p><b>ruserd</b> : is used to return a list of users on a
+  network. We recommend disabling it.</p>
+
+  <p><b>sprayd</b> : records the packets sent by spray, and sends a
+  response to the originator of the packets. We recommend disabling
+  it.</p>
+
+  <p><b>walld</b> : used for handling rwall and shutdown requests.
+  We recommend disabling it.</p>
+
+  <p><b>ypupdated</b> : used for updating NIS information. Since we
+  recommend against the use of NIS in general, this service should
+  be disabled.</p>
+
+  <h2>Monitoring a Running System</h2>
+
+  <ol>
+    <li>Protecting the root Account  Even on a personal machine, normal daily use of the system
+  should be through a non-root account. The root must have a
+  non-trivial password. Run a password audit tool to verify that
+  the password is not weak.
+	<li>Detecting Listening Network Ports
+	<li>Restricting System Access from Servers and Networks
+	<li>Kernel Tunable Security Parameters
+	<li>/etc/sysctl.conf controls the system.
+	<li>Preventing Accidental Denial of Service
+	<li>Displaying Login Banners
+	<li>Watch the log files. Minimally, files that should be examined are:
+  <tt>/var/log/messages, /var/log/syslog.</tt>
+  </ol>
+
+  <h2>Shutdown Sequence</h2>
+
+  <p>Shutdown time also is an excellent point where an attacker can
+    install Trojans.  A clever attacker would have downloaded the
+    needed files during the normal running, but would not have
+    installed them until most of the system was shut down.
+
+  </p>
+
+  <a name="LabExperiment"></a>
+  <h2>Lab Experiment</h2>
+
+  <a href="./config-lab.html">config-lab</a>
+
+
+  <h2><a name="References" id="References">References</a></h2>
+
+  <ol>
+    <li>
+      <a href="https://wiki.ubuntu.com/BasicSecurity">
+      https://wiki.ubuntu.com/BasicSecurity</a>  Required Reading.
+    <li> 
+      <a href="http://bastille-linux.sourceforge.net/">
+        http://bastille- linux. sourceforge. net/</a> Bastille
+      "... locks down an operating system, proactively configuring the
+      system for increased security and decreasing its susceptibility
+      to compromise. ...  Bastille currently supports the Red Hat,
+      ..., Debian ... distributions, .... It also supports Mac OS X.
+      ...  In its assessment mode, it builds a report intended to
+      teach the user about available security settings ... ."
+      Bastille should use the term &quot;proper configuration&quot;
+      instead of &quot;hardening&quot;. 201x.  Not actively being
+      developed.  Highly Recommended Reading.
+
+    <li>
+      <a href="http://cisecurity.org/"> Center for Internet
+	Security</a>, Security Configuration Benchmarks: Microsoft
+      Windows 7 Benchmarks, 2012.  "The CIS Benchmarks are the only
+      consensus-based, best-practice security configuration guides
+      both developed and accepted by government, business, industry,
+      and academia."  Highly Recommended Reading.
+
+    <li>Debian, <a href=
+    "http://www.debian.org/doc/manuals/securing-debian-howto/">
+    securing-debian-howto</a>.  "...  Starting with the process of
+    securing and hardening the default Debian GNU/Linux
+    ... installation, ...  gives additional information on the
+    security tools available ...".  Required visit.
+
+    <li>NIST, <a href="http://usgcb.nist.gov/"> 
+	United States Government Configuration Baseline</a>,
+      2012.  "The purpose of the United States Government
+      Configuration Baseline (USGCB) initiative is to create security
+      configuration baselines for Information Technology products
+      widely deployed across the federal agencies.  Formal definitions
+      of these baseline settings, ...  supporting reference material
+      for implementing and verifying USGCB settings on target systems.
+      ... available for Windows 7, ..., Windows XP, Internet Explorer
+      ..."  Highly Recommended Reading.
+
+    <li>NIST, <a href="http://nvd.nist.gov/"> National Vulnerability
+	Database</a>, 2017.  "NVD contains content (and pointers to
+	tools) for performing configuration checking of systems
+	implementing the Federal Desktop Core Configuration (FDCC)
+	using the Security Content Automation Protocol (SCAP)."
+	Highly Recommended Reading.
+
+    <li>Ubuntu, 
+      <a href="https://wiki.ubuntu.com/Security/Features">
+    https://wiki.ubuntu.com/Security/Features</a>.  Even though Ubuntu
+    specific, there is much to learn here.  Required Reading.
+
+    <li><a href=./config-lab.html> Lab on Proper Configuration</a>
+  </ol>
+  <hr>
+  <a href="../Top/copyright.html">Copyright &copy;</a> 2017
+  <a href="mailto:pmateti@wright.edu?subject=CEG429/InternetSecurity">
+  pmateti@wright.edu</a>
+</body>
+</html>

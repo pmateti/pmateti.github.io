@@ -1,0 +1,1114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Lab: Virtual Box Setup</title>
+<!-- 2014-12-21 Sun 16:41 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div><div id="preamble" class="status">
+2014-12-21 
+</div>
+<div id="content">
+<h1 class="title">Lab: Virtual Box Setup</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Setting Up VirtualBox</a></li>
+<li><a href="#sec-2">2. Running VirtualBox</a></li>
+<li><a href="#sec-3">3. Compiling, Installing and Booting your Kernel changes in VirtualBox</a></li>
+<li><a href="#sec-4">4. ssh'ing and scp'ing from the host PC to your VM</a></li>
+<li><a href="#sec-5">5. Debugging the Kernel</a></li>
+<li><a href="#sec-6">6. Troubleshooting VirtualBox and Linux</a></li>
+<li><a href="#sec-7">7. References</a></li>
+</ul>
+</div>
+</div>
+<p>
+VirtualBox FOSS software gives a virtual PC hardware, with virtual
+HDD, KBD, etc devices.  We can install OS images and boot these OSs.
+Installing and testing kernels that you modified and built is easier
+to do first on the VB, and then move the kernels to the real hardware.
+The main benefit is that if your kernel crashes, the real PC does not
+crash, just the VirtualBox VM.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Setting Up VirtualBox</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> VirtualBox environment</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+One of you or your partner:
+</p>
+
+
+
+<ol class="org-ol">
+<li>ssh into the CS machine to which you have been assigned using your
+</li>
+</ol>
+<p>
+shared account (ex. ginger and cs45X),  and choose a password for your
+shared  account together so that both of you can remember it: 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">% ssh -X cs45X@ginger
+</pre>
+</div>
+<ol class="org-ol">
+<li>Make a working<sub>dir</sub> directory in &lt;code&gt;/local&lt;/code&gt; that you and your 
+</li>
+</ol>
+<p>
+partner will share.
+For example, if my working<sub>dir</sub> is named tia<sub>n</sub><sub>pal</sub>:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">% mkdir /local/tia_n_pal 
+% chmod 700 /local/tia_n_pal
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>Copy over the virtualbox image files from /local/vm 
+</li>
+</ol>
+<p>
+(a copy is also available on every CS in /scratch/vm, but it 
+will take longer to copy over than the one in /local) 
+into your &lt;code&gt;/local/working<sub>dir</sub>&lt;/code&gt; subdirectory:  
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">% cp -r /scratch/vm/ubuntu-12.04.3-NOINITRD  /local/tia_n_pal/.
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>Now you are ready to run virtualbox.
+</li>
+</ol>
+
+
+
+
+
+<p>
+&lt;div class="TagLine" id="starting"&gt; 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Running VirtualBox</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+&lt;h4&gt;Starting VirtualBox:&lt;/h4&gt;
+</p>
+
+<ol class="org-ol">
+<li>Log into the PC on which your virtualbox machine is located
+</li>
+</ol>
+<p>
+using your shared account (ex: ginger, cs45X):  
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">% ssh -X cs45X@ginger
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>Start virtualbox:
+</li>
+</ol>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ cd /local/you_n_partner/
+$ virtualbox 
+(ignore the "Error opening file for reading: Permission denied" error)
+</pre>
+</div>
+<ol class="org-ol">
+<li>The very first time you run virtualbox, you need to explicitly add
+</li>
+</ol>
+<p>
+the VM image you want to run.  To do this:
+&lt;ul&gt;
+From the &lt;tt&gt;Machine&lt;/tt&gt; menu choose &lt;tt&gt;Add&lt;/tt&gt; then browse 
+     through the files systems to select this file to open: 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">/local/you_n_partner/ubuntu-12.04.3-NOINITRD/ubuntu-12.04.3-NOINITRD.vbox
+</pre>
+</div>
+<p>
+&lt;/ul&gt;
+</p>
+
+
+<ol class="org-ol">
+<li>In the VM Mananger window, select the VM you want to run (there is only
+</li>
+</ol>
+<p>
+one choice) and then choose the start icon to start it running.
+</p>
+
+
+<p>
+The starting point .vbox VM contains a single linux kernel to boot.  As you
+add more kernels, you can select the particular kernel you want to boot
+from the grub menu using the arrow keys and &lt;tt&gt;Enter&lt;/tt&gt;.
+</p>
+
+
+
+<p>
+&lt;h4&gt;running VirtualBox in non-gui mode&lt;/h4&gt;
+You can also run virtualbox in non-graphics mode.
+This is useful when remotely connecting from outside of the cs subnet,
+or when you want to start up virtualbox once, and then remotely log in 
+over a period of time.  In the later case, you will need to run 
+virtualbox within 
+a &lt;a href="<a href="http://www.cs.swarthmore.edu/help/long.html">http://www.cs.swarthmore.edu/help/long.html</a>"&gt;screen&lt;/a&gt; 
+session as well as in non-graphics mode.  Here are the steps:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ screen    # start a screen session
+$ vboxheadless -s "ubuntu-12.04.3-NOINITRD"  # run virtualbox in non-gui mode
+
+Cntrl-a d          # detach from the screen session (machine keeps running)
+</pre>
+</div>
+<p>
+note: this will always boot the default kernel (specified in the grub menu)
+(and it takes about 1 minute to boot).  If the default kernel is not the
+one you want to boot, you can change the default kernel:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">(1) in /etc/default/grub, set GRUB_DEFAULT to the number kernel entry you want:
+    GRUB_DEFAULT=0    # the default kernel is the one in entry 0
+                      # change it to be the entry you want as the default (0,1,2,...)
+
+   you can list the kernels in which entry:
+    grep menuentry /boot/grub/grub.cfg
+
+(2) then run:
+    sudo update-grub
+</pre>
+</div>
+
+
+
+<p>
+&lt;h4&gt;Starting an OS inside of VirtualBox:&lt;/h4&gt;
+</p>
+
+<p>
+When virtualbox is run in gui mode, and you first boot up the system, 
+you will see the grub menu with a list of kernels to boot.  Use the arrow 
+keys to scroll through the list and then hit the Enter key to choose your 
+kernel.  If you don't select one, after 10 seconds the default kernel 
+(at the top of the list) is booted.  If you run in non-gui mode, the
+default kernel boots.
+</p>
+
+
+<p>
+After the kernel boots in your VM you can log into the console window.  
+However, it will be easier to work on your virtual machine by ssh'ing into it.
+To do this specify port number 10022 and the CSmachine on which you are 
+running virtualbox.  There is one user account (swatcs) with the starting 
+point VM, its password (swatcs.45):
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">ssh -p 10022 swatcs@ginger
+</pre>
+</div>
+
+
+<p>
+The virtualbox image is set up with a single user account:
+&lt;code&gt;swatcs&lt;/code&gt;.  The password is &lt;code&gt;swatcs.45&lt;/code&gt;.
+You can change any of your user account passwords, by running the 
+&lt;code&gt;passwd&lt;/code&gt; command.  You can also add new users to the system 
+using the &lt;code&gt;adduser&lt;/code&gt; command.
+</p>
+
+<p>
+&lt;h4&gt;Shutting down or rebooting an OS:&lt;/h4&gt;
+</p>
+
+<p>
+To shut down your kernel:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ sudo sync
+$ sudo sync
+$ sudo halt -p     # halt and power down
+</pre>
+</div>
+
+<p>
+To reboot your kernel:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ sudo sync
+$ sudo sync
+$ sudo reboot
+</pre>
+</div>
+
+
+
+<p>
+&lt;h4&gt;Shutting down VirtualBox:&lt;/h4&gt;
+</p>
+
+<p>
+First shut down your kernel, then exit virtualbox using the menu options.
+If you run in non-gui mode, use CNTRL-C to exit vboxheadless after halting
+your kernel.
+</p>
+
+<p>
+&lt;div class="TagLine" id="building"&gt; 
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Compiling, Installing and Booting your Kernel changes in VirtualBox</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+You will compile and build your changes to the Linux kernel on your 
+CS machine in <i>local</i>, and then install your built kernel on the
+virtualbox VM.
+</p>
+
+
+<p>
+&lt;font color="blue"&gt;&lt;h3&gt;Getting a copy of the Linux Source&lt;/h3&gt;&lt;/font&gt;
+These steps only need to be done once (or whenever you want to grab 
+a fresh copy of the code):
+</p>
+
+
+
+<ol class="org-ol">
+<li>copy the kernel source into your /local directory:
+</li>
+</ol>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ cp /local/vm/linux-2.6.32.44.tar.bz2 /local/you_n_partner/.
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>unzip and untar the file:
+</li>
+</ol>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ cd /local/you_n_partner
+$ tar xjf linux-2.6.32.44.tar.bz2
+</pre>
+</div>
+<ol class="org-ol">
+<li>copy the starting point config file into .config in 
+</li>
+</ol>
+<p>
+linux-2.6.32.44 and run make menuconfig:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ cd linux-2.6.32.44 
+$ cp /scratch/vm/config-noinitrd .config
+$ make menuconfig      # just choose Exit with the arrow keys
+</pre>
+</div>
+<ol class="org-ol">
+<li>follow Option 1 below for building the kernel the first time.
+</li>
+</ol>
+
+
+<p>
+&lt;font color="blue"&gt;&lt;h3&gt;Building the kernel&lt;/h3&gt;&lt;/font&gt;
+</p>
+
+<p>
+There are two options for building the kernel:
+&lt;ul&gt;
+</p>
+<ol class="org-ol">
+<li>Option 1, builds 
+</li>
+</ol>
+<p>
+Debian kernel image and header packages for installing.  You should
+use this option at least once at the begining of each new lab assignment,
+and if you add or modify .h files.
+</p>
+<ol class="org-ol">
+<li>Option 2, just re-compiles the kernel executable (bzImage) file
+</li>
+</ol>
+<p>
+and is useful for installing and booting incremental changes to the
+kernel.
+&lt;/ul&gt;
+If you have problems with the Option 2 build or install, I recommend doing an
+Option 1 build and remove and re-install the kernel packages.
+</p>
+
+
+<p>
+&lt;h3&gt;Option 1: Building kernel image (and kernel header) packages&lt;/h3&gt;
+</p>
+
+<ol class="org-ol">
+<li>Set this environment variable once in the shell you are compiling
+</li>
+</ol>
+<p>
+in (it will use a parallel compile and result in a faster total compile time):
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">export CONCURRENCY_LEVEL=4    # anything higher than 4 doesn't help
+</pre>
+</div>
+<ol class="org-ol">
+<li>Do this the first time, and maybe other builds, but you do
+</li>
+</ol>
+<p>
+not always have to do this on every build (it is like a 'make clean'):
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash"># NOTE: make-kpkg clean wipes out everything that has been compiled before.
+#  For the very first build you need to do this step, but for subsequent 
+#  builds you may want to not do it, and only if package builds are 
+#  failing in odd ways try doing a make-kpkg clean to re-build 
+#  everything from scratch ("from scratch" takes ~5 minutes)
+$ &lt;b&gt;cd /local/you_n_partner/linux-2.6.32.44&lt;/b&gt;
+$ &lt;b&gt;fakeroot make-kpkg clean&lt;/b&gt;
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>build the kernel packages you want to build (typically kernel<sub>headers</sub>
+</li>
+</ol>
+<p>
+and/or usually kernel<sub>image</sub>).  
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-bash"># NOTE: in the linux .config file is a variable that is set to 
+#       append a local name to your kernel version (in this example
+#       it is set to "-lab3", you can change this in the .config file
+#       for other lab assignment builds 
+#         CONFIG_LOCALVERSION="-lab3"
+#       Anytime you change .config, you need to re-run &lt;b&gt;make menuconfig&lt;/b&gt;   
+#
+#  (a clean build will take about 5 minutes):
+$  &lt;b&gt;fakeroot make-kpkg --revision=1.0 kernel_image&lt;/b&gt;
+
+# if you add new kernel header files, or change existing ones, you need 
+# to build a kernel headers package that contains your changed files too:
+$  &lt;b&gt;fakeroot make-kpkg --revision=1.0  kernel_headers&lt;/b&gt;
+</pre>
+</div>
+<p>
+make-kpkg creates files named:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">../linux-image-2.6.32.44-lab3_1.0_amd64.deb 
+../linux-headers-2.6.32.44-lab3_1.0_amd64.deb
+</pre>
+</div>
+<p>
+You also can list both kernel<sub>image</sub> and kernel<sub>headers</sub> in a single make-kpkg 
+command line.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">$  &lt;b&gt;fakeroot make-kpkg --revision=1.0  kernel_image kernel_headers&lt;/b&gt;
+</pre>
+</div>
+
+<p>
+&lt;b&gt;NOTE:&lt;/b&gt; if this is a rebuild of a previous package, then you will 
+need to remove the previous package before installing the new one:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash"># To remove a previous version of an installed package, on your VM
+dpkg -r linux-image-2.6.32.44-lab3
+</pre>
+</div>
+
+
+
+<p>
+&lt;h3&gt;Option 2: Recompiling the kernel bzImage file&lt;/h3&gt;
+</p>
+
+<p>
+Set this environment variable once in the shell you are compiling
+in (it will use a parallel compile and result in a faster total compile time):
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">export CONCURRENCY_LEVEL=4    # anything higher than 4 doesn't help
+</pre>
+</div>
+
+
+<p>
+From the top-level linux source directory (&lt;b&gt;cd 
+/local/you<sub>n</sub><sub>partner</sub>/linux-2.6.32.44&lt;/b&gt;), do:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">make bzImage
+</pre>
+</div>
+<p>
+If the build is failing in odd ways (not due to errors in files you have
+changed), then you can try doing a make clean (and make dep) and try 
+make bzImage again.  However, it may be easier to do an Option 1 rebuild
+at this point.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash"># you don't always need to do this, but if you have changed include files  
+# things don't seem to be getting built correctly do:
+$ make clean
+
+# do this only if you have added or removed #includes from existing
+# source or header files (you need to rebuild the dependencies in
+# this case):
+$ make dep
+</pre>
+</div>
+<p>
+Remember that if you change .h files you need to copy them over to your
+VM if test programs there need to use these .h files.  You can do this by
+hand, but again, it is often easier to just rebuild the kernel<sub>headers</sub>
+package, remove the old one, and install the new version.
+</p>
+
+<p>
+&lt;font color="blue"&gt;&lt;h3&gt;Installing and booting your kernel&lt;/h3&gt;&lt;/font&gt;
+</p>
+
+<p>
+How you install your kernel changes depends on how you built it
+(Option 1 (kernel package build) or Option 2 (bzImage build)).
+</p>
+
+<p>
+&lt;h3&gt;Option 1: Installing kernel packages:&lt;/h3&gt;
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash"># (a) from your CS machine, copy the kernel packages to your VM:
+#     (I'm using ginger as an example CS machine name)
+$ &lt;b&gt;scp -P 10022 linux-image-2.6.32.44-lab3_1.0_amd64.deb swatcs@ginger:.&lt;/b&gt;
+$ &lt;b&gt;scp -P 10022 linux-headers-2.6.32.44-lab3_1.0_amd64.deb swatcs@ginger:.
+&lt;/b&gt;
+# (b) Next, from within your VM, install the packages:
+#     from root's home directory (or wherever you scp the files) 
+$ &lt;b&gt;sudo dpkg -i linux-image-2.6.32.44-lab3_1.0_amd64.deb&lt;/b&gt;
+$ &lt;b&gt;sudo dpkg -i linux-headers-2.6.32.44-lab3_1.0_amd64.deb&lt;/b&gt; 
+&lt;font color="red"&gt;note:&lt;/font&gt; ignore this error message when installing the headers package (it is not really an error):
+Error! Your kernel headers for 2.6.34-lab3 cannot be found.
+
+# (c) reboot your VM and choose your new kernel from the grub menu
+$ &lt;b&gt; sudo sync; sudo sync; sudo reboot&lt;/b&gt;
+
+# (d) login and verify that the new version of your kernel rebooted 
+#     check both the name of the kernel (does it have the -lab3 extention)
+#     and the build date (is it a new build or old one)
+$ &lt;b&gt;uname -a&lt;/b&gt;
+
+# &lt;font color="red"&gt;note:&lt;/font&gt; If this is a re-install of a kernel package 
+# that you have already installed (i.e. the same -lab3 flag as an 
+# installed kernel package), you need to first remove the 
+# old package(s), before you do the dpkg -i of the new ones: 
+$ &lt;b&gt;dpkg -r linux-image-2.6.32.44-lab3&lt;/b&gt; 
+
+# Use the -I option to dpkg to list info about the package file, 
+# including its name (used in the -r option)
+$ &lt;b&gt;dpkg -I linux-image-2.6.32.44-lab3_1.0_amd64.deb&lt;/b&gt;
+</pre>
+</div>
+
+
+<p>
+&lt;h3&gt;Option 2: Installing bzImage and System.map files:&lt;/h3&gt;
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash"># (a) from your CS machine, copy the kernel bzImage and System.map files
+      to your VM: (I'm using ginger as an example CS machine name)
+$ cd /local/you_n_partner/linux-2.6.32
+$ &lt;b&gt;scp -P 10022 System.map swatcs@ginger:.&lt;/b&gt;
+$ &lt;b&gt;scp -P 10022 arch/x86_64/boot/bzImage swatcs@ginger:.&lt;/b&gt;
+
+# (b) ssh into your VM and install the bzImage and System.map files
+#     (replace the vmlinux... executable in /boot with the bzImage 
+#      be careful that you are replacing the right one...using mv -i will 
+#      give you a chance abort before overwriting the wrong one)
+$ &lt;b&gt;ssh -p 1022 swatcs@ginger&lt;/b&gt;
+$ &lt;b&gt;ls -l&lt;/b&gt;   # verify dates on bzImage and System.map files you scp'ed over
+$ &lt;b&gt;sudo mv -i bzImage /boot/vmlinux-2.6.32.44-lab3&lt;/b&gt;
+$ &lt;b&gt;sudo mv -i System.map /boot/System.map-2.6.32.44-lab3&lt;/b&gt;
+
+# (c) run update-grub
+$ &lt;b&gt;sudo update-grub&lt;/b&gt;
+
+# (d) sync, halt and then reboot into your new kernel
+$ &lt;b&gt;sudo sync&lt;/b&gt;
+$ &lt;b&gt;sudo sync&lt;/b&gt;
+$ &lt;b&gt;sudo reboot&lt;/b&gt;  
+
+# if rebooting is failing, first try booting into the cs45 kernel and then do:
+$ &lt;b&gt;sudo sync&lt;/b&gt;
+$ &lt;b&gt;sudo sync&lt;/b&gt;
+$ &lt;b&gt;sudo halt -p&lt;/b&gt;  # turn off and then back on the VM and boot your kernel
+</pre>
+</div>
+
+<p>
+&lt;hr&gt;
+</p>
+
+<p>
+&lt;font color="red"&gt;An Important Note about Modifying Kernel Source Files: &lt;/font&gt;
+&lt;/b&gt; 
+&lt;br&gt;We do not back-up files in each machine's &lt;tt&gt;/local&lt;/tt&gt; directory.  
+As a result, you should periodically copy files into your private
+cs45 subdirectory in /home, which we do back-up 
+(&lt;a href="<a href="http://www.cs.swarthmore.edu/help/lostfile.html">http://www.cs.swarthmore.edu/help/lostfile.html</a>"&gt;
+Retrieving Lost Files&lt;/a&gt;).  
+</p>
+
+
+<p>
+I suggest that you use git to do this:
+</p>
+
+<ol class="org-ol">
+<li>one of you should create a shared bare 
+</li>
+</ol>
+<p>
+&lt;a href="howto<sub>cvs</sub>.html"&gt;git&lt;/a&gt; repository (and share it with three users: 
+you, your partner, and your CS45 shared account user).  
+</p>
+<ol class="org-ol">
+<li>You and your partner should clone a copy in your 
+</li>
+</ol>
+<p>
+private /home/you/cs45 subdirectories.
+</p>
+<ol class="org-ol">
+<li>Your shared CS45 account user should clone a copy into /local on your
+</li>
+</ol>
+<p>
+assigned machine.
+</p>
+
+<p>
+As you work, periodically add, commit, and push 
+changes to the linux kernel files you modify (and also to any user-level
+programs you write as part of a lab assignment). 
+</p>
+
+
+<p>
+Make sure to include in your git repo
+&lt;b&gt;only the linux source and header files that you modify for the current 
+lab assignment, and not the entire linux kernel source tree, which will eat 
+up your account quota&lt;/b&gt;.  These are the files that you will submit for 
+each lab assignment, and the ones that you cannot recover.  If you 
+accidentally delete other kernel files (ones you aren't changing), you can 
+always get a copy of them from the linux source starting point.
+If you lose files you have modified, then can then get a back-up from
+your git repo.  
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> ssh'ing and scp'ing from the host PC to your VM</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Use &lt;tt&gt;ssh&lt;/tt&gt; to log in to your VM from the assigned CS lab
+machine from which you are running virtualbox:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ ssh -p 10022 swatcs@ginger
+</pre>
+</div>
+<p>
+Use &lt;tt&gt;scp&lt;/tt&gt; to transfer files between your VM and your
+CS machine.  Here are some examples (and yes, it is &lt;tt&gt;-P&lt;/tt&gt; for scp 
+and &lt;tt&gt;-p&lt;/tt&gt; for ssh):
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ scp -P 10022  file.c swatcs@ginger:.
+$ scp -P 10022  *.c swatcs@ginger:.          # copy a bunch of .c files
+$ scp -P 10022  -r dirname swatcs@ginger:.   # recurively copy a directory
+</pre>
+</div>
+<p>
+From your VM you can scp to your CS user account.  Here are some
+examples:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ scp file username@machinename:/home/username/cs45/labs/lab2/.
+$ scp file cs45username@machinename:/local/you_n_partner/lab2/.
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Debugging the Kernel</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+You do not have valgrind to help you debug at the kernel level, but
+you can use the kernel's kgdb support to remotely attach gdb to your
+running kernel and debug it.  You can also add debugging statements
+to your kernel using printk. 
+</p>
+
+<p>
+&lt;h4&gt;printk&lt;/h4&gt;
+</p>
+
+<p>
+A useful way to see what your kernel code is doing is to
+add debugging printk statements to print out some execution 
+state as as it runs.  printk is similar to printf, except remember
+that floating point values are not supported at kernel level.
+</p>
+
+
+<p>
+printk output goes to the console and to log files 
+on your VM in &lt;tt&gt;/var/log/kern.log&lt;/tt&gt; and  &lt;tt&gt;/var/log/syslog&lt;/tt&gt;. 
+You can open them in vim to printk output.  Also, running tail -f 
+on one of these files will let you see printk output as your kernel runs:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ tail -f /var/log/kern.log
+</pre>
+</div>
+<p>
+If your kernel crashes, it is likely that some of the printk output 
+has not yet been written to the log files.  As a result, you may want 
+to jot down the last printk output on the console before rebooting.  Also, 
+be very careful about where you put printk calls; you don't want 
+them on a code path that is executed many times per second.
+</p>
+
+
+<p>
+printk output should also show up on the console window.  If not,           
+run this command, and then it should:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">sudo dmesg -n 7
+</pre>
+</div>
+
+
+
+<p>
+&lt;h4&gt;kgdb&lt;/h4&gt;
+</p>
+
+<p>
+You can use the linux kernel's built-in support for kgdb to attach gdb
+to your running kernel and debug it.  The default config file you copied
+over already builds the kernel image with kgdb support enabled.  You need
+to follow some steps on boot to connect gdb running on the host machine
+(your CS machine) to the linux kernel VM running in VirtualBox.  
+(this link contains some nice screen dumps showing some of these steps:
+&lt;a href="<a href="http://www.linuxforu.com/2011/03/kgdb-with-virtualbox-debug-live-kernel/">http://www.linuxforu.com/2011/03/kgdb-with-virtualbox-debug-live-kernel/</a>"&gt;KGDB with VirtualBox&lt;/a&gt;).
+</p>
+
+<p>
+&lt;h4&gt;Steps to attach gdb to your VM:&lt;/h4&gt;
+</p>
+
+<ol class="org-ol">
+<li>Run virtualbox, but do not boot a VM (or halt your VM if already
+</li>
+</ol>
+<p>
+running), and then configure the serial port:
+</p>
+
+
+<p>
+Click on your virtual machine instance in the VirtualBox Manager
+window (your VM should not be running), and choose Settings.  Select
+the "Serial Ports" tab, choose Port 1, and  enter the following and the
+choose OK:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">(1) Check the "Enable Serial Port" box
+(2) Choose COM1 for "Port Number"
+(3) Choose HostPipe for "Port Mode"
+(4) Check the "Create Pipe" box
+(5) Enter /local/me_and_pal/serial in the "Port/File Path" box  
+    (where /local/me_and_pal/ is the name of your subdirectory /local on
+     on your machine in which your virtualbox image and linux source are)
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>Start the boot of your VM, and at the grub menu choose 
+</li>
+</ol>
+<p>
+the kernel version you want, and then enter &lt;tt&gt;e&lt;/tt&gt; to edit its information.
+Scroll down to the linux line and append the following to it (and these
+are zeros not ohs):
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">kgdboc=ttyS0,115200 kgdbwait
+
+# The result will look something like:
+linux /boot/vmlinux/.... \
+...  rw kgdboc=ttySO,115200 kgdbwait
+</pre>
+</div>
+<p>
+Then hit F10 to continue to boot.  Your VM will continue booting but not
+finish, printing a message:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">kgdb: Waiting for connection from remote gdb..." message
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>At this point, in a terminal on the host machine (your CS machine) run:
+</li>
+</ol>
+<div class="org-src-container">
+
+<pre class="src src-bash">socat -d -d /local/me_and_pal/serial PTY:
+
+# you should see output like this:
+2014/01/31 14:13:24 socat[27748] N opening connection to AF=1 "/local/me_n_pal/serial"
+2014/01/31 14:13:24 socat[27748] N successfully connected from local address AF=1 "qp\xEE\x7E"
+2014/01/31 14:13:24 socat[27748] N successfully connected via 
+2014/01/31 14:13:24 socat[27748] N PTY is /dev/pts/16
+2014/01/31 14:13:24 socat[27748] N starting data transfer loop with FDs [3,3] and [4,4]
+</pre>
+</div>
+<p>
+Note: the &lt;tt&gt;/dev/pts/16&lt;/tt&gt; part will likely be different, and use
+the one that yours lists as the target in gdb.
+</p>
+
+
+<p>
+Do not terminate socat; it needs to be running in the background to use
+the pseudo terminal to connect gdb.
+</p>
+
+
+<ol class="org-ol">
+<li>in another terminal on the host machine (your lab machine) run gdb
+</li>
+</ol>
+<p>
+and attacke to the remote target:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ cd /local/me_and_pal/linux-2.6.32.44/
+$ gdb ./vmlinux
+...
+...
+Reading symbols from /local/me_and_pal/linux-2.6.32.44/vmlinux...done.
+
+(gdb) target remote /dev/pts/16       # or whatever the number is from socat 
+Remote debugging using /dev/pts/16
+kgdb_breakpoint () at kernel/kgdb.c:1718
+1718            wmb(); /* Sync point after breakpoint */
+</pre>
+</div>
+<p>
+At this point you can use gdb commands to debug your kernel code: set 
+breakpoints in your kernel functions, step and next through the execution
+of code, print variables, &#x2026;  
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Troubleshooting VirtualBox and Linux</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+I'll post answers to virtualbox and Linux questions here.
+&lt;ul&gt;
+</p>
+<ol class="org-ol">
+<li>Changing the name of your kernel.  For each lab assignment you may want to
+</li>
+</ol>
+<p>
+change the name of the kernel that is being built.  This is done by changing
+the following definition in the &lt;tt&gt;.config&lt;/tt&gt; file in the
+linux source directory, and then running make menuconfig again.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">$ vi .config
+  CONFIG_LOCALVERSION="-lab3"   # change -lab3 string to whatever you'd like
+$ make menuconfig       # just choose Exit with the arrow keys
+</pre>
+</div>
+
+
+
+<ol class="org-ol">
+<li>Changing the size of physical memory used by linux (and of course
+</li>
+</ol>
+<p>
+you cannot make it bigger than what is there).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash"># in your virtual machine edit the file /etc/default/grub
+$ sudo vi /etc/default/grub
+
+# add the size of physical memory you want to GRUB_CMD_LINE_LINUX:
+GRUB_CMDLINE_LINUX="mem=512m"
+
+# run update-grub and reboot cat out /proc/meminfo to see the change
+sudo update-grub
+sudo sync
+sudo sync
+sudo reboot
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>What was the old (initrd) way of building the kernel packages (used 
+</li>
+</ol>
+<p>
+in lab2)?
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">fakeroot make-kpkg --initrd --revision=1.0 --append-to-version -lab2  kernel_image
+fakeroot make-kpkg --initrd --revision=1.0 --append-to-version -lab2  kernel_headers
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> References</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li><a href="https://www.virtualbox.org/">https://www.virtualbox.org/</a> 
+</li>
+
+<li><a href="https://www.virtualbox.org/wiki/Virtualization">https://www.virtualbox.org/wiki/Virtualization</a>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2014 &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2014-12-21
+</div>
+</body>
+</html>

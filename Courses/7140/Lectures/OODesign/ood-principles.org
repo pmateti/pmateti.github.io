@@ -1,0 +1,102 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+Date: 2015-10-15
+#+TITLE: Object Oriented Design Principles: SOLID, ...
+#+AUTHOR: Prabhaker Mateti
+
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"liskov-subst-principle-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+* Data Encapsulation v Abstraction v OOD
+
+** Encapsulation
+
+1. A "data structure" is declared.
+1. Certain operations are declared to be "public".
+1. The "data structure" is accessed/manipulated *only* via the above.
+
+** Abstraction
+
+1. A "data type" is declared  
+1. Certain operations are available  
+1. The "data type" is an abstraction  
+1. Concrete representation to Abstraction mapping  
+1. E.g., an array of items ==>  set of items  
+1. Information Hiding Principle
+1. See [[../Abstraction]]
+
+** Class Invariants
+
+1. Class invariants are assertions.
+1. Must be true before and after every public methods.
+1. Must be true after every constructor.
+
+** C++/Java/... Classes
+1. Provide data encapsulation
+1. Do not do Data Abstraction
+1. Language Design
+1. public v protected v private
+1. interface v class
+
+* Principles of Class Design (aka SOLID)
+1. (SRP) The Single Responsibility Principle
+
+1. (OCP) The Open Closed Principle: Classes and methods should be open
+   for extension (of functionality) and closed for modification.
+
+1. (LSP) The Liskov Substitution Principle: Subtypes must be
+   substitutable for super type.  A sub class must enhance
+   functionality, but not reduce.
+
+1. (ISP) The Interface Segregation Principle
+
+1. (DIP) The Dependency Inversion Principle
+
+* Principles of Package Cohesion
+1. (REP) The Reuse Release Equivalence Principle
+1. (CCP) The Common Closure Principle
+1. (CRP) The Common Reuse Principle
+
+* Principles of Package Coupling
+
+1. (ADP) The Acyclic Dependencies Principle
+1. (SDP) The Stable Dependencies Principle
+1. (SAP) The Stable Abstractions Principle
+
+* Design By Contract (DoC)
+
+[[../Design/design-by-contract.org]]
+
+* Liskov Substitution Principle (LSP)
+
+[[../Design/liskov-subst-principle.org]]
+
+* References
+
+1. Web site, http://www.oodesign.com  Recommended Visit
+
+1. Bob Tarr, UMBC.edu, [[http://userpages.umbc.edu/~tarr/dp/lectures/OOPrinciples.pdf][Some OOD Principles]] PDF Slides. Recommended
+   Reading
+
+1. Robert Bruce Findler, Mario Latendresse, and Matthias Felleisen.
+   Behavioral Contracts and Behavioral Subtyping.  In Proceedings of
+   ESEC/FSE-9,
+   229-236. http://www.ccs.neu.edu/scheme/pubs/fse01-flf.pdf 2001
+   Recommended Reading.
+
+1. Bertrand Meyer. Applying "Design by Contract".  IEEE Computer,
+   25(10):40–51, October 1992.
+   http://se.ethz.ch/~meyer/publications/computer/contract.pdf Also in
+   his book "Object-Oriented Software Construction".  Required
+   Reading.
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

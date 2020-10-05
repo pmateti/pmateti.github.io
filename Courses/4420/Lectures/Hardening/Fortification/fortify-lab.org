@@ -1,0 +1,157 @@
+# -*- mode: org -*-
+#+date: 2018-08-26
+#+TITLE: Lab: Fortification of a Linux Installation
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Educational Objectives
+
+This lab deals with a few fortification steps, postponing hardening to
+later labs.
+
+1. Recognize that out of the box installations of OS need both pruning
+   and grafting.
+1. Examine a Linux installation for what needs to be pruned.  Reducing
+   the installed footprint is considered a reduction of attack
+   surface.
+1. We also need to be proactive in observing suspicious events and
+   take action.
+
+* Tasks
+
+** Task: Examine suid Programs
+
+1. TBD Configure /etc/sudoers
+
+** Task: Prune Installed Software
+
+1. Take stock of what software is installed.  
+1. Starting from TBD LXU of previous lab, uninstall at least two packages,
+   without breaking the installation.  Imagine that LXU is intended
+   for use only in supposrt of this course.
+
+** Task: File System Audit
+
+Objective: Experience a file system audit tool.
+
+1. "Tripwire is a policy driven file system integrity checking tool."
+   That is, it can detect changes in various (config) files and
+   report. Alternate tools: AIDE, OSSEC.
+
+1. Install the package tripwire. =apt install tripwire=
+
+1. Build the database following the instructions found in the 
+    package.
+
+1. Select and modify a few &quot;system&quot; files from directories such as 
+    /bin, /sbin, /usr/sbin and /etc.
+
+1. Observe and explain tripwire's reports.
+1. Install and experience a tool that analyzes log reports (usually in
+   /var/log/).
+
+** Task: Log  Analyses
+
+1. Linux records various logs in =/var/log/*=.  There is a log
+   rotation system.  To be aware of the logs manually is a tedious
+   task.  There are several log analyses tools that help.  See e.g.,
+   1. https://www.tecmint.com/best-linux-log-monitoring-and-management-tools/
+   2. http://www.pinoylinux.org/system-adminstration/open-source-sysadmin-resources/
+      Monitoring and Security sections
+
+2. TBD
+
+** Task: Rewriting SUID Scripts as SUID Programs
+
+  1.  Discover all suid scripts (not binaries) on LXU.
+  1.  Carefully analyze and report the need for each of these.
+  1.  Rewrite the suid scripts into C/C++ programs.
+  1.  Does rewriting scripts into programs improve security?  Discuss.
+
+** Task: Forensics
+
+1.  Install a forensic tool and experience it.
+
+1. TBD
+
+** Task: Audit System
+
+1. Install the monitoring tool: =apt install auditd= and then reaad
+   =man auditd= For an example ruleset, read
+   https://security.stackexchange.com/questions/4629/ BTW the auditd
+   package ships with some example configuration files based on a few
+   standards. They can be found at /usr/share/doc/auditd/examples/. Of
+   course you will still want to tailor them for your individual
+   needs. – Jon-Erik Aug 14 '14 at 15:51
+
+1. TBD
+
+** Task: OpenSCAP
+
+1. "Security compliance is a state where computer systems are in line
+   with a specific security policy."
+
+1. https://www.open-scap.org/getting-started/ "...  new
+   vulnerabilities are being discovered and patched every day,
+   enforcing security compliance must be a continuous process.  It
+   also needs to include a way to make adjustments to policies, as
+   well as periodic assessment and risk monitoring.  The OpenSCAP
+   ecosystem provides tools and customizable policies for a quick,
+   cost-effective and flexible implementation of such a process."
+
+1. Install OpenSCAP Base.
+
+1. TBD
+
+** Task: Lynis
+
+1. https://cisofy.com/documentation/lynis/ Security auditing, system
+   hardening, and compliance monitoring.  Use the free community
+   version.
+
+1. TBD
+
+** Task: Rootkit Detection
+
+1. Linux systems have not generally experienced virus attacks.  But,
+   worm attacks, backdoors and rootkits have happened enough times.
+
+1. Defend your LXU by installing a rootkit detector and schedule its
+   runs periodically.
+
+1. Ex: chkrootkit, rkhunter
+
+** Task: [Devious] [Bonus] Rootkit Installation
+
+1. https://packetstormsecurity.com/ is a whitehat site that hosts the
+   sources of several exploits and attacks for research.
+
+1. Find a rootkit source package and make it work within LXU.
+
+1. E.g., Vlany is a Linux 2016 rootkit "that provides process hiding,
+   user hiding, network hiding, LXC container, anti-debug,
+   anti-forensics, persistent reinstalls, dynamic linker
+   modifications, backdoors, and more."
+
+* References
+
+1. Prabhaker Mateti, [[../HardenOS/Fortification/]] 2018. Required Reading.
+1. Prabhaker Mateti, [[../RootKits/index.html][RootKits]].  2017. Required Reading.
+
+1. Wietse Venema, http://www.porcupine.org/.  Forensics, and other
+   Tools.  {pm: Old but Gold} Required Visit.
+
+1. wikipedia.org,
+   http://en.wikipedia.org/wiki/Category:Linux_security_software 2018.
+   Required Visit.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

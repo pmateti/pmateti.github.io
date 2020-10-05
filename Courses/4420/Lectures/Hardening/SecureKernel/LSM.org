@@ -1,0 +1,188 @@
+# -*- mode: org -*-
+#+DATE: 2019-08-15
+#+TITLE: Linux Security Modules (LSM)
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+
+
+* Summary of LKM (Linux Kernel Modules)
+
+1. [[../BuildKernel/LKM.org]]
+
+1. "Modules" of code that are needed in some installations and not in
+   others.  If needed always, compile/build as built-ins.
+
+1. Object code file, =.ko= extension; see =/lib/modules/=
+
+1. =insmod= loads a module; kernel address space expands,
+   now includes the methods of the module; some of them are syscalls.
+1. =rmmod= unload the module; kernel no longer has the module and its
+   methods.
+1. =lsmod= list the kernel module currently in the kernel
+
+* LSM (Linux Security Modules)
+
+1. Goal: Modularize security as much as possible.
+
+2. Take a look at
+   1. [[http://elixir.free-electrons.com/linux/latest/source/include/linux/security.h][linux/security.h]]  Source code listing
+   2. https://www.kernel.org/doc/htmldocs/lsm/ Security Hooks for
+      Linux.  Article of 3pp. Within kernels official documentation.
+   3. https://en.wikipedia.org/wiki/Linux_Security_Modules
+
+3. hooks := upcalls to a module's methods at security-critical
+   points within the kernel
+
+4. An LSM author can control functions called by these hooks to
+   enforce policies
+5. Linux also adds an opaque security pointer that LSM can use to
+   store security info they need in processes, inodes, sockets, etc.
+
+6. LSM hooks are placed so that the Linux DAC checks are performed
+   first, and only if they succeed, is LSM code invoked.
+
+** Access Control with LSM Module
+
+#+CAPTION: Access Control with LSM Module
+#+ATTR_HTML: :alt lsm-access.jpg :align center :width 80%
+[[../Figures/lsm-access.jpg]]
+
+** LSM #2
+
+1. Despite LSM being developed as a security API, LSM provides hooks
+   that could be used by rootkits. http://grsecurity.net/lsm.php
+1. linux-5.3.5 Oct 2019 ; =ls linux-5.3.5/security/=
+   #+begin_src bash
+apparmor/        inode.c     Kconfig.hardening  lsm_audit.c  safesetid/  smack/
+commoncap.c      integrity/  keys/              Makefile     security.c  tomoyo/
+device_cgroup.c  Kconfig     loadpin/           min_addr.c   selinux/    yama/
+#+end_src
+
+1. linux-4.19/security/ ; =ls linux-4.19/security/=
+   #+begin_src bash
+apparmor     device_cgroup.c  integrity  lsm_audit.c  yama
+built-in.a   Kconfig    modules.builtin               selinux
+commoncap.c  inode.c    keys       modules.order      smack
+loadpin      min_addr.c   security.c                  tomoyo
+#+end_src
+
+
+** LSM #3
+
+1. Opaque Security Fields were added to objects
+1. Security Function Hooks were added in important accesses
+1. A security System Call was added
+1. Registering security modules
+1. Modify capabilities to reduce the capable call
+
+** LSM #4
+
+1. Additional hooks were provided for working with tasks (nice, kill,
+   setuid)
+1. for program loading and controlling inheritance of state across program executions (such as file descriptors)
+1. for IPC
+1. for file ops (read, write, sockets)
+1. for network ops (devices, syscalls, sk-buffs)
+1. for module operations (create, register, delete)
+1. for sytem operations (hostname, accessing I/O ports, process accounting)
+
+* LSM Named AppArmor
+
+1. {AppArmor ("Application Armor") is a Linux kernel security module
+   that allows the system administrator to restrict programs'
+   capabilities with per-program profiles. Profiles can allow
+   capabilities like network access, raw socket access, and the
+   permission to read, write, or execute files on matching paths.}
+   https://en.wikipedia.org/wiki/AppArmor
+
+1. https://wiki.ubuntu.com/AppArmor
+
+1. =; ls -l /etc/appa*=
+   #+begin_src bash
+/etc/apparmor:
+total 8
+drwxr-xr-x 3 root root 4096 Feb 20  2019 init/
+-rw-r--r-- 1 root root 1661 Jun  6 17:46 parser.conf
+/etc/apparmor.d:
+total 156
+drwxr-xr-x 4 root root 12288 Oct  8 20:06 abstractions/
+drwxr-xr-x 2 root root  4096 Sep 20 15:13 disable/
+drwxr-xr-x 2 root root  4096 Nov 12  2018 force-complain/
+-rw-r--r-- 1 root root   802 Aug 29  2018 lightdm-guest-session
+drwxr-xr-x 2 root root  4096 Sep 20 15:13 local/
+-rw-r--r-- 1 root root  1313 Sep  9 15:13 lsb_release
+-rw-r--r-- 1 root root  1108 Apr  2  2019 nvidia_modprobe
+-rw-r--r-- 1 root root  3215 Dec 11  2018 sbin.dhclient
+drwxr-xr-x 5 root root  4096 Sep 10 09:59 tunables/
+-rw-r--r-- 1 root root 11082 Jun 18 17:57 usr.bin.evince
+-rw-r--r-- 1 root root  8477 Sep 18 11:32 usr.bin.firefox
+-rw-r--r-- 1 root root  3182 Aug 27 06:39 usr.bin.man
+-rw-r--r-- 1 root root  1781 Jan 27  2019 usr.bin.surf
+-rw-r--r-- 1 root root  1519 Sep  5 09:50 usr.lib.libreoffice.program.oosplash
+-rw-r--r-- 1 root root  1361 Sep  5 09:50 usr.lib.libreoffice.program.senddoc
+-rw-r--r-- 1 root root 10727 Sep  5 09:50 usr.lib.libreoffice.program.soffice.bin
+-rw-r--r-- 1 root root  1284 Sep  5 09:50 usr.lib.libreoffice.program.xpdfimport
+-rw-r--r-- 1 root root 23936 Aug 30 05:42 usr.lib.snapd.snap-confine.real
+-rw-r--r-- 1 root root   540 Feb 16  2019 usr.sbin.cups-browsed
+-rw-r--r-- 1 root root  5552 Dec 14  2018 usr.sbin.cupsd
+-rw-r--r-- 1 root root   563 Jul 17  2017 usr.sbin.haveged
+-rw-r--r-- 1 root root   643 Jul 19  2018 usr.sbin.ippusbxd
+-rw-r--r-- 1 root root   730 Aug  2 12:53 usr.sbin.mysqld
+-rw-r--r-- 1 root root  1574 Jul  3 10:31 usr.sbin.rsyslogd
+-rw-r--r-- 1 root root  1385 Sep  1 06:43 usr.sbin.tcpdump
+#+end_src
+
+
+* LSM Named SELinux
+
+1. Consensus: SELinux is significantly more complicated to learn than
+   other LSMs.
+
+1. SELinux is renamed SEAndroid in Android.  It has become a standard
+   component in Android.
+
+1. {AppArmor and SELinux are both independent Linux security module
+   (LSM) implementations. They are configured using their own specific
+   tools. ... AppArmor rules work directly with paths. SELinux at the
+   moment contains more features which allow more fine grained or
+   special access controls, such as MLS and MCS.} There are several
+   [[https://www.google.com/search?&q=apparmor+vs+selinux][articles comparing apparmor and selinux]].
+
+1. In (many Linux distributions, e.g.) Ubuntu apparmor can be
+   uninstalled, and selinux can be installed.
+
+1. This course includes [[../../AccessControl/SELinux]]  It is part of MAC.
+
+* References
+
+6. http://www.linux.com/learn/docs/727873-overview-of-linux-kernel-security-features/
+   2013.  Highly recommended reading.
+
+1. https://www.kernel.org/doc/html/v4.19/admin-guide/LSM/index.html
+   Linux Security Module Usage, 2018
+
+1. http://kernsec.org/wiki/index.php/Projects Kernel Security Projects
+
+1. https://github.com/skx/linux-security-modules A collection of three
+   simple linux security modules, more for learning and
+   experimentation than for serious use.
+
+1. http://www.kroah.com/linux/talks/ols_2002_lsm_paper/lsm.pdf 2002
+   Linux Security Module Framework Authors: {Chris Wright and Crispin
+   Cowan James Morris Stephen Smalley Greg Kroah-Hartman}
+
+1. https://vtluug.org/files/2017/lsm_pew.pdf 8 slides TBD
+1. http://ics.ajou.ac.kr/~aislab/SC+LKM+LSM.html System Call, LKM, LSM
+   http://ics.ajou.ac.kr/~aislab/SystemCall+LKM+LSM.pdf 39 pp
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

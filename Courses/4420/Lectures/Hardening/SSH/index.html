@@ -1,0 +1,915 @@
+<html><head>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<meta http-equiv="Content-Language" content="en-us">
+<title>Internet Security Lectures by Prabhaker Mateti</title>
+<meta name="author" content="Prabhaker Mateti">
+<meta name="keywords" 
+content="SSH, Internet security, Network security, TCP/IP security">
+<meta name="description" 
+content="This page is part of a set of lectures notes for a course
+on Internet Security by Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css">
+a:hover      { color: blue; background-color: yellow; }
+a:active     { color: white; background-color: green;}
+@page { size: 8.5in 11in }
+P { text-align: justify }
+TD P { text-align: justify }
+@media print {
+		BODY {font-size: 10pt; line-height: 120%; background: white;}
+	}
+@media screen {
+		BODY {font-size: medium; background: white; margin: 5em}
+	}
+
+</style>
+</head>
+
+<body topmargin="50" leftmargin="50" bottommargin="50" rightmargin="50" marginheight="50" marginwidth="50">
+
+<h1>Secure Shell: ssh</h1>
+<h2><a target="_blank" href="http://www.cs.wright.edu/~pmateti">Prabhaker Mateti</a></h2>
+<p><b>Abstract</b>
+SSH
+is the name of a protocol and a collection of associated programs for
+secure remote login to execute commands on a remote machine, to
+securely move files from one machine to another, and other secure
+network services over an insecure network such as the
+Internet.&nbsp; This article points out the weaknesses of telnet
+and FTP, describes how SSH and SCP overcome these weaknesses, attempts
+to persuade the reader to switch over to SSH and SCP, describes the
+free versions available and discusses the past exploits of SSH.
+<p>
+		This article is part of
+		<a href="../Top/lectures.html">Internet Security Lectures</a></td>
+<table cellspacing="0" cellpadding="0" width="100%" bgcolor="#008080" border="0" id="table2">
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">&nbsp;</td>
+  </tr>
+</table>
+<h2><a name="Table of Contents">Table of Contents</a></h2>
+
+<ol>
+
+
+
+
+
+<li><a href="#Educational%20Objective">Educational Objectives</a></li>
+
+<li>Secure Shell<ol>
+
+
+
+
+
+<li><a href="#1._Minimal_Usage">Minimal Usage</a></li>
+
+<li><a href="#Port_forwarding">Port forwarding</a></li>
+
+<li><a href="#SSH_Best_Practices">SSH Best Practices</a></li>
+
+<li><a href="#SSH_Internals">SSH Internals</a></li>
+
+<li><a href="#Past_exploits_of_SSH">Past exploits of SSH</a></li>
+
+<li><a href="#Well_Known_ssh_Clients_and_Servers_">Well Known ssh Clients and
+
+Servers</a></li>
+
+<li><a href="#Password_Conveniences">Password Conveniences</a></li>
+
+</ol></li>
+
+<li><a href="#Lab%20Experiment">Lab Experiment</a></li>
+
+<li><a href="#Acknowledgements">Acknowledgements</a></li>
+
+<li><a href="#References">References</a></li>
+
+</ol>
+
+
+
+
+
+<hr>
+
+<h2><a name="Educational Objective">Educational Objective</a>s</h2>
+
+
+
+<ol>
+
+
+
+<li>Point out the weaknesses of
+
+telnet and FTP</li>
+
+<li>Describe how SSH and SCP
+
+overcome these weaknesses</li>
+
+<li>Persuade the reader to
+
+switch over to SSH and SCP</li>
+
+<li>Describe the free versions
+
+available</li>
+
+<li>Discuss the past exploits of
+
+SSH</li>
+
+</ol>
+
+
+
+<hr>
+
+<h1><a name="Secure_Shell">Secure Shell</a></h1>
+
+
+
+<p>
+
+SSH stands for Secure Shell.&nbsp; Its functionality is similar to
+
+that of telnet and rlogin in that you use ssh to connect to a remote
+
+machine that is running an SSH-server.&nbsp; There are three
+
+primary advantages in using ssh.</p>
+
+
+
+<ol>
+
+
+
+<li>telnet and rlogin do not
+
+authenticate the remote machine;&nbsp; SSH does.</li>
+
+<li>The password that the user
+
+types as part of the login ritual is sent as clear text by telnet and
+
+rlogin.&nbsp; SSH sends it encrypted.</li>
+
+<li>Telnet and rlogin send and
+
+receive the data as clear text.&nbsp; SSH sends and receives it in
+
+encrypted form.</li>
+
+</ol>
+
+
+
+<p>
+
+The main disadvantages are the following.</p>
+
+
+
+
+
+<ol>
+
+
+
+
+
+<li>Encryption and decryption
+
+consumes computing and elapsed time.</li>
+
+<li>It can be a
+
+nuisance.&nbsp; E.g., if the remote system has been legitimately
+
+reinstalled, and the installer was not careful to use the same
+
+authentication keys for the host, your ssh will issue a false alarm.<br>
+
+</li>
+
+<li>ssh and sftp are susceptible
+
+to the &quot;<a href="#Past_exploits_of_SSH">man in the middle attack</a>&quot;</li>
+
+</ol>
+
+
+
+
+
+<p>
+
+Just as <code>telnet, rlogin and
+
+ftp</code> are client programs
+
+talking to their respective server programs using application level
+
+protocols, ssh uses the application protocol defined in RFC TBD.</p>
+
+
+
+
+
+<h2>
+
+<a name="1._Minimal_Usage">1. Minimal Usage</a></h2><p>
+
+There are a few things that you must understand even if you are interested in &quot;just&quot; using ssh 
+
+in the simplest manner.&nbsp; This being a minimal background section, a few 
+
+things are so simplified that they are &quot;lies.&quot;</p>
+
+<p>
+
+The <a href="#Cryptography">Cryptography</a> article listed below is a prerequisite to this article.&nbsp; 
+
+It explains computational infeasibility, encryption, public and private keys, 
+
+session keys, RSA, DSA, Triple-DES (3DES), &quot;blowfish&quot;, &quot;idea&quot;, etc.</p>
+
+<h3>1.1 SSH suite of programs</h3>
+
+
+
+
+
+<p>
+
+The SSH suite of programs includes the following.&nbsp; All but
+
+<code>sshd</code> run on the local machine.&nbsp; (Note that the actual programs 
+
+are named using lower case letters.)</p>
+
+
+
+
+
+<ol>
+
+
+
+
+
+<li><tt>ssh</tt>:
+
+the &quot;shell&quot; that connects to the remote machine.</li>
+
+<li><tt>scp</tt>:&nbsp;
+
+for batch file transfers. </li>
+
+<li><tt>sftp</tt>:
+
+for interactive file transfers. </li>
+
+<li><tt>ssh-keygen</tt>: generates private-public key&nbsp;
+
+authentication keys</li>
+
+<li><tt>ssh-agent</tt>:
+
+d&aelig;mon used to automate client's authentications </li>
+
+<li><tt>ssh-add</tt>:
+
+loads private keys into ssh-agent process </li>
+
+<li><tt>ssh-askpass</tt>:
+
+X interface for ssh-add </li>
+
+<li><tt>sshd</tt>:
+
+a server program running on the remote machine</li>
+
+</ol>
+
+
+
+
+
+<p>
+
+In this article, we focus on the <code>ssh</code>
+
+client program.&nbsp; Specific port numbers, etc. that we mention below are the 
+
+defaults.</p>
+
+<p>
+
+The ssh program is invoked by the user.&nbsp; It establishes a TCP connection to port 22 on the server
+
+machine.&nbsp;&nbsp; This program/process is often called the ssh client.</p>
+
+<p>
+
+The service process <code>sshd</code>
+
+on the remote machine will be listening on the port 22.&nbsp; This process is 
+
+often called the ssh server. The user does not explicitly start this process. 
+
+This process is started either when the remote machine booted or on-demand.&nbsp; </p>
+
+<p>
+
+Even though its name includes the word &quot;shell&quot;, the ssh does not include
+
+the functionality of the shells such as bash, csh, or ksh.&nbsp;
+
+Once login is completed, the user is interacting with the usual shell,
+
+but with all his key strokes and output from the shell on the remote
+
+end going through the ssh encryption tunnel.</p>
+
+
+
+<h3>
+
+1.2
+
+Public and Private Keys</h3><p>
+
+&nbsp; SSH involves the following.</p>
+
+<ol>
+
+  <li>Public and private keys that identify the user.</li><li>Public and private keys that identify the local machine.</li><li>Public and private keys that identify the remote machine.</li>
+
+</ol>
+
+<p>The public and private keys for the remote machine must have been generated when an OS 
+
+got installed on it as a new machine.&nbsp; (The simplest of the ssh usages does not require items 1 and 2. 
+
+) Upon connection, the <code>sshd</code>
+
+presents the public host key of the server machine. </p>
+
+<p>The client checks
+
+that this key matches the key it has in its own database for that
+
+server machine. If not, it alerts the user and asks if the user wishes
+
+to continue anyway, with or without replacing the conflicting host key
+
+it has. </p>
+
+<p>If this is the first connection being made to the server from this local host, there
+
+are two possibilities: </p>
+
+<ol>
+
+	<li>Consult another machine, called an authentication server, to
+
+verify that the public key presented does indeed belong to the remote host.</li>
+
+	<li>Simply ask the
+
+user if the server host is to be believed. </li>
+
+</ol>
+
+<h3>1.3 Encryption Tunnel</h3>
+
+<p>The two machines (local and remote) now
+
+negotiate a so-called session key (see Cryptography article).&nbsp; All traffic 
+
+between the two from this moment on is encrypted with the session key.&nbsp; 
+
+Note that the session key lasts only for one session.&nbsp; The public/private 
+
+keys are &quot;forever.&quot;</p>
+
+<p>An ssh client can chose the encryption algorithm from among several it has: Triple-DES (3DES), 
+
+&quot;blowfish&quot;, &quot;idea&quot;, etc.</p>
+
+<h3>1.4 User Login</h3>
+
+<p>After establishing the encrypted tunnel, the ssh client asks for user id and 
+
+password.&nbsp; So, even someone eavesdrops on this, the captured user id and 
+
+password will be in a form encrypted&nbsp; by the session key, and considered 
+
+&quot;computationally infeasible&quot; to decipher into clear text.</p>
+
+
+
+
+
+<p>Here is an example login.&nbsp;
+
+The user pmateti is currently logged in on a machine named <code>milner.osis.cs.wright.edu</code>,
+
+with prompt string PS1 set to <code>'\h:\w%
+
+'. </code>&nbsp; He wishes to
+
+login into the machine named Minsky.</p>
+
+
+
+
+
+<pre>milner:~ % ssh minsky.osis.cs.wright.edu -l pmateti<br>login as: pmateti<br>pmateti@minsky's password:<br>minsky:~ %<br></pre>
+
+
+
+
+
+<p>
+
+If the user's name on Milner is also <code>pmateti</code>,
+
+there is no need to specify the <code>&nbsp;-l
+
+pmateti </code>in the invocation of
+
+ssh.&nbsp; It so happens that the prompt string on Minsky is also
+
+set to <code>'\h:\w% '.&nbsp;
+
+</code>
+
+</p>
+
+
+
+<p>Currently there are two
+
+versions, SSH1 (old) and SSH2 (current), of the SSH protocol in use.&nbsp;
+
+Depending on this and a few other issues, the above may look slightly
+
+different.&nbsp; Instead of the -l option, it is also possible to
+
+use the command line: milner:~ % ssh pmateti@minsky.osis.cs.wright.edu.</p>
+
+
+<p>
+The program named ssh that you invoked is the ssh-client running on the
+
+local machine.&nbsp; It is the client which collects the user's
+
+password and delivers it securely to the remote machine.&nbsp; But
+
+even before it attempted to collect the password, ssh-client verified
+
+the authenticity of the remote host,
+
+minsky.osis.cs.wright.edu.&nbsp; This is further explained in SSH
+
+internals below.
+
+
+
+
+
+<pre><br></pre>
+
+
+
+<h3>1.6 Files</h3>
+
+
+<p>
+The system wide ssh related files are located in /etc/ssh.&nbsp; User's ssh 
+
+files are in ~/.ssh.&nbsp;
+
+
+
+Here is an ls -l listing of my ~/.ssh/.<br>
+
+
+
+
+
+
+
+<pre>-rw-r--r-- 1 pmateti pmateti  605 Jan 13 20:08 authorized_keys<br>-rw------- 1 pmateti pmateti  668 Jan 13 20:07 id_dsa<br>-rw-r--r-- 1 pmateti pmateti  605 Jan 13 20:07 id_dsa.pub<br>-rw-r--r-- 1 pmateti pmateti 3236 Jan 10 21:30 known_hosts</pre>
+
+
+
+
+<p>
+My private key&nbsp;(id_dsa) is shown below; normally, you must <b>never</b>
+
+reveal the private key to any one.&nbsp; Note the rw-------
+
+permissions on this file above.<br>
+
+
+
+<pre>-----BEGIN DSA PRIVATE KEY-----
+
+MIIDPwIBAAKCAQEAyrQ7RLxzOyw103CnzpcDlQQHiZZ2IduSNid3YXdqoOb+hSdS
+BnVRAzDYTNDM2AWpxHuODpltc+C/43YKOMixkyCr/K7wYL8tiqF8UatoW0L7l8xS
+xNwUprxLPD9vDcrjIZcj+KBGsa5OGpfRBuv25nqSxSDwkj3ueeXLB6NKegOzoYf1
+CtyyQgDh7mNS2oli9iLX10vhFer1+BgLlaFF+H+Aw/6Vkf2u+Sw1B6XwekNeISBx
+JKoJAcFsYTdI+s9APm/XY1XcyIGIrApAM3XMbjTxYVi5rR1ZJFfjIC8RnAZ0qqCl
+aa6UCNlrufvibjiehjaHxnQVpiTUsSD63ghVBwIVAJVPI22DCqUcLtBJaxxVrfnK
+ZvQ7AoIBAQCFjDB6k2gzmusDaplJLgZm7Fk7IiQNMnX1IKEohwlxjjyocuFV+BJ1
+tJRGFRsomhxq9ag31N6+F2ifB+aQQiUU39+BH7XZbcXqU+iDS3PIPwuLjgxF3+vd
+rrMnBlfTIHsiheDzdRLUdwFcA+JrWir0qyCEH/Re79SISl3tMJ+L3bt8r7i8FoeJ
+nCRtsF0C1lSbSDf+SPxxxucd3ZrMU8wYE5JXuC3yPSsZgKwPio8F+rEB9cohS3gk
+bg8NPCs/16IPFULKP4gE1rd3+c8eYk83lrbjWNAheTg3Na2eYdhGVMXssOqThTTb
+JcxxP2bVP0JYU6P2BgPxC9f9Wf9d9TnPAoIBAB2qNpd4BYGYlTUVLMSddcs0KlNU
+i2MG8F1at2j1y9vT2We5WdNbl34vGI0ARia3MZLP+xSCzaq0wzS7S0l96DoCJ/9z
+Hg9gbEs3O2fDTOYAPFY7C7B8lG05RnJO5KllnkiSDmdd5R5vpQ568UR1QadppgOH
+dpvdXDevw1+FJ0LbEqMx0Sp3Ylxbys1HWKInPUd8XxwTOudkA3YnxljObUrEjFrx
+jPsWCCGeaKGfhR+PJ1Vk2kncFhz5KyatFL2jkVi/j+Q1OB97Pb7MB/p+fRyOBQ3t
+GLmxSbZYGSRw2T3QOEVvIOlzgZPdA7RdJoIivWCT9b5kEva5ApCLoeaiVpQCFQCU
+3LTLbRG2Seg7GTG3mUovBXW7Rw==
+
+-----END DSA PRIVATE KEY-----</pre>
+
+<p>My public key (id_dsa.pub) that &quot;matches&quot; the above private key is shown below. 
+This should be published in ~/.ssh/authorized_keys of the remote machine (in our 
+example: Minsky).&nbsp; You should not keep on Minsky the private key that you 
+generated on Milner.&nbsp; The ssh client running on Milner presents your 
+private key to the sshd on Minsky instead of the usual password.<p>The content 
+of id_dsa.pub file is just one long line, but is shown below with inserted line 
+breaks.</p>
+
+<pre>ssh-dss AAAAB3NzaC1kc3MAAAEBAMq0O0S8czssNdNwp86XA5UEB4mWdiHbkjYn
+d2F3aqDm/oUnUgZ1UQMw2EzQzNgFqcR7jg6ZbXPgv+N2CjjIsZMgq/yu8GC/LYqh
+fFGraFtC+5fMUsTcFKa8Szw/bw3K4yGXI/igRrGuThqX0Qbr9uZ6ksUg8JI97nnl
+ywejSnoDs6GH9QrcskIA4e5jUtqJYvYi19dL4RXq9fgYC5WhRfh/gMP+lZH9rvks
+NQel8HpDXiEgcSSqCQHBbGE3SPrPQD5v12NV3MiBiKwKQDN1zG408WFYua0dWSRX
+4yAvEZwGdKqgpWmulAjZa7n74m44noY2h8Z0FaYk1LEg+t4IVQcAAAAVAJVPI22D
+CqUcLtBJaxxVrfnKZvQ7AAABAQCFjDB6k2gzmusDaplJLgZm7Fk7IiQNMnX1IKEo
+hwlxjjyocuFV+BJ1tJRGFRsomhxq9ag31N6+F2ifB+aQQiUU39+BH7XZbcXqU+iD
+S3PIPwuLjgxF3+vdrrMnBlfTIHsiheDzdRLUdwFcA+JrWir0qyCEH/Re79SISl3t
+MJ+L3bt8r7i8FoeJnCRtsF0C1lSbSDf+SPxxxucd3ZrMU8wYE5JXuC3yPSsZgKwP
+io8F+rEB9cohS3gkbg8NPCs/16IPFULKP4gE1rd3+c8eYk83lrbjWNAheTg3Na2e
+YdhGVMXssOqThTTbJcxxP2bVP0JYU6P2BgPxC9f9Wf9d9TnPAAABAB2qNpd4BYGY
+lTUVLMSddcs0KlNUi2MG8F1at2j1y9vT2We5WdNbl34vGI0ARia3MZLP+xSCzaq0
+wzS7S0l96DoCJ/9zHg9gbEs3O2fDTOYAPFY7C7B8lG05RnJO5KllnkiSDmdd5R5v
+pQ568UR1QadppgOHdpvdXDevw1+FJ0LbEqMx0Sp3Ylxbys1HWKInPUd8XxwTOudk
+A3YnxljObUrEjFrxjPsWCCGeaKGfhR+PJ1Vk2kncFhz5KyatFL2jkVi/j+Q1OB97
+Pb7MB/p+fRyOBQ3tGLmxSbZYGSRw2T3QOEVvIOlzgZPdA7RdJoIivWCT9b5kEva5
+ApCLoeaiVpQ= pmateti@milner</pre>
+
+
+
+If your private key is exposed (like I did), you can ssh-keygen again.  Obviously, you need to update all the corresponding public keys.
+
+
+
+<h2>2. <a name="Port_forwarding">Port forwarding</a></h2>
+
+
+
+
+
+<p>Port forwarding is the act of
+
+sending TCP packets addressed to one port on one machine to another machine +
+
+port.&nbsp; Say, you are logged in on Milner via X11, and if you
+
+were to ssh login to gamma (a machine located on a different subnet/floor from OSIS lab), and invoke an X client program, the X11 traffic generated by
+
+that client on gamma will be sent to the X11 server on Milner via the ssh 
+
+tunnel.&nbsp; </p>
+
+<p>More TBD.</p>
+
+
+
+
+
+
+
+
+
+<h2>3. <a name="SSH_Best_Practices">SSH Best Practices</a></h2>
+
+
+
+
+
+
+
+(Some of the
+
+consequences of accepting the defaults are discussed .)
+
+<p>TBD</p>
+
+<h2>4. <a name="SSH_Internals">SSH Internals</a></h2>
+
+
+
+
+
+<p>TBD</p>
+
+
+
+
+
+<p>SSH protocol uses the public
+
+key system for encryption.&nbsp; The <a href="#SSH_Protocol_Architecture">SSH 
+
+Protocol Architecture</a> article listed below is the official description of 
+
+the protocol.&nbsp; In the next few paragraphs, we summarize these details.&nbsp; 
+
+</p>
+
+
+
+
+
+<p>
+
+Currently there are two versions, SSH1 and SSH2, of the SSH protocol in
+
+use.</p>
+
+
+
+
+
+<h2>5. <a name="Past_exploits_of_SSH">Past exploits of SSH</a><br>
+
+
+
+
+
+</h2>
+
+
+
+
+
+<h2>6. <a name="Well_Known_ssh_Clients_and_Servers_">Well Known ssh Clients and
+
+Servers</a></h2>
+
+
+
+
+
+<p>putty</p>
+
+
+
+
+
+<p>ttermpro</p>
+
+
+
+
+
+<p>openssh</p>
+
+
+
+
+
+<h2>7. <a name="Password_Conveniences">Password Conveniences</a></h2>
+
+
+
+<p>
+If you wish to avoid typing your password every time a remote login or file 
+
+transfer is attempted, you must generate a public + private key pair for 
+
+yourself using either DSA or RSA.&nbsp; In this
+
+example,
+
+we use DSA.&nbsp;&nbsp; </p>
+
+<pre>% ssh-keygen -t dsa -b 1024</pre>
+
+
+
+
+
+
+
+
+
+
+<p>
+This generates a public + private DSA key pair. It will ask where to
+
+store the keys. Accept the supplied default
+
+pathnames.&nbsp;&nbsp; Just type Return so that you are not
+
+using a "passphrase". The dialog
+
+with ssh-keygen will look like this:<br>
+
+
+
+
+
+<pre>Enter file in which to save the key (~/.ssh/id_dsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in id_dsa.
+Your public key has been saved in id_dsa.pub.
+The key fingerprint is:
+ad:a3:7f:39:28:22:f8:42:7f:ac:10:83:c7:61:01:ba pmateti@milner</pre>
+
+
+<p>
+Append the newly generated key to other authorized keys you
+
+may have collected so far.<br>
+
+
+
+
+
+<br>
+
+
+
+
+
+<tt>% cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys</tt><br>
+
+
+
+
+
+<p>Copy this file (~/.ssh/authorized_keys (the _ is an underscore, not a 
+
+hyphen)) to your home directory on Minsky's (unless Milner and Minsky share the 
+
+home directories, as in our OSIS Lab).&nbsp; All the machines in this lab have a shared /home
+
+directory server from osisServer.osis.cs.wright.edu.</p>
+
+<p>Now you (except root) should be able to log in to Minsky without typing the password.
+
+</p>
+
+
+
+
+
+<pre>milner:~ % ssh minsky.osis.cs.wright.edu<br>minsky:~ %</pre>
+
+
+
+
+
+<p>&nbsp;</p>
+
+
+
+
+
+<hr>
+
+<h2><a name="Lab Experiment">Lab Experiment</a></h2>
+
+
+
+<p>All work should be carried out
+
+in the Operating Systems and Internet Security (OSIS) Lab, 429
+
+Russ.&nbsp;&nbsp; Use any of the PCs numbered 192.168.17.19 to
+
+.30.&nbsp; No other WSU facilities are allowed.&nbsp;</p>
+
+
+
+
+
+<hr>
+
+<h2><a name="Acknowledgements">Acknowledgements</a></h2>
+
+
+
+
+
+<hr>
+
+<h2><a name="References">References</a></h2>
+
+
+
+
+
+<ol>
+
+
+
+
+
+<li>Richard Silverman and Daniel
+
+J. Barrett, "SSH, The Secure Shell: The Definitive Guide," 558 pages,
+
+O'Reilly, ISBN 0-596-00011-1, January 2001. <a href="http://www.oreilly.com/catalog/sshtdg/inx.html">
+
+www.oreilly.com/catalog/ sshtdg/inx.html</a>
+
+</li>
+
+<li>C. Lonvick (Editor), "<a name="SSH_Protocol_Architecture">SSH
+
+Protocol Architecture</a>", December 9, 2004.
+
+<a href="http://www.ietf.org/internet-drafts/draft-ietf-secsh-architecture-20.txt">
+
+www.ietf.org/internet-drafts/draft-ietf-secsh-architecture-20.txt</a>
+
+To get the latest version of this document, visit <a href="http://www.ietf.org"> www.ietf.org</a>
+
+and search for the title.</li><li>Prabhaker Mateti, <a name="Cryptography">
+
+Cryptography</a> in Internet Security, 2002.
+
+<a href="http://www.cs.wright.edu/~pmateti/InternetSecurity/Lectures/Cryptography/index.html">
+
+http://www.cs.wright.edu/~pmateti/ InternetSecurity/Lectures/Cryptography</a>.</li>
+
+</ol>
+
+
+
+<div align="right">
+
+<table bgcolor="#008080" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+<tbody>
+
+<tr>
+
+<td align="right"></td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+
+<tbody>
+
+<tr>
+
+<td width="71%"> <a href="../Top/copyright.html">Copyright &copy;</a>
+
+2005
+
+<a href="mailto:pmateti@cs.wright.edu?subject=InternetSecurity">pmateti@cs.wright.edu</a></td>
+
+<td align="right" width="29%">
+
+<!--webbot bot="Timestamp" s-type="EDITED" s-format="%m/%d/%y %I:%M:%S %p" startspan -->09/29/08 05:03:19 PM<!--webbot bot="Timestamp" endspan i-checksum="27651" --></td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+
+
+</body></html>
+

@@ -1,0 +1,76 @@
+# -*- mode: org -*-
+#+DATE: 2015-09-00
+#+TITLE: On Abstractions
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: On Abstractions in Software Engineering
+#+HTML_LINK_HOME: ../../
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\">../../</a> | <a href=\"./abstraction-slides.html\">Slides</a> "))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:t
+
+* Abstraction Dictionary Definition
+
+1. ab·strac·tion abˈstrakSHən/ noun
+1. the quality of dealing with ideas rather than events.
+   1. "topics will vary in degrees of abstraction"
+   1. "the question can no longer be treated as an academic abstraction"
+   1. synonyms: concept, idea, notion, thought, theory, hypothesis
+      More
+2. freedom from representational qualities in art.  "geometric
+   abstraction has been a mainstay in her work"
+
+* Data Abstractions
+1. sets versus linear arrays, lists, hash table
+2. bags versus ...
+3. binary tree eg is not definable in Java
+4. n-ary trees versus ...
+5. Abstract Data Type (ADT)
+   1. Algebraic Specs
+   2. Classic Stack: push, pop, top, isempty, cons
+   3. Modeling
+
+* Control Abstractions
+
+1. Multiple Assignment  x, y := a, b; x, y := y, x
+2. for-all
+
+** Control Abstractions: Map
+
+3. map: apply a function f to all the values of a list
+   1. list/ array/ vector L, L[ 0], L[ 1], ..., *sequence*
+   2. f(L[ 0]), f(L[ 1]), ...
+   3. map f L  (typical functional notation)
+
+** Control Abstractions: Reduce
+
+4. reduce
+   1. Take a sequence, and insert a binary operation between consecutive
+      items
+   2. Insert plus: L[ 0] + L[ 1] + ...
+   3. Is the bin op left- or right-associative?
+
+* Abstraction v Encapsulation
+
+1. Information Hiding
+1. Abstraction is about ignoring nitty-gritty details while keeping
+   essential details  (subjective judgement)
+1. Encapsulation is about controlling access to methods that implement
+   abstractions.
+
+* OOP and Abstraction
+
+1. Design by Contract (discussed in detail later)
+
+1. Java and C++ pretty good at encapsulation; pretty poor on
+   abstractions.
+
+* Java and Abstraction
+
+1. =abstract= key word has a "different" meaning
+1. abstract class: incomplete, cannot be instantiated
+1. abstract method: just a declaration, no body (implementation)
+1. interface: =public static=, =final constant= or abstract method declarations
+

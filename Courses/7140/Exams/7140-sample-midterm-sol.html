@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Adv Software Engineering: Sample Exam Solutions</title>
+<!-- 2018-06-14 Thu 06:18 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="CEG7380 Cloud Computing"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Adv Software Engineering: Sample Exam Solutions</h1>
+<p>
+This is essentially a composite of students' answers to
+<a href="./7140-sample-midterm.html">./7140-sample-midterm.html</a>
+</p>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Part 1</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> (i) Specs in English</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+True. A spec can suffer from all the seven sins described by Meyer
+especially when written in plain English, the top most being ambiguity
+and noise. It is preferable to accompany specs in English with math,
+logic based formal specifications.  If the specs are only in plain
+english there is no methodology of formally verifying the program's
+correctness.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> (ii) {true} S {Q}</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+<i>If the pre-condition of a piece of code S is true, you are asserting
+that S does terminate. True or False?</i> False. If the pre-condition of a
+piece of code S is true, then we only assert that in all possible
+states of the program S can be executed and will terminate satisfying
+a given post condition as per Dijktra's WP semantics.  The Hoare triplet
+{P} S {Q} does not include termination guarantee no matter what P and
+Q are.  However {P} S {false} can be satisfied only by an S that does
+not terminate.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> (iii) Design by Contract by Assertions</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+True. The "design by contract" principle prescribes the use of
+assertions.  The writer of the class should provide pre-condition,
+post-condition for public methods and class invariants as a contract.
+Which means the caller should ensure that pre-condition is true before
+calling the routine and the routine guarantees that the post-condition
+will be achieved if the caller holds their side of the contract.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> (iv) Wicked Problems</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+<i>There are wicked problems for which we cannot write programs.</i> False.
+Wicked problems are those for which the specs are not clear before we
+implement a solution to the problem.  They are so confusing, seemingly
+contradictory, obscure, &#x2026; that a reasonably good spec document is
+highly unlikely.  And, someone takes a stab at it anyway, and does a
+prototype by implementing a portion of the spec, and the full problem
+now has a solution.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> (v) Functional Specifications</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+<i>A functional specification is a rigorous description of the
+relationship between the inputs and outputs.</i> True, a functional
+specification can be considered as a subset of the cross product IXO
+of inputs and outputs.  It is often structued into sections (i) the
+inputs I, (ii) outputs O, and (iii) their relationship.  A program
+implementing the spec can be seen as producing an output y, for a
+given input x, where (x, y) is in I x O,a nd if multiple y's for (x, y)
+in I x O exist, chose any one such y.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Part 2</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> (i) Specs of Partition of Quick Sort</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+See <a href="../Lectures/Examples/QuickSort">../Lectures/Examples/QuickSort</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> (ii)  Telegram-Problem Spec</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+(This being an exam answer, we won't analyze the words "word", "BLANK",
+and "NL" and depend on their sympathetic understanding widely known.)
+</p>
+
+<ol class="org-ol">
+<li>input.lex() = output.lex()
+</li>
+<li>Let Q be the same output but viewed as a sequence of lines.
+<ol class="org-ol">
+<li>for all i: Q[i].length() &lt;= MAXPOS
+</li>
+</ol>
+</li>
+<li>Among all such output values, choose the one with the shortest Q.
+</li>
+</ol>
+
+<p>
+(The above assumes that no word is longer than MAXPOS characters.
+Naur's original statement did not ask for any specific treatment for
+this special case.  However, this can be considered an academic
+example of a pragmatic issue.  So here is a spec that includes this
+special case.  Replace the item 2 as follows:
+for all i: (Q[i].length() &lt;= MAXPOS  or Q[i].lex().length() == 1)
+)
+</p>
+
+<p>
+See <a href="../Lectures/Examples/Telegram-Problem">../Lectures/Examples/Telegram-Problem</a>
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> (iii)  Telegram-Problem Solution Design</h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="org-src-container">
+
+<pre class="src src-java">var string input := all-of-the-input();
+var string thisLine := " ";  // one space
+lex.init(input, MAXPOS);
+output-stream.Open();
+repeat
+  var string thisWord := lex.next-word();
+  if (thisLine.length() + thisWord.length() &gt; MAXPOS) {
+     output-stream.Output(thisLine.strip-leading-blanks() + "\n");
+     thisLine := " ";
+  }
+  thisLine += " " + thisWord;
+until thisWord == END;
+output-stream.Close();
+</pre>
+</div>
+<p>
+(To be really thorough, we should also write down the contracts for all
+the methods used above.  In the lex nodule, END.length() is defined as
+MAXPOS+1.  If code compactness matters, we should make a new method
+out of the output += &#x2026; thisLine := ""; lines.)
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> (iv) Liskov Subsitution Principle</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+<i>Describe Liskov Subsitution Principle rigorosuly.</i> Here B is a
+subclass of A.  If a q(x) holds for a variable x of A then q(y) should
+hold for a variable y of B.  This ensures that while class B in
+extending A's functionality does not modify existing functionality.
+This formally translates to the fact that (1) the class invariants of
+A should also hold in B (which may have possibly stronger class
+invariant), (2) for all the overriden methods the precondition should
+not be stronger in B than that in A, (3) the postcondition should not
+be weaker in B than that in A.  That also means that the contract for
+all the methods defined in A still holds good even when the object a
+reference is holding is of type B.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> (v) Example of JML Specs</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+(Even though the exam question only mentions group 5, the spec of
+every public method includes the class invariants.  However, no points
+were taken off even if you only dealt with group 5.  I inserted the
+JML assertions so that this page is bit more self-contained &#x2013; you did
+not have to.)
+</p>
+
+<p>
+Class invariants should hold true before and after the execution of
+any public method (excluding the constructor).  Class invariant may
+not be true before the constructor, but must be after.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java">/*@ requires 0 &lt; mb &amp;&amp; 0 &lt;= b &amp;&amp; b &lt;= mb
+  @          &amp;&amp; p != null &amp;&amp; p.length == 4
+  @          &amp;&amp; (\forall int i; 0 &lt;= i &amp;&amp; i &lt; 4;
+  @                             0 &lt;= p[i] &amp;&amp; p[i] &lt;= 9);
+  @*/
+</pre>
+</div>
+<p>
+The JML Requires gives the precondition of the constructor of class
+Purse.  Caller must make sure that the parameters mb, b, []p of the
+constructor satisfy this precondition.  The "\ forall" is the sme as
+"for all" &forall; in mathematics.
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-java">//@ assignable MAX_BALANCE, balance, pin;
+</pre>
+</div>
+<p>
+The JML assignable declares that these class data members (fields) may
+be modified during the execution of this method (constructor) possibly
+leading to side effects.  Any class data members not included in this
+list must remain unmodified.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java">/*@ ensures MAX_BALANCE == mb &amp;&amp; balance == b
+  @         &amp;&amp; (\forall int i; 0 &lt;= i &amp;&amp; i &lt; 4; p[i] == pin[i]);  @*/
+</pre>
+</div>
+<p>
+The JML ensures gives the postcondtion of the constructor.  The post
+condition of the constructor also includes the class invariants.
+Constructor, as it returns, is expected to satisfy these.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java">//@ invariant 0 &lt;= balance &amp;&amp; balance &lt;= MAX_BALANCE;
+</pre>
+</div>
+<p>
+This is an invariant on pin[].
+</p>
+
+<p>
+-end-of-answers-
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2016 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a> &bull; 2016-06-22
+</div>
+</body>
+</html>

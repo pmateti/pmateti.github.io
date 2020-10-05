@@ -1,0 +1,106 @@
+# -*- mode: org -*-
+#+Date: 2016-09-08
+#+TITLE: Dijkstra's Weakest Preconditions
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: WSU CEG 7370 Distributed Computing
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\">../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P, LI {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+OPTIONS: toc:3
+
+* Abstract
+
+This page is about wp(), without concurrency related issues.
+
+* Weakest Precondition
+
+1. Let R stand for wp(S, Q).  R is an assertion/ predicate/ condition.
+   R is a <i>weakest precondition</i> if the following holds.
+
+1. For all states s that satisfy R, executing S on s always
+   terminates, and the resulting state s' satisfies Q.
+
+1. Hoare's triplet {wp(S, Q)} S {Q} is therefore True.
+
+1. Note that wp() is about total correctness: It includes termination.
+
+* wp Defined for a PL
+
+
+1. wp(skip, R) is R  // skip is is a "do nothing" statement
+1. wp(abort, R) is False   // abort is an "always fail" statement
+1. wp(x := e, R) is (R with x replaced by e)
+1. wp(S1; S2, R) is wp(S1, wp(S2, R))
+1. wp(if B then S1 else S2 fi,  R) is<br> ((B \Rightarrow wp(S1, R)) and (not B \Rightarrow wp(S2, R)))
+1. wp(while B do S od) is ...
+
+** Law of Excluded Miracle
+
+
+1. wp(S, False) = False is impossible.
+
+1. This is known as the Law of Excluded Miracle.  The phrase "is
+   impossible" can be confusing.  Understand it as "we cannot do it"
+   as in we cannot satisfy the precondition False, execute S, and
+   expect False to be True.  So, for any Q, wp(S, Q) = False is impossible.
+
+1. wp(S, True) = True?  Does this define liveness of S?
+
+
+* wp Example Q/Answers
+
+Determine weakest preconditions of the following. Show /all/
+intermediate steps. Assume that all variables are of integer type.  PL
+code is shown enclosed in braces.  Note that CS literature uses := as
+an assignment-operator, and = as equals.
+
+** Weakest Preconditions-4
+
+wp( {n := n + m; m := n + m; n := m - n},  (n = 6) and (m =  1) )\\
+= wp( {n := n + m; m := n + m}, (m - n = 6) and (m = 1) )\\
+= wp( {n := n + m}, (n + m - n = 6) and (n + m = 1) )\\
+= wp( {n := n + m}, (m = 6) and (n + m = 1) )\\
+= (m = 6) and (n + m + m = 1)\\
+= m = 6 and n = -11\\
+
+
+** Weakest Preconditions-5
+
+wp( {if  i > j then i := i - j else j := i fi},  i = j )\\
+= (i > j \Rightarrow wp({i := i - j},i = j)) and (i <= j \Rightarrow wp({j := i}, i = j))\\
+= (i > j \Rightarrow i - j = j) and (i <= j \Rightarrow i = i)\\
+= (i > j \Rightarrow i = 2*j) and (i > j or true)\\
+= (i <= j or i = 2*j) and (true)\\
+= (i <= j or i = 2*j)\\
+
+** Weakest Preconditions-6
+
+wp( {while i > 3 do i := i - 3 od},  i = 3 )\\
+
+P0 = (i <= 3) and (i = 3) = (i = 3)\\
+P1 = (i > 3) and wp({i := i - 3}, i=3) = (i > 3) and (i-3 = 3) = (i = 6)\\
+P2 = (i > 3) and wp({i := i - 3}, i=6) = (i > 3) and (i-3 = 6) = (i = 9)\\
+Pk = i = 3*(k+1)\\
+
+wp( {while i > 3 do i := i - 3 od},  i = 3 ) =  (P0 or \exists k>= 0: Pk)\\
+= (i = 3 or (\exists k >= 0: i = 3 * (k + 1)))\\
+= (\exists k >= 1: i = 3*k)\\
+= i = 3*k, for some k > 0\\
+
+* References
+
+1. Dijkstra, Edsger Wybe, A Discipline of Programming. Englewood
+   Cliffs: prentice-hall, 217pp, 1976. A classic. Dijkstra is a Turing
+   award winner.
+1. See Andrews, Chapter 1.
+1. http://en.wikipedia.org/wiki/Predicate_transformer_semantics
+1. Prabhaker Mateti, Lecture Notes on [[./assertions.html][Assertions]], 2016.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

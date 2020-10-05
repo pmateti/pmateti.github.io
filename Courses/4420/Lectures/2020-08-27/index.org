@@ -1,0 +1,74 @@
+
+# -*- mode: org -*-
+#+date: 2020-08-27
+#+TITLE: CEG4420/6420 \bull{} 2020-08-27
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Announcements/ Reminders
+
+1. Read/Watch/Study the last lecture.
+3. *Videos to watch* on Pilot -> Panopto: Dated 2020-08-27.
+
+1. https://cecs.wright.edu/~pmateti/Courses/4420/Lectures/Overview/survey.html
+   Read through this and submit your response as a single PDF
+   file. Ungraded. Zero weight.  But, will be noted who did/did-not
+   submit.  Due: Aug 31, 2020
+
+2. This course uses Linux exclusively.
+   1. [[http://cecs.wright.edu/~pmateti/Courses/2350/][CEG 2350: OS Concepts and Usage]] Prerequisite
+   2. [[https://cecs.wright.edu/~pmateti/Courses/4350/Top/][CEG 4350/6350: OS Internals and Design]] Recommended
+   3. Go through these two courses to (re-) learn OS topics in
+      general, and specific Linux topics and commands.
+
+1. I take cheating seriously. One case of cheating, and you will get
+   an F in the entire course.
+
+
+
+* Agenda
+
+1. Discuss topics related to Lab on Getting Started
+   [[../LinuxSetup/gettingStartedLab.html]]
+
+** Multiboot Linux
+
+1. Quick Summary of a Few Topics from CEG2350.
+   https://cecs.wright.edu/~pmateti/Courses/2350/Top/ Weeks 1 and 2.
+1. Installing Linux on an 16+ GB USB Drive
+   https://cecs.wright.edu/~pmateti/Courses/2350/Labs/OS-on-USB/OSonUSBLab.html
+
+** Discretionary Access Control
+
+1. DAC briefly; more in later lectures.
+1. The =sudo=.  Read =man sudoers=
+
+** Boot Up
+
+1. [Link on Course Home Page]
+
+** Study a Few Tiny Programs
+
+1. [[../LinuxSetup/StudyPrograms/index.org]] About 10.  Understand every
+   line of code.  syscalls. library calls.  =strace= =ltrace=
+1. Task: Compile, run, and observe a few tiny programs
+1. [These topics are covered in CEG2350  and CEG4350.]
+
+* References
+
+1. What is Required Reading and Recommended Reading
+1. All the Lecture Notes linked from the Course Home Page are Required Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+
+
+

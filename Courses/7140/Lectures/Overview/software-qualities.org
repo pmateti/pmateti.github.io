@@ -1,0 +1,71 @@
+# -*- mode: org -*-
+#+DATE: 2016-04-28
+#+TITLE: Software Quality
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P,li {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Collected Opinions
+
+1. Hoare on Software Quality, [[http://onlinelibrary.wiley.com/doi/10.1002/spe.4380020202/epdf][Software -- Practice and Experience]],
+   103-105, 1972. [Local copy [[../Overview/hoare-quality-1972.pdf]]] An
+   editorial by C. A. R Hoare.  Turing Award winner.  Required
+   Reading.
+
+1. A Few Opinions of Professor [[./hehner.org][Hehner]].  Required Reading.  Retired
+   prof, U of Toronto. Author of
+   http://www.cs.toronto.edu/~hehner/aPToP/ free book.  The course
+   Formal Methods of Software Design based on the book is available
+   online free. It includes lectures and transcripts.
+
+1. Bill Gates at the RSA Conference, 2005: "64% of developers are not
+   confident in their ability to write secure applications."
+
+1. "We wouldn't have to spend so much time and effort on network
+   security if we didn't have such bad software security."  -- Bruce
+   Schneier, author of "Applied Cryptography", and "Secrets & Lies:
+   Digital Security in a Networked World".
+
+* Current Software Quality
+
+1. "Malicious hackers don't create security holes; they simply
+   exploit them.  Security holes and vulnerabilities -- the real root
+   cause of the problem -- are the result of bad software design and
+   implementation."  -- John Viega & Gary McGraw, authors of
+   Building Secure Software, 2001.
+
+1. "Have you ever written a program section with a security hole?
+   How did you know?" -- Mark G. Graff & Kenneth R. van Wyk, authors of
+   "Secure Coding: Principles and Practices"
+
+1. "There is no software liability -- no incentive for secure software.
+   Most developers never learned to produce secure code.  Secure code
+   often takes a performance hit -- i.e., the software runs about 1/3
+   slower -- something many users don't want to tolerate.  Writing
+   secure code also takes a lot more time -- hence, development costs
+   are higher than usual.  Consequently, the longer development times
+   and the longer running times discourage developers from writing
+   secure code."
+
+1. [[http://www.gnu.org/philosophy/shouldbefree.html][www.gnu.org/philosophy/ shouldbefree.html]] Opinion
+
+1. "Featurism", Performance: Overriding concern, Correctness: some
+   concern, Security: ??, Privacy: ??
+
+1. Secure software development is to prevent software crash/ hang/
+   misbehave -- any concern??
+
+1. ACK: Collected from cs.hiram.edu/~obie/cpsc35200/slides/ProgSec1.ppt
+
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

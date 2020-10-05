@@ -1,0 +1,8 @@
+root:111pmateti:1000:100:root-OSIS-WSU:/root:/bin/bash
+pmateti:p890mateti:1000:100:pmateti-OSIS-WSU:/home/pmateti:/bin/bash
+student:osislab:1001:1001:Student of OSIS Lab,429 RC,,:/tmp:/bin/bash
+guest:guest007:1002:100:guest-OSIS-WSU:/tmp/guest:/bin/bash
+sgothard:s123gothard:1003:100:sgothard-OSIS-WSU:/home/sgothard:/bin/bash
+mkijowski:m123kijowski:1004:100:mkijowski-OSIS-WSU:/home/mkijowski:/bin/bash
+rvanhook:r123vanhook:1005:100:rvanhook-OSIS-WSU:/home/rvanhook:/bin/bash
+mlinger:m123linger:1006:100:mlinger-OSIS-WSU:/home/mlinger:/bin/bash

@@ -1,0 +1,34 @@
+
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+TITLE:CS7140/2013-09-12
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:t
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+#+STYLE: <style> @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-preamble-format (("en" "<a href=\"http://cecs.wright.edu/~pmateti/Courses/7140/\">CS 7140 Advanced Software Engineering</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+
+* Real Life Programs that Need "Good" Specs/Designs: pandoc
+
+1.  =f.org=
+    produced by me,
+    =f.html= and other formats generatable;
+    see http://emacswiki.org/emacs/OrgMode
+
+
++ =fnm.txt=
+    produced by me  
+
++ =markdown fnm.txt -o fnm-md.html=
+ 
++ =pandoc -s -S -i -t slidy fnm.txt -o fnm-slidy.html=
+
++ =pandoc fnm.txt -o fnm.pdf=
+
++ pandoc obligation?  
+    + =pandoc a.html -o a.txt=
+    + =pandoc a.txt -o b.html= 
+    + =diff a.html b.html=

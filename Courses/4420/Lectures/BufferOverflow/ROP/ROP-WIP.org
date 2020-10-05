@@ -1,0 +1,107 @@
+
+# -*- mode: org -*-
+#+date: 2018-09-29
+#+TITLE: ROP (Return-Oriented Programming)
+WIP TBD
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* ROP Technique
+
+1. "Return-oriented programming (ROP) is a computer security exploit
+   technique that allows an attacker to execute code in the presence
+   of security defenses such as executable space protection and code
+   signing."
+
+1. The Buffer-Overflow-Aleph-One technique injects code, and the
+   modified return-address transfers control to this code.
+
+1. ROP does not inject code onto the stack.  It does not trigger
+   executable stack detection.
+
+1. ROP hijacks program control by placing a sequence of addresses on
+   the call stack.  Stack has to contain return-addresses.
+
+1. These return-addresses are harvested from the machine code of
+   already loaded libraries and the program being attacked.
+
+1. Harvesting ROP gadgets.  Each gadget ends in a RETurn instruction.
+
+1. The address sequence is composed so that a chosen arbitrary
+   computation is performed.
+
+1. http://shell-storm.org/talks/ROP_course_lecture_jonathan_salwan_2014.pdf
+   65+ slides 2014
+
+1. http://www.cs.virginia.edu/~ww6r/CS4630/lectures/return_oriented_programming.pdf
+
+1. https://www.apriorit.com/dev-blog/434-rop-exploit-protection ROP
+   Chain. How to Defend from ROP Attacks (Basic Example) June 2017
+
+1. https://resources.infosecinstitute.com/return-oriented-programming-rop-attacks/#gref
+
+1. https://gist.github.com/mayanez/c6bb9f2a26fa75261a9a26a0a637531b
+   Simple ROP Exploit Example 2018
+
+* References
+
+1. https://en.wikipedia.org/wiki/Return-oriented_programming Required
+   Reading
+
+1. Carlini, Nicholas, and David Wagner. "ROP is still dangerous:
+   Breaking modern defenses." In USENIX Security Symposium. 2014.
+   Recommended Reading
+
+1. https://security.stackexchange.com/questions/166386/
+   how-to-bypass- ASLR- with- ROP
+
+1. Hector Marco-Gisbert, and Ismael Ripoll-Ripoll, return-to-csu: A
+   New Method to Bypass 64-bit Linux ASLR, [[https://www.blackhat.com/docs/asia-18/asia-18-Marco-return-to-csu-a-new-method-to-bypass-the-64-bit-Linux-ASLR-wp.pdf][blackhat.com asia-18 PDF]]
+
+1. https://crypto.stanford.edu/~blynn/rop/ 64-bit Linux
+   Return-Oriented Programming [Update: Dongli Zhang reports that
+   newer Linux versions organize the stack differently. The code below
+   will need to be modified accordingly.]
+
+1. https://www.exploit-db.com/docs/english/28479-return-oriented-programming-(rop-ftw).pdf
+
+1. https://www.endgame.com/blog/technical-blog/rop-dying-and-your-exploit-mitigations-are-life-support
+   ROP Is Dying And Your Exploit Mitigations Are On Life Support Cody
+   Pierce JULY 13, 2016
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+
+* Labs
+
+1. https://ocw.cs.pub.ro/courses/cns/labs/lab-10 Lab 10 - Return Oriented Programming
+
+1. https://ocw.cs.pub.ro/courses/cns/labs/start Labs for the Computer and Network Security class.
+Lab 01 - Introduction. Basic Exploration Tools
+Lab 02 - Assembly Language
+Lab 03 - Executables. Static Analysis
+Lab 04 - Processes. Dynamic Analysis
+Lab 05 - The Stack. Buffer Management
+Lab 06 - Exploiting. Shellcodes
+Lab 07 - Exploiting. Shellcodes (Part 2)
+Lab 08 - Exploit Protection Mechanisms
+Lab 09 - Strings
+Lab 10 - Return Oriented Programming
+Lab 11 - Return Oriented Programming (Part 2)
+Lab 12 - Integers
+Lab 13 - Advanced Binary Analysis
+
+
+
+
+
+
+

@@ -1,0 +1,63 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+DATE: 2016-07-11
+#+TITLE: Adv Software Eng: HW2 Summer 2016
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">CS 7140</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+
+Home work in this course is done individually, without help from
+others.  The due date is announced on the course home page.
+
+In this home work we need a couple of class files, in Java or Scala,
+as the base.  (i) You are welcome to use any two non-trivial class
+files from the code *you* designed/ developed for the project.
+Members of a team must select different classes.  You are welcome to
+include the results of this Homework2 in the Testing and Debugging
+Report of the course project.  (ii) Alternately, all of you can also
+choose the SmallSet.java ([[../Lectures/FormalMethods/SmallSet.java][Java Source]], [[../Lectures/FormalMethods/SmallSet.java.html][htmlized]], [[../Lectures/FormalMethods/SmallSet.java.pdf][pdf]]) single file.
+You are also welcome to use /your/ version of SmallSet.java instead.
+You can vary the choice on a per item basis.
+
+1. (25 points) [[[../Lectures/Design/vhll.org][Literate Programming]]] Express the chosen class file(s) as a
+   literate program (LP).  The LP version should exemplify the OOP
+   design by contract principles.
+
+1. (25 points) [Assert] This part of the home work is focussed on
+   gaining some experience with the use of Java asserts.  Thoroughly
+   document the chosen class file(s) using Java assertions for
+   invariants, requires, ensures, assignable, ... .  
+
+1. (25 points) [[[../Lectures/Testing/index.org][JUnit or TestNG]]] This part of the home work is
+   focussed on systematic testing of the chosen file(s).  Use a JUnit
+   Plugin or a TestNG plugin (in Eclipse, or Intellij Idea).
+
+1. (25 points) [[[../Lectures/Testing/index.org][FindBugs or PMD]]] This part of the home work is
+   focussed on gaining experience with the use of a static source code
+   analysis tools.  Examine closely the reports produced by the tool.
+   Which of the items do you agree with?  How did you resolve the
+   issues?
+
+1. (00 points) Please maintain a journal for this homework.  Submit a
+   summary.
+
+Turn in your answers on =thor.cs.wright.edu= as in =~cs714000/turnin
+HW2 hw2.pdf tarBallName=
+
+The =hw2.pdf= should have five sections, devoted to each of the above
+items.  Include overviews for each.  Other than the source code files,
+put *everything else* -- overviews, diagrams, screen shots -- together
+and produce one =hw2.pdf= file.  Include the source code files in
+the tar-ball.
+ 
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

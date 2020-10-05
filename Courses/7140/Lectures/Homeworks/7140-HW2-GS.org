@@ -1,0 +1,106 @@
+# -*- mode: org -*-
+#+DATE: 2018-02-25
+#+TITLE: Summer 2018 CS7140 HW2
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CS7140 Adv Software Engineering
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-postamble-format (("en" "<a href=http://cecs.wright.edu/~pmateti/Courses/7140/Top/index.html>http://cecs.wright.edu/~pmateti/Courses/7140/Top/index.html</a> Dr Prabhaker Mateti"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+
+1. (25 points) [[[../Lectures/Design/vhll.org][Literate Programming]]] Express the chosen class file(s) as a
+   literate program (LP).  The LP version should exemplify the OOP
+   design by contract principles.
+
+1. (25 points) [Assert] This part of the home work is focussed on
+   gaining some experience with the use of Java asserts.  Thoroughly
+   document the chosen class file(s) using Java assertions for
+   invariants, requires, ensures, assignable, ... .  
+
+1. (25 points) [[[../Lectures/Testing/index.org][JUnit or TestNG]]] This part of the home work is
+   focussed on systematic testing of the chosen file(s).  Use a JUnit
+   Plugin or a TestNG plugin (in Eclipse, or Intellij Idea).
+
+1. (25 points) [[[../Lectures/Testing/index.org][FindBugs or PMD]]] This part of the home work is
+   focussed on gaining experience with the use of a static source code
+   analysis tools.  Examine closely the reports produced by the tool.
+   Which of the items do you agree with?  How did you resolve the
+   issues?
+
+1. (00 points) Please maintain a journal for this homework.  Submit a
+   summary.
+
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

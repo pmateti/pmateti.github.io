@@ -1,0 +1,104 @@
+# -*- mode: org -*-
+#+TITLE: A Few Opinions of Professor Hehner
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1><a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+Extracted from the book "The Logic of Programming, Prentice-Hall 1984,
+by Eric Hehner, Emeritus Professor of Computer Science, University of
+Toronto.  He is also the author of "A Practical Theory of
+Programming", with legitimately downloadable free PDF at
+http://www.cs.toronto.edu/~hehner/aPToP/aPToP.pdf.  2016-1-1 edition
+
+
+* Professional Responsibility
+
+A typical guarantee on anything but software is something like
+this: ``If there are defects in the material or construction of this
+product, it will be promptly replaced free of charge, or all money
+will be cheerfully refunded.''  The corresponding guarantee for the
+software would be: ``If there are errors in the syntax or semantics of
+this program, it will be promptly corrected free-of-charge, or all
+money will be cheerfully refunded.''  How very different is that from
+the typical software ``guarantee'', which is: ``If there are errors in
+this program, we may, if we choose, try to correct them, for an
+additional charge.  Under no circumstances will money be refunded.''
+
+Physical objects (bridges, buildings, bicycles) require
+maintenance to keep them clean, working, and safe; periodically, worn
+and broken parts need to be replaced.  Programs do not get dirty, wear
+out, or break; if ever a program is correct, it remains correct.  In
+short, programs do not need maintenance.  Yet there are two distinct
+activities that are commonly called program maintenance.  The first is
+the one mentioned in the ``typical software guarantee'';
+``maintenance'' is used as a euphemism for ``correction''.  This
+allows a programmer who is incapable of writing a correct program to
+declare success with an incorrect program, and leave the problem to
+someone else (for more money).  This use of the term is just plain
+dishonest.
+
+The other activity that is commonly called program maintenance
+is program modification to meet a change in specifications.  After a
+program is in use, its users sometimes want it to do something
+different, usually something more, than originally planned.  This is
+fair enough; users do not always know at first what they want or need.
+And it is fair enough to ask more money for more programming.  But
+this activity should no more be called program maintenance than adding
+a new wing to a building should be called building maintenance.
+Reprogramming, as we may more properly call it, is not a separate
+subject; there is no special way to make changes and additions to a
+program that is different from programming in the first place.  Of
+course, it will be easier if the original program is well-written and
+well-documented, and we should always keep that in mind.
+
+If a bridge collapses due the incompetence of an engineer, the
+guilty engineer can be sued and jailed.  Doctors, lawyers, and people
+of any profession affecting the well-being of people, are liable to
+malpractice charges if they fail to be properly educated in the their
+profession, or are presently many programmers whose poor efforts can
+aptly be described as malpractice.  Improperly trained and using
+grotesque programming languages, they write programs upon which our
+lives and our fortunes frequently depend.  For shame, we can and must
+do much better.  There is no good excuse for continuing these present
+poor practices.
+
+
+* On Mathematics
+
+A student who wished to learn computer programming asked me 
+for advice on which of two courses to take.  One was more mathematical
+than the other, and he did not like Mathematics.  Since he was a pianist,
+I asked him which course one should take to become a composer, if one 
+does not like music.
+
+* On Programming Books and Courses
+
+Any book whose title or preface suggests that it will make 
+programming easy is a fraud.  Any book that avoids the "difficult"
+topics of formal semantics and analysis of efficiency avoids teaching
+programming, and should itself be avoided.  Such books actually make 
+programming more difficult by denying the would-be programmer the 
+necessary intellectual tools.  Avoiding difficult topics may serve 
+universities whose goal is to maximize enrollment, but it is to the
+detriment of students who cannot ultimately succeed to delay the 
+realization that programming is difficult for them, and it is unfair
+to good students to delay their education and the enjoyment of mastering
+the subject.  We have plenty of poor programmers now; we need a few good
+ones.
+
+	But the unfortunate trend in programming courses has been to 
+encourage the attitude "try it and see if it works" as a method of 
+program composition.  [...] Assignments seem to demand a running program
+(with no apparent errors) rather than a correct one (apparent that there
+are no errors).
+
+* On Being Logical
+
+This book is dedicated to my son Joshua, who has shown me that people
+begin logical, and are urged and pressed to conform to an illogical and
+inconsistent world; may he continue to resist.

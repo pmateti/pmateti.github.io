@@ -1,0 +1,97 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE: Design Patterns and Refactoring
+#+AUTHOR: Prabhaker Mateti
+
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"refactoring-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+
+* Bad Code Smells
+
+1. Falling short of some goals.
+1. Comments poorly done
+1. Nesting depth too deep
+1. Duplicated code
+1. Long method
+1. Large class. "God object"?
+
+** Bad Code Smells
+
+1. Refused Bequest, contract of the base class 
+1. Feature Envy: A class that uses methods of another class excessively.
+1. Inappropriate Intimacy: dependencies on implementation details of another.
+1. Data Clumps: "... consider deleting one of the data values: if you
+   did this, the others do not make sense, ..."
+1. Too many parameters, Lazy class / Freeloader, Excessively long
+   identifiers, Excessively short identifiers, Excessive use of literals
+
+** Bad Code Smells
+
+1. Divergent Change "occurs when one class is commonly changed in
+   different ways for different reasons."
+
+1. Primitive Obsession: "People new to objects usually are reluctant to
+   use small objects for small tasks, ..."
+
+1. Shotgun Surgery: "You whiff this when every time you make a kind of
+   change, you have to make a lot of little changes to a lot of
+   different classes."
+
+1. Kent Beck and Martin Fowler,
+   http://sourcemaking.com/refactoring/bad-smells-in-code 201x,
+   Describes all the above in detail.  Required Visit.
+
+* Code Refactoring
+
+1. Code refactoring is the modification of software source code that
+   has "bad smells" into being better.
+   1. Functional equivalence before and after
+   1. Performance?
+   1. Other issues
+
+1. [[https://docs.google.com/file/d/0B591C2qBD4o9Y0hCbmF6cjRDems][Refactoring]] PDF Slides by Prof Kim [[./refactoring-ut-austin-2013.pdf]]
+
+1. http://refactoring.com/catalog/ A catalog of several
+   patterns. Recommended Visits.
+
+** Code Refactoring
+
+1. Martin Fowler, Refactoring: Improving the Design of Existing Code,
+   Addison-Wesley, 2000.  http://martinfowler.com/ see also
+   http://refactoring.com/  Required Visit.
+
+1. http://en.wikipedia.org/wiki/Refactoring Required
+   Visit/Reading the individual refactoring techniques also.
+
+** Big Refactorings
+
+1. Tease Apart Inheritance
+
+1. Convert Procedural Design to Objects
+
+1. Separate Domain from Presentation
+
+1. Extract Hierarchy
+
+* References
+
+1. Several references embedded above.
+
+1. Mäntylä, M. V. and Lassenius, C, "Subjective Evaluation of Software
+   Evolvability Using Code Smells: An Empirical Study", Journal of
+   Empirical Software Engineering, vol. 11, no. 3, 2006, pp. 395-431.
+   Web search to find its pdf.
+   Skim Reading.
+
+1. https://sourcemaking.com/ has most of the above materials presented well.
+
+1. http://www.tutorialspoint.com/eclipse/eclipse_refactoring.htm

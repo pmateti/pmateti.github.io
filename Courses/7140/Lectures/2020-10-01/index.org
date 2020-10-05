@@ -1,0 +1,52 @@
+# -*- mode: org -*-
+#+DATE: 2020-10-01
+#+TITLE: CS7140 Adv Software Engineering 2020-10-01
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"https://cecs.wright.edu/~pmateti\"> cecs.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Announcements/ Reminders
+
+1. Requirements Doc Review Critiques Received.  I am expecting you all
+   to read each others critiques.  I will begin grading Req Doc and
+   the Reviews.
+1. Pascal Pretty Printer #2 to be continued.
+1. do give feedback on extending/ shrinking some lectures.
+
+* Previously
+
+1. Homework #1 Wiggly Worms in C++, Small Set of Int, Condense Ranges
+1. JML == Java Modeling Language [[../Assertions/JML/index.org]]
+1. Common Words Problem: Lectures #1 #2 #3
+
+* Agenda
+
+1. Common Words Problem Lecture #4 today. 
+2. Knuth's Common Words Problem Design
+   1. Refresher of Sections 1 to 4.
+   2. Section 5 CWP Design Refinements Hierarchy
+   3. Section 6 CWP Hashed Tries
+   4. Section 7 Construct the List of (Words, nOccurs) sorted by nOccurs
+   5. Section 8 Criticism of Knuth's Solution
+
+* References
+
+1. Donald E. Knuth, "A Solution to the Common Words Problem",
+   Communications of the ACM, 1986. Knuth is a Turing Award
+   winner. (local PDF [[../../PDF/cwp-knuth-cacm-1986.pdf]] of Knuth's
+   paper, but search for another PDF link for a clean
+   version). Required Reading.
+1. Prabhaker Mateti, Knuth's Common Words Problem Spec/Design,
+   [[../Examples/Knuth-CWP/index.html]]
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

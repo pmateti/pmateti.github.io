@@ -1,0 +1,43 @@
+
+# -*- mode: org -*-
+#+date: 2020-09-24
+#+TITLE: CEG4420/6420 \bull{} 2020-09-24
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Announcements/ Reminders
+
+1. This is Week#5.  We are about one week behind.
+1. Lab#2: Fortification, Due: Sep 28.
+1. Signup for an AWS account: You should have received an email from
+   support@awseducate.com.  Usage instructions are at
+   https://github.com/mkijowski/aws-cf-templates/blob/master/COURSE-INSTRUCTIONS.md
+1. I will drop one of the following two labs for this semester.
+   1. Lab: Software without Security Holes  (Being revised) (will remain)
+   1. Lab: Software without Security Holes: Static Analysis #2 (Being
+      revised) (will be removed)
+
+* Agenda
+
+1. This week: BufferOverflow #1 + SecSoftware #1 #2
+1. BufferOverflow Lecture #2 [[../BufferOverflow/AlephOne/alephOne.html]]
+
+
+* References
+
+1. All the Lecture Notes linked from the Course Home Page are Required
+   Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+
+
+

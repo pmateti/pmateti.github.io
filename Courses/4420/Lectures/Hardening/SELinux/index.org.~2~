@@ -1,0 +1,461 @@
+
+# -*- mode: org -*-
+#+date: 2018-11-21
+#+TITLE: SELinux Intro
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Overview
+
+1. Linux includes DAC by default.  Can render it useless.  But, Cannot
+   disable DAC.
+1. SELinux is an implementation of MAC as an LSM for Linux.  Installed
+   by choice in some Linux distros.  Others are AppArmour, etc.
+   SELinux is the default MAC in Android.
+1. SELinux divides access issues to a fine granularity.  It can, e.g.,
+   limit the power of the superuser/ root.
+1. SELinux is considered by many to be too difficult to learn within a
+   week.  We are trying! (in this course)
+1. "Security. Hardening. Compliance. Policy. The Four Horsemen of the
+   SysAdmin Apocalypse."
+
+* Where Does SELinux Fit in DAC+MAC?
+
+** SysCalls in the Presence of LSM
+
+#+CAPTION: LSM steps in User mode to Kernel Mode
+#+ATTR_HTML: :alt LSM Access :title LSM :width 50%
+[[./Figures/lsm-access.jpg]]
+
+1. Process with a security id SSec is trying to access (1) the file
+   with the security id TSec.
+1. The kernel consults LSM module (3)
+1. The user specific security is implemented as a function "f".
+1. The kernel will then grant/ deny access to the resource (4).
+
+** Permission Granted?
+
+#+CAPTION: Subject Action Object [AVC Access Vector Cache]
+#+ATTR_HTML: :alt DAC to MAC flow :title LSM :width 100%
+[[./Figures/sel-subj-obj.png]]
+
+** SEL Example: Read /etc/passwd
+
+#+CAPTION: DAC to MAC flow: Subject Action Object
+#+ATTR_HTML: :alt DAC to MAC flow :title LSM :width 100%
+[[./Figures/dac-mac-sel1.png]]
+
+** SEL Example: More Details of Read /etc/passwd
+
+#+CAPTION: DAC to MAC flow: Subject Action Object
+#+ATTR_HTML: :alt DAC to MAC flow :title LSM :width 100%
+[[./Figures/dac-mac-sel2.png]]
+
+** SEL Block Diagram
+
+[[./Figures/sel-arch.png]]
+2. SELinux has hooks located at strategic points within the kernel code
+
+** SE Android
+
+#+CAPTION: SE Android
+#+ATTR_HTML: :alt LSM Access :title LSM :width 100%
+[[./Figures/seandroid-timeline.jpg]]
+
+* SELinux Conceptual Overview
+
+#+CAPTION: LSM SELinux Work Flow in {User Wishes to Execute Script}
+#+ATTR_HTML: :alt LSM SELinux :title LSM :width 100%
+[[./Figures/sel-permissions.png]]
+
+1. "With a MAC, the permissions are not governed by the owner of the
+   resource, nor can they be worked around by users. Instead, they are
+   set in stone by the security administrator. In SELinux, this is
+   done through the SELinux policy that is loaded at the start of the
+   system."
+
+** SELinux Contexts/ Labels
+
+1. SELinux assigns a context (aka label) to every object and subject:
+   files, directories, programs, processes, network ports, ...
+
+   #+ATTR_HTML: :alt SELinux Contexts :title LSM :width 100%
+#+CAPTION: SELinux Contexts
+[[./Figures/sel-users.png]]
+
+2. SELinux introduces: selinux-user-identity, role, type, and
+   sensitivity, in order to divides access issues to a fine
+   granularity.
+1. Linux user names are mapped to SELinux user names, =*_u=.
+1. A SELinux role =*_r=, (used in Role-Based Access Control RBAC)
+1. A SELinux type =*_t=, (an attribute of "type enforcement" TE that
+   defines a domain for processes)
+1. optionally followed by a sensitivity level, e.g., =s0=
+
+1. Context Examples
+   1. Ex: context of /etc/shadow: =system_u:object_r:shadow_t=
+   2. Ex: context of a process: =root:staff_r:staff_t=
+   3. 100+ types, such as device-type, process-type, file-system-type,
+      network type, IPC type, ...
+   1. =/usr/sbin/semanage fcontext -l= to see the current list of all contexts
+
+3. Labels encapsulate all security attributes of an object. Labels are
+   interpreted by the SELinux Security Server (Figure 4) in the kernel
+   and by =libselinux= in user space.
+
+5. The rest of the kernel code and user space view labels as opaque data.
+
+6. New security attributes can be added to labels without having to
+   recompile applications or redesign core SELinux code.
+
+** Example Contd.
+
+1. In the example {User Wishes to Execute Script Figure 7}, two
+   contexts take part in the activity.
+   1. the context of the user process (such as a shell), which is =user_u:user_r:user_t=
+   1. the context of the target file, which is =system_u:object_r:lib_t=
+#+CAPTION: LSM SELinux Context
+#+ATTR_HTML: :alt LSM SELinux :title LSM :width 100%
+[[./Figures/sel-context.png]]
+
+1. Add the flag =-Z= to the familiar Linux commands to see the
+   contexts.  Examples:
+   : $ id -Z
+   : system_u:system_r:kernel_t:s0
+
+   : $ ls -Z pmNotes-SELinux.org
+   : system_u:object_r:unlabeled_t:s0 pmNotes-SELinux.org
+
+** SELinux Contexts/ Labels #2
+
+
+3. When a user or process requests access to a resource (for example,
+   when opening a file), SELinux uses three items to determine whether
+   to allow access.
+   1. the kind of access requested,
+   2. the security context of the process, and 
+   3. the security context of the requested resource
+
+1. The security context of a process, called a domain, determines what
+   the process can do (what it can access, and what actions it can
+   take).  Ex: User, trusted, system, security
+
+1. The security context of an object is called a type.  It gathers the
+   security attributes of the object.  These are stored in extra
+   attributes XATTRs of the file system.  (Not all file systems can
+   have XATTRs.  On such FS, SELinux has to make do with other
+   techniques.)
+
+1. See the files in =/etc/selinux/default/contexts/= (These are text
+   files.)
+
+1. Users also have security contexts.  See the =/usr/sbin/semanage=
+   tool.
+
+
+** SELinux Types and Type Enforcement
+
+1. Objects are given a specific SELinux type. E.g., Socket types:
+   create, listen, send, recv, close.  Type includes ACLs based on
+   roles
+1. Device types:
+   1.  =agp_device_t= - AGP device (/dev/agpgart)
+   1.  =mouse_device_t= - Mouse (/dev/mouse)
+1. File types:
+   1.  =fs_t= - Defaults file type
+   1.  =bin_t= - Files in /bin
+
+1. /proc types
+   1.  =proc_t= - /proc and related files
+   1.  =sysctl_t= - /proc/sys and related files
+
+** SELinux Policies
+
+1. Written in a SELinux-specific language.
+
+1. An SELinux policy is a collection of rules capturing the boolean
+   conditions granting access; see Figures 2 and 4.
+   1. Type Enforcement (TE) File
+
+1. Policies are compiled into binary files.
+   : root@Sutherland:~# file /etc/selinux/default/policy/policy.31 
+   : /etc/selinux/default/policy/policy.31: SE Linux policy v31 8 symbols 9 ocons
+
+1. =default= is the name of the policy installed by the package named
+   =selinux-policy-default= The full collection of rules is at
+   =/usr/share/selinux/default=.  E.g., take a look at =bzcat
+   /usr/share/selinux/default/keyboardd.pp.bz2=
+
+** SELinux Modes
+
+1. In =/etc/selinux/config= file, =SELINUX= can be set to
+      =enforcing=, =disabled=, or =permissive=
+
+   2. Enforcing: Policy is loaded.  When SELinux is enforcing,
+      everything is denied by default and a policy determines
+      requested access.  See Figure 4.
+
+   3. Permissive: Policy is loaded, but SELinux is /not enforcing/
+      it.  Accesses will be logged but not
+      prevented.  This mode is intended for testing and debugging.
+   4. Disabled: SELinux infrastructure is not enabled. No policy
+      loaded.  Logs are not generated.
+
+5. See also what the Grub boot entry should be for selinux to be
+   enabled (permissive or enforcing).
+
+
+* Role-Based Access Control (RBAC)
+
+1. https://wiki.gentoo.org/wiki/SELinux/Role-based_access_control Do a
+   quick read.  Must.
+
+2. Roles may also have policy restrictions on who/ when/ how roles
+   are changed.  Not just anyone (or any program) can get privileges.
+
+1. SELinux users have authorized roles.  Roles are authorized for
+   domains.  Processes run in their domains.
+
+** RBAC-SEL-Example #1
+
+2. Goal: User named =ta= should be permitted to browse the web, grade labs,
+   and administer a web server.
+1. Create a role for each, with different privileges
+2. =grader= role should not have network access, except to blackboard
+   etc. sofwtare.
+3. =browsing= role should not have access to files within local
+      directory
+4. =webadmin= role should not access students’ labs, etc.
+
+** RBAC-SEL-Example #2
+
+1. Goal:  =userlevel1= should be permitted to read a secret file.
+1. Transition to a secret role to do this.  This role is restricted:
+       1.  Cannot write to the network
+       1.  Cannot write to declassified files
+1.  Secret files cannot be read in a declassified role
+
+** RBAC-SEL-Example #3
+
+1. Goal: Should not let this file =notontheweb.xyz= to go out on the
+   internet.
+1. Create secret-file role with no network access
+1. Process cannot change roles, only exit
+1. Process can read secret files
+1. Can this this policy be expressed in Linux DAC permissions?
+   1. "On a Linux system, one can make most, if not all, of its
+      behavior based on role assignment done through group membership
+      and group privileges."
+
+
+* SELinux Design Internals
+
+1. Linux adds an opaque "security" pointer that LSM can use to
+   store security metadata in processes, inodes, sockets, etc.
+
+1. A process reads the inode
+   1.  VFS (virtual file sys layer) function calls LSM hook, with
+       inode and process pointer
+   1.  LSM reads policy rules from inode
+
+1.  Suppose the file requires a role transition for read
+   1.  LSM hook modifies process’s security data to change its role
+   1.  Then read allowed to proceed
+
+1. In addition to standard Linux attributes, associate a small
+   key+value store with an on-disk inode
+   1.  User can tag a file with arbitrary metadata
+
+** Extended Attributes (XATTR)
+
+1. File systems that support extended attributes: ext2/3/4, ...
+
+1. All ACLs, type information, etc. are stored in extended attributes
+   for persistence.
+
+1. Each file must be labeled for MAC enforcement.
+
+* Customized SELinux Policies
+
+[[https://wiki.gentoo.org/wiki/SELinux/Tutorials][Gentoo Wiki on SELinux Tutorials]] are sufficient for our work in this
+course.  However, Gentoo specifics need to be adapted, mildly, for our
+Linux distribution.  E.g.,
+=/usr/share/selinux/strict/include/Makefile= becomes
+=/usr/share/selinux/devel/Makefile= on Ubuntu.  Reading other
+tutorials, blogs, manuals is not expected.
+
+
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/The_security_context_of_a_process][The security context of a process]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/How_SELinux_controls_file_and_directory_accesses][How SELinux controls file and directory accesses]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Where_to_find_SELinux_permission_denial_details][Where to find SELinux permission denial details]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Controlling_file_contexts_yourself][Controlling file contexts yourself]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/How_does_a_process_get_into_a_certain_context][How does a process get into a certain context]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Using_SELinux_booleans][Using SELinux booleans]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Working_with_customizable_types][Working with customizable types]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Permissive_versus_enforcing][Permissive versus enforcing]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/What_is_this_unconfined_thingie_and_tell_me_about_attributes][What is this unconfined thingie (and tell me about attributes)]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/How_is_the_policy_provided_and_loaded][How is the policy provided and loaded]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/The_purpose_of_SELinux_roles][The purpose of SELinux roles]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Defining_SELinux_users][Defining SELinux users]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Linux_services_and_the_system_u_SELinux_user][Linux services and the system-u SELinux user]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Putting_constraints_on_operations][Putting constraints on operations]]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/SELinux_Multi-Level_Security][SELinux Multi-Level Security]]   [Not part of 4420/6420 course]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/SELinux_Multi-Category_Security][SELinux Multi-Category Security]]   [Not part of 4420/6420 course]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Managing_network_port_labels][Managing network port labels]]  [Not part of 4420/6420 course]
+
+[In the above list, I may follow a different order in the lectures.
+You are expected to skim first ("What you need to remember") then read
+carefully all the above.]
+
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Creating_your_own_policy_module_file][Creating your own policy module file]] [required reading]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Using_gentoo_selocal_for_small_policy_enhancements][Using Gentoo selocal for small policy enhancements]] [can skip]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Creating_a_daemon_domain][Creating a daemon domain]] [required reading]
+1. [[https://wiki.gentoo.org/wiki/SELinux/Tutorials/Creating_a_user_domain][Creating a user domain]] [required reading]
+1. [[./selinux-diy.html]] [required reading]
+
+** Labs on SELinux
+
+1. SELinux: Is it possible to disable it at runtime?  Here is how:
+   =setenforce 0=, set =SELINUX=disabled= in /etc/selinux/config,
+   reboot, choose a Grub entry that does not have =selinux=.
+
+1. [[./selinux-lab.org]] is a required lab in this course.  Before
+   attempting it, skim the sections above.  Do not skip any.  The lab
+   expects you to develop new policies.  Re-read the relevant
+   sections.
+
+1. Develop a collection of access control policies, such as those in
+   the lab above that can improve the security of a Linux installation.
+
+1. Compare SELinux and AppArmor. Optional Lab; Read the discussion
+   https://www.reddit.com/r/linuxadmin/comments/9a0khb/selinux_vs_apparmor/
+
+1. Is sudo now unnecessary? (and /etc/sudoers?)
+
+1. SELinux => Loss of Performance?  Develop a lab experiment that can
+   confirm/ deny this based on objective measurements.
+
+* SELinux Critiques
+
+1. Writing SELinux config files is "complicated."
+
+2. Smack LSM was designed in response to the complexity of
+   SELinux. Smack is now part of Tizen, a mobile OS
+   https://www.tizen.org/.  Not well-respected.  Search in HackerNews.
+
+3. Comments by Frustated Users
+   1. http://forums.fedoraforum.org/showthread.php?t=288584 Is SELinux crap?
+   2. http://symcbean.blogspot.com/2016/11/selinux-sucks.html
+
+* SELinux on Ubuntu
+
+1. [[./selinux-ubuntu.org]] Exploration of SELinux as installed on Ubuntu
+
+* References
+
+1. http://selinuxproject.org/page/FAQ   Recommended Reading.
+
+2. https://wiki.gentoo.org/wiki/SELinux/Tutorials This is part of
+   Gentoo Linux wiki, but applicable to other Linux distros.  Has
+   several useful URLs.  {pm: Beyond my lecture notes, consider this
+   the source of valid information.}  Recommended Reading.
+
+6. {Trent Jaeger, Systems and Internet Infrastructure Security (SIIS)
+   Lab, Pennsylvania State University.}
+   1. http://www.cse.psu.edu/~trj1/cse543-f07/slides/03-PolicyConcepts.pdf
+      SELinux Policy Concepts and Overview, 2005, 28 slides by
+      Tresys.com. { [[./03-PolicyConcepts-pm.pdf]] with a few scribbles by
+      pm.}  Required Reading.
+
+   1. http://www.cse.psu.edu/~trj1/cse443-s12/docs/ch9.pdf Building a
+      Secure Operating System for Linux.  Recommended Reading.  This
+      PDF is Chapter 9 of his book titled
+      "Operating System Security: Synthesis Lectures on Information
+      Security, Privacy, and Trust", 2008, 218 pages,
+      (https://doi.org/10.2200/S00126ED1V01Y200808SPT001).  Reference.
+
+   1. http://www.cse.psu.edu/~trj1/cse544-s13/slides/cse544-selinux.pdf
+      40+ slides, 2013, Reference
+
+1. https://www.youtube.com/watch?v=KoK42DsKEtc Defcon 21 Defeating
+   SEAndroid.  Recommended Watching.
+
+** References #3
+
+4. Richard Haines, =The_SELinux_Notebook-4th_Edition.pdf=, ~400 pp;
+   Legit download.  Search the web for links. {pm: Pretty good.}
+   Recommended Reading.
+
+1. RedHat, [[https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/pdf/selinux_users_and_administrators_guide/Red_Hat_Enterprise_Linux-7-SELinux_Users_and_Administrators_Guide-en-US.pdf][SELinux Users and Admin Guide]] 2018, legit free PDF, 189
+   pp. Reference
+
+2. Red Hat, [[./state-of-selinux-moore-2015.pdf]] Aug 2015 Short
+   presentation.  Aimed at SELinux developers.  Recommended Reading.
+
+3. http://www.linux.com/learn/docs/727873-overview-of-linux-kernel-security-features/
+   2013 Good overview.  Highly recommended reading.
+
+4. http://www.electronicsweekly.com/eyes-on-android/what-is/what-is-security-enhanced-se-android-2013-03/
+   2013 Overview. Light reading.  Recommended.
+
+** References #4
+
+1. http://www-personal.umich.edu/~cja/SEL12/ Hands-on SELinux: A
+   Practical Introduction SELinux short course, 2012; Uses VMware
+   Player, Server, or Fusion.  Reference.
+
+1. http://pages.mtu.edu/~xinlwang/itseed/labs/SELinux_Policy.pdf 19pp,
+   year=??,    Reference
+
+1. https://ict.senecacollege.ca/wiki/ifs/index.php/DPI904_SELinux_LAB
+   Part 1 - Managing an SELinux System, Chapter 13 of the SELinux by
+   Example book.; Part 2 - Managing Confined Services,
+   http://docs.fedoraproject.org/selinux-managing-confined-services-guide/en-US/F11/html/;  Reference
+
+1. http://oss.tresys.com/ (i) SELinux Policy IDE is an integrated
+   development environment for SELinux, (ii) SIPC : Secure one way
+   interprocess communication library for SELinux systems. 201x.
+   Both: "This is an archived project which is no longer maintained by
+   Tresys. "  (iii) https://github.com/SELinuxProject/setools SELinux
+   Policy Analysis Tools.  2018.  Active.
+
+1. https://people.redhat.com/duffy/selinux/selinux-coloring-book_A4-Stapled.pdf
+   16pp, Dan Walsh, Selinux Coloring Book.  {pm: Explains type
+   enforcement using cats and dogs as processes, and uses the
+   children's coloring book idea.}
+
+1. https://www.cyberciti.biz/tips/selinux-vs-apparmor-vs-grsecurity.html 2009
+
+1. https://www.nsa.gov/resources/everyone/digital-media-center/publications/research-papers/assets/files/implementing-selinux-as-linux-security-module-report.pdf
+
+
+** References for CEG 4440/6440 Android Security
+
+3. http://source.android.com/devices/tech/security/se-linux.html
+   Validating Security-Enhanced Linux in Android.  For 4440, Required
+   Reading.  Other courses, Recommended Reading.
+
+5. Stephen Smaley,
+   http://kernsec.org/files/lss2014/lss2014_androidtcb_smalley.pdf
+   Protecting the Android TCB with SELinux
+
+5. Stephen Smaley, "Security Enhanced (SE) Android: Bringing Flexible
+   MAC to Android." [[./SEAndroid-NDSS2013-pm-tab.pdf]] NDSS 2013 paper,
+   with a few of my annotations. Slides:
+   [[./seandroid-Presentation02_4.pdf]] Academic conference paper.  For
+   4440, Required Reading.  Other courses, Recommended Reading.
+   {Stephen Smalley, Trusted Systems Research, National Security
+   Agency; original developer of SELinux and SEAndroid. }
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+  

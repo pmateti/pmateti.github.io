@@ -1,0 +1,584 @@
+<html>
+<head>
+  <title>BufferOverflow / Internet Security Lectures by Prabhaker
+  Mateti</title>
+  <meta name="author" content="Prabhaker Mateti">
+  <meta name="keywords" 
+	content="Buffer Overflow, Stack Smashing, Heap Overflow,
+	Format String Attacks, Internet security,">
+  <meta name="description" 
+	content="This page is part of a set of lectures notes for a
+		 course on Internet Security by Prabhaker Mateti
+		 http://www.cs.wright.edu/~pmateti/">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <style type="text/css">
+  a:hover { color: blue; background-color: yellow; }
+  a:active{ color: white; background-color: green;}
+  P { text-align: justify; }
+  li { text-align: justify; }
+  tt {border:blue 1px dotted;}
+  @page { size: 8.5in 11in }
+  @media screen {BODY {margin: 10%;} }
+  </style>
+</head>
+
+<body>
+  <h1>Buffer Overflow</h1>
+  <h2><a href="http://www.cs.wright.edu/~pmateti">Prabhaker Mateti</a></h2>
+
+  <blockquote>
+    <p>Abstract: A large number of exploits have been due to sloppy
+    software development. Exceeding array bounds is referred to in
+    security circles as "buffer overflow." These are by far the
+    most common security problems in software. This lecture
+    explains the stack-smashing technique, and presents a few
+    techniques that help in avoiding the exploit.</p>
+    <p><a href="vm-setup.html">Virtual machine set up</a> to run
+    <tt>auditor-*.iso</tt>.  The lab experiment will be using Auditor
+    below.  This is an early Linux distribution.  It did not
+    incorporate the buffer overlow protection mechanisms described in
+    this article.</p>
+
+    <p><a href="./modReturnAddress-acer602-20080507.html">
+	modReturnAddress-acer602-20080507.html</a> These are the
+	results of trying out the code examples from the AlephOne
+	article. These notes were recorded with Auditor LiveCD on my
+	old Acer laptop with Pentium III (Coppermine) running Debian
+	GNU/Linux 3.1, gcc version 3.3.5 (Debian 1:3.3.5-2).</p>
+    <p><a href="bufferOverFlow.ppt">Slides</a> | Extracted Code
+    from <i><a href="AlephOne">AlephOne</a></i></p>
+  </blockquote>
+  <h2><a name="Table of Contents">Table of Contents</a></h2>
+
+  <ol>
+    <li><a href="#Educational%20Objective">Educational
+    Objectives</a></li>
+    <li>Buffer Overflow
+      <ol>
+        <li>The Buffer Overflow Error
+          <ol type="a">
+            <li>Stack Smashing</li>
+            <li>Heap overflows versus stack overflows</li>
+	    <li>Format String</li>
+	    <li>Return to libc</li>
+          </ol>
+        </li>
+        <li>Techniques of Avoiding Buffer Overflow
+          <ol type="a">
+            <li>Non-executable user stack area</li>
+            <li>No set-user-id Programs</li>
+            <li>Modern Programming Languages</li>
+            <li>Careful Use of C/C++ Library Functions</li>
+            <li>Static and Dynamically Allocated Buffers</li>
+            <li>Newer Libraries</li>
+            <li>Compilation Solutions in C/C++</li>
+	    <li>Current (2012) GCC/Linux Solutions</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#Lab%20Experiment">Lab Experiment</a></li>
+    <li><a href="#Acknowledgements">Acknowledgements</a></li>
+    <li><a href="#References">References</a></li>
+  </ol>
+  <h2><a name="Educational Objective">Educational
+  Objective</a>s</h2>
+
+  <p>A large number of exploits have been due to sloppy software
+  development. A surprisingly large percentage of these are
+  attributable to exceeding array bounds, that is referred to in
+  security circles as "buffer overflow."</p>
+  <ol>
+    <li>Recognize several real life examples of buffer overflow.</li>
+    <li>Describe the stack smashing technique</li>
+    <li>Describe several techniques of overflow exploit
+    avoidance.</li>
+  </ol>
+  <h1>Buffer Overflow</h1>
+
+  <p>Buffer overflow is a common programming error. There is not a
+  single OS that is free from this error. Buffer overflows have
+  been causing serious security problems for decades. In the most
+  famous example, the Internet worm of 1988 used a buffer overflow
+  in <tt>fingerd</tt>. What is surprising is that a number of
+  security oriented software such as SSH and Kerberos also have
+  these errors.</p>
+
+  <h2>The Buffer Overflow Error</h2>
+
+  <p>The essence of this problem can be explained by the following.
+  The line <tt>strcpy(p, q)</tt> is a common piece of code in most
+  systems programs. It copies the null-terminated string pointed by
+  q to the destination area pointed by p. An example of this is:
+  <tt>char env[32]; strcpy(env, getenv("TERM"));</tt> The
+  <tt>strcpy(p, q)</tt> is proper only when</p>
+  <ol>
+    <li>p is pointing to a char array of size m,</li>
+    <li>q is pointing to a char array of size n,</li>
+    <li>m &gt;= n,</li>
+    <li>q[i] == '\0' for some i where <tt>0 &lt;= i &lt;=
+    n-1</tt></li>
+  </ol>
+  <p>Unfortunately, only a few programs verify that all the above
+  hold prior to invoking <tt>strcpy(p, q)</tt>. A buffer overflow
+  occurs when an object of size <tt>m + d</tt> is placed into a
+  container of size <tt>m</tt>. This can happen in many situations
+  when the programmer does not take proper care to bounds check
+  what their functions do and what they are placing into variables
+  inside their programs. If <tt>n &gt; m</tt> in the <tt>strcpy(p,
+  q)</tt> of above an area of memory beyond <tt>&amp;p[m]</tt> gets
+  overwritten.</p>
+  <p>Other examples of such buffer overflows:</p>
+  <ul>
+    <li><tt>char input[20]; gets(input);</tt></li>
+    <li>memcpy(p, q);</li>
+  </ul>
+
+  <h2>Buffer Overflow Exploits</h2>
+
+  <p>An attacker exploits the above programming mistake. He injects
+  cleverly constructed data / executable-code into the area beyond
+  the declared sizes. If the "buffer" is a local C variable, the
+  overflow can be used to force the function to run code of an
+  attackers' choosing. This specific variation is often called a
+  ``stack smashing'' attack. A buffer in the heap isn't much
+  better. Attackers have been able to use such overflows to control
+  other variables in the program.</p>
+
+  <h3>Stack Smashing</h3>
+
+  <p>Stack-smashing attacks target a specific programming fault:
+  careless use of variables allocated on the program's run-time
+  stack such as local variables and function arguments. The idea is
+  straightforward: Insert attack code (for example, code that
+  invokes a shell) somewhere and overwrite the stack in such a way
+  that control gets passed to the attack code. If the program being
+  exploited runs with root privilege, the attacker gets that
+  privilege in the interactive session.</p>
+  <p>The paper by Aleph One, "Smashing The Stack For Fun And
+  Profit," describes the technique in great detail, and is required
+  reading. But it has a few inaccuracies. A version of this paper
+  with a few of my corrections in place is <a href=
+  "alephOne.html">here</a>. A few additional comments are included
+  below.</p>
+  <p>Buffer overflow code intimately depends on (i) the CPU, (ii)
+  the OS and (iii) the compiler of the language that the code is
+  in. Aleph One's is paper is written in 1990s, and the examples
+  are based on a Linux version running on an x86 32-bit machine. If
+  you are trying his code, on a machine today, you need to adjust
+  it. Most Linux installations now use libraries that can detect
+  stack smashing.</p>
+
+  <h3>Heap overflows versus stack overflows</h3>
+
+  <p>Heap is a programming language run-time data structure where from
+  malloc/new operations dynamically allocate memory space.  A heap
+  overflow is another code injection exploit based on the heap.  The
+  concept of the exploit is similar to stack smashing, but the details
+  differ.
+
+  <p>"Heap overflows are generally much harder to exploit than
+  stack overflows (although successful heap overflow attacks do
+  exist). For this reason, some programmers never statically
+  allocate buffers. Instead, they malloc() or new everything, and
+  believe this will protect them from overflow problems. Often they
+  are right, because there aren't many people who have the
+  expertise required to exploit heap overflows. But dynamic buffer
+  allocation is not intrinsically less dangerous than other
+  approaches. Don't rely on dynamic allocation for everything and
+  forget about the buffer overflow problem. Dynamic allocation is
+  not a cure-all."</p>
+  <p>For more details on heap overflows, read the article "w00w00
+  on Heap Overflows" cited in the references.</p>
+
+  <h3>Format String</h3>
+
+  <p>Many programming language libraries include formatted string
+  input exemplified by the <tt>scanf("%s", &var)</tt>.  Like the
+  strcpy() functions, scanf cannot verify that the var given is large
+  enough for the string input given at run time by the user.  This
+  provides yet another oppurtunity for code injection by cleverly
+  constructing the string input given.</p>
+
+  <h3>Return to libc</h3>
+
+  <p>A return-to-libc attack starts with a buffer overflow in which
+    the return address is replaced by the address of a function
+    that the program already has, and additional portions of the stack
+    is overwritten to provide arguments to this function. This allows
+    attackers to call preexisting functions without the need to inject
+    malicious/shell code into a program.</p>
+
+  <h2>Techniques of Avoiding Buffer Overflow</h2>
+
+  <p>There are many preventive techniques.  Note that detection
+  techniques will make a process crash.</p>
+
+  <h3>Non-executable user stack area</h3>
+
+  <p>
+    The typical process should never execute code fetched from the
+    stack segment.  Most CPUs can trap this occurrence (see
+    http://en.wikipedia.org/wiki/NX_bit, and also
+    en.wikipedia.org/wiki/Executable_space_protection#Linux).  The
+    Intel x86 CPU architecture had support to prevent fetching and
+    executing instructures from data-, stack-segments.  But Both Linix
+    and Windows did not utilize until recently these virtual memory
+    segment based solutins because they were only using paging related
+    constructs.</p>
+
+
+  <p>It is possible to modify the Linux kernel so that the stack
+  segment is not executable (see grsecurity). However, this was not
+  built into the standard Linux 2.4 kernels. In Linux 2.6.x
+  kernels, you must chose grsecurity configuration options. Part of
+  the rationale is that this is less protection than it appears:
+  attackers can simply force the system to call other
+  ``interesting'' locations already in the program (e.g., in its
+  library, the heap, or static data segments). Also, sometimes
+  Linux does require executable code in the stack, e.g., to
+  implement signals and to implement GCC ``trampolines''.</p>
+  <p>Even in the presence of non-executable stack, Linux Torvalds
+  explains that &ldquo;It's _really_ easy. You do something like
+  this: 1) overflow the buffer on the stack, so that the return
+  value is overwritten by a pointer to the <tt>system()</tt>
+  library function. 2) the next four bytes are crap (a "return
+  pointer" for the system call, which you don't care about) 3) the
+  next four bytes are a pointer to some random place in the shared
+  library again that contains the string <tt>/bin/sh</tt> (and yes,
+  just do a <tt>strings</tt> on the thing and you'll find it).
+  Voila. You didn't have to write any code, the _only_ thing you
+  needed to know was where the library is loaded by default. And
+  yes, it's library-specific, but hey, you just select one specific
+  commonly used version to crash. Suddenly you have a root shell on
+  the system. So it's not only doable, it's fairly trivial to do.
+  In short, anybody who thinks that the non-executable stack gives
+  them any real security is very very much living in a dream world.
+  It may catch a few attacks for old binaries that have security
+  problems, but the basic problem is that the binaries allow you to
+  overwrite their stacks. And if they allow that, then they allow
+  the above exploit. It probably takes all of five lines of changes
+  to some existing exploit, and some random program to find out
+  where in the address space the shared libraries tend to be
+  loaded.&rdquo;</p>
+  <p>In short, it's better to work first on developing a correct
+  program that defends itself against buffer overflows. Then, after
+  you've done this, by all means use techniques and tools like
+  StackGuard as an additional safety net. If you've worked hard to
+  eliminate buffer overflows in the code itself, then StackGuard is
+  likely to be more effective because there will be fewer ``chinks
+  in the armor'' that StackGuard will be called on to protect.</p>
+
+  <h3>No set-user-id Programs</h3>
+
+  <p>An attacker targets set user id programs so that after the
+  exploit he is the root, and can do arbitrary things. So, some
+  &ldquo;people believe that if their program is not running suid
+  root, they don't have to worry about security problems in their
+  code, since the program can't be leveraged to achieve greater
+  access levels. That idea has some merit, but is still a risky
+  proposition. For one thing, you never know who is going to take
+  your program and set the suid bit on the binary. When people
+  can't get something to work properly, they get desperate. We've
+  seen this sort of situation lead to entire directories of
+  programs needlessly set setuid root.&rdquo;</p>
+  <p>&ldquo;There can also be users of your software with no
+  privileges at all. That means any successful buffer overflow
+  attack will give them more privileges than they previously had.
+  Usually, such attacks involve the network. For example, a buffer
+  overflow in a network server program that can be tickled by
+  outside users may provide an attacker with a login on the
+  machine. The resulting session has the privileges of the process
+  running the compromised network service. This type of attack
+  happens all the time. Often, such services run as root (and
+  generally for no good reason other than to make use of a
+  privileged low port). Even when such services don't run as root,
+  as soon as a cracker gets an interactive shell on a machine, it
+  is usually only a matter of time before the machine is "owned" --
+  that is, the attacker gains complete control over the machine,
+  such as root access on a UNIX box or administrator access on a
+  Windows NT box. Such control is typically garnered by running a
+  different exploit through the interactive shell to escalate
+  privileges.&rdquo; [Quoted from <a href=
+  "http://www.ibm.com/developerworks/library/s-buffer-defend.html">http://www.ibm.com/
+  developerworks/ library/ s-buffer-defend.html</a>]</p>
+
+  <h3>Modern Programming Languages</h3>
+
+  <p>Most modern programming languages are essentially immune to
+  this problem, either because they automatically resize arrays
+  (e.g., Perl, and Java), or because they normally detect and
+  prevent buffer overflows (e.g., Ada95 and Java). However, the C
+  language provides no protection against such problems, and C++
+  can be easily used in ways to cause this problem too.</p>
+
+  <h3>Static and Dynamically Allocated Buffers</h3>
+
+  <p>The fact that a buffer is a fixed length may be exploitable.
+  The basic idea is that the attacker sets up a really long string
+  so that, when the string is truncated, the final result will be
+  what the attacker wanted (instead of what the developer
+  intended). Perhaps the string is catenated from several smaller
+  pieces; the attacker might make the first piece as long as the
+  entire buffer, so all later attempts to concatenate strings do
+  nothing. Here are some specific examples:</p>
+  <ul>
+    <li>
+      <p align="justify">Imagine code that calls
+      <tt>gethostbyname(3)</tt> and, if successful, immediately
+      copies <tt>hostent-&gt;h_name</tt> to a fixed-size buffer
+      using strncpy or snprintf. Using strncpy or snprintf protects
+      against an overflow of an excessively long fully-qualified
+      domain name (FQDN), so you might think you're done. However,
+      this could result in chopping off the end of the FQDN. This
+      may be very undesirable, depending on what happens next.</p>
+    </li>
+    <li>
+      <p align="justify">Imagine code that uses <tt>strncpy,
+      strncat, snprintf,</tt> etc., to copy the full path of a
+      filesystem object to some buffer. Further imagine that the
+      original value was provided by an untrusted user, and that
+      the copying is part of a process to pass a resulting
+      computation to a function. Now imagine that an attacker pads
+      a path with a large number of '/'s at the beginning. This
+      could result in future operations being performed on the file
+      ``/''. If the program appends values in the belief that the
+      result will be safe, the program may be exploitable. Or, the
+      attacker could devise a long filename near the buffer length,
+      so that attempts to append to the filename would silently
+      fail.</p>
+    </li>
+  </ul>
+  <p>An alternative is to dynamically reallocate all strings
+  instead of using fixed-size buffers. This general approach is
+  recommended by the GNU programming guidelines, since it permits
+  programs to handle arbitrarily-sized inputs (until they run out
+  of memory). The memory may even be exhausted at some other point
+  in the program than the portion where you're worried about buffer
+  overflows; any memory allocation can fail. Also, since dynamic
+  reallocation may cause memory to be inefficiently allocated, it
+  is entirely possible to run out of memory even though technically
+  there is enough virtual memory available to the program to
+  continue. In addition, before running out of memory the program
+  will probably use a great deal of virtual memory; this can easily
+  result in ``thrashing'', a situation in which the computer spends
+  all its time just shuttling information between the disk and
+  memory (instead of doing useful work). This can have the effect
+  of a denial of service attack. Some rational limits on input size
+  can help here. In general, the program must be designed to be
+  fail safe when memory is exhausted.</p>
+
+  <h3>Careful Use of C/C++ Library Functions</h3>
+
+  <p>C users must avoid using functions that do not check bounds
+  unless they've ensured the bounds will never get exceeded.
+  Functions to avoid in most cases include: <tt>strcpy(3),
+  strcat(3), sprintf(3), and gets(3)</tt>. These should be replaced
+  with functions such as <tt>strncpy(3), strncat(3), snprintf(3),
+  and fgets(3)</tt> respectively, but see the discussion below. The
+  function <tt>strlen(3)</tt> should be avoided unless you can
+  guarantee that there will be a terminating NUL (ascii code zero)
+  character to find. Other functions that may permit buffer
+  overruns include <tt>fscanf(3), scanf(3), vsprintf(3),
+  realpath(3), getopt(3), getpass(3), streadd(3), strecpy(3),</tt>
+  and <tt>strtrns(3)</tt>.</p>
+  <p>Beware that calls to <tt>strncpy(3)</tt> and
+  <tt>strncat(3)</tt> have somewhat surprising semantics and are
+  hard to use correctly. E.g., the function strncpy(3) does not
+  NUL-terminate the destination string if the source string length
+  is at least equal to the destination's, so be sure to set the
+  last character of the destination string to NUL after calling
+  <tt>strncpy(3)</tt>. If you're going to reuse the same buffer
+  many times, an efficient approach is to tell <tt>strncpy()</tt>
+  that the buffer is one character shorter than it actually is and
+  set the last character to NUL once before use. Both
+  <tt>strncpy(3)</tt> and <tt>strncat(3)</tt> require that you pass
+  the amount of space available. Neither provide a simple mechanism
+  to determine <i>if</i> an overflow has occurred. Finally,
+  <tt>strncpy(3)</tt> has a significant performance penalty
+  compared to the <tt>strcpy(3),</tt> because <tt>strncpy(3)</tt>
+  NUL-fills the remainder of the destination.</p>
+
+
+  <h3>Newer Libraries</h3>
+  <p>Newer libraries for C include the <tt>strlcpy(3)</tt> and
+  <tt>strlcat(3)</tt> functions, with prototypes:</p>
+  <blockquote>
+    <pre>
+size_t strlcpy (char *dst, const char *src, size_t size);
+size_t strlcat (char *dst, const char *src, size_t size);
+</pre>
+  </blockquote>
+  <p>Both <tt>strlcpy</tt> and <tt>strlcat</tt> take the full size
+  of the destination buffer as a parameter (not the maximum number
+  of characters to be copied) and guarantee to NUL-terminate the
+  result (as long as size is larger than 0). The <tt>strlcpy</tt>
+  function copies up to <tt>size-1</tt> characters from the
+  NUL-terminated string <tt>src</tt> to <tt>dst</tt>,
+  NUL-terminating the result. The <tt>strlcat</tt> function appends
+  the NUL-terminated string <tt>src</tt> to the end of
+  <tt>dst</tt>. It will append at most <tt>size - strlen(dst) -
+  1</tt> bytes, NUL-terminating the result.</p>
+  <p>One nuisance is that these two functions are not, by default,
+  installed in most Unix-like systems.</p>
+
+  <h3>Compilation Solutions in C/C++</h3>
+
+  <p>Newer compilers perform bounds-checking.  Such tools provide one
+  more layer of defense, but it's not wise to depend on this technique
+  as your sole defense. There are at least two reasons for
+  this. First, most such tools only provide partial defense against
+  buffer overflows (and the ``complete'' defenses are generally 10-30
+  times slower); C and C++ were simply not designed to protect against
+  buffer overflow. Second, for open source programs you cannot be
+  certain what tools will be used to compile the program; using the
+  default ``normal'' compiler for a given system might suddenly open
+  security flaws.</p>
+  <p>StackGuard [Cowan et al. 1998] is a modification of the
+  standard GNU C compiler gcc. StackGuard works by inserting a
+  ``guard'' value (called a ``canary'', as in how this bird was
+  used in mines) in front of the return address; if a buffer
+  overflow overwrites the return address, the canary's value
+  (hopefully) changes and the system detects this before using it.
+  This is quite valuable, but note that this does not protect
+  against buffer overflows overwriting other values (which they may
+  still be able to use to attack a system).</p>
+
+  <h3>Current (2012) GCC/Linux Solutions</h3>
+
+  <p>When including <tt>&lt;string.h></tt> strcpy() calls are
+      changed to strcpy_chk(buffer, srcstring, sizeof(buffer)).</p>
+
+  <p>You get <tt>***stack smashing detected***</tt> unless the
+    <tt>-fno-stack-protector -D_FORTIFY_SOURCE=0</tt> options are
+    used.  A stack cookie is a random value put on the stack above the
+    return address.  This "canary" is checked before returning from a
+    given function.  This can be disabled with the gcc
+    switch <tt>-fno-stack-protector</tt>.
+  </p>
+
+  <p>There is a no-exec stack option turned on by default in the ELF
+    file header; <tt>execstack -s ./prg</tt> disables this.  The
+    equivalent gcc linker option is <tt>-Wl,-z execstack</tt>
+  </p>
+
+  <p>The <tt>-fmudflap</tt> turns on array bounds checking and invalid
+    heap use.  Set the MUDFLAP_OPTIONS environment variable to control the
+    details. See
+    <a href="http://gcc.gnu.org/wiki/Mudflap_Pointer_Debugging">
+    http://gcc.gnu.org/wiki/Mudflap_Pointer_Debugging</a></p>
+
+  <p>
+    Add the following lines to <tt>/etc/sysctl.conf</tt>
+ <pre>
+   kernel.exec-shield = 2
+   kernel.randomize_va_space = 2
+ </pre>
+  <p>
+    A value of 0 completely disables ExecShield and Address Space
+    Layout Randomization; a value of 1 enables them only if the
+    application bits for these protections are set to enable; a value
+    of 2 enables them by default, except if the application bits are
+    set to disable; a value of 3 enables them always, whatever the
+    application bits.</p>
+
+<p>From kernel/Documentation/sysctl/kernel.txt in
+    the source code tree, 
+randomize_va_space:
+This option can be used to select the type of process address
+space randomization that is used in the system, for architectures
+that support this feature.
+
+(0) - Turn the process address space randomization off.  This is the
+default for architectures that do not support this feature anyways,
+and kernels that are booted with the "norandmaps" parameter.
+
+(1) - Make the addresses of mmap base, stack and VDSO page randomized.
+This, among other things, implies that shared libraries will be
+loaded to random addresses.  Also for PIE-linked binaries, the
+location of code start is randomized.  This is the default if the
+CONFIG_COMPAT_BRK option is enabled.
+
+(2) - Additionally enable heap randomization.  This is the default if
+CONFIG_COMPAT_BRK is disabled.
+
+There are a few legacy applications out there (such as some ancient
+versions of libc.so.5 from 1996) that assume that brk area starts
+just after the end of the code+bss.  These applications break when
+start of the brk area is randomized.  There are however no known
+non-legacy applications that would be broken this way, so for most
+systems it is safe to choose full randomization.
+
+Systems with ancient and/or broken binaries should be configured
+with CONFIG_COMPAT_BRK enabled, which excludes the heap from process
+address space randomization.
+  </p>
+
+  <h2><a name="Lab Experiment">Lab Experiment</a></h2>
+
+  <a href="lab-buffer-overflow.html"> Link to the lab</a>
+  &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+  <a href="BufferOverflowLabGS.html">Link to Grading Sheet </a>
+
+  <h2><a name="Acknowledgements">Acknowledgements</a></h2>
+
+  <p>The section on "Techniques of Avoiding Buffer Overflow" is
+  based on "Secure Programming for Linux and Unix HOWTO" and the
+  "The Unix Secure Programming FAQ."</p>
+  <h2><a name="References" id="References">References</a></h2>
+
+  <ol>
+    <li>Aleph One, "Smashing The Stack For Fun And Profit," Phrack,
+    Vol 7, Issue 49, File 14 of 16, <a href=
+    "http://www.phrack.com">www. phrack.com</a>. A classic article.
+      The original paper, <a href="p49-14.txt">local copy</a>, has a few
+    inaccuracies; <a href= "alephOne.html">alephOne.html</a> is the
+    version of this paper with my corrections in place. Required
+    Reading.</li>
+    <li>Parvez Anwar, "Buffer Overflows in the Microsoft Windows
+    Environment", 2009, University of London, <a href=
+    "https://www.ma.rhul.ac.uk/static/techrep/2009/RHUL-MA-2009-06.pdf">
+    https://www.ma.rhul.ac.uk/static/
+    techrep/2009/RHUL-MA-2009-06.pdf</a> Recommended
+    reading.</li>
+    <li>Matt Conover, and WSD, "w00w00 on Heap Overflows", January
+    1999, Originally at "http://www.w00w00.org/files/articles/heaptut.txt"; 
+      <a href="heaptut.txt"> local copy</a>.  Highly recommended
+      reading.</li>
+    <li>skape, Understanding Windows Shellcode, 
+      <a href="http://nologin.org/Downloads/Papers/win32-shellcode.pdf">
+	http://nologin.org/Downloads/Papers/win32-shellcode.pdf</a>, 2003.</li>
+    <li>Tim Werthmann and Horst Gortz, Survey on Buffer Overflow
+      Attacks and Countermeasures, Ruhr-University Bochum, Germany,
+      2006, <a href="http://nds.hgi.rub.de/lehre/seminar/SS06/Werthmann_BufferOverflow.pdf">
+      nds.hgi.rub.de/ lehre/ seminar/ SS06/
+      Werthmann_BufferOverflow.pdf</a> Highly recommended
+      reading.</li>
+    <li>WikiPedia, <a href="http://en.wikipedia.org/wiki/Buffer_overflow">
+	Buffer_overflow</a>,
+      <a href="http://en.wikipedia.org/wiki/Heap_overflow"> Heap_overflow</a>,
+      <a href="http://en.wikipedia.org/wiki/Uncontrolled_format_string">
+	Uncontrolled_format_string</a>, 
+      <a href="http://en.wikipedia.org/wiki/Return-to-libc_attack">
+	Return-to-libc_attack</a>,
+      <a href="http://en.wikipedia.org/wiki/Return-oriented_programming">
+	Return-oriented_programming</a>.  March 2012. All Required
+	Reading.</li>
+    <li>Yves Younan, Wouter Joosen and Frank Piessens, "Runtime
+      countermeasures for code injection attacks against C and C++
+      programs ", ACM Computing Surveys , 44(3), 2012. Required Reading.
+
+
+    <li>David A. Wheeler, "Secure Programming for Linux and Unix
+    HOWTO," 2003,
+<a href="http://tldp.org/HOWTO/Secure-Programs-HOWTO/"> http://tldp.org/HOWTO/Secure-Programs-HOWTO/</a>
+    Highly recommended reading.</li>
+  </ol>
+  <hr size="1">
+  <a href="../../../copyright.html">Copyright &copy;</a> 2012
+  <a href=
+  "mailto:pmateti@wright.edu?subject=CEG429/IntnetSecurity">pmateti@wright.edu</a>
+  &bull; <a href="../Top/lectures.html">
+    Internet Security Lectures</a>
+</body>
+</html>

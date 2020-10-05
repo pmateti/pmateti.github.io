@@ -1,0 +1,198 @@
+# -*- mode: org -*-
+#+date: 2019-09-22
+#+TITLE: Lab: Software without Security Holes #2
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2019 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Background
+
+1. Should have completed Lab on Software without Security Holes #1
+
+1. System Programs: =mount, fusermount, sudo, su, passwd, chsh=, ...  We
+   expect these to be free of security holes.
+
+1. Example ordinary/ non-system programs/ utilities: =cat, ls, date,
+   make=, and even =login, bash, ash, dash, csh, zsh= and other
+   shells.  [I suppose we could relax our expectations on these.]
+
+2. http://cwe.mitre.org/data/definitions/264.html CWE CATEGORY:
+      Permissions, Privileges, and Access Controls
+
+* Tasks
+
+
+** Task: Experience A Past Exploit: ShellShock [20 points]
+
+1. Background: Learn about ShellShock 2014 bug in =bash=.  Older
+   versions of Bash can be tricked into executing arbitrary commands.
+   Study these:
+   1. https://en.wikipedia.org/wiki/Shellshock_(software_bug)
+   2. https://www.sophos.com/hu-hu/lp/bash-shellshock.aspx
+   3. https://www.owasp.org/images/1/1b/Shellshock_-_Tudor_Enache.pdf
+      25 slides, 
+
+1. Background: ShellShock:: [[https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6271][CVE-2014-6271]] "GNU Bash through 4.3
+   processes trailing strings after function definitions in the values
+   of environment variables, which allows remote attackers to execute
+   arbitrary code via a crafted environment, as demonstrated by
+   vectors involving the ForceCommand feature in OpenSSH sshd, the
+   mod_cgi and mod_cgid modules in the Apache HTTP Server, scripts
+   executed by unspecified DHCP clients, and other situations in which
+   setting the environment occurs across a privilege boundary from
+   Bash execution, aka "ShellShock." NOTE: the original fix for this
+   issue was incorrect; CVE-2014-7169 has been assigned to cover the
+   vulnerability that is still present after the incorrect fix."
+   [Refresh your hold on =bash= syntax and usage.]
+
+4. Background: ShellShock Further Refs
+   1. https://www.us-cert.gov/ncas/alerts/TA14-268A;
+   4. https://www.cybrary.it/0p3n/shellshock-all-you-need-to-know-about-the-bash-bug-vulnerability/
+   5. https://security.stackexchange.com/questions/68448/where-is-bash-shellshock-vulnerability-in-source-code
+
+
+1. [5 points] Check if bash, as is, in a modern Linux has this vulnerability.
+   Include details of the bash version.  Describe in detail how you
+   checked.  Develop a detection script.
+
+1. [15 points] Download a version claimed in the articles above as
+   being vulnerable from http://ftp.gnu.org/gnu/bash/, which has older
+   and current versions of bash.  Build it.  Rename the current
+   =/bin/bash= as =/bin/bash-orig= .  Install the one you built as
+   =/bin/bash=.  Verify that this version of bash has the
+   vulnerability.  Include details of the bash version you installed.
+   Describe in detail how you verified.  Develop a script that
+   demonstrates.
+
+** Task: System Program fusermount  [20 points]
+
+1. Background: FUSE and =fusermount=
+   https://en.wikipedia.org/wiki/Filesystem_in_Userspace Filesystem in
+   UserSpace. Read =man fusermount=.   Required Reading.
+
+1. Background: Study FUSE documentation from within the kernel source tree:
+   https://www.kernel.org/doc/Documentation/filesystems/fuse.txt, 
+
+1. Background: CVE on fusermount: Become aware of [[https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-10906][CVE-2018-10906]].  "fusermount is vulnerable to a
+      restriction bypass when SELinux is active. This allows non-root
+      users to mount a FUSE file system with the 'allow-other' mount
+      option regardless of whether 'user-allow-other' is set in the
+      fuse configuration. An attacker may use this flaw to mount a
+      FUSE file system, accessible by other users, and trick them into
+      accessing files on that file system, possibly causing Denial of
+      Service or other unspecified effects."  [We
+      will try to revisit this topic after SELinux lectures.]
+2. Background: CVE on fusermount: Become aware of [[https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-3202][CVE-2015-3202]] "fusermount in FUSE before 2.9.3-15 does not
+      properly clear the environment before invoking (1) mount or (2)
+      umount as root, which allows local users to write to arbitrary
+      files via a crafted LIBMOUNT_MTAB environment variable that is
+      used by mount's debugging feature."
+1. HeartBleed:: Discovered in 2014, about the same time as shellshock.
+   The bug is in SSL networking.  Not part of this course.
+
+
+1. [15] Download from https://github.com/libfuse/libfuse.  Build it,
+   following the [[https://github.com/libfuse/libfuse#installation][Installation]] guide.  Become familiar with its files.
+   Understand [[https://github.com/libfuse/libfuse#security-implications][security-implications]].
+
+1. [05] Check that the just built fusermount works.  Describe in
+   detail how you verified.  Develop a script that demonstrates.
+
+** Task: CERT Coding Guides  [20 points]
+
+1. Coding Guides:: For C and C++: Part of this course.  For Java: Not
+   part of this course.
+
+1. What is the role of a computer emergency response team? A Computer
+   Emergency Response Team (CERT) is a group of information security
+   experts responsible for the protection against, detection of and
+   response to an organization's cybersecurity incidents. [web search
+   result, June 2019] [There is a CERT in many countries.]
+
+1. Background: Become familiar with [[https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard][CERT Coding Guide on C]].
+   Understand the following coding rules deeply.
+   1. [[https://wiki.sei.cmu.edu/confluence/display/c/EXP39-C.+Do+not+access+a+variable+through+a+pointer+of+an+incompatible+type][EXP39-C]]. Do not access a variable through a pointer of an
+      incompatible type
+   2. [[https://wiki.sei.cmu.edu/confluence/display/c/EXP45-C.+Do+not+perform+assignments+in+selection+statements][EXP45-C]]. Do not perform assignments in selection statements
+
+
+2. Analyze, manually, the source code of [[https://github.com/libfuse/libfuse/blob/master/util/fusermount.c][fusermount.c]] for any
+   violations of the above rules.  Discover and explain at least two
+   violations.
+
+** Task: Assert fusermount [20 points]
+
+1. Background: Learn assert.h.  https://en.wikipedia.org/wiki/Assert.h  
+
+
+1. Give an entry assertion, an exit assertion, and a loop invariant
+   for *two* non-trivial (> 15 SLOC) functions/ procedures of
+   [[https://github.com/libfuse/libfuse/blob/master/util/fusermount.c][fusermount.c]].
+
+
+* Tasks: [Bonus][Optional]
+
+** Task: Static Analysis Tool LLVM Clang-Analyzer [20 points]
+
+1. Background: https://clang-analyzer.llvm.org/ LLVM Clang-Analyzer
+5. Background:  http://btorpey.github.io/blog/2015/04/27/static-analysis-with-clang/
+2. Background:  https://developer.mozilla.org/en-US/docs/Mozilla/Testing/Clang_static_analysis
+
+
+1. Analyze, using =scan-build=, the source code of [[https://github.com/libfuse/libfuse/blob/master/util/fusermount.c][fusermount.c]].
+   Report on your findings.
+
+** Task: CodeChecker [20 points]
+
+1. Background: https://github.com/Ericsson/codechecker CodeChecker is
+   a static analysis infrastructure built on the LLVM/Clang Static
+   Analyzer toolchain, replacing =scan-build= in a Linux or OS-X
+   development environment.
+
+
+1. Analyze, using =codechecker=, the source code of [[https://github.com/libfuse/libfuse/blob/master/util/fusermount.c][fusermount.c]].    Report on your findings.
+
+** Task: Comparative Review [20 points]
+
+1. Write a comparative review of the tools used in this lab, and in
+   previous lab SecSoftware#1.  Ok to do the write up based just on
+   reading about the tools, but it is better if it based on experience
+   of having used them long enough.
+
+* Submission
+
+1. [10 points] Lab Report quality.
+
+1. You must follow the Lab Report Template. There should be a section
+   on each of the tasks. A couple of lines of an answer to each
+   (implied/ explicit) question/ discussion item.  Must number it as
+   in this document.  
+
+1. Use good judgement and do not make the report way longer than, say,
+   20 pages. Submit explanations and code that verifies your answers.
+
+1. [10 points] Include a journal.  By the hour.
+
+1. Submit a PDF file named exactly =Report-Lx.pdf= [x is a single
+   digit; lookup the value of x on the home page], and a tarball
+   =Lx.tbz= [use =tar cfjvv Lx.tbz source-files*= ]. (Scripts are used
+   to check various things -- so file names should obey such "rules".)
+
+
+* References
+
+1. Prabhaker Mateti, [[../../SecSoftware/index.org][Software Development without Security
+   Holes]], 2019. Required Reading.
+
+
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

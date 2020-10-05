@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Specs of Entities and Operations within a Programmer's Editor</title>
+<!-- 2015-07-25 Sat 15:31 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="WSU CS 7140 Advanced Software Engineering"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./"> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../Top/">CS 7140</a> 2015-07-25
+</div>
+<div id="content">
+<h1 class="title">Specs of Entities and Operations within a Programmer's Editor</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Meta Commentary</a></li>
+<li><a href="#sec-2">2. Text Elements</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Lines</a></li>
+<li><a href="#sec-2-2">2.2. Text File Content</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Buffers</a>
+<ul>
+<li><a href="#sec-3-1">3.1. Buffer Data Type</a></li>
+<li><a href="#sec-3-2">3.2. Buffer Operation: create</a></li>
+<li><a href="#sec-3-3">3.3. Buffer Operation: save</a></li>
+<li><a href="#sec-3-4">3.4. Buffer Operations: insert, delete, cut, paste, undo, redo, &#x2026;</a></li>
+<li><a href="#sec-3-5">3.5. Cut- Paste- Buffers</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Cursors</a>
+<ul>
+<li><a href="#sec-4-1">4.1. Cursors Overview</a></li>
+<li><a href="#sec-4-2">4.2. Cursor Data Type</a></li>
+<li><a href="#sec-4-3">4.3. Cursor Operations</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. Windows</a>
+<ul>
+<li><a href="#sec-5-1">5.1. Windows Overview</a></li>
+<li><a href="#sec-5-2">5.2. Windows Data Type</a></li>
+<li><a href="#sec-5-3">5.3. Window Content</a></li>
+<li><a href="#sec-5-4">5.4. Window Operation: Place a Window on a Buffer</a></li>
+<li><a href="#sec-5-5">5.5. Window Operation: Place a New Window on a Buffer</a></li>
+<li><a href="#sec-5-6">5.6. Window Operation: Delete a Window</a></li>
+<li><a href="#sec-5-7">5.7. Cursor in a Window</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6. Key Bindings</a>
+<ul>
+<li><a href="#sec-6-1">6.1. Key Bindings Overview</a></li>
+<li><a href="#sec-6-2">6.2. Key Bindings Data Type</a></li>
+<li><a href="#sec-6-3">6.3. QM Self-Insert Method</a></li>
+<li><a href="#sec-6-4">6.4. KB Operation: Display Current Bindings</a></li>
+<li><a href="#sec-6-5">6.5. KB Operation: Edit Bindings</a></li>
+<li><a href="#sec-6-6">6.6. KB Operation: Read Bindings from Config File</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7. The Editor</a>
+<ul>
+<li><a href="#sec-7-1">7.1. The Editor Overview</a></li>
+<li><a href="#sec-7-2">7.2. Editor Operation: Start</a></li>
+<li><a href="#sec-7-3">7.3. Editor Operation: Finish</a></li>
+<li><a href="#sec-7-4">7.4. Editor Operation: Loop</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+I use editors as target examples in Software Engineering courses I
+teach.  The materials below are hence deliberately incomplete.
+The context of this article is <a href="./index.html">Programmers' Editor</a>
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Meta Commentary</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Specs can be written in ordinary English.  Almost always, these are
+highly ambiguous.
+</li>
+
+<li>Specs should be written in stylized English.  They should be peer
+reviewed for the elimnation of ambiguity and to check for
+completeness. Re-read Meyer's Seven Sins of Specifiers.
+</li>
+
+<li>A certain amount of notations (formalism) always improves
+communication &#x2013; when the notation is well chosen.
+</li>
+
+<li>Even when good notations are in use, always include well written
+specs in stylized English.
+</li>
+
+<li>For sequences, we use the familiar array [] notation.
+</li>
+<li>Let q be a sequence.  #q is the number of elements in it. q[#] is
+the last item.  q[ 0] is the first item.
+</li>
+
+<li>These notes implicitly reference items explained in <a href="./">Editors</a>
+</li>
+
+<li>Please report errors.  I am afraid it is not error-free.  Ignore
+spaces within the = =  token.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Text Elements</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Lines</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>A line, el, is a sequence of characters ending in '\n'. el[#] == '\n'
+</li>
+<li>Note the ambiguity.  Is this "hello\nthere\n" a line?
+<ol class="org-ol">
+<li>Excluding the last character, the line should have no '\n'.
+</li>
+<li>What about strange characters, such as control chars, &#x2026;
+</li>
+<li>for i in 0 .. #el - 1: el[i] != '\n';
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Text File Content</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>Consider a text file tf.  Its content is almost always thought of as
+a sequence of bytes.  This is often the way the OS gives the
+content of a text file.  This content can also be viewed as a
+sequence of lines.
+</li>
+
+<li><code>is-a</code>  You probably have heard of this from AI courses.
+</li>
+<li>tf.content is-a seq of lines
+</li>
+<li>tf.content is-a seq of bytes
+</li>
+<li>There is an unambiguous way of mapping back-and-forth between these
+two: tf.content.lines and tf.content.bytes
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Buffers</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Buffer Data Type</h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li>An edit buffer B has text content, B.content
+</li>
+<li>It may (not must) also have other "things": e.g., cursors,
+views/ windows, its file name, &#x2026;
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Buffer Operation: create</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li>create(file-name fnm) returns buffer b
+</li>
+<li>pre: fnm exists
+<ol class="org-ol">
+<li>OS responsibility
+</li>
+<li>f := sys-call-open(fnm) + sys-call-read() + sys-call-close(); f
+non-null
+</li>
+<li>This is depending on "you-know-what-I-mean" and usurping some
+amount of "how" it is done.
+</li>
+</ol>
+</li>
+
+<li>post: b.content = = f.content, f.name == fnm
+</li>
+<li>Requirements Clarification: If f does not exist, create an empty
+file, then do as above.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Buffer Operation: save</h3>
+<div class="outline-text-3" id="text-3-3">
+<ol class="org-ol">
+<li>save() returns file f
+</li>
+
+<li>f := sys-call-write(this-buffer.file-name, this-buffer.content)
+</li>
+
+<li>Requirements Clarification: If f is the file from which we created
+this buffer, silently replace it with new file content.  Retain all
+file permission, file create time stamp etc.  File modification is
+now.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Buffer Operations: insert, delete, cut, paste, undo, redo, &#x2026;</h3>
+<div class="outline-text-3" id="text-3-4">
+<ol class="org-ol">
+<li>A spec should define all the operations.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> Cut- Paste- Buffers</h3>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Cursors</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Cursors Overview</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>We use several cursors.
+</li>
+
+<li>dot and the mark: two must-have cursors
+</li>
+<li>Cursors exist in the buffers and views/windows.
+</li>
+<li>Cursors do not exist independently of a buffer or a window.
+</li>
+<li>A buffer has these cursors, but not necessarily "alive" at all
+times.
+</li>
+
+<li>Constraints (also known as invariants)
+<ol class="org-ol">
+<li>Let b be a buffer; it has b.dot and b.mark cursors, among others.
+<ol class="org-ol">
+<li>0 &lt;= b.mark.y &lt; number of lines in b
+</li>
+<li>0 &lt;= b.mark.x &lt; num chars of b.lines[b.mark.y].
+</li>
+<li>All of these constraints go into the class invariant of
+Buffer, whose data members include dot and mark
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> Cursor Data Type</h3>
+<div class="outline-text-3" id="text-4-2">
+<ol class="org-ol">
+<li>We model a cursor as a pair x,y of numbers as in Cartesian
+coordinates.  In our context, both are always non-negative
+integers, and the y grows downwards.
+</li>
+<li>Init values: dot = = mark = = (0, 0)
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Cursor Operations</h3>
+<div class="outline-text-3" id="text-4-3">
+<ol class="org-ol">
+<li>Here are some suggestively named operations:
+move-right-by-one-char, move-right-by-one-word,
+move-right-by-one-line, move-right-by-one-sentence.
+</li>
+<li>Similar operations for "left" moves.
+</li>
+<li>In a spec suggestively naming is necessary but not sufficient.
+Exercises for you!
+</li>
+<li>The specs depend on definitions of word, line and sentences.
+</li>
+<li>The moves are constrained by the buffer that the cursor is on.
+</li>
+
+<li>Requirements Clarification: What happens if the cursor is at the
+end of the buffer, and we (try to) move right?
+</li>
+
+<li>Requirements Clarification: What happens if the cursor is at the
+right-bottom of the wind, and we (try to) move right?
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Windows</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Windows Overview</h3>
+<div class="outline-text-3" id="text-5-1">
+<ol class="org-ol">
+<li>The window content is "visible".  We are <b>not</b> using the word in
+the sense of the Windows OS, or Linux KDE.  We mean it as a
+rectangular area showing the content of some buffer.  We can
+simplify the first sentence to: The window is visible.
+</li>
+
+<li>Requirements clarification: Unless a window is on a buffer B, the
+content of B is invisible.
+</li>
+
+<li>Requirements Clarification: Should we be able to edit B even when B
+is invisible?  Our answer: No.  Even though, it is very powerful to
+say yes.
+</li>
+
+<li>Requirements Clarification: Do windows overlap? Tiled? Left to the
+"GUI Window Manager of the System"?
+</li>
+
+<li>Requirements Clarification: It is perfect to map our windows into
+Windows OS or Linux KDE windows.
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Windows Data Type</h3>
+<div class="outline-text-3" id="text-5-2">
+<ol class="org-ol">
+<li>A window W is of width ww, height hh.  Window operations may
+shrink, enlarge, move it relative to the buffer, etc.
+<ol class="org-ol">
+<li>ww &gt;= 0, hh &gt;= 0
+</li>
+<li>Forbid == 0?  Why? Why not? Requirements clarification?
+</li>
+</ol>
+</li>
+
+<li>A window "has" a buffer B.  The window content is dictated by this.
+</li>
+<li>A window has dot mark cursors.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Window Content</h3>
+<div class="outline-text-3" id="text-5-3">
+<ol class="org-ol">
+<li>The W.content is a portion of the buffer behind it.
+</li>
+<li>We specifiy the content t for the core (i.e., typical) case first.
+Then, we worry about fringe cases.
+</li>
+<li>W.content is a sequence of bytes.  Does not have '\n'.
+</li>
+<li>#W.content = hh * ww
+</li>
+<li>Recall that W slides along its buffer B, only showing a portion of
+the buffer.  From now on, we will visualize the B as a scroll.
+</li>
+
+<li>Relative to the buffer B, assume that the left-top corner of window
+W is positioned at (wx, wy).
+<ol class="org-ol">
+<li>W.content.lines[ 0] == Buffer.content.lines[wy], assuming h &gt; 0
+</li>
+<li>W.content.lines[i] == Buffer.content.lines[wy + i -1] truncated
+to ww chars, for i: 0 .. hh - 1, in general
+</li>
+<li>What if Buffer.content.lines[wy + j], for some j, is too short?
+We pad it with blanks.  Let us call W.content.lines[j] by the
+name el.  Then, el = Buffer.content.lines[wy + j] + enough
+spaces so that #el = ww.
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> Window Operation: Place a Window on a Buffer</h3>
+<div class="outline-text-3" id="text-5-4">
+<ol class="org-ol">
+<li>Case 1: Buffer B has no windows on it.
+</li>
+<li>Case 2: Buffer B has exactly one window on it.
+</li>
+<li>Case 3: Buffer B has &gt; 1 windows on it.
+</li>
+<li>We focus on Case 1 only.  Next subsection.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> Window Operation: Place a New Window on a Buffer</h3>
+<div class="outline-text-3" id="text-5-5">
+<ol class="org-ol">
+<li>createWin(buffer B, width w, height h) returns Window
+</li>
+<li>create a Window object w x h, so that its buffer is B, its dot and
+mark cursors are at (0, 0), left-top at (0, 0) of B, the content
+computed from B.
+</li>
+<li>Generally, we prefer "declarative" specs.  Some times, it is easier
+to do this "operationally", as above.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-6" class="outline-3">
+<h3 id="sec-5-6"><span class="section-number-3">5.6</span> Window Operation: Delete a Window</h3>
+<div class="outline-text-3" id="text-5-6">
+<ol class="org-ol">
+<li>Obviously the window is destroyed/ released.
+</li>
+<li>Requirements Clarfications: What happens to the buffer?  Does this
+depend on whether the buf has other windows? Does the window have
+its own dot + mark?  In addition to those of the buffer?  Suppose
+the buffer has only this window, and now it is deleted.  If then
+place a new window on it, should the new window have the last dot +
+marks?
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-7" class="outline-3">
+<h3 id="sec-5-7"><span class="section-number-3">5.7</span> Cursor in a Window</h3>
+<div class="outline-text-3" id="text-5-7">
+<ol class="org-ol">
+<li>Perennial Goal: The dot cursor should remain in the window.
+</li>
+
+<li>The mark cursor, if possible, should remain in the window.  But may
+not be possible because the window is too small to contain both.
+</li>
+
+<li>Requirements Calrification: Both of these should have been described.
+</li>
+
+<li>Spec Decision: Are the (x, y) of the cursors relative? Relative to
+window? Or buffer?
+</li>
+
+<li>Requirements Calrification: Assume that the dot is at the
+right-bottom of the window.  User wants to move right.  Complain by
+beeping? Or move/ reposition the window appropritiately, honoring
+the wish?
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Key Bindings</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> Key Bindings Overview</h3>
+<div class="outline-text-3" id="text-6-1">
+<ol class="org-ol">
+<li>Let QM be a sequence of public methods.  So, e.g., QM[ 7] might be
+the creation of new buffer based on a file name you are yet to
+give.
+</li>
+
+<li>This QM is well defined at compile/ build time.  It will not grow
+or shrink dynamically.
+</li>
+
+<li>Key bindings specifies what key stroke invokes what method of QM.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> Key Bindings Data Type</h3>
+<div class="outline-text-3" id="text-6-2">
+<ol class="org-ol">
+<li>Spec predicated on a design idea: Have an array called KB, of size
+equal to the number of key "codes".  For now, let us say we have
+256 codes (based on ASCII 8-bit chars).
+</li>
+
+<li>KB[x] = = QM[i], 0 &lt;= x &lt; 256, for some i.
+</li>
+
+<li>The value of KB[x] can be changed by the user, at run time, or
+through a config file.
+</li>
+
+<li>Requiremenst Clarification: All the above.
+</li>
+
+<li>Design Suggestion: QM can be an array of <b>pointers</b> to public
+methods.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-6-3" class="outline-3">
+<h3 id="sec-6-3"><span class="section-number-3">6.3</span> QM Self-Insert Method</h3>
+<div class="outline-text-3" id="text-6-3">
+<ol class="org-ol">
+<li>There is a Self-Insert Method.  It has one parameter &#x2013; the key
+code.  Effect: inserts at the dot position this character.
+</li>
+
+<li>Most key bindings are to Self-Insert.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-6-4" class="outline-3">
+<h3 id="sec-6-4"><span class="section-number-3">6.4</span> KB Operation: Display Current Bindings</h3>
+</div>
+
+<div id="outline-container-sec-6-5" class="outline-3">
+<h3 id="sec-6-5"><span class="section-number-3">6.5</span> KB Operation: Edit Bindings</h3>
+</div>
+
+<div id="outline-container-sec-6-6" class="outline-3">
+<h3 id="sec-6-6"><span class="section-number-3">6.6</span> KB Operation: Read Bindings from Config File</h3>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> The Editor</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> The Editor Overview</h3>
+<div class="outline-text-3" id="text-7-1">
+<ol class="org-ol">
+<li>Requirements Clarification: Our editor should be able to edit
+multiple files simultaneously.  It should permit cut-n-paste across
+these.
+</li>
+
+<li>Requirements Clarification: Our editor truly edits buffers, never
+files.  Buffers are created from files.  When a buffer is saved, it
+replaces the file it was created from.
+</li>
+
+<li>Requirements Clarification: New files are created by trying to edit
+a non-existing file.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-7-2" class="outline-3">
+<h3 id="sec-7-2"><span class="section-number-3">7.2</span> Editor Operation: Start</h3>
+<div class="outline-text-3" id="text-7-2">
+<ol class="org-ol">
+<li>The editor as a process has already begun.
+</li>
+<li>Requirements Clarification: Start operation should resume where the
+user left off in the last session.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-7-3" class="outline-3">
+<h3 id="sec-7-3"><span class="section-number-3">7.3</span> Editor Operation: Finish</h3>
+<div class="outline-text-3" id="text-7-3">
+<ol class="org-ol">
+<li>Exits (i.e., terminates) the editor process.
+</li>
+<li>Requirements Clarification: Warn and take helpful actions if hours
+of work by the user is about to be abandoned.  Introduce the notion
+of last session.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-7-4" class="outline-3">
+<h3 id="sec-7-4"><span class="section-number-3">7.4</span> Editor Operation: Loop</h3>
+<div class="outline-text-3" id="text-7-4">
+<ol class="org-ol">
+<li>It is essentially a non-terminating loop listening to key strokes
+and executing method bound to the keys.
+</li>
+
+<li>To exit the loop, user must invoke Finish.
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2015 &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2015-07-25
+</div>
+</body>
+</html>

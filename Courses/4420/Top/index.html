@@ -1,0 +1,350 @@
+<html>
+  <head>
+    <title>Host Security Lectures by Prabhaker Mateti</title>
+    <meta name="author" content="Prabhaker Mateti">
+    <meta name="keywords" content=
+          "Cyber security, Internet security, Host security">
+    <meta name="description" content=
+          "This page is part of a set of lectures notes for a course on
+           Cyber Security by Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+
+    <style type="text/css">
+      a:hover      { color: blue; background-color: yellow; }
+      a:active     { color: white; background-color: green;}
+      @page { size: 8.5in 11in }
+      P { text-align: justify }
+      @media screen {BODY {margin: 10%;} }
+    </style>
+    <base target="_top">
+  </head>
+  <body>
+    <table cellspacing="10" cellpadding="10" width="100%" border="0">
+      <tr>
+        <td width="14%">
+          <a target="_blank" href="http://www.wright.edu/">
+            <img src="./wsu-logo-xsm.gif" border="0"></a>
+        </td>
+        <td width="80%">
+          <h3> CEG 4420/6420: Host Computer Security</h3>
+          <h4> Fall 2020 Aug 24 - Dec 05 Tentative Schedule</h4>
+          <a href="https://cecs.wright.edu/~pmateti/PM/">
+            Dr Prabhaker Mateti</a>
+        </td>
+      </tr>
+    </table>
+    <p style="text-align: center">
+      <a href="../Lectures/"> Lectures</a> Remote [Videos Archived]
+      &bull;
+      <a href="https://cecs.wright.edu/~pmateti">
+        Office Hours</a> <br>
+      <a href="../Lectures/Overview/4420-syllabus.html"> Syllabus</a>  |
+      <a href="../Exams/"> Old Exams</a> | 
+      <aZ href="./4420-2017-Fall-scores-noNames.html"> Scores</aZ> |
+      <aZ href="links.html" target="_top"> Link Farm</aZ> | 
+      <a href="../Lectures/Ethics/ethicsStmt.html"> Statement of Ethics</a><br>
+    </p>
+    
+    <hr size="1">
+    <table border="0" cellpadding="0" width="100%">
+      <tr>
+        <td bgcolor="#F0F0F0">Wk</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0"> <a href="../Lectures/"> Slides</a> | Videos 2020 |
+          <a href=https://wrightstate.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=643bda5a-e6e3-4f56-9800-aab500a5b97c>
+          Videos 2019</a> |
+        </td>
+        <td bgcolor="#008000" align="left" valign="top"> &nbsp;</td>
+        <td bgcolor="#F0F0F0">L#</td>
+        <td bgcolor="#F0F0F0">Lab</td>
+        <td bgcolor="#F0F0F0" align="right">Due:11:59pm</td>
+      </tr>
+      <tr>
+        <td bgcolor="#F0F0F0">1</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/Overview/index.html">Intro</a>  &bull;
+          <a href="../Lectures/LinuxSetup/index.html"> LinuxSetup</a>,
+          <a href="../Lectures/LinuxSetup/Config/index.html">
+            Config</a> &bull;
+          <a href="../Lectures/AccessControl/index.html"> DAC+MAC</a> &bull;
+          <a href="../Lectures/LinuxSetup/BootUp/index.html">BootUp</a>
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0" align="right">
+          &nbsp;</td>
+      </tr>
+      <tr>
+        <td bgcolor="#F0F0F0">2</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/LinuxSetup/index.html">LinuxSetup</a> &bull;
+          <a href="../Lectures/Overview/Cryptography/index.html">
+            Cryptography</a> #1 &bull;
+          <a href="../Lectures/LinuxSetup/Passwords/index.html">
+            Password Cracking</a> #1
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">1</td>
+        <td bgcolor="#F0F0F0"> 
+          <a href="../Lectures/LinuxSetup/gettingStartedLab.html">
+            GetStarted </a></td>
+        <td bgcolor="#F0F0F0" align="right"> Sep 14 </td>
+      </tr>
+      <tr>
+        <td bgcolor="#F0F0F0">3</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/Fortification/index.html">
+            Fortification</a> &bull;
+          <a href="../Lectures/KernelExploits/BackDoors/index.html">
+            BackDoors</a> &bull;
+          <a href="../Lectures/KernelExploits/RootKits/index.html">
+            RootKits</a>
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">-</td>
+        <td bgcolor="#F0F0F0">        </td>
+        <td bgcolor="#F0F0F0" align="right"></td>
+      </tr>
+      <tr>
+        <td bgcolor="#F0F0F0">4</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/BufferOverflow/index.html">
+          BufferOverflow</a> #1 &bull;
+          <a href="../Lectures/SecSoftware/index.html">
+          SecSoftware</a> #1 #2
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">2</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/Fortification/fortify-lab.html">
+            Fortification</a>
+        </td>
+        <td bgcolor="#F0F0F0" align="right"> Sep 28 </td>
+      </tr>
+      <tr>
+        <td bgcolor="#F0F0F0">5</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/SecSoftware/index.html">
+            SecSoftware</a> #3 #4 #5
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">-</td>
+        <td bgcolor="#F0F0F0">
+        </td>
+        <td bgcolor="#F0F0F0" align="right"> </td>
+      </tr>
+      <tr>
+        <td bgcolor="#F0F0F0">6</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/BufferOverflow/index.html">
+            BufferOverflow</a> #2 #3 #4
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">3</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/SecSoftware/secsoftware-lab.html">
+            SecSoftware</a> #1
+        </td>
+        <td bgcolor="#F0F0F0" align="right"> Oct 12</td>
+      </tr>
+      <tr>
+        <td bgcolor="#F0F0F0">7</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/Hardening/index.html"> Hardening</a> #1
+          #2 #3
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">-</td>
+        <td bgcolor="#F0F0F0">
+        </td>
+        <td bgcolor="#F0F0F0" align="right"> </td>
+      </tr>
+
+      <tr>
+        <td bgcolor="#F0F0F0">8</td>
+        <td bgcolor="#F0F0F0">  </td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/Hardening/index.html"> Hardening</a> #4 
+          <a href="../Lectures/Hardening/BuildKernel">
+            LKM </a>, #5
+          <a href="../Lectures/Hardening/SecureKernel"> Secure Kernel,
+            LSM</a>
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">4</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/BufferOverflow/Labs/bufovf-lab.html">
+            BufferOverflow</a>
+        </td>
+        <td bgcolor="#F0F0F0" align="right"> Oct 26 </td>
+
+      </tr>
+
+      <tr>
+        <td bgcolor="#F0F0F0">9</td>
+        <td bgcolor="#F0F0F0"> </td>
+        <td bgcolor="#F0F0F0"> <a href="../Lectures/KernelExploits/">
+            KernelExploits</a> #1  #2 {#3
+	        <a href="../Lectures/KernelExploits/Viruses/index.html">
+	          Vrs</a>} &bull;
+          <strikeZ>
+          <a href="../Lectures/BufferOverflow/StackClash/">
+            StkClsh</a> &bull;
+          <a href="https://people.csail.mit.edu/vlk/spectre11.pdf          ">
+            Spctr</a>
+          &bull;
+          <a href="https://meltdownattack.com/">
+            MeltDn</a>
+          </strikeZ>
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0"> E1</td>
+        <td bgcolor="#F0F0F0">
+          <a href=../Exams/2019-Fall-Midsemester.html>
+            2019 MidSem</a> </td>
+        <td bgcolor="#F0F0F0" align="right"> Oct 31</td>
+      </tr>
+
+      <tr>
+        <td bgcolor="#F0F0F0">a</td>
+        <td bgcolor="#F0F0F0"> </td>
+        <td bgcolor="#F0F0F0">
+           <a href="../Lectures/Hardening/SysCalls">
+            SysCalls</a>  #1 #2 #3 Add/ Del/ Frz/ RW SysCall-Tbl</td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">5</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/SecSoftware/Labs/secsoftware-lab2.html">
+            <strike>SecSoftware #2</strike></a>
+        </td>
+        <td bgcolor="#F0F0F0" align="right"> Nov 09</td>
+      </tr>
+
+      <tr>
+        <td bgcolor="#F0F0F0">b</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/BufferOverflow/ASLR/"> ASLR</a> #1 &bull;
+          <a href="../Lectures/BufferOverflow/ROP/"> ROP</a> #1 #2
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">6</td>
+        <td bgcolor="#F0F0F0">
+	        <a href="../Lectures/Hardening/SecureKernel/kernel-lab.html">
+	          HardenKernel</a>
+        </td>
+        <td bgcolor="#F0F0F0" align="right"> Nov 16 </td>
+      </tr>
+      <tr>
+        <td bgcolor="#F0F0F0">c</td>
+        <td bgcolor="#F0F0F0">  </td>
+        <td bgcolor="#F0F0F0">
+          Nov 11 Veterans Day University Closed
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0"></td>
+        <td bgcolor="#F0F0F0">
+        </td>
+        <td bgcolor="#F0F0F0" align="right"> </td>
+      </tr>
+
+      <tr>
+        <td bgcolor="#F0F0F0">c</td>
+        <td bgcolor="#F0F0F0">  </td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/AccessControl/index.html"> DAC+MAC</a>;
+          
+          <a href="../Lectures/AccessControl/SELinux/"> SE-Linux</a>
+          #1 #2
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">7</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/Hardening/SysCalls/lab-syscalls.html">
+          Add-a-SysCall </a></td>
+        <td bgcolor="#F0F0F0" align="right"> Nov 23</td>
+      </tr>
+
+      <tr>
+        <td bgcolor="#F0F0F0">d</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/AccessControl/SELinux/"> SE-Linux</a>
+          #3 #4 #5
+
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0"> </td>
+        <td bgcolor="#F0F0F0"> </td>
+        <td bgcolor="#F0F0F0" align="right"> </td>
+      </tr>
+      <tr>
+        <td bgcolor="#F0F0F0">e</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/Fortification/Forensics/">
+            <strikeZ>Forensics</a> #1 #2 #3</strikeZ>
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0"></td>
+        <td bgcolor="#F0F0F0">
+
+        </td>
+        <td bgcolor="#F0F0F0" align="right"> </td>
+      </tr>
+      <tr>
+        <td bgcolor="#F0F0F0">f</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0"> Miscellaneous #1 #2 &bull;
+	        <a href="../Lectures/ZLastLecture"> LastLecture</a>
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">8</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Lectures/AccessControl/SELinux/selinux-lab.html">
+            <strike>SELinux</strike></a>
+        </td>
+        <td bgcolor="#F0F0F0" align="right"> Dec 07</td>
+      </tr>
+      <tr>
+        <td bgcolor="#F0F0F0"> *</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">
+          <a href="../Exams/"> Exam Details</a>
+        </td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">E2</td>
+        <td bgcolor="#F0F0F0">
+          <a href=../Exams/2019-Fall-Final.html>
+            2019 Final</a></td>
+        <td bgcolor="#F0F0F0" align="right"> TBA</td>
+      </tr>
+      <tr>
+        <td bgcolor="#F0F0F0"> *</td>
+        <td bgcolor="#F0F0F0">&nbsp;</td>
+        <td bgcolor="#F0F0F0">
+          CEG6420 Grad Students Lab Work: Dec 05, 11:59 PM</td>
+        <td bgcolor="#008000" align="left" valign="top">&nbsp;</td>
+        <td bgcolor="#F0F0F0">GR</td>
+        <td bgcolor="#F0F0F0"> 6420 Labs</td>
+        <td bgcolor="#F0F0F0" align="right"> Dec 05</td>
+      </tr>
+    </table>
+<hr size="1">
+<a href="lectures.html">Security Lectures by Mateti</a>
+&nbsp; &bull; &nbsp; 
+<a href="mailto:pmateti@wright.edu?subject=CEG4420">pmateti@wright.edu</a>
+&nbsp; &bull; &nbsp;
+Sep 24, 2020
+&nbsp; &bull; &nbsp;
+Due: 11:59pm
+</body>
+</html>

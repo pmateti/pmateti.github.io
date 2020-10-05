@@ -1,0 +1,58 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-11
+#+TITLE: Adv Software Engineering Course Epilogue
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7380 Cloud Computing
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* State of Software Engineering
+
+1. [[./state-of-SE.org]]
+1. A Few Opinions of [[./hehner.org][Professor Hehner]]
+
+* Books
+
+There is no prescribed text book for CS7140.  Books are grouped by topic.
+
+1. Ivan Marsic, Software Engineering, Sep 2012, 600+ pp. This is a
+   free PDF to download: http://www.ece.rutgers.edu/~marsic/books/SE/
+   Recommended reading, in general.
+      
+1. Ian Sommerville, Software Engineering (10 th Edition),
+   Addison-Wesley; 2012, 800+ pages, ISBN-10: 0137035152.  Freely
+   [[http://iansommerville.com/software-engineering-book/slides/][downloadable slides]] on all chapters.  Reference.
+      
+1. Pierre Bourque, Robert Dupuis, Alain Abran and James Moore
+   (Editors), "Guide to the Software Engineering Body of
+   Knowledge", 2004. This is free to read in HTML format only:
+   http://www.computer.org/portal/web/swebok/about.   Reference.
+
+1. Alan J Perlis (Editor), Frederick Sayward (Editor), Mary Shaw
+   (Editor), Software Metrics.  ISBN-13: 978-0262512817, 420 pages,
+   The MIT Press (November 1, 2008).  Reference.
+    
+1. Paul C. Jorgensen, Software Testing: A Craftsman's Approach, (Third
+   or Fourth Edition).  ISBN-10: 0849374758. Reference.
+
+1. Martin Fowler, Kent Beck, John Brant, William Opdyke, Don Roberts,
+   Refactoring: Improving the Design of Existing Code Addison-Wesley,
+   ISBN-13: 978-0201485677, 464 pages, 1999.  Reference.
+
+1. David Parnas, Collected Papers, [search the web].  Reference.
+1. Bertrand Meyer, Object-Oriented Software Construction (OOSC) 2e.
+   Has an excellent chapter on Undo/Redo.  1997 [search the web] Highly
+   recommended reading, in general.
+1. Bertrand Meyer, Touch of Class, a fresh way of teaching
+   programming. 2013. [search the web]
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

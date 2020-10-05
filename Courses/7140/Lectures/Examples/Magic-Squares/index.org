@@ -1,0 +1,44 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+
+#+Date: 2015-06-15
+#+TITLE:  Magic Squares
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:t
+#+DESCRIPTION: WSU CS 7140 Advanced Software Engineering
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+
+A square that is divided into smaller squares, each containing a
+number, such that the figures in each vertical, horizontal, and
+diagonal row add up to the same value.
+
+The above def showed up on a [[https://www.google.com/webhp?&ion=1#q=magic%20squares][web search]].
+
+1. An n x n magic square that contains the integers from 1 to n^2 is
+   called a /normal/ magic square.
+
+1. Construct a program that takes n as an argument and generates a
+   normal magic square of n x n.
+
+1. Is this possible to do for all n > 0?  What does it take to prove
+   or disprove this?
+
+1. Here is a solution [[./magic.c]] that works for a few odd numbers n,
+   for sure as verified by examination of the results.  [Lost author's
+   name.  Sorry!]
+
+1. How can you be sure that it works (or not) for all odd n?
+
+1. The file [[./magic-orig.c]] was pretty printed into [[./magic.c]].  Compare
+   the two and express your opinions on which one do you prefer to
+   read along with a detailed why.
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

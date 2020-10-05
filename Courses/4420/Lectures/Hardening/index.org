@@ -1,0 +1,64 @@
+
+# -*- mode: org -*-
+#+date: 2018-08-29
+#+TITLE: Hardening an OS
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./index-slides.html>Slides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Overview
+
+1. Recall that we previously described Proper Configuration
+   [[../LinuxSetup/Config]]
+1. Hardening is a widely used tech word, but not well-defined.
+   Security industry does some "fortification" and pushes it as
+   "hardening".
+
+1. Fortification is a tech word we use in this course.  It is
+   semantically in between Configuration and Hardening.  Further
+   details in [[./Fortification]].
+
+1. In this course, hardening embraces the content outlined below.
+
+* Hardening an OS
+
+
+** Build a Kernel from Source Code
+
+1. [[./BuildKernel]]
+
+** Source Code Audit
+
+1. Splint Analyses of =sudo=
+1. Coverity Analyses of Linux Kernel Bugs
+1. CERT Code Audit Guides
+1. [[./SourceCodeAudit]]
+
+** Recompiling with Thorough Checking
+
+1. Linux kernel is written in C and (a tiny portion in) Assembly
+1. =gcc= has many flags that enable all kinds of checking
+1. On Linux, there are compilers other than =gcc=
+
+* DAC + MAC
+
+1. [[./DAC-MAC/]]
+
+* Intrusion Detection
+
+1. [[./IntrusionDetection]]
+
+
+* Security Enhanced Linux (selinux)
+
+1. [[./SELinux]]
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

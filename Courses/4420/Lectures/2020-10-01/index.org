@@ -1,0 +1,47 @@
+
+# -*- mode: org -*-
+#+date: 2020-10-01
+#+TITLE: CEG4420/6420 \bull{} 2020-10-01
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Announcements/ Reminders
+
+1. This is Week#6.  We are 1+ week behind.
+2. Signup for an AWS account.
+
+3. Dropped two of the following labs for this semester.
+   1. Lab: Software without Security Holes  (Being revised) (will remain)
+   2. Lab: Software without Security Holes: Static Analysis #2 (Being
+      revised) (removed)
+   3. Lab: SELinux (removed)
+
+* Agenda
+
+1. This week: SecSoftware #1 + BufferOverflow #2
+
+** Today: BufferOverflow #2
+
+1. [[../BufferOverflow/index.html]] Section on Background Knowledge
+1. BufferOverflow Lecture #2 [[../BufferOverflow/AlephOne/alephOne.html]]
+1. starting from example2.c
+
+
+* References
+
+1. All the Lecture Notes linked from the Course Home Page are Required
+   Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+
+
+

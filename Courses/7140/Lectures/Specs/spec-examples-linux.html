@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Specifications of Linux</title>
+<!-- 2016-01-29 Fri 12:39 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="Software Engineering"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Specifications of Linux</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. What is an OS?</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Computer Systems</a></li>
+<li><a href="#sec-1-2">1.2. OS Definition by Functionality</a></li>
+<li><a href="#sec-1-3">1.3. Definition by Components</a></li>
+<li><a href="#sec-1-4">1.4. 1.4 OS as a Collection of System Calls</a></li>
+<li><a href="#sec-1-5">1.5. Linux as a Collection of Files</a></li>
+<li><a href="#sec-1-6">1.6. OS as a Collection of Processes</a></li>
+<li><a href="#sec-1-7">1.7. OS Boot</a></li>
+<li><a href="#sec-1-8">1.8. Remarks</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. Specification of Linux File System</a></li>
+<li><a href="#sec-3">3. Specification of a Program v Process</a>
+<ul>
+<li><a href="#sec-3-1">3.1. ELF and Other Program Binaries</a></li>
+<li><a href="#sec-3-2">3.2. Bash and Other Scripts</a></li>
+<li><a href="#sec-3-3">3.3. Spec of <code>execve</code></a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Specification of a Process</a></li>
+<li><a href="#sec-5">5. What is Omitted?</a></li>
+<li><a href="#sec-6">6. References</a></li>
+</ul>
+</div>
+</div>
+<p>
+Abstract: We outline how the Linux OS can be specified rigorously and
+unambiguously.  To give specs of Linux, as we did in the small, is a
+monumental task.  So, this will remain an outline with pointers to
+where pieces of this are done in detail.  Our expectation is that this
+outline can be used as template for the spec of any current OS.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> What is an OS?</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+[A graduate student reader should remain skeptical while reading this
+section.  Does a section like this belong in the Spec of Linux?]
+</p>
+
+<p>
+An OS controls all the hardware of a computer, and every <del>program</del>
+<del>currently running</del> process.  All computer systems, by definition,
+include an OS.  Several modern day gadgets, such as cell phones, MP3
+players, wrist watches, PDAs, video game consoles, and TiVO, are
+specialized computer systems.  Many appliances, such as microwave
+ovens, dishwashers and TVs, contain embedded computer systems.
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Computer Systems</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+A computer system can be divided into three pieces:
+</p>
+
+<ol class="org-ol">
+<li>[Hardware] Motherboard (CPU, RAM, and other chips), various
+daughter cards (e.g., a graphics card, a wireless network card),
+keyboard, mouse, screen, hard disks, other IO devices, and power
+supply.
+</li>
+
+<li>[Software] Operating system, and applications.
+</li>
+
+<li>[Firmware] A basic input/output subsystem (BIOS) preloaded into a
+ROM
+</li>
+</ol>
+
+
+<p>
+A typical PC fits this classification very well; but, there
+are many classes of computers that do not.  E.g., some
+computer systems may not have a key board or a hard
+disk.  
+</p>
+
+<p>
+A program is a sequence of CPU instructions (also called
+machine code) structured in a very specific way.  Software
+is a generic synonym for programs.  Applications are a
+subclass of software. 
+</p>
+
+<p>
+The CPU can execute its instructions only when they are in
+RAM.  We have so many programs that it is infeasible to
+leave them all sitting in RAM.  The OS stores them on a HDD
+and loads them into RAM as needed. 
+</p>
+
+<p>
+CPU can generate traps and faults.  
+</p>
+
+<p>
+Devices raise interrupts. Interrupt handling is done by the
+OS. 
+</p>
+
+<p>
+The moment a computer system is powered on, the firmware is in
+control of every piece of the hardware. On a PC, this firmware is
+called the BIOS (basic input output subsystem). 
+</p>
+
+<p>
+A computer system must not be shut down "ungracefully". 
+All the running processes need to be informed of the impending
+shut down, and wait politely for them to terminate.  This is
+known as graceful termination of the OS.  Most systems can
+now detect a power failure, and initiate a shutdown. 
+However, un-responding processes not withstanding, a shutdown
+cannot be postponed indefinitely, and the OS forcibly
+terminates. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> OS Definition by Functionality</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+There are many definitions of OS based on its typical
+functionality. From the book by Silbershatz and others: 
+"What are the three main purposes of an operating system? Answer:
+(i) To provide an environment for a computer user to execute
+programs on computer hardware in a convenient and efficient
+manner. (ii) To allocate the separate resources of the computer
+as needed to solve the problem given. The allocation process
+should be as fair and efficient as possible. (iii) As a control
+program it serves two major functions: (a) supervision of the
+execution of user programs to prevent errors and improper use of
+the computer, and (b) management of the operation and control of
+I/O devices." 
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Definition by Components</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+A very useful definition of an OS is based on its
+components.  If we were to spread out all the code that
+constitutes an OS on a piece of cloth, we can then cut it up into
+the following components: 
+</p>
+
+<p>
+OS = VM + FileM + ProcM + Net + IO + UserM + (Boot) +
+[SysPrg] 
+</p>
+
+<p>
+Strictly speaking, an OS does not include GUI, nor CLI. 
+In the world of Linux, the GUI is provided by X11, Gnome and KDE
+software subsystems, and CLI by bash, csh, zsh or other such
+shells.  These are not strictly part of the Linux OS. 
+In the Windows world, the GUI is provided by (plain) Explorer,
+and the CLI by cmd or PowerShell.  These are not
+strictly  part of the Windows OS. 
+</p>
+
+<p>
+Programs like Word, Internet Explorer, Konqueror are
+applications.  Visual Studio, g++, Active Python and such
+are (sub-) categorized as development tools. 
+</p>
+
+<p>
+The above components can also be combined and then re-divided
+into a kernel + initial ram disk components + drivers + interrupt
+handlers. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> 1.4 OS as a Collection of System Calls</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+  The code of system calls is not disjoint from the code of
+  previously mentioned components.  It is made of different
+  pieces from these components.  Linux and Windows have around
+  350 system calls each. The details of Linux syscalls can be found
+  in the files: 
+  &lt;pre&gt;
+-rw-r&#x2013;r&#x2013;  1 root root  1403 2010-01-03 06:57 /usr/include/sys/syscall.h
+-rw-r&#x2013;r&#x2013;  1 root root 22041 2010-01-28 00:56 /usr/include/asm/unistd<sub>64</sub>.h
+&lt;/pre&gt;
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> Linux as a Collection of Files</h3>
+<div class="outline-text-3" id="text-1-5">
+<ol class="org-ol">
+<li><code>/boot/grub/</code>: Dir of OS boot loader files.
+</li>
+
+<li><code>vmlinuz</code>: OS kernel. This is a specially linked file. All of its
+code is executed in a privileged CPU mode. Its code can be divided
+up as suggested by the OS = VM + FileM + ProcM + Net + IO + UserM;
+note that we dropped +(Boot)+[SysPrg] parts. The z at the end in
+its name indicates that this is a compressed file. The exact
+location of this file is indicated in the "kernel" line of a GRUB
+stanza.
+</li>
+
+<li>initrd.gz: This is a compressed collection of a bunch of system
+files that the kernel needs as it boots. The exact location of this
+file is indicated in the "kernel" line of a GRUB stanza.
+</li>
+
+<li>/lib/modules: This directory contains a number of dynamically
+loadable "modules", which are specially linked files that can be
+incorporated into the running kernel.
+</li>
+
+<li>/sbin: This directory contains a number of system programs that the
+kernel can invoke and spawn off as separate OS helper processes.
+</li>
+
+<li>/usr/sbin: This directory contains further system programs.  The
+programs in /sbin are considered essential, whereas the one in
+/usr/sbin are "less" so.
+</li>
+
+<li>swap space is located on a separate partition or large file.
+</li>
+
+<li>/bin, /usr/bin, &#x2026;: These directories do contain programs, but
+these are not considered part of the OS.  The programs in these
+directories are considered simply applications.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> OS as a Collection of Processes</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li>Most of the OS stays RAM resident and dormant until (i) a system
+call is made by a process, (ii) a hardware interrupt causes a
+handler in the OS to run, or (iii) a software triggered even causes
+a handler in the OS to run. Consequently, viewing an OS only as a
+collection of processes is going to be incomplete.
+</li>
+
+<li>Process init
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> OS Boot</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+Boot sequence.  POST.  Locating bootable media.
+  Loading the MBR.  Loading the OS boot loader. 
+</p>
+
+<ol class="org-ol">
+<li>Powered on.  BIOS-to-POST. ROM and RAM. CPU fetch-decode-execute
+cycle.
+</li>
+
+<li>Discover boot device.  Boot sectors. Boot device priority
+order.
+</li>
+
+<li>Bring in and give control to the boot loader.  Bring in
+v. "load"
+</li>
+
+<li>Bring in and give control to OS loader.  NTLDR, GRUB,
+etc.  (&lt;a class="url" href=
+"<a href="http://en.wikipedia.org/wiki/GRUB">http://en.wikipedia.org/wiki/GRUB</a>"&gt;<a href="http://en.wikipedia.org/wiki/GRUB">http://en.wikipedia.org/wiki/GRUB</a>&lt;/a&gt;)
+</li>
+
+<li>OS kernel.  Linux kernel = vmlinuz + initrd
+</li>
+<li>For Linux: process init is started.
+</li>
+
+<li>Process init (in Linux, and its counterpart in Windows) is in
+control of "normal" operation of a computer.
+</li>
+
+<li>Cold versus warm boot.  Cold as if power is just applied.  Warm
+skips first few steps.
+</li>
+
+<li>Ubuntu and other distributions use UUID (Universally Unique
+Identifier) to indicate the root device.  From the Wiki: In its
+canonical form, a UUID consists of 32 hexadecimal digits, displayed
+in 5 groups separated by hyphens, for a total of 36 characters. For
+example: 550e8400-e29b-41d4-a716-446655440000 .
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> Remarks</h3>
+<div class="outline-text-3" id="text-1-8">
+<p>
+The rest of this note outlines the spec of Linux based on the above.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Specification of Linux File System</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+file system = file volume + methods
+</p>
+
+<p>
+cite Slough-Mateti
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Specification of a Program v Process</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+There are two classes of executables: binaries, and scripts.  The
+<code>file</code> command can accurately identify this.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> ELF and Other Program Binaries</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+The typical binary executable is defined by the ELF (<a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">https://en.wikipedia.org/wiki/Executable_and_Linkable_Format</a>).
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Bash and Other Scripts</h3>
+</div>
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Spec of <code>execve</code></h3>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Specification of a Process</h2>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> What is Omitted?</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Virtualization (a la Xen, KVM)
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> References</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>coverity linux
+</li>
+
+<li>William A. Slough, and Prabhaker Mateti, "Functional Specifications
+of a Hierarchical File System," Fifteenth Hawaii International
+Conference on System Sciences, 210-217, Jan 1982.
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2016 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2016-01-27
+</div>
+</body>
+</html>

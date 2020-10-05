@@ -1,0 +1,51 @@
+
+# -*- mode: org -*-
+#+date: 2020-09-15
+#+TITLE: CEG4420/6420 \bull{} 2020-09-15
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Announcements/ Reminders
+
+1. Lab#1 was Due: Sep 14 11:59PM.  Submit into
+   Pilot->Assessment->Dropbox->Lab#1.
+1. Join Discord for discussions.  In addition to Pilot->Discussions.
+   Learn what Discord is: https://discord.com/.  Here is the official
+   invite to WSU CS Discord server: https://discord.gg/ks3pV7G.
+1. This is Week#4.  We are about one week behind.
+1. Lab#2: Due: Sep 28.
+
+
+* Agenda
+
+1. This week: Fortification, BackDoors, RootKits
+1. Today: Lab#2: Config and Pruning and Grafting
+   1. Prerequisite: Install a Modifiable Linux
+   2. Task: DAC Examples
+   2. Task: AppArmor and Google Chrome
+   2. Task: Examine sudoers, SUID Programs and Scripts
+   2. Task: Prune Installed Software
+   2. Task: Add System Log Analyses
+   3. Optional Bonus Tasks
+     3. Task: Revive Bastille Linux Script
+     3. Task: Add Rootkit Detection
+     3. Task: [Devious] Rootkit Installation
+
+* References
+
+1. All the Lecture Notes linked from the Course Home Page are Required
+   Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+
+
+

@@ -1,0 +1,71 @@
+
+# -*- mode: org -*-
+#+date: 2018-10-10
+#+TITLE: Hardening of System Programs
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Overview
+
+1. Linux OS Hardening: Kernel + System Programs
+
+* System Programs
+
+1. [List is not exhaustive; traditional, not minimalistic, view.]
+1. some programs of =/bin=
+1. all of =/sbin=, =/usr/sbin= (can be pruned heavily)
+1. all suid root programs
+1. Hardening a system == Harden the kernel + Harden Sys Programs
+
+* System Programming Example: mount
+
+#+begin_src bash
+-rwsr-xr-x 1 root root  43088 May 15 09:45 /bin/mount
+-rwsr-xr-x 1 root root 146128 Nov 30  2017 /bin/ntfs-3g
+
+-rwxr-xr-x 1 root root  14328 Jul 30 10:43 /sbin/mount.fuse
+-rwsr-xr-x 1 root root 121528 Aug 23 10:16 /sbin/mount.nfs
+lrwxrwxrwx 1 root root      9 Aug 23 10:16 /sbin/mount.nfs4 -> mount.nfs
+lrwxrwxrwx 1 root root     13 Aug 20 00:57 /sbin/mount.ntfs -> mount.ntfs-3g
+lrwxrwxrwx 1 root root     12 Aug 20 00:57 /sbin/mount.ntfs-3g -> /bin/ntfs-3g
+
+lrwxrwxrwx 1 root root      9 Aug 23 10:16 /sbin/umount.nfs -> mount.nfs
+lrwxrwxrwx 1 root root      9 Aug 23 10:16 /sbin/umount.nfs4 -> mount.nfs
+-rwxr-xr-x 1 root root  14328 Sep 26 07:33 /sbin/umount.udisks2
+#+end_src
+
+* System Programming Example: sudo
+
+#+begin_src bash
+-rwsr-xr-x 1 root root 157192 Aug 23 13:36 /usr/bin/sudo
+#+end_src
+
+* References
+
+1. https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard,
+   SEI CERT C Coding Standard 2018.  Wiki.  C rules and
+   recommendations.   Required Visit.  [[http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1255.pdf][PDF 2007]] 480pp.
+
+1. https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=473847
+   SCALe Collection.  The CERT Division's Source Code Analysis
+   Laboratory (SCALe) offers conformance testing of C and Java
+   language software systems against the CERT C Secure Coding Standard
+   and the CERT Oracle Secure Coding Standard for Java.
+
+1. Coverity Static Analysis Support for SEI CERT C and C++ Coding
+   Standards, 2016. https://www.synopsys.com/content/dam/synopsys/sig-assets/datasheets/sei-cert-c-coding-standard.pdf
+
+1. https://www.perforce.com/blog/qac/secure-coding-standards TBD mv to
+   SecSoftware #2 Lab.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,83 @@
+# -*- mode: org -*-
+#+DATE: 2018-06-25
+#+TITLE: Summer 2018 CS7140 HW1
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CS7140 Adv Software Engineering
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-postamble-format (("en" "<a href=http://cecs.wright.edu/~pmateti/Courses/7140/Top/index.html>http://cecs.wright.edu/~pmateti/Courses/7140/Top/index.html</a> Dr Prabhaker Mateti"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+-----
+
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

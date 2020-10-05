@@ -1,0 +1,36 @@
+* Lab Experiment
+
+[Work-in-Progress; Being Revised]
+
+Objective: Describe the Missing Processes.  Make you /study/ the
+booting sequence ending at login prompt.  The specific processes you
+identify as required are unimportant.
+
+  1. Freshly reboot into your choice of Linux.  Wait for the GUI to
+    show.
+  1. Save the output of =ps= with flags that show all
+    processes with the greatest amount of detail.  You will notice
+    several gaps in the process id numbers.
+  1. This step is encouraged but not graded: Consider process ids
+	in the ranges of 1 to 100, and 900 to 1000.  Note the missing
+	ids. Among the missing ids, explain the details of <i>at least
+	five</i> processes from the range 1 to 100 and 900 to 1000
+	that must have come to life, performed their duties, and
+	terminated.
+      1. This step is required and graded: Explain the details
+	of <i>at least five</i> processes (from the PID range 1 to the
+	highest PID you see in the above ps list) that are no longer
+	alive.
+      1. Be aware that the bash shell has many built in commands such as echo 
+	that do not cause process creation.
+  1. Among the currently running processes, identify <i>all</i> the
+    daemon processes, and how and where from they were invoked.
+  1. The specific names of script files in the current installation of Linux 
+    are not necessarily rc.multiuser etc as indicated in the sections above.  
+    Find and correct all such names.
+
+  1. Describe the init process details of either Knoppix or Kali.
+
+[[./BootUpLabGS.html][BootUpLabGS]]
+
+

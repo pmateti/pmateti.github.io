@@ -1,0 +1,147 @@
+<html>
+  <head>
+    <title>CEG 4420 Computer Security Midsemester Exam by Prabhaker Mateti</title>
+    <meta name="author" content="Prabhaker Mateti">
+    <meta name="keywords" content=
+	  "Computer security, Network security">
+    <meta name="description" content=
+	  "This page is part of a set of lectures notes for a course
+	  on Security by Prabhaker Mateti
+	  http://www.cs.wright.edu/~pmateti/">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <style type="text/css">
+      a:hover      { color: blue; background-color: yellow; }
+      a:active     { color: white; background-color: green;}
+      p { text-align: justify }
+      li { text-align: justify }
+      pre {border:blue 1px dotted;}
+      tt {border:blue 1px dotted;}
+      @media screen {BODY {margin: 10%;} }
+    </style>
+  </head>
+
+  <body>
+    <table border="0" width="100%" cellpadding="10">
+      <tr>
+	<td valign="top" width="10%">
+	  <a target="_blank" href="http://www.wright.edu/">
+	    <img src="./wsu-logo-xsm.gif" border="0" width="150" align="left"></a>
+	</td>
+	<td valign="top" width="40%">
+          <h3><a href="http://www.cs.wright.edu/~pmateti/Courses/4420/">
+	      CEG 4420/6420: Host Computer Security</a></h3>
+
+          <h3>Fall 2013 &bull; Mid Semester Exam &bull; 100 points</h3>
+
+	  <p>Due: Nov 02, 2013 Saturday 11:59 PM.  
+
+	</td>
+      </tr>
+    </table>
+    <blockquote>
+      <p>This take-home exam permits the use of a Linux/Windows
+	laptop/PC running Knoppix/ Kali, etc.  It is otherwise a
+	traditional closed book, closed notes exam.  In particular,
+	you are honor bound <i>*not*</i> to Internet surf or access
+	any content already existing (other than as indicated) once
+	you access the midterm until you turnin the answers.  The
+	primary reasons in making this a take-home are to relieve time
+	pressure and give you a comfortable (computing/home)
+	environment.  Do not give or take help from others.
+        Submit your answers on
+	<tt>gandalf.cs.wright.edu</tt> using
+        <tt>~pmateti/ceg4420/turnin MT answers.pdf strlcpy-revised.c </tt>
+    </blockquote>
+
+    <ol>
+      <li>(5*5 points each) The following statements may or may not be
+	(fully or partially) valid.  Explain the underlined
+	    technical term</i> occurring in each statement.  Explain/
+	discuss/ dispute the statement.  It is <i>possible</i> to write no
+	more than, say, ten, sentences each, and yet receive full score.
+
+	<ol type=i>
+	  <li>An  <u>nmap scan</u> showed the following TCP ports as
+	  open: 135, 139, 445, 515, 5357.  It is ok to continue to
+	  leave these ports open because there is no security risk.
+
+	  <li> <u>TCP sequence numbers</u> start out with a random
+            number, and incremented randomly so that they are
+            unpredictable.
+          <li> A <u>rootkit</u> is a collection of short programs
+            used by super-users to repair the damage done by an
+            intruder.
+	  <li><u>Stack top randomization</u> makes buffer overflow
+            exploits just a bit more difficult.
+
+	  <li>The following showed up as <u>suid</u> programs:
+	  <tt>/usr/bin/sudo</tt>, <tt>/usr/bin/arping</tt>, <tt>/usr/bin/X</tt>,
+	  <tt>/usr/sbin/uuidd</tt>, <tt>/usr/lib/virtualbox/VirtualBox</tt>.
+          It is justifiable that they were given suid permissions.
+      </ol>
+
+      <li>(5*15 points)
+
+	<ol type="i">
+	  <li>Explain how the gateway/router a LAN uses can be
+            determined by sniffing a small number (how many?) of
+            Ethernet frames and/or IP packets on one host.  Be
+            specific, and construct relevant details of sniffed
+            packets to illustrate your explanation.
+
+	  <li>Suppose a password crack program came up with the answer
+	    44 for the root-line taken from /etc/shadow.  How will you
+	    verify that that works?  Would your attempts at
+	    verification be noticeable by the real root user/
+	    sysadmin? How?  How would you then verify the password
+	    without alerting the root user?
+
+	  <li>Compile the file <tt>testsc.c</tt> of AlephOne, and run
+	    it under <tt>strace</tt> as in <tt>strace ./testsc</tt> in
+	    a modern Linux (choose Knoppix 7.x or Kali/BackTrack5 or
+	    Ubuntu 12.x/13.x) (i) (5 points) Did the shell code get
+	    executed?  Explain fully.  (ii) (10 points) Explain the
+	    details of each of the system calls s-traced.
+
+	  <li>Improve the code of <tt>exploit4.c</tt> so that there
+	    are no warning messages from <tt>gcc</tt> even after using
+	    the flags as in<tt> gcc -ansi -pedantic -Wall</tt>.
+	    Itemize and explain every change you made.  No need to
+	    include/turnin the revised source code.  Make sure no
+	    functionality is lost.
+
+	  <li> Running <tt> 
+splint +posixlib -warnposix -I ..  -I ../include -I /usr/include/x86_64-linux-gnu/ strlcpy.c</tt>
+            where the current working directory was <tt>
+	  .../sudo-1.8.8/compat</tt> (after a configure) produced the
+	  following warnings:
+<pre>
+Splint 3.1.2 --- 03 May 2009
+
+strlcpy.c: (in function strlcpy)
+strlcpy.c:43:8: Operands of == have incompatible types (char, int):
+                   (*d++ = *s++) == 0
+  Types are incompatible. (Use -type to inhibit warning)
+strlcpy.c:52:10: Test expression for while not boolean, type char: *s++
+  Test expression type is not boolean. (Use -predboolothers to inhibit warning)
+strlcpy.c:56:9: Return value type int does not match declared type size_t:
+                   s - src - 1
+  To allow arbitrary integral types to match any integral type, use
+  +matchanyintegral.
+
+Finished checking --- 3 code warnings
+</pre>
+Without inhibiting the warnings (i.e., without using the suggested
+flags), fix the code of strlcpy.c so that the warnings do not appear.
+	</ol>
+      <li> (0 points) [For survey purposes only.] Please record your
+	effort in minutes for each of the above ten items.  Other feedback
+	you wish to give is also welcome.
+      
+    </ol>
+    <hr size="1">
+    <a href="../copyright.html">Copyright &copy;</a>  2013
+    <a href="http://www.cs.wright.edu/~pmateti" target=
+       "_blank">Prabhaker Mateti</a>; Oct 31, 2013
+  </body>
+</html>

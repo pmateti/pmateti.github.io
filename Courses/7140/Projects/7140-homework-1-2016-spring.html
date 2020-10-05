@@ -1,0 +1,115 @@
+
+
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Software Engineering Homework by Prabhaker Mateti</title>
+  <base  target="_top">
+  <meta name="author" content="Prabhaker Mateti">
+<style type="text/css">
+  body {margin: 10% 10% 10% 10%;}
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P, li { text-align: justify }
+  pre, tt, code {border:blue 1px dotted;}
+  @media screen {BODY {margin: 12%;} }
+</style>
+</head>
+
+<body>
+
+<h3><a href="../"> CS 7140 Advanced Software Engineering</a></h3>
+
+<h1>Home Work: HW1 Spring 2016</h1>
+
+<p>Home work in this course is done individually, without help from
+  others.  The due date is announced on the course home page.  In this
+  HW1, we are focussed on Design by Contract and further use of
+  Assertions.
+
+  <ol>
+    <li> (50 points) [Improve OOD] [C++] The file
+      <a href="../Lectures/Examples/Worms/worms-one-file.cpp.html">
+        worms.cpp</a> implements a grass roots game example of wiggly worms,
+      scissor heads, cannibals, or vegetarian kind, moving about.
+      Additional Notes: Visit the pages
+      at <a href="../Lectures/Examples/Worms/">
+      ../Lectures/Examples/Worms/
+      </a>.
+
+      <ol  type=i>
+        <li>
+          Revise it so that it is in "proper" OOP form.
+        <li>
+          It probably has bugs.  Feel free to ignore its bugs (that is you
+          are not expected to fix bugs).  If you can, identify them!
+        <li>
+          Write entry- and exit-assertions for all the methods, and
+          class invariants.  You may ignore assertions relating
+          to <tt>ncurses.h</tt>.
+        <li>The design and code-as-given does not "really" do anything
+          about the z-axis.  Suggest ideas and implement.
+        <li>
+          Write one or two paragraphs reporting on
+          how you discovered and revised the classes, and on your experience
+          with the tools you used to carry out this assignment.
+      </ol>
+
+<li>(50 points) [Java8] [JavaFX] [Threads] [Testing] Read about the Game of
+  Life by Conway on the wikipedia.
+  <ol  type=i>
+    <li> Design and implement in Java an elegant looking GoL program.
+      Google Play has several Android APKs.  Use the source code of
+      <a href="http://www.bitstorm.org/gameoflife/"> www.bitstorm.org/
+      gameoflife/</a>.  Or not.
+    <li>
+      Write entry- and exit-assertions for all (well, longer
+      than 10 lines) the methods, and all class invariants.
+    <li> Many GoL programs fail to implement the game properly.
+      Particularly, the concurrency and the infinite grid parts.  How do
+      we devise a test plan to check that well-known example patterns
+      are done right?  Present an executable solution.
+    <li>
+      Outline a rigorous (executable?) specification that every GoL
+      program should satisfy.
+    <li>
+      Must build cleanly with the latest Java8 + JavaFX.  Note that
+      Java9 is around the corner.
+</ol>
+<li>(25 points Bonus) The worms program did not use threads. Make the
+  best of threads to improve the "look and feel" and revise your
+  answers to (i) through (v).
+<li>
+  (00 points) Please maintain a journal for this homework.  Submit a
+   summary.
+
+</ol>
+<h3>Turn In</h2>
+<p>
+Follow all ethical/ scholary traditions of attribution.
+<p>
+  Include screenshots.  Other than the source code files, put
+  everything else together and produce <b>one</b> PDF
+  file.
+
+<p>The file hw1.tar.bzip2 is a compressed tar ball of all the
+  files related to this homework.  Include the revised/ original
+  source code files so that everything builds cleanly.  I expect to
+  see subdirectories for each problem.  I expect to be able to build
+  all three programs by invoking <tt>make</tt> at the top level.
+
+<p>
+On <tt>thor.cs.wright.edu</tt> invoke
+<tt>~cs714000/turnin HW1 hw1.tar.bzip2 hw1.pdf</tt>
+
+
+</p> 
+
+<hr size="1">
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+Copyright</a> &copy; 2016
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+  Prabhaker Mateti</a>
+</body>
+</html>

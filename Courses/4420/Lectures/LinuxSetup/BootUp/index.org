@@ -1,0 +1,136 @@
+
+# -*- mode: org -*-
+#+date: 2020-08-26
+#+TITLE: Booting Up Linux
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=\"../\"> ../</a> | <a href=./index-slides.html>No Slides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Overview
+
+** Penguins Boot House
+
+#+attr_html: :width 100%
+[[./boot-penguins.jpg]]
+
+** The 20,000-foot view of the Linux boot process
+
+#+caption: The widths of the rectangles: Why are they decreasing? BIOS or UEFI
+#+attr_html: :width 100%
+[[./boot-0.gif]]
+
+** Booting Up Timeline, a total of about 15 secs?
+
+1. Yes! [Excluding graphical login.] [On machines from 2010+]
+1. SSDs? Even less.
+1. https://www.quora.com/How-many-seconds-does-it-take-for-your-Windows-10-to-boot-up
+
+* System Startup
+
+** BIOS
+
+1. [[./bootup.org]]  Study it!
+
+** UEFI
+
+#+caption: Good enough for all OS
+#+attr_html: :width 100%
+[[./platform-integrity-win8.png]]
+
+1. [[./bootup.org]]
+
+** GRUB
+
+#+caption: Enjoy! [CEG4420 does not focus on GRUB]
+#+attr_html: :width 100%
+[[./LinuxBootingProcess.jpg]]
+
+1. All modern (2015+) Linux distros use Grub2.
+1. Are there security issues in GRUB?
+1. http://hmarco.org/bugs/CVE-2015-8370-Grub2-authentication-bypass.html
+   Back to 28: Grub2 Authentication 0-Day, Dec 2015.
+
+1. Does it still work?  Does the attacker have to be present physically?
+
+1. Should we place a password on Grub?
+
+1. [[./bootup.org]]
+
+** Before Kernel Begins
+
+1. OS-Boot-Loaders (OSBL) do not check (deeply) hardware or the kernel.
+1. They do check for "magic numbers".
+1. Open the kernel as a file at the path name given, using borrowed
+   portions of OS code built into OSBL.
+1. Load the program into real (non-virtual) memory.
+1. Pass control to the kernel.
+
+** After Kernel Begins
+
+1. Device discovery and initialization
+1. Virtual memory initialization
+
+* Files and Mounts
+
+1. [[./filesMounts.org]]   Study it!
+
+* After Kernel Begins
+
+1. Perform a variety of checks ...
+1. Its main goal is to invoke the program named "init".  Locations
+   searched for: =/sbin= and =/etc=.
+1. Extremely poor practice: Path name of init given to the
+   OS-boot-loader; ex: =init=/bin/bash=
+
+* After Init Begins
+
+1. Save the kernel logs, spewed during boot but before init.
+1. Where? On a separate system.
+1. When do we mount the rest of volumes?
+1. Every action of init must be logged.
+
+* Security Implications of a "Bad" Boot
+
+1. *Everything* is compromised.
+1. And, you may not even recognize it!
+1. Unauthorized access -- yes.
+1. Trojans invoked as trusted programs -- yes.
+1. Check the trustworthiness of a file/ program -- answers yes,
+   because of rootkits and Trojaned libraries.  [Such forward
+   references will be resolved.]
+
+* Hibernation
+
+1. https://wiki.archlinux.org/index.php/Power_management/Suspend_and_hibernate
+   Recommended Reading.
+
+* What is Kernel Doing after init has Begun?
+
+1. Discussion Topic!  Start from how we should interpret "doing"?
+   =init= has begun -- does it end?
+1. See syllabus.  Discussion 5% Bonus.  Active participation in the
+   group discussions is expected.
+
+* References
+
+1. https://utcc.utoronto.ca/~cks/space/blog/tech/UEFIBootThings Reference.
+
+1. https://www.blackhat.com/presentations/bh-usa-07/Heasman/Presentation/bh-usa-07-heasman.pdf
+   2007, 41 slides.  Highly recommended reading.
+
+1. http://www.rodsbooks.com/refind/ The rEFInd Boot Manager.  Also,
+   explains UEFI, etc.  Highly Recommended Deployment and Reading.
+
+1. https://opensource.com/article/18/1/analyzing-linux-boot-process   Highly Recommended Reading.
+1. https://www.linux.com/blog/demystify-gnulinux-boot-process-systemd Recommended Reading.
+1. https://wiki.archlinux.org/index.php/Improving_performance/Boot_process Highly Recommended Deployment and Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,152 @@
+
+# -*- mode: org -*-
+#+date: 2017-09-11
+#+TITLE: Access Control Models
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2017 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Access Control Principles
+
+1. Who (subject) can do What (operations) on Whom (objects) ?
+
+1. Privilege of Least Authority: Who can/ should do an operation P on
+   object B?  Among the "who", the group that has the least authority
+   should.
+
+1. Develop Fine-Grained Access Control Permissions
+1. Ex: Read/write permissions are too coarse.  A "back-up operator"
+   can be given rw permissions -- but this is too much.  We can
+   design/implement a new permission that can "just copy" files.  This
+   copy operation is fine grained.
+1. Role Based Access Control (RBAC)
+
+* Access Control Models and Mechanisms
+
+1. [[./DAC.org]] Discretionary Access Control; Linux default permissions
+1. [[./MAC.org]] Mandatory Access Control; Users cannot change these policies
+1. [[./LKM.org]] Linux Kernel Modules
+1. [[./LSM.org]] Linux Security Modules
+1. [[./SELinux/]] "Security Enhanced" Linux LSM; contributed by NSA (2000s?)
+1. [[./SELinux/seandroid.org]] SELinux adapted to Android
+
+* Capabilities
+
+1.  The =root= user normally has complete control over all functions of
+   a Linux box.  Binding to a privileged port, loading kernel modules,
+   and managing filesystems are examples of things that typically can
+   only be done by root.  If a regular user needed to run the "ping"
+   command, for example, it was necessary to make it run with the
+   privileges of the root user.   The ping binary needs root privileges
+   in order to open a raw socket (an operation managed by the kernel)
+   to create the necessary ICMP packet for the echo request.
+
+1.  Another classic example is the time server, xntpd.  In order to bind
+   to the privileged ntp port, the daemon requires root privileges.  If
+   we could somehow simply supply the ntp daemon with root privileges
+   for the time it takes to manipulate the system clock as the daemon
+   starts, then lower its privileges to that of a normal user before
+   processing actually starts, we can significantly reduce the
+   potential for a programming error from compromising the whole
+   system.
+
+1.  Once these privileges are relinquished, it's effectively gone until
+   the next reboot.  Even another root process cannot regain those
+   privileges.
+
+1.  This is where capabilities become a critical next step in the
+   evolution of system and kernel security.  Capabilities support
+   extends the UNIX security model and allows Linux to provide more
+   fine-grained access to privileged system commands.  It is a set of
+   "rules" that can be assigned to processes, users, and files that
+   even the root user must follow.
+
+1.  Linux 2.2 introduced basic support, but a modification by Chris
+   Evans to the 2.4 kernel turned capabilities into a system that is
+   largely useable and can be programmed into many of the common
+   services, such as the ntp daemon.  Chris' change involved a
+   modification to the =prctl()= system call that permits a program
+   implementing capabilities to retain its existing level of
+   capabilities while switching from running as root to a non-root
+   user.
+
+1.  Linux 2.4 implemented nine of the capabilities from the original
+   draft, and an additional twenty-one that are specific to Linux.
+
+1.  Some of these capabilities include the ability to change file
+   ownership, kill processes, control kernel module management, reboot
+   or shutdown the machine, manipulate the system clock, and more.  One
+   can immediately see how powerful this is -- processes that are
+   normally set-user-id root such as /bin/ping or simply must be run
+   as root can now run with just the privileges they need and no more,
+   diminishing the likelihood of a security problem resulting in a
+   system compromise.
+
+1.  Capabilities can also be controlled on a system-wide level using a
+   "bounding set." The ability to load or unload modules might be one
+   such capability.  The [[http://www.linuxsecurity.com/feature_stories/capability.h][CAP-SYS-MODULE]] might be disabled once the
+   system has booted and entered the normal multi-user level to
+   prohibit the loading or unloading of kernel modules essentially
+   until the next reboot.  Using the lcap command, one might disable
+   the ability to load kernel modules using the following: =# lcap
+   CAP_SYS_MODULE= .   This would typically be done at the first point
+   at which all the necessary modules have been loaded.  This is an
+   effective countermeasure against a malicious intruder attempting to
+   install a backdoor kernel module.  The CAP_SYS_RAW_IO capability
+   would also disabled to prevent hacking kernel memory directly using
+   =/dev/kmem=.
+
+1.  A program such as xntpd might go through the following process to relinquish
+   the rights that are not necessary for normal operation:
+  1.  Start with full root privileges as it normally does
+  1.  Bind to the privileged ntp port
+  1.  Drop all capabilities other than =CAP_SYS_TIME=
+  1.  Drop root privileges (preventing it from even writing to root-owned files)
+  1.  Continue normal operation as a regular administrative account</li>
+
+1.  Future changes yet to be completely implemented include the
+   modification to commands similar to chattr(1) to modify and tag
+   files that will one day totally remove the concept of a "root"
+   user.  The goal is to provide the ability for a command-line tool to
+   add or remove privileges in much the same way we current add or
+   remove permissions using <tt class="tt">chmod(1)</tt>.
+
+1.  Currently, programs need to be modified to take advantage of
+   capabilities.   With filesystem capabilities, this becomes easier.
+
+* POSIX capabilities
+
+POSIX capabilities can turn a setuid-root file into a file with
+minimum privileges, run a daemon with uid=0 but with almost no
+superuser privileges, etc.  Privileges are granted to processes
+instead of users.  Pcaps divide privileges that are typically granted
+to root user.  Pcaps are implemented in Linux kernels since 2.6.x;
+=capsh, getpcaps, getcap, setcap= are some of the tools.
+
+The table below presents PCaps for a few typical suid-root binaries.
+The CAP-names used are defined in =/usr/include/linux/capability.h= .
+
+
+|ping | CAP-NET-RAW (13)|
+|chsh | CAP-CHOWN (0), CAP-DAC-READ-SEARCH (2), CAP-FSETID (4), CAP-SETUID (7)|
+|chfn | CAP-CHOWN (0), CAP-DAC-READ-SEARCH (2), CAP-FSETID (4), CAP-SETUID (7)|
+|chage | CAP-DAC-READ-SEARCH (2)|
+|passwd | CAP-CHOWN (0), CAP-DAC-OVERRIDE (1), CAP-FOWNER (3)|
+|mount | CAP-DAC-OVERRIDE (1), CAP-SYS-ADMIN (21)|
+|umount | CAP-DAC-OVERRIDE (1), CAP-SYS-ADMIN (21)|
+
+
+To change, run =chmod u-s /usr/bin/chsh; setcap 0,2,4,7=ep
+  /usr/bin/chsh=
+
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

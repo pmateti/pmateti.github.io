@@ -1,0 +1,26 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-11
+#+TITLE: PLs for Software Engineering: Surveys
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+Large software systems are frequently composed of subsystems written
+in different PLs.
+
+* Language Popularity Surveys
+
+1. During a given year.
+
+1. TIOBE Index [updated frequently] http://www.tiobe.com/tiobe_index
+
+1. IEEE http://spectrum.ieee.org/computing/software/the-2015-top-ten-programming-languages
+
+1. StackOverlow Yearly Survey; see  "Most Popular Technologies"
+   section. http://stackoverflow.com/research/developer-survey-2015
+

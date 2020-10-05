@@ -1,0 +1,89 @@
+
+# -*- mode: org -*-
+#+date: 2019-10-10
+#+TITLE: Lab on Hardening System Programs
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Background
+
+1. Goal: We select a few system programs.  We analyze them with static
+   and dynamic tools.  We reinforce their style of coding.  We enable
+   assertions.  We enable PIE and ASLR, ROP checking.
+
+1. Background: Both Software without Security Holes labs must have
+   been completed.  We will make use of the tools and techniques
+   learned in these labs.
+
+1. What are System Programs?  Conceptually, without sysprogs the
+   system would be disfucntional.  Concretely, Linux directory
+   structure is well-established.  We take the program files and
+   scripts located in /sbin, /usr/sbin, /usr/local/sbin as system
+   programs and scripts.
+
+** Example System Programs
+
+1. sudo
+1. su
+1. init
+1. systemd components
+1. mount
+
+
+
+* Tasks
+
+1. In each task, you are expected to build, document your build,
+   deploy, and demo the deployed system program.  All of these should be
+   thoroughly described in the report.
+
+
+** Task: Harden a SysProg [20 points]
+
+** Task: [20 points]
+
+** Task: [20 points]
+** Task: [20 points]
+
+* Submission
+
+1. [15 points] Lab Report quality, compliance, and completeness.  [5
+   points] Include a journal. By the hour.  You must follow the Lab
+   Report Template.  There should be a section on each of the tasks. A
+   couple of lines of an answer to each (implied/ explicit) question/
+   discussion item. Must number them as in this document.
+
+1. Use good judgment in (i) what to submit and (ii) what to omit and
+   (iii) how long the report becomes.  Do not make the report way
+   longer than, say, 20 pages.  It is possible to remain under 20 pp, and
+   receive full score.  Lack of judgment earns *negative* points.
+
+1. Submit relevant files of source code that you wrote, and of text.
+   Always interpret the results.
+
+1. Submit a PDF file named exactly =Report-L7.pdf=, and a tarball
+   =L7.tbz= [created with =tar cfjvv L7.tbz source-files*= ]. (Scripts
+   are used to check various things -- so file names should obey such
+   "rules".)
+
+* References
+
+1. Prabhaker Mateti, Lecture Notes Hardening System Programs, 2019.
+
+1. https://www.vulnhub.com/ "To provide materials that allows anyone
+   to gain practical hands-on experience in digital security, computer
+   software & network administration. "  Required Visit.
+
+1. PIE (Position Independent Executables) Exploit https://nvd.nist.gov/vuln/detail/CVE-2017-1000253
+   Awareness Reference
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

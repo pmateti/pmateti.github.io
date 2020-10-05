@@ -1,0 +1,21 @@
+2013-10-08/
+
+* Specific to CS7140 Project: Requirements Document
+** Some Details
+1. When compiled with the same javac, the sum of .class file size,
+   ignoring all meta content, should be 5% smaller.  How does your design
+   address this?
+1. Include discussion supporting the goals: Correctness, Elegance, Efficiency
+1. Bug Discovery
+1. Expected Design changes revamping the GUI
+1. Silence: Say what is or is not doable.
+
+** New Plugin Suggestions
+*** Formal Methods Reminders
+1. hey insert pre- post-
+1. loop invariants
+1. Native Java assert v JML
+
+*** C++ to Java conversion
+
+*** Java to C++ conversion

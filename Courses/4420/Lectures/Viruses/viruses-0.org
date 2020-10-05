@@ -1,0 +1,38 @@
+
+
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE: Buffer Overflow Attacks
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:t
+#+LINK_HOME: ../Top/index.html
+#+LINK_UP: ../
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+#+STYLE: <style> P {text-align: justify} li { text-align: justify; } code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-preamble-format (("en" "%d<br><a href=\"http://cecs.wright.edu/~pmateti/Courses/4420/\">OnLine CEG 6420: Computer Security</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a> &bull; %d"))
+
+* Notes to Self #1
+
+[This is incomplete TBD insert videos]
+
+This chapter includes Worms and Trojans also.
+
+* Cross-platform viruses
+
+1. an OpenOffice virus called Badbunny.
+
+* Hand of the Thief 2013
+
+https://blogs.rsa.com/rsa-peeks-into-the-bits-of-new-linux-based-trojan-hand-of-thief/
+
+
+* Reading List
+
+1. Readings are grouped into Required and Recommended.
+1. Required Readings are a must read.  These are sources of exam
+   questions.
+1. Recommended Readings bring more insight into the topic.  But exam
+   questions will not be derived from these.
+1. Some of our "readings" are actually web site visits.

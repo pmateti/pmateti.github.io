@@ -1,0 +1,71 @@
+# -*- mode: org -*-
+#+DATE: 2020-09-03
+#+TITLE: CS7140 Adv Software Engineering 2020-09-03
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"https://cecs.wright.edu/~pmateti\"> cecs.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Announcements/ Reminders
+
+1. Action Item: Project Work. Form into teams of 3.  Due: Sep 07, 2020 11:59 PM
+2. Action Item: Project Selection.  Due: Sep 07, 2020 11:59 PM
+3. The above are Action Items for Me beyond this due date.
+1. Learn what Discord is: https://discord.com/.  Here is the official
+   WSU CS Discord server: https://discord.gg/ks3pV7G.
+
+* Agenda
+
+** Topics for Today
+
+1. More on Assertions, Specs,  Design, VHLL
+2. Discuss the above using Quick Sort.  
+   1. You undoubtedly learnt Quick Sort years ago.  May be just one
+      version.  Re-read whatever you used to learn it initially.
+      Also, must read the ref given below.  This lecture refreshes
+      Quicksort while raising a lot of questions.
+   2. I am expecting you to figure out the answers and discuss among
+      your selves on WSU CS Discord server [link given above].
+
+** Exercises
+
+1. Non-Functional Requirement: Assignments to array elements are
+   disallowed.  Instead, you are given a primitive =exchange(i, j)=
+   that exchanges =a[i]= with =a[j]=.
+
+1. Design and implement a Quicksort program that honors the above.
+   You are welcome to start with the Java program from the Princeton
+   book.  [We are skipping requirements and specs.]
+
+1. Specify =exchange(i, j)=.
+1. Should we revise =exchange(i, j)= to =exchangea(a, i, j)=?  Context:
+   Design of API.
+1. Do an "intriguing" implementation of =exchange(i, j)=.  What do you
+   mean "intriguing" ?!
+1. You are required to enjoy (haha!) visiting https://www.ioccc.org/
+   The International Obfuscated C Code Contest.  Every year!
+
+
+* References
+
+1. C. A. R. Hoare, Quicksort, The Computer Journal, Volume 5, Issue 1,
+   1962, Pages 10 - 16, https://doi.org/10.1093/comjnl/5.1.10, PDF at
+   https://academic.oup.com/comjnl/article/5/1/10/395338.  Required
+   Reading.
+
+1. [Princeton Book] Robert Sedgewick and Kevin Wayne,
+   https://algs4.cs.princeton.edu/ 4th Edition; Section on Quicksort.
+   Required Reading.  https://algs4.cs.princeton.edu/23quicksort/
+1. https://cecs.wright.edu/~pmateti/Courses/7140/Lectures/Examples/Quick-Sort/
+1. [[../Specs/index.org]]  More lecture time later on this.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

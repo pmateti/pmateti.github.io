@@ -1,0 +1,97 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+TITLE: SOLID Principles
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"liskov-subst-principle-slides.html\"> </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* SOLID Principles of Class Design
+
+#+CAPTION: SOLID Principles [from Web]
+#+NAME:   tab:basic-data
+[[./Figures/solid-ood.jpg]]
+
+* (SRP) The Single Responsibility Principle
+
+A class should have only one reason to change.  If there are multiple
+motivations for changing a class, it obviously has more than one
+responsibility.  When these axes of change occur, the class will
+probably need to have different aspects of its behavior changed, at
+different times and for different reasons.
+
+Some examples of responsibilities to consider that may need to be
+separated include:
+
+1. Persistence
+1. Validation
+1. Notification
+1. Error Handling
+1. Logging
+1. Class Selection
+1. Formatting
+1. Parsing
+1. Mapping
+
+* (OCP) The Open Closed Principle
+
+Classes and methods should be open for extension (of functionality)
+and closed for modification.  In practice, this means creating software
+entities whose behavior can be changed without the need to edit and
+recompile the code itself.  The simplest way to demonstrate this
+principle is to consider a method that does one thing. Let’s say it
+writes to a particular file, the name of which is hard-coded into the
+method. If the requirements change, and the filename now needs to be
+different in certain situations, we must open up the method to change
+the filename.  If, on the other hand, the filename had been passed in
+as a parameter, we would be able to modify the behavior of this method
+without changing its source, keeping it closed to modification.
+
+* (LSP) The Liskov Substitution Principle
+
+Subtypes must be substitutable for super type.  A sub class must
+enhance functionality, but not reduce.  Introductions to
+object-oriented development discuss inheritance, and explain that one
+object can inherit from another if it has an IS-A relationship with
+the inherited object.  However, this is necessary, but not sufficient.
+
+Note that some argue that LSP is not an OOD principle.
+
+More on this at
+[[./liskov-subst-principle.org]]
+
+* (ISP) The Interface Segregation Principle
+
+Many client-specific interfaces are better than one general-purpose
+interface.  ISP recommends clients should not be forced to depend on
+methods that they do not use.  Interfaces should belong to clients,
+not to libraries or hierarchies.  Application developers should favor
+thin, focused interfaces to fat interfaces that offer more
+functionality than a particular class or method needs.
+
+
+* (DIP) The Dependency Inversion Principle
+
+One should depend upon abstractions, [not] concrete things.  High
+level modules should not depend on low level modules; both should
+depend on abstractions.  Abstractions should not depend on details.
+Details should depend upon abstractions.
+
+In this course: We replace the above with [[./design-by-contract.org][Design by Contract]].  This is
+often confused with LSP.
+
+
+* References
+
+1. https://deviq.com/solid/ Recommended Reading.
+1. https://en.wikipedia.org/wiki/Dependency_inversion_principle Recommended Reading.
+1. Web site, http://www.oodesign.com  Recommended Visit
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

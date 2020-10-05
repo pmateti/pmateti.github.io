@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Passwords Rainbow Tables</title>
+<!-- 2018-10-21 Sun 22:22 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="Mateti: Android Internals and Security"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Passwords Rainbow Tables</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Password Cracking</a></li>
+<li><a href="#sec-2">2. Reduction Functions</a></li>
+<li><a href="#sec-3">3. Chains</a>
+<ul>
+<li><a href="#sec-3-1">3.1. An Example Table of Chains of Length 5</a></li>
+<li><a href="#sec-3-2">3.2. Example #1: Reverse the hash 5520</a></li>
+<li><a href="#sec-3-3">3.3. Example #2: Reverse the hash 3626</a></li>
+<li><a href="#sec-3-4">3.4. Exercise: Reverse the hash 2554</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. The Rainbow Table</a>
+<ul>
+<li><a href="#sec-4-1">4.1. Example from Wikipedia</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. Are Rainbow Tables Effective in Cracking?</a></li>
+<li><a href="#sec-6">6. Computing the Rainbow Tables</a>
+<ul>
+<li><a href="#sec-6-1">6.1. Computing the Rainbow Tables in the Cloud</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7. References</a></li>
+<li><a href="#sec-8">8. End</a></li>
+</ul>
+</div>
+</div>
+<p>
+This is an introduction to "rainbow tables", in the context of
+password cracking.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Password Cracking</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li><a href="../cracking.html">../cracking.html</a> Password cracking ideas, and Some Well Known Cracking Tools
+</li>
+<li><a href="../password-labs.html">../password-labs.html</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Reduction Functions</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+<i>Reduction functions</i> and crypto hash functions are at the core of
+rainbow tables.  The domain of a (confusingly named) reduction
+function is hash values.  Its range is plaintext passwords.
+</p>
+
+<p>
+As an example, we devise a reduction function R() that maps a 4 digit
+hash ( 0000 to 9999) to a 2 digit (00 to 99) plain text (passwords).
+For example, a trivial reduction function takes the last two digits of
+a four digit number, as in r(0823) = 23.
+</p>
+
+<p>
+It is worth repeating that the reduction function is NOT the inverse
+of the hash.  In the example above, 0823 was reduced to 23, but 23
+does not hash into 0823.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Chains</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Reduction functions also have collisions.  Worse, in fact!  One
+strategy to reduce (but not eliminate) their impact is to use multiple
+reduction functions.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> An Example Table of Chains of Length 5</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Consider the table below, with a single crypto hash function H and two
+reductions R1 and R2, defined as follows.  R1 extracts the last two
+digits.  R2 extracts the first two digits.  The missing values of H(x)
+are explicitly shown in the text.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="right">p1</td>
+<td class="right">h1 = H(p1)</td>
+<td class="right">p2 = R1(h1)</td>
+<td class="right">h2 = H(p2)</td>
+<td class="right">p3 = R2(h2)</td>
+<td class="right">h3 = H(p3)</td>
+</tr>
+
+<tr>
+<td class="right">3</td>
+<td class="right">3955</td>
+<td class="right">55</td>
+<td class="right">4532</td>
+<td class="right">45</td>
+<td class="right">3708</td>
+</tr>
+
+<tr>
+<td class="right">10</td>
+<td class="right">0823</td>
+<td class="right">23</td>
+<td class="right">5603</td>
+<td class="right">56</td>
+<td class="right">5850</td>
+</tr>
+
+<tr>
+<td class="right">25</td>
+<td class="right">2059</td>
+<td class="right">59</td>
+<td class="right">3626</td>
+<td class="right">36</td>
+<td class="right">4202</td>
+</tr>
+
+<tr>
+<td class="right">68</td>
+<td class="right">3131</td>
+<td class="right">31</td>
+<td class="right">3790</td>
+<td class="right">37</td>
+<td class="right">5520</td>
+</tr>
+
+<tr>
+<td class="right">91</td>
+<td class="right">2554</td>
+<td class="right">54</td>
+<td class="right">3213</td>
+<td class="right">32</td>
+<td class="right">5109</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+Each row of the table above is a <i>chain</i>.  Length = 5.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Example #1: Reverse the hash 5520</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li>Look 5520 up in the table column h3 above.
+</li>
+<li>So, we take 68 and hash it to get H(68) = 3131.
+</li>
+<li>We apply our reduction function: R1(3131) = 31, say.
+</li>
+<li>Next, we hash 31.  Suppose, H(31) = 3790.  We check if 3790 is the
+hash value we started with (namely, 5520).  It is not, so repeat
+the steps.
+</li>
+
+<li>We apply our second reduction function, R2(3790) = 37, say.
+</li>
+<li>We hash 37.  Suppose H(37) = 5520.  It is the hash value we started
+with.
+</li>
+<li>Our plaintext is 37.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Example #2: Reverse the hash 3626</h3>
+<div class="outline-text-3" id="text-3-3">
+<ol class="org-ol">
+<li>What if our hashed value, e.g., 3626, is not in the table?  We
+apply the reduction function.  Since this is essentially walking
+backwards through the chains, we apply the last reduction function.
+Suppose R2(3626) = 36.  Hash that number, H(36) = 4202, and try the
+algorithm again.  
+</li>
+
+<li>We see that its corresponding value for p1 is 25.  Now we can go on
+to next step: H(25) = 2059.  
+</li>
+
+<li>Is 2059 the hash number we are looking for?  No, we looking for
+3626, so on to step 4: R1(2059) = 59.  Back to step 2: H(59)
+= 3626.
+</li>
+
+<li>Step 3: Is 3626 the number we&amp;#8217;re looking for? Yes!
+Therefore, 59 is its plaintext.  
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Exercise: Reverse the hash 2554</h3>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> The Rainbow Table</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Rainbow Table RT stores the left-most column and the right-most column
+of the table above.  And, we calculate the other columns as needed.
+That is, we use 10 entries in the RT to represent the 30 entries in
+table above.  Of course, the cost is a tradeoff between size and
+speed.  
+</p>
+
+<p>
+The length of the chains in the example above was 5.  Real life rain
+tables have 10<sup>x</sup>, x &gt; 4, chains.
+</p>
+
+<p>
+Note that the rainbow table is specific to a hash function H such as
+MD5 and SHA1.
+</p>
+</div>
+
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Example from Wikipedia</h3>
+<div class="outline-text-3" id="text-4-1">
+
+<div id="Examples-of-Rainbow-Table-Computations" class="figure">
+<p><img src="../Figures/rainbow-table.png" alt="rainbow-table.png" width="80%" />
+</p>
+<p><span class="figure-number">Figure 1:</span> Rainbow Table Computations, H hash, R Reduction [source: Wikipedia]</p>
+</div>
+
+<p>
+[This nice figure, is unfortunately not well explained in the
+Wikipedia.  Hope the following is good enough.]  The R stands for a
+"reduction" (confusingly named) function.  Recall that H-inverse is a
+relation, not a function.  The R is subset of this relation.  R(a) = z
+such that H(z) = a.  Recall that there exist x, such that x != z but
+still H(x) = H(z) = a.  The R is constructed to yield z instead of x
+because of "other reasons".  Recall also that the number of digits in
+a is fixed, based on H, but the plain text arguments of H are of
+arbitrary length; in the figure the length ranges from 5 to 9.  The
+number of digits in the range of H should have been fixed, but in the
+figure it is either 5 or 6.
+</p>
+
+<p>
+TBD "A password rainbow table stores hash chains for various passwords. A
+password chain is computed, starting from the original password, P,
+via a reduce (compression) function R and a hash function H.  A
+recurrence relation exists where Xi+1 = R(H(Xi)), X0 = P. Then the
+hash chain of length n for the original password P can be formed: X1,
+X2, X3, &#x2026; , Xn-2, Xn-1, Xn, H(Xn). P and H(Xn) are then stored
+together in the rainbow table."
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Are Rainbow Tables Effective in Cracking?</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Even a single bit is enough to resist rainbow tables if you use
+properly salted hashes. &#x2013; CodesInChaos Jun 10 '14 at 8:56.  {pm
+Elaborate properly}
+</li>
+
+<li>What is the <a href="http://security.stackexchange.com/questions/60691/">Length of passwords that are rainbow table safe</a> ?
+</li>
+<li>Rainbow tables have a limited use.  Most algorithms these days
+employ salting.  For each value of the salt you need a new rainbow
+table.  E.g., saltedhash(password) = hash(hash(password) + salt)
+</li>
+
+<li>The salt must be large enough, otherwise an attacker can make a
+table for each salt value.
+</li>
+
+<li>Another technique that helps prevent precomputation attacks is <i>key
+stretching</i>.  The salt, the password, and a number of intermediate
+hash values are run through the underlying hash function multiple
+times.  The extra time is not noticeable to a user because the user
+only has to wait a fraction of a second each time the user logs in.
+On the other hand, stretching greatly reduces the effectiveness of
+a brute-force or precomputation attacks.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Computing the Rainbow Tables</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>There are many examples RTs, already computed, available.  Not all
+free.
+</li>
+
+<li>We can compute hash values for every possible string of characters.
+Obviously, such tables are large (TBs).
+</li>
+
+<li><a href="http://project-rainbowcrack.com/">http://project-rainbowcrack.com/</a> has freely downloadable
+executables (rtgen, &#x2026;) for all major OS. rtgen: generate rainbow
+tables, rsort: sort the rainbow table; rcrack: find the password.
+</li>
+
+<li><a href="http://project-rainbowcrack.com/table.htm">http://project-rainbowcrack.com/table.htm</a> A List of Rainbow Tables.
+Key space of 13,759,005,997,841,642.
+</li>
+
+<li><a href="http://rainbowtables.shmoo.com/">http://rainbowtables.shmoo.com/</a> Released at ShmooCon 2005.
+</li>
+</ol>
+</div>
+
+
+<div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> Computing the Rainbow Tables in the Cloud</h3>
+<div class="outline-text-3" id="text-6-1">
+<ol class="org-ol">
+<li><a href="https://github.com/mcandre/painbow">https://github.com/mcandre/painbow</a> Painbow is a scalable rainbow
+table, able to handle petabytes of passwords and hashes. Just point
+painbow to a [Apache] Cassandra cluster node and enter some
+passwords to index.
+</li>
+
+<li>Avinash Kak, Purdue University, "<a href="https://engineering.purdue.edu/kak/compsec/NewLectures/Lecture24.pdf">The Dictionary Attack and the
+Rainbow-Table Attack on Password Protected Systems</a>; Lecture Notes
+on "Computer and Network Security", 2016, 53pp.  Recommended
+Reading  <a href="https://engineering.purdue.edu/kak/compsec/">https://engineering.purdue.edu/kak/compsec/</a>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> References</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li>List of <a href="../cracking-tools.html">Password Cracking Tools</a>
+</li>
+
+<li><a href="http://project-rainbowcrack.com/table.htm">http://project-rainbowcrack.com/table.htm</a> Lists free and paid Rainbow Tables.
+</li>
+
+<li>Section 5 is a rewrite of posts under Rainbow Tables by "paul" at
+<a href="https://stichintime.wordpress.com/">https://stichintime.wordpress.com/</a>
+</li>
+
+<li><a href="http://kestas.kuliukas.com/RainbowTables/">http://kestas.kuliukas.com/RainbowTables/</a> is a pretty good
+explanation.  But, the diagrams can be better.  (i) The domain and
+range "circles" are equal in diameter confusing the student.  (ii)
+The reduce diagram (fig #2) even more confusing.  (iii) The comment
+that the name "reduction" was "unhelpfully named" is good.  Reference.
+</li>
+
+<li>Rainbow Tables Generator. <a href="http://www.oxid.it/downloads/winrtgen.zip">http://www.oxid.it/downloads/winrtgen.zip</a> 
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> End</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2017 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2017-02-06
+</div>
+</body>
+</html>

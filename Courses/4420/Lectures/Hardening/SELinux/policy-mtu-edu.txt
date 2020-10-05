@@ -1,0 +1,14 @@
+1. http://pages.mtu.edu/~xinlwang/itseed/labs/SELinux_Policy.pdf This lab is designed to learn how to use and modify current SELinux policy. You will also learn
+how to create new SELinux policy modules and install them. After completion of this lab, you
+will learn how to
+ Confine network ports
+ Check and restore default SELinux security contexts under a directory
+ Modify current SELinux policy
+ Create new SELinux policy modules and integrate them into current policy.This lab is designed to learn how to use and modify current SELinux policy. You will also learn
+how to create new SELinux policy modules and install them. After completion of this lab, you
+will learn how to
+ Confine network ports
+ Check and restore default SELinux security contexts under a directory
+ Modify current SELinux policy
+ Create new SELinux policy modules and integrate them into current policy.
+

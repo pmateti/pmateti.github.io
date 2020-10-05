@@ -1,0 +1,312 @@
+<html>
+<head>
+<title>Security Fortification</title>
+
+<meta name="author" content="Prabhaker Mateti">
+<meta name="keywords" content="Internet security, Network security, 
+TCP/IP security, Cyber Security, Cybersecurity">
+<meta name="description" content="This page is part of a set of lecture notes
+for a course on Internet Security by Prabhaker Mateti
+http://www.cs.wright.edu/~pmateti/">
+
+<base target="_top">
+
+<style type="text/css">
+  body {margin: 15%;}	<!-- for FrontPage  -->
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  p { text-align: justify }
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  ol.o {padding-left: 0px; }
+    li { text-align: justify; }
+    @page { size: 8.5in 11in }
+    @media screen {BODY {margin: 15%} }
+    body {counter-reset: chapter; counter-reset: section;}
+    h2:before {content: counter(section) ". "; counter-increment: section;}
+</style>
+</head>
+
+<body class="margin">
+
+<h1>Security Fortification</h1>
+
+<h3><a href="http://www.cs.wright.edu/~pmateti">Prabhaker Mateti</a></h3>
+
+
+<blockquote><p>
+Abstract: This lecture is about adding a layer of 
+protection beyond proper configuration of the OS and applications. 
+This layer of protection consists of tools that help detect changes in 
+the system and monitor (suspicious) system activity.
+</blockquote>
+
+
+<h3><a name="Table of Contents">Table of Contents</a></h3>
+
+ <ol>
+  <li>  Educational Objectives</a> </li>
+  <li>Security Fortification
+  </li>
+	<li>Malware Detection<ol>
+   <li>Virus Scanners </li>
+   <li>Root Kit Detection </li>
+  </ol></li>
+	<li>Authentication</li>
+	<li>Audit<ol>
+   <li>Activity Monitors </li>
+   <li>Log Analyzers</li>
+  </ol></li>
+	<li>Improved Kernels</li>
+	<li>Lab Experiment </li>
+	<li>Acknowledgements</a> </li>
+	<li>References</a></li>
+ </ol>
+
+
+<h3><a name="Educational Objective">Educational Objective</a>s</h3>
+<ol>
+ <li>Appreciate the need for adding extra layers of protection beyond 
+ out-of-the-box installation of an operating system </li>
+ <li>Understand the limitations of such a protective layer </li>
+ <li>Aware of widely available tools for fortification.</li>
+</ol>
+
+<h1>Security Fortification</h1>
+
+<p>
+Fortification is the addition of packages to improve security.&nbsp;
+It should be done after a system has been properly configured with the
+supplied components.&nbsp; Fortification frequently will discard a
+supplied component in preference to a carefully chosen added
+component.&nbsp; Some what rarely, fortification involves deletion of 
+components.&nbsp; In our discussion, we will postpone certain
+&quot;fortification&quot; items as &quot;hardening&quot; items even
+though we cannot offer a rigorous definition regarding the use of
+these two terms.</p>
+
+<h2>Malware Detection</h2>
+
+<h3>Virus Scanners</h3>
+<p>
+Of the many fortification suggestions made in this lecture, virus 
+scanners are probably the most universally experienced item.&nbsp; Windows-based 
+virus scanners do focus on detecting not only viruses but also Trojans and root 
+kits and are often also integrity checkers.</p>
+
+<h3>Root Kit Detection</h3>
+
+<p>Loadable kernel modules (LKM) bring run-time modularity to
+  Linux. Device drivers and their modules are loaded only when
+  necessary keeping the core kernel small. On the negative side, LKM
+  rootkits are the easiest and most “elegant” way to modify the
+  running kernel. In a modularized kernel the attacker can insert
+  rootkits into kernel once he gains root privileges.  Through LKM
+  rootkit the attacker can modify any part of the kernel. Typically
+  LKM rootkits would redirect the system calls to the attacker’s own
+  implementation.</p>
+
+<p> The character device" /dev/kmem is an image of the kernels
+  virtual memory. Through this device, an attacker can modify the kernels text or data, and can drastically change the behavior of
+  kernel. Other memory devices which can similarly be exploited are
+  /dev/mem and /dev/port which give direct access to physical memory
+  of the system.
+</p>
+
+<p>
+Unless a file system auditor is in place, it is not
+easy to spot the root kits after their installation.&nbsp; The time to
+be alert is when the root kits are being installed.&nbsp;</p>
+
+<h2>Authentication</h2>
+
+<h3>User Authentication</h3>
+<h3>Host Authentication</h3>
+<h3>Service Authentication</h3>
+
+Look up
+
+Kerberos.&nbsp; Read
+<a href="https://help.ubuntu.com/community/LDAPClientAuthentication">https://help.ubuntu.com/community/LDAPClientAuthentication</a>
+
+<h2>Audit</h2>
+<p>
+Capture the output of <tt>ps aux</tt> and examine all processes
+periodically.  The exact list will depend on the (Linux)
+distribution. However, from one session to another, the first few are
+not expected to have different process ids. The remainder may get
+higher or lower pids depending on what is included in the boot up
+scripts. However, once the boot scripts have stabilized you must make
+a note of all process ids, and expect them to remain unchanged until
+the scripts change again. </p>
+
+<p>
+You should also check that all processes owned by user &quot;nobody&quot; are 
+running programs explicitly identified as legitimate for untrusted, 
+unverified, remote users.&nbsp; Each process belonging to a non-root 
+system user is explicitly identified as legitimate for that user in 
+this environment.
+</p>
+
+<h3>File System Audit</h3>
+<p>
+Intruders often replace binaries with their own Trojan versions.&nbsp; 
+Many system administrators relied on time-stamping and check sum the 
+files to determine when a binary file has been modified. But it is 
+fairly simple to recreate the same time-stamp for the Trojan file as 
+the original file. For example, if your standard <tt>touch</tt> 
+does not do <tt>touch -r /bin/login</tt> develop a <tt>touch</tt> 
+program that does it.&nbsp; Or, by setting the system clock time back 
+to the original file's time and then adjusting the Trojan file's time 
+to the system clock. Once the binary Trojan file has the exact same 
+time as the original, the system clock is reset to the current time. 
+Simple check sum programs rely on a CRC checksum and are easily 
+spoofed.&nbsp; MD5 check sums are based on an algorithm that no one 
+has yet spoofed.&nbsp; This technology is behind the well known 
+Tripwire.</p>
+
+
+<h3>Activity Monitors</h3>
+<p>
+A few specific activity monitoring programs are described below.</p>
+<p>
+TCP Wrapper: When a potentially insecure service must be run, 
+tcp_wrappers should be utilized to &quot;wrap&quot; it. The wrapper software 
+does more detailed logging and better access control checking by 
+&quot;wrapping&quot; itself around the normal network daemons configured in <i>
+inetd.conf</i>.&nbsp; The <tt>tcpd</tt> used in Linux is a new 
+version of the TCP wrapper.</p><p>
+ifstatus is a standalone program to check for 
+promiscuous interfaces available from
+<a href="ftp://coast.cs.purdue.edu/pub/tools/unix/ifstatus">
+ftp://coast.cs.purdue.edu/pub/tools/unix/ifstatus</a> </p><p>
+dtk or &quot;Deception Toolkit&quot; is a kit of fake daemons and services 
+designed to waste an intruders time. dtk is available from
+<a href="http://all.net/dtk/example.html">all.net/dtk/example.html</a></p>
+<p>
+Bastille Linux is a series of scripts which tighten up security on stock Linux 
+systems, by changing permissions and disabling features.</p>
+<p>
+Network Information Service (NIS) has been source of many weaknesses. 
+Using Rsync + SSH as a replacement for NIS is often better.</p>
+<p>
+Logs produced by the<tt> kerneld, syslogd, tcpd,</tt> and the 
+various services can become so large that it is humanly impossible to 
+scan them for spotting suspicious activity and take a more serious 
+look.&nbsp; A few well known log analyzers are listed below.</p>
+<ol>
+ <li>wwwstat, HTTPd Log file Analysis Software,
+ <a href="http://www.ics.uci.edu/pub/websoft/wwwstat/">
+ http://www.ics.uci.edu/pub/websoft/wwwstat/</a></li>
+ <li>Analog, Web server log file analyzer,
+ <a href="http://www.statslab.cam.ac.uk/~sret1/analog/">
+ http://www.statslab.cam.ac.uk/~sret1/analog/</a></li>
+ <li>freq, A lastlog analyzer,
+ <a href="http://www.bangmoney.org/projects/freq/">
+ http://www.bangmoney.org/projects/freq/</a></li>
+ <li>tcpdstats, tcpd log analyzer,
+ <a href="http://www.kaostech.com/products/html/tcpdstats.html">
+ http://www.kaostech.com/products/html/tcpdstats.html</a></li>
+</ol>
+
+<h2>Improved Kernels</h2>
+
+<p>The kernels supplied in various distributions are generic and 
+security-wise permissive.&nbsp; It is possible to recompile the kernel using the 
+same source code as used by the distributor but with different selection of 
+components and including them in the vmlinuz binary instead of as a dynamically 
+loadable module.</p>
+<h3>POSIX capabilities</h3>
+
+  <p>POSIX capabilities (Pcaps) can turn a setuid-root file into a
+    file with minimum privileges, run a daemon with uid=0 but with
+    amost no superuser privileges, etc.  Privileges are granted to
+    processes instead of users.  Pcaps are implemented in Linux
+    kernels since 2.6.x; capsh, getpcaps, getcap, setcap are some of
+    the tools.  Pcaps divide privileges that are typically granted to
+    root user.  </p>
+
+  <p>The table below presents PCaps for a few typical suid-root
+  binaries.  The CAP-names used are defined in
+  /usr/include/linux/capability.h.
+
+<table>
+<tr><td>ping</td><td>CAP_NET_RAW (13)</td></tr>
+<tr><td>traceroute</td><td>CAP_NET_RAW (13)</td></tr>
+<tr><td>chsh</td><td>CAP_CHOWN (0), CAP_DAC_READ_SEARCH (2), CAP_FSETID (4), CAP_SETUID (7)</td></tr>
+<tr><td>chfn</td><td>CAP_CHOWN (0), CAP_DAC_READ_SEARCH (2), CAP_FSETID (4), CAP_SETUID (7)</td></tr>
+<tr><td>chage</td><td>CAP_DAC_READ_SEARCH (2)</td></tr>
+<tr><td>passwd</td><td>CAP_CHOWN (0), CAP_DAC_OVERRIDE (1), CAP_FOWNER (3)</td></tr>
+<tr><td>mount</td><td>CAP_DAC_OVERRIDE (1), CAP_SYS_ADMIN (21)</td></tr>
+<tr><td>umount</td><td>CAP_DAC_OVERRIDE (1), CAP_SYS_ADMIN (21)</td></tr>
+</table>
+
+  <p>To change, run <tt style="border: 1px dotted blue">chmod u-s /usr/bin/chsh; setcap
+  0,2,4,7=ep /usr/bin/chsh</tt>
+
+    
+
+
+<h2><a name="Lab Experiment">Lab Experiment</a></h2><p>
+All work should be carried out in Operating Systems and Internet 
+Security (OSIS) Lab, 429 Russ.&nbsp;&nbsp; Use any of the PCs numbered 
+23 to 30.&nbsp; No other WSU facilities are allowed.&nbsp;</p><p>
+Objective: Experience a file system audit tool.</p>
+<h4>Procedure</h4>
+<ol>
+ <li>Download the Tripwire free package from&nbsp;&nbsp;
+ <a href="http://sourceforge.net/projects/tripwire">sourceforge.net/projects/tripwire</a> 
+ . &quot;Tripwire is a policy driven file system integrity checking tool 
+ that allows system administrators to verify the integrity of their 
+ data.&quot;</li>
+ <li>Install the package.</li>
+ <li>Build the database following the instructions found in the 
+ package.</li>
+ <li>Select and modify a few &quot;system&quot; files from directories such as 
+ /bin, /sbin, /usr/sbin and /etc.</li>
+ <li>Observe and explain&nbsp; tripwire's reports.</li>
+</ol>
+
+
+<h3><a name="Acknowledgements">Acknowledgements</a></h3>
+
+<h2><a name="References">References</a></h2>
+<ol>
+ <li>Wietse Venema, &quot;TCP Wrapper: Network monitoring, access
+ control, and booby traps&quot;,&nbsp; Proceedings of the Third Usenix
+ UNIX Security Symposium, pp. 85-92, Baltimore, September 1992.&nbsp;
+ The source distribution is available at
+ <a href="ftp://ftp.porcupine.org/pub/security/">
+ ftp://ftp.porcupine.org/pub/security/</a>.&nbsp; Required
+ reading.&nbsp;
+ [<a href="http://www.cs.wright.edu/~pmateti/Courses/499/Fortification/tcpwrap.ps">Local
+ copy in .ps</a>]. </li>
+ <li>Unix Workstation Support Group, Using Rsync + SSH as a 
+ Replacement for NIS,
+ <a href="http://www.uwsg.iu.edu/security/rsync.html">www.uwsg.iu.edu/ 
+ security/rsync.html</a>&nbsp; Recommended Reading. </li>
+ <li>D. O'Brien, &quot;Recognizing and Recovering from Rootkit Attacks&quot;. 
+ Sys Admin 5(11) (November 1996), pp. 8-20.&nbsp; Required reading.&nbsp; 
+ [<a 
+ href="http://www.cs.wright.edu/~pmateti/Courses/499/Fortification/obrien.html">local 
+ copy</a>] </li>
+ <li>Fred Cohen and Assoc, Audit Check Lists,
+ <a href="http://www.all.net/books/audit/unix/top.html">
+ http://www.all.net/books/audit/unix/top.html</a>&nbsp; Recommended 
+ Reading.</li>
+ <li>Bastille-Linux Scripts to Secure Linux,
+ <a href="http://www.sans.org/newlook/projects/bastille_linux.htm">
+ http://www.sans.org/newlook/projects/bastille_linux.htm</a> Reference</li>
+</ol>
+
+<hr size="1">
+
+<a href="../../../copyright.html">Copyright</a> &copy; 2012 &bull;
+<a href="mailto:pmateti@wright.edu?subject=CEG429/IntnetSecurity">
+  pmateti@wright.edu</a> &bull;
+<a href="http://s17.sitemeter.com/stats.asp?site=s17pmateti">
+<img src="http://s17.sitemeter.com/meter.asp?site=s17pmateti"/></a> &bull;
+<a href="lectures.html">Internet Security Lectures</a>
+
+</body>
+</html>

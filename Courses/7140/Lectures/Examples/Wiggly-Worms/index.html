@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-09-15 Tue 09:58 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wiggly Worms</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<meta name="description" content="Software Engineering"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Wiggly Worms</h1>
+
+<div id="outline-container-orgfff49bb" class="outline-2">
+<h2 id="orgfff49bb"><span class="section-number-2">1</span> Wiggly Worms in Software Engineering</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>We used to give this Wiggly Worms as a code design project in "CS
+101": Develop a wiggly worms game.  Just using the keyboard, and
+console text display.</li>
+
+<li>In these lecture notes, a "working" version of an implementation is
+given.  GUI is ignored.  We do a simple console UI.</li>
+
+<li>We are assuming that we are "done" with requirements and specs.
+But, practice writing them.</li>
+
+<li>We are focused on the (i) use of Assertions, (ii) Design by
+Contract (DbC), and (iii) fluency in C++.</li>
+
+<li>Does it have <a href="../../Debugging/">bugs</a>?  Probably.  What does it take to definitively
+say that it does or does not have bugs?</li>
+
+<li>Revise the working version so that it is in "proper" OOP form.  As
+given, it is definitely improper!  It is all in one file!</li>
+
+<li>How do we explain to a colleague/ classmate, in just one or two
+paragraphs, how we discovered and revised the classes?</li>
+
+<li>The implied design + code as-given do not do anything about the
+z-axis.  Suggest ideas and implement.</li>
+
+<li>This being an interactive game, how do we test it?</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org1c5a23d" class="outline-2">
+<h2 id="org1c5a23d"><span class="section-number-2">2</span> Source Code Details</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>The file <a href="../Wiggly-Worms/worms-one-file.cpp.html">../Wiggly-Worms/worms-one-file.cpp.html</a> implements a grass
+roots game example of wiggly worms (scissor heads, cannibals, or
+vegetarian kind) moving about.  <code>sloccount cpp 373 (100.00%)</code></li>
+
+<li>The <a href="./worms12-doc.html">./worms12-doc.html</a> file has a few more details on the internals.</li>
+
+<li>There is a little JavaScript that colorizes the worms.cpp into
+<a href="../Wiggly-Worms/worms-one-file.cpp.html">../Wiggly-Worms/worms-one-file.cpp.html</a>.  Here is a link to the
+plain text source code file: <a href="./worms-one-file.cpp">./worms-one-file.cpp</a> .</li>
+
+<li><a href="./GEN">./GEN</a> contains doxygen-erated listings.</li>
+</ol>
+</div>
+
+<div id="outline-container-org926f550" class="outline-3">
+<h3 id="org926f550"><span class="section-number-3">2.1</span> Linux</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>If you work on Linux, you will need to install <code>ncurses</code> related
+development files.
+<a href="https://www.cyberciti.biz/faq/linux-install-ncurses-library-headers-on-debian-ubuntu-centos-fedora/">https://www.cyberciti.biz/faq/linux-install-ncurses-library-headers-on-debian-ubuntu-centos-fedora/</a>
+is a decent tutorial.</li>
+
+<li><code>thor.cs.wright.edu</code> is a large Linux server located in CECS.</li>
+<li>Login to thor.cs.wright.edu.  All grad students can obtain an
+account. From outside campus, you need VPN.</li>
+
+<li><code>g++ worms-one-file.cpp -o worms -lncurses</code> will compile
+and link the program.</li>
+
+<li><p>
+<code>% file worms</code> The command named <code>file</code> identifies the content of
+the named file.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">worms: ELF 64-bit LSB executable, x86-64, version 1 (SYSV),
+dynamically linked (uses shared libs), for GNU/Linux 2.6.18, not
+stripped
+</pre>
+</div></li>
+<li><p>
+<code>% ldd worms</code> The command named <code>ldd</code> lists the dynamic libraries
+that the named program is linked with.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">linux-vdso.so.1 =&gt;  (0x00007ffcfe126000)
+libncurses.so.5 =&gt; /lib64/libncurses.so.5 (0x000000382c000000)
+libstdc++.so.6 =&gt; /usr/local/lib64/libstdc++.so.6 (0x00002acef3b16000)
+libm.so.6 =&gt; /lib64/libm.so.6 (0x000000381b200000)
+libgcc_s.so.1 =&gt; /usr/local/lib64/libgcc_s.so.1 (0x00002acef3e27000)
+libc.so.6 =&gt; /lib64/libc.so.6 (0x000000381ae00000)
+libtinfo.so.5 =&gt; /lib64/libtinfo.so.5 (0x0000003829000000)
+libdl.so.2 =&gt; /lib64/libdl.so.2 (0x000000381b600000)
+ld.so =&gt; /lib64/ld-linux-x86-64.so.2 (0x000055d912f1c000)
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgbfc8837" class="outline-3">
+<h3 id="orgbfc8837"><span class="section-number-3">2.2</span> Windows</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>If you wish to work on Windows, use Windows-equivalents of ncurses.
+E.g., <a href="https://pdcurses.org/">https://pdcurses.org/</a> or
+<a href="https://github.com/peterbrittain/asciimatics">https://github.com/peterbrittain/asciimatics</a> .</li>
+<li>There is also a contributed version <a href="./worms-ktsalva-2013.cpp.html">./worms-ktsalva-2013.cpp.html</a>,
+by a past student that should be buildable on Windows.  Here is a
+link to the plain text source code file: <a href="./worms-ktsalva-2013.cpp">./worms-ktsalva-2013.cpp</a> .</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgeb4130c" class="outline-2">
+<h2 id="orgeb4130c"><span class="section-number-2">3</span> Exercises</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Consider our <a href="../Wiggly-Worms/worms-one-file.cpp.html">Wiggly Worms</a> program.  (i) (10 points) Intuitively
+describe the "connectedness" of a worm's body from head to the
+tail.  (ii) (10 points) State this as an assertion in
+mathematical notation using the typedefs originally given (see the
+link) or the class definitions you have derived from it.</li>
+
+<li>Consider our <a href="../Wiggly-Worms/worms-one-file.cpp.html">Wiggly Worms</a>.  We wish to describe how a worm crawls.
+First, in English prose.  Then, state this as pre- and
+post-conditions for the method named <code>void live(WORM * wp)</code></li>
+
+<li>[After Debugging Lectures] Does our Wiggly Worms code have any
+bugs? We certainly did not do a spec.  What def of bugs shall we
+use?  Should we just use some tools, and copy-paste their output as an
+answer to this question?  Note that some tools (eg PMD) show
+some questionable coding style, not bugs.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgaf2b357" class="outline-2">
+<h2 id="orgaf2b357"><span class="section-number-2">4</span> References</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>Prabhaker Mateti, Lecture Notes on <a href="../../Design/">Design by Contract and SOLID
+Principles</a></li>
+
+<li>Prabhaker Mateti, Lecture Notes on <a href="../../Assertions/assertions-cpp.html">Assertions in C++</a></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org51dfd15" class="outline-2">
+<h2 id="org51dfd15"><span class="section-number-2">5</span> End</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2016 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2020-09-11
+</div>
+</body>
+</html>

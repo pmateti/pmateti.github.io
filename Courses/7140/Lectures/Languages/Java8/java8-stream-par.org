@@ -1,0 +1,44 @@
+# -*- mode: org -*-
+#+date: 2015-11-18
+#+TITLE: Java8 Parallel Streams
+#+AUTHOR: Prabhaker Mateti
+
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a hrefTBD=\"index-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Parallelization
+
+1. Java SE [[https://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html][fork/join]] Framework
+1. DIY parallel operations: thread-safety issues (thread interference
+   or memory consistency errors)
+1. Locks and Synchronization introduce thread contention.
+1. Java 8 parallel streams provide reliable parallelization into sub-tasks.
+1. Uses multi-core processors
+
+* Parallel Streams
+
+1. Discuss the example in the Oracle.com Parallelism link below.
+
+* Total Amount of Computing Time
+
+1. Parallelization cuts down on "elapsed" time.
+1. Suppose some computation C takes T units of time.
+1. Perfectly parallelized C with N cores should take T/N.
+1. Total (added across all cores) = T/N * N + overhead
+
+** Performance Measurement
+
+1. nanoTime() is a basic tool
+1. JIT (just in time) compilation, small sizes of data can contribute
+   to inaccurate measurements.
+1. Recommended is JMH http://openjdk.java.net/projects/code-tools/jmh/
+
+* Reference
+
+1. Oracle.com, [[https://docs.oracle.com/javase/tutorial/collections/streams/parallelism.html][Parallelism]], 2015.  Required Reading.

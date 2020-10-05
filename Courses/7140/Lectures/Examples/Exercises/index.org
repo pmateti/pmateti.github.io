@@ -1,0 +1,51 @@
+# -*- mode: org -*-
+#+DATE: 2016-05-29
+#+TITLE: Prog Exercises
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7380 Cloud Computing
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+
+* Cutting Up a Chess Board into L-shapes
+
+#+ATTR_HTML: :width 10%
+[[./prog-exercise-1.png]]
+
+On a chessboard of size 8 x 8, the square at position (x, y) is cut
+off.  Write a program, which will cut the rest of the chessboard into
+L-shaped fragments (3 adjacent squares).  Example: Cut-off square at
+(1, 4) should result in the figure.  [Found on Quora.com 2016]
+
+* Tomohiko Sakamoto's Algorithm
+
+Apparently the following computes the day of week from any given date.
+
+#+begin_src C
+int dow(int y, int m, int d) {
+    static int t[] = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
+    y -= m < 3;
+    return (y + y/4 - y/100 + y/400 + t[m-1] + d) % 7;
+}
+#+end_src
+
+** Exercise
+
+1. Specify it.
+1. Explain it.  Including "static".
+1. Is it kosher to alter y?
+
+* References
+
+1. https://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

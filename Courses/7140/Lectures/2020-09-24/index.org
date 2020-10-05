@@ -1,0 +1,65 @@
+# -*- mode: org -*-
+#+DATE: 2020-09-24
+#+TITLE: CS7140 Adv Software Engineering 2020-09-24
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"https://cecs.wright.edu/~pmateti\"> cecs.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Announcements/ Reminders
+
+1. Adv Software Eng: HW1 Fall 2020 Due: 2020-09-28
+1. Requirements Doc Review Critique Due 2020-09-29.  Post it on Pilot
+   ->Discussion ->DITAA Requirements.
+
+* Previously
+
+1. Homework #1 Wiggly Worms in C++, Small Set of Int, Condense Ranges
+1. JML == Java Modeling Language [[../Assertions/JML/index.org]]
+
+* Agenda
+
+** Literate Programming
+
+1. Write Programs as if explaining it to fellow programmers.
+1. http://www.literateprogramming.com/
+1. Knuth's Tools: =.web= files, =weave= generates =.tex=, =tangle= extracts
+   src code;
+1. https://www.cs.tufts.edu/~nr/noweb/ "Noweb — A Simple, Extensible
+   Tool for Literate Programming" On Debian/ Ubuntu: =sudo apt install
+   noweb= Multiple PLs.  Multiple files.  Highly recommended.
+1. Donald E. Knuth, "A Solution to the Common Words Problem",
+   Communications of the ACM, 1986. Knuth is a Turing Award
+   winner. (local PDF [[../../PDF/cwp-knuth-cacm-1986.pdf]] of Knuth's
+   paper, but search for another PDF link for a clean
+   version). Required Reading.  1. As an example of Literate
+   Programming.  This is an example of a =.pdf= generated from a
+   =.web= file.
+
+** Common Words Problem
+
+1. As an example of Req Analysis, Specs, and Design Hierarchy.
+1. Today: Lecture #2
+
+
+* References
+
+1. Prabhaker Mateti, Rigorous Re-Design of Knuth's Solution to the
+   Common Words Problem.
+
+   1. [Full version] [[../../PDF/cwp-pmateti-2013.pdf]]
+      45pp, 2013. Recommended Reading.
+   2. [Boxed + highlighted portions]
+      [[../../PDF/cwp-pm-selected-pages.pdf]] For use in my lecture.
+   3. [[../../PDF/cwp-pmateti-highlighted-full-2018.pdf]] reformatted,
+      2018, now 14pp. Required Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

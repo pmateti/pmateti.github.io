@@ -1,0 +1,64 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE: Design Patterns and Refactoring
+#+AUTHOR: Prabhaker Mateti
+#+Date: 2015-10-15
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ./index.html
+#+HTML_HEAD: <style> code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=\"liskov-subst-principle-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+(The word "design" is used here as an abbreviation for Object Oriented
+Design.)
+
+* Design Patterns
+
+1. A design pattern is a solution template for problems of a certain
+   pattern.  
+
+1. A pattern codifies expert knowledge.  Four essential elements:
+   1. Pattern name: increases vocabulary of designers
+   1. Problem: intent, context, when to apply 
+   1. Solution: UML-like structure, abstract code
+   1. Consequences: results and tradeoffs
+
+** Design Patterns
+
+1. Examples of Pattern Names
+   1. Abstract Factory | Factory Method | Singleton | Adapter |
+   1. Flyweight | Bridge | Observer | Mediator | Strategy | Visitor |
+
+1.  [[https://docs.google.com/open?id=0B591C2qBD4o9cjFpY1hWcTJ3QjQ][Design Patterns]] PDF Slides from [[http://users.ece.utexas.edu/~miryung/][UT Austin Dr Miryung Kim]]
+1. [[./design-patterns-norvig-1996.pdf]]
+
+1. http://en.wikipedia.org/wiki/Software_design_pattern Required
+   Visit/Reading the individual patterns also.
+
+1. http://www.tutorialspoint.com/design_pattern/
+
+* Broader Views
+
+1. Peter Norvig, Design Patterns in Dynamic Languages (slides),
+   http://www.norvig.com/design-patterns/ (Dr Norvig is now (2013)
+   Director of Research at Google.)  Required Reading.
+
+1. http://www.paulgraham.com/icad.html "Revenge of the Nerds", Paul
+   Graham, 2002.  Required Reading.
+
+* References
+
+1. Several references embedded above.
+
+1. GoF ("Gang of Four"): Erich Gamma, Richard Helm, Ralph Johnson, and
+   John Vlissides, "Design Patterns: Elements of Reusable
+   Object-Oriented Software", First edition 1994.  Highly Recommended.
+
+1. https://sourcemaking.com/ has most of the above materials presented well.
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

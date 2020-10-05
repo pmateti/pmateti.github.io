@@ -1,0 +1,1922 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Documenting Program indent : An Example</title>
+<!-- 2016-06-24 Fri 15:26 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="CEG7380 Cloud Computing"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Documenting Program indent : An Example</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Abstract</a></li>
+<li><a href="#sec-2">2. Requirements</a>
+<ul>
+<li><a href="#sec-2-1">2.1. 1  Pascal Dialects</a></li>
+<li><a href="#sec-2-2">2.2. 2  Robustness</a></li>
+<li><a href="#sec-2-3">2.3. 3  Implementation Language</a></li>
+<li><a href="#sec-2-4">2.4. 4  Speed</a></li>
+<li><a href="#sec-2-5">2.5. 4  Memory</a></li>
+<li><a href="#sec-2-6">2.6. 5  Customizability</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Specifications</a>
+<ul>
+<li><a href="#sec-3-1">3.1. 1  Global Functional Specs</a></li>
+<li><a href="#sec-3-2">3.2. 2  Proper Layout</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Design</a>
+<ul>
+<li><a href="#sec-4-1">4.1. 1  Central Ideas In the Design</a></li>
+<li><a href="#sec-4-2">4.2. 1.1  Tokens</a></li>
+<li><a href="#sec-4-3">4.3. 1.2  'Reduced' Token Sequences</a></li>
+<li><a href="#sec-4-4">4.4. 1.3  Correspondence Between Input and Output Lines</a></li>
+<li><a href="#sec-4-5">4.5. 1.4  Left Margin</a></li>
+<li><a href="#sec-4-6">4.6. 2  Overview of the Design</a></li>
+<li><a href="#sec-4-7">4.7. I2.1  The Buffer and its Indices</a></li>
+<li><a href="#sec-4-8">4.8. 2.2  Lexical Equivalence of I/O</a></li>
+<li><a href="#sec-4-9">4.9. 2.3  Margin Variables</a></li>
+<li><a href="#sec-4-10">4.10. 2.4  Computing the Indentation</a></li>
+<li><a href="#sec-4-11">4.11. 3  Detailed Design</a></li>
+<li><a href="#sec-4-12">4.12. 3.1  Properties of the Buffer</a></li>
+<li><a href="#sec-4-13">4.13. Immediately after a (part of) line is output, fromx  is  updated</a></li>
+<li><a href="#sec-4-14">4.14. 3.2  io Module</a></li>
+<li><a href="#sec-4-15">4.15. 3.3  lex Module</a></li>
+<li><a href="#sec-4-16">4.16. 3.4  stack Module</a></li>
+<li><a href="#sec-4-17">4.17. 3.7  indent Module</a></li>
+<li><a href="#sec-4-18">4.18. 3.2  Compute Reduced Sequence and Margins</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. Implementation</a>
+<ul>
+<li><a href="#sec-5-1">5.1. 1  Some Global Considerations</a></li>
+<li><a href="#sec-5-2">5.2. 2  Initialization</a></li>
+<li><a href="#sec-5-3">5.3. 3  lex Module</a></li>
+<li><a href="#sec-5-4">5.4. 3.1  Next Token of lex Module</a></li>
+<li><a href="#sec-5-5">5.5. 3.2  Lexeme-Token Tables</a></li>
+<li><a href="#sec-5-6">5.6. 4  Other Modules</a></li>
+<li><a href="#sec-5-7">5.7. 5  Comments on the Pascal Version</a></li>
+<li><a href="#sec-5-8">5.8. 6  Comments on the C Version</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6. D. User's Manual</a></li>
+<li><a href="#sec-7">7. E. Customization Notes</a></li>
+</ul>
+</div>
+</div>
+<div class="org-src-container">
+
+<pre class="src src-text">   Documenting Program indent : An Example
+
+
+               Prabhaker Mateti
+
+Department of Computer Engineering and Science
+       Case Western Reserve University
+            Cleveland, Ohio 44106
+
+
+         Thu Nov 29 10:56:01 EST 1984
+</pre>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Abstract</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+        This report constitutes the documentation for  a  simple
+minded   pretty-printing  program,  called  indent,  for  Pascal
+programs.  The program's main attraction lies in its ability  to
+'sensibly' indent even invalid Pascal programs.
+</p>
+
+<p>
+&gt;&gt;         This report is an (imperfect) example of how programs
+ought to be documented.
+</p>
+
+<p>
+        Because we intend this as a model for documentations, we
+also  include discussions of why certain sections are written in
+a certain way.  These are obviously not expected to be found  in
+a real documentation.  We enclose such discussions in the &gt;&gt;  &lt;&lt;
+bracket pair.
+</p>
+
+<p>
+        More technically inclined people may also wish  to  read
+the  two papers, "A Specification Schema for Indenting Programs"
+and "A Correctness Proof of an Indenting Program", published  in
+Software  &#x2013;  Practice  and Experience 1983, pp 163-179 and 199 - 226.  &lt;&lt;
+</p>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Requirements</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+        A program to read a file of Pascal source, and print  it
+nicely  formatted is required.  Many pretty-printing schemes for
+Pascal have appeared in various text books, e.g., "Oh!  Pascal!"
+by  Cooper and Clancy.  Any such reasonable scheme is acceptable
+to us.  In addition, we also want the program to indent sensibly
+Pascal files that contain syntax errors.
+</p>
+
+<p>
+Some further requirements are stated below.
+</p>
+</div>
+
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 1  Pascal Dialects</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+        The indent program must deal with standard (ISO)  Pascal
+properly.   While  doing  this,  if  it  can also handle certain
+extensions that is quite welcome.  In particular we mention  the
+following  extensions  which appear to be common enough and also
+affect the lay out: a loop construct with middle exit (so-called
+n-and-a-half  loop), a default case label in the case statement,
+and some form of module structuring.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 2  Robustness</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+        Forgotten begin-ends causing certain statements  to  not
+belong  to  loop  bodies and other such errors are quite common.
+Such omissions may even become syntax  errors.   Thus,  we  want
+this  indenting  program  to  terminate  normally as long as the
+input file contains text (i.e., a sequence of lines of printable
+ascii  characters).   We  also  want  the program to process the
+entire input text no matter what syntax errors it might contain.
+In  all  cases,  the  text  output coming from this program must
+appear to a Pascal compiler to be the same as input text.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 3  Implementation Language</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+        The indent program should be written in either Pascal or
+C.  We mention C only because we expect the indent program to be
+heavily used on Unix systems.  The implementation in Pascal must
+limit  itself strictly to standard Pascal.  Consideration should
+also  be  given  to  certain   highly   varying   implementation
+idiosyncracies,  such  as  the  details  of  sets,  integers and
+strings and make indent highly portable.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 4  Speed</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+        The indent program should be quite fast; we expect it to
+be  slower than a straightforward catenating (Unix cat) program,
+but much faster than a compiler for Pascal.  Since this  is  too
+loose a requirement, we elaborate further.
+</p>
+
+<p>
+The speed of indent should be proportional  to  the  length  (in
+characters)  of  the  input  file.   We  also require that every
+effort be made to keep the constant  of  proportionality  small.
+It  is  understood  that  this  constant  depends  on  the given
+computer system, and on the required processing in dealing  with
+syntactically  incorrect  Pascal  input  files.   It is for this
+reason that the Pascal compiler, and cat programs are  mentioned
+above to serve as bounds.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> 4  Memory</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+        It is important that not  only  the  indent  program  be
+short,  but  the  data  space  required  also  should  be small.
+Assuming that the nesting of various constructs  is  limited  to
+realistic level (say 100), we do not see any reason why the data
+space required cannot be a fixed constant.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> 5  Customizability</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+        As can be seen from the above, we have left the  details
+of  the  indentation scheme to the designer of indent.  However,
+we also urge that certain minor customizations in this scheme be
+permitted.   This  the  designer  may  choose  to provide either
+through the '{$'-comments, or perhaps through  changing  certain
+constants  in  the  indenting  program and recompiling it.  What
+features will be customizable should be considered  against  the
+increase in the length and complexity of the indent program.  As
+a guiding rule, if this increase is perceived to  be  more  than
+10%, we recommend the trimming of the attempted customization.
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Specifications</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+&gt;&gt;      This chapter on Specifications contains a description of
+the programmer's understanding of the user's requirements.  Even
+if we wish to ignore for the moment  possible  misunderstandings
+of  the  requirements, we must admit that the specifications are
+not precise enough.  Contrary to  popular  belief,  even  formal
+specifications  can be imprecise and/or inconsistent.  It is for
+this main reason that certain important  perceived  implications
+of the specs need to be discussed.
+</p>
+
+<p>
+&lt;&lt;
+</p>
+
+<p>
+We clarify first some of our terminology.
+</p>
+
+<p>
+        The  characters  blank,  tab,  vertical  tab,   carriage
+return,  and line feed are said to be "white" because they cause
+only carriage motion, but otherwise do not "print" on a printer.
+In  Pascal,  white  characters  act  as  delimiters (except when
+inside strings), and have no further effect.
+</p>
+
+<p>
+To  simplify  the  specifications,  we  assume  that  all  white
+characters  except  blank,  and  a  'newline'  are  replaced  by
+blank(s).  The newline denoted by \n, is system  dependent.   On
+Unix,  it  is  a line feed; on most other systems, it stands for
+the two character sequence of carriage return followed  by  line
+feed.
+</p>
+
+<p>
+        A line is a sequence of non-newline characters  followed
+by a newline.
+</p>
+
+<p>
+        A text file is a sequence of lines, followed by an  end-
+of-file indicator.
+</p>
+
+<p>
+&gt;&gt;      Parsing as it is dealt with in  compiler  courses  deals
+with  lexical  units  known  as  'tokens'.   This  ignores white
+spaces.  But, in a specification of an indenting program we must
+deal especially with this.  &lt;&lt;
+</p>
+
+<p>
+        Reserved  words,  identifiers,   non-white   delimiters,
+strings  and  operators  are  tokens.   We  use the related term
+lexeme to refer to the string of characters  that  constitute  a
+token.   Thus,  "buffer"  and  "nooftokens"  are both identifier
+tokens, but are different lexemes.
+</p>
+</div>
+
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 1  Global Functional Specs</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+(1) The output produced by the  program  and  the  input  given,
+considered  as  lexeme  sequences, must be equal.  This equality
+must hold whether or not the input file contains a syntactically
+valid Pascal program.
+</p>
+
+<p>
+(2) If the input file  contains  a  valid  Pascal  program,  the
+output  file  produced  from it must be properly laid out with a
+margin of zero, as defined in the next section.
+</p>
+
+<p>
+(3) For every line break (between/before/after lexemes)  of  the
+input  a  corresponding  unique line break (between/before/after
+the same two lexemes) must exist in the output.
+</p>
+
+<p>
+(4) Apart from any needed  changes  in  its  white  spaces,  the
+position  of  every  comment relative to its neighboring lexemes
+must remain unchanged.
+</p>
+
+<p>
+(5) The output file, considered as a sequence of characters,  is
+the shortest such file having these properties.
+</p>
+
+<p>
+As a result of (5), we can conclude that if the input is already
+properly  laid out, the output must be identical (as a character
+sequence) to it.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 2  Proper Layout</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+        Note that the above specification requires  the  program
+to  produce  'properly  laid out' output for syntactically valid
+text inputs.  For ill-formed inputs, the format of the output is
+essentially  left  to  the  judgement of the designer.  However,
+some guidelines have already been presented in the Requirements.
+</p>
+
+<p>
+&gt;&gt;      The specification of proper layout cannot  be  given  by
+means  of examples.  It must necessarily be syntax-directed.  We
+believe only minor improvements over the notation  used  in  our
+specifications to be possible.  &lt;&lt;
+</p>
+
+<p>
+        Proper layout is specified using the Pascal grammar; see
+Figure  1.   Each  production  of  the  grammar is laid out in a
+particular way, which merely acts as a short hand  notation  for
+our  specifications.  The long hand specification is obtained by
+'reading it out' as explained below.  This is explained using  a
+generic  form  of  a  production  rule  n0 ::= n1 n2 &#x2026; nk.  In
+general, some of these ni will be tokens.  Our  exposition  will
+be  simpler  if  all  these ni were non-terminals.  We make this
+happen by replacing lexemes by  unique  non-terminals,  such  as
+ntSEMICOLON.
+</p>
+
+<p>
+        Suppose s0 is a string of characters derivable from  n0,
+that is n0 -&gt;* s0, using this as the first production.  Hence it
+must be possible to split s0 up into s1, s2, &#x2026;, sk so that for
+each  i,  ni -&gt;* si.  Since we intend to specify left margins of
+various lines, we will split the s0 in such a way that the  last
+character  of  no si is white.  Consequently, many of the si may
+contain leading white spaces.  It is the length of  these  white
+spaces that we wish to legislate.
+</p>
+
+<p>
+        The rhs n1 n2 &#x2026; nk of the production is  laid  out  2-
+dimensionally  so  that no line contains more than one ni.  Each
+ni is written to the right of a reference vertical  line,  at  a
+certain  distance  that depends on ni and this whole production.
+This distance is the the reference vertical, some of the ni  may
+contain the notation '\n'.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">n0 ::=
+        |   n1
+      \n|      n2
+        |  n3
+        |   ...
+        |   ...
+        |   ...
+        |   nk
+</pre>
+</div>
+
+<p>
+Such a layout of a production rule is  interpreted  as  follows.
+The  string  s0,  derived  from n0, is considered to be laid out
+properly with a margin of m provided &#x2013;
+</p>
+
+<p>
+(1) each si is properly laid out with a margin of m + ri.
+</p>
+
+<p>
+(2) for each ni having  a  \n  to  the  left  of  the  reference
+vertical,  the  corresponding  si  is such that it begins with a
+white space containing a new line character.
+</p>
+
+<p>
+        Note the recursion in step (1) of the definition.   This
+recursion  ends  when  we  finally have a non-terminal that just
+stands for one of the lexemes of Pascal.
+</p>
+
+<p>
+If  the  ni  is  an  original  non-terminal,  the  layout  of  a
+production  with ni on the lhs determines if si is properly laid
+out.
+</p>
+
+<p>
+Else, ni just stands for a lexeme, say t.  Then si is defined to
+be   properly   laid  out  either  if  it  contains  no  newline
+characters,  or  if  its  first   non-white   character   occurs
+immediately  following  a  newline  followed by m+ri blanks.  In
+symbols, this last case can be described as
+</p>
+
+<p>
+si = %* | \n | b ** (m+ri) | t,
+</p>
+
+<p>
+where % denotes any white character (including newlines), and  b
+denotes a blank.
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Design</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+        Our design of this program is described in three  levels
+of  detail.   The first one may be viewed as a refinement of the
+specifications given before.  The second one is an  overview  of
+the  design.   The last one is much more detailed, and specifies
+which routines do what.  The justification of the design appears
+at  appropriate  places throughout this chapter.  These sections
+should be read in the order in which they are presented.
+</p>
+</div>
+
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 1  Central Ideas In the Design</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+        Specification  S1  clearly  demands  that  the   program
+terminate  cleanly  even  when  the  input  file contains syntax
+errors.  It was also pointed  out  in  Further  Guidelines  that
+sensible  indentation  helps  us  readily  notice certain syntax
+errors.   Also,  elaborate  error  messages  from  an  indenting
+program  are  out of place.  To meet these needs, our design has
+to generalize syntax correctness to a more permissive one.
+</p>
+
+<p>
+        In  this  section,  we  make  the  notion  of   sensible
+indentation, in the presence of syntax errors, more precise, and
+present the central ideas  in  the  design.   An  example  of  a
+properly  laid  out, but syntactically invalid, function appears
+in Figure 2.
+</p>
+
+<p>
+        We generalize the notion of  correct  Pascal  syntax  to
+token  sequences "reducible" to null.  All valid Pascal programs
+will be so reducible; however, not all null-reducible  sequences
+are  valid  Pascal programs.  The computation of the left margin
+of a line depends on the reduced  form  of  the  token  sequence
+above this line.
+</p>
+
+<p>
+        The motivation for considering this reduction comes from
+a  desire  to  make  the program as simple and short as possible
+while treating valid Pascal programs  "properly."   This  desire
+caused  us  to avoid detailed syntax analysis.  Instead, we rely
+on the fact that in a syntactically correct Pascal program,  the
+nesting  structure  is  governed  by  a  rather  small number of
+reserved words.  Our design would have been  simpler  if  Pascal
+had explicit "end-brackets" for every "composite" statement.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> 1.1  Tokens</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+        Our lexical analysis in this program does not match that
+of a typical Pascal compiler for the following reasons:
+</p>
+
+<p>
+(1) We have to deal with the formatting of comments,  which  are
+ignored by a compiler.
+</p>
+
+<p>
+(2) Because the indent-specifications for valid Pascal  programs
+of  the  previous  section  require no changes in the margin for
+identifiers, literals, and operators, we do need only treat them
+all  to  belong  to an ORDINARY class of tokens.  This choice in
+our design significantly increases the speed of this program.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> 1.2  'Reduced' Token Sequences</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+        Intuitively, a token sequence T1 followed by T3 (written
+as  T1.T3)  is a reduced token sequence of T1.T2.T3 if T2 is the
+token sequence of a syntactically 'sensible' or  correct  Pascal
+statement.
+</p>
+
+<p>
+        At all times, we maintain a reduced form (call it R)  of
+the  sequence  of input tokens (say T) processed.  Notationally,
+we shall express this fact by writing R = RED(T).   Now  suppose
+the  next  token is t.  The reduction of T.t is computed from R.
+(At the very beginning both T and R are null sequences.)
+</p>
+
+<p>
+        If t is an identifier, a  string,  or  an  operator  the
+reduction of T as well as that of T.t is R.
+</p>
+
+<p>
+        Some of the reserved words and non-white delimiters  are
+considered "brackets."  The tokens REPEAT, DO, BEGIN, CASE, THEN
+and left  parenthesis  are  considered  opening  brackets.   The
+tokens  UNTIL,  semicolon,  END,  ELSE  are  considered  closing
+brackets.  Each opening bracket appearing in a Pascal program is
+matched  by  a  closing  bracket.   (Unfortunately,  the closing
+bracket is not unique to a given opening bracket.)
+</p>
+
+<p>
+        The reduction of T.t when t is  an  opening  bracket  is
+R.t.
+</p>
+
+<p>
+        The reduction of T.t when t is a closing  bracket  is  a
+unique  prefix  (i.e.,  an  initial subsequence), say P, of R so
+that P.x.Q = T and x is the right most opening bracket  matching
+t.   If R has no such x we reduce it to the null sequence.  That
+is R is scanned leftward, discarding what has been scanned over,
+while  a matching opening bracket is not found.  However, as the
+closing brackets are neither unique, nor do  they  "match"  only
+one occurrence of their matching opening bracket, the details of
+this process need to be worked out carefully  (see Section 3.2).
+</p>
+
+<p>
+        These details are such that the  reduction  of  a  valid
+Pascal statement, or complete program is the null sequence.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> 1.3  Correspondence Between Input and Output Lines</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+        Each input line must produce  some  integral  number  of
+output lines, because of specification S3.
+</p>
+
+<p>
+        The definition of proper lay out is  such  that  certain
+tokens  are  required  to appear only at the beginning of lines,
+and certain others only at the end of  statements.   Note  that,
+fortunately,  this  specification does not depend on the context
+in which these tokens appear.
+</p>
+
+<p>
+        Consequently, in our design, the correspondence  between
+input and output is governed by two sets of tokens.  The LO is a
+set of tokens that should always appear  at  the  beginning  and
+never  in the middle of an output line.  The LC is a set of line
+closing tokens  that  should  always  appear  in  a  terminating
+position  of  an  output  line.   If necessary, we may split the
+input line to the immediate left of  an  LO  token,  or  to  the
+immediate  right  of  an  LC  token in order to accomplish this.
+However, traditionally we are used to writing  comments  at  the
+end  of  statements.  Thus, we modify the above to splitting the
+line to the immediate right of an LC  token  but  skipping  over
+comments.
+</p>
+
+<p>
+LO and LC can be chosen arbitrarily; the choices  shown  in  the
+implementation  are some of the most appealing ones to us.  Note
+that if both LO and LC are empty, the output will  have  exactly
+as  many  lines as did the input file.  Further note that, while
+these lexemes appearing inside  comments  and  strings  have  no
+influence  on  line  splitting, their presence elsewhere has the
+described effects regardless of the context.
+</p>
+
+<p>
+        The reasons for the above choice in the  design  are  as
+follows.  (1) We did not wish to look ahead more than one token.
+This impacts on the expected/required efficiency.  (2) We wished
+to  leave  unchanged  the line splitting choices a user may have
+made in his Pascal program, as far as possible.  The program may
+split  a  user's  input line into more than one output line, but
+never join two or more input lines.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> 1.4  Left Margin</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+        In a way  the  whole  purpose  of  this  program  is  to
+determine the left margin lengths of various lines.  It is clear
+that the left margin of an output line must depend (at least) on
+the  sequence of tokens above this line.  Whether it should also
+depend to some extent on the tokens making up that  output  line
+needs some analysis.
+</p>
+
+<p>
+        Our specification requires that the matching UNTIL of  a
+REPEAT  be aligned with the REPEAT.  In addition, the UNTIL must
+begin a new line.  Thus, the left margin of  a  line  containing
+UNTIL  depends  not  only  on the previous line, but also on the
+fact that it begins with an UNTIL.
+</p>
+
+<p>
+Suppose our specification did not require an UNTIL  to  start  a
+new  line.   How  should a line "until b1 until b2 until b3;" be
+indented?  In this case, we felt it unreasonable  to  align  the
+first  until with the outermost repeat.  This example influenced
+us to want the left margin of an output line to be determined by
+the  first  token  on  that  line,  rather than allowing all the
+tokens on that line affect it.  On the other hand, such reserved
+words should be line opening words.  With a properly chosen line
+opening tokens, this design choice has not much effect.
+</p>
+
+<p>
+There are other similar situations (e.g., declarations), and our
+design   has   to  cater  for  this  general  situation  keeping
+enhanceability in mind.
+</p>
+
+<p>
+        In our design, there are two variables named nmg and cmg
+whose  values  depend  on  the  reduced  token sequence, and the
+current token we have.  Their names can perhaps be better chosen
+but  for the fact that the computation of their values is rather
+subtle.  The names are intended to  suggest  'next  margin'  and
+'current margin', which are close but inaccurate descriptions of
+their values.
+</p>
+
+<p>
+Nmg gives the cumulative effect on the left margin  of  all  the
+tokens  seen  so far, without regard to what the very next token
+might be.  Cmg gives the left margin of the output line   if  it
+were  the  case  that  the current token begins it.  The current
+token does indeed begin the output line either  (a)  because  it
+does  so in the corresponding input line or (b) because it is in
+LO, or (c) because the preceding token was in LC.
+</p>
+
+<p>
+        The actual margin value that the output module  uses  is
+given  by  the variable called mg.  This equals the nmg in cases
+(a) and (c) and the cmg in the case (b).
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-6" class="outline-3">
+<h3 id="sec-4-6"><span class="section-number-3">4.6</span> 2  Overview of the Design</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+        The program is organized as a set of four  modules:  io,
+lex,  stack,  and  indent.   All input/output is done via the io
+module.  The lex module invokes the io to read  one  line  at  a
+time  into  a  buffer, and produces a token stream.  Indent uses
+these tokens one at a time and determines the indentation to  be
+done.
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-text">                 INDENT
+                   |
+                   |
+                  LEX        STACK
+                   |
+     mg,nmg        |        buffer
+                   |
+                   |
+text input ======&gt; IO ======&gt; text output
+
+  Figure 3 : Overview of Program Indent
+</pre>
+</div>
+
+<p>
+In doing this, it may examine the entire contents of  the  stack
+and  perhaps  push  or  pop  elements from it.  Output of a line
+occurs either when a new line is read by  lex,  or  when  indent
+decides that the next token should be the beginning of a line.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-7" class="outline-3">
+<h3 id="sec-4-7"><span class="section-number-3">4.7</span> I2.1  The Buffer and its Indices</h3>
+<div class="outline-text-3" id="text-4-7">
+<p>
+        This consists of an array [0..cxMAX] of characters,  and
+the  index  variables  shown below.  Only the io and lex modules
+use the buffer.  A line of input text is read into the buffer by
+io  module.   Lex tokenizes this text.  The io module is careful
+when reading longer than cxMAX lines.  The buffer is used  in  a
+very disciplined way described below:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">  |-has been-| |- processed -| |-current-| | yet to be |
+     output        by lex        token       processed
+|-|----...---|-|-----...-----|-|---...---|-|----...----|-...-|
+0 1            f             t             n           l     c
+               r             o             e           a     x
+               o             x             x           s     M
+               m                           t           t     A
+               x                           x           x     X
+
+                   Figure 4 : The Line Buffer
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-8" class="outline-3">
+<h3 id="sec-4-8"><span class="section-number-3">4.8</span> 2.2  Lexical Equivalence of I/O</h3>
+<div class="outline-text-3" id="text-4-8">
+<p>
+        This is a sketch showing that the input and  output  are
+lexically equivalent.
+</p>
+
+<p>
+        The buffer (Figure 4) is filled with an  input  line  by
+readline of io.  All other routines have only 'read-only' access
+to  the  buffer.   Printline  of  io  prints  the  contents   of
+buffer[fromx  ..  tox], if fromx &lt;= tox, and sets fromx to tox +
+</p>
+<ol class="org-ol">
+<li>Since printline alters no other indices of the buffer, calls
+</li>
+</ol>
+<p>
+to  printline  never  cause any part of the buffer to be printed
+more than once.  On the other hand, every call  to  readline  &#x2013;
+except the very first one &#x2013; is preceded by a call to printline.
+As we shall see later, it is the case that tox = lastx prior  to
+such  calls.  Thus, no remainder of a line that is read into the
+buffer goes unprinted.
+</p>
+
+<p>
+        That fromx and tox never index  into  the  middle  of  a
+token  follows  from the lex module.  That all the input file is
+in fact inputted follows from module indent.
+</p>
+
+<p>
+        Thus all of the input file  is  indeed  output,  perhaps
+with new line breaks inserted between tokens.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-9" class="outline-3">
+<h3 id="sec-4-9"><span class="section-number-3">4.9</span> 2.3  Margin Variables</h3>
+<div class="outline-text-3" id="text-4-9">
+<p>
+         Nmg, at any instant, gives the left margin of the  line
+of  output  containing  the next token, if (a) the current token
+were such that either it is the last one in that  buffer  or  it
+must  close  a  line,  (b)  the next token is an ordinary token.
+This holds regardless of what indentation effect is dictated  by
+the current token.
+</p>
+
+<p>
+         Cmg gives  the  left  margin  of  the  line  of  output
+containing  the  current  token,  if the current token were such
+that it must begin a new line of output (if necessary by forcing
+the output of buffer[fromx ..  tox] as a complete line).
+</p>
+
+<p>
+Note that both nmg and cmg are referring to the values  of  left
+margins  that  lines yet to be output will have provided certain
+conditions are met.
+</p>
+
+<p>
+        In contrast, mg gives the left margin of the  next  line
+of output, viz., buffer[fromx .. tox].
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-10" class="outline-3">
+<h3 id="sec-4-10"><span class="section-number-3">4.10</span> 2.4  Computing the Indentation</h3>
+<div class="outline-text-3" id="text-4-10">
+<p>
+        Only the basic idea of our design, and  pertinent  facts
+of  Pascal  syntax  are described below.  (The details should be
+obvious from the implementation.)
+</p>
+
+<p>
+        If the current token is neither a reserved word,  nor  a
+delimiter, it has no effect on indentation.
+</p>
+
+<p>
+        Suppose it is the reserved word REPEAT.   The  token  &#x2013;
+not the lexeme "repeat" &#x2013; along with the ruling margin (nmg) is
+stacked, and the  margin  is  incremented  by  one  level.   The
+matching  UNTIL  causes  unstacking  until the opening REPEAT is
+found and the margin is reset to the ruling margin prior to  the
+occurence of this REPEAT.
+</p>
+
+<p>
+Tokens "(", CASE,  DO,  THEN,  RECORD,  and  COLON  are  treated
+exactly  the  same way.  We have chosen to use the DO instead of
+the WHILE, or FOR both because it is simple, and because of  the
+specifications.
+</p>
+
+<p>
+        The treatment of most other reserved words and delimters
+is similar to the above, except that their "closing brackets" do
+not uniquely determine the "opening" token.   For  example,  the
+SEMICOLON  may  be closing off a while statement, the then-part,
+or the else-part of an if statement, or one of the  cases  in  a
+case statement; the END may be closing off a BEGIN, a CASE, or a
+RECORD.
+</p>
+
+<p>
+        The reserved  words  VAR,  PROCEDURE,  FUNCTION,  LABEL,
+CONST,  and  TYPE  need  to  be  treated in a special manner for
+several reasons:
+</p>
+
+<p>
+(1) All these can start sequences of declarations.  But only the
+first three in this list can appear in a parameter list.
+</p>
+
+<p>
+(2) The end of label, const and type declartions is signaled not
+by  a  closing  bracket, but by the occurence of one of the same
+tokens.  The end of var declarations is signaled by a procedure,
+function, or begin.
+</p>
+
+<p>
+(3) Procedures and functions nest, while the others in this list
+do not.
+</p>
+
+<p>
+When the stack top contain a left parenthesis and current  token
+is one of these, they can be ignored because of (1).  Because of
+(2), it is not necessary to distinguish between these tokens; so
+a special DECL token is stacked, unless one kind of declarations
+is being ended to start the next kind (e.g., consts followed  by
+types).  In addition to this, a PF token is stacked if the token
+is a procedure or function, because of (3).  The token BEGIN  &#x2013;
+that normally acts as an "opening" bracket &#x2013; unstacks the (DECL
+and) PF from the top of the stack.
+</p>
+
+<p>
+        The token OF also needs special treatment because it can
+appear in declarations of types.  If the stack top is a CASE and
+a COLON is immediately below it, and then  an  OF  occurs,  this
+clearly  must be part of a variant declaration of a record; else
+the OF signals the beginning of case-lists of a case-statement.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-11" class="outline-3">
+<h3 id="sec-4-11"><span class="section-number-3">4.11</span> 3  Detailed Design</h3>
+</div>
+
+<div id="outline-container-sec-4-12" class="outline-3">
+<h3 id="sec-4-12"><span class="section-number-3">4.12</span> 3.1  Properties of the Buffer</h3>
+<div class="outline-text-3" id="text-4-12">
+<p>
+        The  buffer[ 0]  is  used  only   by   (this   particular
+implementation  of) io as a sentinel and it must be a non-white.
+Once it is set, it is never changed by any module.  On the other
+hand,  the  presence  of  buffer[ 0]  has  made  many  assertions
+simpler.  In particular, we note that lastx can equal zero.
+</p>
+
+<p>
+        The current lexeme is in buffer [tox+1 ..  nextx-1].  It
+will be the last one in the buffer if nextx = lastx+1.  The next
+lexeme begins at buffer[nextx + i], for some i (because of white
+space), if the current lexeme is not the last one; otherwise, it
+begins on the next input  line  which  will  be  read  into  the
+buffer.                     The  next line of output consists of
+buffer [fromx .. tox] certainly, and may possibly be followed by
+buffer [tox+1 .. ?].  Whether this appendage of buffer[tox .. ?]
+is done or not depends on the current lexeme.
+</p>
+
+<p>
+Consider the following relationships:
+</p>
+
+<p>
+(a)     1 &lt;= fromx &lt;= tox+1 &lt;= nextx &lt;= lastx+1 &lt;= cxMAX<br  />
+  (b)     1  = fromx  = tox+1  = nextx<br  />
+  (c)          fromx  = tox+1<br  />
+  (d)                   tox+1 &lt;  nextx &lt;= lastx+1 &lt;= cxMAX<br  />
+</p>
+
+
+<p>
+The relationships (a) always hold throughout the program.
+</p>
+
+<p>
+Right after a new line has been read, fromx, tox and  nextx  are
+reset  so  that  (b)  holds.   The  characters  read  are now in
+buffer[ 0..lastx].  The io module truncates long input  lines  to
+cxMAX-long.   Trailing  white  space  is  removed;  thus,  it is
+guaranteed that buffer[lastx] is non-white and buffer[lastx+1] =
+end-of-line  character.   The  index  lastx  can  be equal to 0,
+indicating that the line just  read  was  all-white.   Buffer[ 1]
+will be ascii NUL if end of input file is recognized.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-13" class="outline-3">
+<h3 id="sec-4-13"><span class="section-number-3">4.13</span> Immediately after a (part of) line is output, fromx  is  updated</h3>
+<div class="outline-text-3" id="text-4-13">
+<p>
+so (c) holds.
+</p>
+
+<p>
+Calling lex to deliver  the  next  lexeme  causes  nextx  to  be
+increased  so  that  (d)  holds, and the characters constituting
+this lexeme are buffer[tox+1 .. nextx-1].  Buffer[nextx]  is  to
+the  immediate  right of the lexeme; it is the next character to
+be looked at.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-14" class="outline-3">
+<h3 id="sec-4-14"><span class="section-number-3">4.14</span> 3.2  io Module</h3>
+<div class="outline-text-3" id="text-4-14">
+<p>
+This module has two procedures: readline, and printline.
+</p>
+
+<p>
+        Readline reads one character at a  time  (until  end-of-
+line)  from  the  input  text  file,  and  puts them in the line
+buffer.  It 'truncates' the  line,  if  longer  than  cxMAX,  to
+cxMAX-characters.   Independently of this, it trims the trailing
+blanks, and sets the indices so that:
+</p>
+
+<p>
+(a)     1  = fromx  = tox+1  = nextx &lt;= lastx+1 &lt;= cxMAX<br  />
+ (b)     buffer[lastx]   is non-white<br  />
+ (c)     buffer[lastx+1] is newline character<br  />
+ (d)     buffer[1..lastx] = trimmed input line just read<br  />
+</p>
+
+
+<p>
+Only the initlex, and nexttoken procedures of  lex  module  call
+readline.  Printline is called only by nexttoken, and newline of
+lex.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-15" class="outline-3">
+<h3 id="sec-4-15"><span class="section-number-3">4.15</span> 3.3  lex Module</h3>
+<div class="outline-text-3" id="text-4-15">
+<p>
+        Function nexttoken is the central one  in  this  module.
+The others are newline, first-token-in-line and initlex.
+</p>
+
+<p>
+        Procedure  initlex  simply  calls  readline  of  the  io
+module.
+</p>
+
+<p>
+        Function first-token-in-line returns true iff  the  last
+lexeme  delivered  (by  nexttoken, of course) is going to be the
+first one in the line to be printed next.
+</p>
+
+<p>
+        Procedure newline calls  printline,  if  necessary  (and
+causes  buffer  [fromx  .. tox] to be printed), so that the last
+lexeme delivered becomes the first lexeme in line.
+</p>
+
+<p>
+        Function nexttoken delivers the next lexeme in the  line
+buffer.  If the line is exhausted (i.e., nextx &gt; lastx) already,
+it calls printline and then calls readline  to  input  the  next
+line.  If the white-space trimmed input line is empty (i.e., 1 =
+nextx &gt; lastx = 0), it repeats this process  until  a  non-empty
+trimmed line is read in.
+</p>
+
+<p>
+The next lexeme is then found; it is in buffer[nextx ..  tox-1].
+The lexeme is then classified into a token.
+</p>
+
+<p>
+Note that the end-of-file condition  results  in  1  =  nextx  =
+lastx; in this situation, nexttoken delivers the EOFTKN.
+</p>
+
+<p>
+        Procedure initlex is included for the  sole  purpose  of
+isolating  the  indent  module  from  io.   Initlex is called by
+indent during initialization, and hence causes  the  very  first
+line of the input file to be read.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-16" class="outline-3">
+<h3 id="sec-4-16"><span class="section-number-3">4.16</span> 3.4  stack Module</h3>
+<div class="outline-text-3" id="text-4-16">
+<p>
+        Our stack module contains 5 procedures and  a  function.
+The  function stackhas makes this module an "impure" stack.  The
+types parameters of the routines are described below.  Note that
+each  element  of  the stack is a pair of token (not lexeme) and
+margin.
+</p>
+
+<p>
+t       : token<br  />
+         m       : margin<br  />
+         sot     : set of token<br  />
+</p>
+
+<p>
+Procedure stack(t, m) stacks [i.e., pushes] the (t, m) pair.  It
+checks for overflow of the stack.
+</p>
+
+<p>
+Procedure unstack unstacks (i.e., pops) the top-most element  of
+the stack.  It checks for stack being empty before unstacking.
+</p>
+
+<p>
+Procedure stktop(var t, var m) returns the top-most  element  of
+the stack in t and m.  The stack remains unaffected.
+</p>
+
+<p>
+Procedure unstackuntil(sot, var m) repeatedly unstacks  until  a
+token  in  sot is popped from the stack.  The corresponding m is
+returned.  The stack may become empty as result of calling  this
+procedure.
+</p>
+
+<p>
+Procedure unstackwhile(sot, var m)  unstacks  while  the  tokens
+being  popped from the stack are in sot.  The m corresponding to
+the last popped element is returned.  It  is  possible  that  no
+elements  are  popped  because the very top-most token is not in
+sot; in this case m remains UNaltered.
+</p>
+
+<p>
+Function stackhas(sot) returns true iff  the  stack  contains  a
+token from the set sot.  The stack itself remains unaltered.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-17" class="outline-3">
+<h3 id="sec-4-17"><span class="section-number-3">4.17</span> 3.7  indent Module</h3>
+<div class="outline-text-3" id="text-4-17">
+<p>
+An outline of the module is given below:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-pseudo">initialize lex module;
+{ token sequence processed so far, T := null; }
+repeat
+        t := next token;
+        compute reduced sequence and margins;
+        if t is a Line Opener then end the previous line  fi;
+        if t is a Line Closer then
+                skip over comments;     { t may change }
+                end the current line;
+        fi
+        { T := T.t }
+until t = EOFtoken
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4-18" class="outline-3">
+<h3 id="sec-4-18"><span class="section-number-3">4.18</span> 3.2  Compute Reduced Sequence and Margins</h3>
+<div class="outline-text-3" id="text-4-18">
+<p>
+        This  is  accomplished  by  using  a  rather  long  case
+statement, and literally following the definition of the reduced
+sequence.  For short we will call this program segment CRSM.
+</p>
+
+<p>
+The margin variables mg, and nmg are used only by the  printline
+procedure  of  io,  and by the indent module (of which CRSM is a
+part).  There is also a cmg used locally by indent module.
+</p>
+
+<p>
+Assume that before each execution of CRSM the following holds:
+</p>
+
+
+<p>
+(0) Let T be the token sequence processed so far;
+</p>
+
+<p>
+(1) Stack has p &gt;  0 elements;
+</p>
+
+<p>
+(2) Stack[1..p] contains the reduced token sequence RED(T);
+</p>
+
+<p>
+(3) The margin value contained in the i-th (from bottom) element
+of  the  stack  is  the  NMG-value  for  the  token  sequence of
+stack[1..i-1], for all i, 1 &lt;  i &lt;  p.
+</p>
+
+<p>
+(4) cmg = nmg = NMG-value of T.
+</p>
+
+<p>
+Initially the above is vacuously true with p = 0.  Let t be  the
+current token.  If consequent stacking and/or unstacking is done
+so that the above hold with T.t replacing  T,  these  properties
+become an invariant of the loop shown.
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Implementation</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+The indenting program has been implemented in  Standard  Pascal,
+UCSD  Pascal,  and C.  This section discusses the details of how
+the design described in the  previous  section  is  mapped  into
+these languages.  Unless otherwise stated, statements being made
+below apply to both versions.  While reading  certain  parts  of
+this  section, it is necessary to have a listing of the programs
+along side.
+</p>
+
+
+<p>
+&gt;&gt;  Where  should  one  draw  a  line  separating  design   from
+implementation  is  open for discussion.  Here, we have used two
+criteria. (1) If certain restructuring is caused only because of
+the  language  in  which the program is coded, the discussion of
+that  restructuring  certainly  belongs  in  the  implementation
+section. (2)  Local changes (say inside a routine) of the design
+also belong here.  &lt;&lt;
+</p>
+</div>
+
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 1  Some Global Considerations</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Tokens == Symbols
+</p>
+
+<p>
+        The tokens are collected into an enumeration type called
+"symbol".   This  is so declared in the Pascal version.  We make
+them #define'd constants in the C version.  &gt;&gt; At the time  this
+program was written, C did not have an enum type. &lt;&lt;
+</p>
+
+<p>
+Upper/Lower Case
+</p>
+
+<p>
+        Obviously no case change should be performed from  input
+to  output.   The  question  is with regard to 'reserved words.'
+Because  it  is  both  simple  and  less  confusing,   in   this
+implementation  we chose to check if a lexeme is a reserved word
+after all its characters have been converted into lower case.
+</p>
+
+<p>
+Long Lines
+</p>
+
+<p>
+        A typical input line is expected to be  no  longer  than
+CXmax, which is user-customizable, reasonable values being &gt; 82.
+Lines longer than CXmax are truncated  to  this  length.   As  a
+result,  it  is  almost  always  the  case that the meaning of a
+program changes, if it has abnormally long input lines.
+</p>
+
+<p>
+Deep Nesting
+</p>
+
+<p>
+        The max output line length is given by  OUTLLmax,  which
+includes the white space in front of the line.  Deep nesting can
+cause the white space to be so large that  the  entire  line  is
+longer  than  OUTLLmax.   Such  a  line  is  printed without any
+leading white space.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 2  Initialization</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+        Our design requires a few  non-atomic  constants,  which
+are  not  easy to set up in Pascal.  In C, this can be done with
+greater  ease,  as  static  initializations.   Neither  language
+permits  us to state that these composite constants be used only
+as constants and not as variables.
+</p>
+
+<p>
+Our design uses these structured constants:
+</p>
+
+<p>
+LineOpeners     : set of token;<br  />
+         LineClosers     : set of token;<br  />
+         Delimiters      : set of character;<br  />
+         UClc            : array [char] of char; { upper case to lc }<br  />
+         LexTkn          : array [1..46] of &lt;lexeme, token&gt;;<br  />
+         Index           : array [0..9] of 1..46;<br  />
+</p>
+
+<p>
+        The LineOpeners and LineClosers  are  user-customizable.
+The Delimiters is initialized to contain the standard delimiters
+of Pascal (sans the arithmetic operators, and  brackets  &#x2013;  see
+3.1.1 Tokens).  In the Pascal version, this is done by procedure
+initialize; this procedure, except for the last line, is done in
+the C version as static initializations.
+</p>
+
+<p>
+        Note that the very first input line needs to be  read-in
+by  calling  readline of io module.  Readline uses the fact that
+buffer[ 0] is non-white.  Apart from this, the order in which the
+above initialization is performed is immaterial.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> 3  lex Module</h3>
+</div>
+
+<div id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> 3.1  Next Token of lex Module</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+        The function nexttoken uses subprocedure gettoken, which
+in  turn  uses  stdtoken.   Gettoken finds the lexeme, and calls
+stdtoken to examine it to see if it is one of  Pascals  reserved
+words,  or  special  symbols.  If it is one of these, it returns
+the corresponding  token.   Otherwise,  it  returns  ordinarySY.
+ Stdtoken  uses  constant  tables  LexTkn and Index to determine
+this.  Note that it is necessary to first check for 2-char  long
+special symbols before checking for 1-char long ones; otherwise,
+a lexeme such as := would be tokenized as  colonSY  followed  by
+ordinarySY (for the lexeme '=').
+</p>
+
+<p>
+        The lexeme found &#x2013; buffer[tox ..  nextx-1]  &#x2013;  can  be
+part  of  a  comment  or  string,  as  indicated by incomment or
+instring.  Also, the current lexeme can end a comment or string.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> 3.2  Lexeme-Token Tables</h3>
+<div class="outline-text-3" id="text-5-5">
+<p>
+        This is a constant table, called LexTkn, of 46  entries.
+Each entry is a pair of lexeme and token.  The lexemes stored in
+this table include all  reserved  words,  and  special-character
+lexemes  (such  as  :=  etc.).  The table is first sorted in the
+increasing order of their length, and then in each  length-group
+(ascii)  alphabetically.   Special-character lexemes are at most
+two-characters in length, and  reserved  words  are  at  most  9
+characters long.
+</p>
+
+<p>
+        Associated with this  table  is  another  called  Index.
+This  is  also  a  constant  array,  and  it is set up such that
+Index[i] gives the least index x such that LexTkn[x] contains  a
+lexeme of length i.
+</p>
+
+<p>
+        Thus, to check if a given lexeme of length x is  one  of
+these  in LexTkn, we begin looking at LexTkn[ Index[ x]], and do
+not look beyond LexTkn[ Index[ x+1]].  (Hence  Index[ 10]  should
+be  defined.)   Since LexTkn is fully sorted, we could have used
+binary search between these bounds.  However, we do not  believe
+it  would  significantly improve the speed, because Index[i+1] -
+Index[i] is quite small.
+</p>
+
+<p>
+Because C does not permit array-index range to begin  at  1,  we
+let  Index[ 0] go waste in it (and also in the Pascal version for
+uniformity).
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-6" class="outline-3">
+<h3 id="sec-5-6"><span class="section-number-3">5.6</span> 4  Other Modules</h3>
+<div class="outline-text-3" id="text-5-6">
+<p>
+        The modules stack,   and  indent  are  straight  forward
+implementations of the design discussed in the previous section.
+</p>
+
+<p>
+        The module io deals  with  system-dependencies  such  as
+end-of-line,  and  end-of-file  which are handled differently in
+the two  versions.   However,  in  both  versions,  the  boolean
+variable  eofile  remains  false immediately after the last line
+has been read; it becomes true after readline attempts to a read
+a (non-existent) line after end-of-file condition is discovered.
+This is necessitated by Pascal  source  that  may  have  a  non-
+terminating  comment,  or  string.   Nexttoken checks eofile and
+would not process further it it is true.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-7" class="outline-3">
+<h3 id="sec-5-7"><span class="section-number-3">5.7</span> 5  Comments on the Pascal Version</h3>
+<div class="outline-text-3" id="text-5-7">
+<p>
+        The object code of  the  Pascal  version  of  indent  is
+longer  than  that  of the equivalent C version for two reasons:
+(1)  the  constant  tables   are   initialized   by   assignment
+statements;   (2)  the  cases  in  procedure  doindent  are  not
+"reduced" (see the next subsection).
+</p>
+
+<p>
+        In Pascal, to detect both end-of-line,  and  end-of-file
+conditions we rely on eoln and eof standard functions.
+</p>
+
+<p>
+        Certain Pascal implementations do not allow  a  "set  of
+char".   The Delimiters should then be typed as an "array [char]
+of boolean".  The program assumes that the  underlying  char  is
+ascii.   We  are  not  aware of any other potentially unportable
+features.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-8" class="outline-3">
+<h3 id="sec-5-8"><span class="section-number-3">5.8</span> 6  Comments on the C Version</h3>
+<div class="outline-text-3" id="text-5-8">
+<p>
+        The design of  indent  uses  sets  extensively.   It  so
+happens that most of our sets are rather small.  The LineOpeners
+and LineClosers contain at most all the symbols; the  Delimiters
+contains at most all ascii chars.
+</p>
+
+<p>
+In the C version, we chose to implement "set of symbol" as a "long
+int" of C.  All the C implementations that we tried this is at least
+32-bit long.  The test for the membership is translated into a
+bit-wise logical-AND (as in "token &amp; (recordSY | caseSY)" ).  Thus,
+each of these symbols is #define'd as a long constant.
+</p>
+
+<p>
+The Delimiters became an array of  booleans.   This  could  have
+been  static  initialized,  but  we took the easier approach and
+initialize it run-time.
+</p>
+
+<p>
+        In C, both of end-of-line, and end-of-file are  readable
+as  newline  and -1 (returned by getchar()).  These are inserted
+into the buffer as '\n' and '\0', respectively.
+</p>
+
+<p>
+        We tried to improve the speed and decrease the  size  of
+the  object  code  for  the  version.   The  many  cases  in the
+procedure doindent are combined by #defin'ing several  constants
+to have the same value (see file indent.h).  This may have to be
+undone if different set of symbols are used  as  LineOpeners  or
+LineClosers (see Appendix on Customization Notes).
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> D. User's Manual</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+        The program indent,  as  compiled  on  Unix,  reads  the
+(standard)  input file, and outputs to the standard output.  The
+input file is expected to be an ascii text file; however, indent
+does not check this, but is robust enough not to crash in such a
+case.
+</p>
+
+<p>
+Typical invocation on Unix is:
+</p>
+
+<p>
+indent &lt; file1.p &gt; file2.p
+</p>
+
+<p>
+        Given that the input contains  a  syntactically  correct
+Pascal  program,  the output produced will be an equivalent text
+file possibly differing from the input only in the white  spaces
+it  contains.   The text in the output file satisfies rigorously
+defined rules of lay out.  These  rules  are  loosely  explained
+below.
+</p>
+
+<p>
+        Indent    also    can    deal     with     syntactically
+incorrect/incomplete  Pascal  programs  in  a sensible way.  The
+description of output lay out in this situation, however, is too
+complex to go in a User's Manual.
+</p>
+
+<p>
+        The user interested in the rigorous treatment  of  these
+lay  outs  should  refer  to  Section  2 : Specifications of the
+Documentation of Indent.
+</p>
+
+
+<p>
+D.1  The Lay Out Rules
+</p>
+
+<p>
+(1) The reserved words and other tokens included in  LineOpeners
+always start a new line.  Presently this set consists of:
+</p>
+
+<p>
+const   type    label
+begin   repeat  while   if
+end     until   for     else    case
+</p>
+
+<p>
+        If they already were at the beginning of a line  in  the
+input,  that  part  of  the  input line appears unchanged in the
+output.  If they were embedded some where in the  middle  of  an
+input  line,  then the input line will be split up so that these
+tokens are at the beginning of a line in the output.
+</p>
+
+<p>
+(2) The reserved words and tokens included in LineClosers always
+ends a line.    Presently this set is empty.
+</p>
+
+<p>
+        Above caveat about  line-splitting  is  applicable  here
+also.   In addition, any comments following the semicolon on the
+same line are retained as they were.
+</p>
+
+<p>
+(3) The various Pascal constructs are laid out in the output  as
+follows.   If the statement contained none of the above reserved
+words, they will begin on a new line only if it already was.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">while  boolean exp  do  |       repeat
+        statement       |               statements
+                        |       until  boolean exp
+
+for  var := exp to/downto   exp  do
+        statement
+
+
+
+
+if  bollean exp  then   |       case
+        statement       |               value1 :
+else                    |                       statement;
+        statement       |               value2, value3 :
+                        |                       statement
+                        |       end
+
+
+(* functions and programs are laid out similarly. *)
+
+procedure  proc identifier ( parameters );
+        var
+                var declarations
+        ... internal procedures and functions ...
+        begin
+        statements
+        end;
+</pre>
+</div>
+
+<p>
+(4) Each left parenthesis increases the level of indentation  by
+one.   However, its effect may be unnoticed in the output if the
+closing right parenthesis appears on the same line.
+</p>
+
+<p>
+(5) Comments appearing after a semicolon  are  left  alone.   If
+they  span  multiple  lines, they are left-aligned to align with
+the current statement.
+</p>
+
+
+<p>
+D.2  Minor Surprises
+</p>
+
+<p>
+        Below we list some aspects of the behavior of the indent
+that   would   appear   eccentric.    Unless  you  have  already
+encountered it in your use of indent, we are afraid,  these  may
+not readily be meaningful to you.
+</p>
+
+<p>
+Comments that are begun with a '{' or '(*'  will  be  considered
+closed  by the first occurence of either '}' or '*)'.  No effort
+is made to match the brace-opening comment with a  corresponding
+right brace, or to match with '(*' with '*)' only.
+</p>
+
+<p>
+If the parameter list contains semicolons, layout rule (2)  will
+be applicable.
+</p>
+
+<p>
+Multiple line comments with indentation are stripped  of  it  in
+the output.
+</p>
+</div>
+</div>
+
+
+
+
+
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> E. Customization Notes</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+        There are a few features of indent that  can  be  easily
+customized.   Change  the  declarations in the source program of
+indent as described here and recompile.
+</p>
+
+<p>
+        LineOpeners  and  LineClosers  can  be  changed  to  any
+arbitrary  sets  of symbols.  Delimiters must always include all
+white  characters;   further  delimiters  such   as   arithmetic
+operators, brackets etc. may be added.  See the layout rules (1)
+and (2) of the Users Manual.
+</p>
+
+<p>
+        UOI is the unit of  indentation  in  terms  of  INDCHAR.
+These  are  currently 1 and tab character respectively.  UOI can
+be changed to  any  other  positive  integer.   INDCHAR  can  be
+changed  to  any  other  character, but not a string (unless the
+putchar() is changed in the C version).
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2016 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a> &bull; 2016-06-22
+</div>
+</body>
+</html>

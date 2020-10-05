@@ -1,0 +1,18 @@
+
+* Classic Algebraic Spec Example: The Stack
+** Goals
+1. Goal: Hide internals  
+1. Goal: Be as abstract as possible  
+
+
+** Axioms:  
+1.    pop(push(s, i)) = s
+1.    top(push(s, i)) = i
+1.    isempty(init()) = true
+1.    isempty(push(s, i)) = false
+1.    top(init()) = ERROR
+1.    pop(init()) = init()
+
+1. (We omitted signatures.)  
+1. (Typical OOPL syntax:  s.push(i))  
+1. Lots of Research

@@ -1,0 +1,619 @@
+# -*- mode: org -*-
+#+DATE: 2014-12-21
+#+TITLE: Lab: Virtual Box Setup TBD
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:1
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d "))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2014 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+
+VirtualBox FOSS software gives a virtual PC hardware, with virtual
+HDD, KBD, etc devices.  We can install OS images and boot these OSs.
+Installing and testing kernels that you modified and built is easier
+to do first on the VB, and then move the kernels to the real hardware.
+The main benefit is that if your kernel crashes, the real PC does not
+crash, just the VirtualBox VM.
+
+* Setting Up VirtualBox
+
+** VirtualBox environment
+
+One of you or your partner:
+
+
+
+1.  ssh into the CS machine to which you have been assigned using your
+shared account (ex. ginger and cs45X),  and choose a password for your
+shared  account together so that both of you can remember it: 
+#+begin_src bash  
+    % ssh -X cs45X@ginger
+#+end_src  
+1.  Make a working_dir directory in <code>/local</code> that you and your 
+partner will share.
+For example, if my working_dir is named tia_n_pal:
+#+begin_src bash  
+    % mkdir /local/tia_n_pal 
+    % chmod 700 /local/tia_n_pal
+#+end_src  
+
+
+1.  Copy over the virtualbox image files from /local/vm 
+(a copy is also available on every CS in /scratch/vm, but it 
+will take longer to copy over than the one in /local) 
+into your <code>/local/working_dir</code> subdirectory:  
+#+begin_src bash
+    % cp -r /scratch/vm/ubuntu-12.04.3-NOINITRD  /local/tia_n_pal/. 
+#+end_src
+
+
+1.  Now you are ready to run virtualbox.
+
+
+
+
+
+<div class="TagLine" id="starting"> 
+* Running VirtualBox
+
+<h4>Starting VirtualBox:</h4>
+
+1. Log into the PC on which your virtualbox machine is located
+using your shared account (ex: ginger, cs45X):  
+#+begin_src bash
+    % ssh -X cs45X@ginger 
+#+end_src
+
+
+1. Start virtualbox:
+#+begin_src bash
+    $ cd /local/you_n_partner/
+    $ virtualbox 
+    (ignore the "Error opening file for reading: Permission denied" error)
+#+end_src
+1.  The very first time you run virtualbox, you need to explicitly add
+the VM image you want to run.  To do this:
+<ul>
+From the <tt>Machine</tt> menu choose <tt>Add</tt> then browse 
+     through the files systems to select this file to open: 
+#+begin_src bash
+/local/you_n_partner/ubuntu-12.04.3-NOINITRD/ubuntu-12.04.3-NOINITRD.vbox 
+#+end_src
+</ul>
+
+
+1.  In the VM Mananger window, select the VM you want to run (there is only
+one choice) and then choose the start icon to start it running.
+
+
+The starting point .vbox VM contains a single linux kernel to boot.  As you
+add more kernels, you can select the particular kernel you want to boot
+from the grub menu using the arrow keys and <tt>Enter</tt>.
+
+
+
+<h4>running VirtualBox in non-gui mode</h4>
+You can also run virtualbox in non-graphics mode.
+This is useful when remotely connecting from outside of the cs subnet,
+or when you want to start up virtualbox once, and then remotely log in 
+over a period of time.  In the later case, you will need to run 
+virtualbox within 
+a <a href="http://www.cs.swarthmore.edu/help/long.html">screen</a> 
+session as well as in non-graphics mode.  Here are the steps:
+#+begin_src bash
+$ screen    # start a screen session
+$ vboxheadless -s "ubuntu-12.04.3-NOINITRD"  # run virtualbox in non-gui mode
+
+Cntrl-a d          # detach from the screen session (machine keeps running)
+#+end_src
+note: this will always boot the default kernel (specified in the grub menu)
+(and it takes about 1 minute to boot).  If the default kernel is not the
+one you want to boot, you can change the default kernel:
+#+begin_src bash
+(1) in /etc/default/grub, set GRUB_DEFAULT to the number kernel entry you want:
+    GRUB_DEFAULT=0    # the default kernel is the one in entry 0
+                      # change it to be the entry you want as the default (0,1,2,...)
+
+   you can list the kernels in which entry:
+    grep menuentry /boot/grub/grub.cfg
+
+(2) then run:
+    sudo update-grub
+#+end_src
+
+
+
+<h4>Starting an OS inside of VirtualBox:</h4>
+
+When virtualbox is run in gui mode, and you first boot up the system, 
+you will see the grub menu with a list of kernels to boot.  Use the arrow 
+keys to scroll through the list and then hit the Enter key to choose your 
+kernel.  If you don't select one, after 10 seconds the default kernel 
+(at the top of the list) is booted.  If you run in non-gui mode, the
+default kernel boots.
+
+
+After the kernel boots in your VM you can log into the console window.  
+However, it will be easier to work on your virtual machine by ssh'ing into it.
+To do this specify port number 10022 and the CSmachine on which you are 
+running virtualbox.  There is one user account (swatcs) with the starting 
+point VM, its password (swatcs.45):
+#+begin_src bash
+ssh -p 10022 swatcs@ginger   
+#+end_src
+
+
+The virtualbox image is set up with a single user account:
+<code>swatcs</code>.  The password is <code>swatcs.45</code>.
+You can change any of your user account passwords, by running the 
+<code>passwd</code> command.  You can also add new users to the system 
+using the <code>adduser</code> command.
+
+<h4>Shutting down or rebooting an OS:</h4>
+
+To shut down your kernel:
+#+begin_src bash
+$ sudo sync
+$ sudo sync
+$ sudo halt -p     # halt and power down
+#+end_src
+
+To reboot your kernel:
+#+begin_src bash
+$ sudo sync
+$ sudo sync
+$ sudo reboot
+#+end_src
+
+
+
+<h4>Shutting down VirtualBox:</h4>
+
+First shut down your kernel, then exit virtualbox using the menu options.
+If you run in non-gui mode, use CNTRL-C to exit vboxheadless after halting
+your kernel.
+
+<div class="TagLine" id="building"> 
+* Compiling, Installing and Booting your Kernel changes in VirtualBox 
+
+You will compile and build your changes to the Linux kernel on your 
+CS machine in /local/, and then install your built kernel on the
+virtualbox VM.
+
+
+<font color="blue"><h3>Getting a copy of the Linux Source</h3></font>
+These steps only need to be done once (or whenever you want to grab 
+a fresh copy of the code):
+
+
+
+	1.  copy the kernel source into your /local directory:
+#+begin_src bash
+ $ cp /local/vm/linux-2.6.32.44.tar.bz2 /local/you_n_partner/. 
+#+end_src
+
+1.  unzip and untar the file:
+#+begin_src bash
+ $ cd /local/you_n_partner
+ $ tar xjf linux-2.6.32.44.tar.bz2 
+#+end_src
+1.  copy the starting point config file into .config in 
+linux-2.6.32.44 and run make menuconfig:
+#+begin_src bash
+ $ cd linux-2.6.32.44 
+ $ cp /scratch/vm/config-noinitrd .config
+ $ make menuconfig 	# just choose Exit with the arrow keys
+#+end_src
+1.  follow Option 1 below for building the kernel the first time.
+
+
+<font color="blue"><h3>Building the kernel</h3></font>
+
+There are two options for building the kernel:
+<ul>
+1.  Option 1, builds 
+Debian kernel image and header packages for installing.  You should
+use this option at least once at the begining of each new lab assignment,
+and if you add or modify .h files.
+1.  Option 2, just re-compiles the kernel executable (bzImage) file
+and is useful for installing and booting incremental changes to the
+kernel.
+</ul>
+If you have problems with the Option 2 build or install, I recommend doing an
+Option 1 build and remove and re-install the kernel packages.
+
+
+<h3>Option 1: Building kernel image (and kernel header) packages</h3>
+
+1.  Set this environment variable once in the shell you are compiling
+in (it will use a parallel compile and result in a faster total compile time):
+#+begin_src bash
+export CONCURRENCY_LEVEL=4    # anything higher than 4 doesn't help 
+#+end_src
+1.  Do this the first time, and maybe other builds, but you do
+not always have to do this on every build (it is like a 'make clean'):
+#+begin_src bash
+# NOTE: make-kpkg clean wipes out everything that has been compiled before.
+#  For the very first build you need to do this step, but for subsequent 
+#  builds you may want to not do it, and only if package builds are 
+#  failing in odd ways try doing a make-kpkg clean to re-build 
+#  everything from scratch ("from scratch" takes ~5 minutes)
+$ <b>cd /local/you_n_partner/linux-2.6.32.44</b>
+$ <b>fakeroot make-kpkg clean</b>
+#+end_src
+
+1.  build the kernel packages you want to build (typically kernel_headers
+and/or usually kernel_image).  
+
+ 
+#+begin_src bash
+# NOTE: in the linux .config file is a variable that is set to 
+#       append a local name to your kernel version (in this example
+#       it is set to "-lab3", you can change this in the .config file
+#       for other lab assignment builds 
+#         CONFIG_LOCALVERSION="-lab3"
+#       Anytime you change .config, you need to re-run <b>make menuconfig</b>   
+#
+#  (a clean build will take about 5 minutes):
+$  <b>fakeroot make-kpkg --revision=1.0 kernel_image</b>
+
+# if you add new kernel header files, or change existing ones, you need 
+# to build a kernel headers package that contains your changed files too:
+$  <b>fakeroot make-kpkg --revision=1.0  kernel_headers</b>
+#+end_src
+make-kpkg creates files named:
+#+begin_src bash
+../linux-image-2.6.32.44-lab3_1.0_amd64.deb 
+../linux-headers-2.6.32.44-lab3_1.0_amd64.deb
+#+end_src
+You also can list both kernel_image and kernel_headers in a single make-kpkg 
+command line.
+#+begin_src bash
+$  <b>fakeroot make-kpkg --revision=1.0  kernel_image kernel_headers</b>
+#+end_src
+
+<b>NOTE:</b> if this is a rebuild of a previous package, then you will 
+need to remove the previous package before installing the new one:
+#+begin_src bash
+# To remove a previous version of an installed package, on your VM
+dpkg -r linux-image-2.6.32.44-lab3
+#+end_src
+
+
+
+<h3>Option 2: Recompiling the kernel bzImage file</h3>
+
+Set this environment variable once in the shell you are compiling
+in (it will use a parallel compile and result in a faster total compile time):
+#+begin_src bash
+export CONCURRENCY_LEVEL=4    # anything higher than 4 doesn't help 
+#+end_src
+
+
+From the top-level linux source directory (<b>cd 
+/local/you_n_partner/linux-2.6.32.44</b>), do:
+#+begin_src bash
+make bzImage
+#+end_src
+If the build is failing in odd ways (not due to errors in files you have
+changed), then you can try doing a make clean (and make dep) and try 
+make bzImage again.  However, it may be easier to do an Option 1 rebuild
+at this point.
+#+begin_src bash
+# you don't always need to do this, but if you have changed include files  
+# things don't seem to be getting built correctly do:
+$ make clean
+
+# do this only if you have added or removed #includes from existing
+# source or header files (you need to rebuild the dependencies in
+# this case):
+$ make dep
+#+end_src
+Remember that if you change .h files you need to copy them over to your
+VM if test programs there need to use these .h files.  You can do this by
+hand, but again, it is often easier to just rebuild the kernel_headers
+package, remove the old one, and install the new version.
+
+<font color="blue"><h3>Installing and booting your kernel</h3></font>
+
+How you install your kernel changes depends on how you built it
+(Option 1 (kernel package build) or Option 2 (bzImage build)).
+
+<h3>Option 1: Installing kernel packages:</h3>
+#+begin_src bash
+# (a) from your CS machine, copy the kernel packages to your VM:
+#     (I'm using ginger as an example CS machine name)
+$ <b>scp -P 10022 linux-image-2.6.32.44-lab3_1.0_amd64.deb swatcs@ginger:.</b>
+$ <b>scp -P 10022 linux-headers-2.6.32.44-lab3_1.0_amd64.deb swatcs@ginger:.
+</b>
+# (b) Next, from within your VM, install the packages:
+#     from root's home directory (or wherever you scp the files) 
+$ <b>sudo dpkg -i linux-image-2.6.32.44-lab3_1.0_amd64.deb</b>
+$ <b>sudo dpkg -i linux-headers-2.6.32.44-lab3_1.0_amd64.deb</b> 
+<font color="red">note:</font> ignore this error message when installing the headers package (it is not really an error):
+Error! Your kernel headers for 2.6.34-lab3 cannot be found.
+
+# (c) reboot your VM and choose your new kernel from the grub menu
+$ <b> sudo sync; sudo sync; sudo reboot</b>
+
+# (d) login and verify that the new version of your kernel rebooted 
+#     check both the name of the kernel (does it have the -lab3 extention)
+#     and the build date (is it a new build or old one)
+$ <b>uname -a</b>
+
+# <font color="red">note:</font> If this is a re-install of a kernel package 
+# that you have already installed (i.e. the same -lab3 flag as an 
+# installed kernel package), you need to first remove the 
+# old package(s), before you do the dpkg -i of the new ones: 
+$ <b>dpkg -r linux-image-2.6.32.44-lab3</b> 
+
+# Use the -I option to dpkg to list info about the package file, 
+# including its name (used in the -r option)
+$ <b>dpkg -I linux-image-2.6.32.44-lab3_1.0_amd64.deb</b> 
+#+end_src
+
+
+<h3>Option 2: Installing bzImage and System.map files:</h3>
+#+begin_src bash
+# (a) from your CS machine, copy the kernel bzImage and System.map files
+      to your VM: (I'm using ginger as an example CS machine name)
+$ cd /local/you_n_partner/linux-2.6.32
+$ <b>scp -P 10022 System.map swatcs@ginger:.</b>
+$ <b>scp -P 10022 arch/x86_64/boot/bzImage swatcs@ginger:.</b>
+
+# (b) ssh into your VM and install the bzImage and System.map files
+#     (replace the vmlinux... executable in /boot with the bzImage 
+#      be careful that you are replacing the right one...using mv -i will 
+#      give you a chance abort before overwriting the wrong one)
+$ <b>ssh -p 1022 swatcs@ginger</b>
+$ <b>ls -l</b>   # verify dates on bzImage and System.map files you scp'ed over
+$ <b>sudo mv -i bzImage /boot/vmlinux-2.6.32.44-lab3</b>
+$ <b>sudo mv -i System.map /boot/System.map-2.6.32.44-lab3</b>
+
+# (c) run update-grub
+$ <b>sudo update-grub</b>
+
+# (d) sync, halt and then reboot into your new kernel
+$ <b>sudo sync</b>
+$ <b>sudo sync</b>
+$ <b>sudo reboot</b>  
+
+# if rebooting is failing, first try booting into the cs45 kernel and then do:
+$ <b>sudo sync</b>
+$ <b>sudo sync</b>
+$ <b>sudo halt -p</b>  # turn off and then back on the VM and boot your kernel
+#+end_src
+
+<hr>
+
+<font color="red">An Important Note about Modifying Kernel Source Files: </font>
+</b> 
+<br>We do not back-up files in each machine's <tt>/local</tt> directory.  
+As a result, you should periodically copy files into your private
+cs45 subdirectory in /home, which we do back-up 
+(<a href="http://www.cs.swarthmore.edu/help/lostfile.html">
+Retrieving Lost Files</a>).  
+
+
+I suggest that you use git to do this:
+
+1.  one of you should create a shared bare 
+<a href="howto_cvs.html">git</a> repository (and share it with three users: 
+you, your partner, and your CS45 shared account user).  
+1.  You and your partner should clone a copy in your 
+private /home/you/cs45 subdirectories.
+1.  Your shared CS45 account user should clone a copy into /local on your
+assigned machine.
+
+As you work, periodically add, commit, and push 
+changes to the linux kernel files you modify (and also to any user-level
+programs you write as part of a lab assignment). 
+
+
+Make sure to include in your git repo
+<b>only the linux source and header files that you modify for the current 
+lab assignment, and not the entire linux kernel source tree, which will eat 
+up your account quota</b>.  These are the files that you will submit for 
+each lab assignment, and the ones that you cannot recover.  If you 
+accidentally delete other kernel files (ones you aren't changing), you can 
+always get a copy of them from the linux source starting point.
+If you lose files you have modified, then can then get a back-up from
+your git repo.  
+
+* ssh'ing and scp'ing from the host PC to your VM
+
+Use <tt>ssh</tt> to log in to your VM from the assigned CS lab
+machine from which you are running virtualbox:
+#+begin_src bash
+$ ssh -p 10022 swatcs@ginger
+#+end_src
+Use <tt>scp</tt> to transfer files between your VM and your
+CS machine.  Here are some examples (and yes, it is <tt>-P</tt> for scp 
+and <tt>-p</tt> for ssh):
+#+begin_src bash
+$ scp -P 10022  file.c swatcs@ginger:.
+$ scp -P 10022  *.c swatcs@ginger:.          # copy a bunch of .c files
+$ scp -P 10022  -r dirname swatcs@ginger:.   # recurively copy a directory
+#+end_src
+From your VM you can scp to your CS user account.  Here are some
+examples:
+#+begin_src bash
+$ scp file username@machinename:/home/username/cs45/labs/lab2/.
+$ scp file cs45username@machinename:/local/you_n_partner/lab2/.
+#+end_src
+
+* Debugging the Kernel 
+
+You do not have valgrind to help you debug at the kernel level, but
+you can use the kernel's kgdb support to remotely attach gdb to your
+running kernel and debug it.  You can also add debugging statements
+to your kernel using printk. 
+
+<h4>printk</h4>
+
+A useful way to see what your kernel code is doing is to
+add debugging printk statements to print out some execution 
+state as as it runs.  printk is similar to printf, except remember
+that floating point values are not supported at kernel level.
+
+
+printk output goes to the console and to log files 
+on your VM in <tt>/var/log/kern.log</tt> and  <tt>/var/log/syslog</tt>. 
+You can open them in vim to printk output.  Also, running tail -f 
+on one of these files will let you see printk output as your kernel runs:
+#+begin_src bash   
+$ tail -f /var/log/kern.log
+#+end_src
+If your kernel crashes, it is likely that some of the printk output 
+has not yet been written to the log files.  As a result, you may want 
+to jot down the last printk output on the console before rebooting.  Also, 
+be very careful about where you put printk calls; you don't want 
+them on a code path that is executed many times per second.
+
+
+printk output should also show up on the console window.  If not,           
+run this command, and then it should:
+#+begin_src bash
+sudo dmesg -n 7
+#+end_src
+
+
+ 
+<h4>kgdb</h4>
+
+You can use the linux kernel's built-in support for kgdb to attach gdb
+to your running kernel and debug it.  The default config file you copied
+over already builds the kernel image with kgdb support enabled.  You need
+to follow some steps on boot to connect gdb running on the host machine
+(your CS machine) to the linux kernel VM running in VirtualBox.  
+(this link contains some nice screen dumps showing some of these steps:
+<a href="http://www.linuxforu.com/2011/03/kgdb-with-virtualbox-debug-live-kernel/">KGDB with VirtualBox</a>).
+
+<h4>Steps to attach gdb to your VM:</h4>
+
+1.  Run virtualbox, but do not boot a VM (or halt your VM if already
+running), and then configure the serial port:
+
+
+Click on your virtual machine instance in the VirtualBox Manager
+window (your VM should not be running), and choose Settings.  Select
+the "Serial Ports" tab, choose Port 1, and  enter the following and the
+choose OK:
+#+begin_src bash
+(1) Check the "Enable Serial Port" box
+(2) Choose COM1 for "Port Number"
+(3) Choose HostPipe for "Port Mode"
+(4) Check the "Create Pipe" box
+(5) Enter /local/me_and_pal/serial in the "Port/File Path" box  
+    (where /local/me_and_pal/ is the name of your subdirectory /local on
+     on your machine in which your virtualbox image and linux source are) 
+#+end_src
+
+
+1.  Start the boot of your VM, and at the grub menu choose 
+the kernel version you want, and then enter <tt>e</tt> to edit its information.
+Scroll down to the linux line and append the following to it (and these
+are zeros not ohs):
+#+begin_src bash
+
+kgdboc=ttyS0,115200 kgdbwait
+
+# The result will look something like:
+linux /boot/vmlinux/.... \
+...  rw kgdboc=ttySO,115200 kgdbwait
+#+end_src
+Then hit F10 to continue to boot.  Your VM will continue booting but not
+finish, printing a message:
+#+begin_src bash
+kgdb: Waiting for connection from remote gdb..." message
+#+end_src
+
+
+1.  At this point, in a terminal on the host machine (your CS machine) run:
+#+begin_src bash
+socat -d -d /local/me_and_pal/serial PTY:
+
+# you should see output like this:
+2014/01/31 14:13:24 socat[27748] N opening connection to AF=1 "/local/me_n_pal/serial"
+2014/01/31 14:13:24 socat[27748] N successfully connected from local address AF=1 "qp\xEE\x7E"
+2014/01/31 14:13:24 socat[27748] N successfully connected via 
+2014/01/31 14:13:24 socat[27748] N PTY is /dev/pts/16
+2014/01/31 14:13:24 socat[27748] N starting data transfer loop with FDs [3,3] and [4,4]
+#+end_src 
+Note: the <tt>/dev/pts/16</tt> part will likely be different, and use
+the one that yours lists as the target in gdb.
+
+
+Do not terminate socat; it needs to be running in the background to use
+the pseudo terminal to connect gdb.
+
+
+1.  in another terminal on the host machine (your lab machine) run gdb
+and attacke to the remote target:
+#+begin_src bash
+$ cd /local/me_and_pal/linux-2.6.32.44/
+$ gdb ./vmlinux
+...
+...
+Reading symbols from /local/me_and_pal/linux-2.6.32.44/vmlinux...done.
+
+(gdb) target remote /dev/pts/16       # or whatever the number is from socat 
+Remote debugging using /dev/pts/16
+kgdb_breakpoint () at kernel/kgdb.c:1718
+1718            wmb(); /* Sync point after breakpoint */
+#+end_src
+At this point you can use gdb commands to debug your kernel code: set 
+breakpoints in your kernel functions, step and next through the execution
+of code, print variables, ...  
+
+
+* Troubleshooting VirtualBox and Linux
+ 
+I'll post answers to virtualbox and Linux questions here.
+<ul>
+1.  Changing the name of your kernel.  For each lab assignment you may want to
+change the name of the kernel that is being built.  This is done by changing
+the following definition in the <tt>.config</tt> file in the
+linux source directory, and then running make menuconfig again.
+#+begin_src bash
+$ vi .config
+  CONFIG_LOCALVERSION="-lab3"   # change -lab3 string to whatever you'd like
+$ make menuconfig 	# just choose Exit with the arrow keys
+#+end_src
+
+
+
+1.  Changing the size of physical memory used by linux (and of course
+you cannot make it bigger than what is there).
+#+begin_src bash
+# in your virtual machine edit the file /etc/default/grub
+$ sudo vi /etc/default/grub
+
+# add the size of physical memory you want to GRUB_CMD_LINE_LINUX:
+GRUB_CMDLINE_LINUX="mem=512m"
+
+# run update-grub and reboot cat out /proc/meminfo to see the change
+sudo update-grub
+sudo sync
+sudo sync
+sudo reboot
+#+end_src
+
+
+1.  What was the old (initrd) way of building the kernel packages (used 
+in lab2)?
+#+begin_src bash
+fakeroot make-kpkg --initrd --revision=1.0 --append-to-version -lab2  kernel_image
+fakeroot make-kpkg --initrd --revision=1.0 --append-to-version -lab2  kernel_headers
+#+end_src
+
+
+* References
+
+1. https://www.virtualbox.org/ 
+
+1. https://www.virtualbox.org/wiki/Virtualization
+
+1. http://pages.cs.wisc.edu/~remzi/OSTEP/vmm-intro.pdf Virtual Machine Monitors

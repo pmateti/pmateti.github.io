@@ -1,0 +1,73 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-27
+#+TITLE: Specifications of Conway's Game of Life
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+Abstract: We outline how GoL can be specified rigorously and
+unambiguously.  The complications are due mostly to concurrency
+inherent in the game.  The design and implementation are discussed
+elsewhere.
+
+* Informal Description of GoL
+
+This description is in carefully written English prose.  It assumes
+high-school level education.  Its focus is in communicating the
+essential ideas clearly with the reader.
+
+** Game Board
+
+The game board is a 2D grid that is infinite in both x- and y-axes.
+Its origin is located in the center.
+
+** Display
+
+Display is what is seen on a "monitor".  This is clearly a 2D grid of
+finite x- and y-axes.  The origin is located at the top-left, with
+x-axis coordinate growing l-to-r, and the y-axis coordinate growing
+from top-to-bottom.
+
+A spec/ design/ implementation difficulty is in solving the wicked
+problem of rendering an infinite grid onto a finite display.
+
+A related problem of updating the display at t to a display at t+1 is
+a standard problem solved in graphics.
+
+
+** Rules
+
+1. Any live cell with fewer than two live neighbours dies, as if
+   caused by under-population.
+1. Any live cell with two or three live neighbours lives on to the
+   next generation.
+1. Any live cell with more than three live neighbours dies, as if by
+   over-population.
+1. Any dead cell with exactly three live neighbours becomes a live
+   cell, as if by reproduction.
+
+** Discrete Time
+
+GoL assumes that time is discrete, not continuous.  The above rules
+describe a situation at time t, and describe what that causes at time
+t + 1.  We assume that the time axis is global to all cells.
+
+* References
+
+1. https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+
+1. http://www.bitstorm.org/gameoflife/ A Java implementation.  Uses
+   Java 1.4.  Open source.
+
+1. http://cecs.wright.edu/~pmateti/Courses/7140/Projects/7140-homework-1.html
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

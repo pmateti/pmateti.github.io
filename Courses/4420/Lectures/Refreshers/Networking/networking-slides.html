@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Android Security</title>
+
+    <link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/css/reveal.css">
+    <link rel="stylesheet"
+          href="http://www.cs.wright.edu/~pmateti/RevealJS/css/theme/night.css"
+          id="theme">
+    <link rel="stylesheet" href="http://www.cs.wright.edu/~pmateti/RevealJS/lib/css/zenburn.css">
+    <style> P {text-align: justify}
+      code {font-family: monospace,courier; font-size: 9pt; color: bisque;}
+    </style>
+  </head>
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+
+  <section>
+    <h1 class="title"> Android Security</h1>
+    <h2 style="color: yellow"> Prabhaker Mateti<h2>
+        <h3>Wright State University</h3>
+        <a href="http://www.cs.wright.edu/~pmateti">
+        <tt>www.cs.wright.edu/~pmateti</tt></a>
+  </section>
+<section "id=preamble">
+<section "id=first">
+2015-08-11 <a href="../../Top/"> Top</a> | <a href="index-slides.html">Slides</a>
+</section>
+<section id="content">
+<h1 class="title">Refresher on Networking</h1>
+<h3 style="color: brown">Prabhaker Mateti<h3>
+<h2>Wright State University</h2>
+<tt>www.cs.wright.edu/~pmateti</tt>
+</section>
+<section id="table-of-contents">
+<h2>Table of Contents</h2>
+
+<ul>
+<li><a href="#sec-1">1. Networking Layers</a></li>
+<li><a href="#sec-2">2. Networking Hardware Technology</a></li>
+<li><a href="#sec-3">3. Networking Protocols</a></li>
+<li><a href="#sec-4">4. Network Setup and Utilities</a></li>
+<li><a href="#sec-5">5. Network Security</a></li>
+<li><a href="#sec-6">6. References</a></li>
+</ul>
+</section>
+</section>
+
+<section id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Networking Layers</h2>
+<sectionX  id="text-1">
+</section><section id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Layered Models</h3>
+<sectionX  id="text-1-1">
+
+<section id="fig:DoD-OSI-model" class="figure">
+<p><img src="./DoD-v-OSI-model2.gif" alt="DoD-v-OSI-model2.gif" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 1:</span> OSI 7 Layers v DoD 4 Layers (numbered upwards) [Source: Web]</p>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Layered Models #2</h3>
+<sectionX  id="text-1-2">
+<ol class="org-ol">
+<li>TCP/IP Suite is a collection of protocols.
+</li>
+
+<li>Ethernet, etc: Layer 1 (lowest) of the 4 layer DoD Network Protocol
+Stack Model.
+</li>
+
+<li>IP is in Layer 2.  That is, it is not concerned with hardware details.
+</li>
+
+<li>TCP and UDP are in Layer 3.
+</li>
+
+<li>Application protocols (Layer 4): http; ssh, &#x2026;
+</li>
+<li>DoD = US Department of Defense
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Networking Hardware Technology</h2>
+<sectionX  id="text-2">
+</section><section id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Ethernet</h3>
+<sectionX  id="text-2-1">
+<ol class="org-ol">
+<li>Responsible for delivering data over the hardware media.
+</li>
+
+<li>Every Ethernet <b>frame</b> has two addresses: Sender's MAC address,
+Receiver's MAC address; 6 bytes + 6 bytes.
+</li>
+
+<li>Manufaturer sets the MAC address.  Given a MAC address, we can
+discover the manufacturer.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> WiFi</h3>
+<sectionX  id="text-2-2">
+
+<section id="fig:ethernet-wifi" class="figure">
+<p><img src="./ethernet-wifi.jpg" alt="ethernet-wifi.jpg" align="center" width="100%" />
+</p>
+<p><span class="figure-number">Figure 2:</span> Ethernet Frame v Wifi Frame  [Source: Web]</p>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> WiFi #2</h3>
+<sectionX  id="text-2-3">
+<ol class="org-ol">
+<li>WEP Wired Equivalent Privacy (WEP)
+</li>
+<li>WPA2 <a href="https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access">https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access</a> Required Reading
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Bluetooth</h3>
+<sectionX  id="text-2-4">
+<ol class="org-ol">
+<li><a href="http://cs.stanford.edu/people/eroberts/courses/soco/projects/2003-04/wireless-computing/sec_bluetooth.shtml">Bluetooth Security</a> Highly Recommended Reading
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> NFC (Near Field Communication)</h3>
+<sectionX  id="text-2-5">
+<ol class="org-ol">
+<li><a href="https://developer.android.com/guide/topics/connectivity/nfc/index.html">https://developer.android.com/guide/topics/connectivity/nfc/index.html</a>
+   Highly Recommended Reading
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Networking Protocols</h2>
+<sectionX  id="text-3">
+</section><section id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> IP</h3>
+<sectionX  id="text-3-1">
+<ol class="org-ol">
+<li>Every IP <b>datagram</b> (packet) has Sender's IP address, Receiver's IP
+address
+</li>
+
+<li>Data payload is one of: TCP packet, UDP packet, &#x2026;
+</li>
+
+<li>The Receiver's IP address makes it possible to route the datagram.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> IP Addresses</h3>
+<sectionX  id="text-3-2">
+<ol class="org-ol">
+<li>IPv4: 4 bytes + 4   bytes.
+<ol class="org-ol">
+<li>Each byte value is written in decimal. Separated by a dot.
+</li>
+<li>Ex: 192.168.17.243; 127.0.0.1
+</li>
+</ol>
+</li>
+
+<li>IPv6: 16 bytes + 16 bytes.  
+<ol class="org-ol">
+<li>Each 2-byte value written as 4 hex digits. Separated by a colon.
+</li>
+<li>Ex: 2001:0db8:85a3:08d3:1319:8a2e:0370:7348
+</li>
+<li>The world was supposed to have switched to IP6 in 2008.  Real
+Soon Now.
+</li>
+</ol>
+</li>
+
+<li>IP addresses are set at boot time by the OS.
+
+<ol class="org-ol">
+<li>IP addresses are assigned by <a href="https://www.iana.org/">https://www.iana.org/</a>.
+</li>
+
+<li>There are private ranges of IP addresses that we can choose
+without permission.
+</li>
+
+<li>Given a public IP address, we can discover its rough location.
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> IP Routers</h3>
+<sectionX  id="text-3-3">
+<ol class="org-ol">
+<li>Route = a path from sender to receiver, via 0 or more (intermediaries
+known as) routers/ gateways
+</li>
+
+<li>Router == computer system specializing in routing
+<ol class="org-ol">
+<li>Multiple network cards
+</li>
+<li>Routing Table
+</li>
+</ol>
+</li>
+
+<li>ARP Address Resolution Protocol: Needs to know the IP address to
+Ethernet address mapping of the LANs
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Port Numbers</h3>
+<sectionX  id="text-3-4">
+<ol class="org-ol">
+<li>OS produced 16-bit (abstract) numbers; now "standardized" in  <code>/etc/services</code>
+</li>
+<li>TCP port# separate from UDP port#
+</li>
+<li>The port#s are part of the TCP packet
+</li>
+<li>Privileged: 0 .. 1024; Ordinary users should use: &gt; 1024
+</li>
+<li><a href="http://www.iana.org/assignments/port-numbers">http://www.iana.org/assignments/port-numbers</a>
+</li>
+<li>Sockets v Ports
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> TCP Transmission Control Protocol</h3>
+<sectionX  id="text-3-5">
+<ol class="org-ol">
+<li>Segments = TCP packets, contain
+<ol class="org-ol">
+<li>sender's and receiver's port numbers
+</li>
+<li>data payload
+</li>
+</ol>
+</li>
+
+<li>TCP is connection-oriented
+<ol class="org-ol">
+<li>3-way hand shake to establish a connection
+</li>
+<li>4-way hand shake to terminate a connection
+</li>
+</ol>
+</li>
+
+<li>TCP is reliable but slower :: UDP unreliable but faster
+</li>
+<li>TCP has many features: congestion adjustment, duplex, &#x2026;
+</li>
+<li>Several variations in TCP implementations
+E.g., read  <a href="http://inst.eecs.berkeley.edu/~ee122/fa05/projects/Project2/SACKRENEVEGAS.pdf">Tahoe, Reno, New-Reno, SACK and Vegas</a> 2005.  Reference.
+</li>
+
+<li><a href="./TCPIP-CEG4420.ppt">./TCPIP-CEG4420.ppt</a> TCP/IP Refresher, 2014.  Required Reading.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-6" class="outline-3">
+<h3 id="sec-3-6"><span class="section-number-3">3.6</span> DNS, Domain Name Service</h3>
+<sectionX  id="text-3-6">
+<ol class="org-ol">
+<li>Translate a mnemonic name, e.g., www.google.com, to its IP address
+173.194.46.81
+</li>
+
+<li>Fully Qualified Host Name
+</li>
+
+<li>Domain Name servers
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-3-7" class="outline-3">
+<h3 id="sec-3-7"><span class="section-number-3">3.7</span> ssh, Secure Shell Client+Server</h3>
+<sectionX  id="text-3-7">
+<ol class="org-ol">
+<li><a href="http://cecs.wright.edu/~pmateti/Courses/2350/Labs/Network/NetworkLab.html">Networking Intro</a> from <a href="http://cecs.wright.edu/~pmateti/Courses/2350">CEG2350</a> by <a href="http://cecs.wright.edu/~pmateti/">pmateti</a>
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-3-8" class="outline-3">
+<h3 id="sec-3-8"><span class="section-number-3">3.8</span> VPN, Virtual Private Network</h3>
+<sectionX  id="text-3-8">
+<ol class="org-ol">
+<li><a href="http://cecs.wright.edu/~pmateti/Courses/2350/Labs/Network/NetworkLab.html">Networking Intro</a> from <a href="http://cecs.wright.edu/~pmateti/Courses/2350">CEG2350</a> by <a href="http://cecs.wright.edu/~pmateti/">pmateti</a>
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+<section id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Network Setup and Utilities</h2>
+<sectionX  id="text-4">
+<ol class="org-ol">
+<li><a href="http://cecs.wright.edu/~pmateti/Courses/4420/NetUtils/index.html">http://cecs.wright.edu/~pmateti/Courses/4420/NetUtils/index.html</a>
+   Required Reading
+</li>
+</ol>
+</section>
+
+
+<section id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Network Config Files (on Linux)</h3>
+<sectionX  id="text-4-1">
+<ol class="org-ol">
+<li><code>/etc/resolv.conf</code> DNS details
+<ol class="org-ol">
+<li>nameserver 130.108.2.10
+</li>
+<li>nameserver 8.8.8.8
+</li>
+</ol>
+</li>
+
+<li><code>/etc/hosts</code> Table of IP addresses and their FQHNM (mnemonic host names)
+</li>
+<li><code>/etc/network/interfaces</code> (Unless using wicd or network-manager)
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+
+
+<section id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Network Security</h2>
+<sectionX  id="text-5">
+</section><section id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Security Requirements</h3>
+<sectionX  id="text-5-1">
+<ol class="org-ol">
+<li>We use the term <b>message</b> as an abstraction of a series of related
+packets that can be defined rigorously in the context of a network
+protocol.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Security Requirements</h3>
+<sectionX  id="text-5-2">
+<ol class="org-ol">
+<li>Message <b>integrity</b> is the guarantee that the (i) body content, (ii)
+the identity of recipient, and (iii) the identity of the sender
+have not been altered (in transit).
+</li>
+
+<li><b>Delivery</b>: We expect a message to be received by the intended in a
+finite (say a few seconds) amount of time after being sent.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Security Requirements</h3>
+<sectionX  id="text-5-3">
+<ol class="org-ol">
+<li><b>Non-repudiation</b> is often considered a legal concept.  But, here
+we are concerned with (i) a receiver after having received a
+message denies receiving, (ii) a sender after having sent a message
+denies sending.  We wish to have proof of delivery of a message.
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> Security Requirements</h3>
+<sectionX  id="text-5-4">
+<ol class="org-ol">
+<li>A message may be intercepted, without violating the integrity.
+This is loss of <b>confidentiality</b>.  It is often unstated but the
+message is intended for the eyes of the named recipient.
+</li>
+
+<li><b>Authenticity</b> establishes to the recipient that the message was
+indeed composed by the sender.
+</li>
+</ol>
+</section>
+</section>
+
+
+<section id="outline-container-sec-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> Passive Exploits</h3>
+<sectionX  id="text-5-5">
+<ol class="org-ol">
+<li>Passive: Do not alter the network stream
+</li>
+
+<li>Sniffing
+</li>
+
+<li>Traffic Analysis
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-5-6" class="outline-3">
+<h3 id="sec-5-6"><span class="section-number-3">5.6</span> Active Exploits</h3>
+<sectionX  id="text-5-6">
+<ol class="org-ol">
+<li>Many of these discussed in detail later.
+</li>
+<li>Active: Alter the network stream
+</li>
+<li>IP address spoofing
+</li>
+<li>MitM (Man-in-the-Middle) Attacks
+</li>
+<li>DoS (Denial of service) attacks
+</li>
+<li>DDoS (Distributed Denial of service) attacks
+</li>
+</ol>
+</section>
+</section>
+
+<section id="outline-container-sec-5-7" class="outline-3">
+<h3 id="sec-5-7"><span class="section-number-3">5.7</span> Active Exploits #2</h3>
+<sectionX  id="text-5-7">
+<ol class="org-ol">
+<li>Insertion Attacks
+</li>
+<li>ARP Poisoning in the LAN
+</li>
+<li>DNS Poisoning
+</li>
+<li>Sniper: Terminate a connection
+</li>
+<li>Hijacking a connection
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+
+<section id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> References</h2>
+<sectionX  id="text-6">
+<ol class="org-ol">
+<li><a href="http://cecs.wright.edu/~pmateti/">Prabhaker Mateti</a>, Overview of TCP/IP Suite of Protocols,
+<a href="./TCPIP-CEG4420.ppt">./TCPIP-CEG4420.ppt</a>, 2014.  Required Reading.
+</li>
+
+<li>Prabhaker Mateti, <a href="http://cecs.wright.edu/~pmateti/Courses/4420/NetUtils/index.html">Network Setup and Utilities</a>. 2013. Required Reading.
+</li>
+
+<li>Eric Roberts, <a href="http://cs.stanford.edu/people/eroberts/courses/">http://cs.stanford.edu/people/eroberts/courses/</a> The
+Intellectual Excitement of Computer Science; Internet 2; Wireless
+Computing.  201x. Highly Recommended Reading
+</li>
+
+<li>UC Berkeley Student Project, "A Comparative Analysis of TCP Tahoe,
+Reno, New-Reno, SACK and Vegas", <a href="http://inst.eecs.berkeley.edu/~ee122/fa05/projects/Project2/SACKRENEVEGAS.pdf">PDF</a>, 2005.  Reference
+</li>
+
+<li>Prabhaker Mateti, "Hacking Techniques in Wireless Networks", in The
+Handbook of Information Security, pp 991 - 1001, ISBN:
+0-471-64833-7, John Wiley, December 2005. <a href="http://cecs.wright.edu/~pmateti/Research/WirelessHacks-Mateti-2004.pdf">PDF</a>. Required Reading.
+</li>
+
+<li>WPA2 <a href="https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access">https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access</a> Required Reading
+</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="postamble" class="status">
+<hr size=1>Copyright &copy; 2015 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> 2015-08-11
+</section>
+</body>
+</html>
+</section>
+</section>
+</div>
+</div>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/lib/js/head.min.js"></script>
+<script src="http://www.cs.wright.edu/~pmateti/RevealJS/js/reveal.js"></script>
+
+<script>
+  Reveal.initialize({
+  controls: true,
+  progress: true,
+  history: false,
+  center: true,
+  slideNumber: true,
+  rollingLinks: true,
+  keyboard: true,
+  overview: true,
+  theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+  transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+  transitionSpeed: 'default',
+
+  dependencies: [
+  { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+  { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+  { src: 'plugin/zoom-js/zoom.js', async: true },
+  { src: 'plugin/notes/notes.js', async: true }
+  ]
+  });
+</script>
+
+

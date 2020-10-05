@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Testing Overview</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Testing Overview"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-10-22T14:03-0400"/>
+<meta name="author" content="Prabhaker Mateti"/>
+<meta name="description" content="CS7140 Software Engineering Lecture"/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<style> @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="../../Lectures"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div>
+
+<div id="preamble">
+<a href="http://cecs.wright.edu/~pmateti/Courses/7140/">CS 7140 Advanced Software Engineering</a>
+</div>
+
+<div id="content">
+<h1 class="title">Testing Overview</h1>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Overview/Goals</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<ol>
+<li>You may have understood testing on very intuitive basis
+</li>
+<li>Make this understanding more rigorous
+</li>
+<li>Software testing v testing in engineering
+
+</li>
+<li>Software Test Design Goal: "hope" to fail
+<ul>
+<li>"Testing shows the presence, not the absence, of bugs"
+</li>
+<li>&ndash; Edsger W. Dijkstra, 1969, Turning Award Winner 1972
+
+</li>
+</ul>
+
+</li>
+<li>Goal of Debugging: Identify the location where errant behavior begins
+<ol>
+<li>Definition of a "Errant Behavior"
+</li>
+<li>Can we recognize errant behavior?  How soon?
+
+</li>
+</ol>
+
+</li>
+<li>Repeatability of Tests
+<ol>
+<li>In the presence of concurrency
+
+</li>
+</ol>
+
+</li>
+<li>Test Suites
+<ol>
+<li><a href="http://en.wikipedia.org/wiki/Smoke_testing">"Smoke" Test</a>
+</li>
+<li>Conformance/ Acceptance Tests
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Regression_testing">Regression</a>
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Definition of a "Test"</h2>
+<div class="outline-text-2" id="text-2">
+
+<ol>
+<li>test io pair: input and its <b>expected</b> output
+<ol>
+<li>"test vector" refers to the inputs
+</li>
+</ol>
+
+</li>
+<li>input includes: actual arguments, state of files, databases, &hellip;
+<ol>
+<li>everything the program "reads"
+</li>
+</ol>
+
+</li>
+<li>output: as above
+<ol>
+<li>everything the program "writes"
+</li>
+</ol>
+
+</li>
+<li>test fails if <b>observed</b> output != expected
+</li>
+<li>hangs v crashes
+</li>
+<li>Performance tests
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Test Generation</h2>
+<div class="outline-text-2" id="text-3">
+
+<ol>
+<li>Generate the io pairs, with high likelihood of test failures
+</li>
+<li>Assume for now that input is text, and the output is text
+</li>
+<li>when it is a test of an "internal" component, the io may not be a
+     "text/text" pair
+<ol>
+<li>Unit testing solves this problem
+</li>
+</ol>
+
+</li>
+<li>Considerable research on: Formal specs  =&gt; Tests
+
+<ol>
+<li>Offutt, Jeff, and Aynur Abdurazik. "Generating tests from UML
+        specifications." In «UML»’99—The Unified Modeling Language,
+        pp. 416-429. Springer Berlin Heidelberg, 1999.  Reference
+
+</li>
+<li>Pradel, Michael, and Thomas R. Gross. "Leveraging test
+        generation and specification mining for automated bug
+        detection without false positives." In 34th International
+        Conference on Software Engineering (ICSE),
+        pp. 288-298. IEEE, 2012.  Reference
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Test Coverage</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<ol>
+<li>Can we test with all inputs?
+</li>
+<li>Can we construct tests that exercise every line of code?
+</li>
+<li>Statement coverage: Touch each statement once
+</li>
+<li>Branch coverage: Execute each branch after a condition statement
+</li>
+<li>Path coverage: Execute all paths through the code
+</li>
+<li>Tools to track coverage
+<ol>
+<li>C/C++: gprof, gcov/lcov, googletest, &hellip;
+</li>
+<li>Java: eCobertura, <a href="http://codecover.org/">CodeCover</a>, EclEmma  
+</li>
+</ol>
+
+</li>
+<li>Does 100% coverage guarantee that software is fault-free?
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Testing Techniques</h2>
+<div class="outline-text-2" id="text-5">
+
+<ol>
+<li>Black box testing (aka functional testing)
+</li>
+<li>White box testing (aka structural testing)
+</li>
+<li>Worst/Special Case Testing
+<ol>
+<li>Errors seem to cluster at boundaries
+</li>
+<li>what if values fall outside their ranges
+</li>
+<li>"Torture" Tests
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Equivalence Class Testing</h2>
+<div class="outline-text-2" id="text-6">
+
+
+<ol>
+<li>Goal: Reduction of human/computer testing effort
+</li>
+<li>Divide the test vectors into subsets so that test coverage is the same
+</li>
+<li>The program is likely constructed so that it either succeeds or 
+      fails for each of the values in that class
+</li>
+<li>To test for robustness: for each equivalence class of valid
+      inputs, devise equivalence classes of invalid inputs
+</li>
+<li>"cover" a class: Construct tests choosing one value from the class
+</li>
+<li>The goal is to cover all equivalence classes
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Unit testing, Integration Testing</h2>
+<div class="outline-text-2" id="text-7">
+
+
+<ol>
+<li>OOP and programming language (PL) neutral term "unit"  cf. class, method
+</li>
+<li>Unit test: test one invocation of one method of one isolated class with
+   one thread
+</li>
+<li>Tools for unit testing: JUnit and TestNG (both for any JVM based PL)
+</li>
+<li>Integration test: Test (all) the units together. It occurs after
+   unit testing and before validation testing.
+</li>
+<li>see separate lecture
+</li>
+</ol>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Testing of Interactive Programs</h2>
+<div class="outline-text-2" id="text-8">
+
+<ol>
+<li>Input generated in "real" time
+</li>
+<li>Output observed in "real" time
+</li>
+<li>Correctness judgement?
+</li>
+<li>Book: Don Libes, "Exploring Expect: A Tcl-based Toolkit for
+   Automating Interactive Programs", O'Reilly Media, Inc., 2010, 606
+   pages.  Look it up in WSU Library Safari Books.
+</li>
+<li>The "expect" is a standard package in Debian/Ubuntu systems
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> Mutation Testing</h2>
+<div class="outline-text-2" id="text-9">
+
+<ol>
+<li>How "good" are the tests?
+</li>
+<li>Simple Source Code Mutations
+<ol>
+<li>Replace &amp;&amp; in boolexp with ||
+</li>
+<li>Replace if B then S fi with while B do S od
+</li>
+<li>Exchange parameters/args (of the same type)
+</li>
+</ol>
+
+</li>
+<li>Does a test distingguish actual software S from a mutated S'.
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Mutation_testing">http://en.wikipedia.org/wiki/Mutation_testing</a>  Required Reading.
+</li>
+<li>IntelliJ IDEA + Eclipse plugin <a href="http://pitest.org/quickstart/mutators/">http://pitest.org/quickstart/mutators/</a>
+</li>
+<li>Eclipse Plugin <a href="http://muclipse.sourceforge.net/">http://muclipse.sourceforge.net/</a>
+<ol>
+<li>inactive 2011; so activate it!
+</li>
+<li><a href="http://cs.gmu.edu/~offutt/mujava/">http://cs.gmu.edu/~offutt/mujava/</a> is "a mutation system for Java
+      programs. It automatically generates mutants for both
+      traditional mutation testing and class-level mutation
+      testing. µJava can test individual classes and packages
+      &hellip; encapsulated in methods in JUnit classes."
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> Reference</h2>
+<div class="outline-text-2" id="text-10">
+
+
+<ol>
+<li>Book: Glenford J. Myers, The Art of Software Testing, Second
+   Edition Revised and Updated by Tom Badgett and Todd M. Thomas with
+   Corey Sandler John Wiley &amp; Sons, Inc.  2004. Reference.
+
+</li>
+<li>Pfleeger and Atlee, Software Engineering, chapters on Testing.
+   Slides.  Required Reading.
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr size=1>Copyright &copy; 2013 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a>
+</div>
+</body>
+</html>

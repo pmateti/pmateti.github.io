@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Programming Examples with a Software Engineering Perspective</title>
+<!-- 2018-07-19 Thu 21:14 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="WSU CS 7140 Advanced Software Engineering"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./"> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a> 2015-06-15
+</div>
+<div id="content">
+<h1 class="title">Programming Examples with a Software Engineering Perspective</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Tiny.Tiny Examples of Spec/Design</a></li>
+<li><a href="#sec-2">2. JavaCard</a></li>
+<li><a href="#sec-3">3. Knuth's Common Words Problem</a></li>
+<li><a href="#sec-4">4. Knuth, Donald E. "TEX: The Program"</a></li>
+<li><a href="#sec-5">5. A Specification Schema For Indenting Programs</a></li>
+<li><a href="#sec-6">6. A Programmers' Editor</a></li>
+<li><a href="#sec-7">7. Exercises</a></li>
+<li><a href="#sec-8">8. References</a></li>
+<li><a href="#sec-9">9. End</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Tiny.Tiny Examples of Spec/Design</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li><a href="./Dutch-National-Flag">./Dutch-National-Flag</a> Correct by Design example by Dijkstra.
+</li>
+<li><a href="./Quick-Sort">./Quick-Sort</a> Why is it hard to understand and then remember?
+</li>
+<li><a href="./SmallSet">./SmallSet</a> A simple implementation of a set of integers.  Shows
+pre/post and class invariants.
+</li>
+<li><a href="./Condense-Num-Ranges">./Condense-Num-Ranges</a> E.g., given 2 - 9 and 3 -12, condense to
+2 - 12.  Spec and design.
+</li>
+<li><a href="./Magic-Squares">./Magic-Squares</a> Construct n x n matrix of numbers so that columns,
+rows and diagonals add up to the same number.
+</li>
+<li><a href="./Tabulate-Equations">./Tabulate-Equations</a> such as a collection from algebra.  Spec and design.
+</li>
+<li><a href="./Telegram-Problem">./Telegram-Problem</a> The problem of Peter Naur.  Famous people wrote
+buggy solutions!
+</li>
+<li><a href="./Worms">./Worms</a> wiggly worms, some vegetarian, others cannibals.  Presented
+as (i) a software "maintenance" problem, and (ii) as an example of
+writing assertions.
+</li>
+<li><a href="./TicTacToe-JavaFX-UnRedo">./TicTacToe-JavaFX-UnRedo</a> Presented as a software "maintenance"
+problem.  Is it bug free?
+</li>
+<li><a href="./Game-Of-Life">./Game-Of-Life</a> Conway's GoL. Presented as a software "maintenance"
+problem.  TBD Incomplete.
+</li>
+<li><a href="./Columnize-Words">./Columnize-Words</a> Part of /bin/ls spec.
+</li>
+
+<li><a href="./Mark-Error-Pos">./Mark-Error-Pos</a> A required method within a compiler.  Position an
+arrow, and next to it print error numbers.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> JavaCard</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>JavaCard is a subset of Java chosen for small memory, weak-CPU, embedded
+devices.  Widely used in SIM cards and ATM cards.
+</li>
+
+<li>Read further at <a href="./Java-Card">./Java-Card</a>
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Knuth's Common Words Problem</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>"Given a file of text, and a number k, print the k most common words."
+</li>
+<li>Knuth's example of Literate Programming 
+</li>
+<li>Our interest here:  How to describe its spec + design?
+</li>
+<li>Donald E. Knuth, "A Solution to the Common Words Problem",
+Communications of the ACM, 1986, search for PDF link.  Knuth is a
+Turing Award winner. Required Reading.
+</li>
+<li>Read further at <a href="./Knuth-CWP">./Knuth-CWP</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Knuth, Donald E. "TEX: The Program"</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>Knuth, Donald E. "TEX: The Program", Volume B of Computers and
+typesetting. (1986). 624 pages, Addison-Wesley Professional;
+ISBN-10: 0201134373 
+</li>
+
+<li>An example of Literate Programming.
+</li>
+
+<li>One and only one review (last I looked) on Amazon.com:  "This book is
+extremely valuable to those hoping to understand and reuse Knuth's
+classic typesetting algorithms. It contains every detail needed for
+the implementation. Each section has a number associated with the
+source code. Besides, it can also serve as an excellent example of
+a large project for computer science students. One can understand
+better "the art of computer programming" after reading this book."
+Recommended Reading <code>;-)</code>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> A Specification Schema For Indenting Programs</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li><a href="http://onlinelibrary.wiley.com/doi/10.1002/spe.4380130206/abstract">http://onlinelibrary.wiley.com/doi/10.1002/spe.4380130206/abstract</a>
+Abstract: "A two level specification of the functional behaviour of a
+class of indenting programs for Pascal is presented. The
+transformation that these programs perform on the input text is a
+composition of splitting input lines, altering the blank space
+between lexical tokens and computing the margin required in front
+of each of the split lines. The high level specification is given
+as a stylized Pascal grammar in Extended BNF. In contrast, the low
+level specifications, which are operationally closer to a program,
+and which define how syntactically invalid text is dealt with,
+require several mathematical functions that capture the essence of
+these basic transformations. The specifications of an indenting
+program for Pascal are then obtained as a further elaboration of
+these functions. Most indentation styles appearing in the
+literature can be specified with precision using methods developed
+in this paper."
+</li>
+
+<li>Read further at <a href="./Pretty-Printer">./Pretty-Printer</a>  Spec + Design.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> A Programmers' Editor</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>Editors suitable for developing code.
+</li>
+<li>Read further at <a href="./Editor">./Editor</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Exercises</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li><a href="../Examples/Exercises">Divide Chess-Board-Minus1 into Ls</a>  Apparantly an interview question.
+</li>
+
+<li><a href="../Specs/spec-examples-small.html#sec-2">Mark Errors</a> A "debugging" problem from Systematic Programming book
+by Niklaus Wirth.  Several <a href="../Examples/Mark-Error-Pos/mark-error-pos.cpp.html">"solutions"</a> are presented.  Figure out
+which ones are correct.  Preferably use assertions.
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> References</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li>Others and Bertrand Meyer, "How Specifications Change and Why You
+Should Care" <a href="http://arxiv.org/pdf/1211.4775v2.pdf">PDF</a> Jan 2013. Required Reading.
+</li>
+
+<li>Donald E. Knuth, "A Solution to the Common Words Problem",
+Communications of the ACM, 1986, search for PDF link.  Knuth is a
+Turing Award winner. Required Reading.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> End</h2>
+<div class="outline-text-2" id="text-9">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2015 &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2015-06-15
+</div>
+</body>
+</html>

@@ -1,0 +1,3 @@
+It's on by default in Mac OS Leopard, to check if your CPU supports this option you can use e.g. SiSoft Sandra trial or others -- launch the application, choose CPU and see if XD/NX option is enabled. To enable it in Windows right-click My Computer -> Properties -> Advanced tab -> Performance -> Data Execution Prevention (turn on and restart Windows). 
+
+http://en.wikipedia.org/wiki/NX_bit

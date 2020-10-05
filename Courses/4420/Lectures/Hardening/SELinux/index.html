@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>SELinux</title>
+<!-- 2017-09-10 Sun 07:52 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">SELinux</h1>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> DAC</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Linux has Discretionary Access Control as a default permissions
+model
+</li>
+
+<li>Examples: File permissions (chmod)
+</li>
+<li>Examples: Process ownership
+</li>
+
+<li>The user (subject) has discretion to set or not security policies.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> MAC</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>Mandatory Access Control enforces a central policy on a system
+</li>
+<li>MAC enforcement requires all policies to be specified by an
+administrator.  Users cannot change these policies
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Principles</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>privilege of least authority
+<ol class="org-ol">
+<li>The principle of least authority says you should only give
+the minimum privilege needed
+</li>
+</ol>
+</li>
+
+<li>fine-grained access control permission to kernel objects
+<ol class="org-ol">
+<li>Read/write permissions are coarse
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> SELinux</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>Disables root user priviledges
+</li>
+<li>Several administrative roles with limited extra privileges
+</li>
+<li>Example: Changing passwords does not require root access to
+setting up firewalls
+</li>
+</ol>
+
+
+<ol class="org-ol">
+<li>Multi-level security: Declassified, Secret, Top-Secret, etc.
+<ol class="org-ol">
+<li>In MLS, only a trusted declassifier can lower the secrecy
+of a file
+</li>
+<li>Users with appropriate privilege can read classified files,
+but cannot output their contents to lower secrecy levels
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> SELinux Example</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>Suppose I want to read a secret file
+</li>
+<li>In SELinux, I transition to a secret role to do this
+<ol class="org-ol">
+<li>This role is restricted:
+<ol class="org-ol">
+<li>Cannot write to the network
+</li>
+<li>Cannot write to declassified files
+</li>
+</ol>
+</li>
+<li>Secret files cannot be read in a declassified role
+</li>
+</ol>
+</li>
+<li>Idea: Policies often require applications/users to give up
+some privileges (network) for others (access to secrets)
+       General principles
+</li>
+<li>Secrecy (Bell-LaPadula)
+<ol class="org-ol">
+<li>No read up, no write down
+</li>
+<li>In secret mode, you can’t write a declassified file, or read
+top-secret data
+</li>
+</ol>
+</li>
+<li>Integrity (Biba)
+<ol class="org-ol">
+<li>No write up, no read down
+</li>
+<li>A declassified user can’t write garbage into a secret file
+</li>
+<li>A top-secret application can’t read input/load libraries
+from an untrusted source (reduce risk of compromise)
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> SELinux Policies</h3>
+<div class="outline-text-3" id="text-4-2">
+<ol class="org-ol">
+<li>Written by an administrator in a SELinux-specific
+language
+<ol class="org-ol">
+<li>Often written by an expert at Red Hat and installed
+wholesale
+</li>
+<li>Difficult to modify or write from scratch
+</li>
+</ol>
+</li>
+<li>Very expansive&#x2014;covers all sorts of subjects, objects, and
+verbs
+  Key Points of Interest
+</li>
+<li>Role-Based Access Control (RBAC)
+</li>
+<li>Type Enforcement
+</li>
+<li>Linux Security Modules (LSM)
+<ol class="org-ol">
+<li>Labeling and persistence
+Role-Based Access
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Control</h3>
+<div class="outline-text-3" id="text-4-3">
+<ol class="org-ol">
+<li>Idea: Extend or restrict user rights with a role that
+captures what they are trying to do
+</li>
+<li>Example: I may browse the web, grade labs, and
+administer a web server
+<ol class="org-ol">
+<li>Create a role for each, with different privileges
+</li>
+<li>My grader role may not have network access, except to
+blackboard
+</li>
+<li>My web browsing role may not have access to my home
+directory files
+</li>
+<li>My admin role and web roles can’t access students’ labs
+Roles vs. Restricted
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Context</h3>
+<div class="outline-text-3" id="text-4-4">
+<ol class="org-ol">
+<li>Win2k ACLs allow a user to create processes with a
+subset of his/her privileges
+</li>
+<li>Roles provide the same functionality
+<ol class="org-ol">
+<li>But also allow a user to add privileges, such as
+administrative rights
+</li>
+</ol>
+</li>
+<li>Roles may also have policy restrictions on who/when/
+how roles are changed
+<ol class="org-ol">
+<li>Not just anyone (or any program) can get admin privileges
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> The power of RBAC</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Conditional access control
+</li>
+<li>Example: Don’t let this file go out on the internet
+<ol class="org-ol">
+<li>Create secret file role
+<ol class="org-ol">
+<li>No network access, can’t write any files except other secret
+files
+</li>
+<li>Process cannot change roles, only exit
+</li>
+<li>Process can read secret files
+</li>
+</ol>
+</li>
+<li>I challenge you to express this policy in Unix permissions!
+</li>
+</ol>
+<p>
+Roles vs. Specific Users
+</p>
+</li>
+<li>Policies are hard to write
+</li>
+<li>Roles allow policies to be generalized
+<ol class="org-ol">
+<li>Users everywhere want similar restrictions on their
+browser
+</li>
+</ol>
+</li>
+<li>Roles eliminate the need to re-tailor the policy file for
+every user
+<ol class="org-ol">
+<li>Anyone can transition to the browser role
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Type Enforcement</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>Very much like the fine-grained ACLs we saw last time
+</li>
+<li>Rather than everything being a file, objects are given a
+more specific type
+<ol class="org-ol">
+<li>Type includes a set of possible actions on the object
+<ol class="org-ol">
+<li>E.g., Socket: create, listen, send, recv, close
+</li>
+</ol>
+</li>
+<li>Type includes ACLs based on roles
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Type examples</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li>Device types:
+<ol class="org-ol">
+<li>agp<sub>device</sub><sub>t</sub> - AGP device (/dev/agpgart)
+</li>
+<li>console<sub>device</sub><sub>t</sub> - Console device (/dev/console)
+</li>
+<li>mouse<sub>device</sub><sub>t</sub> - Mouse (/dev/mouse)
+</li>
+</ol>
+</li>
+<li>File types:
+<ol class="org-ol">
+<li>fs<sub>t</sub> - Defaults file type
+</li>
+<li>etc<sub>aliases</sub><sub>t</sub> - /etc/aliases and related files
+</li>
+<li>bin<sub>t</sub> - Files in /bin
+More type examples
+</li>
+</ol>
+</li>
+<li>Networking:
+<ol class="org-ol">
+<li>netif<sub>eth0</sub><sub>t</sub> – Interface eth0
+</li>
+<li>port<sub>t</sub> – TCP/IP port
+</li>
+<li>tcp<sub>socket</sub><sub>t</sub> – TCP socket
+</li>
+</ol>
+</li>
+<li>/proc types
+<ol class="org-ol">
+<li>proc<sub>t</sub> - /proc and related files
+</li>
+<li>sysctl<sub>t</sub> - /proc/sys and related files
+</li>
+<li>sysctl<sub>fs</sub><sub>t</sub> - /proc/sys/fs and related files
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Detailed example</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li>ping<sub>exec</sub><sub>t</sub> type associated with ping binary
+</li>
+<li>Policies for ping<sub>exec</sub><sub>t</sub>:
+<ol class="org-ol">
+<li>Restrict who can transition into ping<sub>t</sub> domain
+<ol class="org-ol">
+<li>Admins for sure, and init scripts
+</li>
+<li>Regular users: admin can configure
+</li>
+</ol>
+</li>
+<li>ping<sub>t</sub> domain (executing process) allowed to:
+<ol class="org-ol">
+<li>Use shared libraries
+</li>
+<li>Use the network
+</li>
+<li>Call ypbind (for hostname lookup in YP/NIS)
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-sec-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> Ping cont.</h3>
+<div class="outline-text-3" id="text-8-1">
+<ol class="org-ol">
+<li>ping<sub>t</sub> domain process can also:
+<ol class="org-ol">
+<li>Read certain files in /etc
+</li>
+<li>Create Unix socket streams
+</li>
+<li>Create raw ICMP sockets + send/recv on them on any interface
+</li>
+<li>setuid (Why? Don’t know)
+</li>
+<li>Access the terminal
+</li>
+<li>Get file system attributes and search /var (mostly harmless
+operations that would pollute the logs if disallowed)
+<ol class="org-ol">
+<li>Violate least privilege to avoid modification!
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> Full ping policy</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+01 type ping<sub>t</sub>, domain, privlog;
+02 type ping<sub>exec</sub><sub>t</sub>, file<sub>type</sub>, sysadmfile, exec<sub>type</sub>; 19
+03 role sysadm<sub>r</sub> types ping<sub>t</sub>;                         20 auditallow ping<sub>t</sub> any<sub>socket</sub><sub>t</sub>:rawip<sub>socket</sub>
+04 role system<sub>r</sub> types ping<sub>t</sub>;                         sendto;
+05                                                     21
+06 # Transition into this domain when you run this     22 # Let ping receive ICMP replies.
+program.                                               23 allow ping<sub>t</sub> { self icmp<sub>socket</sub><sub>t</sub> }:rawip<sub>socket</sub>
+07 domain<sub>auto</sub><sub>trans</sub>(sysadm<sub>t</sub>, ping<sub>exec</sub><sub>t</sub>, ping<sub>t</sub>)    recvfrom;
+</p>
+<ol class="org-ol">
+<li>domain<sub>auto</sub><sub>trans</sub>(initrc<sub>t</sub>, ping<sub>exec</sub><sub>t</sub>, ping<sub>t</sub>)   24
+</li>
+</ol>
+<p>
+09                                                     25 # Use capabilities.
+10 uses<sub>shlib</sub>(ping<sub>t</sub>)                                  26 allow ping<sub>t</sub> self:capability { net<sub>raw</sub> setuid };
+11 can<sub>network</sub>(ping<sub>t</sub>)                                 27
+12 general<sub>domain</sub><sub>access</sub>(ping<sub>t</sub>)                       28 # Access the terminal.
+13 allow ping<sub>t</sub> { etc<sub>t</sub> resolv<sub>conf</sub><sub>t</sub> }:file { getattr 29 allow ping<sub>t</sub> admin<sub>tty</sub><sub>type</sub>:chr<sub>file</sub>
+read };                                                rw<sub>file</sub><sub>perms</sub>;
+14 allow ping<sub>t</sub> self:unix<sub>stream</sub><sub>socket</sub>                30 ifdef(`gnome-pty-helper.te', `allow ping<sub>t</sub>
+create<sub>socket</sub><sub>perms</sub>;                                   sysadm<sub>gph</sub><sub>t</sub>:fd use;')
+15                                                     31 allow ping<sub>t</sub> privfd:fd use;
+16 # Let ping create raw ICMP packets.                 32
+17 allow ping<sub>t</sub> self:rawip<sub>socket</sub> {create ioctl read   33 dontaudit ping<sub>t</sub> fs<sub>t</sub>:filesystem getattr;
+write bind getopt setopt};                             34
+18 allow ping<sub>t</sub> any<sub>socket</sub><sub>t</sub>:rawip<sub>socket</sub> sendto;      35 # it tries to access /var/run
+                                                       36 dontaudit ping<sub>t</sub> var<sub>t</sub>:dir search;
+</p>
+</div>
+</div>
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> Linux Security Modules</h2>
+<div class="outline-text-2" id="text-10">
+<ol class="org-ol">
+<li>Culturally, top Linux developers care about writing a
+good kernel
+<ol class="org-ol">
+<li>Not as much about security
+</li>
+<li>Different specializations
+</li>
+</ol>
+</li>
+<li>Their goal: Modularize security as much as humanly
+possible
+<ol class="org-ol">
+<li>Security folks write modules that you can load if you care
+about security; kernel developers don’t have to worry
+about understanding security
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> Basic deal</h2>
+<div class="outline-text-2" id="text-11">
+<ol class="org-ol">
+<li>Linux Security Modules API:
+<ol class="org-ol">
+<li>Linux developers put dozens of access control hooks all
+over the kernel
+<ol class="org-ol">
+<li>See include/linux/security.h
+</li>
+</ol>
+</li>
+<li>LSM writer can implement access control functions called
+by these hooks that enforce arbitrary policies
+</li>
+<li>Linux also adds opaque “security” pointer that LSM can
+use to store security info they need in processes, inodes,
+sockets, etc.
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> SELinux example</h2>
+<div class="outline-text-2" id="text-12">
+<ol class="org-ol">
+<li>A task has an associated security pointer
+<ol class="org-ol">
+<li>Stores current role
+</li>
+</ol>
+</li>
+<li>An inode also has a security pointer
+<ol class="org-ol">
+<li>Stores type and policy rules
+</li>
+</ol>
+</li>
+<li>Initialization hooks for both called when created
+SELinux example, cont.
+</li>
+<li>A task reads the inode
+<ol class="org-ol">
+<li>VFS function calls LSM hook, with inode and task pointer
+</li>
+<li>LSM reads policy rules from inode
+</li>
+</ol>
+</li>
+<li>Suppose the file requires a role transition for read
+<ol class="org-ol">
+<li>LSM hook modifies task’s security data to change its role
+</li>
+<li>Then read allowed to proceed
+Problem: Persistence
+</li>
+</ol>
+</li>
+<li>All of these security hooks are great for in memory data
+structures
+<ol class="org-ol">
+<li>E.g., VFS inodes
+</li>
+</ol>
+</li>
+<li>How do you ensure the policy associated with a given
+file persists across reboots?
+     Extended Attributes
+</li>
+<li>In addition to 9+ standard Unix attributes, associate a small
+key/value store with an on-disk inode
+<ol class="org-ol">
+<li>User can tag a file with arbitrary metadata
+</li>
+<li>Key must be a string, prefixed with a domain
+<ol class="org-ol">
+<li>User, trusted, system, security
+</li>
+</ol>
+</li>
+<li>Users must use ‘user’ domain
+</li>
+<li>LSM uses ‘security’ domain
+</li>
+</ol>
+</li>
+<li>Only a few file systems support extended attributes
+<ol class="org-ol">
+<li>E.g., ext2/3/4; not NFS, FAT32
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-13" class="outline-2">
+<h2 id="sec-13"><span class="section-number-2">13</span> Persistence</h2>
+<div class="outline-text-2" id="text-13">
+<ol class="org-ol">
+<li>All ACLs, type information, etc. are stored in extended
+attributes for persistence
+</li>
+<li>Each file must be labeled for MAC enforcement
+<ol class="org-ol">
+<li>Labeling is the generic problem of assigning a type or
+security context to each object/file in the system
+</li>
+<li>Can be complicated
+</li>
+</ol>
+</li>
+<li>SELinux provides some tools to help, based on standard
+system file names and educated guesses
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-14" class="outline-2">
+<h2 id="sec-14"><span class="section-number-2">14</span> Summary</h2>
+<div class="outline-text-2" id="text-14">
+<ol class="org-ol">
+<li>SELinux augments Linux with a much more restrictive
+security model
+<ol class="org-ol">
+<li>MAC vs. DAC
+</li>
+</ol>
+</li>
+<li>Understand Roles and Types
+</li>
+<li>Basic ideas of LSM
+<ol class="org-ol">
+<li>Labeling and extended attributes
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-15" class="outline-2">
+<h2 id="sec-15"><span class="section-number-2">15</span> References</h2>
+</div>
+
+
+<div id="outline-container-sec-16" class="outline-2">
+<h2 id="sec-16"><span class="section-number-2">16</span> End</h2>
+<div class="outline-text-2" id="text-16">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2017 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2017-09-11
+</div>
+</body>
+</html>

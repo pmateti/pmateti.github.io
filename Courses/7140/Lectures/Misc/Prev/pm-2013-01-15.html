@@ -1,0 +1,115 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Software Engineering by Mateti</title>
+<base target="_self">
+<base target="_top">
+<style type="text/css">
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  p { text-align: justify }
+  li {text-align: justify;}
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  @page { size: 8.5in 11in }
+  @media screen {BODY {margin: 12%;} }
+  body {counter-reset: chapter; counter-reset: section;}
+  h2:before {content: counter(section) ". "; counter-increment: section;}
+</style>
+</head>
+
+<body>
+
+<p style="text-align:right">Jan 15, 2013</p>
+
+<h1>Agenda</h1>
+
+<ol>
+  <li> Project
+  <li> Team formation
+  <li> Due date: Requirements
+  <li> Software Maintenance/ jEdit
+  <li> assertions in the small
+</ol>
+
+
+<h1>Software Maintenance</h1>
+
+<ol>
+
+<li>Bug fixes
+<li>Changes in {Requirements, Specifications, Design, Implementation}
+<li>(Sub case of above) While preserving functional specs, improve:
+  speed, memory, code clarity, etc.
+</ol>
+
+<h2>Holzmann's "Ten Rules"</h2>
+
+<ol>
+<li> Restrict to simple control flow constructs.</li>
+<li> Give all loops a fixed upper-bound.</li>
+<li> Do not use dynamic memory allocation after initialization.</li>
+<li> Limit functions to no more than 60 lines of text.</li>
+<li> Use minimally two assertions per function on average.</li>
+<li> Declare data objects at the smallest possible level of scope.</li>
+<li> Check the return value of non-void functions, and check the
+  validity of function parameters.</li>
+<li> Limit the use of the preprocessor to file inclusion and simple
+  macros.</li>
+<li> Limit the use of pointers. Use no more than two levels of
+  dereferencing per expression.</li>
+<li> Compile with all warnings enabled, and use one or more source
+  code analyzers.
+
+<li>
+Gerard J. Holzmann, The Power of Ten -- Rules for Developing Safety
+Critical Code,'' IEEE Computer, June 2006, pp. 93-95.
+<a href="http://spinroot.com/gerard/pdf/P10.pdf">
+  http://spinroot.com/ gerard/ pdf/ P10.pdf</a>. Suggested Reading.
+
+</ol>
+
+<h2>"Good/Bad Code Smells"</h2>
+
+<ol>
+<li> Comments
+<li> Nesting depth
+<li> Duplicated code
+<li> Long method
+<li> Large class. "God object"?
+<li> Refused bequest, contract of the base class 
+<li> Feature envy: a class that uses methods of another class excessively.
+<li> Inappropriate intimacy: dependencies on implementation details of another.
+<li> Data Clumps
+<li> Too many parameters, Lazy class / Freeloader, Excessively long
+identifiers, Excessively short identifiers, Excessive use of literals
+<p></p>
+
+<li> Divergent Change
+<li> Primitive Obsession
+<li> Shotgun Surgery
+<p></p>
+
+<li>
+  Suggested Reading:
+  (i)<a href="http://sourcemaking.com/refactoring/bad-smells-in-code">
+  http://sourcemaking.com/ refactoring/ bad-smells-in-code</a> (ii)
+<a href="http://www.dcs.gla.ac.uk/~hcp/psd/lectures/badsmells.pdf"> http://www. dcs.gla.ac.uk/ ~hcp/psd/ lectures/badsmells.pdf</a>
+(iii) Mäntylä, M. V. and Lassenius, C. "Subjective Evaluation of Software
+Evolvability Using Code Smells: An Empirical Study". Journal of
+Empirical Software Engineering, vol. 11, no. 3, 2006, pp. 395-431.
+<a href="http://www.soberit.hut.fi/~mmantyla/ESE_2006.pdf"> http://www.soberit.hut.fi/ ~mmantyla/ ESE_2006.pdf</a>
+
+</ol>
+
+
+<hr size="1">
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+Copyright</a> &copy; 2013 
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+  Prabhaker Mateti</a>
+</body>
+</html>
+

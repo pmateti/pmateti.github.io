@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <title>BO x86-64 Host Security Lectures by Prabhaker Mateti</title>
+    <meta name="author" content="Prabhaker Mateti">
+    <meta name="keywords" content=
+          "Cyber security, Internet security, Host security">
+    <meta name="description" content=
+          "This page is part of a set of lectures notes for a course on
+           Cyber Security by Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+
+    <style type="text/css">
+      a:hover      { color: blue; background-color: yellow; }
+      a:active     { color: white; background-color: green;}
+      @page { size: 8.5in 11in }
+      P { text-align: justify }
+      @media screen {BODY {margin: 10%;} }
+    </style>
+    <base target="_top">
+  </head>
+  <body>
+
+<h1>pmNotes 2018</h1>
+
+<ol>
+  <li>
+    https://dl.packetstormsecurity.net/papers/attack/64bit-overflow.pdf
+    64 Bits Linux Stack Based Buffer Overflow 12pp
+  <li>
+    https://bytesoverbombs.io/exploiting-a-64-bit-buffer-overflow-469e8b500f10
+    Nov 4, 2017;; Long winded.  Uses Kali, python, metasploit pattern
+    find tool, msfvenom, python payload generator; uses
+    linux/x64/shell_reverse_tcp payload so the remote mc controls our
+    hoast when exploit happens. Explains the real rsp register.
+
+  <li>https://www.exploit-db.com/papers/24085/ Stack Smashing On A
+    Modern Linux System 21 December, 2012;;
+
+  <li>
+    https://www.blackhat.com/presentations/bh-europe-09/Fritsch/Blackhat-Europe-2009-Fritsch-Buffer-Overflows-Linux-whitepaper.pdf 12pp
+    April 16th, 2009
+  <li>
+    disable ASLR: echo 0 > /proc/sys/kernel/randomize_va_space
+    compile: gcc -fno-stack-protector -z execstack -o bo bo.c
+
+  <li>
+    https://users.suse.com/~krahmer/no-nx.pdf 20pp {x86-64 buffer overflow
+    exploits and the borrowed code chunks exploitation technique}
+    Sebastian Krahmer krahmer@suse.de Sep 2005
+
+
+  <li>
+    https://bytesoverbombs.io/getting-into-ctfs-391ae73947bd CTF
+
+</ol>
+
+<hr size="1">
+<a href="lectures.html">Security Lectures by Mateti</a>
+&nbsp; &bull;&nbsp; 
+<a href="mailto:pmateti@wright.edu?subject=CEG4420">pmateti@wright.edu</a>
+&nbsp; &bull;&nbsp;
+Sep 08, 2018
+</body>
+</html>

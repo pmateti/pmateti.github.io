@@ -1,0 +1,31 @@
+
+<html>
+<head>
+<title>BubbleSort.java</title>
+<meta name="generator" content="java2html 0.9.2">
+<meta name="date" content="2013-10-31T14:47:34+00:00">
+</head>
+
+<body bgcolor="#FFFFFF">
+<pre width="80"><strong><font color="#4169E1">public static  void main(String[] args)</font></strong> {
+    int []a = {12,23,43,34,3,6,7,1,9,6};
+    {  
+	int temp;
+	<font color="#4169E1">for</font> (int i = 0;i &lt; a.length;i++) {  
+	    <font color="#4169E1">for</font> (int j = 0;j &lt; a.length-i;j++ ) {
+		<font color="#4169E1">if</font> (a[j]&gt;a[j+1]) {  
+		    temp = a[j];
+		    a[j+1] = a[j];
+		    a[j+1] = temp;
+		}
+	    }
+	}
+    }
+    <font color="#4169E1">for</font>(int i = 0; i &lt; a.length; i++) {
+	System.out.print(a[i] + <font color="#666666">" "</font>);
+    }
+}
+</pre>
+</body>
+
+</html>

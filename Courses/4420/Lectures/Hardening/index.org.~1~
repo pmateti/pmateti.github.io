@@ -1,0 +1,124 @@
+
+# -*- mode: org -*-
+#+date: 2019-10-07
+#+TITLE: Hardening Linux Kernel + Sys Progs
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+# rm -fr Kernel/
+
+* Security Improvements
+
+1. Recall Config vs Fortification vs Hardening
+   [[../Fortification/]]
+
+1. Build and Deploy a Kernel, with selected patches applied.  [[./BuildKernel]]
+1. Past Kernel Exploits and Patches [[../KernelExploits]]
+1. Ideas for Improving Kernel Security [[./SecureKernel]]
+1. Hardening System Programs [[./SysProgs]]
+
+* Hardening Labs
+
+1. Lab on Hardening the Kernel [[./SecureKernel/kernel-lab.html]]
+1. Lab on SysCall Add/ Delete/ Freeze  [[./SysCalls/lab-syscalls.org]]
+1. Lab on Hardening System Programs [[./SysProgs/lab-sysprogs.org]]
+   1. Fall 2019 This lab is not required.
+
+* Case Study: Hardening an FTP + NFS + Web Server
+
+An operating system provides various facilities for processes that do
+a wide variety of jobs. A server machine is dedicated to serve a
+particular type of requests. In a server, all the facilities provided
+by the operating system are not required. Attackers can exploit these
+unnecessary features to compromise the system. Some of these features
+are required only during certain period of time such as during system
+initialization. Some of them are not required at any time. In Linux
+kernel, for example, loadable kernel module (LKM) support, is required
+only during system initialization. We recommend eliminating them at
+compile-time or freezing them dynamically or at least, restricting
+them for better security.
+
+1.  Disable unneeded system calls after initialization.
+1.  Cannot reenable.
+
+1.  Read-Only File System: Attackers with root privileges can have
+    access to any file.  He can also access raw devices and corrupt
+    the file system on it.  We should mount important file volumes as
+    read-only.  But the ordinary mount cannot securely accomplish that
+    because of access to raw devices.  A read-only file system must
+    disable file-write system calls and this would also prevent
+    modifying file system through raw devices.
+
+** Lab Experiment on Harden
+
+You may wish to do this experiment on your own home PC.  Except for the
+steps that replace files in /boot, you do not need to be logged in as
+root.
+
+1.  Download the latest bundle of source code of Linux from
+   https://www.kernel.org/ pub/ linux/ kernel/ Unpack it into
+   some-directory-of-yours/linux-version-number, and establish a
+   symbolic link named =linux= to it.
+
+1.  Select any 5 components from the list of Building a Secure Linux
+    Kernel.  Build your kernel.
+
+1.  Reboot into the new kernel booting from the LXU (Linux-on-USBD)
+.
+   Verify that LXU works properly when its original kernel is replaced
+   by this one.
+
+1.  Develop a quick demo that demonstrates the enhanced security of the kernel.
+
+1.  Bonus Points: Recompile the Linux kernel omitting all features
+    unnecessary for us.  Merge all needed drivers etc into the kernel.
+    That is, loadable modules, and initrd are not needed any more.
+    Verify that LXU works properly when its original kernel is
+    replaced by this one.  
+
+1. Bonus Points: Recompile the Linux kernel, but using a compiler
+   other than gcc, omitting all features unnecessary for us.  Do keep
+   the kernel module structure intact.  Verify that LXU works properly
+   when its original kernel is replaced by this one.
+
+1. Describe in detail your kernel config and observations.
+
+** Trusted OS Loader
+
+1. TrustedGRUB extends the GRUB bootloader with TCG support.  This
+   makes it possible to provide a secure bootstrap architecture.  The
+   whole boot process is measured and - by support of a Trusted
+   Platform Module (TPM) - the system integrity is verifiable.
+
+1. https://github.com/Rohde-Schwarz/TrustedGRUB2
+
+* Recommended Reading
+
+1.  Sowgandh S.  Gadi, Security Hardened Kernels for Linux Servers,
+    http://cecs.wright.edu/ ~pmateti/ GradStudents/ SunilGadi/
+    sgadi-ms-thesis.pdf MS Thesis, 2004, Advisor: Prabhaker Mateti,
+    Wright State U.
+
+1.  Karthik Mohanasundaram, Security Hardening of the Process init of
+    Linux, MS Thesis, 2004.  Advisor: Prabhaker Mateti, Wright State
+    U.
+
+1. http://www.debian.org/security/ Look at the section marked Recent
+   Advisories.
+
+1. http://seclists.org/fulldisclosure/
+
+1.  http://security.stackexchange.com/ Become familiar with the nature
+    and scope of this website.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

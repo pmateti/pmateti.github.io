@@ -1,0 +1,12 @@
+ii  libselinux1:amd64 2.8-1build1 amd64SELinux runtime shared libraries
+ii  libselinux1:i386  2.8-1build1 i386 SELinux runtime shared libraries
+ii  python3-selinux   2.8-1build1 amd64Python3 bindings to SELinux shared libraries
+ii  selinux   1:0.11  all  Security-Enhanced Linux runtime support
+ii  selinux-basics0.5.6   all  SELinux basic support
+ii  selinux-policy-default2:2.20180114-4  all  Strict and Targeted variants of the SELinux policy
+ii  selinux-policy-dev2:2.20180114-4  all  Headers from the SELinux reference policy for building modules
+ii  selinux-policy-doc2:2.20180114-4  all  Documentation for the SELinux reference policy
+ii  selinux-policy-dummy  0.1 all  Empty Security-Enhanced Linux policy (dummy package)
+ii  selinux-policy-mls2:2.20180114-4  all  MLS (Multi Level Security) variant of the SELinux policy
+ii  selinux-policy-src2:2.20180114-4  all  Source of the SELinux reference policy for customization
+ii  selinux-utils 2.8-1build1 amd64SELinux utility programs

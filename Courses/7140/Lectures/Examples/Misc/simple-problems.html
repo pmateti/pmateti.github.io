@@ -1,0 +1,78 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Software Engineering by Mateti</title>
+<base target="_self">
+<base target="_top">
+<style type="text/css">
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  p { text-align: justify }
+  li {text-align: justify;}
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  @page { size: 8.5in 11in }
+  @media screen {BODY {margin: 12%;} }
+  body {counter-reset: section;}
+  h2:before {content: counter(section) ". "; counter-increment: section;}
+</style>
+</head>
+
+<body>
+
+<p style="text-align:right">
+<a href="../../Top">
+CS 7140: Advanced Software Engineering</a> |
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+    Prabhaker Mateti</a><br>
+</p>
+
+<h1>Simple Problems</h1>
+
+<h2>Specifications of /bin/ls</h2>
+
+<p>This is scaling up the size of programs we considered so far.
+
+<p>Current Working Directory
+<p>Raw Listing of CWD contents
+<p>Should /bin/ls take on the responsibility of "correct" cwd listing?
+<p>Columnizing the listing
+
+
+
+<h2>Condense the List of Numbers</h2>
+
+<p>Consider the informal description, given in the next paragraph, of a
+program. Give (a) requirements analysis, (b) precise specifications (using
+logic/discrete mathematics, or in carefully worded English), (c) a design
+in pseudo-code.</p>
+
+<p><i>You are given a comma separated list of items in a text file. The
+list is terminated with a period. Each item is either a number, or a hyphen
+separated pair of numbers. Your program should condense this list as much
+as possible, as can be seen from the following examples.</i>
+
+<p><tt>1,3,4,2,6,5,8,5,7. becomes</tt>
+<br><tt>1-8.</tt>
+
+<p><tt>9,100-4870,4993,4871-4875,5016,5118,7-250,5100-5123. becomes</tt>
+<br><tt>7-4875,4993,5016,5100-5123.</tt>
+
+<p><tt>1103,1023-1100,87654321,1050-1150,1110,1250-1344. becomes</tt>
+<br><tt>1023-1150,1250-1344,87654321.</tt>
+
+<h2>Miscellaneous</h2>
+
+<p>
+Write a linearSearch.cpp as best as possible.
+
+<hr size="1">
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+copyright</a> &copy; 2013 
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+  prabhaker mateti</a>
+</body>
+</html>
+

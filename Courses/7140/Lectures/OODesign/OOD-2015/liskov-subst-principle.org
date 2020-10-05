@@ -1,0 +1,46 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+STYLE: <style> @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-preamble-format (("en" "<a href=\"http://cecs.wright.edu/~pmateti/Courses/7140/\">CS 7140 Advanced Software Engineering</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+TITLE: Liskov Substitution Principle
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+
+
+
++ Let /q(x)/ be a property provable about objects of type T.  Then /q(y)/
+  should be provable for objects y of type S where S is a subtype of
+  T.
+
+Less formal statements of the above are:
+
+1. Derived Types must be substitutable for Base Types.
+1. "Functions that use pointers or references to base classes must
+   be able to use objects of derived classes without knowing it."
+
+1. LSP defines a subtyping relation known as /(strong) behavioral
+   subtyping/
+  1. Preconditions cannot be strengthened in a subtype.
+  1. Postconditions cannot be weakened in a subtype.
+  1. Invariants of the supertype must be preserved in a subtype.
+1. OOD Open-Close Principle: Open for extension but Closed for modifications
+
+In the context of Java and C++, treat "type" as a synonym for "class".
+
+* References
+
+1. Liskov, Barbara H., and Jeannette M. Wing. "A behavioral notion of
+   subtyping." ACM Transactions on Programming Languages and Systems
+   (TOPLAS) 16.6 (1994): 1811-1841.
+   http://www.cse.ohio-state.edu/~neelam/courses/788/lwb.pdf.   Liskov is a
+   Turing Award Winner 2008.  Required Reading.
+
+1. Web site, http://www.oodesign.com  Recommended Visit
+
+1. Bob Tarr, UMBC.edu,
+   [[http://userpages.umbc.edu/~tarr/dp/lectures/OOPrinciples.pdf][Some
+   OOD Principles]] PDF Slides Recommended Reading

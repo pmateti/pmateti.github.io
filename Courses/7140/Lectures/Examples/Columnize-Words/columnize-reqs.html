@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-02-01 Wed 19:36 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Core of /bin/ls: Columnize</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="CEG7380 Cloud Computing"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Core of /bin/ls: Columnize</h1>
+<p>
+This is an example of re-doing <code>/bin/ls</code>, a well-known utility of Unix.
+We wish to consider requirements, specs, design, and implementation of
+<code>ls</code>.  Several sections are deliberately shown incompletely.
+</p>
+
+<ol class="org-ol">
+<li><a href="../terminology.html">../terminology.html</a></li>
+<li><a href="http://man7.org/linux/man-pages/man1/ls.1.html">http://man7.org/linux/man-pages/man1/ls.1.html</a></li>
+</ol>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">1</span> Requirements</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Requirements Doc</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Make sure you experience the /bin/ls, i.e., run it a few times in
+different directories.  Observe its output.  Read its man page.  Think
+about what its requirements would have been, had this <code>ls</code> been a new
+program to design.  But, it does exist.
+</p>
+
+<p>
+So, we will assume that we re-wrote the requirements document.  It is
+a learning experience to actually produce this document in full.
+Exercise for you!
+</p>
+
+<p>
+Here are the important statements of our requirements.
+</p>
+
+<ol class="org-ol">
+<li>We wish to have a clone of <code>/bin/ls</code>, CLS, but implemented in Java/
+Kotlin/ Scala.  Note that the "standard" /bin/ls of Linux is from
+the FOSS GNU collection, written in plain C.  We will refer to this
+as GNULS.</li>
+
+<li>The performance of CLS should be "comparable" to that of GNULS.
+Must not be slower/ longer than 10% of GNULS.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Classroom Simplification</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li>In the rest of these notes, we will focus on the <code>ls</code> with no
+arguments/ options.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">1.3</span> Requirements Analysis</h3>
+<div class="outline-text-3" id="text-1-3">
+<ol class="org-ol">
+<li>Current Working Directory (CWD)</li>
+<li>Should CLS take on the responsibility of "correct" CWD listing?</li>
+
+<li>Raw Listing of CWD contents, as provided by OS calls.  The ls uses
+several system calls to read the contents of directories, and such.</li>
+
+<li>How long is the longest file name?</li>
+<li>Columnize the listing</li>
+</ol>
+
+<p>
+The rest of these notes focus on <code>columnize</code>.  We occasionally
+re-write the statements from the above paragraphs.  Verify that we are
+not committing any of the "sins".
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">2</span> Columnize: Description</h2>
+<div class="outline-text-2" id="text-2">
+<pre class="example">
+/* Columnize the list of strings pted by r. */
+char * columnize (char r[], unsigned int windowwidth) { ... }
+</pre>
+
+<p>
+The above plain C snippet is to be redone.  Study the declaration of
+the function <code>columnize()</code> and the informal statements of intent shown
+below and give (a) Requirements Analysis, and (b) Specifications of
+<code>columnize()</code>.
+</p>
+
+<p>
+The function should implement the core of the typical command (the
+Unix command <code>ls</code>) to list the contents of a directory in a brief way.
+A list of file names is obtained from the operating system.  This list
+is given to <code>columnize()</code> as the first argument.  In this "list", the
+names are separated by the <code>nul</code> (ascii <code>\0</code>) char; the end of the
+list is indicated by two <code>\0\0</code>.  The <code>columnize()</code> routine must work
+for arbitrarily long r[] inputs, subject only to the available amount
+of memory.  See the performance expectations written above.
+</p>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">2.1</span> Example#1 Input/ Output</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+In the input <code>r[]</code> example two lines are used only for the sake of
+readability.
+</p>
+
+<pre class="example">
+460\0casedl\0g.txi\0gulam\0manifest\0papers\0adapdl\0src\0dotg\0gu.prg\0
+gulam.g\0micrognu\0release\0airforce\0dsd\0gu3.prg\0gulam.hlp\0misc\0se\0\0
+</pre>
+
+<p>
+The string returned by <code>columnize(r, 60)</code> should be 
+</p>
+
+<pre class="example">
+0         1         2         3         4         5
+012345678901234567890123456789012345678901234567890123456789
+460~~~~~|casedl|g.txi~~|gulam~~~~|manifest|papers~|adapdl\n
+src~~~~~|dotg~~|gu.prg~|gulam.g~~|micrognu|release\n
+airforce|dsd~~~|gu3.prg|gulam.hlp|misc~~~~|se\n\0
+</pre>
+
+<p>
+where (i) each blank is shown explicitly as <code>~</code>, (ii) to emphasize the
+columns vertical-bar character is shown, and (iii) the top two lines
+of digits are given only to help with the requirements analysis.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">2.2</span> Example#2 Output windowwidth = 50</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>Actual output of <code>% /bin/ls</code> in my directory
+<code>Sutherland:~/Courses/7140/Lectures</code>.</li>
+</ol>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">0         1         2         3         4         5
+012345678901234567890123456789012345678901234567890123456789
+2017-01-09  Abstraction     OOP
+2017-01-11  Assertions      Overview
+2017-01-18  Bugs            Practices
+2017-01-23  Design          Requirements
+2017-01-25  Examples        SecureProg
+2017-01-30  Implementation  Specs
+2017-02-01  Maintenance     XP-Agile
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">2.3</span> Example#3 Output, Same cwd as above, but windowwidth = 80</h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="org-src-container">
+
+<pre class="src src-bash">0         1         2         3         4         5         6         7   
+01234567890123456789012345678901234567890123456789012345678901234567890123456789
+2017-01-09  2017-01-25   Assertions  Implementation  Practices     XP-Agile
+2017-01-11  2017-01-30   Bugs        Maintenance     Requirements
+2017-01-18  2017-02-01   Design      OOP             SecureProg
+2017-01-23  Abstraction  Examples    Overview        Specs
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">3</span> Requirements of Columnize</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Columnize() of CLS.</li>
+<li>A list of file names r[] is obtained from the operating system.</li>
+
+<li>This list is given to <code>columnize()</code> as the first argument r[].  In
+this "list", the names are separated by the <code>nul</code> (ascii <code>\0</code>)
+char; the end of the list is indicated by two <code>\0\0</code>.</li>
+
+<li>All the names in r[] appear in the output rows and columns.</li>
+
+<li>Sorted output.</li>
+<li>No new names in the output.</li>
+<li>See the performance expectations written above.
+<ol class="org-ol">
+<li>Must not be slower/ longer than 10% of GNULS.</li>
+<li>Assumption: Obtaining the list of file names from the operating
+system takes the same amount of time in Java/ Kotlin/ Scala.</li>
+</ol></li>
+</ol>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">3.1</span> Requirements Analysis</h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li>Is r[] sorted?</li>
+<li>How many names in the r[]?  Approaching virtual memory limits?  The
+<code>columnize()</code> routine must work for arbitrarily long r[] inputs,
+subject only to the available amount of memory.</li>
+<li>How long is the longest name? cf. windowwidth.  Chop it off at
+windowwidth - 1?</li>
+<li>What are the details of the columns? Sorted by column, and
+left-to-right?</li>
+<li>Are all columns equal in width?</li>
+<li>Are all columns equal in height?</li>
+<li>Minimal number of lines?</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">4</span> Specifications of Columnize</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">4.1</span> Structure of Any Spec</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>Syntax spec of Input.</li>
+<li>Syntax spec of Output.</li>
+<li>Relationship between Input and Output</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">4.2</span> Specifications of Columnize</h3>
+<div class="outline-text-3" id="text-4-2">
+<ol class="org-ol">
+<li>Syntax spec of Input.
+<ol class="org-ol">
+<li>let input-bag-of-names = bag(parse(r[], nul))</li>
+<li>Note: bag, not a set or sequence.</li>
+</ol></li>
+<li>Syntax spec of Output.
+<ol class="org-ol">
+<li>Output is a sequence of lines, q[].  Each line ends with \n.</li>
+<li>let output-bag-of-names = bag(parse(q[], whitespace-or-nl)).</li>
+<li>sorted-layout(q[]) shown below.</li>
+</ol></li>
+<li>Relationship between Input and Output
+<ol class="org-ol">
+<li>output-bag-of-names = input-bag-of-names.</li>
+</ol></li>
+
+<li>m = map-to-matrix(q[]);</li>
+<li>sorted(q) is defined as sorted (catenate-all-columns(m))</li>
+<li>properly-layout(q)
+<ol class="org-ol">
+<li>let w = width of any column</li>
+<li>trim(m[i, j]) is in output-bag-of-names U {emptyName}, (for all i, j)</li>
+</ol></li>
+</ol>
+
+<p>
+TBD incomplete
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">5</span> Design of Columnize</h2>
+</div>
+
+
+
+<div id="outline-container-orgheadline15" class="outline-2">
+<h2 id="orgheadline15"><span class="section-number-2">6</span> Implementation of Columnize</h2>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-2">
+<h2 id="orgheadline16"><span class="section-number-2">7</span> Source Code Listing of Columnize</h2>
+</div>
+
+
+
+<div id="outline-container-orgheadline17" class="outline-2">
+<h2 id="orgheadline17"><span class="section-number-2">8</span> End</h2>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2017 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2017-02-01
+</div>
+</body>
+</html>

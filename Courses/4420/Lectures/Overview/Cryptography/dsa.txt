@@ -1,0 +1,49 @@
+Private-Key: (1024 bit)
+priv:
+    4e:2b:19:b4:58:e3:6b:6a:bc:b1:7c:19:0e:66:fe:
+    b8:47:96:b0:4d
+pub: 
+    4a:34:83:ef:85:24:23:bf:29:a5:bd:fc:7c:bd:35:
+    e6:04:87:48:1b:3a:e0:22:f9:f4:6a:eb:7a:4f:90:
+    e2:de:e3:37:0d:b6:5e:17:5c:86:0f:9d:5b:9d:6f:
+    74:0d:6c:48:18:f8:08:1d:86:cf:bb:7f:78:98:50:
+    cf:4f:31:2b:f4:72:54:34:23:8e:c0:2f:20:12:05:
+    7b:d6:ed:42:82:75:55:7d:1b:bf:17:5e:48:75:ac:
+    d3:59:1c:e3:39:ae:b9:a4:cc:d8:03:e6:bd:b7:6d:
+    20:50:4d:b9:af:e0:28:5f:c6:7b:f4:e3:41:b7:f0:
+    72:2a:a6:b2:5a:80:5c:db
+P:   
+    00:a0:35:64:33:e8:39:24:72:02:23:1b:33:92:08:
+    15:20:ba:b3:aa:03:a4:cc:1c:83:73:4a:8d:2b:df:
+    18:b0:bf:5d:a4:b6:d9:36:d7:75:01:ed:ca:61:f2:
+    88:21:41:a6:46:89:e8:11:17:9f:5f:3d:47:ca:42:
+    41:85:6d:bd:c4:59:0c:f4:5a:69:5f:3f:3a:88:bf:
+    a3:e2:fe:cb:91:f8:2d:7b:fd:89:69:0a:7f:a4:a5:
+    76:f6:52:f6:23:3c:dd:69:48:f8:57:c6:f0:44:70:
+    e9:c9:73:57:46:b5:cb:8b:3d:c7:72:99:30:5c:88:
+    21:91:32:0b:0f:f1:92:99:4b
+Q:   
+    00:e9:ef:e7:0f:41:fc:dc:5f:a1:7e:8c:8b:53:c5:
+    ea:91:0e:29:9d:77
+G:   
+    53:c3:a5:eb:80:dc:04:e3:cd:7a:20:47:fd:3b:a5:
+    bf:fe:cb:56:c8:0f:82:d4:4e:c6:52:eb:4e:4a:dc:
+    0c:8c:9c:3d:b8:02:c4:0f:1d:e7:59:f3:cd:ab:66:
+    60:33:f4:10:b9:e6:71:1f:c2:43:0e:be:81:c2:3b:
+    09:db:bb:63:2e:a4:13:bb:a1:18:98:f0:df:9d:40:
+    e5:82:1e:93:93:13:07:51:ff:83:f1:84:02:25:5e:
+    21:74:ba:33:c8:25:82:ee:d8:6d:79:fa:45:a0:3b:
+    e6:9d:cc:92:c9:77:97:9f:3d:d1:c5:d1:1e:fb:5f:
+    2a:84:d1:d9:08:cb:e6:f1
+-----BEGIN DSA PRIVATE KEY-----
+MIIBugIBAAKBgQCgNWQz6DkkcgIjGzOSCBUgurOqA6TMHINzSo0r3xiwv12kttk2
+13UB7cph8oghQaZGiegRF59fPUfKQkGFbb3EWQz0WmlfPzqIv6Pi/suR+C17/Ylp
+Cn+kpXb2UvYjPN1pSPhXxvBEcOnJc1dGtcuLPcdymTBciCGRMgsP8ZKZSwIVAOnv
+5w9B/NxfoX6Mi1PF6pEOKZ13AoGAU8Ol64DcBOPNeiBH/Tulv/7LVsgPgtROxlLr
+TkrcDIycPbgCxA8d51nzzatmYDP0ELnmcR/CQw6+gcI7Cdu7Yy6kE7uhGJjw351A
+5YIek5MTB1H/g/GEAiVeIXS6M8glgu7YbXn6RaA75p3Mksl3l5890cXRHvtfKoTR
+2QjL5vECgYBKNIPvhSQjvymlvfx8vTXmBIdIGzrgIvn0aut6T5Di3uM3DbZeF1yG
+D51bnW90DWxIGPgIHYbPu394mFDPTzEr9HJUNCOOwC8gEgV71u1CgnVVfRu/F15I
+dazTWRzjOa65pMzYA+a9t20gUE25r+AoX8Z79ONBt/ByKqayWoBc2wIUTisZtFjj
+a2q8sXwZDmb+uEeWsE0=
+-----END DSA PRIVATE KEY-----

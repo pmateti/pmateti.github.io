@@ -1,0 +1,413 @@
+<html>
+<head>
+  <title>Security Lectures by Prabhaker Mateti</title>
+  <meta name="author" content="Prabhaker Mateti">
+  <meta name="keywords" 
+	content="Buffer Overflow, Stack Smashing, Heap Overflow,
+	Format String Attacks, Internet security,">
+  <meta name="description" 
+	content="This page is part of a set of lectures notes for a
+		 course on Internet Security by Prabhaker Mateti
+		 http://www.cs.wright.edu/~pmateti/">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <style type="text/css">
+  a:hover { color: blue; background-color: yellow; }
+  a:active{ color: white; background-color: green;}
+  P { text-align: justify; }
+  li { text-align: justify; }
+  tt {border:blue 1px dotted;}
+  pre {border:blue 1px dotted;}
+  @page { size: 8.5in 11in }
+  @media screen {BODY {margin: 15%;} }
+  </style>
+</head>
+
+<body>
+  <h1>Notes on Modifying the Return Address, Etc</h1>
+
+  <h2><a href="http://www.cs.wright.edu/~pmateti">Prabhaker Mateti</a></h2>
+
+
+<p>Dated: 20080507; These notes were taken in Auditor running for real
+(not in a VM) on my old Acer 602 laptop with Pentium III running
+Debian GNU/Linux 3.1, gcc version 3.3.5 (Debian 1:3.3.5-2) generating
+code for i486-linux.  The overall context of these notes is the Phrack
+article by <a href="alephOne.html"> Aleph One</a>.
+
+<p>You would get similar results if you run Auditor in a VM.
+
+<h2>modret.c</h2>
+
+<p>The following little program is designed to experiment with
+modifying the stack-resident return address deposited by the x86 CPU
+on executing a call instruction.
+
+<pre>
+/* file: modret.c by pmateti@wright.edu; 
+ * modify return address to see the effects
+ */
+
+/* assembly listing: gcc -Wa,-alh,-L  modret.c > modret-asm.txt */
+/* normal compile: gcc -o modret modret.c */
+
+#include &lt;stdio.h>
+#include &lt;stdlib.h>
+
+void modret(int a, int b, int c) {
+  unsigned int d = 0x89abcdef; /* just a recognizable number */
+  unsigned int *zp = &a - 3;
+  unsigned int i;
+
+  for (i = 0; i < 8; i++)
+    printf("%x:%x, ", i, zp[i]);  /* so we can see some stack contents */
+  zp[2] += a;  /* modifying a stack location */
+}
+
+int main(int argc, char *argv[]) {
+  int x = 0, y = 0;
+  if (argc > 1)
+    y = atoi(argv[1]);
+
+  x += 0x11;
+
+  modret(y, 0x234, 0x567);
+
+  x += 0x22;
+
+  x += 0x33;
+  printf("\n main==%x, &x==%x, &y==%x; x=%x\n", main, &x, &y, x);
+  return 0;
+}
+
+/* -eof- */
+</pre>
+
+
+<p>
+Assuming nothing strange is happening, we see that in main() x is
+incremented three times, and its final value ought to be
+0x11+0x22+0x33 == 0x66.
+
+<p>Note that (i) d is at zp[0], (ii) zp[1] is presumably the SFP, (iii)
+the return address pushed by the CALL instruction is at zp[2], (iv)
+first arg a to modret() is at zp[3], (v) the address of main() is
+8048404, (vi) the address of local variable x is also shown, but as we
+will see this will keep changing, (viii) the address of local variable
+y is 4 bytes below that of x.
+
+<p>Interesting arguments to try with the modret program are 0, 6, and 12,
+whose results are described below.  These were discovered by examining
+the generated assembly code (shown below).  Other values are illegal,
+but explaining the resulting behavior (normal looking outut and/or
+segmentation faults) needs an understanding of CPU instructions.
+
+<p>See modret.c included. All numbers printed are in hex.  Some output
+lines are folded in this web page.  You should compile and run modret
+as shown in the bash prompted (%) lines.
+
+<pre>
+% ./modret 0
+
+0:89abcdef, 1:bffffa98, 2:8048481, 3:0, 4:234, 5:567, 6:80484db, 7:b7fd4fcc, 
+ main==8048429, &x==bffffa94, &y==bffffa90; x=66
+</pre>
+
+<p>
+Above.  Return Address unchanged.  So, x == 66 as seen from the typical
+reading of the code.
+
+<pre>
+% ./modret 6
+0:89abcdef, 1:bffffa98, 2:8048481, 3:6, 4:234, 5:567, 6:80484db, 7:b7fd4fcc,
+ main==8048429, &x==bffffa94, &y==bffffa90; x=44
+</pre>
+
+<p>Above.  Return Address did change: Incremented by 6, skipping the
+code for x += 0x22.  Resulting x is 44.
+
+<pre>
+% ./modret 12
+0:89abcdef, 1:bffffa98, 2:8048481, 3:c, 4:234, 5:567, 6:80484db, 7:b7fd4fcc,
+ main==8048429, &x==bffffa94, &y==bffffa90; x=11
+</pre>
+
+<p>Above.  Return Address changed: Incremented by 12, skipping the code for x
++= 0x22, and x += 0x33.  Resulting x is 11.
+
+<p>Below.  Here are some values that do not work out.
+
+<pre>
+% ./modret 9
+Segmentation fault
+% ./modret 8
+Segmentation fault
+% ./modret 10
+0:89abcdef, 1:bffffa98, 2:8048481, 3:a, 4:234, 5:567, 6:80484db, 7:b7fd4fcc,
+ main==8048429, &x==bffffa94, &y==bffffa90; x=11
+</pre>
+
+<p>Does produce the "right" results, but ...
+
+<h2>modret.c asm listing</h2>
+
+<p>Here is the asm listing as produced by 
+<tt>gcc -Wa,-alh,-L  modret.c > modret-asm.txt</tt>
+
+<pre>
+GAS LISTING /tmp/ccG0JPJT.s 			page 1
+
+
+   1              		.file	"modret.c"
+   2              		.section	.rodata
+   3              	.LC0:
+   4 0000 25783A25 		.string	"%x:%x, "
+   4      782C2000 
+   5              		.text
+   6              	.globl modret
+   7              		.type	modret, @function
+   8              	modret:
+   9 0000 55       		pushl	%ebp
+  10 0001 89E5     		movl	%esp, %ebp
+  11 0003 83EC18   		subl	$24, %esp
+  12 0006 C745FCEF 		movl	$-1985229329, -4(%ebp)
+  12      CDAB89
+  13 000d 8D45FC   		leal	-4(%ebp), %eax
+  14 0010 8945F8   		movl	%eax, -8(%ebp)
+  15 0013 C745F400 		movl	$0, -12(%ebp)
+  15      000000
+  16              	.L2:
+  17 001a 837DF407 		cmpl	$7, -12(%ebp)
+  18 001e 7602     		jbe	.L5
+  19 0020 EB2E     		jmp	.L3
+  20              	.L5:
+  21 0022 8B45F4   		movl	-12(%ebp), %eax
+  22 0025 8D148500 		leal	0(,%eax,4), %edx
+  22      000000
+  23 002c 8B45F8   		movl	-8(%ebp), %eax
+  24 002f 8B0410   		movl	(%eax,%edx), %eax
+  25 0032 89442408 		movl	%eax, 8(%esp)
+  26 0036 8B45F4   		movl	-12(%ebp), %eax
+  27 0039 89442404 		movl	%eax, 4(%esp)
+  28 003d C7042400 		movl	$.LC0, (%esp)
+  28      000000
+  29 0044 E8FCFFFF 		call	printf
+  29      FF
+  30 0049 8D45F4   		leal	-12(%ebp), %eax
+  31 004c FF00     		incl	(%eax)
+  32 004e EBCA     		jmp	.L2
+  33              	.L3:
+  34 0050 8B4DF8   		movl	-8(%ebp), %ecx
+  35 0053 83C108   		addl	$8, %ecx
+  36 0056 8B55F8   		movl	-8(%ebp), %edx
+  37 0059 83C208   		addl	$8, %edx
+  38 005c 8B4508   		movl	8(%ebp), %eax
+  39 005f 0302     		addl	(%edx), %eax
+  40 0061 8901     		movl	%eax, (%ecx)
+  41 0063 C9       		leave
+  42 0064 C3       		ret
+  43              		.size	modret, .-modret
+  44              		.section	.rodata
+  45 0008 00000000 		.align 32
+  45      00000000 
+  45      00000000 
+  45      00000000 
+  45      00000000 
+  46              	.LC1:
+  47 0020 6D61696E 		.string	"main==%x, &x==%x, &y==%x; x=%x\n"
+GAS LISTING /tmp/ccG0JPJT.s 			page 2
+
+
+  47      3D3D2578 
+  47      2C202678 
+  47      3D3D2578 
+  47      2C202679 
+  48              		.text
+  49              	.globl main
+  50              		.type	main, @function
+  51              	main:
+  52 0065 55       		pushl	%ebp
+  53 0066 89E5     		movl	%esp, %ebp
+  54 0068 83EC28   		subl	$40, %esp
+  55 006b 83E4F0   		andl	$-16, %esp
+  56 006e B8000000 		movl	$0, %eax
+  56      00
+  57 0073 29C4     		subl	%eax, %esp
+  58 0075 C745FC00 		movl	$0, -4(%ebp)
+  58      000000
+  59 007c C745F800 		movl	$0, -8(%ebp)
+  59      000000
+  60 0083 837D0801 		cmpl	$1, 8(%ebp)
+  61 0087 7E13     		jle	.L7
+  62 0089 8B450C   		movl	12(%ebp), %eax
+  63 008c 83C004   		addl	$4, %eax
+  64 008f 8B00     		movl	(%eax), %eax
+  65 0091 890424   		movl	%eax, (%esp)
+  66 0094 E8FCFFFF 		call	atoi
+  66      FF
+  67 0099 8945F8   		movl	%eax, -8(%ebp)
+  68              	.L7:
+  69 009c 8D45FC   		leal	-4(%ebp), %eax
+  70 009f 830011   		addl	$17, (%eax)
+  71 00a2 C7442408 		movl	$1383, 8(%esp)
+  71      67050000 
+  72 00aa C7442404 		movl	$564, 4(%esp)
+  72      34020000 
+  73 00b2 8B45F8   		movl	-8(%ebp), %eax
+  74 00b5 890424   		movl	%eax, (%esp)
+  75 00b8 E8FCFFFF 		call	modret
+  75      FF
+  76 00bd 8D45FC   		leal	-4(%ebp), %eax
+  77 00c0 830022   		addl	$34, (%eax)
+  78 00c3 8D45FC   		leal	-4(%ebp), %eax
+  79 00c6 830033   		addl	$51, (%eax)
+  80 00c9 8B45FC   		movl	-4(%ebp), %eax
+  81 00cc 89442410 		movl	%eax, 16(%esp)
+  82 00d0 8D45F8   		leal	-8(%ebp), %eax
+  83 00d3 8944240C 		movl	%eax, 12(%esp)
+  84 00d7 8D45FC   		leal	-4(%ebp), %eax
+  85 00da 89442408 		movl	%eax, 8(%esp)
+  86 00de C7442404 		movl	$main, 4(%esp)
+  86      00000000 
+  87 00e6 C7042420 		movl	$.LC1, (%esp)
+  87      000000
+  88 00ed E8FCFFFF 		call	printf
+  88      FF
+  89 00f2 B8000000 		movl	$0, %eax
+  89      00
+GAS LISTING /tmp/ccG0JPJT.s 			page 3
+
+
+  90 00f7 C9       		leave
+  91 00f8 C3       		ret
+  92              		.size	main, .-main
+  93              		.section	.note.GNU-stack,"",@progbits
+  94              		.ident	"GCC: (GNU) 3.3.5 (Debian 1:3.3.5-2)"
+</pre>
+
+<hr>
+
+<h2>testsc</h2>
+
+<pre>./testsc
+sh-3.00$ ps
+  PID TTY          TIME CMD
+ 3656 pts/2    00:00:00 bash
+ 3793 pts/2    00:00:00 sh
+ 3794 pts/2    00:00:00 ps
+</pre>
+
+<p>
+ test.c is as-was from AlephOne.  Works as can be seen above.
+ 
+<h2>exploit1</h2>
+ 
+<pre> knoppix@2[2008]$ ./exploit1
+sh-3.00$ ps
+  PID TTY          TIME CMD
+ 3656 pts/2    00:00:00 bash
+ 3804 pts/2    00:00:00 sh
+ 3805 pts/2    00:00:00 ps
+sh-3.00$     
+</pre>
+explot1.c as was.  Works.
+
+<h2>exploit2</h2>
+
+<pre>
+knoppix@2[2008]$ ./exploit2
+Using address: 0xbffffa68
+knoppix@2[2008]$ ps
+  PID TTY          TIME CMD
+ 3656 pts/2    00:00:00 bash
+ 3827 pts/2    00:00:00 exploit2
+ 3828 pts/2    00:00:00 bash
+ 3840 pts/2    00:00:00 ps
+knoppix@2[2008]$                
+</pre>
+<p>
+explot2.c as was.  Works.  Did not change PS1.
+
+<pre>knoppix@2[2008]$ PS1='; '
+; ./exploit2
+Using address: 0xbffffa68
+knoppix@2[2008]$ ps
+  PID TTY          TIME CMD
+ 3656 pts/2    00:00:00 bash
+ 3842 pts/2    00:00:00 exploit2
+ 3843 pts/2    00:00:00 bash
+ 3855 pts/2    00:00:00 ps
+knoppix@2[2008]$                
+</pre>
+
+<p>
+explot2.c as was.  Works.  Did change PS1 to '; '
+
+<h2>exploit3</h2>
+
+<pre>; ./exploit3
+Using address: 0xbffffa58
+knoppix@2[2008]$ ps
+  PID TTY          TIME CMD
+ 3656 pts/2    00:00:00 bash
+ 3869 pts/2    00:00:00 exploit3
+ 3870 pts/2    00:00:00 bash
+ 3882 pts/2    00:00:00 ps
+knoppix@2[2008]$ ./vulnerable $EGG
+bffff4a0
+knoppix@2[2008]$ ps
+  PID TTY          TIME CMD
+ 3656 pts/2    00:00:00 bash
+ 3869 pts/2    00:00:00 exploit3
+ 3870 pts/2    00:00:00 bash
+ 3884 pts/2    00:00:00 ps
+knoppix@2[2008]$
+</pre>
+
+<p>
+Did  not work.
+
+<pre>; PS1='; '
+; ./exploit3 612
+Using address: 0xbffffa58
+knoppix@2[2008]$ ./vulnerable $EGG
+bffff3e0
+Segmentation fault
+knoppix@2[2008]$
+</pre>
+<p>
+Buffer size 612 worked in AlephOne's paper.  But not for us.
+
+<p>
+We try a few different arguments while noticing the Using address
+value.  It should be close enough to the buffer address printed by our
+version of vulnerable.c
+
+<pre>
+; ./exploit3 700  1500
+Using address: 0xbffff46c
+knoppix@2[2008]$ ./vulnerable $EGG
+bffff330
+sh-3.00$ ps
+  PID TTY          TIME CMD
+ 3656 pts/2    00:00:00 bash
+ 3971 pts/2    00:00:00 exploit3
+ 3972 pts/2    00:00:00 bash
+ 3984 pts/2    00:00:00 sh
+ 3985 pts/2    00:00:00 ps
+sh-3.00$
+</pre>
+Worked!
+
+
+
+<p>
+-eof-
+  <hr size="1">
+  <a href="../../../copyright.html">Copyright &copy;</a> 2012
+  <a href=
+  "mailto:pmateti@wright.edu?subject=CEG429/IntnetSecurity">
+pmateti@wright.edu</a>
+  &bull; <a href=
+  "../Top/lectures.html">Security Lectures</a>
+</body>
+</html>

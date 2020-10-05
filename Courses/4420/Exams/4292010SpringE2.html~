@@ -1,0 +1,111 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>CEG 429/629 Final Exam</title>
+</head>
+<body topmargin="50" leftmargin="50" bottommargin="50" rightmargin="50" marginheight="50" marginwidth="50">
+
+
+<table cellspacing="10" cellpadding="10" width="100%" border="0" height="121">
+  <tr>
+    <td width="32%" height="91"><a target="_blank" href="http://www.wright.edu/">
+    <img src="../images/wsu-logo-xsm.gif" border="0" width="150" height="66" align="top"></a></td>
+    <td width="68%" height="91">
+    <table border="0" width="100%" height="109">
+      <tr>
+        <td width="100%">
+        <h2><a href="http://www.cs.wright.edu/~pmateti/Courses/429/">CEG 
+        429/629:Internet Security</a></h2>
+        </td>
+      </tr>
+      <tr>
+        <td width="100%"><b>Final Exam // Spring  2008//120 minutes//100 points</b></td>
+      </tr>
+      <tr>
+        <td width="100%"><font size="2">This is a closed book, closed notes 
+        exam.&nbsp; Do not give or take help during the exam.</font></td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+<ol>
+  <li>(6*5 points each) The following statements may or may not be (fully or 
+  partially) valid.&nbsp; First, explain the term <i><u>underlined</u></i> in the 
+  statement.&nbsp; Then, explain/ discuss/ dispute the statement.&nbsp; It is <i>
+  possible</i> to write no more than, say, ten, sentences each, and yet receive 
+  full score.
+  <ol type="a">
+    <li>&nbsp;An <u><i>IP filtering package</i></u> must be run on a router.&nbsp; It has no effect 
+    if run on a normal host with a single network card. </li>
+    <li><u><i>Hackers</i></u>, as distinct from attackers, do have  ethics.</li>
+    <li><u><i>TCP sequence numbers</i></u> start out with a random number, and 
+	incremented randomly so that they are unpredictable.</li>
+    <li>WEP of 802.11 uses <i><u>SSID</u></i> as the shared key.</li>
+    <li>A <i><u>rootkit</u></i> is a collection of short programs used by super-users to 
+    repair the damage done by an intruder.</li>
+    <li>For something to be called a <i><u>virus</u></i>, it must  embed in such 
+    a way that it is executed only intermittently.</li>
+  </ol>
+  </li>
+  <li>(20 points) Describe, in detail,&nbsp; the techniques used in&nbsp; <code>
+	hijack</code>.&nbsp; Give technical details with&nbsp; real or cooked-up but 
+	realistic numbers for the fields of relevant TCP segments.<li>(40 points)
+<ol type="a">
+<li>(10 points) Describe how stack top randomization makes buffer overflow 
+exploits difficult.<li>(10 points) AlephOne describes the <code>eggshell </code>&nbsp;program 
+as <code>&quot;usage: eggshell [-a 
+  &lt;alignment&gt;] [-b &lt;buffersize&gt;] [-e &lt;eggsize&gt;] [-o &lt;offset&gt;]\n</code>&quot;.&nbsp;  What are <code>
+&lt;alignment&gt;, </code>
+  and<code> &lt;eggsize&gt;</code> and why do we need them? </li>
+  <li>(10 points) Describe the Principles of Robust Programming of Matt Bishop's 
+	article.</li>
+<li>(2*5 points) Consider the routine shown below.&nbsp; It reads a file name 
+  from the standard input and returns its protection mode.
+  <table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="left" width="38%">
+      <pre>short int protectionMode(void)
+{	struct stat stbuf;
+	char inbuf[100];
+	gets(&amp;inbuf);
+	stat(inbuf, &amp;stbuf);
+	return stbuf.st_mode &amp; 0777;
+}</pre>
+      </td>
+      <td align="left" width="62%">
+      <ol type="i">
+        <li>Describe how to exploit<i> </i>its features.</li>
+        <li>Write its pre- and post-conditions. </li>
+      </ol>
+      </td>
+    </tr>
+  </table>
+  </li></ol>
+<br>
+  <li>(10 points)&nbsp; It is well-known that a large percentage of systems remain 
+	vulnerable long after security patches have been issued because the patches 
+	have not been applied.&nbsp; Mr. Means Well, a security expert, got tired of this 
+	situation, and wrote a worm-like system, MWP, that applies patches without 
+	engaging in a dialog with the sysadmin.&nbsp; The MWP examines the system that it 
+	is currently on, fetches all relevant patches from reputable web sites, 
+	verifies their digital signatures, applies them to the current system, and 
+	mails a detailed log of what files were modified to the sysadmin.&nbsp; It then 
+	spreads to other systems.&nbsp; What are the ethical issues raised by MWP?&nbsp; Would 
+	you support it?&nbsp; Or would you take precautions to thwart it?&nbsp; Discuss.</ol>
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+  <tr>
+    <td width="71%">
+    <a href="../copyright.html">Copyright ©</a> 2008
+	<a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> </td>
+    <td align="right" width="29%">
+    June 12, 2008</td>
+  </tr>
+</table>
+
+</body>
+
+</html>

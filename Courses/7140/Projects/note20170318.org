@@ -1,0 +1,106 @@
+# -*- mode: org -*-
+#+DATE: 2017-03-18
+#+TITLE: CS7140 Spring 2017 Project pdfRenamer Logistics
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CEG7380 Cloud Computing
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2017 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+
+Let us name the primary piece of software resulting from this project
+as =pdfrenamer=.
+
+* Status as of Sat March 18, 2017
+
+** Links
+
+1. Apoorva https://github.com/apoorvavinod/AdvancedSoftwareEngineering
+1. Jayant  https://github.com/jayanthanantharaman/AdvanceSoftwareEngineering 
+1. Jonathan https://github.com/MasterGeese/CS7140/tree/master 
+1. Sarker https://github.com/md-k-sarker/PDF-Renamer/
+1. Stephanie https://github.com/sbelow1/PDFRenamer.git 
+
+** Test PDFs
+
+1. I asked each of you to contribute 5 test PDFs.
+1. Done, but they are not all on GitHub.  Why not??
+1. They are not annotated, showing fields of interest.
+
+** Requirements
+
+1. Both teams have submitted.  Below are the links.
+1. [[https://github.com/MasterGeese/CS7140/blob/master/Requirements.pdf][Jonathan + Sarker]]
+1. [[https://github.com/md-k-sarker/PDF-Renamer/blob/master/Requirement/Requirements_v0.0.4_team_of_3.pdf][Apoorva + Jayant + Sarker]]
+
+** Reviews of Requirements
+
+1. Each student reviewed the Req Doc of the other team.
+1. Five reviews done.  Quite "reasonable" reviews.
+
+
+* By The Final Week
+
+1. Previous Reports: (i) Requirements, (ii) Specifications, (iii) Design,
+   (iv) Implementation, (v) Testing.
+
+1. The final report for the project is essentially an assembly of all
+   the previous reports, which now become chapters, revised if
+   necessary.  This is the 6th report.
+
+1. Crucial are the Final Report, and the demonstrable piece of
+   software: =pdfrenamer=.
+
+1. All six reports are to be submitted. As I said several times, due
+   dates can be negotiated -- but, not beyond the end of term.
+
+* The Next Few Weeks
+
+1. The next milestone is the specification.
+1. We discussed what Domain Analysis is, and why we do it.  For our
+   project, is it clear enough in your thinking?  Are you familiar
+   enough with the PDF libraries?  Can you name the
+   PDF-extraction-operations mnemonically?  Are you ready to
+   rigorously (even without math and logic) specify?  If you could,
+   that would make the core of the Spec Doc.
+
+** Specification
+
+1. My assessment on Mar 15 was that you are not ready to do Specs.
+   But, I did not say so in class.  Instead, I gave a constructive
+   suggestion.
+
+** Suggested Work
+
+1. Combine the two Requirements Docs into one, benefiting from the
+   reviews.  Also, include domain analysis.  Let us call this RDv2.
+   Use RDv2 as the basis for remaining work.
+
+1. Intuitive discussion of domain analyses is necessary, but not
+   sufficient.  Develop "trial" implementations of the
+   PDF-extraction-operations.  This will constitute neither a Spec nor
+   a Design.  
+
+1. I hope to discuss Test Driven Development (TDD) and Agile
+   Development soon.  These are relevant to the above.
+
+1. Write a TR documenting the above effort.  I did not give a name to
+   this TR.  I said [something to the effect that] submit this instead
+   of Specs.
+
+1. The due date was Mar 17, which was extended to Mar 18.  I am
+   composing this note around 9:00 PM.  So, the due date of Mar 18
+   11:59 PM does not seem feasible.  Which is OK.  You come up with a
+   due date, and we discuss this quickly on Mar 20.  Obviously, the
+   due date of Mar 18 is dropped.
+
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

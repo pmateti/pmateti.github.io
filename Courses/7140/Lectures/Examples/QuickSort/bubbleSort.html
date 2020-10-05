@@ -1,0 +1,231 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Lectures on Assertions by Prabhaker Mateti</title>
+  <base  target="_top">
+  <meta name="author" content="Prabhaker Mateti">
+<style type="text/css">
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  @page { size: 8.5in 11in }
+  P,li { text-align: justify }
+  pre, tt, code {border:blue 1px dotted; }
+  @media screen {BODY {margin: 15%;} }
+  body {counter-reset: chapter; counter-reset: section;}
+  h2:before {content: counter(section) ". "; counter-increment: section;}
+</style>
+<link href="https://cecs.wright.edu/~pmateti/SyntaxHighLighter/styles/shCoreEclipse.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://cecs.wright.edu/~pmateti/SyntaxHighLighter/scripts/shCore.js"></script>
+<script src="https://cecs.wright.edu/~pmateti/SyntaxHighLighter/scripts/shAutoloader.js" type="text/javascript"></script>
+<script type="text/javascript" src="https://cecs.wright.edu/~pmateti/SyntaxHighLighter/scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="https://cecs.wright.edu/~pmateti/SyntaxHighLighter/scripts/shBrushBash.js"></script>
+<script type="text/javascript">     SyntaxHighlighter.all();</script>
+</head>
+
+<body>
+
+<h1>Bubble Sort</h1>
+
+<p>
+Bubble sort is intrinsically a nested two loop algorithm.  In the
+following, the array being sorted is named v, and the index starts at
+0.  In the variations shown below, we made an attempt to present them
+in a uniform way.
+
+<h2>Hints on Assertions</h2>
+
+<p>Assertions express our understanding of the algorithm/ code.
+<p>  Under the heading of Correct-by-Design, we will explore how we can
+  use assertions to help us figure out an algorithmic solution to an
+  new problem.
+
+<p>Precondition: True.  Assume that we introduced a new var named u ==
+  v at the beginning of the sort.
+<p>The post condition is sorted(v[0 .. size-1]) and the items in v[0
+  .. size-1] as they were at the beginning, i.e. v[0..size-1] is a
+  permutation of u[0..size-1].
+
+<p> The notation v[a .. b] stands for the sequence of all items of v
+  in the index range a..b.  If a > b, it stands for the empty
+  sequence.
+
+<p>The outer loop uses the loop counter i, and accomplishes the following:
+<ol>
+<li> 0 <= i < size
+<li> sorted(v[0 .. i])  // sorted: v[0] <= v[1] <= ... < v[i]
+<li> v[i] <= min(v[i+1 .. size-1])
+</ol>
+
+<p>The inner loop uses the loop counter j, and accomplishes the following:
+<ol>
+<li> i <= j <= size-1
+<li> v[j] <= v[j+1 .. size-1]
+<li> v[0 .. i] is unchanged during the inner loop
+</ol>
+
+<p>
+These are easily expressed as boolean expressions and functions, in
+C++ or Java.
+Except "unchanged".  But, you know what we mean!  In some assertion
+languages, this is done by introducing an auxiliary (new) variable,
+say u, u == v, at a certain point, and then say u[0 .. i] == v[0..i]
+at a later point.
+
+
+<h2>Bubble Sort in C++: Variation #1</h2>
+
+<p>There are many variations in the implementation.
+
+<pre class="brush: cpp">
+template < typename T>
+void bubbleSort(std::vector < T > & v) {
+  const int size = v.size();
+  for (int i = 0; i < size; i++) {
+    for (int j = 0; j < size - i; j++) {
+      if (v[j] > v[j+1])
+        std::swap(v[j], v[j+1]);
+    }
+  }
+}
+</pre>
+
+<h2>Bubble Sort in C++: Variation #2</h2>
+
+<p>  Better suited to the name of the algorithm. [Why?]
+
+<pre class="brush: cpp">
+template < typename T>
+void bubbleSort(std::vector < T > & v) {
+  const int size = v.size();
+  for (int i = 0; i < size; i++) {
+    for (int j = size - 1; j >= i ; j--) {
+      if (v[j] > v[j+1])
+        std::swap(v[j], v[j+1]);
+    }
+  }
+}
+</pre>
+
+Line 5 is different from that of variation #1.
+
+<h2>Bubble Sort in C++: Variation #3</h2>
+
+<p>This is a complete listing.
+From
+<a href=https://rosettacode.org/wiki/Sorting_algorithms/Bubble_sort#C.2B.2B>
+  rosettacode.org</a>.
+
+
+<pre class="brush: cpp">
+// g++ -std=c++17 bubbleSort.cpp
+
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+ 
+template < typename RandomAccessIterator>
+void bubbleSort (
+	RandomAccessIterator begin,
+	RandomAccessIterator end) {
+  bool swapped = true;
+  while (begin != end-- && swapped) {
+    swapped = false;
+    for (auto i = begin; i != end; ++i) {
+      if (*(i + 1) < *i) {
+        std::iter_swap(i, i + 1);
+        swapped = true;
+      }
+    }
+  }
+}
+ 
+int main() {
+  int a[] = {100, 2, 56, 200, -52, 3, 99, 33, 177, -199};
+  bubbleSort(std::begin(a), std::end(a));
+  copy(
+    td::begin(a), std::end(a),
+    std::ostream_iterator<int>(std::cout, " "));
+  std::cout << "\n";
+}
+</pre>
+
+[Ignore the last line -- bug in the syntax high lighter.]
+
+<h2>Bubble Sort in C++: Variation #4</h2>
+
+<p>This is a complete listing.
+
+<pre class="brush: cpp">
+// bubbleSort.cpp by pmateti@wright.edu
+
+#include <stdlib.h>		// srand, rand
+#include <time.h>		// time(0)
+#include <iostream>
+#include <vector>
+using namespace std;
+
+template < typename T>    // ignoring template issues ...
+
+void bubbleSort(vector < T > & v) {
+  const int size = v.size();
+  for(int i = 0; i < size; i++) {
+    for(int j = size - 1; j > i ; j--) {
+      if (v[j-1] > v[j])
+        std::swap(v[j-1], v[j]);
+    }
+  }
+}
+
+void printArray(int a [], unsigned int size) {
+  const int size = v.size();
+  cout << endl;
+  for (unsigned int i = 0; i < size; i++)
+    cout << a[i] << ", ";
+  cout << endl;
+}
+
+void initArray(int a [], unsigned int size) {
+  const int size = v.size();
+  srand(time(0));
+  for (unsigned int i = 0; i < size; i++)
+    a[i] = rand() % 100;
+}
+
+int main(int argc, char * argv []) {
+  std::vector <int> a (100);  FIX
+  unsigned int z = sizeof(a)/sizeof(int);
+  unsigned int x = (argc > 1? atoi(argv[1]) : z);
+
+  if (x < z) z = x;
+  initArray(a, z);
+  printArray(a, z);
+  bubbleSort (a);		// 
+  printArray(a, z);
+}
+
+// -eof-
+</pre>
+
+<h2>Exercises</h2>
+
+
+
+<ol>
+<li>Write down the loop invariants.  Do this for all the variations.
+For for-loops, their location is immediately after the first semicolon
+  of the for loop.  Before the termination test.  For while-loops,
+  their location is immediately after the while reserved word.
+
+<li> Spot any errors, in variation #2?
+
+</ol>
+
+
+<hr size="1">
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+Copyright</a> &copy; 2013 
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+  Prabhaker Mateti</a>
+</body>
+</html>
+

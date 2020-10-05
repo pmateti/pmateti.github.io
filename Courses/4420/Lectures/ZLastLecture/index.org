@@ -1,0 +1,55 @@
+
+# -*- mode: org -*-
+#+TITLE: Computer Security Last Lecture
+#+date: 2018-12-28
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Announcements
+
+
+* Agenda
+
+** Think Seriously
+
+1. No one can become a security expert without excellent command over
+   OS internals.
+
+1. Command over the C language is essential for security work.
+
+1. Could this course have been taught using Windows instead of Linux?
+
+** Journals
+
+1. Count the number of hours spent in learning the background material
+   for a lab?  E.g., understanding the options of various commands?
+
+** Background/ Refreshers
+
+1. What good is googling for answers without an understanding of why
+   they are valid or might actually be wrong?
+
+1. Even now, all of   [[../../Lectures/Refreshers/]] is highly recommended.
+
+
+
+* Recommended Reading Beyond Lectures
+
+1. A goal of this course is to be aware of current security incidents.
+2. At an OS-internals level.  Mostly, Linux based.
+1. http://www.phrack.org/issues/69/15.html#article How to hide a hook:
+   A hypervisor for rootkits.  Recommended Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+
+
+

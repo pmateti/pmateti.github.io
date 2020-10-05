@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['openshape',['openShape',['../classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#aa8ab6b2b2f0856cde500e135ff875b53',1,'org.bitstorm.gameoflife.StandaloneGameOfLife.GameOfLifeGridIO.openShape()'],['../classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a009f4eda22bbb1aa245aba86ce3811ed',1,'org.bitstorm.gameoflife.StandaloneGameOfLife.GameOfLifeGridIO.openShape(String filename)'],['../classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a4d7c99fd3488f79ff6121775c1b166d2',1,'org.bitstorm.gameoflife.StandaloneGameOfLife.GameOfLifeGridIO.openShape(URL url)'],['../classorg_1_1bitstorm_1_1gameoflife_1_1StandaloneGameOfLife_1_1GameOfLifeGridIO.html#a0b5654d259a4a5b48cffaf556f0c14c5',1,'org.bitstorm.gameoflife.StandaloneGameOfLife.GameOfLifeGridIO.openShape(EasyFile file)']]]
+];

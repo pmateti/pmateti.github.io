@@ -1,0 +1,49 @@
+
+# -*- mode: org -*-
+#+date: 2017-10-11
+#+TITLE: CEG4420 Mid Semester Exam Details
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2017 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Where and When
+
+2. Fri Oct 20, 2017.   You will have two hours.  Not
+   during normal class time slot.
+
+* Tool Usage
+
+1. You are welcome to use Linux/ Windows PC and tools (bash and
+   commands listed in L1, gcc/g++, editors, IdeaJ, Eclipse, man
+   pages).
+
+* Content Ownership
+
+2. Nevertheless the exam IS a closed book, closed notes, no surfing exam.
+   Other than some permitted URLs hosted at WSU.  Be on your honor.
+   Do not use pre-existing content. Do not give or take help during
+   the exam.  Every sentence and figure submitted is your own work
+   produced during the two hours.
+
+* Syllabus
+
+1. StackClash [postponed; Not included in the MT]
+1. SecSoftware Lab#1 [finish it, but for the PDF, before MT; included
+   in the MT]
+4. All lecture and lab content and Required Readings from the past
+   weeks.
+
+* mtanswers.pdf
+
+3. Submit one PDF file on Pilot named =mtanswers.pdf=
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

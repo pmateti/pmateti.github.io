@@ -1,0 +1,184 @@
+# -*- mode: org -*-
+#+DATE: 2016-03-28
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+
+#+TITLE: On Software Bugs
+#+STARTUP:showeverything
+#+OPTIONS: toc:t
+
+* Bugs Over The Years
+
+1. [[http://www.devtopics.com/20-famous-software-disasters/][20 Famous Software Disasters]] in four parts.
+
+2. [[http://www.wired.com/software/coolapps/news/2005/11/69355?currentPage=all][History's Worst Software Bugs]] by Simson Garfinkel 2005
+
+3. [[http://www.cs.tau.ac.il/~nachumd/horror.html][Software Horror Stories]] collected by Nachum Dershowitz
+
+
+* On Bugs
+
+1. Bugs or Errors?  "Its Not a Bug, Its a Feature"
+
+1. Definition: A bug is a deviation from functional spec.
+
+1. Implicit Specs (No matter what the input is ...)
+   1. No Crashes: Illegal ops, such as div by 0, out of range array index, ...
+   1. No Crashes: pointer values outside the address space
+   1. No Hangs: Infinite Loop/Recursion
+   1. No Hangs: Waiting for an Event That Won't Happen
+
+1. Classification?
+   1. uininitialized vars; v := 0, p := nil
+   1. off by 1
+   1. array bounds exceeded
+   1. ptr == nil
+   1. memory leaks (not freed malloc-d areas)
+   1. Knuth on TeX gives fifteen classes of errors
+   1. See Errors in Linux
+
+1. How Many Bugs per KLOC? Anecdotal data: 0.1 to 50 bugs per KLOC
+   (delivered products)
+
+* Knuth's TeX Errors
+
+1. Donald E. Knuth, "The Errors of TeX". Published in the journal
+   "Software: Practice and Experience," vol 19, no. 7, pp. 607 - 685.
+   [Ref details below.]
+
+1. Altogether the error log contains 865 entries so far
+   (1989). 
+
+1. Classified into 15 categories (alphabetically listed)
+
+   1. Algorithmic Anomaly
+   1. Blunder, Botch
+   1. Cleanup for Consistency
+   1. Datastructure Debacle
+   1. Efficiency Enhancement
+   1. Forgotten Function
+   1. Generalization, Growth
+   1. Interactive Improvement
+   1. Language Liability
+   1. Mismatch between Modules
+   1. Promotion of Portability
+   1. Quest for Quality
+   1. Reinforced Robustness
+   1. Surprising Scenario
+   1. Trivial Typo
+
+1. Categories A, B, D, F, L, M, R, S, T are /bugs/, which definitely
+   needed to be removed from the code;
+
+1. Categories C, E, G, I, P, Q are /enhancements/, which improved but
+   were not obligatory.
+
+
+* Errors in Linux Kernel
+
+1. Dawson Engler, Stanford U and his students,  Errors in Linux
+
+1. Using Static Analysis, Model Checking
+
+1. Linux kernel, 2004, 5.7 MLOC, about 1000 bugs from http://lwn.net/Articles/115530/ 
+      1. Crash causing defects 569
+      1. Incorrect program behavior ??
+      1. Performance degradation 33
+      2. Improper use of APIs ??
+      3. Security flaws 100
+      4. Buffer overflows 25
+
+1. http://www.coverity.com/library/pdf/linux_report.pdf 2004. Required
+   Reading.
+
+1. Cindy Rubio-Gonzalez, Ben Liblit, Defective Error/Pointer
+   Interactions in the Linux Kernel
+   http://pages.cs.wisc.edu/~liblit/issta-2011/issta-2011.pdf 2011. Reference
+
+
+* Practical Debugging
+
+1. What does a "debugger" do? Lets us examine /current process
+   state/.  Does not do any bug removal.
+
+   1. Watch Points
+   2. Break Points
+   3. Stepping through code execution
+
+2. Integrated debuggers in IDEs
+
+3. Wide consensus: Highly expensive to debug using debuggers.
+
+4. Future research: Explore process state history, and with abstraction.
+
+* Prevention of Errors
+
+1. Why do programs have errors? 
+
+2. What is the largest program *you* can write that has no bugs with
+   "normal" effort?
+
+   1. Right after the first compilation?
+
+   2. After one month, one year, ...?
+
+3. Use assertions
+   1. Pre-, Post-, Loop invariants, Class invariants
+   2. Make them executable
+
+* Discovering Bugs by Static Analysis
+
+1. Grammars, Derivation Trees, Abstract Syntax Trees
+
+1. [[./static-analysis.org]]
+
+1. Brittany Johnson, Yoonki Song, Emerson Murphy-Hill, and Robert
+   Bowdidge "Why Don't Software Developers Use Static Analysis Tools
+   to Find Bugs? ", http://2013.icse-conferences.org/ 35th
+   International Conference on Software Engineering (ICSE
+   2013). Reference.
+
+
+* References
+
+1. Section "Bugs Over the Years".  All 3 URLS.  Required Reading.
+
+1. Kim Herzig, Sascha Just, and Andreas Zeller, "Its Not a Bug, Its a
+   Feature: How Misclassification Impacts Bug Prediction", 35th
+   International Conference on Software Engineering (ICSE
+   2013). Reference.
+
+1. Donald E. Knuth, "The Errors of TeX". Published in the journal
+   "Software: Practice and Experience," vol 19, no. 7, pp. 607 - 685.
+   Find it on Wiley on-line archives via WSU Library proxy.  Also, (i)
+   https://www.tug.org/texlive//devsrc/Master/texmf-dist/doc/generic/knuth/errata/errorlog.pdf,
+   https://www.tug.org/TUGboat/tb10-4/tb26knut.pdf, (ii)
+   http://tug.ctan.org/systems/knuth/dist/errata/, Knuth on TeX errors
+   Highly Recommended Reading.
+
+1. Donald E. Knuth, "The Errors of TeX". Published in the journal
+   "Software: Practice and Experience," vol 19, no. 7, pp. 607 - 685.
+   Find it on Wiley on-line archives via WSU Library proxy.  Also, (i)
+   https://www.tug.org/TUGboat/tb10-4/tb26knut.pdf, (ii)
+   http://tug.ctan.org/systems/knuth/dist/errata/, Knuth on TeX errors
+   Highly Recommended Reading.
+
+1. http://www.coverity.com/library/pdf/linux_report.pdf 2004. Required
+   Reading.
+
+1. Norman Matloff and Peter Jay Salzman, "Art of Debugging with GDB,
+   DDD, and Eclipse," No Starch Press, September 2008, 280 pp.  ISBN:
+   978-1-59327-174-9.  [DDD is a GUI front end for GDB]. [Book]
+   Recommended Reading.
+
+1. Andreas Zeller, "Why Programs Fail: A Guide to Systematic
+   Debugging", Morgan Kaufmann, 424pp, 2009, ISBN: 978-0-12-374515-6.
+   [Book] Reference.
+
+1. https://www.udacity.com/ Online Course on Debugging by Andreas
+   Zeller.  Free.  Recommended.

@@ -1,0 +1,37 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+STYLE: <style> @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-preamble-format (("en" "<a href=\"http://cecs.wright.edu/~pmateti/Courses/7140/\">CS 7140 Advanced Software Engineering</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+TITLE: Object Oriented  "Design By Contract"
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+
+* Class Invariants  
+
+1. Consider only the public methods  
+1. Their entry- exit- assertions
+1. Rewrite, if nec, using and's (at the top level)
+1. The common portion across all the above is the /class invariant/
+1. Strongest Possible
+
+* "Design By Contract"
++ Bertrand Meyer's [[../OOD/meyer-design-by-contract-1992-markedUp.pdf][article marked-up]] by pmateti
+
+* References
+
+1. Robert Bruce Findler, Mario Latendresse, and Matthias Felleisen.
+   Behavioral Contracts and Behavioral Subtyping.  In Proceedings of
+   ESEC/FSE-9,
+   229-236. http://www.ccs.neu.edu/scheme/pubs/fse01-flf.pdf 2001
+   Recommended Reading.
+
+1. Bertrand Meyer. Applying "design by contract".  IEEE Computer,
+   25(10):40–51, October 1992.  
+   http://se.ethz.ch/~meyer/publications/computer/contract.pdf
+   Also in his book "Object-Oriented Software Construction".
+   Required Reading.
+

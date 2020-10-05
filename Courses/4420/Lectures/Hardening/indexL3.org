@@ -1,0 +1,47 @@
+
+# -*- mode: org -*-
+#+date: 2018-10-10
+#+TITLE: Hardening Linux Kernel, Lecture #3
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+** Linux Kernel DIY Build
+
+2. [../Hardening/BuildKernel/][Building a Linux Kernel]]
+1. Hardening depends on this how-to.
+2. Source code repositories
+3. Build Tools
+4. Build Overview
+   4. Configure the build: =make xconfig= or =make menuconfig=
+   5. =make bzImage= about 030 mins on my machine.
+   6. =make modules= about 150mins on my machine.
+   7. =make install= few seconds
+   8. create a new entry in Grub
+3. Deploy a new Linux Kernel
+
+** Awareness of Linux Kernel Exploits
+
+2. Future lectures on [[../KernelExploits/]]
+   1. BackDoors
+   2. SymLinkAttack
+   3. RaceConditions            
+   4. Viruses   
+   5. privilege-escalation.org
+   6. RootKits
+
+** System Programs
+1. [List is not exhaustive; traditional, not minimalistic, view.]
+1. all of =/sbin=, =/usr/sbin= (can be pruned heavily)
+1. all suid root programs
+1. Hardening a system == Harden the kernel + Harden Sys Programs
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

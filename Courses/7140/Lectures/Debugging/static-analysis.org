@@ -1,0 +1,133 @@
+# -*- mode: org -*-
+#+DATE: 2016-03-28
+#+TITLE: Code Review Tools
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+TBD: merge [[../SecureProg/static-analysis.org]]
+
+* Code Inspections
+
+1. Empirical data lets us conclude:
+
+1. The combination of design and code inspections usually removes
+   70-85 percent or more of the defects in a prod uct (Jones 1996).
+
+1. Designers and coders learn to improve their work through
+   participating in inspections, and inspections increase productivity
+   by about 20 percent (Fagan 1976, Humphrey 1989, Gilb and Graham
+   1993, Wiegers 2002).
+
+1. On a project that uses inspections for design and code, the
+   inspections take up about 10-15 percent of project budget and will
+   typically reduce overall project cost.
+
+1. The typical organization uses a test-heavy defect-removal approach
+   and achieves only about 85 percent defect removal efficiency.
+
+1. Leading organizations use a wider variety of techniques and achieve
+   defect-removal efficiencies of 95 percent or higher (Gones 2000).
+
+* Selected Code Review Tools
+
+    1. [Unordered.  Required Visits]
+    2. Crucible https://www.atlassian.com/software/crucible
+    3. CodeCollaborator https://smartbear.com/product/collaborator/
+    4. Review Board https://www.reviewboard.org/
+    5. CodeStriker http://codestriker.sourceforge.net/
+    6. CodeBrag http://codebrag.com/ "Your daily code review tool"
+    7. Barkeep http://getbarkeep.org/ "the friendly code review
+       system"
+    8. SonarQube http://www.sonarqube.org/
+    9. jlint http://jlint.sourceforge.net/ find bugs, inconsistencies and synchronization problems by doing data flow analysis
+    10. Doxygen Code Review http://www.stack.nl/~dimitri/doxygen/ Generate documentation from source code
+
+    11. FindBugs http://findbugs.sourceforge.net/
+    12. PMD https://github.com/pmd
+    13. CheckStyle http://checkstyle.sourceforge.net/
+
+
+* IntelliJ Idea
+
+ IDE Features    Community Edition Ultimate Edition
+ Code Duplicates No                Yes
+ Code Coverage   No                Yes
+ Code Inspector  Yes               Yes
+ Spell Checker   Yes               Yes
+
+1. More than 600 automated Code Inspections
+1. Finding probable bugs
+1. Locating the "dead" code
+1. Detecting performance issues
+1. Improving code structure and maintainability
+
+* Miscellaneous Tools
+
+1. Phabricator http://phabricator.org/ "Phabricator is an integrated
+   set of powerful tools to help companies build higher quality
+   software."
+1. CKJM - Chidamber and Kemerer Java Metrics 
+1. Cobertura & EMMA – Test Code Coverage
+   http://cobertura.github.io/cobertura/ A code coverage utility for
+   Java.
+
+1. JavaNCSS - A Source Measurement Suite
+   http://www.kclee.de/clemens/java/javancss/ A Source Measurement
+   Suite for Java
+
+1. JDepend – Package Dependencies; Efferent Couplings (Ce) (number of
+   other packages that the classes in the package depend upon)
+
+1. Struture101 http://structure101.com/ "For understanding, analyzing,
+   m easuring and controlling the quality of your software
+   Architecture as it evolves over time."
+
+1. Sotoarc/Sotograph https://www.hello2morrow.com/ "Architecture and
+   quality in-depth analysis and monitoring for Java"
+
+1. XRadar http://xradar.sourceforge.net/ produces HTML/SVG reports of
+   the systems current state and the development over time
+
+
+
+* References
+
+1. https://en.wikibooks.org/wiki/Introduction_to_Software_Engineering/Tools/Static_Code_Analysis
+
+1. http://findbugs.sourceforge.net/ David Hovemeyer and William Pugh,
+   "Finding Bugs is Easy", ACM SIGPLAN Notices, Volume 39 Issue 12,
+   December 2004, pp 92 - 106, search for its PDF, Required Reading
+
+1. http://checkstyle.sourceforge.net/ Checkstyle verifies that your
+   Java code adheres to a coding standard.
+
+1. http://pmd.sourceforge.net/ PMD finds unused variables, empty catch
+   blocks, unnecessary object creation, and so forth.  Plugin for
+   Eclipse and IDEA
+
+1. [[./findbugs-etc.pptx]] FindBugs, etc. Eclipse and IDEA Plugins.  These
+   are pmateti's slides, TBD to be merged into these notes.
+
+1. http://web.stanford.edu/~engler/engler-vmcai04.pdf Engler, Dawson,
+   and Madanlal Musuvathi. "Static analysis versus software model
+   checking for bug finding." Verification, Model Checking, and
+   Abstract Interpretation. Springer Berlin Heidelberg, 2004.
+
+1. Brittany Johnson, Yoonki Song, Emerson Murphy-Hill, and Robert
+   Bowdidge "Why Don't Software Developers Use Static Analysis Tools
+   to Find Bugs? ", http://2013.icse-conferences.org/ 35th
+   International Conference on Software Engineering (ICSE
+   2013).  Web [[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.384.7471&rep=rep1&type=pdf][PDF]]  Required Reading.
+
+1. http://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

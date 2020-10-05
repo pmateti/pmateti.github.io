@@ -1,0 +1,82 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Software Engineering by Mateti</title>
+<base target="_self">
+<base target="_top">
+<style type="text/css">
+  a:hover      { color: blue; background-color: yellow; }
+  a:active     { color: white; background-color: green;}
+  p { text-align: justify }
+  li {text-align: justify;}
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  @page { size: 8.5in 11in }
+  @media screen {BODY {margin: 12%;} }
+  body {counter-reset: section;}
+  h2:before {content: counter(section) ". "; counter-increment: section;}
+</style>
+</head>
+
+<body>
+
+<p style="text-align:right">
+<a href="../../Top">
+CS 7140: Advanced Software Engineering</a> |
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+    Prabhaker Mateti</a><br>
+</p>
+
+<h1>The Problem of Tabulated Equations</h1>
+
+<p>
+Consider the informal description, given in the next paragraph, of a
+program.  Give a carefully written specification of it, using
+well-chosen notations, and words.  Pretend that the requirements
+analysis is already done: That is, wherever relevant in the specs,
+explain in English the appropriate parts of requirements.
+
+<p><i>Our mathematician friend wants a program that can ``tabulate'' a
+sequence of symbolic equations found in typical linear algebra into a
+matrix form.
+</i></p>
+
+
+<h2>An Example Input</h2>
+<pre>
+3x + 5y + 714z = 12g + 53b,
+76489x +3z = 2g+8b+99a + 1024,
+           x+ 49 = 7g,
+1234567y+ 2z = a + 999b + 6x + 911,
+ + 3x + 5y =  53b + 12g.
+</pre>
+
+<h2>Corresponding Output</h2>
+<pre>
+    3x +       5y + 714z      = 12g +  53b,
+76489x +              3z      =  2g +   8b + 99a +      1024,
+     x +                   49 =  7g,
+         1234567y +   2z      =       999b +   a + 6x +  911,
+    3x +       5y             = 12g +  53b.
+</pre>
+
+
+<p>Our friend  tells us that her equations do not contain
+minus signs, nor floating point numbers, but that sometimes the
+coefficients are larger than can fit in 64-bits, and the equations
+become so long that she has to write them on a long scroll of paper
+sideways.  We impressed her by remarking that we will imagine the
+paper width to be infinity.
+
+</ol>
+
+<hr size=1>
+<a href="http://www.cs.wright.edu/~pmateti/copyright.html">
+copyright</a> &copy; 2013 
+<a target="_blank" href="http://www.cs.wright.edu/~pmateti">
+  prabhaker mateti</a>
+</body>
+</html>
+

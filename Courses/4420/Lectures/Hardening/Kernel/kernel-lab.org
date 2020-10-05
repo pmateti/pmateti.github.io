@@ -1,0 +1,68 @@
+
+# -*- mode: org -*-
+#+date: 2018-10-10
+#+TITLE: Lab on Kernel Hardening [WIP]
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Background
+
+1. Prerequisite:: SysCalls: Done in a separate lab.
+
+* Tasks
+
+** Task: Examples of Kernel Bugs [25 points]
+
+1. Position Independent Code
+
+** Task: Kernel Build by LLVM
+
+1. Unit tests for known LLVM Linux Bugs 
+
+** Task:
+** Task:
+
+* Tasks: [Bonus][Optional]
+
+* Submission
+
+1. For Fall 2018, this is lab Lx numbered x.  Substitute below.
+1. Lab Lx Grading Sheet is superseded by this document.  Point
+   assignments are shown in brackets.  There are bonus points for a
+   "job well done" even if you skipped the bonus tasks.
+
+1. You must follow the Lab Report Template. There should be a section
+   on each of the tasks, and subsections on sub-tasks.  Include a
+   couple of lines of an answer to each (implied/ explicit) question/
+   discussion item.  Must number it as in this document.
+
+1. Use good judgement and do not make the report way longer than, say,
+   20 pages. Submit explanations and code that verifies your answers.
+
+1. Include a journal.  By the hour.
+
+1. This lab requires revisions of a few given source code
+   files. Include the revised versions in Lx.tbz.
+
+1. Submit a PDF file named exactly =Report-Lx.pdf=, and a tarball
+   =Lx.tbz= [use =tar cfjvv Lx.tbz source-files*= ]. (Scripts are used
+   to check various things -- so file names should obey such "rules".)
+
+* References
+
+1. Prabhaker Mateti, Lecture Notes on Linux Kernel Hardening, 2018.
+1. PIE (Position Independent Executables) Exploit
+   https://security-tracker.debian.org/tracker/CVE-2017-1000253
+1. https://llvm.org/devmtg/2012-04-12/Slides/Mark_Charlebois.pdf 30+
+   slides. 2012.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,127 @@
+<html>
+<head>
+<title>Linux Notes by Prabhaker Mateti</title>
+<meta name="author" content="Prabhaker Mateti">
+<style type="text/css">
+  P { text-align: justify }
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  li { text-align: justify; }
+  @media screen {BODY {white; margin: 15%} }
+  body {counter-reset: chapter;}
+  h2:before { content: " " counter(chapter) ". "; counter-increment: chapter;}
+</style>
+</head>
+
+<body>
+
+These notes have NOT been incorporated into the index.html.
+
+<ol>
+<li>
+My Changes To Kali Linux KDE
+
+Tools that we *use* from Kali/BT5:
+
+<p>
+Are the above in Knoppix also?
+
+<p>
+Well-known tools that we do NOT use from Kali/BT5: metasploit, WEP
+cracking,
+
+<p>
+Tools that we wish Kali/BT5 had:
+
+
+<p>
+replace window decorations<br>
+ do not let
+root login on tty1-8 auto<br> task bar panel: auto hide, more widgets,
+and not so tall<br> apt-get remove --purge network-manager* wicd* <br>
+
+<pre>
+menuentry "Linux BackTrack Kali KDE frugal-install initrd.gz" {
+ linux (hd0,1)/boot/KaliKDE/live/vmlinuz boot=live locale=en_US.UTF-8 keyb=us live-media-path=boot/KaliKDE/live noeject noprompt noconfig=sudo username=root hostname=kali vga=791 splash --
+ initrd (hd0,1)/boot/KaliKDE/live/initrd.img
+}
+</pre>
+
+
+<li>
+Connect To Internet via Command Line:
+apt-get install wireless-tools
+service networking stop
+killall wpa_supplicant dhclient 
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+
+# The primary network interface
+auto eth0
+iface eth0 inet static
+        address 192.168.1.105
+        netmask 255.255.255.0
+        network 192.168.1.0
+        gateway 192.168.1.1
+        
+# The wireless network interface with dhcp
+#auto wlan0
+#iface wlan0 inet dhcp
+#    wpa-ssid AP_NAME
+#    wpa-key-mgmt WPA-PSK
+#    wpa-group TKIP CCMP
+#    wpa-psk AP_KEY
+
+<li>
+virtual machines
+
+<li>
+<a href="http://www.n1tr0g3n.com/">
+  http://www.n1tr0g3n.com/</a>;<br>
+<p>
+<a href="https://code.google.com/p/lazykali/">
+Lazy-Kali Bash Script</a> Adds: Bleeding Edge Repos AngryIP Scanner
+Terminator Xchat Unicornscan Nautilus Open Terminal Simple-Ducky
+Subterfuge Ghost-Phisher Yamas PwnStar Ettercap0.7.6 Xssf Smbexec
+Flash Java Easy-Creds
+</p>
+
+<li>
+    <a href="http://blog.cr0.org/">cr0.org</a> Security blog.<br>
+
+<li>
+OS on USB several versions
+
+<li>
+<a href="http://blog.rootcon.org/2012/02/10-pentesting-linux-distributions-you.html">
+10-pentesting-linux-distributions-you.html</a>2012/02;<br>
+<a href="http://www.darknet.org.uk/2006/03/10-best-security-live-cd-distros-pen-test-forensics-recovery/">
+10-best-security-live-cd-distros-pen-test-forensics-recovery/</a> 2006/03;<br>
+<a href="http://www.kalilinux.net/community/threads/full-unninstall-of-kali-linux-grub-w-windows-boot-restore.256/">
+  http://www.kalilinux.net/community/threads/full-unninstall-of-kali-linux-grub-w-windows-boot-restore.256/</a>;<br>
+
+http://lifehacker.com/5916551/browse-like-bond-use-any-computer-without-leaving-a-trace-with-tails
+<a href="https://tails.boum.org/">
+  https://tails.boum.org/</a>;<br>
+<li>
+<a href="http://www.thegeekstuff.com/2009/07/how-to-view-modify-and-recreate-initrd-img/">
+  http://www.thegeekstuff.com/2009/07/how-to-view-modify-and-recreate-initrd-img/</a>;<br>
+
+</ol>
+
+
+<hr>
+<a href="../../../copyright.html">Copyright ©</a> 2013
+<a href="mailto:pmateti@wright.edu?subject=CEG4420/Security">
+  pmateti@wright.edu</a> &bull;
+<a href="http://s17.sitemeter.com/stats.asp?site=s17pmateti">
+<img src="http://s17.sitemeter.com/meter.asp?site=s17pmateti"/></a> &bull;
+<a href="../Top/lectures.html">Internet Security Lectures by Mateti</a>
+
+</body>
+
+</html>
+

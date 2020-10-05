@@ -1,0 +1,37 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+
+#+Date: 2015-06-01
+#+TITLE: Text/Programmer's Editors
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+DESCRIPTION: WSU CS 7140 Advanced Software Engineering
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">CS 7140</a> %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STYLE: <style type="text/css">@media screen {BODY {margin: 15%} }</style>
+
+* On Editors
+
+1. [[./editor-entities.org]]
+2. [[./editor-specs.org][Example Specs of Editor Entities and Operations]]
+2. [[./editor-design.org][Example Designs of Editor Entities and Operations]]
+3. [[./open-source-edtors.org]]
+4. [[./undo-redo.org]]
+
+* References
+
+1. Bernard Sufrin, Formal Specification of a Display-Oriented Text
+   Editor, Science of Computer Programming, Volume 1, Issue 3, May
+   1982, Pages 157-202. [[https://ac.els-cdn.com/0167642382900144/1-s2.0-0167642382900144-main.pdf?_tid=f98d0f3c-18ee-433e-8b09-458d61361b78&acdnat=1536886945_dd4effe0f015c2f2db036e3408821920][PDF]]
+1. Prabhaker Mateti and Frances Hunt, "Precision Descriptions of
+   Software Designs: An Example," <i>IEEE compsac85</i>, 130-136,
+   Oct 1985.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

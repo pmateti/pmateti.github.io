@@ -1,0 +1,43 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+STYLE: <style> @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-preamble-format (("en" "<a href=\"http://cecs.wright.edu/~pmateti/Courses/7140/\">CS 7140 Advanced Software Engineering</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+TITLE: Object Oriented Design Principles
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+
+* Principles of Class Design (aka SOLID)
++ (SRP) The Single Responsibility Principle
+
++ (OCP) The Open Closed Principle: Classes and methods should be open
+   for extension (of functionality) and closed for modification.
+
++ (LSP) The Liskov Substitution Principle: Subtypes must be
+   substitutable for super type.  A sub class must enhance
+   functionality, but not reduce.  More on this later.
+
++ (ISP) The Interface Segregation Principle
+
++ (DIP) The Dependency Inversion Principle
+
+* Principles of Package Cohesion
++ (REP) The Reuse Release Equivalence Principle
++ (CCP) The Common Closure Principle
++ (CRP) The Common Reuse Principle
+
+* Principles of Package Coupling
+
++ (ADP) The Acyclic Dependencies Principle
++ (SDP) The Stable Dependencies Principle
++ (SAP) The Stable Abstractions Principle
+
+* References
+
+1. Web site, http://www.oodesign.com  Recommended Visit
+
+1. Bob Tarr, UMBC.edu,
+   [[http://userpages.umbc.edu/~tarr/dp/lectures/OOPrinciples.pdf][Some OOD Principles]] PDF Slides. Recommended Reading

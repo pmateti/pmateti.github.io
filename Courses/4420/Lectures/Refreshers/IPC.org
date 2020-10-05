@@ -1,0 +1,30 @@
+# -*- mode: org -*-
+#+DATE: 2019-08-10
+#+TITLE: IPC Inter Process Communication
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+LINK_HOME: ../../
+#+LINK_UP: ../
+#+DESCRIPTION: Android Internals and Security
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d <a href=\"../../\"> ../../</a>" ))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 - 2019 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+
+
+   6. IPC: Message Passing
+   7. IPC: Shared Memory
+   8. IPC: Synchronization
+   9. IPC: Mutual Exclusion
+
+* References
+
+1. https://en.wikipedia.org/wiki/Inter-process_communication
+1. https://www.tldp.org/LDP/tlk/ipc/ipc.html
+1. https://opensource.com/article/19/4/interprocess-communication-linux-storage
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

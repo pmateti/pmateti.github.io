@@ -1,0 +1,1021 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Cracking the Passwords</title>
+<!-- 2018-10-19 Fri 23:31 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="Mateti: Android Internals and Security"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Cracking the Passwords</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. What is Password Cracking?</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Caution</a></li>
+<li><a href="#sec-1-2">1.2. Overview</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. Cracking Ideas Overview</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Stealing the Passwords</a></li>
+<li><a href="#sec-2-2">2.2. Social Engineering</a></li>
+<li><a href="#sec-2-3">2.3. Causing a Password Reset</a></li>
+<li><a href="#sec-2-4">2.4. Fooling Finger Prints</a></li>
+<li><a href="#sec-2-5">2.5. What Are Hashes?</a></li>
+<li><a href="#sec-2-6">2.6. Dictionary Attack</a></li>
+<li><a href="#sec-2-7">2.7. Rainbow Tables</a></li>
+<li><a href="#sec-2-8">2.8. Cracking Services</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Some Well Known Cracking Tools</a>
+<ul>
+<li><a href="#sec-3-1">3.1. John-the-Ripper</a></li>
+<li><a href="#sec-3-2">3.2. Hashcat</a></li>
+<li><a href="#sec-3-3">3.3. RainbowCrack</a></li>
+<li><a href="#sec-3-4">3.4. CrackStation</a></li>
+<li><a href="#sec-3-5">3.5. Hydra</a></li>
+<li><a href="#sec-3-6">3.6. Brutus</a></li>
+<li><a href="#sec-3-7">3.7. Medusa</a></li>
+<li><a href="#sec-3-8">3.8. L0phtCrack/ Ophcrack</a></li>
+<li><a href="#sec-3-9">3.9. PACK</a></li>
+<li><a href="#sec-3-10">3.10. Cain-and-Able For Windows</a></li>
+<li><a href="#sec-3-11">3.11. Aircrack-Ng</a></li>
+<li><a href="#sec-3-12">3.12. Miscellaneous</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Password Cracking using Cloud Services</a>
+<ul>
+<li><a href="#sec-4-1">4.1. CrackStation</a></li>
+<li><a href="#sec-4-2">4.2. Kali Linux on Cloud</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. Lab Experiments on Passwords and Cracking</a>
+<ul>
+<li><a href="#sec-5-1">5.1. Example Inputs</a></li>
+<li><a href="#sec-5-2">5.2. Password Cracking Word Lists</a></li>
+<li><a href="#sec-5-3">5.3. Cracking Tools</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6. References</a></li>
+<li><a href="#sec-7">7. End</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> What is Password Cracking?</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Given an "encoded" (may be salted) password, (re-) construct its plain
+text version.  A login Trojan, a keyboard logger, un-encrypted
+communication with an ISP or website, &#x2026;, can all get the plain text
+password.  We (should) call this stealing &#x2013; not cracking.
+</p>
+
+<p>
+Prerequisite: <a href="../Passwords/">../Passwords/</a> hashes, salting, MD5, SHA512, Linux /etc/shadow
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Caution</h3>
+<div class="outline-text-3" id="text-1-1">
+<blockquote>
+<p>
+When you crack passwords, you could be breaking the law.  Do
+it only in the context of our course.
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Overview</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li>Terminology: Lookup Tables, password lists, crack hashes.
+</li>
+
+<li><a href="https://haveibeenpwned.com/">https://haveibeenpwned.com/</a> Check if you have an account that has
+been compromised in a data breach!
+</li>
+
+<li><a href="https://www.onlinehashcrack.com/">https://www.onlinehashcrack.com/</a> A password recovery service
+assisting pen-testers &amp; security experts since 2008.  Non-profit.
+</li>
+
+<li>Penetration testing includes password audit.
+</li>
+
+<li><a href="https://www.kali.org/news/kali-linux-aws-cloud/">https://www.kali.org/news/kali-linux-aws-cloud/</a> December 2016
+Kali Linux full images are free on the Amazon AWS marketplace.
+Make sure to fill out the Amazon penetration testing request form.
+</li>
+
+<li><a href="https://github.com/offensive-security/kali-cloud-build">https://github.com/offensive-security/kali-cloud-build</a> Kali
+bootstrapping script for Amazon Machine Images (AMI)
+</li>
+
+<li>There are many other penetrations distros.  Visit
+<a href="http://distrowatch.com">http://distrowatch.com</a>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Cracking Ideas Overview</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Stealing the Passwords</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+A login Trojan, a keyboard logger, un-encrypted communication with an
+ISP or website, &#x2026;, can all get the plain text password.  We (should)
+call this stealing &#x2013; not cracking.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Social Engineering</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>[From <a href="https://www.google.com/search?q=The+New+Hacker's+Dictionary">"The New Hacker's Dictionary"</a> aka Jargon File] Social
+engineering is a term used among <a href="http://www.catb.org/jargon/html/C/cracker.html">crackers</a> and <a href="http://www.catb.org/jargon/html/S/samurai.html">samurai</a> for stealing
+(cracking?) techniques that rely on weaknesses in <a href="http://www.catb.org/jargon/html/W/wetware.html">wetware</a> rather
+than software; the aim is to trick people into revealing passwords
+or other information that compromises a target system's security.
+</li>
+
+<li>Classic scams include phoning up a mark who has the required
+information and posing as a field service tech or a fellow employee
+with an urgent access problem.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Causing a Password Reset</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li>A now common stealing (cracking?) technique is to attempt to login
+at a site, and cause a password reset request to be sent to the
+email address on record, which the attacker has gathered through
+other techniques.  This email is then intercepted.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Fooling Finger Prints</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+Read <a href="http://www.cheatsheet.com/gear-style/smartphone-fingerprint-scanners-are-they-secure.html/">smartphone fingerprint scanners are they secure?</a>.  Read also <a href="http://www.instructables.com/id/How-To-Fool-a-Fingerprint-Security-System-As-Easy-/">How
+To Fool a Fingerprint Security System</a> at
+<a href="http://www.instructables.com/">http://www.instructables.com/</a>.  Does this really work? May be not
+always.  But, as can be seen, this is mostly a question of perfecting
+such techniques.  Here is more advice: <a href="http://www.forbes.com/sites/josephsteinberg/2015/03/05/why-you-should-not-use-the-new-smartphone-fingerprint-readers/">why you should not use the new
+smartphone fingerprint readers</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> What Are Hashes?</h3>
+<div class="outline-text-3" id="text-2-5">
+<ol class="org-ol">
+<li>What exactly are rainbow tables cannot be explained without first
+talking about crypto hashes, hash chains etc.
+</li>
+
+<li>Hash functions are used in data bases, etc.  Every hash function
+maps a large domain into a small range of numbers.  Thus, there
+always will be collisions, i.e., for two a, b, (hash) = hash(b).
+Note also that the inverse of a hash function is not a function.
+</li>
+
+<li>Crypto-hash functions, chash, are used in storing passwords, etc.
+A few famous crypto hash functions are MD5, SHA1, SHA512.  Every
+crypto hash function is an ordinary hash function also.
+</li>
+
+<li>The result r of chash(a) is known as a hash of a.  The r is not
+considered an encryption of a.
+</li>
+
+<li>The crypto hash functions are so carefully designed/ constructed/
+implemented that, until recently (?), there was no "computationally
+feasible" algorithm that can be applied to the following problem.
+Because of this they are also called one-way.
+</li>
+
+<li>Suppose we already know, chash(a) = y, where a is a plain text
+input, and y was the result of a crypto-hash function chash.
+Discover a b so that: chash(b) = y.
+</li>
+
+<li>For MD5 and SHA1, in the last few years, the above problem has been
+solved.
+</li>
+
+<li><a href="http://en.wikipedia.org/wiki/Cryptographic_hash_function">http://en.wikipedia.org/wiki/Cryptographic_hash_function</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> Dictionary Attack</h3>
+<div class="outline-text-3" id="text-2-6">
+<ol class="org-ol">
+<li>Brute force "decryption"
+</li>
+
+<li>Crackers obtain <code>/etc/passwd</code> and <code>/etc/shadow</code> files through other
+techniques, and crack the encoded passwords on their own computer
+systems.  
+</li>
+
+<li>To speed up password cracking, a dictionary of words and well-known
+passwords are encoded using all possible salt values.  These are
+compared with the encoded passwords in the <code>/etc/shadow</code> file.
+These are compared with the encoded passwords in the <code>/etc/shadow</code>
+file.  Several machine-readable collections of dictionaries are
+available for various uses, including cracking.
+</li>
+
+<li>An 8 character password encodes, with salt, to one of 4096 * 13
+character strings. So, a dictionary of say 2,000,000 common words,
+names, passwords, and simple variations would amount to some 20 GB.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> Rainbow Tables</h3>
+<div class="outline-text-3" id="text-2-7">
+<ol class="org-ol">
+<li><a href="./Rainbow-Tables">./Rainbow-Tables</a> What are Rainbow Tables?  These use good amount of
+discrete math.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> Cracking Services</h3>
+<div class="outline-text-3" id="text-2-8">
+<ol class="org-ol">
+<li><a href="https://haveibeenpwned.com/">https://haveibeenpwned.com/</a> Check if you have an account that has
+been compromised in a data breach!
+</li>
+
+<li><a href="https://www.onlinehashcrack.com/">https://www.onlinehashcrack.com/</a> "Online Hash Crack is a password
+recovery service assisting pen-testers &amp; security experts since
+2008."  Non-profit.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Some Well Known Cracking Tools</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Crack programs now use GPUs (visit e.g.,
+<a href="http://www.cryptohaze.com/">http://www.cryptohaze.com/</a>) in parallelizing and can try billions
+of hashes per second.
+</li>
+
+<li><a href="http://sectools.org/tag/pass-audit/">http://sectools.org/tag/pass-audit/</a> Password Audit tools.  Ranked
+by votes.
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> John-the-Ripper</h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li>JTR is a password cracker.  Linux/Unix, Windows.  Command line.
+<code>apt-get install john</code>  Installs <code>john</code>, <code>unshadow</code>, etc.
+<a href="https://github.com/magnumripper/JohnTheRipper">https://github.com/magnumripper/JohnTheRipper</a>
+</li>
+
+<li>Suppose we have a file of salted and encoded passwords, such as
+/etc/shadow of Linux.  John can try hard to crack these into plain
+text.  Can take hours.
+
+<pre class="example">
+sudo apt-get install john
+sudo unshadow /etc/passwd /etc/shadow &gt; /tmp/mypasswd.txt
+john /tmp/mypasswd.txt
+</pre>
+</li>
+
+<li>Attempts (i) a dictionary attack, (ii) combined dictionary words,
+(iii) hybrid attack of dictionary words with special characters and
+numbers, (iv) brute force.
+</li>
+
+<li>John prints a status line when a key is pressed.  John can create
+multiple named sessions.  <a href="http://www.openwall.com/john/doc">http://www.openwall.com/john/doc</a> full
+docs, including download links, etc.
+</li>
+
+<li><a href="http://rafaveguim.github.io/cracking/passwords/jtr/2016/05/05/jtr-research-lab/">http://rafaveguim.github.io/cracking/passwords/jtr/2016/05/05/jtr-research-lab/</a>
+   Generate charts with <code>--external=AutoStatus</code> and <code>chart_logs.py</code>
+   . 2016.
+</li>
+
+<li><a href="./john.html">./john.html</a> 
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Hashcat</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li>Hashcat is a "password recovery" utility, using CPUs, GPUs, and
+other hardware accelerators on Linux, Windows, and OSX.  Can do
+distributed password cracking.
+</li>
+
+<li><a href="./HashCat/hashcat-wip.html">./HashCat/hashcat-wip.html</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> RainbowCrack</h3>
+<div class="outline-text-3" id="text-3-3">
+<ol class="org-ol">
+<li><a href="http://project-rainbowcrack.com/">http://project-rainbowcrack.com/</a> RainbowCrack uses rainbow tables
+to crack unsalted hashes.  It differs from brute force hash
+crackers.  GPU acceleration is a key feature of RainbowCrack.  It
+can offload most runtime computation to GPUs (NVIDIA/ AMD).
+</li>
+
+<li><a href="http://project-rainbowcrack.com/table.htm">http://project-rainbowcrack.com/table.htm</a> A List of Rainbow
+Tables. Key space of 13,759,005,997,841,642.  Several TB of
+generated rainbow tables for LM, NTLM, MD5 and SHA1 are listed.
+Not (all) free.
+</li>
+
+<li><a href="http://project-rainbowcrack.com/">http://project-rainbowcrack.com/</a> has freely downloadable
+executables for all major OS:
+<ol class="org-ol">
+<li>rtgen: generate rainbow tables, 
+</li>
+<li>rsort: sort the rainbow table; 
+</li>
+<li>rcrack: find the password.
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> CrackStation</h3>
+<div class="outline-text-3" id="text-3-4">
+<ol class="org-ol">
+<li><a href="https://crackstation.net/">https://crackstation.net/</a> CrackStation uses massive pre-computed
+lookup tables created by extracting every word from the Wikipedia
+databases and adding with every public password list.
+</li>
+
+<li>Buy crackstation-wordlist password-cracking dictionary. Their
+lookup table implementation (PHP and C) is available at
+<a href="https://github.com/defuse/crackstation-hashdb">https://github.com/defuse/crackstation-hashdb</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> Hydra</h3>
+<div class="outline-text-3" id="text-3-5">
+<ol class="org-ol">
+<li>Attempting to visit <a href="http://www.thc.org/">http://www.thc.org/</a> may produce the ominous
+Google warning: "The site ahead contains harmful programs".
+<b>Personally</b>, I think, this site is safe to visit.  But, go with
+your own instincts.
+</li>
+
+<li>"Hydra is a parallelized login cracker which supports numerous
+protocols to attack. It is very fast and flexible, and new modules
+are easy to add. This tool makes it possible for researchers and
+security consultants to show how easy it would be to gain
+unauthorized access to a system remotely."
+</li>
+
+<li>"When you need to brute force crack a remote authentication
+service, Hydra is often the tool of choice. It can perform rapid
+dictionary attacks against more than 50 protocols, including
+telnet, ftp, http, https, smb, several databases, and much
+more. Like THC Amap this release is from the fine folks at
+THC." &#x2013; <a href="http://sectools.org/tool/hydra/">http://sectools.org/tool/hydra/</a>
+</li>
+
+<li><code>apt-get install hydra</code> <a href="https://www.thc.org/thc-hydra/">https://www.thc.org/thc-hydra/</a> ;
+<a href="https://github.com/vanhauser-thc/thc-hydra">https://github.com/vanhauser-thc/thc-hydra</a>;
+<a href="http://tools.kali.org/password-attacks/hydra">http://tools.kali.org/password-attacks/hydra</a>
+</li>
+
+<li>THC-Hydra <a href="http://sectools.org/tool/hydra/">http://sectools.org/tool/hydra/</a> "When you need to brute
+force crack a remote authentication service, Hydra is often the
+tool of choice. It can perform rapid dictionary attacks against
+more than 50 protocols, including telnet, ftp, http, https, smb,
+several databases, and much more."  Multi platform.  
+</li>
+
+<li>Hydra can generate passwords.  
+<pre class="example">
+hydra -t 128 -l user_name -V -x '4:4:aA1"@#$!()=`~?&gt;&lt;;:%^&amp;*_-+/,.\ ' localhost ssh
+</pre>
+<p>
+Read the manual for details.
+</p>
+</li>
+
+<li>Cracking <code>hydra -l pmateti -P passwordhashes.txt 192.168.17.223 ssh</code>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-6" class="outline-3">
+<h3 id="sec-3-6"><span class="section-number-3">3.6</span> Brutus</h3>
+<div class="outline-text-3" id="text-3-6">
+<ol class="org-ol">
+<li>Brutus <a href="https://github.com/mjosaarinen/brutus">https://github.com/mjosaarinen/brutus</a> is an open source
+online password cracking tool.  For both Linux and Windows.  HTTP,
+POP3, FTP, SMB, Telnet, IMAP, NNTP, NetBus, etc.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-7" class="outline-3">
+<h3 id="sec-3-7"><span class="section-number-3">3.7</span> Medusa</h3>
+<div class="outline-text-3" id="text-3-7">
+<ol class="org-ol">
+<li><code>apt-get install medusa</code>
+</li>
+
+<li><a href="http://foofus.net/goons/jmk/medusa/medusa.html">http://foofus.net/goons/jmk/medusa/medusa.html</a> Medusa Parallel
+Network Login Auditor.
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-8" class="outline-3">
+<h3 id="sec-3-8"><span class="section-number-3">3.8</span> L0phtCrack/ Ophcrack</h3>
+<div class="outline-text-3" id="text-3-8">
+<ol class="org-ol">
+<li>Ubuntu: <code>apt-get install ophcrack</code> <a href="http://ophcrack.sourceforge.net/">http://ophcrack.sourceforge.net/</a>
+</li>
+
+<li>OphCrack is a free rainbow-table based password cracking tool for
+Windows, Linux and MacOS.  It cracks LM and NTLM hashes.  Free and
+premium rainbow tables.  It is among the most popular Windows
+password cracking tools (Cain and Abel is probably the most
+popular; see below).
+</li>
+
+<li><a href="https://en.wikipedia.org/wiki/L0phtCrack">L0phtCrack</a> is an alternative to OphCrack. It attempts to crack
+Windows passwords.  It also uses dictionary and brute force attacks
+for generating and guessing passwords.
+</li>
+<li>L0phtCrack was acquired by Symantec and they promptly discontinued
+it in 2006. Later, L0phtCrack developers re-acquired this tool and
+re-released it in 2009.
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-9" class="outline-3">
+<h3 id="sec-3-9"><span class="section-number-3">3.9</span> PACK</h3>
+<div class="outline-text-3" id="text-3-9">
+<ol class="org-ol">
+<li><a href="http://thesprawl.org/projects/pack/">http://thesprawl.org/projects/pack/</a> Password Analysis and Cracking
+Kit (PACK)  of Defcon 2010.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-10" class="outline-3">
+<h3 id="sec-3-10"><span class="section-number-3">3.10</span> Cain-and-Able For Windows</h3>
+<div class="outline-text-3" id="text-3-10">
+<ol class="org-ol">
+<li><a href="http://www.oxid.it/">http://www.oxid.it/</a> last release 2014; Cain and Abel is a password
+"recovery tool" for Windows.  "It allows easy recovery of various
+kind of passwords by sniffing the network, cracking encrypted
+passwords using Dictionary, Brute-Force and Cryptanalysis attacks,
+recording VoIP conversations, decoding scrambled passwords,
+recovering wireless network keys, revealing password boxes,
+uncovering cached passwords and analyzing routing protocols."
+</li>
+
+<li>"Cain and Abel can crack passwords using a dictionary attack,
+rainbow attack, and brute force.  &#x2026; It is also a great ARP
+Poisoning and MiTM tool."
+</li>
+
+<li><a href="https://software-tips.wonderhowto.com/how-to/hack-md5-passwords-with-cain-and-abel-356762/">https://software-tips.wonderhowto.com/how-to/hack-md5-passwords-with-cain-and-abel-356762/</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-11" class="outline-3">
+<h3 id="sec-3-11"><span class="section-number-3">3.11</span> Aircrack-Ng</h3>
+<div class="outline-text-3" id="text-3-11">
+<ol class="org-ol">
+<li><a href="http://www.aircrack-ng.org/">http://www.aircrack-ng.org/</a> Aircrack-NG can crack WEP or WPA2
+passwords.  It uses the FMS attack along with other useful attack
+techniques for cracking password.  For Linux and Windows. Capable
+of creating an Evil Twin, etc.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-12" class="outline-3">
+<h3 id="sec-3-12"><span class="section-number-3">3.12</span> Miscellaneous</h3>
+<div class="outline-text-3" id="text-3-12">
+<ol class="org-ol">
+<li><a href="http://wfuzz.org/">http://wfuzz.org/</a> + <a href="https://github.com/xmendez/wfuzz">https://github.com/xmendez/wfuzz</a> Wfuzz is a Python
+based flexible web application brute forcer which supports various
+methods and techniques to expose web application &#x2026;
+</li>
+
+<li>Crack programs now use GPUs (visit e.g.,
+<a href="http://www.cryptohaze.com/">http://www.cryptohaze.com/</a>) in parallelizing and can try billions
+of hashes per second.
+</li>
+
+<li>Application Specific Crack tools
+<ol class="org-ol">
+<li><a href="http://pdfcrack.sourceforge.net/">http://pdfcrack.sourceforge.net/</a>
+</li>
+<li><a href="http://rarcrack.sourceforge.net/">http://rarcrack.sourceforge.net/</a>
+</li>
+</ol>
+</li>
+
+<li><a href="http://sectools.org/tag/pass-audit/">http://sectools.org/tag/pass-audit/</a> Password Audit tools.  Ranked
+by votes.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Password Cracking using Cloud Services</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> CrackStation</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+<a href="https://crackstation.net/">https://crackstation.net/</a>
+CrackStation uses massive pre-computed lookup tables to store a
+mapping between the hash of a password, and the correct password for
+that hash. 
+</p>
+
+<p>
+"The hash values are indexed so that it is possible to quickly search
+the database for a given hash. If the hash is present in the database,
+the password can be recovered in a fraction of a second. This only
+works for "unsalted" hashes. For information on password hashing
+systems that are not vulnerable to pre-computed lookup tables, see our
+hashing security page."
+</p>
+
+<p>
+Crackstation's lookup tables were created by extracting every word
+from the Wikipedia databases and adding with every password list we
+could find.  We also applied intelligent word mangling (brute force
+hybrid) to our wordlists to make them much more effective. For MD5 and
+SHA1 hashes, we have a 190GB, 15-billion-entry lookup table, and for
+other hashes, we have a 19GB 1.5-billion-entry lookup table.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> Kali Linux on Cloud</h3>
+<div class="outline-text-3" id="text-4-2">
+<ol class="org-ol">
+<li><a href="https://www.kali.org/news/kali-linux-aws-cloud/">https://www.kali.org/news/kali-linux-aws-cloud/</a> December 2, 2016
+"We’re happy to announce that we’ve once again listed our Kali
+Linux images on the Amazon AWS marketplace. You can now spin up an
+updated Kali machine easily through your EC2 panel. Our current
+image is a “full” image, which contains all the standard tools
+available in a full Kali release. Once your instance is running,
+connect to it with your SSH private key using the “ec2-user”
+account. Don’t forget to update your Kali instance to get the
+latest packages and bug fixes. Type as root (or sudo): apt update
+&amp;&amp; apt dist-upgrade. We are “selling” these images on the
+marketplace for free, so other than the regular Amazon charges,
+there are no extras to pay. The Kali team would like to take this
+opportunity to thank r0kh for his efforts of getting Kali back on
+track (no pun intended) and working flawlessly in AWS. If you plan
+to use these Kali images for penetration testing in an AWS
+environment, make sure you check out the Amazon penetration testing
+request form."
+</li>
+
+<li><a href="https://www.kali.org/news/azure-marketplace-weekly-iso-builds/">https://www.kali.org/news/azure-marketplace-weekly-iso-builds/</a>
+   September 13, 2016
+</li>
+
+<li><a href="https://github.com/offensive-security/kali-cloud-build">https://github.com/offensive-security/kali-cloud-build</a> Kali
+bootstrapping script for Amazon Machine Images (AMI)
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Lab Experiments on Passwords and Cracking</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Objectives: To help you gauge the level of security offered by the
+typical password systems.  The goal is to crack as many passwords as
+possible in the inputs described below.  This can take hours on fast
+laptops/ desktops in 2017, if you do not take advantage of multiple
+cores or GPU.  Our goal in cloud computing is to crack as fast as
+possible.  
+</p>
+
+<p>
+Record how many pass words can be cracked and how fast.  Try John the
+Ripper and one other of your own choice.
+</p>
+
+<p>
+The following summarizes
+<a href="./password-labs.html">./password-labs.html</a>
+</p>
+</div>
+
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Example Inputs</h3>
+<div class="outline-text-3" id="text-5-1">
+<ol class="org-ol">
+<li>You may want to construct your own examples of the passwd and
+shadow files, where you know the passwords you used.
+</li>
+
+<li>Design a password that is not crackable by any of the tools.
+</li>
+</ol>
+</div>
+
+
+<div id="outline-container-sec-5-1-1" class="outline-4">
+<h4 id="sec-5-1-1"><span class="section-number-4">5.1.1</span> Example #1 Three User Names and Passwords</h4>
+<div class="outline-text-4" id="text-5-1-1">
+<ol class="org-ol">
+<li>MD5 examples shown from machine M1 in the <code>/etc/shadow</code> file
+format.  Just three entries.
+
+<div class="org-src-container">
+
+<pre class="src src-text">student:$1$l67ia9iK$x80ABcEExHYMVpMx.Bls5.:13749:0:99999:7:::
+jsmith:$1$Y4.kjoQ2$GIuEZcnQVPYi7RPWrQRTE.:14036:0:99999:7:::
+jtripper:$1$WH2SxqnX$rL0J6JYshB3wl6yBm90Bd1:13887:0:99999:7:::
+</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-1-2" class="outline-4">
+<h4 id="sec-5-1-2"><span class="section-number-4">5.1.2</span> Example #2 from a Real Linux Machine Setup</h4>
+<div class="outline-text-4" id="text-5-1-2">
+<ol class="org-ol">
+<li><a href="./Linux/etc/shadow">./Linux/etc/shadow</a> file is taken from one of our lab accounts from
+a previous term.  Uses salted MD5.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-1-3" class="outline-4">
+<h4 id="sec-5-1-3"><span class="section-number-4">5.1.3</span> Example #3: SHA512 Password Hashes</h4>
+<div class="outline-text-4" id="text-5-1-3">
+<ol class="org-ol">
+<li>Since MD5 is considered "broken", Linux distributions have moved to
+using salted SHA512 password hashes (crypt id 6, i.e., <code>$6$</code>),
+which are several orders of magnitude more difficult to brute-force
+or generate rainbow tables for.  Example lines from machine M2:
+
+<div class="org-src-container">
+
+<pre class="src src-text">root:$6$vPVevCXV$Pj2yIpQhprsMifm7i4X7F6IioqAQxJCyrhNjH4zK0fGYUc2gWjGJjobIwRp7wT5spTlLEywDW0ySmgB0XkVBs/:15401:0:99999:7:::
+ceg442091:$6$03bKILGu$pgsg2fOTpYyhcPGSaJZfbVEFPgyle5YtGR1wY2ChuxSv7C4lEfdES26qAXa9UHqt04ap5v0AXF0DuWMXdeaWY0:15295:0:99999:7:::
+ceg235013:$6$T6Yj4GYP$MjioJv3VqkU5WOx5gruV2fSHgitkSHMLvSx5M.KL5JCDsVIVKqf3uo0DGTV.CLar0dW4eV5VYTzbfSi9rA1g8/:15398:0:99999:7:::
+</pre>
+</div>
+</li>
+
+<li>The lines below are the same as above but split into muliple lines
+for readability:
+
+<div class="org-src-container">
+
+<pre class="src src-text">root:$6$vPVevCXV$Pj2yIpQhprsMifm7i4X7F6IioqAQxJCyrhNjH4zK0fG
+YUc2gWjGJjobIwRp7wT5spTlLEywDW0ySmgB0XkVBs/:15401:0:99999:7:::
+
+ceg442091:$6$03bKILGu$pgsg2fOTpYyhcPGSaJZfbVEFPgyle5YtGR1wY2Ch
+uxSv7C4lEfdES26qAXa9UHqt04ap5v0AXF0DuWMXdeaWY0:15295:0:99999:7:::
+
+ceg235013:$6$T6Yj4GYP$MjioJv3VqkU5WOx5gruV2fSHgitkSHMLvSx5M.KL5JCDs
+VIVKqf3uo0DGTV.CLar0dW4eV5VYTzbfSi9rA1g8/:15398:0:99999:7:::
+</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Password Cracking Word Lists</h3>
+<div class="outline-text-3" id="text-5-2">
+<ol class="org-ol">
+<li>The following are readily available "word lists" in the context of
+choosing good passwords.  This is obviously not an exhaustive
+list.  Note also that some files are populated at multiple sites.
+These are collections of broken password databases.
+</li>
+
+<li><code>/usr/share/wordlists/*</code> of the Kali Linux distribution.
+</li>
+
+<li><a href="./500-worst-passwords.txt">./500-worst-passwords.txt</a> Worst passwords that were actually in use.
+</li>
+
+<li><a href="http://weakpass.com/lists">http://weakpass.com/lists</a> More of the above kind.  A large
+collection. Totaling in the GB range.
+</li>
+
+<li><a href="https://github.com/danielmiessler/SecLists/">https://github.com/danielmiessler/SecLists/</a> is the security
+tester's companion. It is a collection of multiple types of lists
+used during security assessments. List types include usernames,
+passwords, URLs, sensitive data grep strings, fuzzing payloads, and
+many more.  It includes a collection of password lists.  It
+includes the RockYou lists.
+</li>
+
+<li><a href="http://contest-2010.korelogic.com/wordlists.html">http://contest-2010.korelogic.com/wordlists.html</a> wordlists used in
+"Crack Me If You Can" contest of DEFCON 2010.
+</li>
+
+<li><a href="https://wiki.skullsecurity.org/Passwords">https://wiki.skullsecurity.org/Passwords</a> Passwords that were leaked
+or stolen from sites.
+</li>
+
+<li><a href="http://www.justpain.com/ut_maps/wordlists/">http://www.justpain.com/ut_maps/wordlists/</a> Not just passwords.
+Words tokenized from books, etc.
+</li>
+
+<li><a href="http://www.adeptus-mechanicus.com/codex/hashpass/hashpass.php">http://www.adeptus-mechanicus.com/codex/hashpass/hashpass.php</a>
+   Hashdumps and Passwords 2014
+</li>
+
+<li><a href="http://www.openwall.com/wordlists/">http://www.openwall.com/wordlists/</a> "This wordlists collection is a
+result of processing many hundreds of public domain wordlist
+files."  Full version is not free.  The reduced freely downloadable
+version is available at <a href="https://download.openwall.net/pub/">https://download.openwall.net/pub/</a>.
+</li>
+
+<li>Mark Burnett, <a href="https://xato.net/today-i-am-releasing-ten-million-passwords-b6278bbe7495#.6gngq6nso">Today I Am Releasing Ten Million Passwords</a>, 2015.
+"This is completely absurd that I have to write an entire article
+justifying the release of this data out of fear of prosecution."
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Cracking Tools</h3>
+<div class="outline-text-3" id="text-5-3">
+<ol class="org-ol">
+<li>Download (or find/ discover in Kali/ BT5) at least two password
+cracking programs. You can find several by searching the web.
+</li>
+
+<li>Depending on the tools downloaded, you will need to build
+differently.  Do this as an ordinary user, not as root, unless
+impossible.  You may also need to download "dictionaries" for use
+by the tools.
+</li>
+
+<li>John the Ripper (<code>john</code>) is a fast password cracker.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> References</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li><a href="http://fsecurify.com/using-ordered-markov-chains-and-user-information-to-speed-up-password-cracking/">http://fsecurify.com/using-ordered-markov-chains-and-user-information-to-speed-up-password-cracking/</a>
+   Reference
+</li>
+
+<li><a href="http://www.admin-magazine.com/Articles/John-the-Ripper">http://www.admin-magazine.com/Articles/John-the-Ripper</a> Checking
+Password Complexity with John the Ripper, 2013?     Recommended Reading
+</li>
+
+<li><a href="https://labs.mwrinfosecurity.com/blog/a-practical-guide-to-cracking-password-hashes/">https://labs.mwrinfosecurity.com/blog/a-practical-guide-to-cracking-password-hashes/</a>
+   Recommended Reading
+</li>
+
+<li><a href="http://rafaveguim.github.io/cracking/passwords/jtr/2016/05/05/jtr-research-lab/">http://rafaveguim.github.io/cracking/passwords/jtr/2016/05/05/jtr-research-lab/</a>
+   Uses hashcat, hashcat utils and PACK.  Reference
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> End</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2018-10-18
+</div>
+</body>
+</html>

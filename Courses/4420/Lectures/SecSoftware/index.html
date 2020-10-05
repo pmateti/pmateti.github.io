@@ -1,0 +1,1412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-09-21 Mon 10:14 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Software Development without Security Holes</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Software Development without Security Holes</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org268abde">1. Educational Objectives</a></li>
+<li><a href="#org2795b2f">2. Software without Security Holes: Big Picture</a></li>
+<li><a href="#org2210d3a">3. Past Exploits and Their Causes</a></li>
+<li><a href="#org74b4bb0">4. Software Security Principles</a></li>
+<li><a href="#orgca88d6c">5. Secure Coding Guidelines</a></li>
+<li><a href="#orga1db7c6">6. Static Analysis of Source Code</a></li>
+<li><a href="#orgd7d3d17">7. Rough Auditing Tool for Security (RATS)</a></li>
+<li><a href="#orge9f67fd">8. UNO</a></li>
+<li><a href="#org040eab8">9. Valgrind</a></li>
+<li><a href="#orgef1039a">10. Correct By Design and Mathematical Proof</a></li>
+<li><a href="#org84672cd">11. Lab Experiments</a></li>
+<li><a href="#org93c9310">12. Acknowledgements</a></li>
+<li><a href="#org311a3ed">13. References</a></li>
+<li><a href="#orgf101a8d">14. End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org268abde" class="outline-2">
+<h2 id="org268abde"><span class="section-number-2">1</span> Educational Objectives</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Understand the contribution to insecurity made by    programming errors.</li>
+<li>Be able to deploy no-security-holes programming techniques.</li>
+</ol>
+
+
+<p>
+Abstract:
+This article is about programming techniques that prevent
+security-exploitable errors in security software.  Buffer overflow
+issues are addressed in a separate article.  In this article, we
+describe a few source code analysis tools, and the background needed
+to understand their use.
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org2795b2f" class="outline-2">
+<h2 id="org2795b2f"><span class="section-number-2">2</span> Software without Security Holes: Big Picture</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>Lecture #1: Overview; Sections 2 &#x2013; 4</li>
+<li>Lecture #2: First Lab: Software without Security Holes</li>
+<li>Lecture #3: Coding Principles and Static Analysis of Source Code;
+Sections 5, and 6</li>
+<li>Lecture #4: Correct By Design and Mathematical Proof; Section 7</li>
+<li>Lecture #5: Second Lab: Software without Security Holes</li>
+<li><a href="./SoftwareNoSecHoles.pptx">No SecHoles Software pptx</a></li>
+</ol>
+</div>
+
+<div id="outline-container-orgdc3f268" class="outline-3">
+<h3 id="orgdc3f268"><span class="section-number-3">2.1</span> What are Bugs v Vulnerabilities v Exploits v Attacks?</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>A bug is a behavioral deviation from the <b>functional</b> spec.  Two
+generalizations are permitted: (i) Anything that crashes.  (ii)
+Anything that hangs.  [Crashes and hangs can be rigorously
+defined.]</li>
+
+<li>A vulnerability is a bug that has "security implications".
+<ol class="org-ol">
+<li>Not every bug is a vulnerability.</li>
+<li>Can we detect/ deduce a vulnerability?</li>
+<li>(We seem to) Know it after the fact.</li>
+<li>Can we define    "security implications"?</li>
+</ol></li>
+
+<li>An exploit takes a vulnerabilty and builds software with an
+unexpected behavior.</li>
+
+<li>An attack is a deployment of an exploit.  Often in large numbers.</li>
+
+<li>Fact about the State of the Art 2019: No contests to the following
+claim: No single example exists that is 1000+ SLOC and is bug-free.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orge1e49bf" class="outline-3">
+<h3 id="orge1e49bf"><span class="section-number-3">2.2</span> Can We Expect All Software to be Secure?</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+The following programs must be "security-wise robust": (i) The OS
+kernel, boot loaders.  (ii) All <code>setuid</code> and <code>setgid</code> programs.
+(iii) All system daemons [services] [that accept network
+connections].  But &#x2026; are they?
+</p>
+
+<p>
+All large programs are buggy; the above [(i), (ii) and (iii)] are
+buggy.  And, we should understand the distinctions of being robust,
+correct and/or secure.
+</p>
+
+<p>
+Is it possible to develop secure programs?  Yes, but the cost of
+developing such software is so high that neither customers not
+companies are willing to spend.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5226408" class="outline-3">
+<h3 id="org5226408"><span class="section-number-3">2.3</span> Improving Cyber Security</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li>CPU Architecture
+<ol class="org-ol">
+<li>Secure Boot</li>
+<li>Executable Address Space disjoint from global-data/ stack/ heap</li>
+</ol></li>
+<li>Network Protocols
+<ol class="org-ol">
+<li>Redesign of nearly all protocols</li>
+<li>Client/Server should Dis-Trust each other, by default</li>
+<li>Encrypted Packets</li>
+</ol></li>
+<li>OS Design
+<ol class="org-ol">
+<li>Privileges, Permissions, and Policies</li>
+<li>Process Lineage/ Provenance</li>
+<li>Address Space Layout Randomization</li>
+<li>Control-Flow Integrity (ROC related)</li>
+<li>Detection of Races</li>
+</ol></li>
+<li>Cryptography</li>
+<li>System Administration</li>
+<li>Software Development Practices</li>
+<li>Only SE considered here, all others not.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org546c1f3" class="outline-3">
+<h3 id="org546c1f3"><span class="section-number-3">2.4</span> Security Architecture Design Flaws</h3>
+<div class="outline-text-3" id="text-2-4">
+<ol class="org-ol">
+<li>Cryptography misuse</li>
+<li>Lack of compartmentalization</li>
+<li>More privilege used than necessary</li>
+<li>Relying on secret algorithms</li>
+<li>Sharing resources</li>
+<li>Usability problems</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org6b3e5d0" class="outline-3">
+<h3 id="org6b3e5d0"><span class="section-number-3">2.5</span> Solvable Security Problems</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+"All problems fall into one of two categories: Those that can
+and those that cannot be easily solved. For instance, some of the
+denial of service attacks &#x2026; are a result of the IP protocol's
+design. Short of implementing a new protocol &#x2026;, not much can be
+done beyond stopgap measures that make particular attacks less
+effective.
+</p>
+
+<p>
+Other difficult problems include network sniffing and
+spoofing. These result from security-related information being
+sent in the clear over networks. Then there is the general
+authentication problem. The difficulty with authentication is
+that the lowest common denominator is user names and passwords,
+and that method is generally not sufficient.
+</p>
+
+<p>
+Unfortunately, solving these problems requires new hardware,
+new software, and user training, &#x2026; Over the longer term,
+protocols like IPV6 and IPsec will resolve many of these issues.
+Of course they may create new ones. &#x2026;
+</p>
+
+<p>
+The solvable problems are the result of poor planning,
+programming, and implementation. These can be solved by software
+vendors &#x2026; to improve their coding methodologies. &#x2026; "
+</p>
+
+<p>
+"&#x2026; Is code getting better? You could assume that the
+security holes in operating systems are the result of poor coding
+way back when, and that new code and coding methods do not have
+the same problem. You would be wrong. Consider Windows NT and its
+sorry security state. Or look in our own back yard at Solaris.
+Bugs in <code>admintool</code>, NIS+, the volume manager,
+<code>procfs</code>, PPP, PAM, and the PCI bus drivers &#x2026; prove
+the point." [Peter Galvin, Pete's Wicked World column, Sun World
+Magazine, 1998]
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2210d3a" class="outline-2">
+<h2 id="org2210d3a"><span class="section-number-2">3</span> Past Exploits and Their Causes</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orga0ef1a5" class="outline-3">
+<h3 id="orga0ef1a5"><span class="section-number-3">3.1</span> Top Ten Security Holes 2017</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+For 2017, the OWASP Top 10 Most Critical Web Application Security
+Risks are:
+</p>
+
+<ol class="org-ol">
+<li>[Code] Injection</li>
+<li>Broken Authentication and Session Management</li>
+<li>Cross-Site Scripting (XSS) <a href="http://en.wikipedia.org/wiki/Cross-site_scripting">Cross-site scripting</a> on wikipedia.  Recommended   Reading.</li>
+<li>Broken Access Control (As it was in 2004)</li>
+<li>Security Misconfiguration</li>
+<li>Sensitive Data Exposure</li>
+<li>Insufficient Attack Protection</li>
+<li>Cross-Site Request Forgery (CSRF)</li>
+<li>Using Components with Known Vulnerabilities</li>
+<li>Underprotected APIs</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org54868e2" class="outline-3">
+<h3 id="org54868e2"><span class="section-number-3">3.2</span> Top Ten Security Holes 2000</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+GSA Federal Chief Information Officers Council listed, in 2000, the
+"The Ten Most Critical Internet Security Threats":
+</p>
+
+<ol class="org-ol">
+<li>BIND weaknesses: nxt, qinv and in.named allow immediate
+root compromise.</li>
+
+<li>Vulnerable CGI programs and application extensions (e.g.,
+ColdFusion) installed on web servers.</li>
+
+<li>Remote Procedure Call (RPC) weaknesses in rpc.ttdbserverd
+(ToolTalk), rpc.cmsd (Calendar Manager), and rpc.statd that
+allow immediate root compromise</li>
+
+<li>Remote Data Services (RDS) security hole in the Microsoft's
+web server named IIS.</li>
+
+<li>Sendmail buffer overflow weaknesses, pipe attacks and
+MIMEbo, that allow immediate root compromise.</li>
+
+<li>Buffer overflows in sadmind (remote administration access
+to Solaris systems) and mountd (controls and arbitrates access
+to NFS mounts on UNIX hosts) permit root compromise.</li>
+
+<li>Global file sharing and inappropriate information sharing
+via NFS and Windows NT ports 135-&amp;gt;139 (445 in Windows2000)
+or UNIX NFS exports on port 2049. Also Appletalk over IP with
+Macintosh file sharing enabled.</li>
+
+<li>User IDs, especially root/administrator with no passwords
+or weak passwords.</li>
+
+<li>IMAP and POP buffer overflow vulnerabilities or incorrect
+configuration.</li>
+
+<li>Default SNMP community strings set to &amp;#8216;public&amp;#8217;
+and &amp;#8216;private.&amp;#8217;</li>
+</ol>
+
+
+<p>
+Observe how many of these are due to programming errors.  Items
+  1-6, and 9 are programming errors.  Items 7, 8, and 10 are
+  configuration errors.  Note that none of the top ten are due to
+  design errors in TCP/IP.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5d716af" class="outline-3">
+<h3 id="org5d716af"><span class="section-number-3">3.3</span> Past Exploits and Their Causes</h3>
+<div class="outline-text-3" id="text-3-3">
+<ol class="org-ol">
+<li>Unauthorized Access</li>
+<li>Denial of Service</li>
+<li>Confidential Information leakage</li>
+<li>Hijacking the Flow of Control</li>
+<li>Smashing the stack / Arbitrary Code injection</li>
+
+<li><a href="http://en.wikipedia.org/wiki/SQL_injection">SQL Injection</a> on wikipedia.   Recommended   Reading.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orga321ee8" class="outline-3">
+<h3 id="orga321ee8"><span class="section-number-3">3.4</span> Living with Bugs</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+All large programs are buggy.  It is unfortunate, but this axiom
+captures the state of the technology.  Security-relevant programs
+have security bugs. Large programs are buggier than their size would
+indicate.  Good coding practices can make large programs less buggy.
+</p>
+
+<p>
+Buffer Overflow.  Be sure all buffers (arrays of
+  items, usually characters) are bounded.  Do bounds
+  checking on every variable before the contents are copied to a
+  local buffer.  Avoid routines that fail to check buffer
+  boundaries when manipulating strings, particularly:
+  =sprintf(), fscanf(), scanf(), vsprintf(), realpath(),
+  getopt(), getpass(), streadd(), strecpy(), strtrns(),
+  gets()=, <code>strcpy()</code>, and
+  <code>strcat()</code>
+</p>
+
+<p>
+Files and Directories. Always use full pathnames for any
+  file arguments.  The current directory assumed by your
+  program may not be where it is at.  Explicitly change
+  directories (<code>chdir()</code>) to an appropriate directory
+  at program start. If creating a new file, use <b>O-EXCL</b>
+  and <b>O-CREAT</b> flags to assure that the file does not
+  already exist. Do not create files in world-writable
+  directories. Use <code>lstat()</code> to make sure a file is
+  not a link, if appropriate. Set limit values to disable
+  creation of a core file if the program fails. If using
+  temporary files, consider using <code>tmpfile()</code> or
+  <code>mktemp()</code> system calls to create them (although
+  most <code>mktemp()</code> library calls have problematic race
+  conditions).
+</p>
+
+<p>
+Be aware of race conditions, deadlock conditions and
+sequencing conditions.
+</p>
+
+<p>
+Never use <code>system()</code> and <code>popen()</code> (Huh? Why not??)
+system calls
+</p>
+
+<p>
+Do not make assumptions about port numbers, use
+<code>getservbyname()</code> instead.  Do not assume
+connections from low-numbered ports are legitimate or
+trustworthy. Do not assume the source IP address is legitimate.
+Place timeouts and load level limits on incoming
+network-oriented read request.  Place timeouts on outgoing
+network-oriented write requests.
+</p>
+
+<p>
+Daemons allow users to access the system without first
+  getting authenticated.  A network daemon may answer a network
+  request and process it under the daemon's privileges, not a
+  user's. Therefore, this is another way for users to increase
+  access, or even gain initial access, to the target system.
+</p>
+
+
+<p>
+Robust Compilation and Libraries. Make good use of tools such
+as <code>lint</code> and <code>splint</code>.  Have internal
+consistency-checking code.  Use your compiler wisely. With gcc,
+use <code>-Wall -ansi -pedantic</code> flags.  Use safe libraries.
+</p>
+
+<p>
+Have code reviewed by other people. E.g., commercial
+products such as 3Com's  CoreBuilder and SuperStack II
+hubs were revealed to have "secret" backdoor passwords.
+</p>
+
+<p>
+Test thoroughly.  Test the software using the same
+methods that crackers do: Try to overflow every buffer in the
+package, Try to abuse command line options, Try to create every
+race condition conceivable.  Have others besides the
+designers and implementers test the code.  Be aware of
+test coverage; gcc -pg -a causes the program to produce a
+bb.out file that is helpful in determining how effective your
+tests are at covering all branches of the code. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org60afc67" class="outline-3">
+<h3 id="org60afc67"><span class="section-number-3">3.5</span> Economy of Mechanism</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+Keep your implementation as simple as possible. Note that <b>simple</b>
+is different from <b>small</b>: just because you <b>can</b> write a CGI
+program in 300 bytes of line-noise Perl, doesn't mean you <b>should</b>.
+All the usual structured-programming tips help here: clean
+interfaces between modules, avoid global state, etc.
+</p>
+
+<p>
+Keep Interactions Minimal. You often need to check how each
+pair of subsystems interacts, and possibly even each
+<b>subset</b> of subsystems.  For example, interactions
+between the password checker and the page-fault mechanism.
+</p>
+
+<p>
+Least Common Mechanisms. The assumptions originally made in shared
+code may no longer be valid.
+</p>
+
+<p>
+Make the program's critical portion as short and simple as possible.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org746b6ac" class="outline-3">
+<h3 id="org746b6ac"><span class="section-number-3">3.6</span> Fail-Open or Fail-Closed?</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+Security can fail in two different ways: Allow access when it
+shouldn't; this is called fail-open.  Refuse access when it
+shouldn't; this is called fail-closed.  As an example, consider
+electronic door lock.  When the power goes out, locking the door by
+holding it closed with a massive electromagnet will fail-open,
+whereas locking the door with a spring-loaded deadbolt that is
+pulled out of the way with a solenoid will fail-closed.
+</p>
+
+<p>
+Many programs do not check if enough resources will be
+available.  What happens if there is not enough memory and some
+allocations fail?  What happens if the program runs out of fille
+descriptors?  What happens if the program cannot fork()?
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org74b4bb0" class="outline-2">
+<h2 id="org74b4bb0"><span class="section-number-2">4</span> Software Security Principles</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org0996613" class="outline-3">
+<h3 id="org0996613"><span class="section-number-3">4.1</span> Papers and Slides</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li><a href="http://www.cs.ucsb.edu/~kemm/courses/cs177/principles.pdf">http://www.cs.ucsb.edu/~kemm/courses/cs177/principles.pdf</a> 2012, 20+
+slides, (Overview of) Security Principles, 2012.  Required
+Reading.</li>
+
+<li>IEEE <a href="https://www.computer.org/cms/CYBSI/docs/Top-10-Flaws.pdf">https://www.computer.org/cms/CYBSI/docs/Top-10-Flaws.pdf</a>
+Avoiding the Top 10 Software Security Design Flaws, <a href="./Top-10-Flaws-2014-pm.pdf">local PDF</a>. 2014</li>
+
+<li><a href="./sec-nasa-2015.pdf">NASA Addressing SW Security</a>, 20+ slides, 2015.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgc0b8824" class="outline-3">
+<h3 id="orgc0b8824"><span class="section-number-3">4.2</span> Trusting Untrustworthy Channels</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+If you send passwords in clear text over a LAN, if you create a
+world-writeable file and later try to read back data from that file,
+if you create a file in /tmp with O-TRUNC but not O-EXCL, etc., you
+are trusting an untrustworthy intermediary.
+</p>
+
+<p>
+Do not assume that inputs are valid.  E.g., if an
+  argument should be a positive integer in the range of 2 to 7,
+  verify that.  If an argument should be a non-empty string
+  of letters not exceeding 13 characters in length, verify
+  that.  Check interactive input to be sure it contains only
+  "good" characters.  Consider how such input will be parsed
+  when substituted.  Check arguments passed in environment
+  variables.
+</p>
+
+<p>
+Do not require clear-text authentication information.
+</p>
+
+<p>
+Use session encryption to avoid session hijacking and hide
+authentication information.
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org6e2295f" class="outline-3">
+<h3 id="org6e2295f"><span class="section-number-3">4.3</span> Proper Defaults</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+If there are non-obvious, but insecure, defaults, it is likely that
+system administrators will leave them alone. For example, if you
+unpack an RPM or a ZIP archive and it creates some configuration
+files world-writeable, you are unlikely to notice.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7a4d269" class="outline-3">
+<h3 id="org7a4d269"><span class="section-number-3">4.4</span> Error Handling and Reporting</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Error handling and reporting is an essential part of any programming
+paradigm. Delicate handling of and recovery from error conditions is
+an absolute necessity, especially in a third party library.
+</p>
+
+<p>
+Check all system call parameters and system call return code.
+System calls should verify their arguments, but unfortunately most
+OS calls do not for fear of becoming inefficient, so you must.
+Fortunately, all system calls return a success or failure code.
+Unfortunately, only a few programs verify these result codes.
+</p>
+
+<p>
+Logging Events.  Do log relevant information, including date, time,
+uid and effective uid, gid and effective gid, terminal information,
+pid, command-line arguments, errors, and originating host.  Make
+sure that the log files themselves remain bounded in size.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org5872ce6" class="outline-3">
+<h3 id="org5872ce6"><span class="section-number-3">4.5</span> Change-of-Role Hole</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+What was originally a minor annoyance, or sometimes even a
+convenience, can become a security hole when a program is run in a
+different context.  For example, suppose you have a PostScript
+interpreter that was originally intended to let you preview your
+documents before printing them. This is not a security-sensitive
+role; the PostScript interpreter doesn't have any capabilities that
+you do not. But suppose you start using it to view documents from
+other people. Suddenly, the presence of PostScript's file access
+operators becomes a threat! Someone can send you a document which
+will delete all your files &#x2013; or possibly stash copies of your files
+someplace they can get at them.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org1eb579e" class="outline-3">
+<h3 id="org1eb579e"><span class="section-number-3">4.6</span> Security Compartments</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+A system should be divided into security compartments.  For example,
+a Linux system has numerous compartments known as "users", "kernel",
+and "network".  The network subsystem is divided into sub
+compartments known as "network connections". There are well-defined
+trust relationships between these different compartments, which are
+based on system setup and authentication.  The trust relationships
+must be enforced at every interface between security compartments.
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgca88d6c" class="outline-2">
+<h2 id="orgca88d6c"><span class="section-number-2">5</span> Secure Coding Guidelines</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org2d1d7b5" class="outline-3">
+<h3 id="org2d1d7b5"><span class="section-number-3">5.1</span> Holzmann's Ten Rules</h3>
+<div class="outline-text-3" id="text-5-1">
+<ol class="org-ol">
+<li>Holzmann's paper (see the References) presents "Ten Rules for
+Writing Safety Critical Code":
+<ol class="org-ol">
+<li>Restrict to simple control flow constructs.</li>
+<li>Give all loops a fixed upper-bound.</li>
+<li>Do not use dynamic memory allocation after initialization.</li>
+<li>Limit functions to no more than 60 lines of text.</li>
+<li>Use minimally two assertions per function on average.</li>
+<li>Declare data objects at the smallest possible level of scope.</li>
+<li>Check the return value of non-void functions, and check the
+validity of function parameters.</li>
+<li>Limit the use of the preprocessor to file inclusion and simple macros.</li>
+<li>Limit the use of pointers. Use no more than two levels of
+dereferencing per expression.</li>
+<li>Compile with all warnings enabled, and use one or more source
+code analyzers.</li>
+</ol></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org05c0afa" class="outline-3">
+<h3 id="org05c0afa"><span class="section-number-3">5.2</span> CERT</h3>
+<div class="outline-text-3" id="text-5-2">
+<ol class="org-ol">
+<li><a href="http://cs.stanford.edu/people/eroberts/cs181/projects/viruses/cert.html">http://cs.stanford.edu/people/eroberts/cs181/projects/viruses/cert.html</a>
+The Role of CERT</li>
+
+<li><a href="https://www.securecoding.cert.org/confluence/display/seccode/SEI+CERT+Coding+Standards">https://www.securecoding.cert.org/confluence/display/seccode/SEI+CERT+Coding+Standards</a>
+CMU SEI CERT Coding Standards. Required Reading &#x2013; Top Level.</li>
+
+<li><a href="https://www.securecoding.cert.org/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java">https://www.securecoding.cert.org/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java</a> SEI CERT Oracle Coding Standard for Java</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgcb37a4a" class="outline-3">
+<h3 id="orgcb37a4a"><span class="section-number-3">5.3</span> Android Source Code</h3>
+<div class="outline-text-3" id="text-5-3">
+<ol class="org-ol">
+<li>Prabhaker Mateti, Audit of Android Src Code, work-in-progress (not
+ready for public), {pm-aosp-audit-min.pdf} located on thumb drive.
+Discuss a couple of CERT rules for Android.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd2d5295" class="outline-3">
+<h3 id="orgd2d5295"><span class="section-number-3">5.4</span> Secure Java and Secure C++</h3>
+<div class="outline-text-3" id="text-5-4">
+<ol class="org-ol">
+<li><a href="./pl-security-java.html">Secure Java Programming</a> basics by PM. About 2pp. Required Reading.</li>
+
+<li><a href="./pl-security-c-cpp.html">Secure Programming in C/ C++</a> basics by PM.  About 1 page. Required
+Reading.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orga1db7c6" class="outline-2">
+<h2 id="orga1db7c6"><span class="section-number-2">6</span> Static Analysis of Source Code</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>Concepts
+<ol class="org-ol">
+<li>Data Flow Analysis</li>
+<li>Control Flow Graph</li>
+<li>Taint Analysis</li>
+<li>Lexical Analysis</li>
+<li>False Positives</li>
+<li>False Negatives</li>
+<li>AutoRefactor Examples of Code Transformation</li>
+</ol></li>
+
+<li>Static Source Code Analysis Tools
+<ol class="org-ol">
+<li>splint</li>
+<li>Coverity</li>
+</ol></li>
+
+<li>Well-known "simple" Tools
+<ol class="org-ol">
+<li>CheckStyle</li>
+<li>FindBugs</li>
+<li>PMD</li>
+<li>Ubuntu/ Debian: <code>apt install ...</code></li>
+</ol></li>
+<li>Commercial Tools</li>
+<li>Advanced Tools
+<ol class="org-ol">
+<li>AutoRefactor Examples</li>
+<li>Security Improvement;</li>
+<li>Misc Open Source Projects;</li>
+</ol></li>
+<li>Formal Verification Tools
+<ol class="org-ol">
+<li>Spoon</li>
+<li>JTransformer</li>
+<li>Frama-C</li>
+</ol></li>
+<li>All the above in <a href="./StaticAnalysis">Static Analysis of Source Code</a></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgd7d3d17" class="outline-2">
+<h2 id="orgd7d3d17"><span class="section-number-2">7</span> Rough Auditing Tool for Security (RATS)</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+RATS is a security auditing utility for C, C++, PHP, Perl, and Python
+source code. RATS scans source code, finding potentially dangerous
+function calls.  The goal of rats is to provide a starting point for
+performing manual security audits.  See the book "Building Secure
+Software" by Viega and McGraw, 2001.}  RATS is a standard package in
+Debian: <code>apt-get install rats</code>.  Read <code>man rats</code> and
+<a href="https://security.web.cern.ch/security/recommendations/en/codetools/rats.shtml">https://security.web.cern.ch/security/recommendations/en/codetools/rats.shtml</a>
+2017
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge9f67fd" class="outline-2">
+<h2 id="orge9f67fd"><span class="section-number-2">8</span> UNO</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+It is invoked as in <code>uno file.c</code>.  It intercepts (i) Use of
+uninitialized variables, (ii) Null-pointer references, and (iii)
+Out-of-bounds array indexing.  Uno is not a standard Debian package;
+build it from the source code downloadable from
+<a href="http://spinroot.com/uno/">http://spinroot.com/uno/</a>.  [Current Tool Version: 2.14 &#x2013; 19 December
+2016]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org040eab8" class="outline-2">
+<h2 id="org040eab8"><span class="section-number-2">9</span> Valgrind</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+A fairly simple use of valgrind (<a href="http://valgrind.org/">http://valgrind.org/</a>) is to monitor a
+process to detect coding errors such as uninitialized variables, index
+overflow of an array, or memory leaks.  <code>apt-get install valgrind
+kcachegrind</code> as these are standard packages in Debian; read <code>man
+valgrind kcachegrind</code>  Current release: valgrind-3.13.0 2017.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgef1039a" class="outline-2">
+<h2 id="orgef1039a"><span class="section-number-2">10</span> Correct By Design and Mathematical Proof</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+<div id="outline-container-orgdf13cc7" class="outline-3">
+<h3 id="orgdf13cc7"><span class="section-number-3">10.1</span> Robust, Correct and Secure Programs</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+For the purpose of this article, let us define robustness as
+being crash proof, and hang-proof no matter what the inputs
+are.  Crash is unexpected termination.  A hang is
+unexpected non-termination.  Two classes of being hung are:
+infinite looping, and waiting for an event that will not
+occur.  Infinite looping consumes heavily the CPU
+time.  Waiting for a non-occurring event consumes almost no
+resources.  Note that infinite recursion will lead to a
+crash via resource exhaustion.
+</p>
+
+<p>
+When you're writing a normal piece of software, your purpose is
+to make certain things possible, if the user does things correctly.
+When you're writing a security-sensitive piece of software, you also
+must make certain things <b>impossible</b>, no matter what any
+trusted or untrusted user does. Cryptologists and real-time
+programmers are familiar with doing things this way. Most other
+programmers are not.
+</p>
+
+<p>
+If the kernel has security holes, no amount of checking of system
+programs is going to make the system secure from attack.  However,
+relatively few kernel bugs are being found and exploited these days.
+In terms of security, kernels are relatively bug-free because of the
+limited interfaces available to attack. For instance, Solaris has
+210+ system calls (check <code>/usr/include/sys/syscall.h</code>), and
+Linux kernel of a few years ago about 190 and in 2012 about 320+.
+Compare that to the thousands of points a hacker has available to
+attack: sockets, files, devices, and programs.
+</p>
+
+
+<p>
+It is expensive to develop secure programs by a factor of 10 or so.
+It is also the case, that placing high importance on security will
+lead to these programs being inefficient.  In the next few
+paragraphs, we ignore both these issues (cost and
+efficiency) and speculate on the possibility of developing secure
+software.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7d152a6" class="outline-3">
+<h3 id="org7d152a6"><span class="section-number-3">10.2</span> Assertions, Pre- and Post-Conditions, Invariants</h3>
+<div class="outline-text-3" id="text-10-2">
+<ol class="org-ol">
+<li><a href="./Assertions/assertions-101.html">./Assertions/assertions-101.html</a> Process state, invariants, Pre-
+Post-Conditions.</li>
+<li>The <a href="./Assertions/3np1.html">3n+1</a> Termination Problem</li>
+<li><a href="./Assertions/Java/assertions-java.html">Assertions in Java</a></li>
+<li><a href="./Assertions/CPP/assertions-cpp.html">Assertions in C/C++</a></li>
+<li><a href="./Assertions/practical-advice.html">Practical-Advice</a> on Writing Assertions</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgf3c7d2e" class="outline-3">
+<h3 id="orgf3c7d2e"><span class="section-number-3">10.3</span> Methods of Correct by Design</h3>
+<div class="outline-text-3" id="text-10-3">
+<p>
+There is a large body of technical literature that advocates
+designing software by first writing formal specifications capturing
+the all requirements of the software yet to be constructed.
+Subsequent steps are systematic refinements of such specifications
+yielding several levels of designs ultimately producing the source
+code in a programming language.  The writings of Turing-award
+winners Dijkstra and Hoare are heavily influential in this
+regard. (For an elementary introduction, read "Practical Advice on
+Writing Pre- Post-Conditions for Real Programs," listed in the
+References.) Unfortunately, the open literature has documented only
+small programs that are so developed.  Most of the academic computer
+science community as well as the industry believes that such
+development is astronomically expensive and even then not
+necessarily qualitatively "better."
+</p>
+
+<p>
+In recent years, more practical uses of the above methodology
+have emerged.  E.g., a tool, called SPLINT (see References), can
+analyze large amounts of C source code at a speed comparable to that
+of a typical compiler and flag a variety of notorious errors that
+made secure software succumb to such attacks as buffer overflow.
+</p>
+
+<p>
+Use formal specifications. At a minimum, develop pre- and
+  post-conditions in carefully written English.
+</p>
+
+<p>
+assert(3) is a macro that accepts a single argument which it
+treats as a Boolean expression. If the expression evaluates to
+false, the assert macro prints an error message and terminates
+the program. Assertions are useful in the developmental stages of
+programs when verbose error handling is not in place or when a
+grievous error condition that normally should not happen
+occurs.  One must use assertions, but exiting abruptly even
+after reporting an error is not acceptable. If a grievous error
+condition is detected, the code should return error codes to the
+caller, and let it decide what to do. Code should be able to
+handle grievous errors well enough to be able to exit gracefully
+from the top level (if possible).  Also, never use
+structured exception handling as a substitute for writing solid
+code in the first place.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org52be1c6" class="outline-3">
+<h3 id="org52be1c6"><span class="section-number-3">10.4</span> Writing Safe <code>setuid</code>  Programs</h3>
+<div class="outline-text-3" id="text-10-4">
+<pre class="example">
+-rwsr-xr-x 1 root root 94792 Mar 30  2012 /bin/mount
+-rwsr-xr-x 1 root root 34888 Aug 14  2017 /bin/mount
+
+-rwsr-xr-x 1 root root 42824 Sep 12  2012 /usr/bin/passwd
+-rwsr-xr-x 1 root root 54224 Aug 20  2017 /usr/bin/passwd
+
+</pre>
+
+<p>
+The <code>setuid</code> feature allows executables launched by a user to run with
+the privileges of the owner of the executable.  A typical example is
+the passwd program.  The "buffer overflow" attack exploits setuid root
+programs in order to gain root level access.
+</p>
+
+<p>
+A system administrator should hunt down all the setuid programs on a
+system, and remove the setuid bit, or thorughly evaluate why it must
+remain set.  Equally important is to avoid creating <code>setuid</code> or
+<code>setgid</code> shell scripts.  Check for the <code>s</code> permission in the <code>rwx</code>
+permissions field to see if an executable is setuid root. Run <code>find /
+-perm +4000 -print</code> to locate all setuid files. Add <code>-user root</code> to
+find those files that elevate to root.
+</p>
+
+<p>
+Like most man pages, the descriptions of suid the most famous syscall
+vary from Unix to Unix.  Unfortunately, the man pages are quite
+unclear, and many programmers do not study other carefully written
+setuid programs.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcd44975" class="outline-3">
+<h3 id="orgcd44975"><span class="section-number-3">10.5</span> frama-c</h3>
+<div class="outline-text-3" id="text-10-5">
+<p>
+Frama-C is a suite of free tools that statically analyse the C source
+code.  Their tools let us "observe sets of possible values for the
+variables of the program at each point of the execution; slice the
+original program into simplified ones; navigate the dataflow of the
+program, from definition to use or from use to definition."
+(<a href="http://frama-c.com">http://frama-c.com</a>)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9571e06" class="outline-3">
+<h3 id="org9571e06"><span class="section-number-3">10.6</span> JTransformer</h3>
+<div class="outline-text-3" id="text-10-6">
+<p>
+"JTransformer is powerful and easy to use development environment for
+your own custom analyses and transformations of Java source code"
+<a href="https://sewiki.iai.uni-bonn.de/research/jtransformer/">https://sewiki.iai.uni-bonn.de/research/jtransformer/</a>
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org0e16878" class="outline-3">
+<h3 id="org0e16878"><span class="section-number-3">10.7</span> Spoon</h3>
+<div class="outline-text-3" id="text-10-7">
+<ol class="org-ol">
+<li><a href="http://spoon.gforge.inria.fr/">http://spoon.gforge.inria.fr/</a> Spoon - Source Code Analysis and
+Transformation for Java</li>
+
+<li>Spoon is an open-source library that enables you to transform and
+analyze Java source code.  Any program element (classes, methods,
+fields, statements, expressions&#x2026;) can be accessed both for
+reading and modification.  Spoon takes as input source code and
+produces transformed source code ready to be compiled.  Spoon can
+be integrated in Maven and Gradle.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org84672cd" class="outline-2">
+<h2 id="org84672cd"><span class="section-number-2">11</span> Lab Experiments</h2>
+<div class="outline-text-2" id="text-11">
+</div>
+<div id="outline-container-org44a4b8c" class="outline-3">
+<h3 id="org44a4b8c"><span class="section-number-3">11.1</span> Fall 2019</h3>
+<div class="outline-text-3" id="text-11-1">
+<ol class="org-ol">
+<li><a href="./Labs/secsoftware-lab.html">Lab: Software without Security Holes</a></li>
+<li><a href="./Labs/secsoftware-lab2.html">Lab: Software without Security Holes #2</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgcd0c36f" class="outline-3">
+<h3 id="orgcd0c36f"><span class="section-number-3">11.2</span> Lab Experiment-1</h3>
+<div class="outline-text-3" id="text-11-2">
+<ol class="org-ol">
+<li>Objective: Introduce you to formal methods based tools.  Get you to
+think about secure programming some more.</li>
+
+<li>Study Matt Bishop's Robust Programming article.  Provide answers to
+Exercises 10 and 19 in the lab report.</li>
+
+<li>List (as in <code>ls -l</code>) all the setuid programs in Knoppix.</li>
+
+<li>Run <code>splint</code> on <code>exploit4.c</code> of Aleph One.  Revise the code of
+<code>exploit4.c</code>, and adjust the flags of <code>splint</code> so that all errors
+and warnings shown by <code>splint</code> are gone.  Include in the lab report
+the content of <code>exploit4Revised.c</code>.  (Splint is already installed
+on the OSIS Lab PCs under Ubuntu.)</li>
+
+<li>Download the source code of the latest stable release of <code>sudo</code>
+from <a href="http://www.sudo.ws/sudo/">http://www.sudo.ws/sudo/</a>.  Build as usual.  Read <code>man sudo</code>.
+Check that it "works."  Submit details of how you checked.</li>
+
+<li>Run <code>splint</code>, with no flags (except for include-related),
+collectively on all the source code files of <code>sudo</code>.  Insert all
+its messages into the lab report as an appendix.</li>
+
+<li>Select <i>three</i> interesting messages regarding source code errors
+generated by splint, and explain the messages and the causes for
+their generation.</li>
+
+<li><p>
+Bonus Points: Study the different versions of the man pages of sudo
+that are in these tar balls.  Focus on the "seven sins of the
+specifier", namely, 1. Noise, 2. Silence: 3. Overspecification,
+</p>
+<ol class="org-ol">
+<li>Contradiction, 5. Ambiguity, 6. Forward Reference, 7. Wishful</li>
+</ol>
+<p>
+Thinking (from Bertrand Meyer 1985).  Do you find that the man
+pages became better or worse over the years.  Write up your
+findings.
+</p></li>
+<li>[[./SecSoftwareLabGS.html][Lab-1 Grading Sheet]</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org560e1be" class="outline-3">
+<h3 id="org560e1be"><span class="section-number-3">11.3</span> Lab Experiment-2</h3>
+<div class="outline-text-3" id="text-11-3">
+<ol class="org-ol">
+<li>Objective: Learn a few more static and dynamic analysis tools that
+help discover security bugs.  Three such tools are briefly
+described below.</li>
+
+<li>Continue to work with the source code files of the latest sudo from
+<a href="http://www.sudo.ws/sudo/">http://www.sudo.ws/sudo/</a>.  Build it as usual.  Check that it
+"works."</li>
+<li>Use the above tools (of Section Source Code Analysis) RATS,
+valgrind, and UNO on the source code files and/or the sudo program
+built from the above.</li>
+<li>Select and discuss five discoveries made by each of the tools.
+Total 15 items.</li>
+<li>Write a comparative review of the tools.</li>
+
+<li>Holzmann's paper (see the References) presents "Ten Rules for
+Writing Safety Critical Code":
+<ol class="org-ol">
+<li>Restrict to simple control flow constructs.</li>
+<li>Give all loops a fixed upper-bound.</li>
+<li>Do not use dynamic memory allocation after initialization.</li>
+<li>Limit functions to no more than 60 lines of text.</li>
+<li>Use minimally two assertions per function on average.</li>
+<li>Declare data objects at the smallest possible level of scope.</li>
+<li>Check the return value of non-void functions, and check the
+validity of function parameters.</li>
+<li>Limit the use of the preprocessor to file inclusion and simple macros.</li>
+<li>Limit the use of pointers. Use no more than two levels of
+dereferencing per expression.</li>
+<li>Compile with all warnings enabled, and use one or more source
+code analyzers.</li>
+</ol></li>
+<li>Comment on whether <code>sudo</code> follows these rules.</li>
+<li>[[./SecSoftwareLab2GS.html][Lab-2 Grading Sheet]</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org93c9310" class="outline-2">
+<h2 id="org93c9310"><span class="section-number-2">12</span> Acknowledgements</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+These lecture materials are gleaned from many sources.  All are
+presented after careful reading.  In some cases, I may have
+unintentionally neglected proper attribution.  I assure the reader it
+is not because I claim authorship.  Indeed, in the lectures there is
+hardly any thing new that I have contributed.  Suggestions for
+improvement are always welcome.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org311a3ed" class="outline-2">
+<h2 id="org311a3ed"><span class="section-number-2">13</span> References</h2>
+<div class="outline-text-2" id="text-13">
+<ol class="org-ol">
+<li>Several references embedded in the above.</li>
+<li>Will reorganize these.  Real-Soon-Now.</li>
+<li>Matt Bishop, Robust Programming,
+<a href="http://nob.cs.ucdavis.edu/~bishop/secprog/robust.pdf">http://nob.cs.ucdavis.edu/~bishop/secprog/robust.pdf</a>, 17pp, 2003.
+Required Reading.</li>
+
+<li>Matt Bishop, Secure setuid programs. 1996.
+setuidBishop1996-sans-tut.pdf. Required Reading.</li>
+
+<li>David Evans and David Larochelle, Improving Security Using
+Extensible Lightweight Static Analysis,
+<a href="http://www.cs.virginia.edu/~evans/pubs/ieeesoftware-abstract.html">http://www.cs.virginia.edu/~evans/pubs/ieeesoftware-abstract.html</a>
+In IEEE Software, 2002.  Required Reading.</li>
+</ol>
+</div>
+
+<div id="outline-container-org4ed98bd" class="outline-3">
+<h3 id="org4ed98bd"><span class="section-number-3">13.1</span> References #2</h3>
+<div class="outline-text-3" id="text-13-1">
+<ol class="org-ol">
+<li>Simson Garfinkel, Gene Spafford Practical Unix and Internet
+Security, O'Reilly &amp;amp; Associates; Chapter 23: Writing Secure
+SUID and Network Programs.  Required Reading.</li>
+
+<li>Gerard J. Holzmann, The Power of Ten &#x2013; Rules for Developing Safety
+Critical Code,'' IEEE Computer, June 2006, pp. 93-95
+<a href="http://spinroot.com/gerard/pdf/P10.pdf">http://spinroot.com/gerard/pdf/P10.pdf</a> Required Reading.</li>
+
+<li>Prabhaker Mateti, "Practical Advice on Writing Pre- Post-Conditions
+for Real Programs," Lecture Notes,
+May 1998. <a href="./PrePost/prepostNotesPM.html">./PrePost/prepostNotesPM.html</a> Required Reading.</li>
+
+<li>Prabhaker Mateti, "Buffer Overflow", Lectures on Internet Security,
+<a href="../../Top/lectures.html">../../Top/lectures.html</a> There is a section on robust programming
+techniques that avoid the buffer overflow exploits.  Required
+Reading.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org17ba09c" class="outline-3">
+<h3 id="org17ba09c"><span class="section-number-3">13.2</span> References #3</h3>
+<div class="outline-text-3" id="text-13-2">
+<ol class="org-ol">
+<li>Adam Shostack, "Security Code Review Guidelines,"
+<a href="http://www.homeport.org/~adam/review.html">http://www.homeport.org/~adam/review.html</a> 1996/July 2006. Highly
+Recommended Reading.</li>
+
+<li>David A. Wheeler, "Secure Programming for Linux and Unix HOWTO", a
+book,
+<a href="http://www.linuxdoc.org/HOWTO/Secure-Programs-HOWTO.html">http://www.linuxdoc.org/HOWTO/Secure-Programs-HOWTO.html</a> 2015.
+Free book.  Highly Recommended Reading.</li>
+
+<li>[Book] Chess, Brian, and Jacob West. Secure Programming with Static
+Analysis. Pearson Education, 2007.  Reference</li>
+
+<li>[Book] Introduction to Computer Security, Michael Goodrich, University
+of California, Irvine Roberto Tamassia, Brown University, Addison
+Wesley, 2011.  Reference</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org7d2a288" class="outline-3">
+<h3 id="org7d2a288"><span class="section-number-3">13.3</span> References #4</h3>
+<div class="outline-text-3" id="text-13-3">
+<ol class="org-ol">
+<li>McGraw, Gary, and Ming Chow. "Guest Editors' Introduction:
+Safeguarding the Future of Software Security." IEEE Security &amp;
+Privacy,  vol 7, no. 3 (2009): 11-12.  PDF accessible via WSU
+Library proxy.  Required Reading.</li>
+
+<li>Prabhaker Mateti, <a href="http://www.cs.wright.edu/~pmateti/InternetSecurity/Lectures/SecSoftware/">"Software without Security Holes"</a>, 2018. Required
+Reading.</li>
+
+<li><a href="http://cwe.mitre.org/top25/">2011 CWE/SANS Top 25 Most Dangerous Software Errors</a> Recommended
+Reading.</li>
+
+<li>Dawson Engeler, et al., A Few Billion Lines of Code Later: Using
+Static Analysis to Find Bugs in the Real World, CACM, 10pp, 2010.
+<a href="http://courses.cs.washington.edu/courses/cse484/14au/reading/coverity.pdf">http://courses.cs.washington.edu/courses/cse484/14au/reading/coverity.pdf</a>.   Required Reading.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org0677ef3" class="outline-3">
+<h3 id="org0677ef3"><span class="section-number-3">13.4</span> References #5</h3>
+<div class="outline-text-3" id="text-13-4">
+<ol class="org-ol">
+<li><a href="http://www.ccs.neu.edu/home/noubir/Presentations/Network-Security-Use-Misuse-Crypto.pdf">Cryptography misuse</a> 95+ slides, Guevara Noubir, Northeastern
+University.  Recommended Reading</li>
+
+<li><a href="https://www.cs.ucsb.edu/~chris/research/doc/ccs13_cryptolint.pdf">An Empirical Study of Cryptographic Misuse in Android Applications</a>
+2013 Recommended Reading.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf101a8d" class="outline-2">
+<h2 id="orgf101a8d"><span class="section-number-2">14</span> End</h2>
+<div class="outline-text-2" id="text-14">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2020 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2019-09-18
+</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+Date: 2018-05-24 2020-09-12
+#+TITLE: Example: SmallSet of Int
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr>Copyright &copy; 2018 <a href=\"https://cecs.wright.edu/~pmateti\">cecs.wright.edu/~pmateti</a> %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+* Abstract
+
+This subtree of notes describes the requirements, specs, design and
+implementation of a SmallSet of integers.  It is similar, but not
+equivalent to Java Set.  Our description is focused on abstraction and
+assertions.  This is expected to be a good example of software
+engineering "in the tiny".  But, bug-free?!
+
+It is also intended as an example for use later with learning JML
+assertions, JUnit/TestNG, and FindBugs.
+
+This is NOT an implementation of Java Set container.
+
+
+
+* SmallSet Requirements
+
+1. [[./SmallSet-reqs.org]]
+
+* SmallSet Specs
+
+1. [[./SmallSet-specs.org]]
+
+
+* SmallSet Design
+
+1. [[./SmallSet-design.org]]  Illustrates /abstraction/ in design
+2. cf.  [[http://docs.oracle.com/javase/8/docs/api/java/util/Set.html]]
+   The details of the Set as defined in Java API
+3. Focus on the "methods"
+   1. not the size of code.
+   2. not the PL notation.
+   3. for now, not (even) Java.
+4. Not trying to match the Java Set API.
+
+
+* SmallSet Implementation
+
+1. [[./SmallSet-impl.org]] implemented in Java; sloccount: java: 139 (100.00%)
+1. Includes assertions.  Does not use JML.
+1. This is NOT an implementation of Java Set container.
+1. [[./java-asserts.html]] Java Assert Practical Issues
+
+* Exercises
+
+1. Write javadoc comments.
+1. Re-write the assertions in JML.
+1. Is this bug-free? Present an objective discussion.  "This"
+   is what? Specs? Design? Impl?
+1. Suppose we want a "large" set.  Specs [ought to] remain the same.
+   Design and implement so that there is no limit to the size (other
+   than memory exhaustion)?
+1. Re-implement using the latest advances in Java 8+ and also in
+   Kotlin.  Write a comparison.
+
+* References
+
+1. C. A. R. Hoare, Proof of Correctness of Data Representations, Acta
+   Informatica, vol. 1, no. 4, pp. 271-281, 1972.  Hoare is a Turing
+   Award winner.  Reference.
+
+1. Oracle.com, [[http://docs.oracle.com/javase/8/docs/technotes/guides/language/assert.html][Programming With Assertions]], 2015. Required Reading.
+
+1. Robert Sedgewick,
+   https://www.cs.princeton.edu/~rs/AlgsDS07/01UnionFind.pdf 40+
+   slides, Union-Find Algorithms, 2007.  High performance designs use
+   union-find.  Recommended Reading.
+
+1. Prabhaker Mateti, [[https://cecs.wright.edu/~pmateti/Courses/7100/Lectures/ADT/][Abstract Data Types]], a lecture from a PL course.
+   Recommended Reading.
+
+1. [[./SmallSet.java.html]] HTML of the code, colorized by a web tool. 
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

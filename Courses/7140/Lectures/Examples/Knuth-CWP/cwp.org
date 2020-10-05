@@ -1,0 +1,111 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE: Knuth's Common Words Problem Spec/Design
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+#+STYLE: <style> @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-preamble-format (("en" "<a href=\"http://cecs.wright.edu/~pmateti/Courses/7140/\">CS 7140 Advanced Software Engineering</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+
+* Knuth's Common Words Problem
+1. "Given a file of text, and a number k, print the k most common words."
+1. Used as an example of Literate Programming, the art of preparing
+   programs for human readers.
+1. Criticized as an example of software development
+1. Our interest here:  How to describe its spec + design?
+1. Defs of text, words, ...
+1. Def of "common" word
+1. nary Tries, ...
+1. Destructive Traversals
+1. Donald E. Knuth, "A Solution to the Common Words Problem",
+   Communications of the ACM, 1986, search for PDF link.  Knuth is a
+   Turing Award winner. Required Reading.
+
+** Literate Programming
+
+1. Combines a programming language with a documentation language
+
+1. Treat a program as a piece of literature, addressed to human beings
+   rather than to a computer.  The source code and the prose
+   documentation of the program is also viewed as a hypertext
+   document, rather like the World Wide Web. (Knuth used the word WEB
+   for this purpose long before CERN grabbed it!) 
+
+** Describe a Spec + Design of A Program
+
+1. Let us not question: Why do we need such a complex design?
+1. Instead: How do we describe this design?
+1. Instead: Did Knuth describe the design or the implementation?
+1. How do we progress from a simple "bag of words" to n-ary hash trie?
+
+** CWP Data Structures
+1. [[./cwp-nary-tree.pdf][cwp-nary-tree.pdf]]
+1. [[./cwp-plain-trie.pdf][cwp-plain-trie.pdf]]
+1. [[./cwp-ringed-trie.pdf][cwp-ringed-trie.pdf]]
+1. [[./cwp-hash-trie.pdf][cwp-hash-trie.pdf]]
+
+** Common Words Problem Spec
+
+1. Defs of text, words, ...?
+1. Def of "common" word?
+1. "Most Common"?
+
+** Common Words Solution Design
+
+1. Collection of (Word, nOccurs)
+1. Sorted on the spelling
+1. n-ary trees, tries, ...
+1. Sort the Collection based on nOccurs
+1. Destructive Traversals
+
+** Overview of N-ary Trees to Hash Tries
+1. Design Description of CWP needs several levels.
+1. Collection of (Word, nOccurs) as an n-ary tree: [[http:../../Notes/cwp-nary-tree.pdf][cwp-nary-tree.pdf]]
+  1. A Prefix of a Word is a Word?  Yes.
+1. A more space efficient trie: [[http:../../Notes/cwp-plain-trie.pdf][cwp-plain-trie.pdf]]
+1. One more improvement: [[http:../../Notes/cwp-ringed-trie.pdf][cwp-ringed-trie.pdf]]
+1. In the absence of pointers: [[http:../../Notes/cwp-hash-trie.pdf][cwp-hash-trie.pdf]]
+1.   [[./cwp-pmateti-selected-pages-2013.pdf]]  Required Reading.
+
+* References
+
+1. Donald E. Knuth, "A Solution to the Common Words Problem",
+   Communications of the ACM, 1986, search for PDF link.  Knuth is a
+   Turing Award winner. Required Reading.
+
+1. http://www.literateprogramming.com/ Recommended Visit.
+
+1. http://www.cs.tufts.edu/~nr/noweb/ is a tools that reads .nw files
+   and generates a beautifully typeset pdf as well as ready-to-comile
+   programming language source code files.  It has been used for tens
+   of thousands of lines of code in awk, C, C++, Haskell, Icon,
+   Modula-3, Objective Caml, PAL, perl, Promela, R, Turing, and
+   Standard ML.
+
+1. Donald E. Knuth, Literate Programming, (Stanford, California:
+   Center for the Study of Language and Information, 1992), xvi+368pp.
+   (CSLI Lecture Notes, no. 27.)  ISBN 0-937073-80-6 This book is an
+   anthology of essays including Knuth's early papers on related
+   topics such as structured programming, as well as the article in
+   The Computer Journal that launched Literate Programming itself. The
+   articles have been revised, extended, and brought up to date.
+   http://www-cs-faculty.stanford.edu/~uno/lp.html Recommended Visit.
+
+1. Knuth, Donald E. "TEX: The Program", Volume B of Computers and
+   typesetting. (1986).  624 pages, Addison-Wesley Professional;
+   ISBN-10: 0201134373 One and onle one review on Amazon.com: This
+   book is extremely valuable to those hoping to understand and reuse
+   Knuth's classic typesetting algorithms. It contains the every
+   detail needed for the implementation. Each section has a number
+   associated with the source code. Besides, it can also serve as an
+   excellent example of a large project for computer science
+   students. One can understand better "the art of computer
+   programming" after reading this book. ...  Recommended Reading ;-)
+
+1. Prabhaker Mateti, Rigorous Re-Design of Knuth’s Solution to the
+   Common Words Problem,  [[./cwp-pmateti-highlighted-full-2013.pdf]]
+   2013 Recommended Reading.  [[./cwp-pmateti-selected-pages-2013.pdf]]  Required Reading.

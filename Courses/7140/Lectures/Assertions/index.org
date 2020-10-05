@@ -1,0 +1,79 @@
+# -*- mode: org -*-
+#+DATE: 2015-09-03
+#+TITLE: On Assertions
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+DESCRIPTION: On Assertions in Software Engineering
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+Landing page for Assertions.
+
+* Assertions Intro
+
+1. [[./assertions-101.org]] A fairly long overview. Process state,
+   invariants, Floyd-Hoare Triplets, Pre- Post-Conditions.
+1. [[./assertions-in-the-small.html]] Short programs with assertions
+1. [[../Examples/tiny-examples.org]] Tiny Programming Examples with a Software Engineering Perspective
+1. The [[./3np1.org][3n+1]] Termination Problem
+1. [[./Java/assertions-java.org][Assertions in Java]]
+1. [[./CPP/assertions-cpp.org][Assertions in C++]]
+1. [[./practical-advice.org][Practical-Advice]] on Writing Assertions
+
+* WP Calculus
+
+1. [[./WP/wp.html][Weakest Preconditions]], wp(S, Q).  Dijkstra.
+
+* Java Modeling Language (JML)
+
+1. http://www.openjml.org/
+1. [[./JML/jml.org][JML]] Intro
+
+* Tools for Assertions
+
+1. http://frama-c.com/ "Frama-C is an extensible and collaborative
+   platform dedicated to source-code analysis of C software." FOSS.
+
+1. http://www.key-project.org/ "Integrated Deductive Software Design"
+   For Java.  FOSS.
+
+1. http://types.cs.washington.edu/checker-framework/ "The Checker
+   Framework enhances Java's type system ...  detect and prevent
+   errors ...  includes compiler plug-ins ("checkers") that find bugs
+   or verify their absence."  FOSS. 2016
+
+1. http://www.coverity.com/ Research from Stanford U.  Discovered
+   1000+ bugs in Linux kernel.  Bought by https://www.synopsys.com/.
+   Expensive to buy their service commercially.  "Coverity Scan is our
+   free, cloud-based solution specifically for the Open Source
+   Community."  Read https://www.synopsys.com/software-integrity.html
+
+1. 2018 All the above are actively being used and developed.
+
+* Design by Contract
+
+1. [[../OODesign/design-by-contract.org]]
+
+1. [[../OODesign/meyer-design-by-contract-1992-markedUp.pdf]] Bertrand
+   Meyer's full paper with marked up areas by me.
+
+1. [[https://event.on24.com/eventRegistration/EventLobbyServlet?target=reg20.jsp&referrer=&eventid=1043668&sessionid=1&key=9B3EA9E12B1EAAAAEDA255B47EC6998A&regTag=&sourcepage=register][Design-by-Contract]] Webinar by Bertrand Meyer, Professor of Software
+   Engineering, ETH Zurich; ACM Fellow; September 17, 2015
+
+1. [[./JML/jmldbc-2006-markedUp.pdf]]  Design-by-Contract [[./JML/jmldbc.pdf]]
+
+1. http://google-opensource.blogspot.com/2011/02/contracts-for-java.html
+   February 4, 2011
+
+* References
+
+Embedded.  All Recommended Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

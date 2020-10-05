@@ -1,0 +1,122 @@
+# -*- mode: org -*-
+#+DATE: 2018-10-15
+#+TITLE: Undo-Redo of an Editor
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CS7140 Adv Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* State
+1. Complete capture ("core" dump?) of the process (program in
+   execution)
+1. Includes state of files ...
+1. Includes global and all levels of local variables ...
+1. Time stamped, when discussing specs
+1. Compact representation: a major design issue
+
+* State History
+
+** State History of a variable X
+1. Sequences of values that X ever held from big-bang to current
+1. Each value is time stamped.  The time stamp is "abstract", it is
+   not in units/sub-units of seconds.  Every time state changes we
+   move from time t to t+1.
+
+** Operations of the Editor
+1. Every Op at t moves S_t to a "new" state S_{t+1} at t+1
+1. Every Op is completely recorded: Name, and arguments
+1. LOP ::= Last Operation, and we use LOP_t [subscript t] when needed
+
+* Spec of Undo
+1. Suppose the last operation was LOP that mapped state S_t to S_{t+1}.
+1. The relationship between S_t and S_{t+1} is given by the semantics
+   of LOP; notationally, S_{t+1} := LOP(S_t).
+1. Undo maps S_{t+1} to S_{t+2}, so that S_{t+2} == S_t.
+1. In the absence of History, Undo is a no-op, mapping S_{t+1} to
+   S_{t+2}, so that S_{t+2} == S_{t+1}.
+1. Note the growth of History as with other Ops.
+1. Semantics of Undo depends on LOP.
+1. Undo is a higher-order function.
+
+* Spec of Redo
+
+1. Suppose S_{t+1} := LOP_t(S_{t})
+
+1. Redo at t+1 maps S_{t+1} to S_{t+2}, S_{t+2} := Redo(S_{t+1}), so
+   that S_{t+2} is related to S_{t+1} in "a manner similar" to how
+   S_{t+1} and S_{t} were.  That is, S_{t+2} := LOP_t(S_{t+1})
+1. Understand the case: The last operation may be an Undo
+1. Understand the case: The last operation may be a Redo
+
+* Design of Undo/Redo
+
+1. Mostly: Representation of State History
+1. Usually: Not undoing/redoing "entire" state
+1. Main design goal: Compact.  It is too easy to be exorbitantly large.
+1. Main design goal: Speed.  It is too easy to become slow.
+
+** Representation of State
+
+1. Current state, S_t: Easy .. trivial
+
+2. Last state, S_{t-1}:
+   1. Obvious: a dump of then-current state
+   2. Can be heavily space consuming
+   3. last-state := current-state plus-minus changes
+   4. last-state := LOP_t-inverse(current-state), sometimes the
+      LOP-inverse is an easy to compute function
+
+** Representation of State History
+
+1. Sequence of state values, conceptually
+1. Sequence of LOP-inverse's
+
+* Undo/Redo Frameworks
+
+1. Bertrand Meyer's OOP book has a great section on Undo/Redo.  (in English)
+   1. http://se.inf.ethz.ch/courses/2014b_fall/eprog/lectures/18_undo.pdf
+      in German!
+1. There are now frameworks.  A few are listed below.
+1. http://www.infragistics.com/products/wpf/frameworks/undo-redo-framework 2014
+1. http://sydney.edu.au/engineering/it/~aied/vol3/vol3_jansen.pdf 2003
+1. http://repository.cmu.edu/cgi/viewcontent.cgi?article=1307&context=hcii 2015
+
+* References
+
+1. Meyer, Bertrand. Object-Oriented Software Construction. New York:
+   Prenticehall, 1988.
+
+1. http://en.wikipedia.org/wiki/Undo.  Not so good.  Even so ...
+   Recommended Reading.
+
+1. Edwards, W. Keith, Takeo Igarashi, Anthony LaMarca, and Elizabeth
+   D. Mynatt.  "A Temporal Model for Multi-Level Undo and Redo",
+   Proceedings of the 13th annual ACM symposium on User Interface
+   Software and Technology (UIST), 2000.
+   https://research.cc.gatech.edu/ecl/sites/edu.ecl/files/C.29-Edwards-UIST-2000.pdf
+   Highly Recommended Reading.
+
+1. James O'Brien, and Marc Shapiro. "Undo for anyone, anywhere,
+   anytime." In Proceedings of the 11th workshop on ACM SIGOPS
+   European workshop, p. 31. ACM, 2004.   Recommended Reading.
+
+1. Merlino, Hernán, Oscar Dieste, Patricia Pesado, and Ramón
+   García-Martínez. "Software as a Service: Undo." In SEKE,
+   pp. 328-332. 2012.
+   http://www.unla.edu.ar/sistemas/gisi/GISI/papers/SEKE-Merlino.pdf
+   Recommended Reading.
+
+1. Alessandro Warth, Yoshiki Ohshima, Ted Kaehler, and Alan Kay,
+   "Worlds: Controlling the Scope of Side Effects",
+   European Conference on Object-Oriented Programming, 2011.
+   Recommended Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,131 @@
+GAS LISTING /tmp/ccBdwIpv.s 			page 1
+
+
+   1              		.file	"modret.c"
+   2              		.section	.rodata
+   3              	.LC0:
+   4 0000 25783A25 		.string	"%x:%x, "
+   4      782C2000 
+   5              		.text
+   6              	.globl modret
+   7              		.type	modret, @function
+   8              	modret:
+   9 0000 55       		pushl	%ebp
+  10 0001 89E5     		movl	%esp, %ebp
+  11 0003 83EC28   		subl	$40, %esp
+  12 0006 C745FCEF 		movl	$-1985229329, -4(%ebp)
+  12      CDAB89
+  13 000d 8D45FC   		leal	-4(%ebp), %eax
+  14 0010 8945F8   		movl	%eax, -8(%ebp)
+  15 0013 C745F400 		movl	$0, -12(%ebp)
+  15      000000
+  16 001a EB26     		jmp	.L2
+  17              	.L3:
+  18 001c 8B45F4   		movl	-12(%ebp), %eax
+  19 001f C1E002   		sall	$2, %eax
+  20 0022 0345F8   		addl	-8(%ebp), %eax
+  21 0025 8B00     		movl	(%eax), %eax
+  22 0027 89442408 		movl	%eax, 8(%esp)
+  23 002b 8B45F4   		movl	-12(%ebp), %eax
+  24 002e 89442404 		movl	%eax, 4(%esp)
+  25 0032 C7042400 		movl	$.LC0, (%esp)
+  25      000000
+  26 0039 E8FCFFFF 		call	printf
+  26      FF
+  27 003e 8345F401 		addl	$1, -12(%ebp)
+  28              	.L2:
+  29 0042 837DF405 		cmpl	$5, -12(%ebp)
+  30 0046 76D4     		jbe	.L3
+  31 0048 8B4DF8   		movl	-8(%ebp), %ecx
+  32 004b 83C108   		addl	$8, %ecx
+  33 004e 8B45F8   		movl	-8(%ebp), %eax
+  34 0051 83C008   		addl	$8, %eax
+  35 0054 8B10     		movl	(%eax), %edx
+  36 0056 8B4508   		movl	8(%ebp), %eax
+  37 0059 8D0402   		leal	(%edx,%eax), %eax
+  38 005c 8901     		movl	%eax, (%ecx)
+  39 005e C9       		leave
+  40 005f C3       		ret
+  41              		.size	modret, .-modret
+  42              		.section	.rodata
+  43              		.align 4
+  44              	.LC1:
+  45 0008 6D61696E 		.string	"main==%x, &x==%x, &y==%x; x=%x\n"
+  45      3D3D2578 
+  45      2C202678 
+  45      3D3D2578 
+  45      2C202679 
+  46              		.text
+  47              	.globl main
+  48              		.type	main, @function
+GAS LISTING /tmp/ccBdwIpv.s 			page 2
+
+
+  49              	main:
+  50 0060 8D4C2404 		leal	4(%esp), %ecx
+  51 0064 83E4F0   		andl	$-16, %esp
+  52 0067 FF71FC   		pushl	-4(%ecx)
+  53 006a 55       		pushl	%ebp
+  54 006b 89E5     		movl	%esp, %ebp
+  55 006d 51       		pushl	%ecx
+  56 006e 83EC34   		subl	$52, %esp
+  57 0071 894DE8   		movl	%ecx, -24(%ebp)
+  58 0074 C745F800 		movl	$0, -8(%ebp)
+  58      000000
+  59 007b C745F400 		movl	$0, -12(%ebp)
+  59      000000
+  60 0082 8B45E8   		movl	-24(%ebp), %eax
+  61 0085 833801   		cmpl	$1, (%eax)
+  62 0088 7E16     		jle	.L7
+  63 008a 8B55E8   		movl	-24(%ebp), %edx
+  64 008d 8B4204   		movl	4(%edx), %eax
+  65 0090 83C004   		addl	$4, %eax
+  66 0093 8B00     		movl	(%eax), %eax
+  67 0095 890424   		movl	%eax, (%esp)
+  68 0098 E8FCFFFF 		call	atoi
+  68      FF
+  69 009d 8945F4   		movl	%eax, -12(%ebp)
+  70              	.L7:
+  71 00a0 8B45F8   		movl	-8(%ebp), %eax
+  72 00a3 83C011   		addl	$17, %eax
+  73 00a6 8945F8   		movl	%eax, -8(%ebp)
+  74 00a9 8B45F4   		movl	-12(%ebp), %eax
+  75 00ac C7442408 		movl	$1383, 8(%esp)
+  75      67050000 
+  76 00b4 C7442404 		movl	$564, 4(%esp)
+  76      34020000 
+  77 00bc 890424   		movl	%eax, (%esp)
+  78 00bf E8FCFFFF 		call	modret
+  78      FF
+  79 00c4 8B45F8   		movl	-8(%ebp), %eax
+  80 00c7 83C022   		addl	$34, %eax
+  81 00ca 8945F8   		movl	%eax, -8(%ebp)
+  82              	.L9:
+  83 00cd 8B45F8   		movl	-8(%ebp), %eax
+  84 00d0 83C033   		addl	$51, %eax
+  85 00d3 8945F8   		movl	%eax, -8(%ebp)
+  86 00d6 8B45F8   		movl	-8(%ebp), %eax
+  87 00d9 89442410 		movl	%eax, 16(%esp)
+  88 00dd 8D45F4   		leal	-12(%ebp), %eax
+  89 00e0 8944240C 		movl	%eax, 12(%esp)
+  90 00e4 8D45F8   		leal	-8(%ebp), %eax
+  91 00e7 89442408 		movl	%eax, 8(%esp)
+  92 00eb C7442404 		movl	$main, 4(%esp)
+  92      00000000 
+  93 00f3 C7042408 		movl	$.LC1, (%esp)
+  93      000000
+  94 00fa E8FCFFFF 		call	printf
+  94      FF
+  95 00ff B8000000 		movl	$0, %eax
+  95      00
+GAS LISTING /tmp/ccBdwIpv.s 			page 3
+
+
+  96 0104 83C434   		addl	$52, %esp
+  97 0107 59       		popl	%ecx
+  98 0108 5D       		popl	%ebp
+  99 0109 8D61FC   		leal	-4(%ecx), %esp
+ 100 010c C3       		ret
+ 101              		.size	main, .-main
+ 102              		.ident	"GCC: (GNU) 4.2.3 (Ubuntu 4.2.3-2ubuntu7)"
+ 103              		.section	.note.GNU-stack,"",@progbits

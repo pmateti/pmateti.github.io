@@ -1,0 +1,35 @@
+# -*- mode: org -*-
+#+DATE: 2015-08-10
+#+TITLE: Refresher on Java
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:2
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: WSU CEG 4900/6900 Android Internals and Security
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d <a href=\"../../Top/\"> CEG 4900</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2014 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> %d"))
+#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.4)
+
+Everything you see here is required background for our discussion of
+Android Internals and Security.
+
+* Java
+
+** Class Loaders
+
+** CLASSPATH
+
+
+** What is jar file?
+
+** Linking and Loading
+
+
+
+
+* References
+
+1. Greg Travis, Understanding the Java ClassLoader, 2001

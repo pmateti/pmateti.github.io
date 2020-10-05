@@ -1,0 +1,132 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+DATE: 2020-09-11
+#+TITLE:Adv Software Eng: HW1 Fall 2020
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CS7140 Adv Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+
+Home work in this course is done individually, without help from
+others.  The due date is announced on the course home page.
+
+In this HW1, we are focused on the (i) use of Assertions, (ii) Design
+by Contract (DbC), and (iii) fluency in C++ and Java/Kotlin.  We will
+have a look at "proper OOP" later on in this course, but for now go
+with what you learned in your earlier courses.  We are also assuming
+that we are "done" with requirements and specs.
+
+The numbers in parens indicate relative importance of subtopics.  They do
+not add upto a 100.
+
+
+* Wiggly Worms in C++
+
+[45 points] [C++] The single file [[../Examples/Wiggly-Worms/worms-one-file.cpp.html][worms.cpp colorized]] |
+[[../Examples/Wiggly-Worms/worms-one-file.cpp][worms.cpp plain]] implements a grass roots game example of wiggly worms.
+See the reference listed below.
+
+    1. (40) Revise it (or write afresh) so that it is in "proper" OOP
+       form.  Describe the end result and the changes made in a brief
+       tech (about 2 pages) report.
+    5. (10) Write one or two paragraphs reporting on proper OOP form
+       as you applied it in the code, how you discovered and revised the
+       classes, and on your experince with the tools you used to carry
+       out this assignment.
+    2. (60) Write entry- and exit-assertions for all the methods, and class
+       invariants.  You may ignore assertions relating to
+       =ncurses=.
+    6. (60) There is a design behind this code.  In this HW, document this
+       using DbC.
+    3. (20) The design and code as-given do not "really" do anything
+       about the z-axis.  Suggest ideas and implement.
+    4. (00) It probably has bugs.  Feel free to ignore its bugs (that is,
+       you are not expected to fix bugs).  If you can, identify them!
+
+** Bonus
+
+1. [25 points Bonus] The worms program given above did not use
+   threads.  Use threads to improve the "look and feel" and revise
+   your answers to 1.1 through 1.5.
+
+1. [25 points Bonus] The worms program given above probably has bugs.
+   Fix it and guarantee that it no longer has bugs.  How will you
+   convince a skeptic?
+
+1. [Bonus points help only when you are just below a grading curve for
+   a given letter.  At the discretion of your instructor.]
+
+
+* Condense the Numerical Ranges [CNR]
+
+[45 points] [In Java8+, or Kotlin]   
+
+6. (60) Two designs were presented to the CNR Problem (see the Ref
+   below).  Neither designs discussed in the Ref did not use DbC.
+   Redo the design descriptions based on DbC.
+
+1. (50) Implement these in Java or Kotlin in "proper" OOP form. Later,
+   we will use this code during discussions/ HW#2 of Testing,
+   Debugging, etc.
+
+1. (50) Correctness must be the focus.  Efficiency is important, but a
+   distant secondary goal.  Include supporting discussion.
+
+1. (30) Write entry- and exit-assertions for all the methods, longer
+   than 10 lines, and all class invariants.  For every loop, include a
+   strong (strongest?) loop invariant.
+
+1. (20) Include test results for at least 100 examples.  Explain how
+   you constructed these examples.  Chronologically, in the lectures,
+   we are yet to cover testing.  [You are welcome to share the test
+   input/output pairs, but not results.]
+
+1. (10) Must build cleanly with the latest Java8+ or Kotlin.  Use a
+   build system of your choice: ant, maven or gradle.
+
+1. (10) Write one or two paragraphs reporting on proper OOP form as
+   you applied it in the code, how you discovered and revised the
+   classes, and on your experience with the tools you used to carry
+   out this assignment.
+
+
+
+* Journal
+
+1. [10 Easy-to-Earn Points] Please maintain a journal for this
+   homework.  Submit a summary.
+
+* Turn In
+
+1. Follow all ethical/ scholary traditions of attribution.
+
+1. Include screenshots, particularly for the Worms program.  Other
+   than the source code files, put everything else together and
+   produce *one* PDF file.
+
+1. The file named =hw1.tar.bzip2= should be a compressed tar ball of
+   all the files related to this homework.  Include the revised/
+   original source code files so that everything builds cleanly.  I
+   expect to see sub-directories for each problem.  I expect to be
+   able to build all the programs by invoking =make=, ..., or =gradlew
+   build= at the top level.
+
+1. Submit on Pilot.
+
+* References
+
+1. Prabhaker Mateti, Lecture Notes on [[../Design/][Design by Contract]]
+1. Prabhaker Mateti, Lecture Notes on [[../Examples/Wiggly-Worms/index.html][Wiggly Worms]]
+1. Prabhaker Mateti, Lecture Notes on [[../Examples/Condense-Num-Ranges/][Condense Num Ranges]]
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

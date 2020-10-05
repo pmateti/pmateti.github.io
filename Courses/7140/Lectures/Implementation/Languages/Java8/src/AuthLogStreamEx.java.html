@@ -1,0 +1,109 @@
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888">// Parse a /var/log/auth.log file; Nov 2015; Ex of Streams, Lambdas</span>
+
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">java.io.FileWriter</span><span style="color: #333333">;</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">java.io.IOException</span><span style="color: #333333">;</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">java.nio.file.Files</span><span style="color: #333333">;</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">java.nio.file.Paths</span><span style="color: #333333">;</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">java.util.Arrays</span><span style="color: #333333">;</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">java.util.List</span><span style="color: #333333">;</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">java.util.stream.Stream</span><span style="color: #333333">;</span>
+
+<span style="color: #008800; font-weight: bold">public</span> <span style="color: #008800; font-weight: bold">class</span> <span style="color: #BB0066; font-weight: bold">AuthLogStreamEx</span> <span style="color: #333333">{</span>
+     
+    <span style="color: #008800; font-weight: bold">private</span> <span style="color: #333399; font-weight: bold">void</span> <span style="color: #0066BB; font-weight: bold">grep</span><span style="color: #333333">(</span>String inpfnm<span style="color: #333333">,</span> String outfnm<span style="color: #333333">)</span>
+        <span style="color: #008800; font-weight: bold">throws</span> IOException <span style="color: #333333">{</span>
+        Stream<span style="color: #333333">&lt;</span>String<span style="color: #333333">&gt;</span> lns <span style="color: #333333">=</span> Files<span style="color: #333333">.</span><span style="color: #0000CC">lines</span><span style="color: #333333">(</span>Paths<span style="color: #333333">.</span><span style="color: #0000CC">get</span><span style="color: #333333">(</span>inpfnm<span style="color: #333333">));</span>
+        FileWriter fw <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">new</span> FileWriter<span style="color: #333333">(</span>outfnm<span style="color: #333333">);</span>
+
+        <span style="color: #888888">//@formatter:off</span>
+        lns
+            <span style="color: #333333">.</span><span style="color: #0000CC">filter</span><span style="color: #333333">(</span>ln <span style="color: #333333">-&gt;</span> ln<span style="color: #333333">.</span><span style="color: #0000CC">contains</span><span style="color: #333333">(</span><span style="background-color: #fff0f0">&quot;Invalid user&quot;</span><span style="color: #333333">))</span>
+            <span style="color: #333333">.</span><span style="color: #0000CC">map</span><span style="color: #333333">(</span>ln <span style="color: #333333">-&gt;</span> ln<span style="color: #333333">.</span><span style="color: #0000CC">split</span><span style="color: #333333">(</span><span style="background-color: #fff0f0">&quot; &quot;</span><span style="color: #333333">))</span>
+            <span style="color: #333333">.</span><span style="color: #0000CC">map</span><span style="color: #333333">(</span>arr <span style="color: #333333">-&gt;</span> arr<span style="color: #333333">[</span>arr<span style="color: #333333">.</span><span style="color: #0000CC">length</span> <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span><span style="color: #333333">])</span> <span style="color: #888888">// keep the last item</span>
+            <span style="color: #333333">.</span><span style="color: #0000CC">forEach</span><span style="color: #333333">(</span>ip <span style="color: #333333">-&gt;</span> writeToFile<span style="color: #333333">(</span>fw<span style="color: #333333">,</span> ip<span style="color: #333333">));</span> <span style="color: #888888">// could do better</span>
+        <span style="color: #888888">//@formatter:on</span>
+        fw<span style="color: #333333">.</span><span style="color: #0000CC">close</span><span style="color: #333333">();</span>
+        lns<span style="color: #333333">.</span><span style="color: #0000CC">close</span><span style="color: #333333">();</span>
+    <span style="color: #333333">}</span>
+ 
+    <span style="color: #008800; font-weight: bold">private</span> <span style="color: #333399; font-weight: bold">int</span> pn <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span><span style="color: #333333">;</span>
+
+    <span style="color: #008800; font-weight: bold">private</span> <span style="color: #333399; font-weight: bold">void</span> <span style="color: #0066BB; font-weight: bold">writeToFile</span><span style="color: #333333">(</span>FileWriter fw<span style="color: #333333">,</span> String s<span style="color: #333333">)</span> <span style="color: #333333">{</span>
+        <span style="color: #008800; font-weight: bold">try</span> <span style="color: #333333">{</span>
+            fw<span style="color: #333333">.</span><span style="color: #0000CC">write</span><span style="color: #333333">(</span>String<span style="color: #333333">.</span><span style="color: #0000CC">format</span><span style="color: #333333">(</span><span style="background-color: #fff0f0">&quot;%d %s\n&quot;</span><span style="color: #333333">,</span> <span style="color: #333333">++</span>pn<span style="color: #333333">,</span> s<span style="color: #333333">));</span>
+        <span style="color: #333333">}</span> <span style="color: #008800; font-weight: bold">catch</span> <span style="color: #333333">(</span>IOException e<span style="color: #333333">)</span> <span style="color: #333333">{</span>
+            <span style="color: #008800; font-weight: bold">throw</span> <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066BB; font-weight: bold">RuntimeException</span><span style="color: #333333">(</span>e<span style="color: #333333">);</span>
+        <span style="color: #333333">}</span>
+    <span style="color: #333333">}</span>
+
+    <span style="color: #008800; font-weight: bold">public</span> <span style="color: #008800; font-weight: bold">static</span> <span style="color: #333399; font-weight: bold">void</span> <span style="color: #0066BB; font-weight: bold">main</span><span style="color: #333333">(</span>String<span style="color: #333333">[]</span> args<span style="color: #333333">)</span> <span style="color: #008800; font-weight: bold">throws</span> IOException <span style="color: #333333">{</span>
+        String ifnm <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;/var/log/auth.log&quot;</span><span style="color: #333333">,</span> ofnm <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;/tmp/invalidUsers.txt&quot;</span><span style="color: #333333">;</span>
+        <span style="color: #008800; font-weight: bold">switch</span> <span style="color: #333333">(</span>args<span style="color: #333333">.</span><span style="color: #0000CC">length</span><span style="color: #333333">)</span> <span style="color: #333333">{</span>
+        <span style="color: #008800; font-weight: bold">case</span> <span style="color: #0000DD; font-weight: bold">0</span><span style="color: #333333">:</span> <span style="color: #008800; font-weight: bold">break</span><span style="color: #333333">;</span>
+        <span style="color: #008800; font-weight: bold">case</span> <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">:</span> ofnm <span style="color: #333333">=</span> args<span style="color: #333333">[</span><span style="color: #0000DD; font-weight: bold">1</span><span style="color: #333333">];</span> <span style="color: #888888">// fall through</span>
+        <span style="color: #008800; font-weight: bold">case</span> <span style="color: #0000DD; font-weight: bold">1</span><span style="color: #333333">:</span> ifnm <span style="color: #333333">=</span> args<span style="color: #333333">[</span><span style="color: #0000DD; font-weight: bold">0</span><span style="color: #333333">];</span> <span style="color: #008800; font-weight: bold">break</span><span style="color: #333333">;</span>
+        <span style="color: #008800; font-weight: bold">default</span><span style="color: #333333">:</span>
+            System<span style="color: #333333">.</span><span style="color: #0000CC">out</span><span style="color: #333333">.</span><span style="color: #0000CC">println</span>
+                <span style="color: #333333">(</span><span style="background-color: #fff0f0">&quot;StreamEx Usage: At most two file names expected&quot;</span><span style="color: #333333">);</span>
+            System<span style="color: #333333">.</span><span style="color: #0000CC">exit</span><span style="color: #333333">(</span><span style="color: #0000DD; font-weight: bold">0</span><span style="color: #333333">);</span>
+        <span style="color: #333333">}</span>
+        <span style="color: #008800; font-weight: bold">new</span> <span style="color: #0066BB; font-weight: bold">AuthLogStreamEx</span><span style="color: #333333">().</span><span style="color: #0000CC">grep</span><span style="color: #333333">(</span>ifnm<span style="color: #333333">,</span> ofnm<span style="color: #333333">);</span>
+    <span style="color: #333333">}</span>
+<span style="color: #333333">}</span>
+
+<span style="color: #888888">// -eof-</span>
+</pre></td></tr></table></div>
+

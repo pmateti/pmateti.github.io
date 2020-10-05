@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-12-05 Thu 20:56 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Assertions 101</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<meta name="description" content="On Assertions in Software Engineering"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Assertions 101</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgc1f35ce">1. Abstract</a></li>
+<li><a href="#org68f3f1a">2. <del>Program</del> Process State</a>
+<ul>
+<li><a href="#org542ac9b">2.1. Process State: Crudely</a></li>
+<li><a href="#org6058d91">2.2. Process State: Refined</a></li>
+</ul>
+</li>
+<li><a href="#org3892e44">3. What are Assertions?</a></li>
+<li><a href="#orgc5a1ec1">4. Floyd-Hoare Triplets</a>
+<ul>
+<li><a href="#org4513633">4.1. Semantics of {P} S {Q}</a></li>
+<li><a href="#orgfc084c9">4.2. Pre-Conditions (aka Entry Assertions)</a></li>
+<li><a href="#org17b707e">4.3. Post-Conditions (aka Exit Assertions)</a></li>
+<li><a href="#org598dbf7">4.4. Weakest and Strongest</a></li>
+<li><a href="#orgffec87b">4.5. Design-by-Contract</a></li>
+</ul>
+</li>
+<li><a href="#orgac8d313">5. Loop Invariant</a></li>
+<li><a href="#org954fb6b">6. Class Invariant</a></li>
+<li><a href="#org659bbdd">7. Assertion Examples</a></li>
+<li><a href="#orgb7a0630">8. The Meaning of Silence</a></li>
+<li><a href="#org1720a35">9. For All &#x2026;</a></li>
+<li><a href="#orgbe8b90a">10. "When" and "for how long" must an assertion be true?</a></li>
+<li><a href="#orgc449b6a">11. References</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc1f35ce" class="outline-2">
+<h2 id="orgc1f35ce"><span class="section-number-2">1</span> Abstract</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+An assertion is an expression on <del>program</del> process state that
+evaluates to true or false.  Without side effects.  Simple assertions
+are made up of Boolean expressions.  Deeper assertions use First or
+Higher Order Logics.  These notes are about using assertions in Java,
+C++, [TBD Scala and Python].
+</p>
+</div>
+</div>
+
+<div id="outline-container-org68f3f1a" class="outline-2">
+<h2 id="org68f3f1a"><span class="section-number-2">2</span> <del>Program</del> Process State</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>Assertions are expressions yielding true/false on a process state.</li>
+<li>We should really say <b>process</b> state.</li>
+
+<li>So, what is a state?</li>
+</ol>
+</div>
+
+<div id="outline-container-org542ac9b" class="outline-3">
+<h3 id="org542ac9b"><span class="section-number-3">2.1</span> Process State: Crudely</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>Crudely, a full dump, including the portions of the state
+maintained by the OS for the process.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org6058d91" class="outline-3">
+<h3 id="org6058d91"><span class="section-number-3">2.2</span> Process State: Refined</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>A labeled collection of all variables and their values at a given
+moment
+<ol class="org-ol">
+<li>Include all scopes (global, local, &#x2026;)</li>
+<li>Includes "external" objects: files, network connections, &#x2026;</li>
+</ol></li>
+<li>Observers do not alter the process state</li>
+<li>Non-Observers (for lack of a consensus term)
+<ol class="org-ol">
+<li>Before beginning: process state S' (S prime)</li>
+<li>After the operation: process state S (S no prime)</li>
+<li>Occasionally, S == S'  (deep equality)</li>
+<li>Almost always, S != S'</li>
+</ol></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3892e44" class="outline-2">
+<h2 id="org3892e44"><span class="section-number-2">3</span> What are Assertions?</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>An assertion is an expression on a program state that we expect to
+evaluate to true.  Without side effects.</li>
+
+<li>Assertions are predicates written using the syntax of the host
+programming language.  All the variables are those of a program.
+We are allowed to write side-effect free boolean functions to deal
+with for-all and there-exists quantifiers.</li>
+
+<li>Simple assertions are made up of Boolean expressions.</li>
+<li>Deeper assertions use First or Higher Order Logics.</li>
+
+<li>An assertion is placed at a control point.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgc5a1ec1" class="outline-2">
+<h2 id="orgc5a1ec1"><span class="section-number-2">4</span> Floyd-Hoare Triplets</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li><i>{P} S {Q}</i> is known as the Floyd-Hoare Triplet, named after Turing
+Award winners Robert Floyd and Tony Hoare.</li>
+
+<li>P and Q are assertions.  S is a block of code.</li>
+</ol>
+</div>
+
+<div id="outline-container-org4513633" class="outline-3">
+<h3 id="org4513633"><span class="section-number-3">4.1</span> Semantics of {P} S {Q}</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>This triplet stands for the following: Let t' be a state satisfying
+P.  Execute S on t'.  Suppose S terminates; let us call the
+resulting state t.  Then, t staisfies Q.</li>
+
+<li>The {P} S {Q} yields a true/false value.  There is no middle ground
+of "may be" or "undefined".  We are assuming that there is no
+middle ground for each of P, Q and S.</li>
+
+<li>So what if S does not terminate? Cryptic, but then {P} S {Q} is not
+saying any thing about whether Q holds.  We could not reach the
+control point where Q is stated.</li>
+
+<li>What if no state satisfies P?  Again, {P} S {Q} is not saying any
+thing about the behavior of S.  It may "work" or not.  But, the
+boolen value of the box [{P} S {Q}] is true just as [False =&gt; Any]
+is true.</li>
+
+<li>Note that the triplet is about <i>partial</i> correctness: It omits
+termination.</li>
+
+<li>In the context of C++/Java, the notation changes a little:
+<code>/*@ P @*/ S /*@ Q @*/</code></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgfc084c9" class="outline-3">
+<h3 id="orgfc084c9"><span class="section-number-3">4.2</span> Pre-Conditions (aka Entry Assertions)</h3>
+<div class="outline-text-3" id="text-4-2">
+<ol class="org-ol">
+<li>Let S be a method.  Every method has (i) a precondition P, and (ii) a
+post condition Q.</li>
+
+<li>Pre-condition P is expected to be true just before the method is
+entered.</li>
+
+<li>A pre-condition can talk about the arguments, and globals, but not
+about the local variables of the method.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org17b707e" class="outline-3">
+<h3 id="org17b707e"><span class="section-number-3">4.3</span> Post-Conditions (aka Exit Assertions)</h3>
+<div class="outline-text-3" id="text-4-3">
+<ol class="org-ol">
+<li>Post-condition Q is expected to be true just before the method is returning.</li>
+
+<li>A post-condition can talk about the values of arguments at entry,
+and the values of globals at entry and exit, but not about the
+local variables of the method.  We will invent some notation to
+describe the values at entry; e.g., old-x, or x.old.</li>
+
+<li>If the method is a function a post-condition can talk about the
+return value.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org598dbf7" class="outline-3">
+<h3 id="org598dbf7"><span class="section-number-3">4.4</span> Weakest and Strongest</h3>
+<div class="outline-text-3" id="text-4-4">
+<ol class="org-ol">
+<li>Given two assertions A1 and A2, if A1 implies A2, we say that A1 is
+stronger than A2.</li>
+
+<li>For a given S, we prefer the weakest pre-condition P.</li>
+
+<li>For a given S, we prefer the strongest post-condition Q.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgffec87b" class="outline-3">
+<h3 id="orgffec87b"><span class="section-number-3">4.5</span> Design-by-Contract</h3>
+<div class="outline-text-3" id="text-4-5">
+<ol class="org-ol">
+<li>Imagine we are yet to develop S.</li>
+
+<li>It is the responsibility of the caller to guarantee that a
+pre-codition holds.  The method is expected to assume this without
+checking.</li>
+
+<li>It is the responsibility of the developer of S to guarantee that
+the post condition holds upon return from S.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgac8d313" class="outline-2">
+<h2 id="orgac8d313"><span class="section-number-2">5</span> Loop Invariant</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Every loop has an assertion placed within the loop.  It is called a
+loop invariant.</li>
+
+<li>For while-loops, the traditional location for the loop invariant is
+just-left-of the Boolean expression.</li>
+
+<li>Invariant means that the relationship given remains true every time
+control hits the location.  Not that nothing changes.  E.g., x &gt;
+y + 2 can be an invariant, even though both x and y change.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org954fb6b" class="outline-2">
+<h2 id="org954fb6b"><span class="section-number-2">6</span> Class Invariant</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>Every class has an assertion that describes the relationships among
+its data members and public methods.  This called the class invariant.</li>
+
+<li>Quick Example: See Small Set example.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org659bbdd" class="outline-2">
+<h2 id="org659bbdd"><span class="section-number-2">7</span> Assertion Examples</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li><p>
+Ex: Assertions for sorting: 
+</p>
+<pre class="example">
+{n &gt;= 0}  sorting-alg {sorted(a[0..n-1]) and perm(a, a')} 
+
+</pre></li>
+
+<li><a href="./assertions-in-the-small.html">Assertions, with Tiny Examples</a></li>
+<li><a href="./practical-advice.html">Practical-Advice</a> on Writing Assertions</li>
+<li>The <a href="./3np1.html">3n+1</a> Termination Problem</li>
+<li><a href="./assertions-java.html">Assertions in Java</a></li>
+<li><a href="./assertions-cpp.html">Assertions in C++</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb7a0630" class="outline-2">
+<h2 id="orgb7a0630"><span class="section-number-2">8</span> The Meaning of Silence</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li>Consider {pre P:: x is an integer} S {post Q:: x is a
+prime number}.  
+<ol class="org-ol">
+<li>Assume that this code S is part of a program that also uses an
+integer variable named y.</li>
+<li>The obligations of S are clear.  At the end of it, the value
+that x has must be a prime number.</li>
+</ol></li>
+<li>But what about y?  If the value of y was y0 before S, can we expect
+that y is equal to y0 after S?  The pre- and post- were silent on
+y.  So is S free to do what ever to y?</li>
+<li>Suppose S was x := exp.  Do not jump to the conclusion that after
+all this is an assignment to x, therefore y could not change.</li>
+<li>From now on, our expectation is this: If we have a sequence of
+statements S, and its P and Q are silent with respect to (wrt) y,
+then y must remain as it was before/after S.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org1720a35" class="outline-2">
+<h2 id="org1720a35"><span class="section-number-2">9</span> For All &#x2026;</h2>
+<div class="outline-text-2" id="text-9">
+<ol class="org-ol">
+<li>There is an implicit for all in the assertions.  E.g., when we
+write <code>n &gt;=</code> <code>0</code> in the entry assertions, it includes <code>for all n</code>
+that you may give so that n &gt;=0.  The n that is bound here is taken
+in all subsequent assertions &#x2013; in loop invariants and in the exit
+assertion.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgbe8b90a" class="outline-2">
+<h2 id="orgbe8b90a"><span class="section-number-2">10</span> "When" and "for how long" must an assertion be true?</h2>
+<div class="outline-text-2" id="text-10">
+<ol class="org-ol">
+<li>This question is important when we have threads/ processes.</li>
+<li>Consider the S and Q as above.  Instantaneouly after S finished, Q
+is true.  Are we expecting that Q will remain true, say for another
+60 secs?</li>
+<li>Consider <code>S; S2</code>.  Let e1 <code>= ending time of S, let b2=</code> beginning
+time stamp of S2.  Recall that in all modern PLs, we must not
+assume that b2 == e1 + delta.  Clearly, delta cannot be negative.
+We cannot say that for some d, delta &lt; d.</li>
+<li>Concurrency literature talks about "interference".  Without
+interference, we expect the post condition Q to hold good at least
+until S2 starts.  In the presence of interference, we must not
+expect this.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgc449b6a" class="outline-2">
+<h2 id="orgc449b6a"><span class="section-number-2">11</span> References</h2>
+<div class="outline-text-2" id="text-11">
+<ol class="org-ol">
+<li>Gries, David, The Science of Programming, Springer, 2012 [shouldn't
+this be 1981?].  Highy Recommended.</li>
+
+<li>Alagic, Suad, and Michael A. Arbib. The Design of Well-Structured
+and Correct Programs. Springer Science &amp; Business Media, 2013.
+Highy Recommended.</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2016 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2015-09-03
+</div>
+</body>
+</html>

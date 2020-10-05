@@ -1,0 +1,183 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+TITLE: Spec + Design of a SmallSet
+#+AUTHOR: Prabhaker Mateti
+#+LINK_HOME: ../../
+#+LINK_UP: ../
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a> | <a href=\"SmallSet-design-slides.html\"> Slides </a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Abstract
+
+This note describes the req/spec/ design of a set of integers.  This is expected
+to be a good example of software engineering design "in the tiny".
+There is also a link to a Java implementation.
+
+* SmallSet Requirements
+
+1. SmallSet Operations: (for now, just the names)
+   1. construct-empty-set (or cons)
+   1. insert-an-item, delete-an-item
+   1. item-is-in-the-set
+   1. number-of-items-in-the-set
+   1. union-with, diff-with
+   1. All the above should be well-specified
+   1. ignored detail:  item ==> int
+1. all the above converges to "API"
+
+** SmallSet Operations: Signatures
+   1. insert-an-item: Set, Item --> Set
+   1. delete-an-item: Set, Item --> Set
+   1. item-is-in-the-set: Set, Item --> Boolean
+   1. number-of-items-in-the-set: Set --> Integer
+   1. union-with: Set, Set --> Set
+   1. diff-with: Set, Set --> Set
+   1. construct-empty-set: --> Set
+
+** SmallSet Requirements Clarifications
+
+1. No bigger than, say, 1000 elements  
+1. Insertions are far more frequent cf to other ops  
+1. item-is-in-the-set(S, e): searched for again often
+1. Some ops can "fail"
+
+* SmallSet Operations: Semantics
+
+1. The big-S below is the (abstract) SmallSet.
+1. S.pre is the value of S at pre-condition.
+1. S.post is the value of S at post-condition.
+1. Specs of some ops are for you TODO.
+
+** SmallSet Op: insert-an-item(S, e)
+
+1. S.post == S.pre + {e}
+1. {e} is the singleton set containing e.
+1. + is an alt symbol for union \cup.
+
+** SmallSet Op: item-is-in-the-set(S, e)
+
+   1. False, if S == cons()
+   1. True, if S == insert-an-item(T, e)  for some T
+   1. False, if S != insert-an-item(T, e) for no T
+   1. item-is-in-the-set(S, f) == RHS // above 3 lines
+
+** SmallSet Op: diff-with(A, B)
+
+1. diff-with(A, B) yields  (A union B) - (A intersect B)
+1. diff-with(A, B) yields  (A \cup B) - (A \cap B) // using math symbols
+
+
+* Design Example: SmallSet
+
+1. Illustrates /abstraction/ in design
+2. cf.  [[http://docs.oracle.com/javase/8/docs/api/java/util/Set.html]]
+   The details of the Set as defined in Java API
+3. Focus on the "methods"
+   1. not the size.
+   2. not the PL notation.
+   3. for now, not (even) Java.
+   4. Not trying to match the Java Set API.
+
+* Design of SmallSet Using an Array
+
+1. int array A of fixed size, sz >=  1000  (Requirement Clarification
+   RC1)
+1. Fill the array l-to-r as we insert.
+1. int i, ux, ne, sz, ...;  // related to array A indices.
+1. ux is the least index i so that A[i] is unfilled.
+1. [More sophisticated designs do NOT use arrays  (see union-find).]
+
+** Design Documentation  
+
+1. abstraction(A, ux) == S, the set is-def-as {A[i] | 0 <= i < ux}
+1. ux <= sz
+   1.  initial value of ux == ?
+1. Deducible: A[ux .. sz-1] vacant
+1. Duplicate items are permitted (RC2)
+1. number-of-items-in-the-set, ne, may be strictly < ux
+
+* insert-an-item(S, e)
+
+1. pre: ux  <  sz
+1. post:  S == S.pre + {e}
+1. S stands for the value it has at the point used; so, we simplify
+   S.post to S.
+1. design:  A[ux] := e; ux++;
+
+** Design Documentation  
+
+1.  Note that at pre item-is-in-the-set(S, e) may be true.
+1.  May be better: A[ux] := A[ 0]; ux++; A[ 0] := e;
+1.  Is this design dependent on how is-in-the-set is designed?
+
+
+* item-is-in-the-set(S, e)
+
+1.  design: A[ux] := e; fx := linear-search(A, 0, ux);
+1.  fx  <  ux?
+    1.  if so  {swap A[fx] with A[ 0]}  (why?)
+1.  return (fx  <  ux)
+
+** The idea of a sentinel
+
+1. design: A[ux] := e;  (ux should now be < sz always)
+1. without it linear search has two tests per iteration
+
+* More Design Issues
+
+1. Do we ever compact (e.g., delete dupes from) the A[0 .. ux-1]?
+   1.  As is, our design is prone to fail.
+   1.  If we do, when do we do it?
+   1.  All the time?
+1.  Is this a design or implementation?
+1.  Concurrency?
+
+
+* SmallSet Implemented in Java
+
+1. =java -enableassertions ...=
+
+1. =javadoc=  http://docs.oracle.com/javase/7/docs/technotes/guides/javadoc/
+
+1. [[./GEN/SmallSet.java]] | [[./GEN/SmallSet.java.html][html]] | [[./GEN/SmallSet.java.pdf][pdf]] | [[./GEN]] This is a link to a Java
+   implementation.  Possibly contains bugs.  It is also intended as an
+   example for use later with learning assertions, JUnit/TestNG, PMD,
+   FindBugs, and other tools.
+
+** Abstraction Function
+
+1.  =setOf(s)= is the abstraction function that yields the
+    mathematical set represented by the Java SmallSet object s.
+1.  setOf(SmallSet s) == setOf(s.ear[0..s.ux -1]).
+
+** Class Invariants
+
+1. =classInv= is both a pre- and a post-condition for all public methods
+1. It is a convention not to state this again and again for each
+   public method.
+
+* References
+1. C. A. R. Hoare, Proof of Correctness of Data Representations, Acta
+   Informatica, vol. 1, no. 4, pp. 271-281, 1972.   Reference.
+
+1. Oracle.com, [[http://docs.oracle.com/javase/8/docs/technotes/guides/language/assert.html][Programming With Assertions]], 2015. Required Reading.
+
+1. Robert Sedgewick,
+   https://www.cs.princeton.edu/~rs/AlgsDS07/01UnionFind.pdf 40+
+   slides, Union-Find Algorithms, 2007.  High performance designs use
+   union-find.  Recommended Reading.
+
+1. Prabhaker Mateti, [[http://cecs.wright.edu/~pmateti/Courses/7100/Lectures/ADT/][Abstract Data Types]], a lecture from a PL course.
+   Recommended Reading.
+
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

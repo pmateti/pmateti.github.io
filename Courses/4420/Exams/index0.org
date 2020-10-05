@@ -1,0 +1,62 @@
+
+# -*- mode: org -*-
+#+date: 2018-12-01
+#+TITLE: CEG4420 Final Exam Details
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Honor Code
+
+1. This exam is a traditional closed book, closed notes exam.  Once
+   you click the exam link, you are honor bound
+
+   2. not to surf, not to access any content already existing (other
+      than the links given),
+   1. not to take longer than 120 minutes,
+   1. not to give or take help from others until you turnin your
+      answers.
+1. Every sentence and figure submitted is your own work produced
+   during the two hours.
+
+1. This exam permits the use of a Linux/ Mac/ Windows laptop/ PC/ VCSL
+   running Ubuntu/ Knoppix/ Kali/ ... distros, gcc, ps, splint,
+   etc. but *not* man pages.
+
+
+* Exams
+
+** Final Exam Where and When
+
+2. Dec 14, 2018.  2:45 - 4:45 PM.  Not during normal class time slot.  (Registrar scheduled.)
+
+1. Conducted within Pilot.  Submit one PDF file named =answers.pdf=
+   into the Pilot dropbox for Final.
+
+** 2018 MidSemester
+
+ 1. [[./4420-2018-Fall-E1.html]] E1 == Mid Semester
+ 1. [[./4420-2018-Fall-E1-solution.pdf]] Solution
+
+** Final Exam Syllabus
+
+4. All lecture and lab content.
+1. All Required Readings.
+1. Even though network related questions appeared in the past, they
+   are excluded now.
+
+** Old Exams
+
+ 1. [[./4420-2012-Fall-E2.html]] E2 == Final Exam
+ 1. [[./4420-2013-Fall-E1.html]] 
+ 1. [[./4420-2013-Fall-E2.html]]
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

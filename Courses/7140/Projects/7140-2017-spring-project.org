@@ -1,0 +1,124 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+DATE: 2017-01-09
+#+TITLE: Spring 2017 Project Work
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./
+#+HTML_HEAD: <style> P, li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">CS 7140</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2017 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+
+* Project for Spring 2017: Batch Rename PDF files.
+
+1. We extract the following:
+   1. The subject classification.  Last class example: "Software Comprehension"
+   2. The year of publication.
+   3. List of author names (First Middle Last)
+   4. Name of conference or journal of publication
+   5. This sound like a wicked problem, but is not.
+   6. Some of this info may be missing in the pdf.
+
+2. Rename a file using the extracted elements
+   1. Format control of the resulting string?
+   2. See an example: https://www.id3renamer.com/moreinfo
+
+** Background
+
+3. Overview of [[../Projects/pdf.org][PDF tools etc]].
+
+4. cf. http://labs.crossref.org/pdfextract/.  Download and begin to
+   experiment.  Binary distribution.  Not source code.
+
+1. Get GitHub accounts.  Free. All source code and documents are
+   expected to be on GitHub.
+
+1. https://github.com/CeON/CERMINE  "is a Java library and a web
+   service (cermine.ceon.pl) for extracting metadata and content from
+   PDF files containing academic publications. CERMINE is written in
+   Java at Centre for Open Science at Interdisciplinary Centre for
+   Mathematical and Computational Modelling, University of Warsaw."
+
+1. http://jats.nlm.nih.gov/archiving/tag-library/1.1/ Journal
+   Archiving and Interchange Tag Library NISO JATS Version 1.1
+   (ANSI/NISO Z39.96-2015) December 2015
+
+** Toward the Development of Requirements
+
+5. Immediate Goal: Develop Requirements, and document as expected in
+   the [[../../Projects/7140-project.html][Projects page]].  This is team work.  Due date: by next Mon
+   class?
+
+6. Important subsystem #1: Develop a "virtual machine" description
+   suitable for our project.  The product of this effort is an API.  E.g.,
+   : fi = openPDF(pathName); y = extractYear(fi); s =  extractSubject(fi); closePDF(fi);
+
+   1. Suggestion: Each of you gather, say 5, academic papers. Study
+      the range of where the info that we wish to extract lies.
+
+7. Important subsystem #2: Do a mock up of a GUI that is an aid to
+   using the "Rename PDF Files" tool.
+
+** Life Cycle
+
+1. Imagine that Dr PM is the client commissioning this software.
+1. Requirements will/ should become clear as we progress.
+1. Bottom Line:  We will adjust the scope of the project as we go along.
+
+** Example of PDF Annotation
+
+   1. Annotated file: [[./pdfextract-CrossRefLabs.pdf]]
+   2. Flattened after annotation file:
+      [[./pdfextract-CrossRefLabs-Flattened.pdf]]
+
+* Notes
+
+1. Notes on logistics [[./note20170318.org]]
+
+* Domain Analysis
+
+** pdfRenamer Names of Fields To Extract
+
+This list is incomplete.
+
+   1. Topic: The subject/topic classification. Ex: "buffer overflow
+      exploit" "software engineering" "president obama's lectures"
+   2. Year: The year of publication. Ex: "2016"
+   3. Authors: One-author-name consists of [First Middle* Last], list
+      of author names is comma separated.  Ex: Umme Ayda Mannan,
+      Iftekhar Ahmed, Rana Abdullah M Almurshed, Danny Dig, Carlos
+      Jensen.  This example has 5 authors.
+   4. JournalConf: Name of journal or conference. Ex: "Journal of ACM"
+      "USENIX Symposium on Networked Systems Design and
+      Implementation"
+   5. Pages. Page numbers of the PDF. Ex: "32 - 54"
+   6. Kind: PhD-thesis/ MS-thesis/ Tech-Report/ Manual/ Paper-Regular/
+      Slides/ Book/ Proceedings/ Unknown.
+   7. Location: City and Country of Publication.  Ex: "London, UK"
+      "New York, NY, USA"
+   8. Volume: Usually a number.  Some times a name.  Ex: "25"
+   9. Issue:  Usually a number.  Some times a name.  Ex: "3" "March"
+   10. Publisher/ Organization.  Ex: "Springer Verlag" "IEEE"
+
+** Task Assignment Mar 21, 2017
+
+1. Apoorva: 2 Year, 10 Publisher
+1. Jayanth: 3 Authors, 9 Issue
+1. Jonathan: 4 JournalConf,  1 Topic
+1. Sarker: 5 Pages,  7 Location
+1. Stephanie: 6 Kind, 8 Volume
+
+1. Practice TDD, using either iText or PDFbox libraries
+1. What is due: A jar file containing the extract operations.
+1. Due Date: Fri Mar 24, 2017 11:59 PM
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,180 @@
+# -*- mode: org -*-
+#+DATE: 2016-03-16
+#+TITLE: Grammars, Syntax, Semantics, AST
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+OPTIONS: toc:t
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+Abstract: A quick intro to grammars, syntax, derivation trees, and ASTs.
+
+* Terminology
+
+1. A /language/ is a set of sentences. Syntax rules specify which
+   sentences are in the language.  Almost always an infinite set.
+1. /Syntax/: the form of expressions, statements, and program units.
+   Usually in textual form.  Often in AST.
+1. Syntax rules use /terminals/ (aka tokens, lexemes) and /non-terminals/
+1. /Lexemes/: sequences of characters without "delimiters" and obeying
+   certain rules; examples: operators (+, *, ...), numbers,
+   identifier, literals, , reserved words.
+1. /Semantics/: the meaning of expressions, statements, and program
+   units.
+
+
+* Grammars
+
+1. Math of Formal Languages: Syntax
+
+1. /Grammar/: A collection of production rules that generate the
+   sentences of a language.
+
+** Chomsky Hierarchy
+
+#+CAPTION: [[https://en.wikipedia.org/wiki/Chomsky_hierarchy][Chomsky Hierarchy]]
+#+attr_html: :width 50%
+[[./Figures/chomsky-hierarchy.png]]
+
+1. Levels of Languages: Regex (L3),  Context-Free (L2),
+   Context-Sensitive (L1), Recursively Enumerable (L0).
+
+** Best Practice
+
+2. Syntax of most languages is "specified" using context-free
+   grammars.
+1. Almost always incompletely (because we use context-free grammars).
+2. Almost never ambiguously (unique derivation trees).
+
+* BNF  Notation
+
+1. BNF (Backus-Naur Form) is a specific notation for writing down a
+   context-free grammar.  Named after its originators: Backus and Naur.
+1. Examples of BNF rules:
+
+   1. <identList> \rightarrow identifier | identifier, <identList>
+   2. <ifStmt> \rightarrow if <logicExpr> then <stmt>
+
+1. LHS \rightarrow RHS
+   1. The LHS is a non-terminal
+   2. The RHS consists of a seq of terminals and non-terminals
+   3. BNF shows non-terminals within < >
+   1. The terminals are aka lexemes.
+
+1. There are many BNF variations.
+
+** Modern Notations
+
+1. Simplify the BNF notation.
+1. Drop <> from non-terminals
+2. Show terminals in a different font, or quote them
+3. Use {} or * for repetitions
+  
+* Java Grammar
+
+1. [[https://docs.oracle.com/javase/specs/jls/se7/html/jls-2.html][Chapter2. Grammars]] [from Oracle Java] "This chapter describes the
+   context-free grammars used in this specification to define the
+   lexical and syntactic structure of a program."
+
+1. [[https://docs.oracle.com/javase/specs/jls/se7/html/jls-18.html][Chapter18. Java]] [from Oracle Java] "This chapter presents a grammar
+   for the Java programming language."
+
+* Semantics of Languages
+
+1. Semantics requires context, and more.
+
+2. Grammars do not "do" semantics
+
+   1. Attribute Grammars do this partially.
+
+3. Semantics of most PLs is "specified" using carefully
+   worded English prose.
+
+   1. This is (almost always) incomplete.
+   1. This is (almost always) unclear / ambiguous.
+   1. This is (sometimes) contradictory.
+
+4. Techniques
+
+   1. [[https://en.wikipedia.org/wiki/Operational_semantics][Operational Semantics]]
+   2. [[https://en.wikipedia.org/wiki/Axiomatic_semantics][Axiomatic Semantics]]
+   3. Declarative Semantics
+   4. [[https://en.wikipedia.org/wiki/Denotational_semantics][Denotational Semantics]]
+   5. Unfortunately, no real PL has its semantics defined as above.
+
+
+* Derivation Trees
+
+1. Syntax analyzer component of a compiler determines whether the
+   sequence of characters (in a file) is syntactically a sentence.  It
+   does this by first tokenizing, and then /parsing/.
+
+1. A parser generates a derivation tree.
+1. The nodes are terminals (leaves) and non-terminals.
+
+** Derivation Tree Example #1
+
+1. A Grammar and an Example Derivation Tree\\
+ [[./Figures/der-s.png]]
+
+** Derivation Tree Example #2
+
+: <assign> -> <id> := <expr>
+: <id> -> A | B | C
+: <expr> -> <expr> + <expr>
+:   | <expr> * <expr>
+:   | ( <expr> )
+:   | <id>
+
+#+CAPTION: One Derivation Tree of A := B + C * A (Others are possible)
+#+attr_html: :width 50%
+[[./Figures/ast-assign-stmt.png]]
+
+* Abstract Syntax Tree (AST)
+
+1. A parser generates a derivation tree.  An unnamed component of the
+   compiler then generates ASTs.  Semantic analyses, code generation,
+   etc. traverse the ASTs.
+
+1. The nodes are not   non-terminals.  They are either terminals of
+   the grammar, or specially introduced nodes.
+
+1. Unfortunately, ASTs have not been "standardized".
+
+1. [[http://www.eclipse.org/jdt/][Eclipse Java development tools (JDT)]] Abstract Syntax Trees API. Popular.
+
+** Example AST of an Arith Exp
+
+[[./Figures/ast-exp.png]]
+
+1. Note that this AST has only terminals.
+
+** Example AST From JTransformer FOSS
+
+#+CAPTION: From JTransformer (Spot any error?)
+[[./Figures/ast-jtransformer.jpg]]
+
+1. Given an AST, its textual version can be mechanically produced by
+   traversing the AST.  Intellij Idea, Eclipse, ... IDE do this.
+
+** Example AST:  Euclid's Algorithm for GCD
+
+#+CAPTION: Euclid's Algorithm for GCD
+[[./Figures/ast-euclid.png]]
+
+1. Examples of AST drawings often do not show symbol-tables, but they are
+   included.
+
+1. In the above AST: a, b were positive integers initialized by the caller.
+
+1. Exercise: Deduce the source code from the above AST
+
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

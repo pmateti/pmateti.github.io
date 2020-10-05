@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Liskov Substitution Principle (LSP)</title>
+<!-- 2016-04-27 Wed 08:02 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="Mateti: OO Programming and Design"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+2015-10-05 | <a href="../../"> ../../</a> | <a href="liskov-subst-principle-slides.html"> Slides </a>
+</div>
+<div id="content">
+<h1 class="title">Liskov Substitution Principle (LSP)</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Abstract</a></li>
+<li><a href="#sec-2">2. Semantics of Inheritance</a></li>
+<li><a href="#sec-3">3. Proper Inheritance</a></li>
+<li><a href="#sec-4">4. Dilemmas?</a></li>
+<li><a href="#sec-5">5. Liskov's Originals</a></li>
+<li><a href="#sec-6">6. References</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Abstract</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Liskov Substitution Principle (LSP) is the L in <a href="./ood-principles.html">SOLID Principles of
+OOD</a>.  It clarifies the meaning of inheritance beyond mere syntax.  The
+principle applies to best practices in all OOP languages; certainly
+to: C++, Java, Scala, and Python.  The clarification is crystal clear
+in the presence of pre- post conditions and class invariant.
+</p>
+
+<p>
+[TBD double check use of S (now D) versus T (now B)]
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Semantics of Inheritance</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>If D is a derived type of B, Notation: D &lt;: B, what are the
+<b>must-have</b> relationships between their methods?
+</li>
+
+<li>Regardless of whether our compilers can check these constraints.
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Scenario #1</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>A client class C1 is using D.  Suppose we replace all occurrences
+of objects of D with those of B.  No other changes are made in C1.
+</li>
+
+<li>What behavioral changes can we observe in C1?
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Scenario #2</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>(Reverse the roles of D and B.)
+</li>
+
+<li>A client class C2 is using B.  Suppose we replace all occurrences
+of objects of B with those of D.  No other changes are made in C2.
+</li>
+
+<li>What behavioral changes can we observe in C2?
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Observations</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li>You should construct some examples, run, and observe.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Statements of Expectations</h3>
+<div class="outline-text-3" id="text-2-4">
+<ol class="org-ol">
+<li>"Derived types must be substitutable for base types."  All OOP
+languages permit this.  Even when d.m(x, y, z) has radically
+different behavior from b.m(x, y, z).
+</li>
+
+<li>"&#x2026; derived class objects must be substitutable for the base class
+objects. That means objects of the derived class must behave in a
+manner consistent with the promises made in the base class'
+contract." [from C++ FAQ]
+</li>
+
+<li>"Functions that use pointers or references to base classes must
+be able to use objects of derived classes without knowing it."
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> Define "Behavior"</h3>
+<div class="outline-text-3" id="text-2-5">
+<ol class="org-ol">
+<li>Observable state: 
+<ol class="org-ol">
+<li>before entering the method (state as described by pre-condition),
+</li>
+<li>versus leaving the method (post condition)
+</li>
+</ol>
+</li>
+<li>Public methods only
+</li>
+<li>Recall that pre- and post-conditions include the class invariant.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> Origin of Expectations</h3>
+<div class="outline-text-3" id="text-2-6">
+<ol class="org-ol">
+<li>The expectations staed above are "best practices" to support
+software development life cycle, especially maintenance.
+</li>
+
+<li>Violating these expectations is bound to cause functional damage to
+the software.
+</li>
+
+<li>E.g., unit tests for the base class would never succeed for the
+subclass.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Proper Inheritance</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>Background: <a href="../Assertions">../Assertions</a>
+</li>
+
+<li>Consider a public method m(x, y, z) of B and D.
+</li>
+
+<li>Preconditions must not be strengthened in a subtype.
+<ol class="org-ol">
+<li>It should be the case that B.m.pre =&gt; D.m.pre
+</li>
+</ol>
+</li>
+
+<li>Postconditions must not be weakened in a subtype.
+<ol class="org-ol">
+<li>It should be the case that D.m.post =&gt; B.m.post
+</li>
+</ol>
+</li>
+
+<li>Class Invariant B.cinv of the supertype B must be preserved in a
+subtype D.
+<ol class="org-ol">
+<li>It should be the case that D.cinv =&gt; B.cinv
+</li>
+</ol>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> More</h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li>OOD Open-Close Principle: Open for extension but Closed for modifications.
+</li>
+<li>If the above rules are not being held, re-design your inheritance details.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Dilemmas?</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>Interface substitutability versus Behavior Equivalence
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Circle a subtype of Ellipse?</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>Let Ellipse1 have three public observer functions: major, minor,
+area.  Circle1 has the same operations, but minor and major always
+return the radius.
+</li>
+
+<li>Let Ellipse2 have two more public setter functions, major(x),
+minor(x).  Obviously, Circle2 has only major(x).
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> Colored Circle</h3>
+<div class="outline-text-3" id="text-4-2">
+<ol class="org-ol">
+<li><code>Circle c; ColoredCircle cc; c :=</code> <code>cc;</code>  Problem?
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Ellipse a subtype of Circle?</h3>
+</div>
+
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Specialization and Constratints</h3>
+<div class="outline-text-3" id="text-4-4">
+<ol class="org-ol">
+<li>We expect a subtype to be a specialization of a base type.  The
+subtype also obeys some extra constraints that the base did not
+have.
+</li>
+
+<li>This works generally &#x2013; but not always.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> Answers</h3>
+<div class="outline-text-3" id="text-4-5">
+<ol class="org-ol">
+<li>Read the answers in Alistair Cockburn (in refs).
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Liskov's Originals</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>"If for each object s of type S there is an object t of type T such
+that for all programs P defined in terms of T, the behavior of P is
+unchanged when s is substituted for t then S is a subtype of T."
+[from Barbara Liskov, Data Abstraction and Hierarchy, SIGPLAN
+Notices, 23, 5, May 1988.  Liskov won the <a href="http://amturing.acm.org/award_winners/liskov_1108679.cfm">Turing Award in 2008</a>.]
+</li>
+
+<li>pmateti: The "behavior of P is unchanged" is too strong.  Here is a
+restatement in a later paper:
+</li>
+
+<li>Let <i>q(t)</i> be a property (provable) about objects t of type T.
+Then <i>q(s)</i> should (provably) hold for objects s of type S where S
+is a subtype of T.
+</li>
+<li>pmateti: Provability is not the issue.
+</li>
+
+<li>pmateti: In the context of our OOPL, treat "type" as a synonym for
+"class".
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> References</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>Liskov, Barbara H., and Jeannette M. Wing. "A behavioral notion of
+subtyping." ACM Transactions on Programming Languages and Systems
+(TOPLAS) 16.6 (1994): 1811-1841.
+<a href="http://www.cse.ohio-state.edu/~neelam/courses/788/lwb.pdf">http://www.cse.ohio-state.edu/~neelam/courses/788/lwb.pdf</a>.  Liskov
+won the <a href="http://amturing.acm.org/award_winners/liskov_1108679.cfm">Turing Award in 2008</a>.  Highly recommended Reading for
+CEG4180. Required Reading for CEG 7140.
+</li>
+
+<li><a href="http://www.oodesign.com">http://www.oodesign.com</a>  Recommended Visit.
+</li>
+
+<li><a href="http://www.parashift.com/c++-faq/">http://www.parashift.com/c++-faq/</a>   Recommended Visit.
+</li>
+
+<li>Alistair Cockburn,
+<a href="http://alistair.cockburn.us/Constructive+deconstruction+of+subtyping">http://alistair.cockburn.us/Constructive+deconstruction+of+subtyping</a>
+A rigorous math logic based discussion of what subtypes are.
+Highly Recommended Reading.
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2015 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> 2015-10-05
+</div>
+</body>
+</html>

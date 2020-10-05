@@ -1,0 +1,71 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+DATE: 2017-02-15
+#+TITLE: Overview of Specs
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\">../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2017 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Abstract
+
+This is the landing page for Specs.  There are several examples.  Some
+large examples are just outlines.  Each of these spec examples are
+consdidered later under [[../Design][Design]].  Student is assumed to be familiar
+with the waterfall model.
+
+* Intro
+
+   1. Different Axes of Specs
+      1. Functional Specs
+      2. Performance/ Resources Specs
+      3. Maintainability
+      4. A list of different specs by Hoare
+   2. Seven Sins of a Specifier
+      1. Silence
+      2. Noise
+      3. Overspec
+      4. Contradiction
+      5. Ambiguity
+      6. Forward Reference
+      7. Wishful Thinking
+      8. Shall we order these based on ...?
+      1. Meyer, Bertrand, [[http://se.ethz.ch/~meyer/publications/ieee/formalism.pdf]["On Formalism In Specifications"]], IEEE
+         Software, 1985, vol. 2, no. 1. pp. 6-26.  (Meyer is the
+         designer of the excellent OOPL named Eiffel.)  Required
+         Reading.
+
+   3. Correct by Design, Correct wrt Assertions
+   4. Specs v Final Programs
+   1. [[./specs-101.org][Software Specs 101]] all the above
+
+
+* Well Known Example Specs
+
+  1. Functional Specs
+  1. [[./spec-examples-small.org][Specifications of Tiny Example Programs]]
+  4. [[../Examples/Knuth-CWP/][Spec of Knuth's Common Words Problem]]
+  7. [[./stack-adt.org][Algebraic Specs: Stack ADT]]
+
+* Larger Specs
+
+1. Why can't we specify large programs?  What does it take?
+   1. Background in Discrete Math
+   2. Background in Mathematical Logic
+   3. Background in Functional Programming
+   4. Extensive Experience in Software Development + Maintenance
+2. [[./wicked-problems.org][Wicked Problems]]
+3. [[./spec-examples-large.org][Specifications of SLOC 10000+ Example Programs]]
+
+* References
+
+1. Some times the references are embedded in the notes.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

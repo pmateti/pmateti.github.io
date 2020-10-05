@@ -1,0 +1,69 @@
+# -*- mode: org -*-
+#+DATE: 2019-08-10
+#+TITLE: Refreshers on OS: Programs, Processes, FileSys, Networking, ...
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+DESCRIPTION: OS Refreshers
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d <a href=\"../../\"> ../../</a> "))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 0000 - 2019 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+
+
+Everything you see here is required background for our discussion of
+(Host) Computer Security and Android Internals and Security.
+
+1. [[./programs-processes.org][Programs, Processes and IPC]]
+   1. What is a program?
+   2. What is a process?
+   3. Properties of a Process
+   4. Processes v Threads
+5. [[./IPC.html][Inter Process Communication (IPC)]]
+   6. IPC: Message Passing
+   7. IPC: Shared Memory
+   8. IPC: Synchronization
+   9. IPC: Mutual Exclusion
+2. [[./file-systems.org][File Systems]]
+   1. Operations
+   2. ext4
+   3. vfat
+   4. Swap Space
+   5. Loop Device
+3. [[./networking.org][Networking]]
+   1. [[./networking-ARP.html][ARP]] Address Resolution
+   2. [[./networking-DNS.org][DNS]] Domain Name Service
+   3. [[./firewalls.org][Firewalls]]
+4. System Calls
+   1. Table of System Calls of Linux
+   2. Example: execve
+      1. [[./cmain-argv.org][arguments to main ]]
+   3. Example: [[./chroot.org][chroot]]
+   4. Library Method Wrappers
+5. Root Privileges
+   1. Ethics and Responsibilities
+   1. Command: sudo
+6. Serious Study of a Few Tiny Programs
+
+   1. [[../LinuxSetup/StudyPrograms/index.org]] About 10.  Understand
+      every line of code.  syscalls. library calls.  strace. ltrace.
+
+
+
+* References
+
+1. http://cecs.wright.edu/~pmateti/Courses/2350/ CEG 2350: OS Concepts
+   and Usage.  This course presents most of our prerequiste materials
+   at a beginners level.  Lecture and lab notes are fully on-line.
+
+1. http://cecs.wright.edu/~pmateti/Courses/4350/ CEG 4350: OS
+   Internals and Design.  This is a senior/ first-year-grad level
+   course.  Main topics are Programs, Processes, System Calls and File
+   Systems.  Lecture and lab notes are fully on-line.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

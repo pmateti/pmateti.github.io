@@ -1,0 +1,75 @@
+# -*- mode: org -*-
+#+date: 2015-11-09
+#+TITLE: Lab L4 on Undo-Redo Command Pattern
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<h1><img src=\"../../../images/wsu-logo-xsm.gif\" width=150 border=0 ></a> CEG 4180: OOP and Design</h1>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+Due Date: on Course Home Page
+
+The purpose of this lab/project is to get you to practice the
+Undo-Redo Command Pattern on a simple program.  Read the relevant
+chapters from the text book.
+
+The JavaFX source code of [[../Lectures/Java8/src/TicTacToe.java][TicTacToe]] user-against-user is given to you.
+You can build and run it as in 
+: % javac TicTacToe.java; java TicTacToe
+
+The following deliverables are required of all tasks.  (i) Explain
+your design/revision in a section in the lab report.  (ii) Examples of
+5 tests as sequences of your input interactions written up as in,
+e.g., X12, O11, and the game over status.
+
+* Task 1: Check The Style
+
+There are several [[https://www.google.com/webhp?&ion=1#newwindow=1&q=code+quality+checker+plugins+for+the+IDEs]["code quality"]] checker plugins for the IDEs.
+Install any one of them of your choice.  Run it on the source code
+given.
+
+Deliverable: (iii) Report your findings in a section of the lab
+report.  Include a description of the plugin you selected, and a
+rationale for its choice.
+
+* Task 2: Business Logic and GUI
+
+The buisiness logic and GUI are not well separated.  Revise the code.
+
+Deliverables: (iii) =TicTacToeGUIseparated.java=
+
+* Task 3: Improve the Business Logic
+
+Improve the coding of the business logic.  Wherever possible.  E.g.,
+can we improve the check for who won?
+
+Deliverables: (iii) =TicTacToeBLImproved.java=
+
+* Task 4: Undo-Redo
+
+The code as given does not have undo/redo.  Add this feature to the
+latest of your versions from the above tasks.  Update the GUI
+appropriately.  You *must* use the design pattern.
+
+Deliverables: (ii) In test sequences, use U12 to stand for undo
+action, and R12 for redo action.  Obviously, the coordinates are
+irrelevant.  (iii) =TicTacToeWithUndoRedo.java=
+
+* Task Bonus: Scala and ScalaFX
+
+Do the above Tasks 2 -- 4 in Scala.
+
+Deliverables: (iii) =TicTacToe.scala=
+
+* Turn In
+
+Login to =thor.cs.wright.edu= and submit your files as
+follows
+
+: ~ceg418000/turnin L4 ReadMe.txt *.java *.scala Lab4Report.pdf
+
+

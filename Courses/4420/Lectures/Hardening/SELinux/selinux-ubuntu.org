@@ -1,0 +1,149 @@
+
+# -*- mode: org -*-
+#+date: 2018-11-26
+#+TITLE: Exploration of SELinux as installed on Ubuntu
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Overview
+
+1. Prerequisites for this Section: DAC, MAC and SELinux.  Terminology:
+   Subjects (active entities, e.g., processes), verbs/ actions (e.g.,
+   read), objects (passive entities, e.g., files).  Roles, Labels and
+   Types.
+
+
+1. Caution: Improperly configured, SELinux may not permit the
+   completion of a boot.  A Drastic Measure that can Fix This:
+   Interact with Grub, and in the =linux ...= line, delete
+   =security=selinux= and delete =selinux=1=, insert =selinux=0= and
+   press F10.  Or boot from a multi boot USBD (of Lab L1), and edit
+   files in =hddroot/etc/selinux/=.
+
+
+* Install SELinux on Ubuntu
+
+1. SELinux is default on RedHat.  Ubuntu distribution uses AppArmor
+   instead; =apt purge apparmor=.  Then, =reboot=
+
+1. =apt install selinux-*= [hyphen-asterisk].  [We are
+   over-doing!] May take a minute or two. 
+
+1. =apt install selinux setools-gui auditd= [no-hyphens-no-asterisks].
+   Check what your prof installed on his machine: [[./sel-dpkg-list.txt]]
+
+** Config SELinux
+
+1. Configure selinux.  In the file =/etc/selinux/config=, set
+   =SELINUX= to =permissive=.
+
+1. Verify the Grub menu entry installed by =apt install selinux=
+   #+begin_src bash
+menuentry "Linux Kubuntu 18.10 security=selinux selinux=1" {
+ linux /vmlinuz ro security=selinux selinux=1 root=LABEL=Kubuntu1810WD37 
+ initrd /initrd.img
+}
+#+end_src
+
+1. =reboot= again.  During the next boot, SELinux builds and saves
+   contexts.  Will take longer than usual boot. 
+
+* After the Reboot Explore
+
+   #+begin_src bash
+root@Milner:~# sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             default
+Current mode:                   permissive
+Mode from config file:          permissive
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Memory protection checking:     requested (insecure)
+Max kernel policy version:      31
+
+root@Milner:~# getenforce
+Permissive
+#+end_src
+
+1. The Grub menu that booted this session will have =security=selinux
+   selinux=1= in it.
+   : root@Sutherland:~# cat /proc/cmdline 
+   : BOOT_IMAGE=/boot/vmlinuz-4.18.0-11-generic ro security=selinux selinux=1 root=LABEL=Kubuntu1810WD37 vt.handoff=1
+
+1. In text file =/etc/selinux/config=, change =SELINUX=permissive= to
+   =SELINUX=enforcing=
+
+1. The command =setenforce Enforcing= enforces selinux. The command
+   =setenforce Permissive= flips selinux to being permissive.
+
+1. Available commands: =man -k selinux=  100+  For our labs, we need
+   just a few.
+
+2. After selinux install, config files on Ubuntu:
+   1. =/etc/selinux/*=, 60+ files ??
+   2. =/etc/selinux.d/ubuntu/*= 50+ files ??
+
+1. =dpkg -L selinux= lists where the files from package named selinux
+   were installed.
+
+1. See the files in =/etc/selinux/default/contexts/= (These are text
+   files.)
+
+1. Policies are compiled into binary files.
+   : root@Sutherland:~# file /etc/selinux/default/policy/policy.31 
+   : /etc/selinux/default/policy/policy.31: SE Linux policy v31 8 symbols 9 ocons
+
+1. =default= is the name of the policy installed by the package named
+   =selinux-policy-default= The full collection of rules is at
+   =/usr/share/selinux/default=.  E.g., take a look at =bzcat
+   /usr/share/selinux/default/keyboardd.pp.bz2=
+
+1. The .pp file is the result of =/usr/bin/semodule_package= working
+   on .mod and .te files.  It is possible to regenerate .mod and .te
+   files from .pp but it is way too cumbersome and skipped here.  See
+   https://android.googlesource.com/platform/external/selinux/+/9ef48ac/policycoreutils/semodule_package/
+
+1. Linux Security Modules (LSM) API: Dozens of access control hooks
+   all over the kernel; see =include/linux/security.h= An LSM, such as
+   SELinux, is compiled into the kernel.  Se the results of =grep
+   selinx /proc/kallsyms=
+
+1. List the policy modules: =semodule -l=
+
+** SELinux Modes
+
+1. In =/etc/selinux/config= file, =SELINUX= can be set to
+      =enforcing=, =disabled=, or =permissive=
+
+   2. Enforcing: Policy is loaded.  When SELinux is enforcing,
+      everything is denied by default and a policy determines
+      requested access.  See Figure 4.
+
+   3. Permissive: Policy is loaded, but SELinux is /not enforcing/
+      it.  Accesses will be logged but not
+      prevented.  This mode is intended for testing and debugging.
+   4. Disabled: SELinux infrastructure is not enabled. No policy
+      loaded.  Logs are not generated.
+
+5. See also what the Grub boot entry should be for selinux to be
+   enabled (permissive or enforcing).
+
+** SELinux Logs
+
+1. Brute force check:: =grep -E 'avc:.*denied' -Rn /var/log= This will
+   grep all the files in /var/log recursively and report occurrences
+   with line numbers and file names.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

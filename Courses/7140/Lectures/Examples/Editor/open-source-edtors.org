@@ -1,0 +1,57 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+
+#+Date: 2015-06-01
+#+TITLE: Open Source Text/Programmer Editors
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+DESCRIPTION: WSU CS 7140 Advanced Software Engineering
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">CS 7140</a> %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STYLE: <style type="text/css">@media screen {BODY {margin: 15%} }</style>
+
+1. This list is not meant to be exahaustive.  But relevant to our
+   learning goals.
+
+1. EMACS http://www.gnu.org/software/emacs/ "GNU Emacs is an
+   extensible, customizable text editor -- and more. At its core is an
+   interpreter for Emacs Lisp, a dialect of the Lisp programming
+   language with extensions to support text editing."  The current
+   stable release is 24.5 (April 2015)
+
+1. Vi http://ex-vi.sourceforge.net/ The Traditional Vi Source Code for
+   Modern Unix Systems
+
+1. MS NotePad
+   https://msdn.microsoft.com/en-us/library/vstudio/aa972157 "This
+   sample is a full featured Windows Notepad application with some
+   added features ..."
+
+1. MicroEmacs URL TBD
+
+1. A quick to read review of "new style" editors named
+   =sublime-text, atom, brackets, light-table=:
+   http://www.sitepoint.com/sitepoint-smackdown-atom-vs-brackets-vs-light-table-vs-sublime-text/
+   "A new breed of editor has arrived. It fills the gaping void
+   between basic text applications (Notepad, TextEdit, gedit, etc.)
+   and full Integrated Development Environments (VisualStudio,
+   Eclipse, NetBeans etc.) Simpler applications lack basic development
+   requirements such as multiple documents, line numbering and code
+   coloring. IDEs tend to be monolithic applications which cater for a
+   specific language, framework or platform." ...
+   "Sorry Vi[m] and Emacs fans — console-based applications have been excluded"
+   September 3, 2014 
+
+   Not by an academic. Certainly *not* thorough.
+
+1. https://github.com/scaled/scaled "Scaled is a modern programmer's
+   text editor, built atop Java 8 and JavaFX 8, mostly written in
+   Scala, ...  Scaled focuses on the text editing experience first,
+   and IDE-like features second. ... Scaled is designed to be
+   extensible in any JVM language." 
+
+   Active project June 2015.

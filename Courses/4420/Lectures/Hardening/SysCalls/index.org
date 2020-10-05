@@ -1,0 +1,180 @@
+
+# -*- mode: org -*-
+#+date: 2018-11-05
+#+TITLE: Linux SysCalls: Add/ Del/ Freeze
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Lectures
+
+1. I typically plan to give a week of lectures on this topic.
+1. Lecture #1  [[./syscall-intro.org]];  [[./read-syscall.org]]
+1. Lecture #2 Section below: New Linux System Call Design
+1. Lecture #3 Section below: Linux SysCalls Add/ Del/ Freeze. Lab overview.
+1. Lecture #4 Example Kernels for NFS and FTP Servers
+
+* Prerequisites
+
+1. [[./syscall-intro.org]]  Often covered in CEG 4350 OS Internals and Design.
+
+1. [[./read-syscall.org]] Anatomy of a System Call: read() SysCall
+   Internals.  As an example.  From Linux source code tree.
+
+* Design of New Linux System Calls
+
+1. For reasons of compatibility with legacy, we cannot mess with the
+   existing syscalls; but, we can (safely) add new ones.
+
+1. Adding or deleting system calls in production deployed systems is
+   risky.  But, like in other software systems, what an OS should
+   provide also changes over the years.  Particularly because of
+   security.  So we must also learn the design and implementation of
+   new system calls.
+
+** Purpose of a SysCall
+
+1. The syscall should have exactly one coherant purpose.  What will it
+   do?  What are its pre- and post-conditions?  Write its man page
+   before proceeding to design the code.
+
+1. What are the new system call's arguments, return value, and error
+   codes? The system call should have a clean and simple interface
+   with the smallest number of arguments possible. The semantics and
+   behavior of a system call are important; they must not change,
+   because existing applications will come to rely on them.
+
+** Example of What Not To Do
+
+Multiplexing syscalls (a single system call that does wildly different
+things depending on a flag argument) is not a good thing. Look at
+=ioctl()= of Linux as an example of what /not/ to do.
+
+** Design for Stability of Interface
+
+1. Designing the interface with an eye toward the future is
+   important. Are you needlessly limiting the function? Design the
+   system call to be as general as possible. Do not assume its use
+   today will be the same as its use tomorrow. The purpose of the
+   system call will remain constant but its uses may change. Is the
+   system call portable?  Do not make assumptions about an
+   architecture's word size or endianness.  Make sure you are not
+   making poor assumptions that will break the system call in the
+   future. Remember the Unix motto: "provide mechanism, not policy."
+
+* Linux SysCalls Add/ Del/ Freeze
+
+** SysCall Table Idea
+
+1. What is a Table of Pointers to Functions?  If f(...) { ...} is a C
+   function, then f, without parentheses, is the address (pointer) of
+   function f.  Any address can be cast to =void *=.
+
+4. Invariant Assertion: All pointers in the SysCall Table are valid
+   pointers to syscall functions.  The index is known as the syscall
+   number.
+
+2. All the syscall functions have the same prototype signatures.
+3. To add a syscall:
+   1. Write the code for the new system call.
+   2. Add the pointer to this function into the table.
+3. Delete: delete the pointer [set it to the address of no-op()]
+
+** Examples of New SysCalls
+
+1. Encrypt a file
+1. Decrypt a file
+1. Freeze a few syscalls.
+1. [[./sysCallRedir]] Example with src code
+
+** Del/ Freeze
+
+1. Deleting SysCalls. In the syscall table, set the
+   syscalltable[nrdel] = syscalltable[not-implemented];
+
+1. Freezing SysCalls.  In the syscall table, save the
+   syscalltable[nrdel] value, and then set the syscalltable[nrdel] =
+   syscalltable[not-implemented];
+1. Unfreezing the syscall restores the saved value.
+
+
+* References
+
+1. http://en.wikipedia.org/wiki/System_call  Required Reading.
+
+1. Robert Love, Linux Kernel Development, 3rd Edition, Addison Wesley,
+   2010, 460++ pp, http://www.makelinux.net/books/lkd2/ch05lev1sec4
+   Note the date.
+   Reference.
+
+1. https://linux-kernel-labs.github.io/master/labs/kernel_api.html
+   2017?  "Kernel API: Familiarize yourself with the basic Linux
+   kernel API; Description of memory allocation mechanisms;
+   Description of locking mechanisms."  Recommended Reading.
+
+1. David Drysdale, Anatomy of a System Call.
+   http://lwn.net/Articles/604406/ Appeared in three parts in 2014.
+   Recommended Reading
+
+1. http://kernelnewbies.org/ Begin here if you wish to learn kernel
+   devlopment beyond this class room article.  Recommended Visit.
+
+** Further References
+
+1. Sowgandh S. Gadi, {\sl Security Hardened Kernels for Linux
+   Servers}, WSU MS Thesis, April 2004.  Advisor: Prabhaker Mateti.
+   {Kernels aimed at NFS, FTP and other servers hardened with freezing
+   syscalls.}  Reference.
+
+1. Asish Sahadevan, "Security Improvements to the Android Kernel",
+   [[https://cecs.wright.edu/~pmateti/Students/grad-students.html][MTech Thesis]], 70pp, Amrita Vishwa Vidyapeetham, Ettimadai, TN,
+   India, Advisor: Prabhaker Mateti, Jul 2015.  Implements Add/
+   Delete/ Freeze of syscalls.  Reference.
+
+1. https://linux-kernel-labs.github.io/master/ Linux Kernel Teaching,
+   201x.  This is a collection of lectures and labs Linux kernel
+   topics.  Reference.
+
+1. http://learnlinuxconcepts.blogspot.com/2014/03/memory-layout-of-userspace-c-program.html
+   Memory Layout of Kernel and UserSpace in Linux.  Reference.
+
+* References
+
+1. Prabhaker Mateti, Lecture Notes and Videos on System Call Setup in
+   Linux, 2018.
+
+1. Asish Sahadevan, "Security Improvements to the Android Kernel",
+   [[https://cecs.wright.edu/~pmateti/Students/grad-students.html][MTech Thesis]], 70pp,  Jul 2015, Amrita Vishwa Vidyapeetham, Ettimadai, TN,
+   India, Advisor: Prabhaker Mateti, WSU.  Implements Add/
+   Delete/ Freeze of syscalls.  Reference.
+1. https://pdos.csail.mit.edu/6.828/2017/labs/lab3/ "In this lab you
+   will implement the basic kernel facilities required to get a
+   protected user-mode environment (i.e., "process") running."
+   Recommended Reading.
+1. https://compas.cs.stonybrook.edu/~nhonarmand/courses/sp17/cse506/labs.html
+   Spring 2017 :: CSE 506 - Operating Systems.  "A crucial component of
+   the course is the labs."  Recommended Reading.
+1. https://github.com/auca/com.341/tree/master/Practice%202 AUCA ==
+   American University of Central Asia; "In this task you need to add
+   implementation of two system calls to the Linux kernel. This will
+   allow a small task information utility to run in the user space
+   querying information directly from the kernel without parsing
+   output from the proc file system."  Recommended Reading.
+
+1. http://www.quora.com/How-can-I-hook-system-calls-in-Linux The
+   syscall table is Read-Only from kernel 2.6.24 onward.  Enable RW
+   using =set_memory_rw()= (and then enabling it RO before exiting
+   using =set_memory_ro()=).
+   https://elixir.bootlin.com/linux/latest/ident/set_memory_rw
+   Recommended Reading
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

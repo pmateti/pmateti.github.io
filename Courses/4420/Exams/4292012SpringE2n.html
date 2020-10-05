@@ -1,0 +1,130 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>CEG 429/629 Final Exam</title>
+  <style type="text/css">
+    body {margin: 10%}
+    a:hover      { color: blue; background-color: yellow; }
+    a:active     { color: white; background-color: green;}
+    @page { size: 8.5in 11in }
+    P { text-align: justify; }
+    @media screen {BODY {margin: 5em} }
+    pre {background: lightYellow;}
+  </style>
+</head>
+<body>
+
+<table cellspacing="10" cellpadding="10" width="100%" border="0">
+  <tr>
+    <td width="32%"><a target="_blank" href="http://www.wright.edu/">
+    <img src="../images/wsu-logo-xsm.gif" border="0" width="150" height="66" align="top"></a></td>
+    <td width="68%">
+        <h2><a href="http://www.cs.wright.edu/~pmateti/Courses/429/">
+	    CEG 429/629:Internet Security</a></h2>
+	<b>Final Exam // Spring  2010//120 minutes//100 points</b><br>
+    </td>
+  </tr>
+</table>
+<blockquote>
+<p>Login and use a laptop/PC to edit your answers.txt file.
+    However, this is a closed book, closed notes exam. Do not surf.
+    Do not use pre-existing files. Do not give or take help during
+    the exam. <tt>ssh 130.108.17.111</tt> (OSIS Lab Server) and
+    turnin your answers as in <tt>~ceg42900/bin/turnin FI answers.txt</tt><br>
+</blockquote>
+<ol>
+  <li>(8*5 points each) The following statements may or may not be
+  (fully or partially) valid.&nbsp; First, explain the
+  term <i><u>underlined</u></i> in the statement.&nbsp; Then, explain/
+  discuss/ dispute the statement.&nbsp; It is <i> possible</i> to
+  write no more than, say, ten, sentences each, and yet receive full
+  score.
+  <ol type="i">
+  <li>A <u>&quot;script kiddie&quot;</u> is a synonym for &quot;hacker&quot;.</li>
+	<li><u><i>Hackers</i></u>, as distinct from attackers, do have
+      ethics.</li>
+	<li><u>Probing</u> is used to detect the weaknesses of a target
+      machine.</li>
+	<li>Spoofing and <u>Smurfing</u> are IP exploits. </li>
+	<li>A firewall can be configured to prevent <u>IP
+	spoofing.</u></li>
+	<li>An <u><i>IP filtering package</i></u> must be run on a
+      router.&nbsp; It has no effect if run on a normal host with a
+      single network card. </li>
+	<li>For something to be called a <i><u>virus</u></i>, it must
+      embed in such a way that it is executed only intermittently.</li>
+	<li> <u>Address Space Layout Randomization</u> (ASLR) helps prevent 
+	backdoors.</li>
+	</ol>
+
+  </li>
+
+<li>(40 points)
+<ol type="a">
+  <li>(10 points) Describe how stack top randomization makes buffer
+    overflow exploits difficult.
+
+  <li>(10 points) AlephOne describes
+    the <code>eggshell </code>&nbsp;program as <code>&quot;usage:
+    eggshell [-a &lt;alignment&gt;] [-b &lt;buffersize&gt;] [-e
+    &lt;eggsize&gt;] [-o &lt;offset&gt;]\n</code>&quot;.&nbsp; What
+    are <code> &lt;alignment&gt;, </code> and<code>
+    &lt;eggsize&gt;</code> and why do we need them? </li>
+
+  <li>(10 points) Describe any two of the Principles of Robust
+    Programming of Matt Bishop's article.</li>
+
+  <li>(2*5 points) Consider the function shown below.&nbsp; It reads a
+    file name from the standard input and returns its protection mode.
+    <table border="0" width="100%" cellspacing="0" cellpadding="5">
+      <tr>
+	<td align="left" width="38%">
+	  <pre>
+short int protectionMode(void)
+{	struct stat stbuf;
+	char inbuf[100];
+	gets(&amp;inbuf);
+	stat(inbuf, &amp;stbuf);
+	return stbuf.st_mode &amp; 0777;
+}</pre>
+	</td>
+	<td align="left" valign=top>
+	  <ol type="i">
+            <li>Describe how to exploit<i> </i>its features.</li>
+            <li>Write its pre- and post-conditions. </li>
+	  </ol>
+	</td>
+      </tr>
+    </table>
+  </li>
+</ol>
+
+<li> (10 points) Describe a significant security incident that
+  happened in the last 12 months.
+
+
+  <li>(10 points)&nbsp; It is well-known that a large percentage of
+    systems remain vulnerable long after security patches have been
+    issued because the patches have not been applied.&nbsp; Mr. Means
+    Well, a security expert, got tired of this situation, and wrote a
+    worm-like system, MWP, that applies patches without engaging in a
+    dialog with the sysadmin.&nbsp; The MWP examines the system that
+    it is currently on, fetches all relevant patches from reputable
+    web sites, verifies their digital signatures, applies them to the
+    current system, and mails a detailed log of what files were
+    modified to the sysadmin.&nbsp; It then spreads to other
+    systems.&nbsp; What are the ethical issues raised by MWP?&nbsp;
+    Would you support it?&nbsp; Or would you take precautions to
+    thwart it?&nbsp; Discuss.</ol>
+
+<hr>
+    <a href="../copyright.html">Copyright ©</a> 2012
+    <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a>
+    • June 05, 2012
+
+</body>
+
+</html>

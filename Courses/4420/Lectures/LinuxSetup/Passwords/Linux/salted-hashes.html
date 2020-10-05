@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Salted Hashes</title>
+<!-- 2018-10-22 Mon 13:03 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="Mateti: Android Internals and Security"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Salted Hashes</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Hash Functions</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Pigeon Hole Principle</a></li>
+<li><a href="#sec-1-2">1.2. Hash Types</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. Salted Hashes</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Examples</a></li>
+<li><a href="#sec-2-2">2.2. Password Cracking</a></li>
+<li><a href="#sec-2-3">2.3. Password Cracking Stats</a></li>
+<li><a href="#sec-2-4">2.4. Current Shadow Files</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Hash Functions</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+All hash functions map a large domain of values into a much smaller
+range of values.  When two domain values a and b map to the same v in
+the range, we have a collision.  A crypto hash function maps an
+enormously large domain into a rather small range of values.  The
+well-know crypto hash functions are surprising in that collisions are
+difficult to exhibit.  So, computing the inverse of a hash is
+considered "computationally infeasible".
+</p>
+
+
+<div class="figure">
+<p><img src="../Figures/hash-function.jpg" alt="hash-function.jpg" width="50%" />
+</p>
+<p><span class="figure-number">Figure 1:</span> Hash Function [source: Web]</p>
+</div>
+
+<p>
+On Linux, you will find <code>md5sum</code>, <code>sha1sum</code>,  and <code>sha512sum</code>.  Below,
+we show the results for the word "test" and an .iso file.  The output
+is in hex-digits, always fixed length, no matter what the length of
+input is.
+</p>
+
+<pre class="example">
+% echo test | md5sum
+d8e8fca2dc0f896fd7cb4cb0031ba249  -
+</pre>
+
+<pre class="example">
+% echo test | sha1sum 
+4e1243bd22c66e76c2ba9eddc1f91394e57f9f83  -
+</pre>
+
+<pre class="example">
+% time sha1sum kali-linux-2016.2-amd64.iso 
+25cc6d53a8bd8886fcb468eb4fbb4cdfac895c65  kali-linux-2016.2-amd64.iso
+real    0m14.853s, user    0m10.724s, sys     0m1.120s
+</pre>
+
+<pre class="example">
+echo test | sha512sum
+0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123  -
+</pre>
+
+
+<pre class="example">
+% time md5sum /var/Public/Software/OSISO/kali-linux-2016.2-amd64.iso 
+real 0m17.120s; user 0m8.500s; sys 0m1.480s
+3d163746bc5148e61ad689d94bc263f9; 
+</pre>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Pigeon Hole Principle</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The input domain of a crypto hash function is very, very, &#x2026; large
+compared to the size of the output range.  Thus, it cannot be that for
+every pair of inputs a and b, hash(a) != hash(b).  But, for all the
+well-known hash functions (such as MD5, SHA1, and SHA512), the world
+could not discover/ design a and b so that hash(a) == hash(b).  (This
+is called a collision.)  Until recently, that is.
+</p>
+
+<p>
+<a href="http://www.mscs.dal.ca/~selinger/md5collision/">MD5 Collision Demo, 2006</a>: The algorithm of Wang and Yu 2005 <a href="http://pds10.egloos.com/pds/200810/20/90/How_to_Break_MD5_and_Other_Hash_Functions.pdf">PDF</a> can be
+used to create files of arbitrary length that have identical MD5
+hashes, and that differ only in 128 bytes somewhere in the middle of
+the file. Several people have used this technique to create pairs of
+interesting files with identical MD5 hashes.
+</p>
+
+<p>
+<a href="https://www.theregister.co.uk/2017/02/23/google_first_sha1_collision/">SHA1 Collision, News, Feb 2017</a>: 'First ever' SHA-1 hash collision
+calculated.  All it took were five clever brains&#x2026; and 6,610 years of
+processor time.  <a href="https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html">GoogleBlog</a>
+</p>
+
+<p>
+Both MD5 and SHA1 are broken in that we can algorithmically construct
+distinct inputs a, b, c, d such that MD5sum(a) = MD5sum(b), and
+SHA1sum(c) = SHA1sum(d).  It is not known (as of 2017) if two inputs x
+and y can be constructed so that not only (i) MD5sum(x) = MD5sum(y)
+but also (ii) SHA1sum(x) = SHA1sum(y).
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Hash Types</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li><a href="http://www.geek-kb.com/how-to-generate-rainbow-tables-using-winrtgen/">http://www.geek-kb.com/how-to-generate-rainbow-tables-using-winrtgen/</a>
+   has a list.  The rest of the article is just a repeat.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Salted Hashes</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Passwords are never stored in plain text.  An "encoded" version is
+stored.  Encoding involves "salting" the password and one-way hashing
+the result.
+</p>
+
+<p>
+The hashed result is then "salted" etc.  This is stored in a password
+"database" file.  In cryptography, a salt is random data that is used
+as an additional input to a one-way function that "hashes" a password.
+Salting makes it impossible to use lookup tables and rainbow tables to
+crack a hash.
+</p>
+</div>
+
+
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Examples</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+An MD5 password is stored in the <code>/etc/shadow</code> file as
+follows. Example lines from machine M1:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">student:$1$l67ia9iK$x80ABcEExHYMVpMx.Bls5.:13749:0:99999:7:::
+jsmith:$1$Y4.kjoQ2$GIuEZcnQVPYi7RPWrQRTE.:14036:0:99999:7:::
+jtripper:$1$WH2SxqnX$rL0J6JYshB3wl6yBm90Bd1:13887:0:99999:7:::
+</pre>
+</div>
+
+<p>
+The encoded password field, between the first and second colons,
+contains three dollar signs.  Between the first pair of $-symbols is
+referred to as the "magic" and is used to determine if this is an MD5
+hash crypt id 1 (<code>$1$</code> means yes, else not).  The second pair encloses
+( <code>$l67ia9iK$</code> ) the salt.  The characters following the third dollar
+upto the colon, namely <code>x80ABcEExHYMVpMx.Bls5.</code> is the salted MD5 hash
+of the student's plain text password.  This plain text password is not
+stored.  
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Password Cracking</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Password cracking involves: Given this line, <code>student
+...</code>, compute the plain text password.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Password Cracking Stats</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Some stats from an MD5Crack Website in 2010: Can crack 5081455
+unsalted MD5 hashes/sec.  Current time needed to break all passwords
+that use <code>[a-zA-Z0-9]</code> and are at most 8 char long is 497 days, and if
+we exclude upper case, i.e., <code>[a-z0-9]{1,8}</code> 6 days.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Current Shadow Files</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+Since MD5 is now "broken", Linux distributions have moved on to using
+salted SHA512 password hashes (crypt id 6, <code>$6$</code>), which are
+several orders of magnitude more difficult to brute-force or generate
+rainbow tables for.  Example lines from machine M2:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">root:$6$vPVevCXV$Pj2yIpQhprsMifm7i4X7F6IioqAQxJCyrhNjH4zK0fGYUc2gWjGJjobIwRp7wT5spTlLEywDW0ySmgB0XkVBs/:15401:0:99999:7:::
+ceg442091:$6$03bKILGu$pgsg2fOTpYyhcPGSaJZfbVEFPgyle5YtGR1wY2ChuxSv7C4lEfdES26qAXa9UHqt04ap5v0AXF0DuWMXdeaWY0:15295:0:99999:7:::
+ceg235013:$6$T6Yj4GYP$MjioJv3VqkU5WOx5gruV2fSHgitkSHMLvSx5M.KL5JCDsVIVKqf3uo0DGTV.CLar0dW4eV5VYTzbfSi9rA1g8/:15398:0:99999:7:::
+</pre>
+</div>
+
+<p>
+The lines below are the same as above, but split into multiple lines for
+readability.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">root:$6$vPVevCXV$Pj2yIpQhprsMifm7i4X7F6IioqAQxJCyrhNjH4zK0fG
+YUc2gWjGJjobIwRp7wT5spTlLEywDW0ySmgB0XkVBs/:15401:0:99999:7:::
+
+ceg442091:$6$03bKILGu$pgsg2fOTpYyhcPGSaJZfbVEFPgyle5YtGR1wY2Ch
+uxSv7C4lEfdES26qAXa9UHqt04ap5v0AXF0DuWMXdeaWY0:15295:0:99999:7:::
+
+ceg235013:$6$T6Yj4GYP$MjioJv3VqkU5WOx5gruV2fSHgitkSHMLvSx5M.KL5JCDs
+VIVKqf3uo0DGTV.CLar0dW4eV5VYTzbfSi9rA1g8/:15398:0:99999:7:::
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> End</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2017 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2017-02-06
+</div>
+</body>
+</html>

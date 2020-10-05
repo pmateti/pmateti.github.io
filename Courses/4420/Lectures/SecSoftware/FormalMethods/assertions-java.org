@@ -1,0 +1,46 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE: Assertions in Java
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+#+STYLE: <style> @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-preamble-format (("en" "<a href=\"http://cecs.wright.edu/~pmateti/Courses/7140/\">CS 7140 Advanced Software Engineering</a>"))
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+
+
+
+* Java Programming With Assertions by Oracle.com
+
+1. Assertions are part of language definition.  Not macro based.
+1. E1 is a boolean expressions.  E2 is an expression
+   that has a value.
+
+2. =assert E1 ;= When the system runs the assertion, it evaluates E1
+   and if it is false throws an =AssertionError= with no detail
+   message.
+
+3. =assert E1 : E2 ;= The =AssertionError= constructor uses the string
+   value of Expression2 to generate a detailed message when E1 is
+   false.
+
+* Excerpts from http://www.javapractices.com/
+
+1. Assertions in general
+1. Assert use cases
+1. Force enabling of assertions
+1. Assert is for private arguments only
+
+* References
+
+1. Oracle.com, Java Programming With Assertions, [[http://docs.oracle.com/javase/7/docs/technotes/guides/language/assert.html]],
+   2013.Required Reading.
+
+1. http://www.javapractices.com/ Assertions Writeup
+   Required Reading.
+
+1. "I am studing for ... Oracla Java SE Certification and I saw
+   this question ..." http://stackoverflow.com/questions/15072956/  Required Reading.

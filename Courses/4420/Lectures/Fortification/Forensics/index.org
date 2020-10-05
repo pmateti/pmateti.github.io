@@ -1,0 +1,234 @@
+
+# -*- mode: org -*-
+#+date: 2018-11-01
+#+TITLE: Linux Forensics [WIP]
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./>NoSlides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+1. No networking related forensics is covered.
+
+* Live Response
+
+** Talk to the Humans
+1. What do they think happened
+1. Details on victim system(s)
+
+** Mount Response Kit with Known Good Tools
+
+1. cdrom preferred as it was not likely part of compromise
+1. USB MS can be used if no CDROM
+1. Using netcat to minimize contamination
+
+** Collecting Volatile Data
+1. date and time
+1. network interfaces 
+1. funny networks
+1. promiscuous mode?
+1. network connections
+1. open ports
+1. programs associated with ports
+1. running processes
+1. open files
+1. routing tables
+1. mounted filesystems
+1. loaded kernel modules
+**  Dead Analysis Justified?
+1. kernel version
+1. uptime
+1. filesystem datetime stamps
+1. hash values for system files
+1. current user logins
+1. login history
+1. system logs
+1. user accounts
+1. user history files
+1. hidden files and directories
+1. sending off suspicious files for further study
+
+** Dumping RAM
+
+1. Making the decision to dump RAM
+1. Using fmem https://github.com/NateBrune/fmem Linux Kernel Module designed to help analyze volatile memory in the linux kernel
+1. Using LiME https://github.com/504ensicsLabs/LiME A Loadable Kernel
+   Module (LKM) which allows for volatile memory acquisition from
+   Linux and Linux-based devices, such as Android. This makes LiME
+   unique as it is the first tool that allows for full memory captures
+   on Android devices. It also minimizes its interaction between user
+   and kernel space processes during acquisition, which allows it to
+   produce memory captures that are more forensically sound than those
+   of other tools designed for Linux memory acquisition.
+1. Using =/proc/kcore=
+
+* Acquiring Filesystem Images
+1. Using dd
+1. Using dcfldd https://www.forensicswiki.org/wiki/Dcfldd
+
+** Write Blocking Options
+1. Forensic Linux distros
+1. Udev rules based blocker
+
+* Analyzing Filesystem Images
+
+** Mounting images
+1. Files with basic system info
+1. Files with suspicious user info
+1. Examining logs
+1. Process-related files
+1. Authentication-related files 
+1. Using standard Linux tools to find information
+1. Strange files
+   1. Regular files in /dev
+   1. User history files
+   1. Hidden files
+   1. SUID/SGID files
+   1. Detecting backdated files
+1. Recovering deleted files
+   1. Finding deleted files
+   1. Attempting recovery
+
+** Leveraging The Sleuth Kit (TSK) and Autopsy
+1. https://www.sleuthkit.org/autopsy/
+1. mmls
+1. fsstat
+1. dstat
+1. istat
+1. fls & mactime
+
+* Timeline Analysis
+1. When was system installed, upgraded, booted, etc.
+1. Newly created files (malware)
+1. Changed files (trojans)
+1. Files in the wrong place (exfiltration)
+
+* Digging Deeper into Linux Filesystems
+1. Disk editors
+   1. Active@ Disk Editor
+   1. Autopsy
+** Ext4/3/2/1
+1. Basics
+1. Superblocks
+1. Directory entries
+1. Inodes
+1. Data blocks
+1. Compatible, incompatible, and read-only compatible features
+1. Experimental features may be installed
+1. Boot code
+1. Using sigfind to find important blocks
+1. Understanding indirect block levels
+1. istat, ils, ifind, icat
+1. Links and mounts
+1. Hash trees
+1. Journaling
+1. jls
+1. jcat
+1. Finding data with blkstat, blkls, blkfind, blkid, and blkcalc
+1. Relating data found with grep to a file/application
+1. Finding block size, etc.
+1. Using grep with a keyword file
+1. Seeing data in context
+1. Associating a file with the data
+1. Undeleting files
+1. Searching unallocated space
+
+* Network Forensics
+1. Using snort on packet captures
+1. Using tcpstat
+1. Seperating conversations with tcpflow
+1. Tracing backdoors with tcpflow
+
+* File Forensics
+1. Using file signatures
+1. Searching through swap space
+1. Web browsing reconstruction
+1. Cookies
+1. Search history
+1. Browser caches
+1. Unknown files
+1. Comparing hashes to know values
+1. File command
+1. Strings command
+1. Viewing symbols with nm
+1. Reading ELF files 
+1. objdump
+1. Bringing out big guns - gdb
+
+* Memory Forensics 
+1. Volatility Profiles
+1. Retrieving process information
+1. Recovering command line arguments
+1. Rebuilding environment variables
+1. Listing open files
+1. Retrieving bash information
+1. Reconstructing network artifacts
+1. Kernel information
+1. Volatile file system information
+1. Detecting user mode rootkits
+1. Detecting kernel rootkits
+
+* Reversing Linux Malware
+
+1. What is "reversing"?
+1. https://github.com/michalmalik/linux-re-101 2018 {pm: Pretty good.}
+1. JD-GUI is a standalone graphical utility that displays Java source
+   codes of “.class” files.
+1. https://unix.stackexchange.com/questions/418354/
+   understanding- what-a- linux- binary- is-doing
+1. Tools: IDA and Radare
+
+** Digging deeper into ELF
+1. Headers
+1. Sections
+1. Strings
+1. Symbol tables
+1. Program headers
+1. Program loading
+1. Dynamic linking
+** Command line analysis tools
+1. strings
+1. strace
+1. ltrace
+** Running malware (carefully)
+1. Virtual machine setup
+1. Capturing network traffic
+1. Leveraging gdb
+
+* Writing the Reports
+
+1. Autopsy https://www.sleuthkit.org/autopsy/ Autopsy® is a digital
+   forensics platform and graphical interface to The Sleuth Kit® and
+   other digital forensics tools.
+1. https://tools.kali.org/reporting-tools/dradis Dradis is an open source framework to enable effective
+   information sharing, specially during security assessments. Dradis
+   is a self-contained web application that provides a centralized
+   repository of information to keep track of what has been done so
+   far, and what is still ahead.
+
+
+* References
+
+1. Prabhaker Mateti, Notes on Building Provenance into Linux and
+   Android, 2018.
+1. https://www.forensicswiki.org/
+1. https://opensource.com/article/18/4/linux-filesystem-forensics 2018
+   Breach detection with Linux Filesystem Forensics
+
+1. http://www.deer-run.com/~hal/LinuxForensicsForNon-LinuxFolks.pdf
+
+1. https://www.pentesteracademy.com/course?id=20 Linux
+   Forensics. Ack: Topic list shown above is from here.
+1. https://rada.re/r/  Radare is a portable reversing framework.
+1. https://www.hex-rays.com/products/ida/ "IDA is a Windows, Linux or
+   Mac OS X hosted multi-processor disassembler and debugger that
+   offers so many features it is hard to describe them all. Just grab
+   an evaluation version if you want a test drive."
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

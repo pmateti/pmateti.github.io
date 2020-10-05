@@ -1,0 +1,54 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+Date: 2016-05-24
+#+TITLE: Implementation of a SmallSet
+#+AUTHOR: Prabhaker Mateti
+#+LINK_HOME: ../../
+#+LINK_UP: ../
+#+DESCRIPTION: Mateti: OO Programming and Design 
+#+HTML_LINK_HOME: ../../
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d | <a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Problem Statement
+
+1. Read [[./index.org]] first.
+
+* Implementation in Java
+
+1. [[./GEN/SmallSet.java][SmallSet.java]] | [[./GEN/SmallSet.java.html][html]] | [[./GEN/SmallSet.java.pdf][pdf]] | [[./GEN]] This is a link to a Java
+   implementation.  Possibly contains bugs.  It is also intended as an
+   example for use later with learning assertions, JUnit/TestNG, PMD,
+   FindBugs, and other tools.
+
+* Documenting in Java
+
+1. =java -enableassertions ...=
+
+1. =javadoc=  http://docs.oracle.com/javase/7/docs/technotes/guides/javadoc/
+
+* Abstraction Function
+
+1.  =setOf(s)= is the abstraction function that yields the
+    mathematical set represented by the Java SmallSet object s.
+1.  setOf(SmallSet s) == setOf(s.ear[0..s.ux -1]).
+1. Overloaded.
+
+* Class Invariants
+
+1. =classInv(s)= is both a pre- and a post-condition for all public
+   methods; see the src code.
+1. It is a post-condition for constructors.
+1. It is a convention not to state this again and again for each
+   public method.
+
+1. For private methods, state it as needed.
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

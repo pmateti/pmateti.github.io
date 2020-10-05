@@ -1,0 +1,129 @@
+
+# -*- mode: org -*-
+#+date: 2018-08-31
+#+TITLE: Files, Volumes and Mounts at Boot
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=\"../\"> ../</a> | <a href=\"./index.html\"> ./index.html</a> | <a href=./index-slides.html>No Slides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+Abstract: How does booting "know" the Files, Volumes and Mounts even
+before the kernel begins, etc?  This article is focused only on files,
+volumes and mounts.
+
+* Boot Devices, and Partitions
+
+** Master Boot Record on a HDD
+
+#+caption: Master Boot Record (MBR) disks, obsolete now. More than 4 partitions need  a logical extended partition.
+#+attr_html: :width 100%
+[[./boot-mbr.gif]]
+
+** GUID Partition Table (GPT) Disks
+
+1. GPT disks use Unified Extensible Firmware Interface (UEFI).
+1. One advantage of GPT disks is that you can have more than four
+   partitions on each disk. 
+1. GPT is also required for disks larger than 2 TB.
+
+
+* Before the Kernel Begins
+
+1. Assume that the OS-boot-loader (OSBL), such as Grub, is in control.  The
+   kernel has not been invoked yet.
+
+1. Does OSBL do any mounting? Yes. A file volume is mounted.
+1. Volume must have been made already.  
+1. A path name in the mounted volume determines a file.
+
+1. How does OSBL open, read and close files?
+
+1. Where is the kernel? Ex: In the fisrt Grub stanza below
+   =(hd0,msdos1)/vmlinuz=
+
+1. OSBL gives the kernel an argument just as shell gives argv[] and
+   argc to an invoked program that just became a process.
+
+1. Study the Grub-2 stanzas below.  [Minor inconsistencies are
+   intentional.]
+
+  #+begin_src conf
+menuentry 'Linux Kubuntu Cosmic-Cuttlefish' {
+ linux (hd0,msdos1)/vmlinuz ro root=/dev/sda1
+ initrd (hd0,msdos1)/initrd.img
+}
+
+menuentry "Linux Knoppix 64-bit frugal-install" {
+ linux (hd0,1)/boot/Knoppix/boot/isolinux/linux64 \
+   knoppix_dir=/boot/Knoppix/KNOPPIX home=knoppix-data.img \
+   lang=en_US keyboard=us desktop=kde
+ initrd (hd0,1)/boot/Knoppix/boot/isolinux/minirt.gz
+}
+
+# note: findiso
+menuentry kali-linux-amd64-iso {
+  set isofile='/boot/iso/kali-linux-1.0.7-amd64.iso'
+  loopback loop $isofile
+  linux (loop)/live/vmlinuz boot=live findiso=$isofile\
+    noconfig=sudo username=root hostname=kali \
+    debug --verbose # nomodeset
+  initrd (loop)/live/initrd.img
+}
+#+end_src
+
+
+* During the Kernel Startup
+
+** Background
+
+1. Read up on the =-o bind= option.
+
+1. Lookup =pivot_root(8)= and =pivot_root(2)=
+
+** Pivot
+
+1. Assuming =$_RUNFS= is ... and =$SYSTEM= is ..., study this shell
+   script.  [Ellipsis is distro/ system dependent.]
+  #+begin_src bash
+mount -r $_RUNFS /mnt
+for dnm in lib bin sbin usr
+do
+  mount -o bind /$dnm /mnt/$dnm
+done
+pivot_root /mnt /mnt/$SYSTEM
+cd /
+exec /sbin/init $*
+#+end_src
+
+* After Init has Started
+
+1. The root pivoted to is *the* root from now on.
+1. All full-path-names are evaluated starting from this (new) root.
+1. Does init process run in kernel or user mode? Who owns it?
+1. What other processes begin chronologically before the init?
+
+* Security Implications
+
+1. Where is the original pre-kernel root given?
+1. Where is the during-kernel root to pivot (RTP) to given?
+1. What if RTP is populated with Trojans, and other malware?
+1. What if kernel invokes Trojaned =init=?
+1. What if kernel itself is compromised? Who checks this?
+1. Who checks the binaries, in =/bin /sbin /usr/bin /usr/sbin=,  are good?
+1. Who checks the libraries, in =/lib /usr/lib=, are good?
+
+
+
+
+* References
+
+1. https://www.ibm.com/developerworks/library/l-linuxboot/index.html 2006
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

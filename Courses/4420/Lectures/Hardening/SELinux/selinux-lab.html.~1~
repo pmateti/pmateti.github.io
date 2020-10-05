@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-10-14 Mon 00:23 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lab on SE Linux</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a> | <a href=./>NoSlides</a>
+</div>
+<div id="content">
+<h1 class="title">Lab on SE Linux</h1>
+
+<div id="outline-container-org3149dc0" class="outline-2">
+<h2 id="org3149dc0"><span class="section-number-2">1</span> Prerequisites</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Install SELinux.  Details depend on the distro. On Ubuntu: Read
+<a href="./selinux-ubuntu.html">./selinux-ubuntu.html</a>.</li>
+
+<li>This lab uses a modifiable Linux install that has SELinux.</li>
+
+<li>On a Ubuntu system with SELinux installed, <code>man -k selinux | wc -l</code>
+was 103.  Check that your installation numbers are close, and
+install missing programs.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org2c5ffab" class="outline-2">
+<h2 id="org2c5ffab"><span class="section-number-2">2</span> Tasks</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>The requirement goals of this lab use the words "should", "should (not)
+be", etc.</li>
+
+<li>For each of the requirements:: 
+<ol class="org-ol">
+<li>Design, build and deploy a policy module.</li>
+<li>During development, it is recommended to keep SELinux in
+<code>permissive</code> mode.  When confident, switch to <code>enforcing</code>.</li>
+<li>Record and describe its effects. In <code>permissive</code> mode first,
+then in <code>enforcing</code> mode.</li>
+<li>Include a section discussing whether the requirements could have
+been met with just DAC only.</li>
+<li>These sentences are not repeated below.</li>
+</ol></li>
+
+<li>Create users named <code>selinux</code>, <code>newbie</code>, and <code>untrusted</code> whose
+"privileges and abilities" should be curtailed by SELinux as
+described below.</li>
+
+<li>Create a non-empty list of full path names of programs at
+<code>/etc/selinux/whitelist.conf</code>.  These should be considered white
+listed.  The list should include <code>/bin/bash</code>.  A program whose name
+does not appear in this list should be considered untrusted and
+black-listed.  Include this file in the tar ball for this lab.</li>
+
+<li>Create a non-empty list of full path names of directories at
+<code>/etc/selinux/confidential.conf</code>.  This list includes
+<code>/etc/selinux/</code>.  The files within these directories should not be
+modifiable by "any one."  Reading them is permissible by root and
+selinux users only.  Other users should have no access.  Include
+this file in the tar ball for this lab.</li>
+</ol>
+</div>
+
+<div id="outline-container-orga35a6a3" class="outline-3">
+<h3 id="orga35a6a3"><span class="section-number-3">2.1</span> Task: Using SELinux [20 points]</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>Learn to use each of the following: <code>sestatus, seinfo, chcon</code>,
+<code>matchpathcon, restorecon, semanage, semodule, getsebool,
+   setsebool, avcstat</code>.  Explain a selected sample or two of their
+output.</li>
+
+<li>Search the log files, and select five interesting <code>avc: denied</code>
+entries.  Explain why the denials happened.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org44ac1b7" class="outline-3">
+<h3 id="org44ac1b7"><span class="section-number-3">2.2</span> Task: Newbie User [30 points]</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>User named <code>newbie</code> should not be able create a process unless it
+is the result of invoking an existing white-listed program through
+<code>bash</code>.</li>
+
+<li>Such a process should not be able to fork at all.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orge4afa36" class="outline-3">
+<h3 id="orge4afa36"><span class="section-number-3">2.3</span> Task: Root User [30 points]</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li>Log every action.</li>
+<li>Root user should not be able to write/ update any file (text,
+binary, &#x2026;) within the directories whose full path names are
+in a list of confidential directories.</li>
+<li>Even the root should not be able to disable selinux.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6a478ea" class="outline-2">
+<h2 id="org6a478ea"><span class="section-number-2">3</span> Tasks [Bonus][Optional]</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org179b887" class="outline-3">
+<h3 id="org179b887"><span class="section-number-3">3.1</span> Task: Protect <code>/etc/selinux/</code></h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li>The files within the directory <code>/etc/selinux/</code> should be modifiable
+only by either <code>root</code> or user named <code>selinux</code>.  Read-open
+search-open permissions of other users is left for your good
+judgment to decide.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org1c81408" class="outline-3">
+<h3 id="org1c81408"><span class="section-number-3">3.2</span> Task: Untrusted User</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li>User named <code>untrusted</code> should be able to invoke a program only when
+its full path name is white-listed.</li>
+
+<li>User named <code>untrusted</code> should not be able to write/ update any file
+(text, binary, &#x2026;) within the directories whose full path names
+are in a list of confidential directories.</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-org36c63b3" class="outline-3">
+<h3 id="org36c63b3"><span class="section-number-3">3.3</span> Task: Untrusted Programs</h3>
+<div class="outline-text-3" id="text-3-3">
+<ol class="org-ol">
+<li>Any program is considered untrusted if its full path name is not
+white-listed.  We wish to curtail their activities.</li>
+
+<li>Untrusted programs should not be able to fork or exec.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org638e1f2" class="outline-2">
+<h2 id="org638e1f2"><span class="section-number-2">4</span> Submission</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>[15 points] Lab Report quality, compliance, and completeness.  [5
+points] Include a journal. By the hour.  You must follow the Lab
+Report Template.  There should be a section on each of the tasks. A
+couple of lines of an answer to each (implied/ explicit) question/
+discussion item. Must number them as in this document.</li>
+
+<li>Use good judgment in (i) what to submit and (ii) what to omit and
+(iii) how long the report becomes.  Do not make the report way
+longer than, say, 20 pages.  It is possible to remain under 20 pp, and
+receive full score.  Lack of judgment earns <b>negative</b> points.</li>
+
+<li>Submit relevant files of source code that you wrote, and of text.
+Always interpret the results &#x2013; when before + after states are in
+context.</li>
+
+<li>Submit a PDF file named exactly <code>Report-L8.pdf</code>, and a tarball
+<code>L8.tbz</code> [created with <code>tar cfjvv L8.tbz source-files*</code> ]. (Scripts
+are used to check various things &#x2013; so file names should obey such
+"rules".)</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org51978aa" class="outline-2">
+<h2 id="org51978aa"><span class="section-number-2">5</span> References</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Prabhaker Mateti, Lecture Notes on SELinux, 2018.</li>
+
+<li><a href="https://people.redhat.com/~jduncan/workshops/selinux-vcu/#_lab_configuration">https://people.redhat.com/~jduncan/workshops/selinux-vcu/#_lab_configuration</a>
+SELinux Labs @ VCU.  Awareness Reference.</li>
+
+<li><a href="http://pages.mtu.edu/~xinlwang/itseed/labs/SELinux_Policy.pdf">http://pages.mtu.edu/~xinlwang/itseed/labs/SELinux_Policy.pdf</a> This
+lab is designed so that you can learn how to use and modify current
+SELinux policy.    Awareness Reference.</li>
+
+<li><a href="https://github.com/jamesfreeman959/selinux-hands-on-labs">https://github.com/jamesfreeman959/selinux-hands-on-labs</a> "A simple
+project to enable playing with SELinux contexts and policies on a
+bespoke piece of code."    Awareness Reference.</li>
+
+<li><a href="https://lms.360training.com/scorm/linuxfoundation/LFS201/LAB_SOL%2019.1.pdf">https://lms.360training.com/scorm/linuxfoundation/LFS201/LAB_SOL 19.1.pdf</a>
+Lab 19.1: SELinux <b>Includes solution</b>.    Awareness Reference.</li>
+
+<li><a href="https://www.computer.org/csdl/proceedings/hicss/2009/3450/00/10-05-05.pdf">https://www.computer.org/csdl/proceedings/hicss/2009/3450/00/10-05-05.pdf</a>
+Machon B. Gregory National Security Agency mbgrego@tycho.ncsc.mil;
+Angela S. Reninger United States Naval Academy, National Security
+Agency reninger@usna.edu; Teaching SELinux in Introductory
+Information Assurance Classes, Proceedings of the 42nd Hawaii
+International Conference on System Sciences - 2009, Awareness
+Reference.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org95e7d24" class="outline-2">
+<h2 id="org95e7d24"><span class="section-number-2">6</span> End</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2019-10-10
+</div>
+</body>
+</html>

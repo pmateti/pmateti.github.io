@@ -1,0 +1,46 @@
+# -*- mode: org -*-
+#+DATE: 2020-08-05
+#+TITLE: PLs for Software Engineering: Surveys
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+1. IEEE https://spectrum.ieee.org/ The Top Programming Languages 2020
+
+1. https://fossbytes.com/best-popular-programming-languages-2017/ 10
+   Best Programming Languages That You Need To Learn
+
+1. [[http://www.tiobe.com/tiobe_index]] TIOBE Index updated frequently
+   during a given year.
+
+#+CAPTION: 2015 Top Ten PLs  (from [[http://spectrum.ieee.org/computing/software/the-2015-top-ten-programming-languages][Spectrum]] )
+#+ATTR_HTML: :width 80%
+[[./Figures/pl-ieee-spectrum-2015.jpg]]
+
+#+CAPTION: 2016 Top Ten PLs  (from [[http://spectrum.ieee.org/computing/software/the-2016-top-programming-languages][Spectrum]] )
+#+ATTR_HTML: :width 80%
+[[./Figures/pl-ieee-spectrum-2016.png]]
+
+1. https://insights.stackoverflow.com/ StackOverlow Yearly Survey; see
+   "Most Popular Technologies" section. [[http://stackoverflow.com/research/developer-survey-2015][2015]] [[http://stackoverflow.com/insights/survey/2016][2016]] [[https://insights.stackoverflow.com/survey/2017][2017]] Charts base on
+   Geography, Developer Occupations, Age, ...
+
+1. https://medium.com/@richardeng/the-eng-language-index-1de9d41aeb67#.4f51x65ga
+
+
+#+CAPTION: pl-popularity-2016 [from web]
+#+ATTR_HTML: :width 80%
+[[./Figures/pl-popularity-2016.jpg]]
+
+1. http://pypl.github.io/PYPL.html PYPL PopularitY of Programming Language
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

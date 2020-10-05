@@ -1,0 +1,21 @@
+
+# -*- mode: org -*-
+#+date: 2018-09-07
+#+TITLE: Linux System Administation
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> | <a href=./index-slides.html>Slides</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Abstract
+
+1. Show-n-Tell: Grub booting with three USBDs inserted
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

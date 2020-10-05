@@ -1,0 +1,463 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+DATE: 2020-08-20 -09-11
+#+TITLE: Fall 2020 Project Work
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./
+#+HTML_HEAD: <style> P, li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">CS 7140</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+
+Details may change.  Some specifics may not be valid for this term.
+Please accommodate such things.
+
+* Project Overview/ Goals
+
+
+ 1. Enahancing/ Correcting existing code is the daily grind for a
+    software engineer. One should learn to engineer software so that
+    it is easy to carry this out.  A complementary skill is to know
+    when to treat a portion of code as black box, and when to treat it
+    as a transparent box.
+
+ 1. Overview of [[../Maintenance]].  Our team project will typically
+    be to take a [[https://en.wikipedia.org/wiki/Free_and_open-source_software][FOSS]] project, that is/was quite popular, and improve
+    it.
+
+ 1. Every student, especially, graduate students, of software
+    engineering should study the spec/ design/ implementation of 10+
+    KLOC programs.  How deeply? Depends on individual ability and
+    available time.  Unfortunately, well-known open source projects do
+    not [care to] produce spec/design documents.  We hope to fill this
+    gap.
+
+ 1. Careless thinking causes bugs. Can you see this carelessness in the
+    code of our chosen project?  What portion can we attribute to
+    design? to spec? to requirements?
+
+ 1. Official contributions to the FOSS project are certainly welcome,
+    but this is not a "graded" goal.
+
+
+* Teams
+
+1. Project work in this course is done by small teams.  Form
+   into teams of three people.  I will be willing to adjust the
+   "quantity" of work if you could not form into a team of three.
+
+1. Even so, there are no lectures on "team work".
+
+1. Choose your team mates carefully.  We have seen teams losing
+   members midway through the term.
+
+1. It is your responsibility to bring to my attention when some team
+   member is not contributing equally.
+
+1. All teams of the course will work on the same Given Project.
+
+* Previous Projects List
+
+A short list is included here so new students of this course can gauge
+the complexity of the project.
+
+1. Our Fall 2018 Project was maintenance/ enhancement of a MarkDown
+   processor.  https://en.wikipedia.org/wiki/Markdown.
+1. The Summer 2018 Project was to enhance [[./DITAA]] in a couple of
+   different ways: (i) generate the software engineering life-cycle
+   documents, (ii) document the code via assertions, (iii) use Java 8+
+   features, (iv) refactor for ease of understanding, (v) describe its
+   architecture.
+1. [[./7140-project-2017-spring.org]] PDF File Renaming.  This is not a
+   maintenance project.  We are developing this from scratch.
+1. [[./7140-project-2016-summer.org]] PDF Annotation Editor.   This is not a
+   maintenance project.
+
+* Given Project for Fall 2020
+
+1. +In the next few lectures, I will point out the possibilities.  You
+   will be expected to take a quick look at these FOSS projects.+  We
+   will collectively decide/ choose one project.
+
+1. Choice of the Project: DITAA it is! There was some talk that we may
+   want to resume from the 2018 work.  We decided to start afresh.
+
+
+** DITAA
+
+1. https://github.com/stathissideris/ditaa 2018 DITAA (DIagrams
+   Through Ascii Art) is a small command-line utility written in Java,
+   that can convert diagrams drawn using ascii art into proper
+   graphics.
+
+1. Download, build, and try the above src code.  It is in Java.
+
+1. BTW, there are numerous similar processors.  Read [[https://github.com/stathissideris/ditaa#friends-and-relatives][Friends and
+   Relatives]] section.  In particular, read [[https://casual-effects.com/markdeep/][Markdeep]], which is in
+   JavaScript, http://ditaa-addons.sourceforge.net/, and
+   https://github.com/nichtich/ditaa-markdown, which is a Perl script.
+
+1. Landing page for CS7140: [[./DITAA]]
+
+
+
+* Common to +All+ Most Semesters
+
+1. All teams of this course will be given the name of a FOSS
+   project. It would have been written in C/C++/ Java.  Download the
+   open source code, latest version, build it and use it well enough
+   to understand its capabilities.  In the rest of this document, this
+   given project is referenced as GP.  You stands for "your entire
+   team".
+
+1. This collection of src code files is a starting point of the
+   software project for this course.  It is complex enough that we
+   could not have developed it, during this semester, if we started
+   afresh to design and build it.  We hope to contribute to the GP
+   at-large the various missing pieces that a class room software
+   engineering project expects to be there -- e.g., the various
+   documents.
+
+1. You will be expected to use tools such as Intellij Idea, Eclipse,
+   git, make, ant, gradle, JML, KeY, and others introduced in the next
+   few weeks.
+
+1. There are 6 tech reports (Requirements, Specifications, Design,
+   Implementation, Testing, and Final Report), 5% each, due at various
+   stages of the project.  The due dates are/ will-be on the course
+   home page.
+
+1. This is not a course on Technical Writing.  Nevertheless, all
+   project documents submitted are expected to be technical reports
+   (TRs).  Even if you are not a thesis/dissertation student, read
+   these pages: [[http://www.wright.edu/graduate-school/graduate-thesis-and-dissertation-handbook-procedures][wright.edu/ graduate- thesis -and- dissertation-
+   handbook- procedures]].
+
+1. Each of you should maintain a [[http://www.wikihow.com/Make-a-Daily-Journal][journal]].  Include the journals of all
+   your team members in every TR as an Appendix.
+
+1. Peer reviews.  Each of you is expected to critique the documents
+   submitted by another group.  So that this is really useful, the
+   critique should be submitted within a week of receiving the
+   document.  We will workout further details in class.
+
+1. The numbers inside parens are weights.  This number is also the
+   maximum possible score for that item.  These max numbers may add up
+   to > 100.  The Score Earned per each of the six phases is
+   computed as follows: (Sum of the Item Scores Earned)/(Sum of the
+   Item Max Scores)*100.
+
+1. Due dates are announced on the course home page.  Late penalty is
+   5% per day late, Sat and Sun counted.  Five days after the due date
+   no submission is accepted.  If you have a special situation,
+   discuss it before, not afterwards.  Late submissions due to
+   computer systems being glitchy, etc. are forgiven.
+
+* Requirements
+
+A Requirements Document describes the software project at its
+conception.  It is written from the users perspective.  In fact, it is
+good idea to actually write a first draft of a Users Manual and
+include it as an appendix.  It justifies why it is worthwhile to do
+it.  Unless the project topic is well known, such as editors,
+compilers, etc., it should expalin where it is coming from.
+
+** Modeling the Problem Domain
+
+A major goal is to clarify the "things" that the given project deals
+with.
+
+In this course, we will almost always be starting from the
+source code of an already implemented project.  So, we pretend that it
+is yet to be constructed.
+
+[For 2017 Batch Rename PDF files] Our problem domain "Rename Academic
+Papers" is moderately ill-defined.  For example, what is/are
+
+   1. The subject classification.
+   2. The year of publication.
+   3. List of author names (First Middle Last).
+   4. Names of conference or journal of publication.
+   5. Name(s) of a file.
+   5. Obviously these are strings of ASCII characters.  Beyond that do
+      we a clear understanding?
+   1. Notion of accurate re-naming
+   1. Qualitative or quantitative ("how much") controls the client
+      desires
+      
+
+** Terminology
+
+In large projects, requirements elicitation is a major and difficult
+task.  Often requirements become clearer after a prototype has been
+built.
+
+Related terms: Requirements Definition, Requirements Specification,
+Requirements Elicitation, Requirements Analysis.
+
+** Document Structure
+
+We cannot really give a template as requirements depend on the given
+project.  Marsic's book has an example as an appendix.  Do a web
+search for examples.  There are some decent answers on
+http://stackoverflow.com/.
+
+(The numbers in parentheses indicate relative weight.  They {may/ do}
+not add up to a 100.)
+
+
+1. You must address the items below in your Requirements
+   Document.  Some of these are subjective -- make them as objective
+   as possible.
+
+2. (40) There was no Requirements Document written for Our Project by
+   its authors.  Pretending that Project implementation does not exist
+   yet, write this document addressing existing features and the items
+   discussed in this section.
+
+6. (20) Describe an improved GUI look-and-feel.
+
+7. (20) [not 2017] Develop a new and useful feature/ improvement/ plugin.  It is
+   expected that different teams will propose different things.
+
+8. (20) Describe code maintainablity expectations.
+9. (20) Describe the expectations of "By the end of Testing Phase"
+   (see Testing section).
+
+10. (20) Of course, our project is already designed and built.  A
+     goal that is imposed on you is 5% code reduction.  If this is not
+     doable, it is your responsibility to convince me and your peer reviewers.
+
+11. (30) Journals of your team members.
+12. (10) Tech Report (TR) style.
+13. (15) Separate critiques by your team members of the Requirements
+    documents submitted by another group.
+
+
+* Specifications
+
+
+1.   (50) There was no Specifications Document written for Our Project by
+    its authors.  Pretending that Project implementation does not
+    exist yet, write this document addressing existing features and
+    the items listed in Requirements.
+1.   (20) Acceptance/Conformance tests are part of a Spec.
+1.   (20) Rigor and mathematical logic.
+1.  (10) Suppose our project is an Editor.  Every modern text editor
+    has buffers, cursors, view-windows, cut-paste-containers, kbd +
+    mouse input methods, undo/redo, ... What are the essential pieces
+    to Our Project this term?  Did this doc describe their spec? What
+    are the essential pieces to Our Project this term?
+1.   (20) Quality of the spec of 5% code reduction.  Objectively
+    stated? Subjective? Can it be verified through some tools?
+1.   (30) Journals of your team members.
+1.  (10) Tech Report (TR) style.
+1.  (15) Separate critiques by your team members of the
+    Specs documents submitted by another group.
+
+
+* Design
+
+
+1.  (20) There is/was no Design Document written for our Given
+     Project by its authors.  You are extracting "the" design of
+     Project from its existing implementation in Java in the absence
+     of Req, Spec, and Design documents by GP's authors.
+
+1.  It is not enough that you feel you understood the design of the
+     core of GP well enough.  You need to articulate it in the
+     submitted doc.
+
+1.  (20) Having used Our Project for a week or so, a fellow
+    developer is now interested in understanding how it is
+    designed. (S)he already finished reading your Req and Specs, and
+    is now reading your Design Doc.  Suppose our project is an Editor.
+    Assume that (s)he also knows about how editors are typically
+    designed: buffers, cursors, etc. How well does reading your
+    document help?  Similarly, assume that (s)he is generally familiar
+    with the class of programs that Our Projects belongs.  How well
+    does your doc cater to this need?
+
+1.  (10) The design of Your "Plugin".  This is new and yours. So
+    more detail and precision, compared to other sections of this doc,
+    is expected.  Carefully chosen pseudo code, diagrams, etc. are
+    expected.  The meaning of "plugin" is now well-known; e.g., as in
+    Eclipse or IntelliJ plugins.
+
+1.  (10) Redesign the GUI so it is more familiar/ better.
+
+1.  (05) Is the goal of 5% code reduction being attempted
+    through re-design or re-coding? Is it described well-enough?  
+
+1.  (05) Do a code review of the existing code.  Report on redesign
+    and re-coding for maintainability.  Keeping Project's Java code
+    up-to-date with the latest Java belongs in your Implementation
+    report. 
+
+1.  (20) Design by Contract should/must be practiced in this
+    doc. This is not just a question of math logic formalism.  It is
+    about complete, and precise (-enough) descriptions, perhaps in
+    English.  Include (strong enough) class invariants.  E.g., what
+    properties do the views maintained by Project have? Such as: a view
+    displays a portion of the content of a buffer; the &quot;dot&quot;
+    cursor is within the view; the buffer is the (modified) content of
+    a (an existing) file.
+
+1.  (30) Journals of your team members.
+1.  (10) Tech Report (TR) style.
+
+1.  How are the various pieces of design 
+    (sections in this document) relate to previous documents? 
+
+1.  Even in the presence of all kinds of diagrams, pseudo code of
+    core methods must be present in a design doc.  Choosing an
+    almost-Java notation defeats the purpose, even though we cannot
+    give a general rule about how high its level should be. 
+1.  (15) Separate critiques by your team members of the
+    Design documents submitted by another group.
+
+
+* Implementation
+
+
+1.  There is/was no Implementation Report written for Given Project
+     by its authors, apart from the bug reports in forums and email
+     lists.
+
+1.   (20) Describe Project implementation not only as it exists, but
+    also including the code modifications that you have made so that
+    it is now more compliant with the latest Java, more maintainable,
+    and reduced in size.  Describe also the implementation of Your
+    Plugin.  You are welcome to use tools such as Doxygen.
+
+1.   (20) Include in your turnin a tar-ball of all source code.
+    It should build cleanly.  Do the equivalent of "make clean"
+    and then include an "ls -lR" style listing of files.  It
+    should include a How To Build section.  Include size details
+    of the system built.
+
+1.  (30) The implementation of Your Plugin: This is new and yours.
+    Include details beyond what was in Design Report.  Do not
+    duplicate -- just cite the Design Report sections.
+  
+1.   (10) Include in this TR a short report of a "smoke test."  Other
+    testing such as Unit and Integration Testing are part of the
+    Test Report.
+
+1.  (10) Include snapshots so that the redesigned GUI is seen
+    to be more familiar/ better.
+
+1.   (30) Journals of your team members.
+1.   (10) Tech Report (TR) style.
+
+1.   (15) Separate critiques by your team members of the
+    Implementation documents submitted by another group.
+
+
+* Testing
+
+1. There is/was no Testing Document written for our Given Project by
+   its authors, apart from the bug reports in forums and email lists.
+
+1.   You will be writing a Testing Report.  This report documents the
+     testing performed on our project, as revised by you.  At a
+     minimum, we expect it to report on (i) a smoke test that assures
+     that it is not wholly broken, (ii) a black-box acceptance
+     testing, (iii) a few stress tests that take the software to its
+     limits, and (iv) several white-box tests of the internal units
+     that are in the software.  We also expect to read a statement of
+     code coverage.  This report should always describe, at some
+     length, all tests that cause failures.  Recall that (the state of
+     software engineering is such that) we find most software useful
+     even after knowing it fails.
+
+1.  Acceptance/Conformance tests are/were part of a Spec.
+
+1.  Unit and Integration Testing should/must be practiced and reported
+    in this part of the project work.
+
+1.  Before using this section as a check list, please review the
+    CS7140 lectures on Testing and also a chapter or two from a
+    software engineering (academic) text book (no matter what
+    amazon.com reviews might say).  Recall Dijkstra's quote: "Testing
+    shows the presence, not the absence of bugs".  Another: "Absence
+    of evidence does not imply evidence of absence."
+
+1.  (10 points) Having used Our Project for a week or so, a fellow
+    developer is impressed.  (S)he is wondering if Our Project should
+    be added to her/his tool chest based on reading your "test
+    report". How well does reading your document help?
+
+1.  (10) Interactive programs, such as modern text editors, can be
+    black-box tested treating them as servers and developing a
+    test-client that feeds test inputs.  "Typing/Mousing" such inputs
+    is just too tedious.  [We skipped this topic in past CS7140.]  So,
+    do what you can based on your intuition, reading the bug reports,
+    email lists, and what you may have learned in a prerequisite
+    course.
+
+1.  (30) Unit testing (JUnit, TestNG, etc.) of selected classes (2
+     files/student) of our Given Project.  [Recall that Home Work 2
+     permits the work you did there to be included here.]
+
+1.  (30) The testing of Your Plugin: This is new and
+    yours. Carefully chosen black-box tests, JUnit/TestNG white-box
+    tests (of all classes of this plugin), and code coverage tests are
+    expected.
+
+1.  (10) Include snapshots so that the redesigned GUI is seen
+    to be more familiar/ better.
+
+1.  By the end of Testing Phase:
+      1. (30) Discover and fix at least one bug (not found by any one
+         else) per team member (or throw in your claim that Project is
+         bug-free).
+      1. (20) Improve the maintainability of Project.  Describe as
+         many of these improvements as possible.  During the semester,
+         we will discuss several subtopics of maintenance.
+      1. (20) Reduce Project code size. It should be at least 5%
+         smaller (as measured through the .class files) than what it
+         is now. Please look up on how to measure byte code size from
+         class files ignoring all meta data.  The reduction in size is
+         excluding the code of Your Mods/Plugins.
+    
+1.   (30) Journals of your team members.
+1.  (10) Tech Report (TR) style.
+
+1.  (15) Separate critiques by your team members of the
+    Testing documents submitted by another group.
+
+
+* Final Report
+
+
+1.   This TR is essentially an assembly of all the previous reports,
+    which now become chapters, revised if necessary.  
+
+1.  (20)
+    Include a new and brief first chapter that describes the overall
+    report.  
+
+1.  (20) Include a new semi-final chapter that details any changes
+    made to both the previous reports and the source code after their
+    turnins.
+
+1.  (20) Include a new final chapter that describes your experience/
+    hindsight of this project.
+1.   (20) Merge all the References into one.
+1.   (10) Include your cumulative journals as a merged Appendix.
+
+1.   (30) Journals of your team members.
+1.  (10) Tech Report (TR) style.
+1.  (15) Separate critiques by your team members of the Final
+    Reports submitted by another group.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

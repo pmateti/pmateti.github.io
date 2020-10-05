@@ -1,0 +1,88 @@
+# -*- mode: org -*-
+#+DATE: 2015-08-12
+#+TITLE: Android Security: Code Injection
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+HTML_LINK_HOME: ../../
+#+HTML_LINK_UP: ../../Lectures
+#+DESCRIPTION: Android Internals and Security
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d <a href=\"../../Top/\"> Top</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 %e &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> %d"))
+#+STYLE: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+
+* Stack Smashing
+
+   1. [[../../../4420/BufferOverflow/index.html][Overview + Prevention]]  Required
+
+   1. [[../../../4420/BufferOverflow/alephOne.html][Aleph One Classic]]  Required
+
+* Disabling Stack Protection
+
+1. Compiler flags: no canaries =gcc overflow.c -o overflow
+   -fno-stack-protector=
+1. Stack top randomization;;
+1. Disable ASLR: =sudo echo 0 > /proc/sys/kernel/randomize_va_space=
+   Enabled: =randomize_va_space= should be 2
+1. ASLR is effective only if the binary was PIE (position independent
+   code enabled). =-fPIC -pie=
+
+* ASLR Address Space Layout Randomization
+
+1. Android Framework Component: Zygote, Morula
+1. Android Disassembly & Code Injection http://www.syssec-project.eu/m/page-media/158/syssec-summer-school-Android-Code-Injection.pdf
+1. [[./ASLR-utaustin-2009.ppt]] ASLR Address Space Layout
+   Randomization. Required Reading.
+
+* ROP Return Oriented Programming
+
+1. [[./ROP-zovi-2010.pdf]] Dai Zovi, Dino. "Practical Return-Oriented
+   Programming." SOURCE Boston (2010).  Required Reading.
+
+1. See below: Roemer et al.
+
+
+* References
+
+1. Secuirty features https://wiki.ubuntu.com/Security/Features
+
+1. http://phrack.org/issues/68/6.html#article Android Platform Based
+   Linux Kernel Rootkit, 2011
+
+1. @MastersThesis{kornau2010, title = "Return oriented programming for
+  the {ARM} architecture", author = "Tim Kornau", school =
+  "Ruhr-Universitat Bochum, Germany", year = "2010", key = "ASLR,
+  ROP", OPTtype = "", OPTaddress = "", OPTmonth = "", note =
+  "\url{http://zynamics.com/downloads/kornau-tim--diplomarbeit--rop.pdf}",
+  OPTannote = "", }
+
+1. @MastersThesis{kornau2010, title = "Return oriented programming for
+  the {ARM} architecture", author = "Tim Kornau", school =
+  "Ruhr-Universitat Bochum, Germany", year = "2010", key = "ASLR,
+  ROP", OPTtype = "", OPTaddress = "", OPTmonth = "", note =
+  "\url{http://zynamics.com/downloads/kornau-tim--diplomarbeit--rop.pdf}",
+  OPTannote = "", }
+
+1. https://cseweb.ucsd.edu/~hovav/dist/rop.pdf "Return-Oriented
+   Programming: Systems, Languages, and Applications" Ryan Roemer,
+   Erik Buchanan, Hovav Shacham and Stefan Savage, University of
+   California, San Diego, 2012;
+   https://www.blackhat.com/presentations/bh-usa-08/Shacham/BH_US_08_Shacham_Return_Oriented_Programming.pdf
+
+1. http://www.cydiasubstrate.com/ A Code Modification Platform. "While Android itself is "open", the
+   devices that run it often aren't. Before installing Substrate, you
+   will first need to get root access on your device."  Recommended
+   Install.
+
+1. Xposed
+
+1. Carlini, Nicholas, and David Wagner. "ROP is still dangerous:
+   Breaking modern defenses." In USENIX Security Symposium. 2014.
+
+1. Davi, Lucas, Daniel Lehmann, Ahmad-Reza Sadeghi, and Fabian
+   Monrose. "Stitching the gadgets: On the ineffectiveness of
+   coarse-grained control-flow integrity protection." In USENIX
+   Security Symposium. 2014.
+1. [[./ASLR-utaustin-2009.ppt]] Required Reading.
+1. [[./ROP-zovi-2010.pdf]] Dai Zovi, Dino. Required Reading.

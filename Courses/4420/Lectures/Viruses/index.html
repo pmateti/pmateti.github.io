@@ -1,0 +1,492 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
+
+  <title>Viruses, Worms, and Trojans</title>
+  <meta name="author" content="Prabhaker Mateti">
+  <meta name="keywords" content=
+  "Viruses, Worms, and Trojans, Internet security, Network security">
+  <meta name="description" content=
+  "This page is part of a set of lectures notes for a course on Internet Security by Prabhaker Mateti http://www.cs.wright.edu/~pmateti/">
+  <base target="_top">
+  <style type="text/css">
+BODY {white; margin: 15%} 
+  a:hover      { color: red; background-color: yellow; }
+  P { text-align: justify }
+  pre {border:blue 1px dotted;}
+  tt {border:blue 1px dotted;}
+  li { text-align: justify; }
+  @page { size: 8.5in 11in }
+  @media screen {BODY {white; margin: 10%} }
+  </style>
+</head>
+
+<body>
+  <h1>Viruses, Worms and Trojans</h1>
+
+  <h2><a target="_blank" href=
+  "http://www.cs.wright.edu/~pmateti">Prabhaker Mateti</a></h2>
+
+  <p>Abstract:This lecture discusses viruses, worms, and Trojans
+  and related terminology, the structure of these, and how virus
+  removal programs work.</p>
+
+  <p>Slides: <a href="virusPM.pptx">virusPM.pptx</a> &bull;
+  <a href="stuxnet-2011-pm.pptx">Stuxnet 2011</a></p>
+
+  <h2><a name="Table of Contents">Table of Contents</a></h2>
+
+  <ol>
+    <li><a href="#Educational%20Objective">Educational
+    Objectives</a></li>
+
+    <li><a href="#Viruses">Viruses</a></li>
+
+    <li><a href="#Worms">Worms</a></li>
+
+    <li><a href="#Trojans">Trojans</a></li>
+
+    <li><a href="#Lab%20Experiment">Lab Experiment</a></li>
+
+    <li><a href="#Acknowledgements">Acknowledgements</a></li>
+
+    <li><a href="#References">References</a></li>
+  </ol>
+
+  <h2><a name="Educational Objective">Educational
+  Objective</a>s</h2>
+
+  <ol>
+    <li>Understand the technique of infection.</li>
+
+    <li>Learn the virus removal techniques.</li>
+
+    <li>Able to distinguish among viruses, worms and trojans.</li>
+
+    <li>Understand the modern delivery of malware.</li>
+  </ol>
+
+  <h1>Viruses, Worms and Trojans</h1>
+
+  <blockquote>
+    <p>"Unix. The world's first computer virus."</p>
+
+    <div align="right">
+      Title of Chapter 1 of The Unix Haters Handbook, ISBN:
+      1-56884-203-1
+    </div>
+  </blockquote>
+
+  <p>The above book is in fact written by serious computer
+  scientists. Nevertheless, we must disregard the suggestion that
+  Unix is a virus as an attempt at being hilarious. Equally
+  unhelpful are the news media that use the term virus in referring
+  to <i>any</i> piece of malicious software. The academic world
+  uses the term "malware" for these. The <i>purpose</i>, not the
+  approach, makes a program malicious. Many of the programs that
+  fall in the malware categories have benevolent uses. For example,
+  worms can be used to distribute computation on idle processors;
+  back doors are useful for debugging programs; and viruses can be
+  written to update source code and patch bugs. Rigorous
+  definitions have been given by many computer security experts but
+  they do not match the typical use even by other security experts.
+  Thus, we must settle for "practical definitions" of malicious
+  software.</p>
+
+  <h1>1. <a name="Viruses" id="Viruses">Viruses</a></h1>
+
+  <ul>
+    <li><i>Viruses</i> are executable code pieces that modify other
+    programs on a computer, inserting copies of themselves. A program
+    is a file that adheres to a strict description of how its content
+    is organized. On Linux systems, the ELF document of some 50-pages
+    describes this format. In this sense, viruses are not programs --
+    they cannot run on their own, and need to become part of some host
+    program. When such an infected program is executed, the virus
+    attaches itself to another and so on. To evade detection, viruses
+    are deliberately broken up and the code is scatter-inserted into
+    the host porgram.  Computer science use of the word is intended to
+    mirror its use in biology.</li>
+
+    <li><i>Bacteria</i>, or <i>rabbit programs,</i> make copies of
+    themselves to overwhelm a computer system's resources. Bacteria
+    do not explicitly damage any files. Their sole purpose is to
+    replicate themselves. A typical bacteria program may do nothing
+    more than execute two copies of itself simultaneously on
+    multiprogramming systems, or perhaps create two new files, each
+    of which is a copy of the original source file of the bacteria
+    program. Both of those programs then may copy themselves twice,
+    and so on. Bacteria reproduce exponentially, eventually taking
+    up all the processor capacity, memory, or disk space, denying
+    the user access to those resources.</li>
+
+    <li>A <i>dropper</i> is a program that is not a virus, nor is
+    it infected with a virus, but when run it installs a virus into
+    memory, on to the disk, or into a file. Droppers have been
+    written sometimes as a convenient carrier for a virus, and
+    sometimes as an act of sabotage. Some anti-virus programs try
+    to detect droppers.</li>
+
+    <li>[From <a href=
+    "http://securityresponse.symantec.com/avcenter/refa.html">
+        http://securityresponse.symantec.com/avcenter/refa.html</a>
+    ] <i>Blended threats</i> combine the characteristics of
+    viruses, worms, Trojan Horses, and malicious code with server
+    and Internet vulnerabilities to initiate, transmit, and spread
+    an attack. By using multiple methods and techniques, blended
+    threats can rapidly spread and cause widespread damage.
+    Characteristics of blended threats include:<br>
+    <br>
+    * Causes harm: Launches a Denial of Service (DoS) attack at a
+    target IP address, defaces Web servers, or plants Trojan Horse
+    programs for later execution.<br>
+    * Propagates by multiple methods: Scans for vulnerabilities to
+    compromise a system, such as embedding code in HTML files on a
+    server, infecting visitors to a compromised Web site, or
+    sending unauthorized email from compromised servers with a worm
+    attachment.<br>
+    * Attacks from multiple points: Injects malicious code into the
+    .exe files on a system, raises the privilege level of the guest
+    account, creates world read and writeable network shares, makes
+    numerous registry changes, and adds script code into HTML
+    files.<br>
+    * Spreads without human intervention: Continuously scans the
+    Internet for vulnerable servers to attack.<br>
+    * Exploits vulnerabilities: Takes advantage of known
+    vulnerabilities, such as buffer overflows, HTTP input
+    validation vulnerabilities, and known default passwords to gain
+    unauthorized administrative access.<br>
+    <br>
+    Effective protection from blended threats requires a
+    comprehensive security solution that contains multiple layers
+    of defense and response mechanisms.</li>
+  </ul>
+
+  <h2>Virus Varieties</h2>
+
+  <h3>Stealth Virus</h3>
+
+  <p>A <i>stealth</i> virus has code in it that seeks to conceal
+  itself from discovery or defends itself against attempts to
+  analyze or remove it. The stealth virus adds itself to a file or
+  boot sector but, when you examine, it appears normal and
+  unchanged. The stealth virus performs this trickery by staying in
+  memory after it is executed. From there, it monitors and
+  intercepts your system calls. When the system seeks to open an
+  infected file, the stealth virus displays the uninfected version,
+  thus hiding itself.</p>
+
+  <h3>Macro Viruses</h3>
+
+  <p>Macro languages are (often) equal in power to ordinary
+  programming languages such as C. A program written in a macro
+  language is interpreted by the application. Macro languages are
+  conceptually no different from so-called scripting languages. Gnu
+  Emacs uses Lisp, most Microsoft applications use Visual Basic
+  Script as macro languages. The typical use of a macro in
+  applications, such as MS Word, is to extend the features of the
+  application. Some of these macros, known as auto-execute macros,
+  are executed in response to some event, such as opening a file,
+  closing a file, starting an application, and even pressing a
+  certain key. A macro virus is a piece of self-replicating code
+  inserted into an auto-execute macro. Once a macro is running, it
+  copies itself to other documents, delete files, etc. Another type
+  of hazardous macro is one named for an existing command of the
+  application. For example, if a macro named FileSave exists in the
+  "normal.dot" template of MS Word, that macro is executed whenever
+  you choose the Save command on the File menu. Unfortunately,
+  there is often no way to disable such features.</p>
+
+  <p>In May 2000, an OutLook mail program macro virus called
+  LOVELETTER propagated widely.</p>
+
+  <h3>Unix/Linux Viruses</h3>
+
+  <p>The most famous of the security incidents in the last decade
+  was the Internet Worm incident which began from a Unix system.
+  But Unix systems were considered virus-immune -- not so. Several
+  Linux viruses have been discovered. The Staog virus first
+  appeared in 1996 and was written in assembly language by the VLAD
+  virus writing group, the same group responsible for creating the
+  first Windows 95 virus called Boza.</p>
+
+  <p>Like the Boza virus, the Staog virus is a proof-of-concept
+  virus to demonstrate the potential of Linux virus writing without
+  actually causing any real damage. Still, with the Staog assembly
+  language source code floating around the Internet, other virus
+  writers are likely to study and modify the code to create new
+  strains of Linux viruses in the future.</p>
+
+  <p>The second known Linux virus is called the Bliss virus. Unlike
+  the Staog virus, the Bliss virus can not only spread in the wild,
+  but also possesses a potentially dangerous payload that could
+  wipe out data.</p>
+
+  <p>While neither virus is a serious threat to Linux systems,
+  Linux and other Unix systems will not remain virus-free.
+  Fortunately, Linux virus writing is more difficult than macro
+  virus writing for Windows, so the greatest virus threat still
+  remains with Windows. [July 2000, <a href=
+  "http://www.boardwatch.com/mag/2000/jul/bwm142pg2.html">
+      http://www.boardwatch
+  .com/ mag/ 2000/ jul/ bwm142pg2.html</a> ]</p>
+
+  <h2>Spreading Malware via the Internet</h2>
+
+  <p>Whereas a Trojan horse is delivered pre-built, a virus
+  infects. In the past, such malicious programs arrived via tapes
+  and disks, and the spread of a virus around the world took many
+  months. Antivirus companies had time to identify a new viral
+  strain, and create cleaning procedures. Today, Trojan horses, and
+  viruses are network deliverable as E-mail, Java applets, ActiveX
+  controls, JavaScripted pages, CGI-BIN scripts, or as
+  self-extracting packages.</p>
+
+  <p>Integrated mail systems such as Microsoft Outlook make it very
+  simple to send not only a quick note edited within a limited text
+  editor but also previously composed computer documents of
+  arbitrary complexity to anyone, and to work with objects that you
+  receive via standards such as MIME. They also support application
+  programming interfaces (such as MAPI) that allow programs to send
+  and process mail automatically. Well over 500 million E-mail
+  messages are delivered daily in July 2000.</p>
+
+  <p>Mobile-program systems are becoming more and more widespread.
+  The most widely-hyped examples today are Java and ActiveX. This
+  technology became popular with Web servers and browsers, but it
+  is now integrated (e.g., Java into Lotus Notes, and ActiveX into
+  Outlook) mail systems. Both Java and ActiveX have been found to
+  have security bugs.</p>
+
+  <h2>Structure of Viruses</h2>
+
+  <p>Here is a simple structure of a virus. In the infected binary,
+  at a known byte location in the file, a virus inserts a signature
+  byte used to determine if a potential carrier program has been
+  previously infected.</p>
+  <pre>
+V()
+{
+  infectExecutable();
+  if (triggered()) {
+    doDamage();
+  }
+  jump to main of infected program;
+}
+
+void infectExecutable()
+{
+ file = chose an uninfected executable file;
+ prepend V to file;
+}
+
+void doDamage() {
+   ...
+}
+
+int triggered()
+{
+  return (some test? 1 : 0);
+}
+</pre>
+
+  <p>The above virus makes the infected file longer than it was,
+  making it easy to spot. There are many techniques to leave the
+  file length and even a check sum unchanged and yet infect. For
+  example, many executable files often contain long sequences of
+  zero bytes, which can be replaced by the virus and re-generated.
+  It is also possible to compress the original executable code like
+  the typical Zip programs do, and uncompress before execution and
+  pad with bytes so that the check sum comes out to be what it
+  was.</p>
+
+  <h2>Virus Detection</h2>
+
+  <p>Known viruses are by far the most common security problem on
+  modern computer systems. Several web sites maintain complete
+  lists of known viruses. There are thousands. Visit, e.g.,
+  <a href="http://www.cai.com/virusinfo/encyclopedia/">www.cai.com/
+  virusinfo/ encyclopedia/</a>. In the month of July 2000, there
+  were 200+ "PC Viruses in the Wild" (<a href=
+  "http://www.wildlist.org/">www. wildlist. org</a>). Virus
+  detection programs analyze a suspect program for the presence of
+  known viruses.</p>
+
+  <p>Fred Cohen has proven mathematically that perfect detection of
+  unknown viruses is impossible: no program can look at other
+  programs and say either "a virus is present" or "no virus is
+  present", and always be correct. But, in the real world, most new
+  viruses are sufficiently like old viruses that the same sort of
+  scanning that finds known viruses also finds the new ones. And
+  there are a large number of heuristic tricks that anti-virus
+  programs use to detect new viruses, based either on how they
+  look, or what they do. These heuristics are only sometimes
+  successful, but since brand-new viruses are comparatively rare,
+  they are sufficient to the purpose.</p>
+
+  <p>Virus scanners are sometimes classified by their "generation."
+  The first generation virus scanners used previously obtained a
+  virus signature, a bit pattern, to detect a known virus. They
+  record and check the length of all executables. The second
+  generation scans executables with heuristic rules, looking, e.g.,
+  for fragments of code associated with a typical virus. They also
+  do integrity checking by calculating a checksum of a program and
+  storing somewhere else the encrypted checksum. The third
+  generation use a memory resident program to monitor the execution
+  behavior of programs to identify a virus by the types of action
+  that the virus takes. The fourth Generation Virus Detection
+  combines all previous approaches and includes access control
+  capabilities.</p>
+
+  <p>It is very educational to study the details of a scanner. The
+  paper by Sandeep Kumar, and Gene Spafford, "A Generic Virus
+  Scanner in C++," Proceedings of the 8th Computer Security
+  Applications Conference, IEEEPress, Piscataway, NJ; pp.210-219,
+  2-4 Dec 1992 [<a href="virusScanner.pdf">Local copy .pdf</a>] is
+  Required Reading.</p>
+
+  <h1>2. <a name="Worms" id="Worms">Worms</a></h1>A <i>worm</i> is a
+  malicious program that copies itself from one computer to another on
+  a network. A worm is an independent program, in the sense described
+  above, unlike a virus which is a part-program that must insert
+  itself into a whole-program. A worm typically does not modify other
+  programs. A typical worm may carry other code, including programs
+  and viruses.  We describe just two famous worms.
+
+  <h2>The Morris Internet worm of 1988</h2>
+
+<p>
+  The <a href="http://en.wikipedia.org/wiki/Morris_worm"> Morris
+    worm</a> has been extensively analyzed as it was perhaps the first
+    worm to use Internet to spread out.  Of course, the Internet of
+    1988 was only few thousand nodes.  Robert Tappan Morris was
+    convicted and sentenced to three years of probation, 400 hours of
+    community service, a fine of $10,050, etc.
+</p>
+
+  <h2>StuxNet Worm</h2>
+
+  <p>Popular media often labelled the
+    <a href="http://en.wikipedia.org/wiki/Stuxnet"> StuxNet</a> of
+    2010 as a virus, but it is a worm.  There is a
+    <a href="http://www.ted.com/talks/ralph_langner_cracking_stuxnet_a_21st_century_cyberweapon.html">
+TED talk</a> (Ralph Langner, "Cracking Stuxnet, a 21st-Century Cyber
+    Weapon", Mar 31, 2011).  Read also:
+<a href="http://securitywatch.pcmag.com/none/296603-report-stuxnet-worm-was-planted-by-an-iranian-secret-agent">
+  http://securitywatch.pcmag.com/none/296603-report-stuxnet-worm-was-planted-by-an-iranian-secret-agent</a> Apr 13, 2012.
+<a href="http://midsizeinsider.com/en-us/article/researchers-release-stuxnet-like-exploit"> http://midsizeinsider.com/en-us/article/researchers-release-stuxnet-like-exploit</a>
+
+Researchers Release Stuxnet-Like Exploits on Metasploit
+<a href="http://abcnews.go.com/blogs/headlines/2012/03/new-version-of-stuxnet-related-cyber-weapon-discovered/"> http://abcnews.go.com/blogs/headlines/2012/03/new-version-of-stuxnet-related-cyber-weapon-discovered/</a> Mar 23, 2012.
+
+
+
+
+  <h1>3. <a name="Trojans" id="Trojans">Trojans</a></h1>Trojans are
+  programs that appear to have one function but actually perform
+  another function. Trojan horses are named after the Trojan horse
+  of the Greek Trojan War.
+
+  <h2><a name="Lab Experiment">Lab Experiment</a></h2>
+
+  <ol>
+    <li>Study the paper <a href=
+    "http://www.research.ibm.com/antivirus/SciPapers/VB2000DC.htm">An
+    Undetectable Computer Virus</a>, 2000. Construct a virus as
+    described. Which of the typical ant-virus scanners detect
+    this?</li>
+  </ol>
+
+  <h2><a name="Acknowledgements">Acknowledgements</a></h2>
+
+  <p>These lecture materials are gleaned from many sources. All are
+  presented after careful reading. In some cases, I may have
+  neglected proper attribution. I assure the reader it is not
+  because I claim authorship. Indeed, in the lectures there is
+  hardly any thing new that I have contributed. Suggestions for
+  improvement are always welcome.</p>
+
+  <h2><a name="References" id="References">References</a></h2>
+
+  <ol>
+    <li>Simson Garfinkel, Gene Spafford, Practical Unix and
+    Internet Security, 3rd edition (2003), O'Reilly &amp;
+    Associates; ISBN: 0596003234. Chapter on Protecting Against
+    Programmed Threats. Required Reading.</li>
+
+    <li>Sandeep Kumar, and Gene Spafford, "A Generic Virus Scanner
+    in C++," Proceedings of the 8th Computer Security Applications
+    Conference; IEEEPress, Piscataway, NJ; pp.210-219, 2-4 Dec
+    1992. [<a href="virusScanner.pdf">Local copy .pdf</a>] Required
+    Reading.</li>
+
+    <li>Ozgun Erdogan and Pei Cao, Hash-AV: fast virus signature
+    scanning by cache-resident filters, International Journal of
+    Security and Networks, Volume 2, Number 1-2 / 2007 Pages: 50 -
+    59. Recommended Reading.</li>
+
+    <li>Anthony Cheuk Tung Lai, "Comprehensive Blended Malware
+    Threat Dissection Analyze Fake Anti-Virus Software and PDF
+    Payloads", 2010, <a href=
+    "http://www.sans.org/reading_room/">http://www.sans.org/reading_room/</a>
+    Recommended Reading.<br>
+    Bryan Barber, " Cheese Worm: Pros and Cons of a Friendly Worm",
+    2003, <a href=
+    "http://www.sans.org/reading_room/">http://www.sans.org/reading_room/</a>
+    Recommended Reading.</li>
+
+    <li>Schaffer, G.P., Worms and viruses and botnets, oh my!
+    Rational responses to emerging Internet threats, <a href=
+    "http://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=8013">Security
+    &amp; Privacy, IEEE</a>, May-June 2006, Volume: 4, <a href=
+    "http://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=34312&amp;isYear=2006">
+    Issue: 3</a>, pp. 52-58. Recommended Reading.</li>
+
+    <li>Virus Bulletin, <a href=
+    "http://www.virusbtn.com/VirusInformation/">www.virusbtn.com/VirusInformation/</a>
+    Technical journal on developments in the field of computer
+    viruses and anti-virus products, Reference.</li>
+
+    <li><a href="http://vxheavens.com/">http://vxheavens.com/</a>
+    Their slogan: "Viruses don't harm, ignorance does!" Collection
+    of viruses source code.</li>
+
+    <li>Dark Angel, &ldquo;(Phalcon/Skism) Virus Writing
+    Tutorials,&rdquo; <a href=
+    "http://www.sirkussystem.com/virus.html">
+    http://www.sirkussystem.com/virus.html</a> Required Reading.</li>
+
+    <li>Steve R. White, Morton Swimmer, Edward J. Pring, William C.
+    Arnold, David M. Chess, John F. Morar, "Anatomy of a
+    Commercial-Grade Immune System," 1999, <a href=
+    "http://www.research.ibm.com/antivirus/SciPapers/White/Anatomy/anatomy.html">
+    www.research.ibm.com/ antivirus/ SciPapers/
+    White/Anatomy/anatomy.html</a> The site (<a href=
+    "http://www.research.ibm.com/antivirus/">www.research.ibm.com/
+    antivirus/</a>) has many other excellent articles. Recommended
+    Reading.</li>
+
+    <li>Mihai Christodorescu, Somesh Jha, Douglas Maughan, Dawn
+    Song, and Cliff Wang, <i>Malware detection</i>, Springer, 2010
+    ISBN-10: 1441940952 324 pages.  Reference</li>
+
+    <li>
+      Mikko H. Hypponen, "The History and Evolution of Computer
+      Viruses," Defcon 19, https://www.youtube.com/watch?v=Xr0ESMH1hwY, 2012
+      Highly recommended watching.
+
+  </ol>
+  <hr size="1">
+  <a href="../../../copyright.html">Copyright &copy;</a> 2012
+  &bull; <a href=
+  "mailto:pmateti@wright.edu?subject=CEG429/InternetSecurity">pmateti@wright.edu</a>
+  &bull; <a href=
+  "http://s17.sitemeter.com/stats.asp?site=s17pmateti"><img src=
+  "http://s17.sitemeter.com/meter.asp?site=s17pmateti"></a> &bull;
+  <a href="../../lectures.html">Other Internet Security
+  Lectures</a>
+</body>
+</html>

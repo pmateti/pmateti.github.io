@@ -1,0 +1,44 @@
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+Date: 2015-06-15
+#+TITLE:  Tiny Programming Examples with a Software Engineering Perspective
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: WSU CS 7140 Advanced Software Engineering
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a> %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:1
+
+
+* Tiny.Tiny Examples of Spec/Design
+
+1. [[./Dutch-National-Flag]] Correct by Design example by Dijkstra.
+1. [[./Quick-Sort]] Why is it hard to understand and then remember?
+1. [[./SmallSet]] A simple implementation of a set of integers.  Shows
+   pre/post and class invariants.
+1. [[./Condense-Num-Ranges]] E.g., given 2 - 9 and 3 -12, condense to
+   2 - 12.  Spec and design.
+1. [[./Magic-Squares]] Construct n x n matrix of numbers so that columns,
+   rows and diagonals add up to the same number.
+1. [[./Tabulate-Equations]] such as a collection from algebra.  Spec and design.
+1. [[./Telegram-Problem]] The problem of Peter Naur.  Famous people wrote
+   buggy solutions!
+1. [[./Worms]] wiggly worms, some vegetarian, others cannibals.  Presented
+   as (i) a software "maintenance" problem, and (ii) as an example of
+   writing assertions.
+1. [[./TicTacToe-JavaFX-UnRedo]] Presented as a software "maintenance"
+   problem.  Is it bug free?
+1. [[./Game-Of-Life]] Conway's GoL. Presented as a software "maintenance"
+   problem.  TBD Incomplete.
+1. [[./Columnize-Words]] Part of /bin/ls spec.
+
+1. [[./Mark-Error-Pos]] A required method within a compiler.  Position an
+   arrow, and next to it print error numbers.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

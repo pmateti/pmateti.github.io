@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Kotlin v Java</title>
+<!-- 2018-12-05 Wed 11:11 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="CS7140 Adv Software Engineering"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Kotlin v Java</h1>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> What is Kotlin?</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Kotlin is a statically typed programming language.  An improvement
+over Java.  FOSS.
+</li>
+<li>Can be compiled to Java Virtual Machine and also can be compiled to
+JavaScript source code or use the LLVM compiler
+infrastructure.
+</li>
+<li>Kotlin uses aggressive type inference to determine the types of
+values and expressions.
+</li>
+
+<li>Recommended by Android SDK.
+</li>
+
+<li><a href="https://en.wikipedia.org/wiki/Kotlin_(programming_language)">https://en.wikipedia.org/wiki/Kotlin_(programming_language)</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Java v Kotlin</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li><a href="https://www.educba.com/java-vs-kotlin/">https://www.educba.com/java-vs-kotlin/</a> {pm: Side by side comparison
+of Java v Kotlin.  Pretty good.}
+</li>
+
+<li>Lecture based on this.  See section titled "Java vs Kotlin
+Comparison Table".
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Kotlin Example: LCM and GCD</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+<a href="https://rosettacode.org/">https://rosettacode.org/</a>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-kotlin">fun main(args: Array&lt;String&gt;) {
+    fun gcd(a: Int, b: Int): Int = if (b == 0) a else gcd(b, a % b)
+    fun lcm(a: Int, b: Int) = a * b / gcd(a, b)
+    println(lcm(15, 9))
+}
+</pre>
+</div>
+
+<p>
+Forgive the math liberties that the code above takes!
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Kotlin Example: QuickSort</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+<a href="https://rosettacode.org/wiki/Sorting_algorithms/Quicksort#Kotlin">https://rosettacode.org/wiki/Sorting_algorithms/Quicksort#Kotlin</a>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-kotlin">import java.util.*
+import java.util.Comparator
+
+fun &lt;T&gt; quickSort(a: List&lt;T&gt;, c: Comparator&lt;T&gt;): ArrayList&lt;T&gt; {
+    if (a.isEmpty()) return ArrayList(a)
+
+    val boxes = Array(3, { ArrayList&lt;T&gt;() })
+    fun normalise(i: Int) = i / Math.max(1, Math.abs(i))
+    a.forEach { boxes[normalise(c.compare(it, a[ 0])) + 1].add(it) }
+    arrayOf(0, 2).forEach { boxes[it] = quickSort(boxes[it], c) }
+    return boxes.flatMapTo(ArrayList&lt;T&gt;()) { it }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Kotlin Example: QuickSort, v2</h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+
+<pre class="src src-kotlin">fun &lt;T : Comparable&lt;T&gt;&gt; quicksort(list: List&lt;T&gt;): List&lt;T&gt; {
+    if (list.isEmpty()) return emptyList()
+
+    val head = list.first()
+    val tail = list.takeLast(list.size - 1)
+
+    val (less, high) = tail.partition { it &lt; head }
+
+    return less + head + high
+}
+
+fun main(args: Array&lt;String&gt;) {
+    val nums = listOf(9, 7, 9, 8, 1, 2, 3, 4, 1, 9, 8, 9, 2, 4, 2, 4, 6, 3)
+    println(quicksort(nums))
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Kotlin Example: Fifteen Puzzle</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li><a href="https://rosettacode.org/wiki/15_Puzzle_Game">https://rosettacode.org/wiki/15_Puzzle_Game</a> Introduces the
+15-puzzle played on a 4x4 square panel.
+</li>
+
+<li>The code is shown in a variety of languages.
+</li>
+
+<li><a href="https://rosettacode.org/wiki/15_Puzzle_Game#Kotlin">Kotlin</a> version
+</li>
+<li><a href="https://rosettacode.org/wiki/15_Puzzle_Game#Java">Java</a> version
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Other Kotlin Examples</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li><a href="https://try.kotlinlang.org/">https://try.kotlinlang.org/</a> {Browser based interpreter of Kotlin.}
+</li>
+
+<li><a href="https://www.programiz.com/kotlin-programming/examples">https://www.programiz.com/kotlin-programming/examples</a> {pm: As
+algorithms, poorly done.}
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Kotlin FAQ</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li>Can kotlin use Java libraries?  Yes.
+</li>
+
+<li>What is Kotlin Java?  Officially, names of two languages.  Very
+close to each other semantically.  Kotlin is far more compact than
+Java, syntactically.  Eliminates a few areas of <a href="https://proandroiddev.com/kotlin-avoids-entire-categories-of-java-defects-89f160ba4671">classic sources of
+bugs</a>.
+</li>
+
+<li>Can kotlin replace Java? Yes.
+</li>
+
+<li>Does kotlin compile to Java? Yes, it can compile into JVM byte
+code.  Kotlin, Scala and Java can compile to native assembly/
+machine code.
+</li>
+
+<li><a href="https://kotlinlang.org/docs/reference/faq.html">https://kotlinlang.org/docs/reference/faq.html</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> References</h2>
+<div class="outline-text-2" id="text-9">
+<ol class="org-ol">
+<li><a href="https://www.educba.com/java-vs-kotlin/">https://www.educba.com/java-vs-kotlin/</a> {pm: Side by side comparison of
+Java v Kotlin.  Pretty good.}  Required Reading.
+</li>
+<li><a href="https://github.com/JetBrains/kotlin-examples">https://github.com/JetBrains/kotlin-examples</a>  Reference.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> End</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2018-12-05
+</div>
+</body>
+</html>

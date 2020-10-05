@@ -1,0 +1,118 @@
+# -*- mode: org -*-
+#+DATE: 2018-06-12
+#+TITLE: Dependency Injection
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: CS7140 Adv Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+TBD code examples from
+https://hackernoon.com/you-dont-need-to-know-dependency-injection-2e9d2ba1978a
+
+https://stackoverflow.com/questions/6550700/inversion-of-control-vs-dependency-injection
+
+
+* Inversion of Control
+
+1. Instead of source code of a program controlling the flow,
+   external sources (framework, services, other components) take
+   control of it.
+
+1. Inversion of Control is a key part of what makes a framework
+   different from a library.  A library call call does some work and
+   returns control to the client.
+
+1. Type 1 Interface Injection
+2. Type 2 Setter Injection
+3. Type 3 Constructor Injection
+
+* Type 3 IoC -- Constructor Injection
+
+As the name implies, this component would receive its dependencies via
+the constructor. Here’s what such a component would look like:
+
+#+name: <name>
+#+begin_src C++ <switches> <header arguments>
+class Knight extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      weapon: props.weapon
+    };
+  }
+  render() {
+    return '🐴 ${this.state.weapon}';
+  }
+}
+#+end_src
+
+
+And you would use it like this:
+
+<Knight weapon={sword} />
+Of course, you should typically use the prop directly instead of duplicating it.
+
+* Type 2 IoC -- Setter Injection
+Instead of setting dependencies in the constructor, a component would have methods available that can be called after initialization, with dependencies passed in as the argument.
+
+#+name: <name>
+#+begin_src C++ <switches> <header arguments>
+class Knight extends React.Component {
+  state = {};
+  setWeapon = (weapon) => this.setState({ weapon });
+  render() {
+    return `🐴 ${this.state.weapon}`;
+  }
+}
+#+end_src
+
+Usage:
+
+componentDidMount () {
+  this.knight.setWeapon(sword);
+}
+render () {
+  return <Knight ref={c => this.knight = c} />;
+}
+#+end_src
+
+Again, you almost certainly would not want do this instead of passing dependencies directly via props.
+
+* Type 1 IoC -- Interface Injection
+
+The props of a component are its interface to its clients, thus “required props” would come the closest to an analogy for interface injection with React:
+
+#+name: <name>
+#+begin_src C++ <switches> <header arguments>
+class Knight extends React.Component {
+  static propTypes = {
+    weapon: PropTypes.any.isRequired
+  };
+  render() {
+    return `🐴 ${this.props.weapon}`;
+  }
+}
+#+end_src
+
+and you would use it simply as
+
+<Knight weapon={sword} />
+I hope these examples illustrate how commonplace Dependency Injection has become, and gave you some talking points should the topic ever comes up.
+
+The Component + Props pattern injects dependencies on construction, continues to update (set) the dependencies past initialization, and can enforce dependencies to be passed via the props interface. It’s all three patterns in one, at least in React. (Constructor Injection is indeed still popular/unavoidable in modern Angular)
+
+Perhaps discussions around Render Props / Functions as Children (for example, Michael Jackson’s “Use a Render Prop!”, Donavon West’s “Function as Child Components Are an Anti-Pattern”, and my own “Solving the problems of Higher Order Components …”) could be seen as an extension of this conversation, where even the render function of a component is a dependency that can be injected. Libraries like Downshift epitomize this philosophy taken to its logical conclusion. But I doubt if the authors of those articles and libraries ever needed to concern themselves with that specific term.
+
+
+1. Martin Fowler, June 2005,
+   https://martinfowler.com/bliki/InversionOfControl.html
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

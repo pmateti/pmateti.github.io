@@ -1,0 +1,38 @@
+# -*- mode: org -*-
+#+DATE: 2016-03-16
+#+TITLE: Secure Coding Guide Lines
+#+AUTHOR: Prabhaker Mateti
+
+#+DESCRIPTION: Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+
+#+OPTIONS: toc:t
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+Abstract: CERT and other Secure Coding Guidelines for Java, C++, Android
+
+1. http://cs.stanford.edu/people/eroberts/cs181/projects/viruses/cert.html
+   The Role of CERT
+
+1. https://www.securecoding.cert.org/confluence/display/seccode/SEI+CERT+Coding+Standards
+   CMU SEI CERT Coding Standards. Required Reading -- Top Level.
+
+1. https://www.securecoding.cert.org/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java SEI CERT Oracle Coding Standard for Java
+
+1. Prabhaker Mateti, Audit of Android Src Code, work-in-progress (not
+   ready for public), {pm-aosp-audit-min.pdf} located on thumb drive.
+   Discuss a couple of CERT rules for Android.
+
+1. [[./pl-security-java.org][Secure Java Programming]] basics by PM. About 2pp. Required Reading.
+
+1. [[./pl-security-c-cpp.org][Secure Programming in C/ C++]] basics by PM.  About 1 page. Required
+   Reading.
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

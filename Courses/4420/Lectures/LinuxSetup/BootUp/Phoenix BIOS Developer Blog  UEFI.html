@@ -1,0 +1,683 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="typepad-standard" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="http://www.typepad.com/" />
+	
+	
+	<link rel="stylesheet" href="http://blogs.phoenix.com/phoenix_technologies_bios/styles.css?v=6" type="text/css" media="screen" />
+	<link rel="stylesheet" href="http://static.typepad.com/.shared:vb207d12:typepad:en_us/themes/common/print.css" type="text/css" media="print" />
+	<link rel="alternate" type="application/atom+xml" title="Posts on 'Phoenix BIOS Developer Blog' (Atom)" href="http://blogs.phoenix.com/phoenix_technologies_bios/atom.xml" />
+	<link rel="alternate" type="application/rss+xml" title="Posts on 'Phoenix BIOS Developer Blog' (RSS 1.0)" href="http://blogs.phoenix.com/phoenix_technologies_bios/index.rdf" />
+	<link rel="alternate" type="application/rss+xml" title="Posts on 'Phoenix BIOS Developer Blog' (RSS 2.0)" href="http://blogs.phoenix.com/phoenix_technologies_bios/rss.xml" />
+	<script type="text/javascript">
+		var TPApp = {};
+		TPApp.app_uri = "http://www.typepad.com/";
+	</script>
+	<script type="text/javascript" src="http://static.typepad.com/.shared:vb207d12:typepad:en_us/js/yui/yahoo-dom-event.js,/js/app/thumbnail-gallery-min.js,/js/app/flyouts-min.js"></script>
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['t2._setAccount', 'UA-225723-36']);
+		_gaq.push(['t2._setDomainName', 'none']);
+		_gaq.push(['t2._setAllowLinker', true]);
+        _gaq.push(['t2._setCustomVar', 1, 'Blog', '6a00d83455ecaa69e200d8344c095453ef', 3]);
+        _gaq.push(['t2._setCustomVar', 2, 'Page Type', 'Category', 3]);
+		_gaq.push(['t2._trackPageview']);
+
+		(function() {
+		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+        <title>Phoenix BIOS Developer Blog: UEFI</title>
+        <link rel="start" href="http://blogs.phoenix.com/phoenix_technologies_bios/" title="Home" />
+</head>
+
+
+
+<body class="layout-two-column-right category">
+	
+	<div id="container">
+		<div id="container-inner" class="pkg">
+			
+
+
+<!-- banner -->
+<div id="banner">
+	<div id="banner-inner" class="pkg">
+		
+		<h1 id="banner-header"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/" accesskey="1">Phoenix BIOS Developer Blog</a></h1>
+		<h2 id="banner-description">
+			
+		</h2>
+	</div>
+</div>
+
+
+
+
+
+
+			<div id="pagebody">
+				<div id="pagebody-inner" class="pkg">
+					<div id="alpha">
+						<div id="alpha-inner" class="pkg">
+							<!-- archive header -->
+<h2 class="content-header">
+	UEFI
+</h2>
+
+							<script type="text/javascript">
+	window.ZemantaBlogSettings = “”;
+</script>
+<script type="text/javascript" src="http://content.zemanta.com/static/typepad/js/recommend.js"></script>
+
+<!-- entries -->
+			<h2 class="date-header">February 02, 2007</h2>
+
+	
+	<div class="entry-category-uefi entry-author-phoenix entry-type-post entry" id="entry-15593513">
+					<h3 class="entry-header"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/02/uefi_pi_10_firm.html">UEFI PI 1.0: Firmware Volumes</a></h3>
+		
+		<div class="entry-content">
+                <input type="hidden" name="zemanta-related" val="" />
+			<div class="entry-body">
+				<p>Last time, we looked briefly at the standard firmware file system which is described in the UEFI Platform Initialization specification. This file system is optimized for use in firmware and provides fault-tolerance for writes. It also provides a standard format for delivery of PEI and DXE drivers.&nbsp; </p>
+
+<p>This time we'll look a little closer at the standard firmware volume format. Every standard UEFI PI firmware volume begins with a header.</p>
+
+<p><strong>Why Have A Firmware Volume Header?</strong></p>
+
+<p>One of the first things you notice about the PI firmware volume formats is that there is a firmware volume header <em>at all</em>. When we talk about fault-tolerance in a flash file system there is always the possibility that one of the flash sectors gets wiped out. So, with this file format, if the first flash sector (containing the firmware volume header) is erased, there is no way to recover. </p>
+
+<p>Why is this important? Well, if you remember our previous discussion, the UEFI PI firmware file system is designed to be fault-tolerant. When creating a file or updating an existing file, even should the power fail at any point, the file system is still stable. Now this works up until the firmware volume is full--that is, there is not enough space left for a new file. But there may still be free space left...</p>
+
+<p>What? Free space? But you just said that the firmware volume is full! That's true. But remember how files are deleted in the PI firmware file system: we just set a bit in the file header. So even though the file is deleted, the space is not freed up in the volume. That may seem brain dead, but it is really a requirement which stems from the nature of flash technology. With flash devices, it is easy to change a bit from off to on but it is hard to change a bit from on to off. Changing the bits back to off requires an erase cycle. Erase cycles change a big chunk called a 'sector' or 'block' back to their default values. These blocks range in size from 512 bytes up to 64KB or more, depending on the device. For flash devices based on NOR technology, this default value is '1' while for flash devices based on NAND technology, this default&nbsp; value is '0'. Erases are time consuming. Also, because the blocks are large and ROM space is precious, there may be bits of other files in the same flash block. So erasing one file might require temporarily erasing part of another file, meaning we have to copy those other pieces somewhere else temporarily. Rather than copy the contents of a block to a spare block every time it needs to delete a file, the firmware file system deletes files by just setting a bit in the file header. </p>
+
+<p>When the UEFI file system really, really, really needs the free space, it copies the contents of a single flash block over to a spare block, notes somewhere which block has copied, performs the erase and updates the block. If the power fails during the update, the file system can correct by copying over from the spare block when mounting the firmware volume.</p>
+
+<p><strong>UEFI PI Firmware Volume Header Explained</strong></p>
+
+<p>Here's the prototype for a standard UEFI PI firmware volume:</p>
+
+<pre>typedef struct {<br />&nbsp; UINT8&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <em>ZeroVector</em>[16];<br />&nbsp; EFI_GUID&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <em>FileSystemGuid</em>;<br />&nbsp; UINT64&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<em>FvLength</em>;<br />&nbsp; UINT32&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<em>Signature</em>;<br />&nbsp; EFI_FV_ATTRIBUTES <em>Attributes</em>;<br />&nbsp; UINT16&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<em>HeaderLength</em>;<br />&nbsp; UINT16&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<em>Checksum</em>;<br />&nbsp; UINT16&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<em>ExtHeaderOffset</em>;<br />&nbsp; UINT8&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <em>Reserved</em>[1];<br />&nbsp; UINT8&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <em>Revision</em>;<br />&nbsp; EFI_FV_BLOCK_MAP&nbsp; <em>BlockMap</em>[];<br />} EFI_FIRMWARE_VOLUME_HEADER;</pre>
+
+<p>The firmware volume header consists of two parts: the fixed header and the extended header. Let's work our way through the fields one by one.</p>
+
+<p><em>ZeroVector</em> - This is just an empty 16-bytes. Why waste 16-bytes? Ok, back to CPU Architecture 101. On X86 CPUs, the reset vector is 16 bytes below 4GB. The reset vector is the address of the first instruction that the CPU will execute after reset. It hasn't always been near 4GB. The 286 CPU placed the reset vector just below 16MB and the 8086 CPU placed the reset vector below 1MB. But I digress. Normally we put the BIOS near the reset vector since we want the CPU to have something to run after reset. Otherwise it sails the sea of infinite zeroes.... Slap to self! Back to topic. Some CPU architectures (most notably ARM) don't place the reset vector at the top of the CPU address space. Instead they put the reset vector at address 0. So that's where the firmware goes. And the firmware is located in a firmware volume. So on these systems, the reset vector actually sits in the firmware volume header. Thus 16 bytes were set aside so that they could be patched with reset vector code (usually a JMP) for these CPUs.</p>
+
+<p><em>FileSystemGuid</em>&nbsp; - This uniquely identifies the file system which is used within the firmware volume. While UEFI PI has one &quot;official&quot; firmware file system, it also sufficiently abstracts its behavior to allow other formats to be supported. For example, Microsoft's TFAT or Phoenix's own firmware file system (PFFS) can both be supported by assigning them a new GUID and providing the appropriate PPIs (EFI_PEI_FIRMWARE_VOLUME_PPI) and protocols (EFI_FIRMWARE_VOLUME2_PROTOCOL).</p>
+
+<p><em>FvLength</em> - This is the length of the firmware volume, in bytes. Interestingly, this means that you don't need to know the entire size of the firmware volume before beginning to process the volume. You just need the header. Some other formats require that you know the media size (TFAT) or volume size (PFFS) in order to process them. TFAT needs the knowledge up front because it creates backup copies of the File Allocation Tables (FAT)&nbsp; at the end of the media. PFFS needs the knowledge up front because it allows the volume header to &quot;float&quot; and needs to know the maximum extent it should search for the volume header. Otherwise a malformed volume could cause PFFS to crash.</p>
+
+<p><em>Signature</em> - This is always hard-coded to '_FVH'. Placing the signature in the header makes it easy to identify when looking at a firmware volume in memory.</p>
+
+<p><em>Attributes</em> - These attributes describe some of the properties of the firmware volume. For example, this field describes whether the firmware volume should be write-protected or read-protected and whether this should be changeable. The file system itself doesn't guarantee these attributes, but assumes that these are honored by the firmware file system code which manipulates the firmware volume. In some case, the firmware file system code may enforce these attributes using hardware resources, such as block-locking in the flash device or the chipset. </p>
+
+<p>This field also describes some attributes of the flash device itself which the file system code needs to know. First, it describes whether writes to the device are &quot;sticky&quot;. This is related to the discussion above, where we talked about how it is easy to write a bit from off to on but hard to write it from on to off. If a flash device is not classified is &quot;sticky&quot; it means that writes to 1 and writes to 0 can be performed without an erase cycle. Second, it describes whether an erase cycle will change all bits in a flash block to 0 or 1. The file system uses this information to invert the polarity of the status byte in the file header. For example, on a NOR part, the normal file status is 0xF8 while on a NAND part, the normal status is 0x07. Notice that these are inverted forms of each other, because on a NOR part it is easy to change a bit from 1 to 0 while on NAND parts it is easy to change a bit from 0 to 1. Third, the volume attributes describe whether the volume is memory mapped.</p>
+
+<p><em>HeaderLength</em> - This describes the size of the entire header (fixed and extended), in bytes. The first byte past the header is the start of the file system within the firmware volume.</p>
+
+<p><em>Checksum </em>- This is a 16-bit checksum of the firmware volume header such that, when summing all bytes of the firmware volume header (including this field and ignoring overflow), the result should be 0.</p>
+
+<p><em>ExtHeaderOffset - </em>This is the unsigned offset, in bytes and relative to the first byte of the firmware volume header, of the extended header. If the extended header is not present, then this field should be 0.</p>
+
+<p><em>FvBlockMap - </em>This array describes the logical arrangement of blocks within the firmware volume, including the header. Each entry in the array describes a run of blocks which have the same size. There is no requirement that all blocks in a firmware volume be the same size, although that makes it easier to use when using other file systems. The array is terminated with a block run with a size of zero.</p>
+
+<p>The extended file header is optional and&nbsp; consists of a fixed portion and zero or more extensions. The fixed portion looks like this:</p>
+
+<pre>typedef struct <br />{<br />&nbsp; EFI_GUID <em>FvName</em>; <br />&nbsp; UINT32&nbsp; <em>ExtHeaderSize</em>;<br />};</pre>
+
+<p><em>FvName - </em>This is the &quot;name&quot; of the firmware volume. </p>
+
+<p><em>ExtHeaderSize - </em>This is the size of the extended header. More on this later when we talk about &quot;file types&quot;.</p>
+
+<p>Pheww...more than you ever wanted to know. We'll talk about files next.</p>
+
+<p>Tim</p>
+			</div>
+			
+			
+		</div>
+		<div class="entry-footer">
+			<p class="entry-footer-info">
+				
+                
+									
+					<a class="entry-comments" href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/02/uefi_pi_10_firm.html#comments">Comments (1)</a>
+				
+									<span class="separator">|</span>
+					<a class="entry-trackbacks" href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/02/uefi_pi_10_firm.html#trackback">TrackBack (0)</a>
+				
+			</p>
+			<!-- technorati tags -->
+	
+
+
+			<!-- post footer links -->
+
+		</div>
+	</div>
+	
+			<h2 class="date-header">January 17, 2007</h2>
+
+	
+	<div class="entry-category-uefi entry-author-tim_lewis entry-type-post entry" id="entry-15250621">
+					<h3 class="entry-header"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/01/uefi_efi_byte_c.html">UEFI EFI Byte Code Plugfest</a></h3>
+		
+		<div class="entry-content">
+                <input type="hidden" name="zemanta-related" val="" />
+			<div class="entry-body">
+				<p>Talk about special purpose plug fests! This plug fest focuses just on the virtual machine architecture which is built into every UEFI machine. This virtual machine was designed so that EFI drivers could be executed on any UEFI compliant platform.&nbsp; This is especially important for plug-in PCI cards. Today, you either need a hefty ROM on the board to hold the option ROM for all the different platforms you support. Or, you can create a special SKU for each processor architecture you ship on.</p>
+
+<p>EBC itself is a fairly complicated encoding which is more akin to a x86 architecture than anything else. There is only one EBC compiler available, from Intel, for a cool $995 (see product page <a href="http://www.intel.com/cd/software/products/asmo-na/eng/compilers/efibc/index.htm">here</a>). On the side, I'm putting together a translator that converts EBC into a normal assembly language file.</p>
+
+<p>EBC has received some attention recently within UEFI because, as an interpreted byte code, it is a little easier to secure. In the EFI 1.10 specification, you can see some hints of this in the UGA specification because Microsoft originally intended to use the EFI UGA driver as an emergency video driver. The UEFI Security Sub-Team recently revisited it when talking about creating de-privileged driver. It is certainly a lighter-weight approach than, say, user/supervisor (Ring 0/Ring 3) in UEFI.</p>
+
+<p>From the invitation letter:</p><blockquote><p>On behalf of the UEFI Testing Working Group (UTWG) from the Unified EFI Forum (UEFI), Phoenix Technologies invites you to the EFI Byte Code (EBC) Summit. The EBC Summit will be held from February 27 to March 1, 2007 at the Phoenix facility in Milpitas, California USA.</p>
+
+<p>This event provides the industry with an opportunity to conduct focused interoperability testing on the EBC functionality portions of the UEFI 2.0 specification. The EFI Byte Code allows UEFI drivers and applications to execute on a wide range of CPU architectures without recompilation.</p>
+
+<p>This event is open and free to all attendees from companies that are UEFI members, but registration is required. We encourage companies who are not yet UEFI adopters or contributors to sign up at http://www.uefi.org and participate.</p>
+
+<p>Participants in the event include UEFI members who are Add-in card Vendors, Operating System Vendors, Independent Software Vendors, Independent BIOS Vendors and Original Equipment / Design Manufacturers (OEM / ODM) platform vendors.</p></blockquote><p>I'll be there, of course, since it is in my company headquarters :-)&nbsp; See you there.</p>
+
+<p class="MsoNormal" dir="ltr" style="MARGIN: 0in 0in 0pt"></p>
+
+<p class="MsoNormal" dir="ltr" style="MARGIN: 0in 0in 0pt"><span face="Verdana">Tim</span></p>
+			</div>
+			
+			
+		</div>
+		<div class="entry-footer">
+			<p class="entry-footer-info">
+				
+                
+									
+					<a class="entry-comments" href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/01/uefi_efi_byte_c.html#comments">Comments (0)</a>
+				
+									<span class="separator">|</span>
+					<a class="entry-trackbacks" href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/01/uefi_efi_byte_c.html#trackback">TrackBack (0)</a>
+				
+			</p>
+			<!-- technorati tags -->
+	
+
+
+			<!-- post footer links -->
+
+		</div>
+	</div>
+	
+			<h2 class="date-header">January 12, 2007</h2>
+
+	
+	<div class="entry-category-uefi entry-author-tim_lewis entry-type-post entry" id="entry-15165912">
+					<h3 class="entry-header"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/01/uefi_pi_10_the_.html">UEFI PI 1.0: The Life Cycle Of A PC</a></h3>
+		
+		<div class="entry-content">
+                <input type="hidden" name="zemanta-related" val="" />
+			<div class="entry-body">
+				<p><a onclick="window.open(this.href, '_blank', 'width=685,height=187,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false" href="http://blogs.phoenix.com/.shared/image.html?/photos/uncategorized/pi_phase_diagram.gif"></a>Did you know the PC has a life cycle? No, I don't mean from manufacture to landfill.&nbsp; No, rather from power-on until power-off.&nbsp; When the power button is pressed, the average PC begins a journey starting with a flash chip with the BIOS firmware on the motherboard, progressing through the load of your favorite OS flavor and ending with the power being removed, either gracefully or through forcible disconnect from the power grid.&nbsp; </p>
+
+<p>With only the flash of a logo and a few LED flickers, the PC actually passes through several important phases before the operating system starts. Seldom described in detail, the UEFI PI 1.0 specification (available <a href="http://www.uefi.org/">here</a>) describes these phases in great detail. Each phase has unique characteristics and operational limitations which are essential to understand before trying to drive in and write PI drivers.</p>
+
+<p><a href="http://blogs.phoenix.com/photos/uncategorized/pi_phase_diagram_1.png"><img class="image-full" title="Pi_phase_diagram_1" alt="Pi_phase_diagram_1" src="http://blogs.phoenix.com/photos/uncategorized/pi_phase_diagram_1.png" border="0" style="FLOAT: left; MARGIN: 0px 5px 5px 0px" /></a></p>
+
+<p>This diagram gives an overview of the process. Those in purple (BDS, TSL and RT) are governed by UEFI's UEFI Specification Working Group (USWG). Those in blue (SEC, PEI, DXE &amp; AL) are governed by UEFI's Platform Initialization Working Group (PIWG). Why the distinction? Well, in the original UEFI specification, there was a big black hole called &quot;Platform Initialization&quot; which dealt with stuff before the UEFI Boot Manager was launched. So PIWG was created to fill the black hole.</p>
+
+<p>So here are the different phases:</p>
+
+<p><strong>SEC</strong> - The SEC phase (don't ask me why the phase named for Security doesn't actually deal with security, it's a long and tedious story) actually brings the system from reset of the CPU through the time when temporary RAM is available. Temporary RAM is a small amount of memory (say 8KB - 64KB) available to create some global memory for stack and data storage. </p>
+
+<p><strong>PEI</strong> - The PEI (Pre-EFI Initialization) phase takes the system up through the point when permanent RAM (i.e. normal DRAM) is available. It also determines the boot mode (normal boot, S3 resume, S4 resume, etc.).</p>
+
+<p><strong>DXE</strong> - The DXE (Driver Execution Environment) phase takes the system from the point when memory is available to the point when the firmware is ready to look for a boot device. </p>
+
+<p><strong>BDS - </strong>The BDS (Boot Device Selection) phase selects a boot device and boots it. It also usually allows the user to enter Setup and possibly boot the shell or choose a different boot device.</p>
+
+<p><strong>TSL</strong>&nbsp; - The TSL (Transient System Load) phase refers to an alternate class of applications where the system hasn't booted an OS, but it could. For example, there is a shell where numerous applications can be run. When done, you can either return to the BDS phase or proceeed on to RT or just hang around. </p>
+
+<p><strong>RT</strong>&nbsp; - The RT (Run Time) phase refers to the period after an operating system loader has called the ExitBootServices() interface, officially terminating the boot role of the BIOS. After this point, there are still BIOS functions lying around (GetVariable, SetVariable, etc.), but this is primarily the OS landscape.</p>
+
+<p><strong>AL</strong> - The AL (Afterlife) is a nebulous phase which refers to times when the firmware actually takes control back from the OS after the OS has shutdown. This happens many times on platforms when entering a low power state (say ACPI's S3, S4,S5).</p>
+
+<p>Well this is just a quick tour. Next time we'll look at how these phases manage all of the different drivers without stepping on toes.</p>
+
+<p>Tim</p>
+			</div>
+			
+			
+		</div>
+		<div class="entry-footer">
+			<p class="entry-footer-info">
+				
+                
+									
+					<a class="entry-comments" href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/01/uefi_pi_10_the_.html#comments">Comments (0)</a>
+				
+									<span class="separator">|</span>
+					<a class="entry-trackbacks" href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/01/uefi_pi_10_the_.html#trackback">TrackBack (0)</a>
+				
+			</p>
+			<!-- technorati tags -->
+	
+
+
+			<!-- post footer links -->
+
+		</div>
+	</div>
+	
+			<h2 class="date-header">January 05, 2007</h2>
+
+	
+	<div class="entry-category-uefi entry-author-tim_lewis entry-type-post entry" id="entry-15030811">
+					<h3 class="entry-header"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/01/2tb_hard_drives.html">2TB Hard Drives Force BIOS Changes</a></h3>
+		
+		<div class="entry-content">
+                <input type="hidden" name="zemanta-related" val="" />
+			<div class="entry-body">
+				<p>Earlier today I put together an external SATA box which can hold 2 500GB drives. The box hooks up to my notebook using either USB 2.0 or eSATA. And then I came across this article at Slashdot <a href="http://hardware.slashdot.org/hardware/07/01/05/1333255.shtml">here</a>, where Hitachi will ship a 1TB (1,000 gigabytes) drive this year and Seagate predicts a 37TB drive in the next few years. That's my entire DVD collection.</p>
+
+<p>So, what does this have to do with BIOS? Well, it goes back to one of those older data structures used by the BIOS to boot an operating system: the master boot record (MBR). The master boot record keeps track of up to 4 partitions on a hard drive. Each partition can have up to 2^32 blocks, with each logical block having 512 bytes. That gives you a maximum storage limit of ~2TB for a hard drive.</p>
+
+<p>What's the plan? Well, UEFI already had a plan for this in the GUID Partition Table (GPT), which is essentially an alternate to the MBR. So folks said: we could either try to fix the MBR OR we could just use the UEFI stuff.&nbsp; UEFI allows volumes to be 2^64 blocks (each block is still 512 bytes), which gives you 8,589,934,592TB. That gives us a little more room to grow.</p>
+
+<p>That drive will be sufficient to record my genome and every chess position possible. :-)</p>
+
+<p>Tim</p>
+
+
+			</div>
+			
+			
+		</div>
+		<div class="entry-footer">
+			<p class="entry-footer-info">
+				
+                
+									
+					<a class="entry-comments" href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/01/2tb_hard_drives.html#comments">Comments (0)</a>
+				
+									<span class="separator">|</span>
+					<a class="entry-trackbacks" href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/01/2tb_hard_drives.html#trackback">TrackBack (0)</a>
+				
+			</p>
+			<!-- technorati tags -->
+	
+
+
+			<!-- post footer links -->
+
+		</div>
+	</div>
+	
+			<h2 class="date-header">January 04, 2007</h2>
+
+	
+	<div class="entry-category-uefi entry-author-tim_lewis entry-type-post entry" id="entry-15007520">
+					<h3 class="entry-header"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/01/my_2007_wish_li.html">My 2007 Wish List For Drivers</a></h3>
+		
+		<div class="entry-content">
+                <input type="hidden" name="zemanta-related" val="" />
+			<div class="entry-body">
+				<p>What would I like to see in 2007? Other than a new gaming rig and fun with my kids, you mean? </p>
+
+<p>I must be a BIOS geek, but what I really want are UEFI and PI drivers&nbsp; (<a href="http://www.uefi.org/">UEFI web site</a>) that are easy to deliver. Over the past month, I've pulled a few all-nighters trying to import silicon vendor drivers into TrustedCore and it is a real pain. Every vendor has a different way of building them and customizing them. But here's my top 5 wish list:</p>
+
+<p>1. Provide X86 and X64 versions.&nbsp; By the time Longhorn Server comes out, no mainstream processor will be shipping X86 (32-bit) only.&nbsp; I expect most UEFI implementations to be X64 only. So a pile of 32-bit assembly language is about as useful as my pile of Apple IIgs diskettes. Yes, it means some BIOS engineers are going to have to learn C/C++ or X64.</p>
+
+<p>2. Use smaller source trees.&nbsp; This week, I saw one driver, less than 4KB, which pulled in files from 400 directories. At Phoenix we call this &quot;directory sprawl&quot;&nbsp; One driver was nested eight directory levels deep, and that's before it was integrated into our source tree. So when we deliver one driver, we have to pull all the directories and give them to the customer. </p>
+
+<p>3. Simpler customization. UEFI and PI are going in the right direction with binary editability. Already things like dependency expressions, driver names and even user interface can be managed with external tools. Right now, when we put together a system BIOS, we are often integrating drivers from 5 or more vendors. If the only way to customize them is to search through each vendor's source code for the &quot;magic file&quot; it just slows down my ability to get a working system. Worse yet, many vendors require a &quot;magic driver&quot; to be written and don't document what the driver is supposed to do or what the interface looks like. What's the goal: plug-and-play BIOS. Hand me the drivers, make a couple of tweaks related to my motherboard and (poof) the BIOS works. That's the holy grail of BIOS deployment. But we can't get there if everybody hides the tweaks in an obscure source file or readme.</p>
+
+<p>There are a lot of cool things we can do in BIOS (more on that in a future post). But we can't do them if we have to spend all of our time with needle and thread trying to patch together just the basic BIOS.&nbsp; And what's the use of my new gaming rig if I'm stuck searching for the magic readme file? </p>
+
+<p>Tim</p>
+			</div>
+			
+			
+		</div>
+		<div class="entry-footer">
+			<p class="entry-footer-info">
+				
+                
+									
+					<a class="entry-comments" href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/01/my_2007_wish_li.html#comments">Comments (1)</a>
+				
+									<span class="separator">|</span>
+					<a class="entry-trackbacks" href="http://blogs.phoenix.com/phoenix_technologies_bios/2007/01/my_2007_wish_li.html#trackback">TrackBack (0)</a>
+				
+			</p>
+			<!-- technorati tags -->
+	
+
+
+			<!-- post footer links -->
+
+		</div>
+	</div>
+	
+			<h2 class="date-header">December 15, 2006</h2>
+
+	
+	<div class="entry-category-uefi entry-author-tim_lewis entry-type-post entry" id="entry-14684130">
+					<h3 class="entry-header"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2006/12/uefi_plug_fest__2.html">UEFI Plug Fest, Day 3</a></h3>
+		
+		<div class="entry-content">
+                <input type="hidden" name="zemanta-related" val="" />
+			<div class="entry-body">
+				<p> Well, plug fest wraps up this morning, as I write this from a seriously weather impacted Seattle airport. One window was out in terminal C. My hotel had no power at 5am and no emergency signs working on the 3rd floor. Took a bit of work to find the stairs. Twice yesterday, we had our debugging interrupted by power outages.</p>
+
+<p>Feeling pretty tired. One of our systems passed with flying colors. Another exhibited the worst possible behavior: can't install Longhorn and can't connect to the Windows debugger. But the best part about these events is that it lights a fire under engineers, because we all want to show our best about how cool our product is. </p>
+
+<p>Looks like our next opportunity will be in Redmond in April with the Longhorn Server plugfest. Between now and then, we'll be updating our systems at Microsoft to make it easier to co-debug some of the interesting issues we found.</p>
+
+<p>Looks like UEFI 2.1 is in the final approval cycle, so we'll see some more cool stuff from the security sub-team (like authenticated variables) and the new UEFI Configuration Sub-Team (system configuration and setup). The latter takes up a good 200+ pages. Some of the security stuff (such as firmware/OS key exchange, option ROM validation and application validation) got bumped to the next rev because folks wanted some more rigorous analysis of the security issues and how systems can realistically be provisioned.</p>
+
+<p>But, do I have time to sleep before I start implementing?</p>
+
+<p>Tim</p>
+			</div>
+			
+			
+		</div>
+		<div class="entry-footer">
+			<p class="entry-footer-info">
+				
+                
+									
+					<a class="entry-comments" href="http://blogs.phoenix.com/phoenix_technologies_bios/2006/12/uefi_plug_fest__2.html#comments">Comments (0)</a>
+				
+									<span class="separator">|</span>
+					<a class="entry-trackbacks" href="http://blogs.phoenix.com/phoenix_technologies_bios/2006/12/uefi_plug_fest__2.html#trackback">TrackBack (0)</a>
+				
+			</p>
+			<!-- technorati tags -->
+	
+
+
+			<!-- post footer links -->
+
+		</div>
+	</div>
+	
+			<h2 class="date-header">December 13, 2006</h2>
+
+	
+	<div class="entry-category-uefi entry-author-tim_lewis entry-type-post entry" id="entry-14657371">
+					<h3 class="entry-header"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2006/12/uefi_plug_fest__1.html">UEFI Plug Fest, Day 2</a></h3>
+		
+		<div class="entry-content">
+                <input type="hidden" name="zemanta-related" val="" />
+			<div class="entry-body">
+				<p>Well, the light saber made its rounds. Longhorn Server installed without a hitch on one platform, but the big 4P server with the custom SATA driver didn't fare so well. More work tomorrow. Plans are brewing for an EFI Byte Code (EBC)&nbsp; Summit to deal with some of the known EBC-related issues.&nbsp; Right now Intel produces the only compiler t hat I known of (see description <a href="http://www.intel.com/cd/software/products/asmo-na/eng/compilers/efibc/index.htm">here</a>) for about $995 a pop. It will be interesting to see what issues come up.</p>
+
+<p>Microsoft also released a draft white paper on EFI, but I don't see a copy anywhere online yet. Nothing magical, but the S4 requirements make for interesting firwmare design.</p>
+
+<p>Tim </p>
+			</div>
+			
+			
+		</div>
+		<div class="entry-footer">
+			<p class="entry-footer-info">
+				
+                
+									
+					<a class="entry-comments" href="http://blogs.phoenix.com/phoenix_technologies_bios/2006/12/uefi_plug_fest__1.html#comments">Comments (0)</a>
+				
+									<span class="separator">|</span>
+					<a class="entry-trackbacks" href="http://blogs.phoenix.com/phoenix_technologies_bios/2006/12/uefi_plug_fest__1.html#trackback">TrackBack (0)</a>
+				
+			</p>
+			<!-- technorati tags -->
+	
+
+
+			<!-- post footer links -->
+
+		</div>
+	</div>
+			<div class="pager-bottom pager-entries pager content-nav">
+		<div class="pager-inner">
+			<span class="pager-left">
+				<a href="http://blogs.phoenix.com/phoenix_technologies_bios/uefi/page/2/"><span class="chevron">&#171;</span>
+					<span class="pager-label">Previous</span></a>
+			</span>
+			
+			
+		</div>
+	</div>
+	
+	
+
+
+						</div>
+					</div>
+					<div id="beta">
+						<div id="beta-inner" class="pkg">
+							
+<!-- sidebar -->
+
+
+<div id="developers_wikis" class="module-typelist module">
+<h2 class="module-header">Developer's WIKIs</h2>
+	<div class="module-content">
+		<ul class="module-list">
+							<li class="module-list-item"><a href="http://www.phoenix.com/en/OEM-ODM/Products/Browse+by+Products/Phoenix+SecureCore+Tiano/default.htm">SecureCore Tiano </a><br /></li>
+							<li class="module-list-item"><a href="http://blogs.phoenix.com/instant_boot_blog">Phoenix Instant Boot Blog with Steve Jones </a><br /></li>
+			
+		</ul>
+	</div>
+</div>
+
+<div id="developers_wikis" class="module-typelist module">
+<h2 class="module-header">Developer's WIKIs</h2>
+	<div class="typelist-plain module-content">
+		<ul class="module-list">
+							<li class="module-list-item"><div class="typelist-note-label">WIKIs</div><div class="typelist-note"><form onsubmit='return false;'> <input type="text" name="q" id='txtSearch' size="18" maxlength="255" value="" onKeyPress='checkEnter(event)'/><br /> <br/> <input type="button" id='sub' value="Search" onclick='return SearchSubmit()' /> </form> <script> function SearchSubmit() { var searchText =document.getElementById('txtSearch').value; window.location.href='http://wiki.phoenix.com/wiki/index.php/Special:Search?search='+searchText+'&fulltext=Search'; return false;} 
+function checkEnter(e){ 
+var characterCode = e.keyCode;
+if(characterCode == 13){ 
+SearchSubmit();
+return false;
+}
+
+}
+</script></div></li>
+			
+		</ul>
+	</div>
+</div>
+
+	<div class="module-archives module">
+		<h2 class="module-header"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/archives.html">Archives</a></h2>
+		<div class="module-content">
+			<ul class="module-list">
+									<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2010/09/index.html">September 2010</a></li>
+									<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2010/07/index.html">July 2010</a></li>
+									<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2010/04/index.html">April 2010</a></li>
+									<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2010/02/index.html">February 2010</a></li>
+									<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2010/01/index.html">January 2010</a></li>
+									<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2009/10/index.html">October 2009</a></li>
+									<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2009/09/index.html">September 2009</a></li>
+									<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2009/01/index.html">January 2009</a></li>
+									<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2008/12/index.html">December 2008</a></li>
+									<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2008/11/index.html">November 2008</a></li>
+				
+			</ul>
+		</div>
+	</div>
+
+<div class="module-categories module">
+	<h2 class="module-header"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/archives.html">Categories</a></h2>
+	<div class="module-content">
+		<ul class="module-list">
+			<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/acpi/">ACPI</a></li>
+			<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/book_reviews/">Book Reviews</a></li>
+			<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/bios/">Core System Software</a></li>
+			<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/dmtf/">DMTF</a></li>
+			<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/events/">Events</a></li>
+			<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/securecore/">SecureCore</a></li>
+			<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/trustedcore/">TrustedCore</a></li>
+			<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/uefi/">UEFI</a></li>
+		</ul>
+	</div>
+</div>
+	<div class="module-archives module">
+		<h2 class="module-header">Recent Posts</h2>
+		<div class="module-content">
+			<ul class="module-list">
+														<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2010/09/just-got-a-note-today-that-the-acpi-50-specificatoin-is-officially-in-development-acpi-50-is-being-co-developed-by-phoenix.html">Just got a note today</a></li>
+					
+														<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2010/07/bios-undercover-calling-c-from-asm-in-x64.html">BIOS Undercover: Calling C From ASM In X64</a></li>
+					
+														<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2010/04/acpi-40a-released.html">ACPI 4.0a Released</a></li>
+					
+														<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2010/02/howto-track-down-bloated-drivers-with-link-dumpbin.html">HOW-TO: Track Down Bloated Drivers With LINK & DUMPBIN.</a></li>
+					
+														<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2010/01/howto-use-uuidgen-to-generate-cstyle-guids.html">HOW-TO: Use UUIDGEN To Generate C-Style GUIDs</a></li>
+					
+														<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2010/01/how-to-change-to-a-modules-directory.html">HOW-TO: Change To A Module's Directory</a></li>
+					
+														<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2009/10/check-out-wiredcoms-gadget-lab-column.html">Check Out Wired.com's Gadget Lab Column</a></li>
+					
+														<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2009/09/howto-change-directory-to-a-specific-base_name.html">HOW-TO: Change directory to source directory for a specific .EFI file.</a></li>
+					
+														<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2009/09/howto-change-directory-to-a-specific-inf.html">HOW-TO: Change directory to a specific INF for SecureCore Tiano™ 2.0</a></li>
+					
+														<li class="module-list-item"><a href="http://blogs.phoenix.com/phoenix_technologies_bios/2009/09/howto-set-up-your-securecore-tiano-20-build-environment.html">HOW-TO: Set Up Your SecureCore Tiano™ 2.0 Build Environment</a></li>
+					
+				
+			</ul>
+		</div>
+	</div>
+<div id="subscription" class="module-typelist module">
+<h2 class="module-header">Subscription</h2>
+	<div class="typelist-plain module-content">
+		<ul class="module-list">
+							<li class="module-list-item"><div class="typelist-note"><form style="border:0px solid #ccc;padding:1px;text-align:left;" action="http://www.feedburner.com/fb/a/emailverify" method="post" target="popupwindow" onsubmit="window.open('http://www.feedburner.com', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+  <p>Enter your email address to subscribe:</p>
+  <p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="http://feeds.feedburner.com/~e?ffid=536932" name="url"/><input type="hidden" value="Phoenix BIOS Blog" name="title"/><input type="submit" value="Subscribe" />
+  <br>
+  <br>
+</form>
+
+
+<p><a href="http://fusion.google.com/add?feedurl=http://feeds.feedburner.com/PhoenixBiosBlog/"><img src="http://buttons.googlesyndication.com/fusion/add.gif" width="104" height="17" style="border:0" alt="Add to Google"/></a></p>
+<p><a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/PhoenixBiosBlog/" title="Phoenix BIOS Blog"><img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="" style="border:0"/></a></p>
+<p><a href="http://feeds.my.aol.com/add.jsp?url=http://feeds.feedburner.com/PhoenixBiosBlog"><img src="http://myfeeds.aolcdn.com/vis/myaol_cta1.gif" alt="Add to My AOL" style="border:0"/></a></p>
+<p><a href="http://www.newsgator.com/ngs/subscriber/subext.aspx?url=http://feeds.feedburner.com/PhoenixBiosBlog" title="Phoenix BIOS Blog"><img src="http://www.newsgator.com/images/ngsub1.gif" alt="Subscribe in NewsGator Online" style="border:0"/></a></p>
+<p><a href="http://feeds.feedburner.com/PhoenixBiosBlog" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" alt="" style="vertical-align:middle;border:0"/></a>&nbsp;<a href="http://feeds.feedburner.com/PhoenixBiosBlog" rel="alternate" type="application/rss+xml">Subscribe 
+  in a reader</a></p>
+</div></li>
+			
+		</ul>
+	</div>
+</div>
+
+<div id="search" class="module-typelist module">
+<h2 class="module-header">Search</h2>
+	<div class="typelist-plain module-content">
+		<ul class="module-list">
+							<li class="module-list-item"><div class="typelist-note"><form method="get" action="http://www.google.com/search">
+  <input type="hidden" name="ie" value="UTF-8" /> 
+  <input type="hidden" name="oe" value="UTF-8" /> 
+   <input type="text" name="q" size="18" maxlength="255" value="" /><br />
+   <small>
+    <input type="hidden" name="domains" value="blogs.phoenix.com/" />
+    <input type="radio" name="sitesearch" value="" /> WWW <br />
+    <input type="radio" name="sitesearch" value="blogs.phoenix.com/" checked="checked" /> Phoenix Blog </small>
+   <br />
+    <input type="submit" name="btnG" value=" Google Search " /> 
+ </form></div></li>
+			
+		</ul>
+	</div>
+</div>
+
+<div id="links" class="module-typelist module">
+<h2 class="module-header">Links</h2>
+	<div class="module-content">
+		<ul class="module-list">
+							<li class="module-list-item"><a href="http://www.phoenix.com/">Phoenix Technologies</a><br /></li>
+							<li class="module-list-item"><a href="http://www.phoenix.com/en/OEM-ODM/default.htm">Phoenix Technologies BIOS</a><br /></li>
+							<li class="module-list-item"><a href="http://www.phoenix.com/en/OEM-ODM/Products/Browse+by+Products/Instant+Boot+News.htm">SecureCore Tiano in the news</a><br /></li>
+			
+		</ul>
+	</div>
+</div>
+
+<div class="module-syndicate module">
+	<div class="module-content">
+		<a href="http://blogs.phoenix.com/phoenix_technologies_bios/atom.xml">Subscribe to this blog's feed</a>
+	</div>
+</div>
+
+
+
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+			
+
+		</div>
+	</div>
+	
+<script type="text/javascript">
+<!--
+var extra_happy = Math.floor(1000000000 * Math.random());
+document.write('<img src="http://www.typepad.com/t/stats?blog_id=533614&amp;user_id=1111075&amp;page=' + escape(location.href) + '&amp;referrer=' + escape(document.referrer) + '&amp;i=' + extra_happy + '" width="1" height="1" alt="" style="position: absolute; top: 0; left: 0;" />');
+// -->
+</script>
+
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+  try{
+    var pageTracker = _gat._getTracker("UA-1880830-1");
+    pageTracker._trackPageview();
+  } catch(err) {}
+</script>
+
+<!-- Start Quantcast tag -->
+<script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+<script type="text/javascript">_qoptions = { tags:"typepad.extended" }; _qacct="p-fcYWUmj5YbYKM"; quantserve();</script>
+<noscript>
+<a href="http://www.quantcast.com/p-fcYWUmj5YbYKM" target="_blank"><img src="http://pixel.quantserve.com/pixel/p-fcYWUmj5YbYKM.gif?tags=typepad.extended" style="display: none" border="0" height="1" width="1" alt="Quantcast"/></a>
+</noscript>
+<!-- End Quantcast tag -->
+<!-- Begin comScore Tag -->
+<script>
+document.write(unescape("%3Cscript src='" + (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js'%3E%3C/script%3E"));
+</script>
+<script>
+COMSCORE.beacon({
+  c1: 2,
+  c2: "6035669",
+  c3: "",
+  c4: "http://blogs.phoenix.com/phoenix_technologies_bios/uefi/",
+  c5: "",
+  c6: "",
+  c15: ""
+});
+</script>
+<noscript>
+  <img src="http://b.scorecardresearch.com/b?c1=2&c2=6035669&c3=&c4=http%3A%2F%2Fblogs.phoenix.com%2Fphoenix_technologies_bios%2Fuefi%2F&c5=&c6=&c15=&cv=1.3&cj=1" style="display:none" width="0" height="0" alt="" />
+</noscript>
+<!-- End comScore Tag -->
+</body>
+</html>
+
+<!-- ph=1 -->

@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#abc58fa40de7c72b9bfaa002089e3e1c7a5f95b04c1b1d9a9df6013c279d309f74"><param name="Name" value="ALIVE"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classASOG.html"><param name="Name" value="ASOG"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classASOG.html#a6940dfbd61d03b810e03743c2c89311b"><param name="Name" value="attr"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#ac9f824eaa8436e902f71af9b278f6b91"><param name="Name" value="asog"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classASOG.html"><param name="Name" value="ASOG"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#ac9f824eaa8436e902f71af9b278f6b91"><param name="Name" value="asog"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#aaace506127cfd74dceef89eba44d3c4d"><param name="Name" value="asogCols"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#aaace506127cfd74dceef89eba44d3c4d"><param name="Name" value="display.cpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#aaace506127cfd74dceef89eba44d3c4d"><param name="Name" value="worm.hpp"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#aab3ddb35a9aba32c4fcd8846af379c7c"><param name="Name" value="asogRows"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#aab3ddb35a9aba32c4fcd8846af379c7c"><param name="Name" value="display.cpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#aab3ddb35a9aba32c4fcd8846af379c7c"><param name="Name" value="worm.hpp"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classASOG.html#a6940dfbd61d03b810e03743c2c89311b"><param name="Name" value="attr"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a67c6671c7311645714139f69cc57039f"><param name="Name" value="body"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structWorm_1_1SEGMENT.html#a6d541f2dc9c9e03ce60c4ed848ca6cd0"><param name="Name" value="c"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#abcff91fdffb1fb799374372c19966432a72d7894e44f9b2643a67cc0f2bcbf7b3"><param name="Name" value="CANNIBAL"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWormInfo.html#a8c2bfef1cec08b258acce38bcc1d1ca0"><param name="Name" value="capacity"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a85685a489a01120ee0b7aab3fb9934fd"><param name="Name" value="CARROT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a85685a489a01120ee0b7aab3fb9934fd"><param name="Name" value="worm.hpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a85685a489a01120ee0b7aab3fb9934fd"><param name="Name" value="worms.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#aceb2fb89d5a14a86baab7c79ff200e3a"><param name="Name" value="checkStomach"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWormInfo.html#a325683e4b371e484ca1b7a43bbdf8554"><param name="Name" value="color"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#acc92c48540b8da3ba87c6e63c8a16b61"><param name="Name" value="COLOR_PAIR"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html"><param name="Name" value="control.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html#aea5180455dfe86989c3cce20b39ec67f"><param name="Name" value="idelay"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html#a868659a2f991de87c2b0dcbe6cea6175"><param name="Name" value="paused"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html#a95a87141f2fa9206accd08fda6a8ac91"><param name="Name" value="slowness"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html#a9bd803b4b504a4c61dd2a689508f3024"><param name="Name" value="tdelay"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html#adaecbeb244fe81df4948e02951cbaffb"><param name="Name" value="userControl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html#a49414d2f12c41feeb4d344bf35fbd600"><param name="Name" value="userKeyPress"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a44e00941ba1880c8059d316be826b7a1"><param name="Name" value="createWorm"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#abc58fa40de7c72b9bfaa002089e3e1c7aac5e3007de403c8d88f567f237807092"><param name="Name" value="DEAD"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a6a19ccd22824b6d84eb25554b6af48b7"><param name="Name" value="direction"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html"><param name="Name" value="display.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#ac9f824eaa8436e902f71af9b278f6b91"><param name="Name" value="asog"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#aaace506127cfd74dceef89eba44d3c4d"><param name="Name" value="asogCols"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#aab3ddb35a9aba32c4fcd8846af379c7c"><param name="Name" value="asogRows"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#a16ac55eea9c5d7760f6589806f846936"><param name="Name" value="MAXcol"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#acef9978a0261ade9a8860647a6ecae23"><param name="Name" value="MAXrow"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#af6a786aadb2fc26d9c6d8dcb60c181f9"><param name="Name" value="msg"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#a7858f371cf338f2078a3f429b11c5c22"><param name="Name" value="passive"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#ae7900524ffee7db798666af631054e2d"><param name="Name" value="screen"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#a43c4a535edfdb4766c1be3b123803c85"><param name="Name" value="showMsg"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#abb8393c9f67a5e9d410e9387ca2fd927"><param name="Name" value="showOneWorm"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#a69fe661ba3da179857ccffc2aa101c12"><param name="Name" value="showScreen"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#af9fa41823e3dec1990170afd377e40ca"><param name="Name" value="showWormsAndCarrots"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#a8e841472f0af8757b42690672542303f"><param name="Name" value="sprinkleCarrots"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#af282d1c77c514013ef209b04f0b5901d"><param name="Name" value="dxa"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#a7cba76fcaff1abaff3f2e4cb053eea96"><param name="Name" value="dya"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0ab5b3793b961949c817c7c0d99c05dad7"><param name="Name" value="EAST"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#aacb9f79be57a61057fa051b6b9bf60ae"><param name="Name" value="eat"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a0f9e1641569e7abe88db26e810acd977"><param name="Name" value="eatACarrot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#abc58fa40de7c72b9bfaa002089e3e1c7ab22bb31bcf50a07f20b2871edd3f8c8e"><param name="Name" value="EATEN"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ncurses_8cpp.html#a4c824d80e0fa734b965a6204bc5f2edc"><param name="Name" value="endCurses"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#af21ed25bd53ecac34ce6a4f03163d16d"><param name="Name" value="EOLN"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a4af1b6159e447ba72652bb7fcdfa726e"><param name="Name" value="ESC"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a4af1b6159e447ba72652bb7fcdfa726e"><param name="Name" value="worm.hpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a4af1b6159e447ba72652bb7fcdfa726e"><param name="Name" value="worms.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#abedae467ca2f74b4340e946f7c792067"><param name="Name" value="findSlot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWormInfo.html#a5e3f625757accae7a335a335e02ce8e0"><param name="Name" value="foodValue"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a0af0ed68d5abcdfae66292c6373d8986"><param name="Name" value="getChar"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ncurses_8cpp.html#a2a538fb9f8b43b8f8e8e938ef360943f"><param name="Name" value="getOneChar"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a7a07e742b20b22bb76b6a20f67591f9c"><param name="Name" value="gotEaten"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#aa900f20ffc38595ce7ece86a07ec7cf9"><param name="Name" value="headSeg"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#aa5f0d86141121bd9359604e515438c07"><param name="Name" value="hxWorms"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html#aea5180455dfe86989c3cce20b39ec67f"><param name="Name" value="idelay"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a4dd5c690ce465b587c4904ebbcee5add"><param name="Name" value="isAt"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a43908cbe58d1351147c3735ebc74be2b"><param name="Name" value="isDigit"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a43908cbe58d1351147c3735ebc74be2b"><param name="Name" value="worm.hpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a43908cbe58d1351147c3735ebc74be2b"><param name="Name" value="worms.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a9a5b24b0917e765f63b3946a194e596d"><param name="Name" value="isHungry"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#ad4eb38e70b45c7703b73aef645a148ce"><param name="Name" value="live"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#a16ac55eea9c5d7760f6589806f846936"><param name="Name" value="MAXcol"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#acef9978a0261ade9a8860647a6ecae23"><param name="Name" value="MAXrow"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#abaabd3cf52e79e61404dd8e2edbaa9d1"><param name="Name" value="MAXsegs"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#ac6afabdc09a49a433ee19d8a9486056d"><param name="Name" value="min"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#ac6afabdc09a49a433ee19d8a9486056d"><param name="Name" value="worm.hpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#ac6afabdc09a49a433ee19d8a9486056d"><param name="Name" value="worms.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#af6a786aadb2fc26d9c6d8dcb60c181f9"><param name="Name" value="msg"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#ab62ead30dbf78fe709f68514c9cb783b"><param name="Name" value="mvCursor"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ncurses_8cpp.html"><param name="Name" value="ncurses.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ncurses_8cpp.html#a4c824d80e0fa734b965a6204bc5f2edc"><param name="Name" value="endCurses"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ncurses_8cpp.html#a2a538fb9f8b43b8f8e8e938ef360943f"><param name="Name" value="getOneChar"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="ncurses_8cpp.html#a88f4e3665e1fbc6bde73efccbabe0c74"><param name="Name" value="startCurses"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#a2c655689207b71b0269c69a4de52d8a1"><param name="Name" value="nextTurn"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a1711232abf72723b5216c206e6bbb175"><param name="Name" value="NORTH"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a1711232abf72723b5216c206e6bbb175"><param name="Name" value="worm.hpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0ad0611de6f28d4a9c9eac959f5344698e"><param name="Name" value="worms.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0aa6671505783298e4cb967931c1c1ac5b"><param name="Name" value="NORTHEAST"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a005b7a00eae1d8fad2e130accbbcf6e0"><param name="Name" value="nsegs"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0a9b2eeb9b33247edbc638099452c6b46f"><param name="Name" value="NW"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classASOG.html#adafbc464477ff852f14ff213cdf8790b"><param name="Name" value="onec"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#a7858f371cf338f2078a3f429b11c5c22"><param name="Name" value="passive"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html#a868659a2f991de87c2b0dcbe6cea6175"><param name="Name" value="paused"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa355e82cf95622357e738c0ca75c61a3"><param name="Name" value="putChar"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a2b88f5788e06b3cd7fa3abbc226a7cfd"><param name="Name" value="putString"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a970311ee5504bf0e1c421be1bbd78d39"><param name="Name" value="random"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a970311ee5504bf0e1c421be1bbd78d39"><param name="Name" value="worm.hpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a970311ee5504bf0e1c421be1bbd78d39"><param name="Name" value="worms.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0af1ce01387d2348f8b858721a7db81670"><param name="Name" value="S"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#abcff91fdffb1fb799374372c19966432ab66ecaf10ca52b7de9981e3f8688d7ea"><param name="Name" value="SCISSORHEAD"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#ae7900524ffee7db798666af631054e2d"><param name="Name" value="screen"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#ac96a9fb1edaedf8673da3e182367094f"><param name="Name" value="screenClear"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a624351be25b1ceed513cb14ddb629d08"><param name="Name" value="screenFlush"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0a61c600c17d14bd4db73433ddbb8491e8"><param name="Name" value="SE"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#aa2fda8c04ed9c66799f3a312eca375ce"><param name="Name" value="setVictimWorm"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a1fe57dbbcb0eeb88b97ae15be0f6bd34"><param name="Name" value="shiftBodyDown"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#a43c4a535edfdb4766c1be3b123803c85"><param name="Name" value="showMsg"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#abb8393c9f67a5e9d410e9387ca2fd927"><param name="Name" value="showOneWorm"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#abb8393c9f67a5e9d410e9387ca2fd927"><param name="Name" value="display.cpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a90955bf8d9ec93892329667d81cfd925"><param name="Name" value="Worm"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#a69fe661ba3da179857ccffc2aa101c12"><param name="Name" value="showScreen"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#af9fa41823e3dec1990170afd377e40ca"><param name="Name" value="showWormsAndCarrots"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a971b783f52fb06d4a2595c2e19b64330"><param name="Name" value="sliceTheVictim"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html#a95a87141f2fa9206accd08fda6a8ac91"><param name="Name" value="slowness"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="display_8cpp.html#a8e841472f0af8757b42690672542303f"><param name="Name" value="sprinkleCarrots"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ncurses_8cpp.html#a88f4e3665e1fbc6bde73efccbabe0c74"><param name="Name" value="startCurses"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a7b19c44248b73d233ce6d637020c8541"><param name="Name" value="status"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a484f331d4ce6584b0b26bd1c724c4cab"><param name="Name" value="stomach"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0a247b880fc48dc1c74961ba58ae0f68a2"><param name="Name" value="SW"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html#a9bd803b4b504a4c61dd2a689508f3024"><param name="Name" value="tdelay"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#adba98e162472df67e3d76964c51566bf"><param name="Name" value="type"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html#adaecbeb244fe81df4948e02951cbaffb"><param name="Name" value="userControl"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="control_8cpp.html#a49414d2f12c41feeb4d344bf35fbd600"><param name="Name" value="userKeyPress"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#abcff91fdffb1fb799374372c19966432ae37a205654b4aebf6afa55f7fbea2d50"><param name="Name" value="VEGETARIAN"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#a38de7f074919184357481596a92fc20b"><param name="Name" value="victimSegNum"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#a7f20ff81ac5db51d836a1fe7e5c1d403"><param name="Name" value="victimWormp"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0ab722ceeb601c72cd78fbd35f3581fdf7"><param name="Name" value="W"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html"><param name="Name" value="Worm"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="md_worm-asserts.html"><param name="Name" value="worm-asserts"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html"><param name="Name" value="worm.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#af282d1c77c514013ef209b04f0b5901d"><param name="Name" value="dxa"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#a7cba76fcaff1abaff3f2e4cb053eea96"><param name="Name" value="dya"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#aa900f20ffc38595ce7ece86a07ec7cf9"><param name="Name" value="headSeg"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#a2c655689207b71b0269c69a4de52d8a1"><param name="Name" value="nextTurn"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#a38de7f074919184357481596a92fc20b"><param name="Name" value="victimSegNum"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#a7f20ff81ac5db51d836a1fe7e5c1d403"><param name="Name" value="victimWormp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#a4968a983fce56af9106dcc9d65c13774"><param name="Name" value="xOf"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#a9b98785b9d90686981c0131eb48680d4"><param name="Name" value="yOf"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html"><param name="Name" value="worm.hpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#ac9f824eaa8436e902f71af9b278f6b91"><param name="Name" value="asog"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#aaace506127cfd74dceef89eba44d3c4d"><param name="Name" value="asogCols"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#aab3ddb35a9aba32c4fcd8846af379c7c"><param name="Name" value="asogRows"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a85685a489a01120ee0b7aab3fb9934fd"><param name="Name" value="CARROT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#acc92c48540b8da3ba87c6e63c8a16b61"><param name="Name" value="COLOR_PAIR"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a4af1b6159e447ba72652bb7fcdfa726e"><param name="Name" value="ESC"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#abedae467ca2f74b4340e946f7c792067"><param name="Name" value="findSlot"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#aa5f0d86141121bd9359604e515438c07"><param name="Name" value="hxWorms"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a43908cbe58d1351147c3735ebc74be2b"><param name="Name" value="isDigit"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#abaabd3cf52e79e61404dd8e2edbaa9d1"><param name="Name" value="MAXsegs"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#ac6afabdc09a49a433ee19d8a9486056d"><param name="Name" value="min"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a1711232abf72723b5216c206e6bbb175"><param name="Name" value="NORTH"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a970311ee5504bf0e1c421be1bbd78d39"><param name="Name" value="random"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a46c48520c63e1dfae29875e9e4d6cf3a"><param name="Name" value="worm_info"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a88fc5e9dfcb970fe75823afe890a7d08"><param name="Name" value="wormArray"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a7adc69e20bdb20334ecbe1b71947fd7e"><param name="Name" value="xworms"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structWorm_1_1SEGMENT.html"><param name="Name" value="Worm::SEGMENT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structWorm_1_1SEGMENT.html#a6d541f2dc9c9e03ce60c4ed848ca6cd0"><param name="Name" value="c"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structWorm_1_1SEGMENT.html#a7a7b3929e7355edebeebd29830736ba6"><param name="Name" value="x"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structWorm_1_1SEGMENT.html#a21d7ea7e065e5565a630ac1314893b6c"><param name="Name" value="y"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html"><param name="Name" value="Worm"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#abc58fa40de7c72b9bfaa002089e3e1c7a5f95b04c1b1d9a9df6013c279d309f74"><param name="Name" value="ALIVE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a67c6671c7311645714139f69cc57039f"><param name="Name" value="body"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#abcff91fdffb1fb799374372c19966432a72d7894e44f9b2643a67cc0f2bcbf7b3"><param name="Name" value="CANNIBAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#aceb2fb89d5a14a86baab7c79ff200e3a"><param name="Name" value="checkStomach"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a44e00941ba1880c8059d316be826b7a1"><param name="Name" value="createWorm"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#abc58fa40de7c72b9bfaa002089e3e1c7aac5e3007de403c8d88f567f237807092"><param name="Name" value="DEAD"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a6a19ccd22824b6d84eb25554b6af48b7"><param name="Name" value="direction"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#aacb9f79be57a61057fa051b6b9bf60ae"><param name="Name" value="eat"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a0f9e1641569e7abe88db26e810acd977"><param name="Name" value="eatACarrot"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#abc58fa40de7c72b9bfaa002089e3e1c7ab22bb31bcf50a07f20b2871edd3f8c8e"><param name="Name" value="EATEN"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a7a07e742b20b22bb76b6a20f67591f9c"><param name="Name" value="gotEaten"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a4dd5c690ce465b587c4904ebbcee5add"><param name="Name" value="isAt"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a9a5b24b0917e765f63b3946a194e596d"><param name="Name" value="isHungry"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#ad4eb38e70b45c7703b73aef645a148ce"><param name="Name" value="live"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a005b7a00eae1d8fad2e130accbbcf6e0"><param name="Name" value="nsegs"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#abcff91fdffb1fb799374372c19966432ab66ecaf10ca52b7de9981e3f8688d7ea"><param name="Name" value="SCISSORHEAD"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#aa2fda8c04ed9c66799f3a312eca375ce"><param name="Name" value="setVictimWorm"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a1fe57dbbcb0eeb88b97ae15be0f6bd34"><param name="Name" value="shiftBodyDown"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a90955bf8d9ec93892329667d81cfd925"><param name="Name" value="showOneWorm"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a971b783f52fb06d4a2595c2e19b64330"><param name="Name" value="sliceTheVictim"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a7b19c44248b73d233ce6d637020c8541"><param name="Name" value="status"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#a484f331d4ce6584b0b26bd1c724c4cab"><param name="Name" value="stomach"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#adba98e162472df67e3d76964c51566bf"><param name="Name" value="type"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWorm.html#abcff91fdffb1fb799374372c19966432ae37a205654b4aebf6afa55f7fbea2d50"><param name="Name" value="VEGETARIAN"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a46c48520c63e1dfae29875e9e4d6cf3a"><param name="Name" value="worm_info"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a88fc5e9dfcb970fe75823afe890a7d08"><param name="Name" value="wormArray"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classWormInfo.html"><param name="Name" value="WormInfo"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWormInfo.html#a8c2bfef1cec08b258acce38bcc1d1ca0"><param name="Name" value="capacity"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWormInfo.html#a325683e4b371e484ca1b7a43bbdf8554"><param name="Name" value="color"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classWormInfo.html#a5e3f625757accae7a335a335e02ce8e0"><param name="Name" value="foodValue"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="md_worms-doc.html"><param name="Name" value="worms-doc"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html"><param name="Name" value="worms.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a85685a489a01120ee0b7aab3fb9934fd"><param name="Name" value="CARROT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0ab5b3793b961949c817c7c0d99c05dad7"><param name="Name" value="EAST"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#af21ed25bd53ecac34ce6a4f03163d16d"><param name="Name" value="EOLN"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a4af1b6159e447ba72652bb7fcdfa726e"><param name="Name" value="ESC"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a0af0ed68d5abcdfae66292c6373d8986"><param name="Name" value="getChar"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a43908cbe58d1351147c3735ebc74be2b"><param name="Name" value="isDigit"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#ac6afabdc09a49a433ee19d8a9486056d"><param name="Name" value="min"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#ab62ead30dbf78fe709f68514c9cb783b"><param name="Name" value="mvCursor"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0ad0611de6f28d4a9c9eac959f5344698e"><param name="Name" value="NORTH"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0aa6671505783298e4cb967931c1c1ac5b"><param name="Name" value="NORTHEAST"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0a9b2eeb9b33247edbc638099452c6b46f"><param name="Name" value="NW"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa355e82cf95622357e738c0ca75c61a3"><param name="Name" value="putChar"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a2b88f5788e06b3cd7fa3abbc226a7cfd"><param name="Name" value="putString"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a970311ee5504bf0e1c421be1bbd78d39"><param name="Name" value="random"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0af1ce01387d2348f8b858721a7db81670"><param name="Name" value="S"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#ac96a9fb1edaedf8673da3e182367094f"><param name="Name" value="screenClear"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#a624351be25b1ceed513cb14ddb629d08"><param name="Name" value="screenFlush"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0a61c600c17d14bd4db73433ddbb8491e8"><param name="Name" value="SE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0a247b880fc48dc1c74961ba58ae0f68a2"><param name="Name" value="SW"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="worms_8h.html#aa268a41a13430b18e933ed40207178d0ab722ceeb601c72cd78fbd35f3581fdf7"><param name="Name" value="W"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structWorm_1_1SEGMENT.html#a7a7b3929e7355edebeebd29830736ba6"><param name="Name" value="x"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#a4968a983fce56af9106dcc9d65c13774"><param name="Name" value="xOf"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8hpp.html#a7adc69e20bdb20334ecbe1b71947fd7e"><param name="Name" value="xworms"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structWorm_1_1SEGMENT.html#a21d7ea7e065e5565a630ac1314893b6c"><param name="Name" value="y"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="worm_8cpp.html#a9b98785b9d90686981c0131eb48680d4"><param name="Name" value="yOf"></OBJECT>
+</UL>
+</BODY>
+</HTML>

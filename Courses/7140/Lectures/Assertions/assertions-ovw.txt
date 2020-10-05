@@ -1,0 +1,39 @@
+
+Dr. Mateti,
+
+Question on what you were looking for with regards to assertions and
+invariants in the wiggly worms program:
+
+Are we to actually implement these assertions/invariants as proper C++
+code or were you simply looking for assertions in the comments?
+
+For example, did you want something like:
+
+#include <cassert>
+#define MAXsegs 100
+class Worm {
+...
+private int nsegs;
+invariant (nsegs <= MAXsegs)
+
+...
+public setNsegs(int segs) {
+   assert(segs <= MAXsegs);
+   nsegs = segs;
+}
+}
+
+or 
+
+#define MAXsegs 100
+class Worm {
+...
+private int nsegs; // nsegs <= MAXsegs
+...
+/* Sets the number of segments in a worm such that
+    pre: segs <= MAXsegs
+    post: nsegs <= MAXsegs */
+public setNsegs(int segs) {
+   nsegs = segs;
+}
+}

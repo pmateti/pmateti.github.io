@@ -1,0 +1,430 @@
+# -*- mode: org -*-
+#+DATE: 2018-05-22 2020-09-09
+#+DESCRIPTION: CS7140 Adv Software Engineering
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:t
+
+#+TITLE: Condense the List of Numbers
+#+AUTHOR: Prabhaker Mateti
+
+* Informal Problem Statement
+
+Consider the informal description, given in the next paragraph, of
+  a program.  Give (a) requirements analysis, (b) precise
+  specifications (using logic/discrete mathematics, or in carefully
+  worded English), (c) a design in pseudo-code VHLL.
+
+/You are given a comma separated list of items in a text file.  The
+list is terminated with a period.  Each item is either a number, or a
+hyphen separated pair of numbers.  Your program should condense this
+list as much as possible, as can be seen from the following examples./
+
+=1,3,4,2,6,5,8,5,7.= 
+becomes\\
+=1-8.=
+
+=9,100-4870,4993,4871-4875,5016,5118,7-250,5100-5123.=
+becomes\\
+=7-4875,4993,5016,5100-5123.=
+
+=1103,1023-1100,87654321,1050-1150,1110,1250-1344.=
+becomes\\
+=1023-1150,1250-1344,87654321.=
+
+The rest of this handout is a `solution' to the above problem.
+My comments are enclosed as in //* comments *//
+
+
+* Requirements Analysis
+
+Certain "debatable" resolutions of incomplete or ambiguous
+requirements are shown slanted for emphasis.
+
+** Problem Domain
+
+1. A number in this problem is an integer.  We assume it is
+   representable as an =int= in the PL.
+
+1. A range is written as m-n. This is three tokens: a number, a
+   hyphen, and another number. The first number m is expected to be
+   less than n.  /We will ignore it otherwise./
+
+1. A single item appears as one number token, x. This is equivalent to
+   x-x.
+
+1. /We allow the numbers to be negative./
+
+** Input Format
+
+1. We are not permitting an empty list. We do not expect the ranges or
+   single items to appear in any particular order.
+
+** Output Format
+
+1. Same as input format.
+
+** Relationship between Output and Input
+
+1. The output produced should represent the same set of numbers
+   represented by the input. The output is required to be the shortest
+   possible. We take this to mean the length of the output viewed as a
+   sequence of tokens is to be minimized, and not, e.g., that all
+   blanks are to be eliminated.
+
+1. The real need is clearly for a condensation of the list given in
+   some internal data structure format, rather than a textually
+   presented list of numbers.
+
+* Specification
+
+Some notation is inevitably needed to do precise specs. A list of, say
+three items a, b, c, is written as [a, b, c]. If p is a pair of
+things, $p == (x, y)$, then p.1 is x, and p.2 is y.  Read ::= as
+is-defined-as.  We abbreviate the phrase "such that" as /st/; in
+mathematics, the vertical bar | stands for such-that.  In grammars, the
+vertical bar | stands for "or".  Overloading!
+
+** List of Input Items
+
+1. A range =m-n= denotes the set range(m, n) which is defined as {z st
+   m <= z <= n}. A single-item =x= denotes the singleton set { x }.
+
+   1. setofoneitem(ars) ::= range(m, n), if ars is of the form <number
+      m>, hyphen, <number n>.  The angular brackets are meta
+      characters.
+   2. setofoneitem(ars) ::= { x } , if ars is of the form <number x>.
+
+2. The list is a comma-separated sequence of ranges and single items:
+
+   1. single-item ::= number
+   2. range ::= number hyphen number
+   3. rs ::= range | single-item
+   4. list ::= rs | list comma rs
+   5. external-list ::= list period
+   6. This is the grammar describing our input (and also output).
+      Written in "extended" BNF.  It assumes "standard" tokens for
+      numbers, hyphen, and period.
+   7. Read an introduction to  [[../../Languages/Grammars/][Grammars]]
+
+3. A list denotes the union of the sets denoted by the rs items it contains.
+   1. setoflist( [ars period] ) ::= setofoneitem(ars).
+   2. setoflist(q + [comma, ars, period]) ::= setoflist(q) +
+      setofoneitem(ars).  Here q is a list as defined above.  The plus
+      denotes catenation in the lhs, and set union in the rhs.
+
+4. The input "file" is expected to contain well-formed sequences that
+   conform to the above external-list.
+
+** List of Output Items
+
+1. The list ol that the program generates should be equal, as
+   a set, to the input list il.
+   1. setoflist(ol) == setoflist(il).
+
+1. The list ol is the shortest of all such lists: 
+   1. if a list ls != ol exists such that setoflist(ls) == setoflist(ol)
+      then length(ls) > length(ol).
+
+1. The items in the list ol are in the increasing order.  That is, if
+   r_i and r_j, i < j, are two ranges appearing in ol, then
+       1. the second number of r_i is less than the first number of
+          r_j, that is r_i.2  < r_j.1
+       1. For the purpose of this rule, a single item x is to be taken
+          as a range x-x.
+
+
+** Length
+
+1. The lists are sequences of parse-able entities: rs, comma, rs,
+   comma, ..., period. The rs itself is a sequence; it is a 3-long
+   sequence if it is a range, a 1-long sequence if it is a single
+   item.
+   1. rslen(rs) ::= 3, if rs is a range
+   2. rslen(rs) ::= 1, if rs is a single item
+
+2. Unless we define length function carefully, we will permit a single
+   item x to appear as a range x-x in the output list.
+
+   1. length([rs, period]) ::= rslen(rs)
+   2. length(q + [comma, rs, period]) ::= length(q) + 1 + rslen(rs)
+      The plus denotes catenation in the lhs, and arithmetic plus in
+      the rhs.
+
+
+* A First Design
+
+//* This first design appears inefficient, but it can be refined and
+implemented in such a sophisticated way that it is faster than the
+second design shown later. *//
+
+** VHLL Psuedo Code 
+
+The pseudo code is shown in VHLL (very high level language).
+
+#+begin_src psuedo
+var nums: set of numbers := {};
+
+input-bgn(input-fnm);
+repeat
+  nums := nums + set-of(input-one-rs());
+until input-next-token() == period;
+input-end();
+
+ol-initialize();
+while nums != {} do
+  var m: number := min-of(nums);
+  var n: number := m;
+  repeat
+    nums := nums - {n};
+    n := n + 1;
+  until n not-in nums;
+  ol-append(m, n-1);
+od;
+ol-period();
+#+end_src
+
+The nums is stored as a set data type provided by the VHLL design
+language.  The first loop construct the set of numbers represented by
+the input.  The second loop constructs the shortest list of ranges.
+
+** Operations Assumed
+
+The design imagines the file content to be a /stream of tokens/: =rsf=
+is an imaginary stream variable conceptually denoting the tokens read
+so far; =ytr= is a similar var denoting the file content yet to be
+read.
+
+A `filter' that accomplishes the above is, strictly speaking,
+a part of this and the next design. To save space, and to avoid
+discussing the well-known, we skip the design of such a lexical
+analyzer.
+
+#+begin_src pseudo
+proc input-bgn(fnm: string)  // open/initialize input stream
+  pre : file-exists(fnm)
+  post: rsf ==  <>, ytr == file-content(fnm)
+
+proc input-end()            // close/finalize input stream
+  pre : is-defined(ytr)
+  post: rsf ==  file-content(fnm), ytr ==  < >
+
+func input-next-token(): token  // gives the next token from the input.
+  pre : ytr !=  < >
+  post: result ==  ytr0[1], rsf == rsf0 | result, ytr == ytr0[2 ..]
+
+func input-one-rs(): rs
+  // gives a representation of the next rs from the input.
+  // The rs may be a range or a single item.
+  pre : well-formed(ytr)
+  post: exists i: {0, 1, 3} (
+    result  ytr0[1 .. i], rsf == rsf0 | result, ytr == ytr0[i+1 ..],
+    i == 0 - > ytr[1] ==  period,
+    i == 1 - > ytr[1]  == comma,
+    i == 3 - > result[2] == hyphen
+    )
+#+end_src
+In the above, =rsf0= used in the post stands for the value =rsf= had
+at the entry point.  Similarly for =ytr0=.
+
+
+#+begin_src pseudo
+
+func set-of(r): set of numbers
+  // yields a set of numbers represented by the r.
+  pre : is-rs(r)
+  post: result == setofoneitem(r)
+
+func min-of(A: set of number): number
+  pre : A != {}
+  post: result in A, for-all e: A (result <= e)
+
+infix + (A: set of T, B: set of T)  == A union B.
+infix - (A: set of T, B: set of T)  == A difference B.
+infix not-in (e: T, A: set of T)  not (e member-of A)
+
+proc ol-initialize() ... // for you to finish!
+proc ol-append() ...
+proc ol-period() ...
+#+end_src
+
+* Second Design
+
+** Design Idea
+
+//* This concentrates on how to represent ranges. You will agree that
+it is a lower-level (i.e., closer to the machine) design than the
+first design. *//
+
+The set is stored as an array of ranges. Each range is stored as
+a pair of, its lowest and highest, numbers. The array may or may not
+be kept sorted.
+
+** Psuedo Code
+
+This code is not as obvious as that of the previous design. Also,
+even to understand it vaguely requires the detailed meaning of the
+primitive operations.
+
+#+begin_src pseudo
+var numa: grow-shrink array of pairs of numbers : create-empty();
+
+input-bgn(input-fnm);
+repeat
+  numa-append(numa, input-one-rs());
+until input-next-token() == period;
+input-end();
+
+out-bgn()
+while not numa-empty() do
+  var x: number : numa-index-of-min();
+  var m: number : numa[x].1;  // .1 means first of the pair
+  var n: number : numa[x].2;  // .2 means second
+  repeat
+    n := n + 1;
+  until numa-ix-delete(n-1) ==  0;
+  out-append(m, n-1);
+od;
+out-end();
+#+end_src
+
+** Operations Assumed
+
+A filter that accomplishes the lexical analysis is a part of this and
+the previous design.
+
+#+begin_src pseudo
+proc out-bgn()
+  pre : true
+  post: out == ""
+
+proc out-append(x, y: number)
+  pre : x  <= y
+  post: exists s, t: string (
+    out  out0 | s | t,
+    x == y - > t  itoa(x),
+    x  < y - > t  itoa(x) | "-" | itoa(y),
+    s == if out0 ==  "" then "" else "," fi
+  )
+ 
+proc numa-append(m, n: number)
+  pre : true
+  post: numa == if m  <= n then  numa0 |  <m, n > else numa0 fi
+
+proc numa-ix-delete(b: number): number
+  // function with side-effect on numa[]
+  // if numa has a range that includes b delete that range, and
+  // return the index of the deletion; otherwise return 0
+  pre : true
+  post: (result == 0) && not-in-numa(b) && (numa == numa0)
+    or (
+      (numa0[result].1  < b) && (b  < numa0[result])
+      && (numa == numa0[1..result-1] | numa0[result+1..]))
+
+aux func not-in-numa(b: number): boolean is
+  not exists i: 1..len(numa) st
+    (numa[i].1  <= b) && (b  <= numa[i].2)
+
+func numa-index-of-min(): number
+  // deliver the index of the range with the least first number
+  pre : numa non empty
+  post: numa == numa0 &&
+    numa[result].1 == min { numa[i].1 st i in 1..len(numa)}
+#+end_src
+
+
+* Implementation
+
+Your exercise! Part of HomeWork#1.  In Java8+, or Kotlin.  45 points.
+Later, we will use this code during discussions of Testing, etc.
+
+
+1. (40) Design and implement in Java two solutions to the Condense the
+   Numerical Ranges (CNR) Problem.  Use the above designs.  If you
+   prefer other designs, you must also include your design
+   descriptions.
+
+1. (60) Write entry- and exit-assertions for all (well, longer than 10
+   lines) the methods, and all class invariants.
+
+1. (30) Outline a rigorous (executable?) specification that every CNR
+   program should satisfy.
+
+1. (50) Correctness must be the focus.  Not efficiency.
+
+1. (20) Include test results for at least 200 examples.
+
+1. (10) Must build cleanly with the latest Java8+.  Note that Java10
+   is around the corner.  Use a build system of your choice: ant,
+   maven or gradle.
+
+1. (10) Write one or two paragraphs reporting on how you discovered and
+   revised the classes, and on your experience with the tools you used
+   to carry out this assignment.
+
+
+* Questions
+
+1. What does our spec require the program to produce for 1,2 as input?
+   Is it consistent with the requirements?
+
+1. What about input, such as, 6, 7, 8?
+
+1. How do we check if the specs are specifying what the requirements
+   are describing?
+
+1. Same question between design(s) and specs.
+
+1. In one of the examples we had a fairly large number, 87654321.
+   Which design works best for this?
+
+1. There are minor flaws in the specs.  Discover and fix.
+
+1. Give loop invariants and class invariants.
+
+
+* Pedagogical Confessions
+
+I began writing the specifications precisely. In the process I
+discovered the ambiguities in the problem statement, and resolved
+them as explained in requirements analysis.
+
+I wrote the psuedo code design first, and then defined more
+precisely the operations that I used in the design.
+
+Of course, there are numerous other designs that are equally good. I
+deliberately chose this second one because every student in my classes
+so far constructs the linked list of input ranges so that they are in
+non-decreasing order without duplicates or overlapped ranges. Do I
+know why they instinctively do that? No.
+
+Unless one gets into representing the set, of the first design, in
+sophisticated ways, the second design is pretty efficient. Asymptotic
+time bounds are rarely relevant in software engineering; in any case,
+that was not the point of this exercise.
+
+
+* Background
+
+1. [[../../Languages/Grammars/][An introduction to Grammars]]
+2. [[../..//Specs/specs-101.org][Specs 101]]
+3. A description of our [[../../Design/vhll.org][VHL Design Language]]
+4. [[../../OODesign/design-by-contract.org][Design by Contract]]
+
+
+
+* End
+
+1. This file was re-edited from the original LaTeX file, and may
+   contain some typos.
+1. Change log 2020-09-09 fixed the notations [] vs <> and | vs +
+
+
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:
+

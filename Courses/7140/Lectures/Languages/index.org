@@ -1,0 +1,38 @@
+# -*- mode: org -*-
+#+DATE: 2020-08-05
+#+TITLE: PLs for Software Engineering
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+Large software systems are frequently composed of subsystems written
+in different PLs.  Of all factors, languages have the most influence
+on the quality of software developed.
+
+
+1. [[./surveys.org][Language Popularity Surveys]]
+2. [[./students.org][PLs for Graduate Students in Computer Science and Engineering]]
+
+1. [[./Grammars/ast-notes.org][Grammars, Derivation Trees, Abstract Syntax Trees]]
+
+3. [[./paradigms.org][Programming Paradigms]]
+   1. Procedural Paradigm
+   2. Functional Programming
+   3. Logic Programming.
+1. [[./Java][Java, Scala and Kotlin]] https://en.wikipedia.org/wiki/Java_version_history
+1. [[./C++][C++ Std 2014, 2017]]
+1. [[./Python][Python]]
+1. [[./DSL][DSL]] (Domain Specific Languages)
+
+
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-10-01 Thu 00:30 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Knuth's Common Words Problem Spec/Design</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<meta name="description" content="Software Engineering"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Knuth's Common Words Problem Spec/Design</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org25f2631">1. CWP (Common Words Problem)</a></li>
+<li><a href="#org8841354">2. Design of Knuth's Program for CWP</a></li>
+<li><a href="#orgd8b079b">3. CWP Spec</a></li>
+<li><a href="#orgfcee0a6">4. CWP Design</a>
+<ul>
+<li><a href="#orgc3197e4">4.1. Phase 1: Build the bag of words in the file</a></li>
+<li><a href="#org40ea971">4.2. Phase 2: Sort the Bag B into a Sequence Q</a></li>
+<li><a href="#orge63918d">4.3. Meta Comments</a></li>
+</ul>
+</li>
+<li><a href="#org6e80e3a">5. CWP Design Refinements Hierarchy</a>
+<ul>
+<li><a href="#org1a7d139">5.1. Bags refined as Tables</a></li>
+<li><a href="#orgb4558db">5.2. Tables refined as n-ary Trees</a></li>
+<li><a href="#orgf08c7ee">5.3. n-ary Trees refined as Plain Tries</a></li>
+<li><a href="#orgc15aed5">5.4. Plain Tries refined as Ringed Tries</a></li>
+<li><a href="#orgd4ce01a">5.5. Ringed Tries refined as Hash Tries</a></li>
+</ul>
+</li>
+<li><a href="#org2b5481e">6. Hashed Trie</a></li>
+<li><a href="#orgde27de9">7. Construct the List of (Words, nOccurs) sorted by nOccurs</a>
+<ul>
+<li><a href="#org5c15c90">7.1. Background on Tree Traversals</a></li>
+<li><a href="#org5b72c9f">7.2. Traversal of Hash Trie</a></li>
+</ul>
+</li>
+<li><a href="#org9b47331">8. Criticism of Knuth's Solution</a></li>
+<li><a href="#org2f889e0">9. Exercises</a></li>
+<li><a href="#orge7ac09a">10. References</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org25f2631" class="outline-2">
+<h2 id="org25f2631"><span class="section-number-2">1</span> CWP (Common Words Problem)</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>"Given a file of text, and a number k, print the k most common words."</li>
+<li>Used as an example of Literate Programming, the art of preparing
+programs for human readers.  See <a href="../../Design/design-doc.html">../../Design/design-doc.html</a>.</li>
+<li>Our interest here:  How to describe its spec + design?</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org8841354" class="outline-2">
+<h2 id="org8841354"><span class="section-number-2">2</span> Design of Knuth's Program for CWP</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>Let us not question: Why do we need such a complex design?</li>
+<li>Instead: How do we describe this design?</li>
+<li>Instead: Did Knuth describe the design or the implementation?</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd8b079b" class="outline-2">
+<h2 id="orgd8b079b"><span class="section-number-2">3</span> CWP Spec</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>The focus of this lecture is the design.  But, we should be clear
+about the specs.</li>
+<li>Defs of text, words, &#x2026; Straightforward.</li>
+<li>Def of "common" word.</li>
+<li>"Most Common"?  (Based on #occurrences in the given file.)</li>
+<li>Mateti(2013) <a href="../../../PDF/cwp-pmateti-2013.pdf">../../../PDF/cwp-pmateti-2013.pdf</a> Section 2.1</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgfcee0a6" class="outline-2">
+<h2 id="orgfcee0a6"><span class="section-number-2">4</span> CWP Design</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>Design Description of CWP needs several levels.</li>
+<li>See  <a href="../../Design/correct-by-design.html">../../Design/correct-by-design.html</a> for S |= D  (Design D meets Spec S)</li>
+<li>S |= D1 |= D2 |= &#x2026; |= Implementation</li>
+</ol>
+</div>
+
+<div id="outline-container-orgc3197e4" class="outline-3">
+<h3 id="orgc3197e4"><span class="section-number-3">4.1</span> Phase 1: Build the bag of words in the file</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>Our pseudo code permits many special characters as part of an
+identifier, as in Scheme.</li>
+
+<li>Scanner Design (not shown here) provides
+<ol class="org-ol">
+<li>initialize-the-scanner-with-the-file();</li>
+<li>next-word-from-scanner()</li>
+<li>close-the-scanner-and-the-file();</li>
+</ol></li>
+
+<li><p>
+Psuedo-code
+</p>
+
+<ol class="org-ol">
+<li>B is a bag of words occurring in the file scanned so far</li>
+<li>union with lhs notation is +=</li>
+<li>The : = {} and  += operations should be provided by the design of B</li>
+</ol>
+<pre class="example">
+initialize-the-scanner-with-the-file();
+B := {} # empty bag
+while not-at-eof do
+  B += { next-word-from-scanner() };
+od
+close-the-scanner-and-the-file();
+
+</pre></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org40ea971" class="outline-3">
+<h3 id="org40ea971"><span class="section-number-3">4.2</span> Phase 2: Sort the Bag B into a Sequence Q</h3>
+<div class="outline-text-3" id="text-4-2">
+<ol class="org-ol">
+<li><p>
+Sort the Bag into an ordered sequence based on word-counts
+</p>
+<ol class="org-ol">
+<li>A design provides (to be shown later)  sort-the-bag-*</li>
+</ol>
+<pre class="example">
+Q := sort-the-bag-word-count-based(B); assert bag(Q) == B;
+print Q[0 .. k-1];
+
+</pre></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orge63918d" class="outline-3">
+<h3 id="orge63918d"><span class="section-number-3">4.3</span> Meta Comments</h3>
+<div class="outline-text-3" id="text-4-3">
+<ol class="org-ol">
+<li>The above can be claimed as a "canonical" design solution.  That
+is, we cannot design in some other way, or without the two phases.</li>
+
+<li>We can refine the design into a distributed/ concurrent
+one where B and Q are built simultaneously.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org6e80e3a" class="outline-2">
+<h2 id="org6e80e3a"><span class="section-number-2">5</span> CWP Design Refinements Hierarchy</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Recall: D<sub>2</sub> is-a-refinement-of D1, D<sub>1</sub> |= D<sub>2</sub>
+<ol class="org-ol">
+<li>D<sub>1</sub> is an <i>abstraction</i> of D<sub>2</sub></li>
+<li>See  <a href="../../Design/correct-by-design.html">../../Design/correct-by-design.html</a></li>
+</ol></li>
+
+<li>How do we progress from a simple bag of words B (phase 1) to n-ary
+hash trie?  In five steps.</li>
+<li>The bag of words B can be read out in each design.</li>
+</ol>
+</div>
+
+<div id="outline-container-org1a7d139" class="outline-3">
+<h3 id="org1a7d139"><span class="section-number-3">5.1</span> Bags refined as Tables</h3>
+<div class="outline-text-3" id="text-5-1">
+<ol class="org-ol">
+<li>Rows of (Word, nOccurs) pairs</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb4558db" class="outline-3">
+<h3 id="orgb4558db"><span class="section-number-3">5.2</span> Tables refined as n-ary Trees</h3>
+<div class="outline-text-3" id="text-5-2">
+<ol class="org-ol">
+<li>Collection of (Word, nOccurs) as an n-ary tree</li>
+<li>ex: <a href="../../../PDF/cwp-nary-tree.pdf">cwp-nary-tree.pdf</a>, a node has upto 26 children</li>
+<li>Is a Prefix of a Word a Word?  Yes.</li>
+<li>Sorted on the spelling</li>
+<li>Why? Efficient search to locate place of insertion</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgf08c7ee" class="outline-3">
+<h3 id="orgf08c7ee"><span class="section-number-3">5.3</span> n-ary Trees refined as Plain Tries</h3>
+<div class="outline-text-3" id="text-5-3">
+<ol class="org-ol">
+<li>ex: <a href="../../../PDF/cwp-plain-trie.pdf">cwp-plain-trie.pdf</a></li>
+<li>A more space efficient trie: Two liks per node, not 26</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgc15aed5" class="outline-3">
+<h3 id="orgc15aed5"><span class="section-number-3">5.4</span> Plain Tries refined as Ringed Tries</h3>
+<div class="outline-text-3" id="text-5-4">
+<ol class="org-ol">
+<li>Gather siblings into a circular list, sorted reverse alphabetically</li>
+<li>Introduce a header node</li>
+<li>Parent points to header</li>
+<li>ex: <a href="../../../PDF/cwp-ringed-trie.html">cwp-ringed-trie</a>.pdf</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd4ce01a" class="outline-3">
+<h3 id="orgd4ce01a"><span class="section-number-3">5.5</span> Ringed Tries refined as Hash Tries</h3>
+<div class="outline-text-3" id="text-5-5">
+<ol class="org-ol">
+<li>Concrete data structure: An array of Items.</li>
+<li>Each item: a structure/ record of 4 data members</li>
+<li>View it as a table of 4 columns, named
+<ol class="org-ol">
+<li>link, ch, sibling, and count</li>
+<li>ex: <a href="../../../PDF/cwp-hash-trie.pdf">cwp-hash-trie.pdf</a> .</li>
+</ol></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2b5481e" class="outline-2">
+<h2 id="org2b5481e"><span class="section-number-2">6</span> Hashed Trie</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>CWP final design uses a hash trie. ex: <a href="../../../PDF/cwp-hash-trie.pdf">cwp-hash-trie.pdf</a> .</li>
+
+<li>Why a Hash Trie?
+<ol class="org-ol">
+<li>Pro: Space efficiency</li>
+<li>Con: Code complexity increase</li>
+<li>Pro: Pointers (addresses) replaced with offsets</li>
+<li>To show off Literate Programming</li>
+</ol></li>
+
+<li>Recall: The : = {} and += operations should be provided by the
+design of B and all its refinements.</li>
+
+<li>Construct an empty hash trie.</li>
+<li>Add a word into the hash trie.  May run into a collision.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgde27de9" class="outline-2">
+<h2 id="orgde27de9"><span class="section-number-2">7</span> Construct the List of (Words, nOccurs) sorted by nOccurs</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li>Sort the collection of words based on nOccurs (Phase 2) into a sequence.</li>
+<li>Many simple design solutions do exist.  Knuth chose a complex design.</li>
+</ol>
+</div>
+
+<div id="outline-container-org5c15c90" class="outline-3">
+<h3 id="org5c15c90"><span class="section-number-3">7.1</span> Background on Tree Traversals</h3>
+<div class="outline-text-3" id="text-7-1">
+<ol class="org-ol">
+<li>Consider, e.g., in-order binary tree traversal.</li>
+<li>Straightforward to write a recursive traversal.</li>
+<li>Straightforward to convert that into a non-recursive traversal, but
+using a stack of nodes (as a reminder list of nodes to be
+traversed).</li>
+<li>Suppose we "forbid" the use of a stack.  How exactly do we forbid?</li>
+<li>We forbid the declaration of a stack using memory apart from the
+storage of the binary tree.</li>
+<li>In a  binary tree of n nodes, half its links are nil/ null.</li>
+<li>Clever algorithms now exist that build a stack with these null-links.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org5b72c9f" class="outline-3">
+<h3 id="org5b72c9f"><span class="section-number-3">7.2</span> Traversal of Hash Trie</h3>
+<div class="outline-text-3" id="text-7-2">
+<ol class="org-ol">
+<li>Knuth's CWP <i>destructively</i> traverses the hash trie</li>
+<li>We skip it.  Beyond the scope of this course.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9b47331" class="outline-2">
+<h2 id="org9b47331"><span class="section-number-2">8</span> Criticism of Knuth's Solution</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li>Others criticized as an example of software development.
+<ol class="org-ol">
+<li>"Faberge Egg!"</li>
+<li>Equivalent shell script with pipes using standard Unix/Linux
+utilities (McIlroy, p480, CACM 1986)</li>
+</ol></li>
+
+<li>Our criticism is that Knuth's article was not "good documentation."
+It only described the <b>implementation</b> made to meet an intuitive
+problem statement.  The design and spec were never documented.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org2f889e0" class="outline-2">
+<h2 id="org2f889e0"><span class="section-number-2">9</span> Exercises</h2>
+<div class="outline-text-2" id="text-9">
+<ol class="org-ol">
+<li>Exercise: The figure shown in <a href="../../../PDF/cwp-hash-trie.pdf">cwp-hash-trie.pdf</a> is a hash trie.
+Draw its abstraction that we called a Ring Trie.</li>
+<li>Exercise: Row 3021 has an error (ch should be 20 not 21).  Trace
+how this row represents the word "bent".</li>
+<li>Exercise: Develop a Java class of the Hash Trie.  [An
+implementation-level Pascal src code is in Knuth's paper.]</li>
+<li>Exercise: Develop a literate program edition of the above in Java.
+Use any of the tools mentioned at <a href="http://www.literateprogramming.com/">http://www.literateprogramming.com/</a></li>
+<li>Exercise: What is the class invariant of the Hash Trie?</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orge7ac09a" class="outline-2">
+<h2 id="orge7ac09a"><span class="section-number-2">10</span> References</h2>
+<div class="outline-text-2" id="text-10">
+<ol class="org-ol">
+<li>Donald E. Knuth, "A Solution to the Common Words Problem",
+Communications of the ACM, 1986.  Knuth is a Turing Award winner.
+(local PDF <a href="../../../PDF/cwp-knuth-cacm-1986.pdf">../../../PDF/cwp-knuth-cacm-1986.pdf</a> of Knuth's paper, but search
+for another  PDF link for a clean version).  Required Reading.</li>
+
+<li>Reviews of Knuth's solution by David Hanson, John Gilbert,
+Communications of ACM (Literate Programming column), July 1987,
+594 - 599.  Recommended Reading.</li>
+
+<li>Prabhaker Mateti, Rigorous Re-Design of Knuth's Solution to the
+Common Words Problem, <a href="../../../PDF/cwp-pmateti-2013.pdf">../../../PDF/cwp-pmateti-2013.pdf</a> 45pp, 2013.
+<a href="../../../PDF/cwp-pmateti-highlighted-full-2018.pdf">../../../PDF/cwp-pmateti-highlighted-full-2018.pdf</a> reformatted, 2018, now 14pp.
+<ol class="org-ol">
+<li><a href="../../../PDF/cwp-pmateti-highlighted-full-2018.pdf">Full version</a>: Recommended Reading.</li>
+<li><a href="../../../PDF/cwp-pmateti-highlighted-full-2018.pdf">Boxed + highlighted portions</a>: Required Reading.</li>
+</ol></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2020 &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2020-09-25
+</div>
+</body>
+</html>

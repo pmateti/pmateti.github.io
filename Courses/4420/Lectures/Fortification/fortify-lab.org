@@ -1,0 +1,234 @@
+# -*- mode: org -*-
+#+date: 2020-09-15
+#+TITLE: Lab: Config and Pruning and Grafting
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2020 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:2
+
+* Overview
+
+Millions of machines connected to the Internet are personal machines
+running Windows and Linux, with little supervision from system
+administrators.  These have become targets of script kiddies. The
+lectures on Config and Fortification and the associated lab
+experiments are intended to help configure and fortify personal
+systems running Linux.
+
+** Objectives
+
+This lab deals with a few config and fortification steps, postponing
+hardening etc. to later labs.
+
+1. Recognize that out of the box installations of OS are insecure.
+
+1. Examine a Linux installation for what needs to be pruned.  Reducing
+   the installed footprint is considered a reduction of attack
+   surface.
+
+1. We also need to be proactive in observing suspicious events and
+   take action.
+
+** Background
+
+1. This lab is not net-centric; so there is no need for the NetUtils
+   setup.
+
+1. This lab asks for a certain number of fixes in the categories of
+   (i) properly configured, and (ii) fortified,  (iii) postponing
+   hardening to a later lab.  
+
+1. Write the fixes you suggest as a bash script named
+   =configProperly.sh= that can be applied by root.  Include these
+   scripts as appendices to the lab report.  These scripts can include
+   commands such as =wget URL= or =apt-get install/remove package=.
+   You are welcome to use a scripting language other than =bash=; change
+   the file name extension accordingly.
+
+1. Should you be unable to find such fixes, report on what you
+   discovered, and stake a claim that the Linux distribution you chose
+   was "so perfect".  If we discover otherwise, you will earn
+   corresponding negative points.
+
+** Prerequisite: Install a Modifiable Linux
+
+1. Install a Linux distribution of your choice, that you are able to
+   modify at will.
+   1. This can be the multiboot USBD you created in an earlier lab.
+      You will need to mount the system rw (read-and-write).  The
+      so-called frugal-install can be mounted rw, but requires
+      know-how not covered in the lectures.
+   2. The ISO loop-mount based installs will-not do.
+   3. The easiest is to install an Ubuntu family distro, onto a USBD
+      *as if it is a HDD*.  You will need a USB drive of 8 GB or
+      higher capacity.
+   2. Should you wish to work with non-Ubuntu distros, adapt the
+      details given below appropriately.
+
+1. Establish at least 5 ordinary users with names and passwords of
+   your choice.  Learn how to to do this as a script.  Include the
+   script in your submission.
+
+1. We will refer to this installation as LXU.  Boot the PC into LXU.
+   Login as needed.  Login as an ordinary user or as root.
+
+* Tasks
+
+** Task:  DAC Examples
+
+1. Take five examples as-is from LXU and explain file and process
+   ownership DAC ideas.
+
+1. Find and report all files with peculiar permissions.  Examples: (i)
+   no permissions given =--- --- ---=, (ii) executable but not
+   readable, (iii) readable for group and others but not the owner,
+   (iv) unsearchable directories, etc.
+
+1. Files and directories whose names begin with a dot are unlisted by
+   =ls= unless =-a= flag is used.  Find and report all such files and
+   directories whose size is larger than 10 MB.
+
+1. Should root be allowed to login? Ubuntu/ Debian do not assign a
+   passwd to root.  Discuss the pro/cons of this choice.
+
+1. How will you assign a password to root?
+
+1. What is the purpose of =/etc/securetty=?  The default installed has
+   many unnecessary entries.  Trim it.
+
+** Task:  AppArmor and Google Chrome
+
+1. [[https://wiki.ubuntu.com/AppArmor][AppArmor]] is a Mandatory Access Control (MAC) system. This is
+   installed by default on Ubuntu systems.  Related files are at
+   =/etc/apparmor*=.
+
+1. Install Google Chrome browser for Linux.  Develop an AppArmor
+   profile for Google Chrome based on the
+   =/etc/apparmor.d/usr.bin.firefox= profile.  This should be
+   your own work.  Include appropriate citations. Do not submit
+   cut-n-paste of what you may find by googling.
+
+** Task: Examine sudoers, SUID Programs and Scripts
+
+1. The =/etc/sudoers= file has a line
+   : root ALL=(ALL:ALL) ALL
+   Suppose we delete this line.  What privileges does the root user lose?
+
+1. Out of the 5 users you created (let us call them U1 .. U5), permit
+   two users, U1 and U2, to be able to =mount=, =umount= but no other
+   priviledged commands.  Assign two users U3 and U4 to group sudo.
+   Make appropriate changes so that U5 can do everything that root
+   can.  Explain your work.  Include the revised /etc/sudoers in the
+   lab pdf.
+
+1.  Discover all suid scripts and programs on LXU.  The following
+    examines only /bin.
+   : find /bin -user root -perm -4000
+
+1. For five of these, write a paragraph either defending its presence
+   or suggesting its suid status removal.
+
+1. Does rewriting scripts into programs improve security?  Discuss.
+
+** Task: Prune Installed Software
+
+1. Take stock of what software is installed on LXU.  
+1. Starting from LXU, uninstall at least two packages, without
+   breaking the installation.  Imagine that LXU is intended for use
+   only in support of this course.  Why did you choose the two?
+
+** Task: Add System Log  Analyses
+
+1. Linux records various logs in =/var/log/*=.  There is a log
+   rotation system.  To be aware of the logs manually is a tedious
+   task.  There are several log analyses tools that help.  See e.g.,
+   1. https://www.tecmint.com/best-linux-log-monitoring-and-management-tools/
+   2. http://www.pinoylinux.org/system-adminstration/open-source-sysadmin-resources/
+      Monitoring and Security sections
+
+1. Install and experience a tool of your choice that analyzes log
+   reports found in =/var/log/=.
+
+1. Install the monitoring tool: =apt install auditd= and then reaad
+   =man auditd= .   For an example ruleset, read
+   https://security.stackexchange.com/questions/4629/  
+
+1. The =auditd= package ships with some example configuration files
+   based on a few standards.  They can be found at
+   =/usr/share/doc/auditd/examples/=.  Tailor one example to suit the
+   needs of this course, as you see fit.
+
+* Optional Bonus Tasks
+
+** Task: Revive Bastille Linux Script
+
+1. https://sourceforge.net/projects/bastille-linux/ Bastille Linux is
+   a script which enhances the security of a Linux box, by configuring
+   daemons, system settings and firewalling.  It functions on
+   most major Linux distributions, but has been inactive for
+   years.
+
+1. Make this run properly on LXU and submit the report it generates.
+
+** Task: Add Rootkit Detection
+
+1. Linux systems have not generally experienced virus attacks.  But,
+   worm attacks, backdoors and rootkits have happened enough times.
+
+1. Defend your LXU by installing a rootkit detector and schedule its
+   runs periodically.
+
+1. Ex: =chkrootkit=, =rkhunter=
+
+** Task: [Devious] Rootkit Installation
+
+1. https://packetstormsecurity.com/ is a whitehat site that hosts the
+   sources of several exploits and attacks for research.
+
+1. Find a rootkit source package and make it work within LXU.
+
+1. E.g., Vlany is a Linux 2016 rootkit "that provides process hiding,
+   user hiding, network hiding, LXC container, anti-debug,
+   anti-forensics, persistent reinstalls, dynamic linker
+   modifications, backdoors, and more."
+
+
+* Submission
+
+1. You must follow the [[../Overview/labReports.html][Lab Report Template]].  There should be a section
+   on each of the tasks.  A couple of lines of an answer to each
+   (implied/ explicit) question/ discussion item.
+1. Use good judgement and do not make the report way
+      longer than, say, 20 pages.  Submit explanations and code that
+      verifies your answers.
+1. The Lab Report should include a section that describes the chosen
+   LXU briefly, and a detailed section explaining the rationale behind
+   the changes (what and why) you suggest.
+1. Submit a PDF file named *exactly* =Report-L2.pdf=. (Scripts are
+   used to check various things -- so file names should obey such
+   "rules".)
+
+* References
+
+1. Prabhaker Mateti, [[../Fortification/]] 2020. Required Reading.
+1. Prabhaker Mateti, [[../KernelExploits/RootKits/]].  2019. Required Reading.
+
+1. wikipedia.org,
+   http://en.wikipedia.org/wiki/Category:Linux_security_software 2020.
+   Required Visit.
+
+1. [[https://www.howtogeek.com/118222/htg-explains-what-apparmor-is-and-how-it-secures-your-ubuntu-system/][What Is AppArmor, and How Does It Keep Ubuntu Secure?]] by Chris
+   Hoffman on September 28th, 2016.  Required Reading.
+
+1. Jay Beale,   [[https://www.symantec.com/connect/articles/bastille-linux-walkthrough][bastille-linux-walkthrough]] 2000. Recommended
+   Reading.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

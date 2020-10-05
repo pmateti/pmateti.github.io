@@ -1,0 +1,66 @@
+# -*- mode: org -*-
+#+date: 2018-11-04
+#+TITLE: Code Injection
+#+AUTHOR: Prabhaker Mateti
+#+DESCRIPTION: Mateti: Android Internals and Security
+#+HTML_LINK_HOME: ../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "%d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+[TBD fix links]
+
+* Stack Smashing
+
+1. This is the core discussion.
+1. [[../../BufferOverflow]] Overview + Prevention  Required
+
+1. [[../AlephOne/]] [Aleph One Classic]  Required
+
+1. [[../modret/]] BufferOverflow-modReturnAddress-acer602-20080507.html modret.c by Prabhaker Mateti
+
+
+* ASLR Address Space Layout Randomization
+
+1. ASLR is a mitigation technique.
+1. [[./ASLR]]
+
+1. Android Framework Component: Zygote, Morula
+1. Android Disassembly & Code Injection http://www.syssec-project.eu/m/page-media/158/syssec-summer-school-Android-Code-Injection.pdf
+1. [[./ASLR-utaustin-2009.ppt]] ASLR Address Space Layout
+   Randomization. Required Reading.
+
+* ROP Return Oriented Programming
+
+1. Carlini, Nicholas, and David Wagner. "ROP is still dangerous:
+   Breaking modern defenses." In USENIX Security Symposium. 2014.
+   Required Reading
+
+1. [[./ROP/]]
+
+* References
+
+1. Ryan Roemer, Erik Buchanan, Hovav Shacham and Stefan Savage,
+   "Return-Oriented Programming: Systems, Languages, and
+   Applications", University of California, San Diego, 2012;
+   https://cseweb.ucsd.edu/~hovav/dist/rop.pdf  Reference
+   https://www.blackhat.com/presentations/bh-usa-08/Shacham/BH_US_08_Shacham_Return_Oriented_Programming.pdf
+   Required Reading
+
+1. http://www.cydiasubstrate.com/ A Code Modification Platform. "While
+   Android itself is "open", the devices that run it often
+   aren't. Before installing Substrate, you will first need to get
+   root access on your device."  Recommended Install.
+
+1. Yves Younan, Wouter Joosen and Frank Piessens, "Runtime
+   countermeasures for code injection attacks against C and C++
+   programs ", ACM Computing Surveys , 44(3), 2012.  Recommended
+   Reading.
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

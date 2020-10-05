@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Linux Security Modules (LSM) [WIP]</title>
+<!-- 2018-11-01 Thu 16:00 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Prabhaker Mateti" />
+<meta  name="description" content="WSU CEG 4900/6900 Android Internals and Security"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div><div id="preamble" class="status">
+2015-08-15 <a href="../../Top/"> TOP</a> | <a href="nsa-se-slides.html"> Slides</a>
+</div>
+<div id="content">
+<h1 class="title">Linux Security Modules (LSM) [WIP]</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. LKM (Linux Kernel Modules)</a></li>
+<li><a href="#sec-2">2. LSM (Linux Security Modules)</a></li>
+<li><a href="#sec-3">3. AppArmor</a></li>
+<li><a href="#sec-4">4. SELinux</a></li>
+<li><a href="#sec-5">5. References</a></li>
+<li><a href="#sec-6">6. End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> LKM (Linux Kernel Modules)</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Summary of <a href="./LKM.html">./LKM.html</a>
+</li>
+
+<li>"Modules" of code that are needed in some installations and not in
+others.  If needed always, compile/build as built-ins.
+</li>
+
+<li>Object code file, .ko extension; see <code>/lib/modules/</code>
+</li>
+
+<li><code>insmod</code> loads a module; kernel address space expands,
+now includes the methods of the module; some of them are syscalls.
+</li>
+<li><code>rmmod</code> unload the module; kernel no longer has the module and its
+methods.
+</li>
+<li><code>lsmod</code> list the kernel module currently in the kernel
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> LSM (Linux Security Modules)</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>Goal: Modularize security as much as possible.  An LSM is an LKM.
+</li>
+
+<li><a href="http://elixir.free-electrons.com/linux/latest/source/include/linux/security.h">http://elixir.free-electrons.com/linux/latest/source/include/linux/security.h</a>
+</li>
+<li>hooks := upcalls to a module's methods at security-critical
+points within the kernel
+</li>
+
+<li>An LSM author can control functions called by these hooks to
+enforce policies
+</li>
+<li>Linux also adds an opaque security pointer that LSM can use to
+store security info they need in processes, inodes, sockets, etc.
+</li>
+
+<li>LSM hooks are placed so that the Linux DAC checks are performed
+first, and only if they succeed, is LSM code invoked.
+</li>
+</ol>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Security/ Listing</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+
+<pre class="src src-bash">$ ls /usr/local/src/linux-4.19/security/
+apparmor     device_cgroup.c  integrity  lsm_audit.c  yama
+built-in.a   Kconfig    modules.builtin               selinux
+commoncap.c  inode.c    keys       modules.order      smack
+loadpin      min_addr.c   security.c                  tomoyo
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Access Control with LSM Module</h3>
+<div class="outline-text-3" id="text-2-2">
+
+<div class="figure">
+<p><img src="../Figures/lsm-access.jpg" alt="lsm-access.jpg" align="center" width="80%" />
+</p>
+<p><span class="figure-number">Figure 1:</span> Access Control with LSM Module</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> LSM #2</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li><a href="https://www.kernel.org/doc/htmldocs/lsm/">https://www.kernel.org/doc/htmldocs/lsm/</a> General Security Hooks for Linux
+</li>
+<li>Despite LSM being developed as a security API, LSM provides hooks
+that could be used by rootkits. <a href="http://grsecurity.net/lsm.php">http://grsecurity.net/lsm.php</a>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> LSM #3</h3>
+<div class="outline-text-3" id="text-2-4">
+<ol class="org-ol">
+<li>Opaque Security Fields were added to objects
+</li>
+<li>Security Function Hooks were added in important accesses
+</li>
+<li>A security System Call was added
+</li>
+<li>Registering security modules
+</li>
+<li>Modify capabilities to reduce the capable call
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> LSM #4</h3>
+<div class="outline-text-3" id="text-2-5">
+<ol class="org-ol">
+<li>Additional hooks were provided for working with tasks (nice, kill,
+setuid)
+</li>
+<li>for program loading and controlling inheritance of state across program executions (such as file descriptors)
+</li>
+<li>for IPC
+</li>
+<li>for file ops (read, write, sockets)
+</li>
+<li>for network ops (devices, syscalls, sk-buffs)
+</li>
+<li>for module operations (create, register, delete)
+</li>
+<li>for sytem operations (hostname, accessing I/O ports, process accounting)
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> AppArmor</h2>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> SELinux</h2>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> References</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li><a href="http://www.linux.com/learn/docs/727873-overview-of-linux-kernel-security-features/">http://www.linux.com/learn/docs/727873-overview-of-linux-kernel-security-features/</a>
+<ol class="org-ol">
+<li>Highly recommended reading.
+</li>
+</ol>
+</li>
+
+<li><a href="https://www.kernel.org/doc/html/v4.19/admin-guide/LSM/index.html">https://www.kernel.org/doc/html/v4.19/admin-guide/LSM/index.html</a>
+   Linux Security Module Usage, 2018
+</li>
+
+<li><a href="http://kernsec.org/wiki/index.php/Projects">http://kernsec.org/wiki/index.php/Projects</a> Kernel Security Projects
+</li>
+
+<li><a href="https://github.com/skx/linux-security-modules">https://github.com/skx/linux-security-modules</a> A collection of three
+simple linux security modules, more for learning and
+experimentation than for serious use.
+</li>
+
+<li><a href="http://www.kroah.com/linux/talks/ols_2002_lsm_paper/lsm.pdf">http://www.kroah.com/linux/talks/ols_2002_lsm_paper/lsm.pdf</a> 2002
+Linux Security Module Framework
+</li>
+</ol>
+<p>
+Chris Wright and Crispin Cowan ∗
+WireX Communications, Inc.
+chris@wirex.com, crispin@wirex.com
+James Morris
+Intercode Pty Ltd
+jmorris@intercode.com.au
+Stephen Smalley †
+NAI Labs, Network Associates, Inc.
+sds@tislabs.com
+Greg Kroah-Hartman
+IBM Linux Technology Center
+gregkh@us.ibm.com
+</p>
+
+<ol class="org-ol">
+<li><a href="https://vtluug.org/files/2017/lsm_pew.pdf">https://vtluug.org/files/2017/lsm_pew.pdf</a> 8 slides TBD
+</li>
+<li><a href="http://ics.ajou.ac.kr/~aislab/SC+LKM+LSM.html">http://ics.ajou.ac.kr/~aislab/SC+LKM+LSM.html</a> System Call, LKM, LSM
+<a href="http://ics.ajou.ac.kr/~aislab/SystemCall+LKM+LSM.pdf">http://ics.ajou.ac.kr/~aislab/SystemCall+LKM+LSM.pdf</a> 39 pp
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> End</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2015 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> 2015-08-15
+</div>
+</body>
+</html>

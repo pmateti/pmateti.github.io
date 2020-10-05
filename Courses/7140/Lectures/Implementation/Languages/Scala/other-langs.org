@@ -1,0 +1,19 @@
+
+
+1. http://developers.slashdot.org/story/15/03/10/2038228/was-linus-torvalds-right-about-c-being-so-wrong
+   Nerval's Lobster writes: Perhaps the most famous rant against C++
+   came from none other than Linus Torvalds in 2007. "C++ is a
+   horrible language," he wrote, for starters. "It's made more
+   horrible by the fact that a lot of substandard programmers use it,
+   to the point where it's much much easier to generate total and
+   utter crap with it." He's not alone: A lot of developers dislike
+   how much C++ can do "behind the scenes" with STL and Boost, leading
+   to potential instability and inefficiency. And yet there's still
+   demand for C++ out there. Over at Dice, Jeff Cogswell argues that
+   C++ doesn't deserve the hatred. "I've witnessed a lot of
+   'over-engineering' in my life, wherein people would write reusable
+   classes with several layers of inheritance, even though the
+   reusable class wasn't actually used more than once," he wrote. "But
+   I would argue that's the exception, not the norm; when done right,
+   generic programming and other high-level aspects of C++ can provide
+   enormous benefits." Was Linus going overboard?

@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-08-23 Fri 20:14 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Software Architecture</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<meta name="description" content="Software Engineering"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a>
+</div>
+<div id="content">
+<h1 class="title">Software Architecture</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orga69c844">1. Example: Model-View-Controller (MVC)</a></li>
+<li><a href="#org33b4295">2. Dependency Injection</a></li>
+<li><a href="#orgdc3b661">3. Example: Emacs Architecture</a></li>
+<li><a href="#orgb5cfb1b">4. Examples from Delft Univ Students</a></li>
+<li><a href="#orgf94f85a">5. Definitions</a></li>
+<li><a href="#orgcb882ba">6. Design v Architecture</a></li>
+<li><a href="#orge6c76c8">7. Class Diagrams vs Block Diagrams</a></li>
+<li><a href="#orgd2e55d4">8. References</a></li>
+<li><a href="#org0d1bc0d">9. End</a></li>
+</ul>
+</div>
+</div>
+<p>
+Abstract: Recall that because "software design" does not have a
+consensus on a rigorous definition, we adopted the working definition
+that it is an "abstract program" written in a very high level language
+(VHLL).  There is no consensus on what architecture is either, and we
+take a pragmatic view and consider architecture to be a stylistic and
+structural overview of the design.  In doing so, we are following the
+use of the word "architecture" as in building- or city architectures,
+and differentiate Architecture v Engineering v Construction.  In this
+article, we illustrate using several examples first and then discuss
+definitions and clarifications.  We also sample the extensive
+literature on software architecture that exists now.
+</p>
+
+<div id="outline-container-orga69c844" class="outline-2">
+<h2 id="orga69c844"><span class="section-number-2">1</span> Example: Model-View-Controller (MVC)</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>the Model is the underlying representation of the data being manipulated</li>
+<li>the View presents that data to the user</li>
+<li>the Controller takes the user's interactions (keystrokes, mouse
+gestures, menu selections, and so on) with the View and
+manipulates the Model accordingly.</li>
+<li><a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">From Wikipedia</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org33b4295" class="outline-2">
+<h2 id="org33b4295"><span class="section-number-2">2</span> Dependency Injection</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>TBD is a relatively new and very complex pattern. Introducing
+dependency injection into your project may change a lot of the
+architecture so its wise to plan ahead. To those who think this
+pattern is a bit "backwards" - well, it is an implementation of the
+"Inversion of Control - IoC" concept which does exactly that, it
+inverts the control flow. The name "dependency injection" is
+actually misleading, the pattern lets you inject not the
+dependencies themselves of course, but rather the information to
+satisfy them.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgdc3b661" class="outline-2">
+<h2 id="orgdc3b661"><span class="section-number-2">3</span> Example: Emacs Architecture</h2>
+<div class="outline-text-2" id="text-3">
+
+<div class="figure">
+<p><img src="./emacs-mvc-arch.png" alt="emacs-mvc-arch.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Architecture of Emacs, the all-powerful editor [Chapter 11 of "Beautiful Architecture" book]</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb5cfb1b" class="outline-2">
+<h2 id="orgb5cfb1b"><span class="section-number-2">4</span> Examples from Delft Univ Students</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li><a href="http://delftswa.github.io/">http://delftswa.github.io/</a> DESOSA 2015, 2016, <a href="https://legacy.gitbook.com/download/pdf/book/delftswa/desosa-2017">2017</a> 489pp, 2018.
+Has tech reports on the architecture of several open source
+software products.  E.g., OpenRA, Play Framework, AngularDart,
+Docker, Syncany, Vagrant, Jekyll, Joomla, Kodi, Diaspora, testing
+frameworks (Mockito, JUnit5), ,editors (Neovim, VSCode) and
+visualisation (Kibana)., akka, angularjs, contributions, docker,
+eden, elasticsearch, electron, godot, jenkins, kubernetes,
+lighthouse, loopback, mattermost, mbedos, osu, phaser, react,
+spark, threejs, typescript, vuejs, xmage, arduino, jabref, jupyter,
+kafka, kibana, magento, matplotlib, mockito, neovim, netty, node,
+scrapy, syncthing, vscode.  Highly recommended visit.</li>
+
+<li><a href="https://github.com/delftswa2017/desosa2017/tree/master/gradle">https://github.com/delftswa2017/desosa2017/tree/master/gradle</a>
+Gradle &#x2013; covered under Tools</li>
+<li><a href="https://github.com/delftswa2017/desosa2017/tree/master/junit5">https://github.com/delftswa2017/desosa2017/tree/master/junit5</a>
+JUnit5 &#x2013; covered under Testing</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgf94f85a" class="outline-2">
+<h2 id="orgf94f85a"><span class="section-number-2">5</span> Definitions</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org3f77b07" class="outline-3">
+<h3 id="org3f77b07"><span class="section-number-3">5.1</span> Definition: Software Architecture</h3>
+<div class="outline-text-3" id="text-5-1">
+<ol class="org-ol">
+<li>A set of artifacts (principles, guidelines, policies, models,
+standards, and processes) and the relationships between these
+artifacts, that guide the selection, creation, and implementation
+of solutions aligned with business goals</li>
+<li>Software architecture is the structure of structures of an
+information system consisting of entities and their externally
+visible properties, and the relationships among them</li>
+<li>A software architecture is a description of the subsystems and
+components of a software system and the relationships between them</li>
+<li>Subsystems and components are typically specified in different
+views to show the relevant functional and non-functional properties
+of a software system</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb24e5c5" class="outline-3">
+<h3 id="orgb24e5c5"><span class="section-number-3">5.2</span> Definition: Architectural Style</h3>
+<div class="outline-text-3" id="text-5-2">
+<ol class="org-ol">
+<li>An architectural style is a description of component types and their topology</li>
+<li>It also includes a description of the pattern of data and control
+interaction among the components and an informal description of the
+benefits and drawbacks of using that style</li>
+<li>Architectural styles are important engineering artifacts because
+they define classes of designs along with their associated known
+properties</li>
+<li>They offer experience-based evidence of how each class has been
+used historically, along with qualitative reasoning to explain why each class has its specific properties</li>
+<li>"An architectural style is a coordinated set of architectural
+constraints that restricts the roles/features of architectural
+elements and the allowed relationships among those elements within
+any architecture that conforms to that style."</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgc9aa510" class="outline-3">
+<h3 id="orgc9aa510"><span class="section-number-3">5.3</span> Definition: Framework</h3>
+<div class="outline-text-3" id="text-5-3">
+<ol class="org-ol">
+<li>A set of assumptions, concepts, values, and practices that
+constitutes a way of viewing the current environment</li>
+<li>A software framework is a partially complete software (sub-) system
+that is intended to be instantiated</li>
+<li>It defines the architecture for a family of (sub-) systems and
+provides the basic building blocks to create them</li>
+<li>It also defines the places where adaptations for specific
+functionality should be made</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org9783312" class="outline-3">
+<h3 id="org9783312"><span class="section-number-3">5.4</span> Definition: Architectural Pattern</h3>
+<div class="outline-text-3" id="text-5-4">
+<ol class="org-ol">
+<li>An architectural Pattern expresses a fundamental structural
+organization schema for software systems</li>
+<li>It provides a set of predefined subsystems, their responsibilities,
+and includes rules and guidelines for organizing the relationships
+between them</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org6a3fc62" class="outline-3">
+<h3 id="org6a3fc62"><span class="section-number-3">5.5</span> Definition: Design Pattern</h3>
+<div class="outline-text-3" id="text-5-5">
+<ol class="org-ol">
+<li>A design pattern provides a scheme for refining the subsystems or
+components of a software system, or the relation ships between them</li>
+<li>It describes a commonly-recurring structure of communicating
+components that solves a general pattern TBD</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org2965b08" class="outline-3">
+<h3 id="org2965b08"><span class="section-number-3">5.6</span> Definition: Idioms</h3>
+<div class="outline-text-3" id="text-5-6">
+<ol class="org-ol">
+<li>An Idiom is a low-level pattern specific to a programming language</li>
+<li>An idiom describes how to implement particular aspects of
+components or the relationships between them using the features of
+the given language</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgcb882ba" class="outline-2">
+<h2 id="orgcb882ba"><span class="section-number-2">6</span> Design v Architecture</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>Author-TBD <a href="./software-arch-ece-7563.pdf">./software-arch-ece-7563.pdf</a> Notes in Software
+Architecture</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orge6c76c8" class="outline-2">
+<h2 id="orge6c76c8"><span class="section-number-2">7</span> Class Diagrams vs Block Diagrams</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li>Class diagrams describe static relationships among classes.</li>
+<li>Block diagrams describe dynamic communication pathways (which use,
+the lines of a class diagram).  A pathway may involve multiple,
+methods and input parameters.</li>
+<li>A block diagram is coarse-grained.  A block may involve multiple,
+interfaces and classes.</li>
+<li>A block diagram is an object diagram, not a class diagram.</li>
+<li>A system block diagram is probably closest to a UML "deployment"
+diagram.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd2e55d4" class="outline-2">
+<h2 id="orgd2e55d4"><span class="section-number-2">8</span> References</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li><a href="https://en.wikipedia.org/wiki/Block_diagram">https://en.wikipedia.org/wiki/Block_diagram</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Data-flow_diagram">https://en.wikipedia.org/wiki/Data-flow_diagram</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Unified_Modeling_Language">https://en.wikipedia.org/wiki/Unified_Modeling_Language</a> UML diagrams</li>
+<li><a href="https://www.lucidchart.com/">https://www.lucidchart.com/</a> is a tool that can help you draw the
+above.  Can be installed as a Chrome Ext.</li>
+
+<li>Diomidis Spinellis, Georgios Gousios, "Beautiful Architecture",
+O'Reilly Media, Inc., 432 pp, 2009.  Highly readable.  Find it on
+WSU Library Safari.  
+<ol class="org-ol">
+<li>The whole book is a Reference.</li>
+
+<li>Chapter 11 by Blandy on GNU Emacs is Required Reading.</li>
+
+<li>Chapter 13 by Bertrand Meyer on Software Architecture:
+Object-Oriented Versus Functional is Required Reading.</li>
+</ol></li>
+
+<li>David Garlan and Mary Shaw,
+<a href="https://www.cs.cmu.edu/afs/cs/project/able/ftp/intro_softarch/intro_softarch.pdf">https://www.cs.cmu.edu/afs/cs/project/able/ftp/intro_softarch/intro_softarch.pdf</a>,
+Jan 1994, CMU-CS-94-166.  Reference.</li>
+
+<li>Shaw, Mary, and David Garlan. Software architecture: perspectives
+on an emerging discipline. Vol. 1. Englewood Cliffs: Prentice
+Hall, 1996.  Reference.</li>
+
+<li>Author-TBD <a href="./se-arch-css340-utoronto.pdf">./se-arch-css340-utoronto.pdf</a> U of Toronto Software Architectures,
+Lecture.  Required Reading.</li>
+
+<li>Author-TBD <a href="./software-arch-ece-7563.pdf">./software-arch-ece-7563.pdf</a> Notes in Software Architecture,
+Recommended Reading.</li>
+
+<li>Rozanski and Woods, Software Systems Architecture, Hardcover: 576
+pages, Publisher: Addison-Wesley Professional; 1 edition (April
+30, 2005) ISBN-10: 0321112296. Reference.</li>
+
+<li><a href="http://aosabook.org/en/index.html">http://aosabook.org/en/index.html</a> The Architecture of Open Source
+Applications, 201x.</li>
+
+<li><a href="http://www.nyu.edu/classes/jcf/g22.3033-007/slides/session2/g22_3033_011_c23.pdf">http://www.nyu.edu/classes/jcf/g22.3033-007/slides/session2/g22_3033_011_c23.pdf</a>
+Enterprise Architecture Frameworks (EAFs) Pattern Driven EAFs</li>
+
+<li><a href="https://resources.sei.cmu.edu/asset_files/FactSheet/2010_010_001_513810.pdf">https://resources.sei.cmu.edu/asset_files/FactSheet/2010_010_001_513810.pdf</a>
+What is your definition of software architecture? 2017, 6pp.
+Required Reading.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org0d1bc0d" class="outline-2">
+<h2 id="org0d1bc0d"><span class="section-number-2">9</span> End</h2>
+<div class="outline-text-2" id="text-9">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="mailto:pmateti@wright.edu">pmateti@wright.edu</a> &bull; <a href="http://www.wright.edu/~pmateti"> www.wright.edu/~pmateti</a>  2018-05-28
+</div>
+</body>
+</html>

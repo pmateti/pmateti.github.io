@@ -1,0 +1,52 @@
+# -*- mode: org -*-
+#+DATE: 2016-01-11
+#+TITLE: Programming Paradims for Software Engineering
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_UP: ../
+#+HTML_LINK_HOME: ../../
+#+HTML_HEAD: <style> P {text-align: justify} code, pre {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2016 %e &bull; <a href=\"http://www.wright.edu/~pmateti\"> www.wright.edu/~pmateti</a>  %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:nil
+
+* Programming Paradigms
+
+1. "The notion of programming paradigms is a way to classify
+   programming languages," -- Wikipedia
+   1. This is a wrong view.
+   2. It is a way to classify programming "styles."
+1. Some PLs have multiple paradigms.
+1. [[http://rosettacode.org/][rosettacode.org]] Solutions to the same task in different languages.
+1. [[https://rosetta.alhur.es/][rosetta.alhur.es]] Compare any two PLs solutions
+
+** Procedural Paradigm
+   1. Examples: C/C++, Java, Python, Scala
+   2. AKA Imperative/ Operational Paradigm
+   3. (Almost all) OOP languages belong here.
+   4. Process/Program State is operated on by statements
+   5. Changes made are globally visible.
+   6. [[http://rosettacode.org/wiki/Category:Solutions_by_Programming_Task][RosettaCode.org]]:: [[http://rosettacode.org/wiki/Sorting_algorithms/Quicksort][Quick Sort]] in [[http://rosettacode.org/wiki/Sorting_algorithms/Quicksort#Java][Java]], [[http://rosettacode.org/wiki/Sorting_algorithms/Quicksort#Scala][Scala]].
+
+** Functional Programming
+   1. Examples: ML/ OCaml, Haskell, Scala (hybrid)
+   2. No state; functions and expressions have no side-effects
+   3. Obviously, IO and environment changes are needed -- handled in
+      an ad hoc way.
+   4. Functions etc. are "first class" values. (i.e., computable
+      within the PL)
+   5. Compute a value, and return it as a result.
+   6. [[http://rosettacode.org/wiki/Category:Solutions_by_Programming_Task][RosettaCode.org]]:: Bubble Sort in [[http://rosettacode.org/wiki/Sorting_algorithms/Bubble_sort#Haskell][Haskell]]; Quick Sort in [[http://rosettacode.org/wiki/Sorting_algorithms/Quicksort#Haskell][Haskell]], [[http://rosettacode.org/wiki/Sorting_algorithms/Quicksort#OCaml][OCaml]]
+
+** Logic Programming.
+   1. Examples: Prolog, Datalog
+   2. AKA Declarative Paradigm
+   3. Based on mathematical logic.  But, not full scale, but highly
+      studied subsets in the context of implementations.
+   4. State is a collection of "facts" (axioms + inference rules +
+      deduced).
+   5. Queries: (Program execution) systematic search in the state
+   6. Queries may have unbound variables.  The answer then yields all
+      possible value that make the query true.
+   5. [[http://rosettacode.org/wiki/Category:Solutions_by_Programming_Task][RosettaCode.org]]:: Quick Sort in [[http://rosettacode.org/wiki/Sorting_algorithms/Quicksort#Prolog][Prolog]]
+

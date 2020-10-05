@@ -1,0 +1,158 @@
+
+# -*- mode: org -*-
+#+date: 2019-10-31
+#+TITLE: Lab on Add/ Delete/ Freeze System Calls
+#+AUTHOR: Prabhaker Mateti
+#+HTML_LINK_HOME: ../../../Top/index.html
+#+HTML_LINK_UP: ../
+#+HTML_HEAD: <style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../\"> ../../</a>"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2018 <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+#+STARTUP:showeverything
+#+OPTIONS: toc:0
+
+* Background
+
+1. Object: Learn to harden a kernel through Add/ Delete/ Freeze System
+   Calls.
+
+1. This lab is coupled to to hardening the Linux kernel.
+   Learn the Linux kernel API usage.  Use a kernel in the 5.4.* (2019)
+   series.
+
+1. Section 2 of Man Pages is about syscalls.  Study one or two
+   man pages, say, of =open=, and =close=.  You will be asked to
+   develop/ write man pages for the new syscalls following these.
+
+1. Prerequisite Actions:
+   http://kernel.ubuntu.com/~kernel-ppa/mainline/daily/ [Use the
+   latest date when amd64 build succeeded.] Download the (i)
+   =linux-image-*-generic*amd64.deb= and (ii)
+   =linux-modules-*-generic*amd64.deb= packages on to your own
+   machine, or use our VCSL (Virtual Cyber Security Lab) at WSU.  The
+   package (i) includes a Linux kernel (vmlinuz) + initial-ramdisk
+   (initrd) images, the package (ii) includes modules.
+
+1. [WIP] Omit PLT and GOT.  Good to know these, but not necessary in
+   this Lab.
+
+
+* Tasks
+
+** Task: Become Familiar with System Call Internals [40 points]
+
+1. =dpkg -i --force-all linux-*.deb= installs the two packages
+   downloaded above.  It does not displace the existing kernels + initrd +
+   modules.  It does add a new entry in the Grub menu for the newly
+   added.
+
+1. Report the addresses of sys-call-table, [TBD WIP PLT, and GOT]
+   before the install of the new kernel.  Include a description of how
+   you discovered these.
+
+1. Reboot into the newly installed kernel.  Show the output of =uname
+   -a= and =grep syscall /boot/System.map-4.20.*-generic= in the
+   report-Ln.pdf.
+
+1. Report the addresses of sys-call-table, PLT, and GOT after the
+   install of the new kernel.
+
+1. Examine 5 system programs of your choice.  Record their behavior
+   before and after the kernel switch.
+
+** Task: Freeze a Few System Calls [40 points]
+
+1. Add a new system call, named =freeze=, that takes a list of system
+   call numbers, and freezes them.  This will stay in effect until
+   next boot/ unfreeze.  [For now, we have no syscall to unfreeze.
+   See below.]
+
+1. The list of syscall numbers is given as two arguments: =argc= a
+   positive integer, =int syscalls[]= of argc number of non-negative
+   integers.  Each integer =syscalls[i]= is the number of a system
+   call to be (or already) frozen.  The =freeze= syscall should not
+   complain if a syscall is already frozen -- merely ignore it.
+
+1. Examine 5 system programs of your choice, that use one or more of
+   the syscalls frozen as above, and report on their behavior after
+   the freeze.
+
+* Bonus Tasks [Optional]
+
+** Bonus Task: Unfreeze System Call [20 points]
+
+1. Add a new system call, named =unfreeze=, that takes a list of
+   system call numbers, and unfreezes them.  Do not complain if they
+   were not frozen.  Do log this.
+
+1. The list of syscall numbers is given as above.  The =unfreeze=
+   syscall should not complain if a syscall is already enabled --
+   merely ignore it.
+
+1. Examine the same 5 system programs of your choice as above, and
+   verify that they work fine after the unfreeze.
+
+** Bonus Task: White List of Programs [20 points]
+
+1. Add a new system call, named =whitelist=, that takes a white list
+   of path names of programs.  Intent: The currently existing syscall
+   =execv= will no longer work unless the program is on this list.
+   Prior to invoking this system call, all path names are considered
+   to be white listed.
+
+1. The input list of programs numbers is given in the =main(int argc,
+   char *argv[])= standard form.
+
+1. Focus on making this work *correctly*.  For now, ignore efficiency.
+   Assume that the list is in the hundreds.
+
+1. Design and implement a simple system program that demonstrates the above.
+
+
+** Bonus Task: Create a new /proc Entry for SysCalls  [20 points]
+
+1. List (i) enabled, (ii) newly (since boot) added, (iii) frozen, and
+   (iv) deleted syscalls.  These should appear within
+   =/proc/sys/kernel/= .
+
+** Bonus Task [Devious]: Create a Corrupted /proc.  [20 points]
+
+1. Create a syscall, named =deproc=, that corrupts selected values
+   stored in the =/proc= pseudo file volume.  To avoid being detected,
+   it randomly choses some entries and corrupts them.  All others are
+   left in-tact.
+
+* Submission
+
+1. [15 points] Lab Report quality and completeness.  [5 points]
+   Include a journal. By the hour.  You must follow the Lab Report
+   Template.  There should be a section on each of the tasks. A couple
+   of lines of an answer to each (implied/ explicit) question/
+   discussion item. Must number them as in this document.
+
+1. Use good judgment in (i) what to submit and (ii) what to omit and
+   (iii) how long the report becomes.  Do not make the report way
+   longer than, say, 20 pages.  It is possible to remain under 20 pp,
+   and receive full score.  Lack of judgment earns *negative* points.
+
+1. Submit few and relevant files of source code, and of text.  Always
+   interpret the results -- when before + after states are in context.
+
+1. Submit a PDF file named exactly =Report-L6.pdf=, and a tarball =L6.tbz=
+   [created with =tar cfjvv L6.tbz source-files*= ]. (Scripts are used to check
+   various things -- so file names should obey such "rules".)
+
+* References
+
+1. Prabhaker Mateti, Lecture Notes and Videos on System Call Setup in
+   Linux, 2018.
+
+1. https://compas.cs.stonybrook.edu/~nhonarmand/courses/sp17/cse506/labs.html
+   Spring 2017 :: CSE 506 - Operating Systems.  "A crucial component of
+   the course is the labs."  Recommended Reading.
+
+
+* End
+# Local variables:
+# after-save-hook: org-html-export-to-html
+# end:

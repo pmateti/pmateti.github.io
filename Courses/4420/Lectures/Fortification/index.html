@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-09-08 Sun 23:33 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Security Fortification</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Prabhaker Mateti" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style> P,li {text-align: justify} code {color: brown;} @media screen {BODY {margin: 10%} }</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../"> UP </a>
+ |
+ <a accesskey="H" href="../../Top/index.html"> HOME </a>
+</div><div id="preamble" class="status">
+<a href="../../"> ../../</a> | <a href=./>NoSlides</a>
+</div>
+<div id="content">
+<h1 class="title">Security Fortification</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org0275b2f">1. Abstract</a></li>
+<li><a href="#orga9dfde0">2. Config, Fortify and Harden</a>
+<ul>
+<li><a href="#org2a5bd49">2.1. Proper Configuration</a></li>
+<li><a href="#org6c2c9d3">2.2. Fortification</a></li>
+<li><a href="#org87f60ad">2.3. Hardening</a></li>
+</ul>
+</li>
+<li><a href="#orgc81f7df">3. Malware Detection</a>
+<ul>
+<li><a href="#org61469c1">3.1. Virus Scanners</a></li>
+<li><a href="#orgb9199ec">3.2. Rootkit Detection</a></li>
+</ul>
+</li>
+<li><a href="#org634f45c">4. Authentication</a>
+<ul>
+<li><a href="#orge7904af">4.1. User Authentication</a></li>
+<li><a href="#orgc998832">4.2. Host Authentication</a></li>
+<li><a href="#orga64d52f">4.3. Service Authentication</a></li>
+</ul>
+</li>
+<li><a href="#org09adc17">5. Audit</a>
+<ul>
+<li><a href="#orgff0485a">5.1. File System Audit</a></li>
+<li><a href="#org61e406a">5.2. Activity Monitors</a></li>
+</ul>
+</li>
+<li><a href="#org98e89e9">6. Access Control and DAC + MAC</a></li>
+<li><a href="#org6bfa23f">7. Intrusion Detection</a></li>
+<li><a href="#orga75003a">8. Security Enhanced Linux (selinux)</a></li>
+<li><a href="#orgb50c7a3">9. Adding SSH, and SFTP</a></li>
+<li><a href="#org563d147">10. Sand Boxes</a>
+<ul>
+<li><a href="#org0e63dd4">10.1. chroot jail</a></li>
+<li><a href="#org0f1df36">10.2. Stack Protection</a></li>
+<li><a href="#org01fc0c5">10.3. System Call Monitoring</a></li>
+<li><a href="#org97f3585">10.4. Kernel Devices</a></li>
+</ul>
+</li>
+<li><a href="#org9a8fb54">11. Lab Experiments</a>
+<ul>
+<li><a href="#org9eca47a">11.1. Lab Experiment 1</a></li>
+<li><a href="#orgbb7e2cd">11.2. Lab Experiment 2</a></li>
+<li><a href="#orgf43eb58">11.3. Lab Experiment 3</a></li>
+</ul>
+</li>
+<li><a href="#org8fb10d4">12. References</a></li>
+<li><a href="#org86be7cf">13. End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0275b2f" class="outline-2">
+<h2 id="org0275b2f"><span class="section-number-2">1</span> Abstract</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This lecture is about adding a layer of protection beyond proper
+configuration of the OS and applications.  This layer of protection
+consists of tools that help detect changes in the system and monitor
+(suspicious) system activity.  Fortification is the addition of
+packages to improve security.  It should be done after a system has
+been properly configured with the supplied components.  Fortification
+frequently will discard a supplied component in preference to a
+carefully chosen added component.  Some what rarely, fortification
+involves deletion of components.
+</p>
+
+<p>
+Educational Objectives
+</p>
+
+<ol class="org-ol">
+<li>Appreciate the need for adding extra layers of protection beyond
+out-of-the-box installation of an operating system</li>
+<li>Understand the limitations of such a protective layer</li>
+<li>Aware of widely available tools for fortification.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orga9dfde0" class="outline-2">
+<h2 id="orga9dfde0"><span class="section-number-2">2</span> Config, Fortify and Harden</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+<i>We</i> distinguish, even though it is not common yet, "proper
+configuration" from "hardening a system" from "fortification" from
+"designing an OS from scratch with security as a significant
+requirement". There are also "secure operating systems" and "trusted
+operating systems."  Alas, no one can offer technically rigorous
+definitions for these terms. For example, there is regular Solaris and
+there is Trusted Solaris.  It is also telling to find the following
+quote, "Windows NT is a secure operating system but only if it's
+configured correctly."  Both NT, and several of Unix derivatives claim
+to be secure and trusted.
+</p>
+</div>
+
+<div id="outline-container-org2a5bd49" class="outline-3">
+<h3 id="org2a5bd49"><span class="section-number-3">2.1</span> Proper Configuration</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Systems, as distributed, are often loosely configured.  Occasionally this
+is due to sloppiness of the distributor.  More commonly, it is because the
+distributor has tried to configure a generic appeal-to-all setup.  So, it
+is important that we examine the configuration at length and determine what if
+any changes must be made.
+</p>
+
+<p>
+Proper configuration of the system as given is a prerequisite to either
+fortifying or hardening.  Systems as distributed are often loosely
+configured.  Occasionally this is due to sloppiness of the
+distributor.  More commonly it is because the distributor has tried to
+configure a generic appeal-to-all setup.  So, it is important that we
+examine the configuration at length and determine what if any changes must be
+made.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6c2c9d3" class="outline-3">
+<h3 id="org6c2c9d3"><span class="section-number-3">2.2</span> Fortification</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Fortification is about adding a layer of protection beyond proper
+configuration of the OS and applications. This layer of protection consists of
+tools that help detect changes in the system and monitor (suspicious) system
+activity.  Fortification is the addition (and in some cases &lt;i&gt;deletion&lt;/i&gt;)
+of packages to improve security.  It should be done after a system has been
+properly configured with the supplied components.  Fortification frequently
+will discard a supplied component in preference to a carefully chosen added
+component.
+</p>
+
+<p>
+Fortification is the addition or even deletion of packages to improve
+security.  It should be done after a system has been properly
+configured with the supplied components.  Fortification frequently
+will discard a supplied component in preference to a carefully chosen
+added component.  Some what rarely, fortification involves deletion of
+components.  In our discussion, we will postpone certain
+"fortification" items as "hardening" items even though we cannot offer
+a rigorous definition regarding the use of these two terms.
+</p>
+
+<p>
+Sections 3 through  10 are fortification items.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org87f60ad" class="outline-3">
+<h3 id="org87f60ad"><span class="section-number-3">2.3</span> Hardening</h3>
+<div class="outline-text-3" id="text-2-3">
+<ol class="org-ol">
+<li>Hardening refers to areas of security tightening during the design
+and construction of systems rather than after their deployment. In
+the notes below, we learn howto harden an out-of-the-box
+installation into a more secure Linux system.</li>
+
+<li>Build and Deploy a Kernel, with selected patches applied.  <a href="./BuildKernel">./BuildKernel</a></li>
+<li>Past Kernel Exploits and Patches <a href="../KernelExploits">../KernelExploits</a></li>
+<li>Ideas for Improving Kernel Security <a href="./SecureKernel">./SecureKernel</a></li>
+<li>Hardening System Programs <a href="./SysProgs">./SysProgs</a></li>
+<li>Lab on SysCall Add/ Delete/ Freeze  <a href="./SysCalls/lab-syscalls.html">./SysCalls/lab-syscalls.html</a></li>
+<li>Lab on Hardening the Kernel <a href="./SecureKernel/lab-kernel.html">./SecureKernel/lab-kernel.html</a></li>
+<li>Lab on Hardening System Programs <a href="./SysProgs/lab-sysprogs.html">./SysProgs/lab-sysprogs.html</a></li>
+<li>Improved Kernels: The kernels supplied in various distributions are
+generic and security-wise permissive.  It is possible to recompile
+the kernel using the same source code as used by the distributor
+but with different selection of components and including them in
+the <code>vmlinuz</code> binary instead of as a dynamically loadable module.</li>
+<li>[Included in <a href="../Hardening/">../Hardening/</a>]</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc81f7df" class="outline-2">
+<h2 id="orgc81f7df"><span class="section-number-2">3</span> Malware Detection</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org61469c1" class="outline-3">
+<h3 id="org61469c1"><span class="section-number-3">3.1</span> Virus Scanners</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Of the many fortification suggestions made in this lecture, virus 
+scanners are probably the most universally experienced item.  Windows-based 
+virus scanners do focus on detecting not only viruses but also Trojans and root 
+kits and are often also integrity checkers.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb9199ec" class="outline-3">
+<h3 id="orgb9199ec"><span class="section-number-3">3.2</span> Rootkit Detection</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Loadable kernel modules (LKM) bring run-time modularity to
+  Linux. Device drivers and their modules are loaded only when
+  necessary keeping the core kernel small. On the negative side, LKM
+  rootkits are the easiest and most “elegant” way to modify the
+  running kernel. In a modularized kernel the attacker can insert
+  rootkits into kernel once he gains root privileges.  Through LKM
+  rootkit the attacker can modify any part of the kernel. Typically
+  LKM rootkits would redirect the system calls to the attacker’s own
+  implementation.
+</p>
+
+<p>
+The character device <code>/dev/kmem</code> is an image of the kernels
+ virtual memory. Through this device, an attacker can modify the
+ kernels text or data, and can drastically change the behavior of
+ kernel. Other memory devices which can similarly be exploited are
+ /dev/mem and /dev/port which give direct access to physical memory
+ of the system.
+</p>
+
+<p>
+Unless a file system auditor is in place, it is not
+easy to spot the rootkits after their installation.  The time to
+be alert is when the rootkits are being installed. 
+</p>
+
+<pre class="example">
+apt-get install chkrootkit rkhunter unhide
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org634f45c" class="outline-2">
+<h2 id="org634f45c"><span class="section-number-2">4</span> Authentication</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orge7904af" class="outline-3">
+<h3 id="orge7904af"><span class="section-number-3">4.1</span> User Authentication</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>User Authentication Approaches:
+<ol class="org-ol">
+<li>What You Know</li>
+<li>What You Have</li>
+<li>What You Are</li>
+</ol></li>
+<li>Linux Passwords Overview</li>
+<li><code>ssh</code> public/private keys for users and hosts</li>
+<li>OTP == One Time Passwords</li>
+<li>[All the above in <a href="../LinuxSetup/Passwords/index.html">Passwords</a>]</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgc998832" class="outline-3">
+<h3 id="orgc998832"><span class="section-number-3">4.2</span> Host Authentication</h3>
+<div class="outline-text-3" id="text-4-2">
+<ol class="org-ol">
+<li>How do we "recognize"/ authenticate a host?</li>
+<li>The following confusing answer is from stackoverflow.com: "Host
+based authentication is where the host (or server) is authenticated
+so some users can just authenticate without the need of a key or
+whatsoever. Key base authentication is where you, as a user
+generate a public and private key from your machine or host."</li>
+<li>We are not, in this section, asking what is host-<b>based</b> user
+authentication.  We are asking how would we know if we connected to
+a masquerader.</li>
+
+<li><code>cat ~/.ssh/known_hosts</code>  Machines that you have accepted as trusted.</li>
+<li><p>
+<code>ls -l /etc/ssh/</code>  [pruned] [Note the perms on the non .pub files.]
+</p>
+<div class="org-src-container">
+<pre class="src src-ls">-rw------- 1 root root    505 Mar  3  2019 ssh_host_ecdsa_key
+-rw-r--r-- 1 root root    177 Mar  3  2019 ssh_host_ecdsa_key.pub
+-rw------- 1 root root    411 Mar  3  2019 ssh_host_ed25519_key
+-rw-r--r-- 1 root root     97 Mar  3  2019 ssh_host_ed25519_key.pub
+-rw------- 1 root root   1823 Mar  3  2019 ssh_host_rsa_key
+-rw-r--r-- 1 root root    397 Mar  3  2019 ssh_host_rsa_key.pub
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orga64d52f" class="outline-3">
+<h3 id="orga64d52f"><span class="section-number-3">4.3</span> Service Authentication</h3>
+<div class="outline-text-3" id="text-4-3">
+<ol class="org-ol">
+<li>Say you are requesting a service from a machine.  How can we be
+sure that we are not being duped by a Trojan?</li>
+
+<li>Example Linux man page <code>munge(7)</code> "A process creates a credential
+by requesting one from the local MUNGE service.  The encoded
+credential contains the UID and GID of the originating process.
+This process sends the credential to another process within the
+security realm as a means of proving its identity.  The receiving
+process validates the credential with the use of its local MUNGE
+service.  The decoded credential provides the receiving process
+with a reliable means of ascertaining the UID and GID of the
+originating process, and this information can be used for
+accounting or access control decisions."</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org09adc17" class="outline-2">
+<h2 id="org09adc17"><span class="section-number-2">5</span> Audit</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Simple Audit: Capture the output of <code>ps aux</code> and examine all processes
+periodically.  The exact list will depend on the (Linux)
+distribution. However, from one session to another, the first few are
+not expected to have different process ids. The remainder may get
+higher or lower pids depending on what is included in the boot up
+scripts. However, once the boot scripts have stabilized you must make
+a note of all process ids, and expect them to remain unchanged until
+the scripts change again.
+</p>
+
+
+<p>
+You should also check that all processes owned by user "nobody" are 
+running programs explicitly identified as legitimate for untrusted, 
+unverified, remote users.  Each process belonging to a non-root 
+system user is explicitly identified as legitimate for that user in 
+this environment.
+</p>
+</div>
+
+
+<div id="outline-container-orgff0485a" class="outline-3">
+<h3 id="orgff0485a"><span class="section-number-3">5.1</span> File System Audit</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Intruders often replace binaries with their own Trojan versions.  
+Many system administrators relied on time-stamping and check sum the 
+files to determine when a binary file has been modified. But it is 
+fairly simple to recreate the same time-stamp for the Trojan file as 
+the original file. For example, if your standard <code>touch</code> 
+does not do <code>touch -r /bin/login</code> develop a <code>touch</code> 
+program that does it.  Or, by setting the system clock time back 
+to the original file's time and then adjusting the Trojan file's time 
+to the system clock. Once the binary Trojan file has the exact same 
+time as the original, the system clock is reset to the current time. 
+Simple check sum programs rely on a CRC checksum and are easily 
+spoofed.  MD5 check sums are based on an algorithm that no one 
+has yet spoofed.  This technology is behind the well known 
+Tripwire.
+</p>
+
+<pre class="example">
+apt-get install tripwire systraq
+
+</pre>
+
+
+<p>
+Systraq daily consists of few very small shell scripts
+that warn when system files change.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org61e406a" class="outline-3">
+<h3 id="org61e406a"><span class="section-number-3">5.2</span> Activity Monitors</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+A few open-source activity monitoring programs (including intrusion
+detection/prevention tools) are described below.
+</p>
+
+<p>
+<a href="http://www.snort.org">http://www.snort.org</a> can be used as a packet sniffer like tcpdump, a
+packet logger, or as a network intrusion prevention/detection system.
+Its rule-based system can detect buffer overflows, stealth port scans,
+CGI attacks, SMB probes, OS fingerprinting attempts, etc.
+</p>
+
+<p>
+Firewalls: iptables and some GUI frontend are standard in Linux
+distributions.  Consider installing <code>shorewall</code> and <code>webmin.</code>
+</p>
+
+<p>
+=apt-get install tiger "is a set of Bourne shell scripts, C programs
+and data files which are used to perform a security audit of
+unix/Linux systems."
+</p>
+
+<p>
+xinetd: "xinetd has access control mechanisms, extensive logging
+  capabilities, the ability to make services available based on time,
+  and can place limits on the number of servers that can be started,
+  among other things.  It has the ability to redirect TCP streams to a
+  remote host and port.  This is useful for those of that use IP
+  masquerading, or NAT, and want to be able to reach your internal
+  hosts.  It also has the ability to bind specific services to
+  specific interfaces.  This is useful when you want to make services
+  available for your internal network, but not the rest of the
+  world. Or to have a different service running on the same port, but
+  different interfaces."
+</p>
+
+<p>
+TCP Wrapper: When a potentially insecure service must be run,
+tcp<sub>wrappers</sub> should be utilized to "wrap" it. The wrapper
+software does more detailed logging and better access control checking
+by "wrapping" itself around the normal network daemons
+configured in &lt;i&gt; inetd.conf&lt;/i&gt;.  The <code>tcpd</code> used in
+Linux is a new version of the TCP wrapper.
+</p>
+
+<p>
+ifstatus is a standalone program to check for 
+promiscuous interfaces available from
+<a href="ftp://coast.cs.purdue.edu/pub/tools/unix/ifstatus">ftp://coast.cs.purdue.edu/pub/tools/unix/ifstatus</a>
+</p>
+
+<p>
+dtk or "Deception Toolkit" is a kit of fake daemons and services 
+designed to waste an intruders time. dtk is available from
+<a href="http://all.net/dtk/example.html">http://all.net/dtk/example.html</a>
+</p>
+
+<p>
+Bastille Linux is a series of scripts which tighten up security on stock Linux 
+systems, by changing permissions and disabling features.
+</p>
+
+<p>
+Logs produced by the <code>kerneld, syslogd, tcpd</code> and the 
+various services can become so large that it is humanly impossible to 
+scan them for spotting suspicious activity and take a more serious 
+look.  A few well known log analyzers are listed below.
+</p>
+
+<ol class="org-ol">
+<li>sagan, Real-time syslog Monitoring System</li>
+<li>wwwstat, HTTPd Log file Analysis Software.</li>
+<li>Analog, Web server log file analyzer</li>
+<li>freq, A lastlog analyzer.</li>
+<li>tcpdstats, tcpd log analyzer.</li>
+<li><code>apt-get install ruby-god</code> "God is an easy to configure, easy
+to extend monitoring framework written in Ruby."</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org98e89e9" class="outline-2">
+<h2 id="org98e89e9"><span class="section-number-2">6</span> Access Control and DAC + MAC</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li><a href="./AccessControl">./AccessControl</a></li>
+<li><a href="./DAC-MAC/index.html">./DAC-MAC/index.html</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org6bfa23f" class="outline-2">
+<h2 id="org6bfa23f"><span class="section-number-2">7</span> Intrusion Detection</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li><a href="./IntrusionDetection">./IntrusionDetection</a></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orga75003a" class="outline-2">
+<h2 id="orga75003a"><span class="section-number-2">8</span> Security Enhanced Linux (selinux)</h2>
+<div class="outline-text-2" id="text-8">
+<ol class="org-ol">
+<li><a href="./SELinux">./SELinux</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb50c7a3" class="outline-2">
+<h2 id="orgb50c7a3"><span class="section-number-2">9</span> Adding SSH, and SFTP</h2>
+<div class="outline-text-2" id="text-9">
+<ol class="org-ol">
+<li><a href="./SSH/">./SSH/</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org563d147" class="outline-2">
+<h2 id="org563d147"><span class="section-number-2">10</span> Sand Boxes</h2>
+<div class="outline-text-2" id="text-10">
+<ol class="org-ol">
+<li>In computer security, a "sandbox" is a security mechanism for
+separating running programs, usually in an effort to mitigate
+system failures or software vulnerabilities from spreading.</li>
+<li><a href="https://en.wikipedia.org/wiki/Sandbox_(computer_security)">https://en.wikipedia.org/wiki/Sandbox_(computer_security)</a> Required Reading.</li>
+</ol>
+</div>
+
+
+<div id="outline-container-org0e63dd4" class="outline-3">
+<h3 id="org0e63dd4"><span class="section-number-3">10.1</span> chroot jail</h3>
+<div class="outline-text-3" id="text-10-1">
+<ol class="org-ol">
+<li><a href="../Refreshers/chroot.html">../Refreshers/chroot.html</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org0f1df36" class="outline-3">
+<h3 id="org0f1df36"><span class="section-number-3">10.2</span> Stack Protection</h3>
+<div class="outline-text-3" id="text-10-2">
+<ol class="org-ol">
+<li><a href="https://en.wikipedia.org/wiki/Buffer_overflow_protection">https://en.wikipedia.org/wiki/Buffer_overflow_protection</a>  Required Reading.</li>
+<li><a href="../BufferOverflow/code-injection.html">../BufferOverflow/code-injection.html</a> Lecture Notes of this course. Required Reading.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org01fc0c5" class="outline-3">
+<h3 id="org01fc0c5"><span class="section-number-3">10.3</span> System Call Monitoring</h3>
+<div class="outline-text-3" id="text-10-3">
+<ol class="org-ol">
+<li><a href="https://www.avoxi.com/blog/what-is-call-monitoring/">https://www.avoxi.com/blog/what-is-call-monitoring/</a>   Required
+Reading.</li>
+<li><code>ltrace</code> of Linux</li>
+<li><code>strace</code> of Linux</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org97f3585" class="outline-3">
+<h3 id="org97f3585"><span class="section-number-3">10.4</span> Kernel Devices</h3>
+<div class="outline-text-3" id="text-10-4">
+<p>
+The kernel includes a few block and character devices available on
+Linux that help with security.
+</p>
+
+<p>
+<code>/dev/random</code> and =/dev/urandom, are managed by the kernel and provide
+random data at any time for any number of applications.  This might
+include generating random passwords, seeding TCP sequence numbers, and
+even cryptographic functions.  Both <code>/dev/random</code>
+and <code>/dev/urandom</code> should be secure enough to use in
+generating PGP keys, SSH challenges, and other applications where
+secure random numbers are requisite.  Attackers should be unable to
+predict the next number given any initial sequence of numbers from
+these sources.  There has been a lot of effort put in to ensuring that
+the numbers you get from these sources are random in every sense of
+the word random.  The only difference is that &lt;tt
+class="tt"&gt;/dev/random= runs out of random bytes and it makes you
+wait for more to be accumulated.  Note that on some systems, it can
+block for a long time waiting for new user-generated entry to be
+entered into the system.  So you have to use care before using &lt;tt
+class="tt"&gt;/dev/random=.  <code>/dev/random</code> is high
+quality entropy, generated from measuring the system interrupt times
+and other events which are non-deterministic.  It blocks until enough
+bits of random data are available.  <code>/dev/urandom</code>
+is similar, but when the store of entropy is running low, it'll return
+a cryptographically strong hash of what there is.  This isn't as
+secure, but it's enough for most applications.  You might read from
+the devices using something like: [dave@magneto ~dave]# head -c 6
+/dev/urandom | mmencode
+</p>
+
+<p>
+This will print (approximately) six random characters on the console, suitable
+for password generation.  You can find <code>mmencode(1)</code> (perhaps
+also known as mimencode on some systems) in the metamail mail package.
+See <a href="http://www.linuxsecurity.com/feature_stories/random.c">http://www.linuxsecurity.com/feature_stories/random.c</a>"
+target="<sub>blank</sub>"&gt;/usr/src/linux/drivers/char/random.c&lt;/a&gt; for a description of
+the algorithm.
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org9a8fb54" class="outline-2">
+<h2 id="org9a8fb54"><span class="section-number-2">11</span> Lab Experiments</h2>
+<div class="outline-text-2" id="text-11">
+</div>
+<div id="outline-container-org9eca47a" class="outline-3">
+<h3 id="org9eca47a"><span class="section-number-3">11.1</span> Lab Experiment 1</h3>
+<div class="outline-text-3" id="text-11-1">
+<p>
+Objective: Experience a file system audit tool.  Experience log
+ analysis.
+</p>
+
+<ol class="org-ol">
+<li>Install the package tripwire.  "Tripwire is a policy driven
+file system integrity checking tool that allows system
+administrators to verify the integrity of their data."</li>
+
+<li>Build the database following the instructions found in the 
+package.</li>
+
+<li>Select and modify a few "system" files from directories such as 
+/bin, /sbin, /usr/sbin and /etc.</li>
+
+<li>Observe and explain tripwire's reports.</li>
+<li>Install and experience a tool that analyzes log reports (usually
+in <i>var/log</i>).</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgbb7e2cd" class="outline-3">
+<h3 id="orgbb7e2cd"><span class="section-number-3">11.2</span> Lab Experiment 2</h3>
+<div class="outline-text-3" id="text-11-2">
+<p>
+Objective: Tightening suid binaries and scripts.
+</p>
+
+<ol class="org-ol">
+<li>Run a find script to discover all suid binaries and scripts on LXU.</li>
+<li>Carefully analyze and report the need for each of these.</li>
+<li>Rewrite the suid scripts into C/C++ programs.</li>
+<li>Does rewriting scripts into programs improve security?  Discuss.</li>
+<li>Install a forensic tool and experience it.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgf43eb58" class="outline-3">
+<h3 id="orgf43eb58"><span class="section-number-3">11.3</span> Lab Experiment 3</h3>
+<div class="outline-text-3" id="text-11-3">
+<ol class="org-ol">
+<li>Fall 2019 Lab: <a href="./fortify-lab.html">./fortify-lab.html</a> Lab: Config and Pruning and Grafting</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8fb10d4" class="outline-2">
+<h2 id="org8fb10d4"><span class="section-number-2">12</span> References</h2>
+<div class="outline-text-2" id="text-12">
+<ol class="org-ol">
+<li>wikipedia.org,
+<a href="https://en.wikipedia.org/wiki/Trusted_operating_system">https://en.wikipedia.org/wiki/Trusted_operating_system</a> Required
+Reading.</li>
+
+<li>Prabhaker Mateti, <a href="../RootKits/index.html">RootKits</a> 2013. Required Reading.</li>
+
+<li>wikipedia.org,
+<a href="http://en.wikipedia.org/wiki/Category:Linux-security-software">http://en.wikipedia.org/wiki/Category:Linux-security-software</a>,  2018.  Required Visit.</li>
+
+<li>ubuntu.com,
+<a href="https://help.ubuntu.com/community/LDAPClientAuthentication">https://help.ubuntu.com/community/LDAPClientAuthentication</a></li>
+
+<li><a href="http://www.webmin.com/">http://www.webmin.com/</a> "Webmin is a web-based interface for system
+administration for Unix. Using any modern web browser, you can
+setup user accounts, Apache, DNS, file sharing and much
+more."</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org86be7cf" class="outline-2">
+<h2 id="org86be7cf"><span class="section-number-2">13</span> End</h2>
+<div class="outline-text-2" id="text-13">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr size=1>Copyright &copy; 2018 <a href="http://www.wright.edu/~pmateti">www.wright.edu/~pmateti</a> &bull; 2018-09-07
+</div>
+</body>
+</html>

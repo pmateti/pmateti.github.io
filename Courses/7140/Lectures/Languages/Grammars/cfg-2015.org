@@ -1,0 +1,55 @@
+
+# -*- mode: org -*-
+# -*- org-export-html-postamble:t; -*-
+#+STARTUP:showeverything
+#+TITLE:Context Free Grammars (CFG)
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:nil
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+#+HTML_LINK_HOME: ./index.html
+
+#+HTML_LINK_UP: ./
+#+HTML_HEAD: <style> P {text-align: justify} code {font-family: monospace; font-size: 10pt;color: brown;} @media screen {BODY {margin: 10%} }</style>
+#+STARTUP:showeverything
+#+BIND: org-html-preamble-format (("en" "<a href=\"../../Top/\">CS 7140</a> %d"))
+#+BIND: org-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2015 &bull; <a href=\"http://www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a> &bull; %d"))
+
+
+1. Context Free Grammars
+   1. Defined using Terminals (Lexemes), and Non-Terminals
+   2. Start Symbol (a non-terminal)
+   3. There is no "context"
+      1. LHS ::= RHS
+      2. LHS is a single non-terminal
+      3. RHS is a seq of terminals and non-terminals
+   4. Syntactic Categories (i.e., non-terminals)
+
+2. Derivation Trees
+   1. An example x + 3 * y
+   2. From https://www.student.cs.uwaterloo.ca/~cs241/cfg/cfg.html ;; [[../Grammars/derivation-tree.png]]
+   3. In the above CFG,
+      1. ::= and <> are omitted
+      2. id, +, *, # are lexemes
+
+3. Limitations of CFG
+   1. Defines syntax upto a "level"
+   2. Cannot capture "context"
+      1. E.g., "variable should be declared before use"
+
+3. Grammars do not define Semantics
+   1. minor exceptions exist
+
+4. Abstract Syntax Trees (AST)
+   1. An example =x + 3 * y=
+   2. 
+      #+BEGIN_EXAMPLE
+                     +
+                    / \
+                   x   *
+                      / \
+                     3   y
+#+END_EXAMPLE
+
+

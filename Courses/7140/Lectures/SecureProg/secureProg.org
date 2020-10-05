@@ -1,0 +1,128 @@
+
+#+TITLE: Secure Programming
+#+AUTHOR: Prabhaker Mateti
+#+OPTIONS: toc:t
+#+LINK_HOME: ../../
+#+LINK_UP: ../../Lectures
+#+DESCRIPTION: CS7140 Software Engineering Lecture
+#+STYLE: <style> @media screen {BODY {margin: 10%} }</style>
+#+BIND: org-export-html-postamble-format (("en" "<hr size=1>Copyright &copy; 2013 %e &bull; <a href=\"www.wright.edu/~pmateti\">www.wright.edu/~pmateti</a>"))
+
+* [[http://cwe.mitre.org/top25/][2011 CWE/SANS Top 25 Most Dangerous Software Errors]]
+
+* Improving Cyber Security
+1. CPU Architecture
+   1. Secure Boot
+   1. Executable Address Space
+1. Network Protocols
+   1. Redesign of nearly all protocols
+   1. Client/Server Dis-Trust
+   1. Encrypted Packets
+1. OS Design
+   1. Process Lineage/ Provenance
+   1. Address Space Layout Randomization
+   1. Control-Flow Integrity
+   1. Detection of Races
+1. Cryptography
+1. System Administration
+1. Software Engineering
+1. Only SE considered here, all others not
+
+* Opinions on Current Software Quality
+
+1. "Featurism", Performance: Overriding concern, Correctness: some
+   concern, Security: ??, Privacy: ??
+
+1. Secure software development is to prevent software crash/ hang/
+   misbehave -- any concern??
+
+1. "64% of developers are not confident in their ability to write
+   secure applications."  Bill Gates, RSA Conference, 2005
+
+1. "We wouldn't have to spend so much time and effort on network
+   security if we didn't have such bad software security." -- Bruce
+   Schneier, author of "Applied Cryptography", and "Secrets & Lies:
+   Digital Security in a Networked World"
+
+1. "Malicious hacker's don't create security holes; they simply
+   exploit them. Security holes and vulnerabilities -- the real root
+   cause of the problem -- are the result of bad software design and
+   implementation."  -- John Viega & Gary McGraw, authors of
+   Building Secure Software, 2001.
+
+1. "Have you ever written a program section with a security hole?
+   How did you know?" -- Mark G. Graff & Kenneth R. van Wyk, authors of
+   "Secure Coding: Principles and Practices"
+
+1. "There is no software liability -- no incentive for secure software.
+   Most developers never learned to produce secure code.  Secure code
+   often takes a performance hit -- i.e., the software runs about 1/3
+   slower -- something many users don't want to tolerate.  Writing
+   secure code also takes a lot more time -- hence, development costs
+   are higher than usual.  Consequently, the longer development times
+   and the longer running times discourage developers from writing
+   secure code."
+
+1. from cs.hiram.edu/~obie/cpsc35200/slides/ProgSec1.ppt
+
+* Current Software Quality #2
+
+1. Size/Complexity: [[http://en.wikipedia.org/wiki/Source_lines_of_code][wikipedia.org
+   Source lines of code]] E.g., Windows XP has 40 MLOC
+
+1. Typically, 5 - 50 bugs per KLOC ?  Suppose 10% of the bugs result
+   in security faults.  40,000 KLOC*5*10% = 25,000 security bugs.
+
+1. Programming Languages 
+   [[http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html][TIOBE Programming Community Index 2013]]  Ranks languages. C #1 Java #2
+
+
+* Bugs v Vulnerabilities
+
+1. A bug is a behavioral deviation from the functional spec.
+
+1. A vulnerability is a bug that has "security implications".  See
+   the section on Past Exploits and Their Causes.
+
+** Coding Errors
+1. Array Index Out of Range (Buffer overflow)
+1. Formatted strings { ...; printf("..."); ...}
+1. Heap overflows 
+1. Untrusted/tainted input
+1. Race conditions
+1. Integer overflow 
+1. PHP include
+
+** Design Flaws
+1. Cryptography misuse 
+1. Lack of compartmentalization
+1. More privilege used than necessary 
+1. Relying on secret algorithms
+1. Sharing resources 
+1. Usability problems
+
+** Past Exploits and Their Causes
+1. Unauthorized Access
+1. Denial of Service
+1. Confidential Information leakage 
+1. Hijacking the Flow of Control 
+1. Smashing the stack / Arbitrary Code injection 
+1. [[http://en.wikipedia.org/wiki/Cross-site_scripting][Cross-site scripting]] Reference
+1. [[http://en.wikipedia.org/wiki/SQL_injection][SQL Injection]]  Reference
+1. [[http://cwe.mitre.org/top25/][2011 CWE/SANS Top 25 Most Dangerous Software Errors]] Recommended Reading.
+
+* References
+
+1. [Book] Introduction to Computer Security, Michael Goodrich, University
+   of California, Irvine Roberto Tamassia, Brown University, Addison
+   Wesley, 2011.  Reference
+
+1. oracle.com, [[http://www.oracle.com/technetwork/java/seccodeguide-139067.html][Secure Coding Guidelines for Java]], 2013.  Required Reading [[./sec-java-oracle-pm-edited.html][Local Copy]]
+
+1. Prabhaker Mateti, 
+   [[http://www.cs.wright.edu/~pmateti/InternetSecurity/Lectures/SecSoftware/]["Software without Security Holes"]], 2012. Required Reading.
+
+1. McGraw, Gary, and Ming Chow. "Guest Editors' Introduction:
+   Safeguarding the Future of Software Security." IEEE Security &
+   Privacy,  vol 7, no. 3 (2009): 11-12.  PDF accessible via WSU
+   Library proxy.  Required Reading.
